@@ -1,0 +1,47 @@
+Metadata-Version: 2.4
+Name: ChessPuzzleKit
+Version: 0.1.0
+Summary: A Python library for working with chess puzzles from the Lichess database.
+Author-email: Jack Scallan <breezechess99@gmail.com>
+License: MIT
+Project-URL: Homepage, https://github.com/JackScallan02/chess-puzzle-kit
+Project-URL: Repository, https://github.com/JackScallan02/chess-puzzle-kit
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: pandas
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Dynamic: license-file
+
+# ChessPuzzleKit
+
+**ChessPuzzleKit** is a Python library for accessing and working with chess puzzles from the [Lichess puzzle database](https://database.lichess.org/#puzzles). It provides functions to query puzzles by theme, rating, and popularity, all with zero setup.
+
+## Features
+
+- Automatically downloads and caches the Lichess puzzle database
+- Filter puzzles by:
+  - Theme (e.g. `fork`, `pin`, `mateIn2`, etc.)
+  - Rating or popularity range
+- Returns puzzles as Python dictionaries
+
+## Installation
+
+```bash
+pip install ChessPuzzleKit
+```
+
+## Usage
+```py
+import ChessPuzzleKit as cpk
+
+themes = cpk.get_all_themes()
+puzzles = cpk.get_puzzle(themes=['fork'], count=3)
+
+for p in puzzles:
+    print(p['fen'], p['moves'], p['rating'])
+```
