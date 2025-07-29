@@ -1,0 +1,22 @@
+#!python
+"""Create a notebook containing code from a script.
+
+Run as:  python py2nb my_script.py
+"""
+
+# Import the main functionality from the module
+try:
+    from py2nb import main
+except ImportError:
+    # Fallback for when running as script directly
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("py2nb_module", "py2nb.py")
+    py2nb_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(py2nb_module)
+    main = py2nb_module.main
+
+if __name__ == '__main__':
+    exit(main())

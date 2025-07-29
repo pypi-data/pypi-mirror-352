@@ -1,0 +1,22 @@
+#!python
+"""Create a python script from a jupyter notebook.
+
+Run as:  python nb2py my_notebook.ipynb
+"""
+
+# Import the main functionality from the module
+try:
+    from nb2py import main
+except ImportError:
+    # Fallback for when running as script directly
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("nb2py_module", "nb2py.py")
+    nb2py_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(nb2py_module)
+    main = nb2py_module.main
+
+if __name__ == '__main__':
+    main()
