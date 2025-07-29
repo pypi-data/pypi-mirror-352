@@ -1,0 +1,63 @@
+Metadata-Version: 2.4
+Name: ctksimplemessagebox
+Version: 1.2.6
+Summary: Python Messagebox to display current Infos or Errors.
+Author: Scott
+Author-email: ctksimplemessagebox@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license-file
+Dynamic: requires-python
+Dynamic: summary
+
+## About
+
+This is a simple Python Messagebox to display current Infos or Errors when using Customtkinter.
+<br>
+
+## Installation
+```
+  pip install ctksimplemessagebox
+```
+<br>
+
+## How to call the Object
+1. First you have to import the Messagecontainer 
+```python
+  from CTkSimpleMessagebox import MessageContainer
+```
+
+ Note: you should also import [customtkinter](https://pypi.org/project/customtkinter/). <br><br>
+
+2. Now you can call the functions
+```python
+  MessageContainer.showError("title", "message")
+```
+<br>
+
+## Example 1 - Calling the Error Messagebox
+```python
+  from CTkSimpleMessagebox import MessageContainer
+  from customtkinter import CTk
+
+  app = CTk()
+  MessageContainer.showError("Error", "This is a Testerror.")
+  app.mainloop()
+```
+
+## Example 2 - Calling the Info Messagebox
+```python
+  ...
+
+  MessageContainer.showInfo("Info", "This is a Testinfo.")
+  app.mainloop()
+```
