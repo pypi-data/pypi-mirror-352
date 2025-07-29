@@ -1,0 +1,27 @@
+Metadata-Version: 2.4
+Name: python-sidekiq-client
+Version: 0.1.0
+Summary: Sidekiq-compatible Redis client for dispatching background jobs from Python
+Home-page: https://github.com/andredriem/python-sidekiq-client
+Author: André Driemeyer
+License: GPL-2.0-only
+Project-URL: Homepage, https://github.com/andredriem/python-sidekiq-client
+Project-URL: Repository, https://github.com/andredriem/python-sidekiq-client
+Project-URL: Issues, https://github.com/andredriem/python-sidekiq-client/issues
+Keywords: sidekiq,redis,background-jobs,async,ruby,rails
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: redis>=4.0
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# python-sidekiq-client
+Sidekiq client for enqueuing jobs
