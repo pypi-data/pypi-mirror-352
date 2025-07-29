@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: magicode
+Version: 0.0.5
+Summary: The CLI for Magicode.
+Author-email: MagiCode <hello@magicode.ai>
+License: LGPL-3.0-or-later
+Project-URL: Homepage, https://www.magicode.ai
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# MagiCode CLI
+
+A powerful command-line interface for interacting with MagiCode AI services.
+
+## Installation
+
+```bash
+pip install magicode
+```
+
+##Getting Started
+
+Before using MagiCode CLI, you'll need to authenticate with your credentials:
+
+```bash
+magicode auth
+```
+You'll be prompted to enter your email and secret token. These credentials will be securely stored for future use.
+
+## Uploading Files
+
+To upload a file to MagiCode, use the following command:
+
+```bash
+magicode upload [path]
+``` 
+
+The "path" can point to a local file or directory. 
+
+To upload to a specific directory, use the following command: 
+
+```bash
+magicode upload [path] --destination folder/
+``` 
+
+
+## Local Development 
+
+To run the CLI locally, you can use the following command:
+
+```bash
+python uninstall magicode 
+pip install -e . 
+```
+

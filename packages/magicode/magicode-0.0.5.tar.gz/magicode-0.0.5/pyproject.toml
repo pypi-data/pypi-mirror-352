@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "magicode"
+version = "0.0.5"
+authors = [
+  { name="MagiCode", email="hello@magicode.ai" },
+]
+description = "The CLI for Magicode."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+]
+license = {text = "LGPL-3.0-or-later"}
+dependencies = [
+    "click",
+    "keyring",
+    "requests",
+    "tqdm",
+]
+
+[project.urls]
+Homepage = "https://www.magicode.ai"
+
+[project.scripts]
+magicode = "magicode.main:cli" 
