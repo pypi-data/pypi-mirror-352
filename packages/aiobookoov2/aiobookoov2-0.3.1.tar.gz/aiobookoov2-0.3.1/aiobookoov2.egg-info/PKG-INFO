@@ -1,0 +1,38 @@
+Metadata-Version: 2.4
+Name: aiobookoov2
+Version: 0.3.1
+Summary: Async Python library for Bookoo BLE scales (v2 fork by taliexo)
+Author-email: taliexo <mail@taliexo.com>
+Maintainer-email: taliexo <mail@taliexo.com>
+License: MIT
+Project-URL: Homepage, https://github.com/taliexo/aiobookoo
+Project-URL: Repository, https://github.com/taliexo/aiobookoo
+Project-URL: Documentation, https://github.com/taliexo/aiobookoo
+Keywords: Bookoo,Bluetooth,api,async,client
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: AsyncIO
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: bleak>=0.20.2
+Provides-Extra: dev
+Requires-Dist: covdefaults==2.3.0; extra == "dev"
+Requires-Dist: coverage==7.6.7; extra == "dev"
+Requires-Dist: syrupy==4.7.2; extra == "dev"
+Requires-Dist: pytest==8.3.3; extra == "dev"
+Requires-Dist: pytest-asyncio==0.24.0; extra == "dev"
+Requires-Dist: pytest-cov==6.0.0; extra == "dev"
+Dynamic: license-file
+
+# aiobookoo
+
+Bookoo implementation of [aioacaia](https://github.com/zweckj/aioacaia), based on `asyncio` and `bleak`
+
+# Usage
+
+use bookoo component for home assistant
