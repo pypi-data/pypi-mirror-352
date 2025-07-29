@@ -1,0 +1,17 @@
+[build-system]
+requires = ["flit_core"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "chichat"
+authors = [{name = "calcuis", email = "info@calcu.io"}]
+description = "text-to-speech synthesis lite"
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version"]
+dependencies = ["librosa", "s3tokenizer", "omegaconf"]
+
+[project.urls]
+GitHub = "https://github.com/calcuis/text-to-speech-synthesis-lite"
+Issues = "https://github.com/calcuis/text-to-speech-synthesis-lite/issues"
