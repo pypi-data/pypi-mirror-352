@@ -1,0 +1,97 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "insect"
+version = "0.1.5"
+description = "Security-focused command line tool to scan Git repositories for potentially malicious code patterns"
+readme = "README.md"
+requires-python = ">=3.13"
+license = {text = "MIT"}
+authors = [
+    {name = "Somasundaram Sekar", email = "somasundaram@outlook.com"}
+]
+keywords = ["security", "static-analysis", "git", "vulnerability-scanner", "malware-detection"]
+urls = {Homepage = "https://github.com/somasays/insect", Repository = "https://github.com/somasays/insect", Documentation = "https://github.com/somasays/insect#readme"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "rich>=12.0.0",
+    "gitpython",
+    "yara-python",
+    "toml",
+    "jinja2",
+    "click>=8.0.0",
+    "requests>=2.25.0",
+    "packaging>=21.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "isort>=5.0.0",
+    "mypy>=1.0.0",
+    "ruff>=0.0.230",
+    "pre-commit>=3.0.0",
+    "flake8",
+    "twine",
+    "build",
+    "pytest-mock",
+]
+
+[project.scripts]
+insect = "insect.__main__:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.13"
+warn_return_any = false
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "W", "N", "UP", "S", "A", "C4", "T20", "PT", "RET", "SIM", "ARG"]
+ignore = ["RET504", "S101", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101", "ARG001"]
+
+[tool.coverage.run]
+source = ["src"]
