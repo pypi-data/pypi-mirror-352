@@ -1,0 +1,290 @@
+Metadata-Version: 2.4
+Name: django-webhook-receiver
+Version: 1.0.0
+Summary: A Django package for receiving webhooks from django-rest-webhooks.
+Author-email: 42 Portugal <root@42porto.com>
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 5.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django<5.3,>=5.0
+Requires-Dist: djangorestframework<3.17,>=3.15.0
+Provides-Extra: test
+Requires-Dist: pytest<8.4,>=8.3.4; extra == "test"
+Requires-Dist: pytest-django<5.0,>=4.9.0; extra == "test"
+Requires-Dist: pytest-cov<6.1,>=6.0.0; extra == "test"
+Dynamic: license-file
+
+# Django Webhook Receiver
+
+A Django application for receiving webhooks from [django-rest-webhooks](https://github.com/42-Portugal/django-rest-webhooks)
+
+## Overview
+
+Django Webhooks Receiver provides a secure and flexible system for authenticating, authorizing, and processing incoming webhook requests in your Django application. When you need to receive data updates from external systems or services, webhook receivers act as the designated endpoints that accept and validate these incoming requests.
+
+This package works as a complementary component to the django-rest-webhooks sender library, creating a complete solution for webhook communication between Django applications. Think of it as setting up a secure mailbox where only authorized senders with the right keys can deliver messages, and you control exactly what kinds of messages can be delivered and where they go.
+
+Unlike generic API endpoints, Django Webhooks Receiver includes built-in security features specifically designed for webhook scenarios, where you need to verify that incoming requests are legitimate and authorized to perform specific actions on your models.
+
+## Features
+
+Django Webhooks Receiver offers a comprehensive set of features that make webhook management secure and straightforward:
+
+**Security and Authentication**
+- Secret-based authentication using the X-Secret header
+- Cryptographically secure secret generation using Python's secrets module
+- Secret rotation capability for regular credential updates
+- Dedicated webhook system user with restricted permissions
+
+**Fine-Grained Permission System**
+- Control access based on signal type (created, updated, deleted)
+- Limit access by model name
+- Restrict access using URL pattern matching (exact, regex, or substring)
+- Filter by HTTP method (GET, POST, etc.)
+
+**Flexible URL Pattern Matching**
+- Exact match: `/api/webhook/`
+- Regular expression patterns: `^/api/webhooks/[0-9]+/$`
+- Substring matching: `/webhook/`
+
+**Comprehensive Admin Interface**
+- User-friendly management of webhook configurations
+- Visual indicators for active status (green/red)
+- Practical admin actions (activate/deactivate/rotate secrets)
+- Organized fieldsets with collapsible sections
+- Inline permission management
+
+**Developer-Friendly Design**
+- Clean integration with Django REST Framework
+- Easily extensible architecture
+- Comprehensive test coverage
+- Factory methods for testing
+
+## Installation
+
+Setting up Django Webhooks Receiver involves a few straightforward steps:
+
+1. Install the package using pip:
+
+```bash
+pip install django-webhook-receiver
+```
+
+2. Add the application to your `INSTALLED_APPS` in your Django settings file:
+
+```python
+INSTALLED_APPS = [
+    # ...
+    'django_webhook_receiver',
+    # ...
+]
+```
+
+3. Run migrations to create the necessary database tables:
+
+```bash
+python manage.py migrate django_webhook_receiver
+```
+
+4. Add the authentication class to your Django REST Framework settings:
+
+```python
+# settings.py
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # ...
+        'django_webhook_receiver.authentication.WebhookAuthentication',
+        # ...
+    ],
+}
+```
+
+5. Apply the webhook permission class to the views that will receive webhooks:
+
+```python
+# views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django_webhook_receiver.permissions import WebhookPermission
+
+class WebhookReceiverView(APIView):
+    permission_classes = [WebhookPermission]
+    
+    def post(self, request, format=None):
+        # Process the webhook data from request.data
+        # The authenticated webhook information is available in request.auth
+        
+        # Example: Access webhook configuration information
+        webhook_config = request.auth.get('webhook_config')
+        event_signal = request.auth.get('event_signal')
+        model = request.auth.get('model')
+        
+        # Your processing logic here
+        
+        return Response({"status": "success"})
+```
+
+## Configuration
+
+Configuring webhooks involves two main components: Webhook Configurations and Webhook Permissions.
+
+### Webhook Configuration
+
+Each webhook configuration represents a different client that can authenticate with your system. You can think of this as creating a secure communication channel between your application and an external service.
+
+You can create webhook configurations programmatically:
+
+```python
+from django_webhook_receiver.models import WebhookConfiguration
+
+# Generate a secure secret
+secret = WebhookConfiguration.generate_secret()
+
+# Create a webhook configuration
+webhook_config = WebhookConfiguration.objects.create(
+    name="Payment Processor Webhook",
+    secret=secret,
+    is_active=True,
+    description="Receives payment status updates from our payment processor"
+)
+
+# The secret should be shared securely with the webhook sender
+print(f"Generated secret: {secret}")
+```
+
+### Webhook Permissions
+
+After creating a webhook configuration, you need to define what this webhook is allowed to do. This is done by creating permission records that specify:
+
+```python
+from django_webhook_receiver.models import WebhookPermission
+
+# Add permission for the webhook to process payment updates
+WebhookPermission.objects.create(
+    configuration=webhook_config,
+    signal_type="updated",  # This webhook can process 'updated' events
+    model_name="Payment",   # It can work with the Payment model
+    url_pattern="/api/webhooks/payments/",  # It can access this URL
+    allowed_methods="POST"  # It can only use POST requests
+)
+
+# Add another permission for the same webhook to handle new payments
+WebhookPermission.objects.create(
+    configuration=webhook_config,
+    signal_type="created",  # This webhook can process 'created' events
+    model_name="Payment",   # It can work with the Payment model
+    url_pattern="/api/webhooks/payments/",  # It can access this URL
+    allowed_methods="POST"  # It can only use POST requests
+)
+```
+
+### Understanding the Authentication Flow
+
+When a webhook request comes in, the following happens:
+
+1. The WebhookAuthentication class extracts the X-Secret header from the request
+2. It looks up the webhook configuration matching this secret
+3. If found and active, it authenticates the request
+4. The WebhookPermission class then checks if this webhook is allowed to:
+   - Access the URL being requested
+   - Use the HTTP method being used
+   - Process the signal type specified in the payload
+   - Work with the model specified in the payload
+
+Only if all these conditions are met will the request be allowed to proceed to your view logic.
+
+## Managing Registries in Admin
+
+The Django admin interface provides a user-friendly way to manage your webhook configurations. To access it, ensure you've registered the admin classes in your project's admin.py or rely on the auto-discovery mechanism.
+
+### Webhook Configuration Admin
+
+The admin interface for webhook configurations offers the following features:
+
+- **List View**: Shows all webhook configurations with their name, secret preview, active status, and permission count
+- **Detail View**: Organized into sections for better usability:
+  - Basic configuration (name, secret, active status)
+  - Meta information (creation date, update date, description)
+  - Inline permission management
+
+### Admin Actions
+
+The webhook configuration admin includes helpful actions:
+
+1. **Activate Webhooks**: Quickly activate multiple webhook configurations
+2. **Deactivate Webhooks**: Temporarily disable webhook configurations
+3. **Rotate Secrets**: Generate new secrets for webhook configurations when you need to update credentials
+
+### Visual Indicators
+
+The admin interface uses visual cues to improve usability:
+
+- Green checkmark for active webhooks
+- Red X for inactive webhooks
+- Secret previews that show only the first part of the secret (for security)
+- Links to related permissions
+
+### Permission Management
+
+Webhook permissions can be managed inline when editing a webhook configuration or through their dedicated admin interface. The permission admin allows you to:
+
+- Filter permissions by configuration, signal type, and model
+- Search for specific permissions
+- View all the details of each permission
+
+## Delivery Logs
+
+While the django-webhook-receiver package focuses on authenticating and authorizing incoming webhooks, it does not currently include a built-in logging system for incoming requests. However, you can easily implement this yourself:
+
+```python
+# views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django_webhook_receiver.permissions import WebhookPermission
+from your_app.models import WebhookRequestLog
+
+class WebhookReceiverView(APIView):
+    permission_classes = [WebhookPermission]
+    
+    def post(self, request, format=None):
+        # Extract webhook information
+        webhook_config = request.auth.get('webhook_config')
+        event_signal = request.auth.get('event_signal')
+        model = request.auth.get('model')
+        
+        # Log the request
+        WebhookRequestLog.objects.create(
+            webhook_name=webhook_config.name,
+            webhook_id=webhook_config.id,
+            event_signal=event_signal,
+            model=model,
+            payload=request.data,
+            ip_address=request.META.get('REMOTE_ADDR')
+        )
+        
+        # Process the webhook
+        # ...
+        
+        return Response({"status": "success"})
+```
+
+This allows you to keep track of incoming webhook requests and can be especially useful for debugging or auditing purposes.
+
+For a complete webhook solution with built-in logging, consider using this package in conjunction with django-rest-webhooks, which includes comprehensive delivery logging on the sender side.
+
+Remember that webhook processing should be designed to be idempotent (able to be processed multiple times without changing the result beyond the first application), as webhook delivery systems sometimes resend webhooks to ensure delivery.
