@@ -1,0 +1,37 @@
+version: v1
+api: synthetic_data_generator
+columns:
+    - name: UserID
+      type: string
+
+    - name: UserName
+      type: string
+
+    - name: TransactionID
+      type: string
+
+    - name: Address
+      type: string
+
+    - name: Email
+      type: string
+
+    - name: PhoneNumber
+      type: string
+
+    - name: OrderAmount
+      type: float
+
+    - name: ProductName
+      type: string
+
+    - name: PaymentMethod
+      type: string
+
+    - name: OrderStatus
+      type: string
+
+row_count:
+    - 100
+prompt:
+    - Generate rows of e-commerce transaction data with realistic values where i can use SQL filtering(where) .
