@@ -1,0 +1,179 @@
+Metadata-Version: 2.4
+Name: lumen
+Version: 0.10.1
+Summary: A monitoring solution built on Panel.
+Project-URL: Homepage, https://lumen.holoviz.org
+Project-URL: Source, https://github.com/holoviz/lumen
+Project-URL: HoloViz, https://holoviz.org/
+Author-email: HoloViz developers <developers@holoviz.org>
+Maintainer-email: HoloViz developers <developers@holoviz.org>
+License: BSD
+License-File: LICENSE
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.10
+Requires-Dist: bokeh
+Requires-Dist: holoviews>=1.17.0
+Requires-Dist: hvplot
+Requires-Dist: intake<2
+Requires-Dist: jinja2>3.0
+Requires-Dist: numpy
+Requires-Dist: packaging
+Requires-Dist: pandas
+Requires-Dist: panel>=1.6.3
+Requires-Dist: param>=1.9.0
+Requires-Dist: sqlglot
+Provides-Extra: ai
+Requires-Dist: chardet; extra == 'ai'
+Requires-Dist: duckdb>=1.2.0; extra == 'ai'
+Requires-Dist: griffe; extra == 'ai'
+Requires-Dist: instructor>=1.6.4; extra == 'ai'
+Requires-Dist: markitdown; extra == 'ai'
+Requires-Dist: nbformat; extra == 'ai'
+Requires-Dist: panel-graphic-walker[kernel]>=0.6.4; extra == 'ai'
+Requires-Dist: pyarrow; extra == 'ai'
+Requires-Dist: pydantic-extra-types; extra == 'ai'
+Requires-Dist: pydantic>=2.8.0; extra == 'ai'
+Requires-Dist: semchunk; extra == 'ai'
+Requires-Dist: tiktoken; extra == 'ai'
+Provides-Extra: ai-anthropic
+Requires-Dist: anthropic; extra == 'ai-anthropic'
+Requires-Dist: chardet; extra == 'ai-anthropic'
+Requires-Dist: duckdb>=1.2.0; extra == 'ai-anthropic'
+Requires-Dist: griffe; extra == 'ai-anthropic'
+Requires-Dist: instructor>=1.6.4; extra == 'ai-anthropic'
+Requires-Dist: markitdown; extra == 'ai-anthropic'
+Requires-Dist: nbformat; extra == 'ai-anthropic'
+Requires-Dist: panel-graphic-walker[kernel]>=0.6.4; extra == 'ai-anthropic'
+Requires-Dist: pyarrow; extra == 'ai-anthropic'
+Requires-Dist: pydantic-extra-types; extra == 'ai-anthropic'
+Requires-Dist: pydantic>=2.8.0; extra == 'ai-anthropic'
+Requires-Dist: semchunk; extra == 'ai-anthropic'
+Requires-Dist: tiktoken; extra == 'ai-anthropic'
+Provides-Extra: ai-llama
+Requires-Dist: chardet; extra == 'ai-llama'
+Requires-Dist: duckdb>=1.2.0; extra == 'ai-llama'
+Requires-Dist: griffe; extra == 'ai-llama'
+Requires-Dist: huggingface-hub; extra == 'ai-llama'
+Requires-Dist: instructor>=1.6.4; extra == 'ai-llama'
+Requires-Dist: llama-cpp-python>=0.3.0; extra == 'ai-llama'
+Requires-Dist: markitdown; extra == 'ai-llama'
+Requires-Dist: nbformat; extra == 'ai-llama'
+Requires-Dist: panel-graphic-walker[kernel]>=0.6.4; extra == 'ai-llama'
+Requires-Dist: pyarrow; extra == 'ai-llama'
+Requires-Dist: pydantic-extra-types; extra == 'ai-llama'
+Requires-Dist: pydantic>=2.8.0; extra == 'ai-llama'
+Requires-Dist: semchunk; extra == 'ai-llama'
+Requires-Dist: tiktoken; extra == 'ai-llama'
+Provides-Extra: ai-local
+Requires-Dist: chardet; extra == 'ai-local'
+Requires-Dist: duckdb>=1.2.0; extra == 'ai-local'
+Requires-Dist: griffe; extra == 'ai-local'
+Requires-Dist: huggingface-hub; extra == 'ai-local'
+Requires-Dist: instructor>=1.6.4; extra == 'ai-local'
+Requires-Dist: markitdown; extra == 'ai-local'
+Requires-Dist: nbformat; extra == 'ai-local'
+Requires-Dist: panel-graphic-walker[kernel]>=0.6.4; extra == 'ai-local'
+Requires-Dist: pyarrow; extra == 'ai-local'
+Requires-Dist: pydantic-extra-types; extra == 'ai-local'
+Requires-Dist: pydantic>=2.8.0; extra == 'ai-local'
+Requires-Dist: semchunk; extra == 'ai-local'
+Requires-Dist: tiktoken; extra == 'ai-local'
+Provides-Extra: ai-mistralai
+Requires-Dist: chardet; extra == 'ai-mistralai'
+Requires-Dist: duckdb>=1.2.0; extra == 'ai-mistralai'
+Requires-Dist: griffe; extra == 'ai-mistralai'
+Requires-Dist: instructor>=1.6.4; extra == 'ai-mistralai'
+Requires-Dist: markitdown; extra == 'ai-mistralai'
+Requires-Dist: mistralai; extra == 'ai-mistralai'
+Requires-Dist: nbformat; extra == 'ai-mistralai'
+Requires-Dist: panel-graphic-walker[kernel]>=0.6.4; extra == 'ai-mistralai'
+Requires-Dist: pyarrow; extra == 'ai-mistralai'
+Requires-Dist: pydantic-extra-types; extra == 'ai-mistralai'
+Requires-Dist: pydantic>=2.8.0; extra == 'ai-mistralai'
+Requires-Dist: semchunk; extra == 'ai-mistralai'
+Requires-Dist: tiktoken; extra == 'ai-mistralai'
+Provides-Extra: ai-openai
+Requires-Dist: chardet; extra == 'ai-openai'
+Requires-Dist: duckdb>=1.2.0; extra == 'ai-openai'
+Requires-Dist: griffe; extra == 'ai-openai'
+Requires-Dist: instructor>=1.6.4; extra == 'ai-openai'
+Requires-Dist: markitdown; extra == 'ai-openai'
+Requires-Dist: nbformat; extra == 'ai-openai'
+Requires-Dist: openai; extra == 'ai-openai'
+Requires-Dist: panel-graphic-walker[kernel]>=0.6.4; extra == 'ai-openai'
+Requires-Dist: pyarrow; extra == 'ai-openai'
+Requires-Dist: pydantic-extra-types; extra == 'ai-openai'
+Requires-Dist: pydantic>=2.8.0; extra == 'ai-openai'
+Requires-Dist: semchunk; extra == 'ai-openai'
+Requires-Dist: tiktoken; extra == 'ai-openai'
+Provides-Extra: bigquery
+Requires-Dist: google-cloud-bigquery; extra == 'bigquery'
+Requires-Dist: sqlalchemy-bigquery; extra == 'bigquery'
+Provides-Extra: sql
+Requires-Dist: duckdb; extra == 'sql'
+Requires-Dist: intake-sql; extra == 'sql'
+Requires-Dist: sqlalchemy; extra == 'sql'
+Provides-Extra: tests
+Requires-Dist: pytest; extra == 'tests'
+Requires-Dist: pytest-asyncio; extra == 'tests'
+Requires-Dist: pytest-rerunfailures; extra == 'tests'
+Description-Content-Type: text/markdown
+
+# Lumen
+
+*Illuminate your data*
+
+|    |    |
+| --- | --- |
+| Build Status | [![Linux/MacOS/Windows Build Status](https://github.com/holoviz/lumen/actions/workflows/test.yaml/badge.svg)](https://github.com/holoviz/lumen/actions/workflows/test.yaml)
+| Coverage | [![codecov](https://codecov.io/gh/holoviz/lumen/branch/main/graph/badge.svg)](https://codecov.io/gh/holoviz/lumen) |
+| Latest dev release | [![Github tag](https://img.shields.io/github/v/tag/holoviz/lumen.svg?label=tag&colorB=11ccbb)](https://github.com/holoviz/lumen/tags) [![dev-site](https://img.shields.io/website-up-down-green-red/https/holoviz-dev.github.io/lumen.svg?label=dev%20website)](https://holoviz-dev.github.io/lumen/) |
+| Latest release | [![Github release](https://img.shields.io/github/release/holoviz/lumen.svg?label=tag&colorB=11ccbb)](https://github.com/holoviz/lumen/releases) [![PyPI version](https://img.shields.io/pypi/v/lumen.svg?colorB=cc77dd)](https://pypi.python.org/pypi/lumen) [![lumen version](https://img.shields.io/conda/v/pyviz/lumen.svg?colorB=4488ff&style=flat)](https://anaconda.org/pyviz/lumen) [![conda-forge version](https://img.shields.io/conda/v/conda-forge/lumen.svg?label=conda%7Cconda-forge&colorB=4488ff)](https://anaconda.org/conda-forge/lumen) [![defaults version](https://img.shields.io/conda/v/anaconda/lumen.svg?label=conda%7Cdefaults&style=flat&colorB=4488ff)](https://anaconda.org/anaconda/lumen) |
+| Docs | [![gh-pages](https://img.shields.io/github/last-commit/holoviz/lumen/gh-pages.svg)](https://github.com/holoviz/lumen/tree/gh-pages) [![site](https://img.shields.io/website-up-down-green-red/https/lumen.holoviz.org.svg)](https://lumen.holoviz.org) |
+| Support | [![Discourse](https://img.shields.io/discourse/status?server=https%3A%2F%2Fdiscourse.holoviz.org)](https://discourse.holoviz.org/) |
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/holoviz/lumen/main/doc/_static/ai-diagram-dark.png">
+  <img src="https://raw.githubusercontent.com/holoviz/lumen/main/doc/_static/ai-diagram.png" alt="Lumen AI Diagram" width="100%"/>
+</picture>
+
+Lumen is a fully open-source and extensible agent based framework for chatting with data and for retrieval augmented generation (RAG). The declarative nature of Lumen's data model make it possible for LLMs to easily generate entire data transformation pipelines, visualizations and other many other types of output. Once generated the data pipelines and visual output can be easily serialized, making it possible to share them, to continue the analysis in a notebook and/or build entire dashboards.
+
+- **Generate SQL**: Generate data pipelines on top of local or remote files, SQL databases or your data lake.
+- **Provide context and embeddings**: Give Lumen access to your documents to give the LLM the context it needs.
+- **Visualize your data**: Generate everything from charts to powerful data tables or entire **dashboards** using natural language.
+- **Inspect, validate and edit results**: All LLM outputs can easily be inspected for mistakes, refined, and manually edited if needed.
+- **Summarize results and key insights**: Have the LLM summarize key results and extract important insights.
+- **Custom analyses, agents and tools**: Extend Lumen custom agents, tools, and analyses to generate deep insights tailored to your domain.
+
+Lumen sets itself apart from other agent based frameworks in that it focuses on being fully open and extensible. With powerful internal primitives for expressing complex data transformations the LLM can gain insights into your datasets out-of-the box and can be further tailored with custom agents, analyses and tools to empower even non-programmers to perform complex analyses without having to code. The customization makes it possible to generate any type of output, allow the user and the LLM to perform analyses tailored to your domain and look up additional information and context easily. Since Lumen is built on [Panel](https://panel.holoviz.org) it can render almost any type of output with little to no effort, ensuring that even the most esoteric usecase is easily possible.
+
+The declarative Lumen data model further sets it apart from other tools, making it easy for LLMs to populate custom components and making it easy for the user to share the results. Entire multi-step data transformation pipelines be they in SQL or Python can easily be captured and used to drive custom visualizations, interactive tables and more. Once generated the declarative nature of the Lumen specification allows them to be shared, reproducing them in a notebook or composing them through a drag-and-drop interface into a dashboard.
+
+## Getting started
+
+Lumen works with Python 3 and above on Linux, Windows, or Mac. The recommended way to install Lumen is using the [`conda`](https://conda.pydata.org/docs/) command provided by [Anaconda](https://docs.continuum.io/anaconda/install) or [`Miniconda`](https://conda.pydata.org/miniconda.html):
+
+    conda install -c pyviz lumen
+
+or using PyPI:
+
+    pip install 'lumen[ai]'
+
+Once installed you will be able to start a Lumen Explorer server by running (replace `data.csv` with your data):
+
+    lumen-ai serve data.csv
+
+Check out the [docs](https://lumen.holoviz.org/lumen_ai/getting_started/using_lumen_ai.html) for more details!

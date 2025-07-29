@@ -1,0 +1,22 @@
+{% extends 'Agent/main.jinja2' %}
+
+{% block context %}
+Available visualization types:
+{{ doc }}
+
+The current SQL table name: {{ memory['table'] }}.
+
+Here is the current dataset to use:
+{{ memory.data }}
+
+{%- if "view" in memory %}
+The previous view specification was:
+```
+{{ memory["view"] }}
+```
+{%- endif %}
+
+{% if memory.source.dialect == "snowflake" %}
+Please use all upper case for field names.
+{% endif %}
+{%- endblock %}
