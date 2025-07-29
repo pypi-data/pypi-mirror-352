@@ -1,0 +1,245 @@
+Metadata-Version: 2.4
+Name: langchain-astarcloud
+Version: 0.1.11
+Summary: LangChain integration for AstarCloud chat models
+Author-email: AstarCloud <support@astarcloud.no>
+License: MIT
+Project-URL: Homepage, https://github.com/ASTAR-CLOUD/langchain_astarcloud
+Project-URL: Repository, https://github.com/ASTAR-CLOUD/langchain_astarcloud
+Project-URL: Bug Tracker, https://github.com/ASTAR-CLOUD/langchain_astarcloud/issues
+Project-URL: Documentation, https://github.com/ASTAR-CLOUD/langchain_astarcloud#readme
+Keywords: langchain,astarcloud,llm,chat,ai
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: langchain-core>=0.1.0
+Requires-Dist: astarcloud>=0.1.8
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-asyncio; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: isort; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Dynamic: license-file
+
+# LangChain AstarCloud
+
+A LangChain integration for AstarCloud chat models, providing a drop-in replacement for other chat model providers like OpenAI and Groq.
+
+## Installation
+
+```bash
+pip install langchain-astarcloud
+```
+
+## Quick Start
+
+```python
+from langchain_astarcloud import ChatAstarCloud
+
+# Initialize the model
+llm = ChatAstarCloud(
+    model="gpt-4.1",
+    api_key="your-api-key"  # or set ASTARCLOUD_API_KEY env var
+)
+
+# Use it like any other LangChain chat model
+response = llm.invoke("Hello, how are you?")
+print(response.content)
+```
+
+## Features
+
+- **Drop-in replacement**: Works seamlessly with existing LangChain and LangGraph applications
+- **Async support**: Full async/await support for better performance
+- **Streaming**: Real-time response streaming
+- **Tool calling**: Support for function/tool calling on compatible models
+- **Type hints**: Full type safety with modern Python typing
+
+## Supported Models
+
+The following models are available:
+
+- `gpt-4.1` - Latest GPT-4 model with tool calling support
+- `gpt-4.1-mini` - Faster, more cost-effective variant with tool calling
+- `gpt-4.1-nano` - Ultra-fast model for simple tasks with tool calling
+- `astar-gpt-4.1` - AstarCloud's optimized variant with tool calling
+
+## Usage Examples
+
+### Basic Chat
+
+```python
+from langchain_astarcloud import ChatAstarCloud
+
+llm = ChatAstarCloud(model="gpt-4.1", api_key="sk-...")
+
+response = llm.invoke("What's the capital of Norway?")
+print(response.content)
+```
+
+### With LangChain Expression Language (LCEL)
+
+```python
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_astarcloud import ChatAstarCloud
+
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a helpful assistant."),
+    ("human", "{question}")
+])
+
+llm = ChatAstarCloud(model="gpt-4.1")
+
+chain = prompt | llm
+
+response = chain.invoke({"question": "Explain quantum computing"})
+```
+
+### Streaming Responses
+
+```python
+from langchain_astarcloud import ChatAstarCloud
+
+llm = ChatAstarCloud(model="gpt-4.1")
+
+for chunk in llm.stream("Write a short story"):
+    print(chunk.content, end="", flush=True)
+```
+
+### Async Usage
+
+```python
+import asyncio
+from langchain_astarcloud import ChatAstarCloud
+
+async def main():
+    llm = ChatAstarCloud(model="gpt-4.1")
+    
+    response = await llm.ainvoke("Hello!")
+    print(response.content)
+    
+    # Async streaming
+    async for chunk in llm.astream("Tell me a joke"):
+        print(chunk.content, end="", flush=True)
+
+asyncio.run(main())
+```
+
+### Tool Calling
+
+```python
+from langchain_core.tools import tool
+from langchain_astarcloud import ChatAstarCloud
+
+@tool
+def get_weather(city: str) -> str:
+    """Get the weather for a city."""
+    # Your weather API logic here
+    return f"The weather in {city} is sunny and 22°C"
+
+llm = ChatAstarCloud(model="gpt-4.1").bind_tools([get_weather])
+
+response = llm.invoke("What's the weather in Oslo?")
+print(response.content)
+print(response.tool_calls)
+```
+
+### With LangGraph
+
+```python
+from langgraph.prebuilt import ToolNode
+from langchain_astarcloud import ChatAstarCloud
+
+llm = ChatAstarCloud(model="gpt-4.1").bind_tools([get_weather])
+
+# LangGraph treats it like any other chat model
+tool_node = ToolNode([get_weather])
+result = llm.invoke("What's the weather in Bergen?")
+```
+
+## Configuration
+
+### Environment Variables
+
+Set your API key as an environment variable:
+
+```bash
+export ASTARCLOUD_API_KEY="your-api-key"
+```
+
+### Constructor Parameters
+
+```python
+llm = ChatAstarCloud(
+    model="gpt-4.1",           # Required: Model name
+    api_key="your-key",        # Optional: API key (uses env var if not provided)
+    api_base="https://api.astarcloud.no",  # Optional: API base URL
+    timeout=30.0,              # Optional: Request timeout in seconds
+    temperature=0.7,           # Optional: Sampling temperature
+    max_tokens=1000,           # Optional: Maximum tokens to generate
+    # ... other model parameters
+)
+```
+
+## Error Handling
+
+```python
+from langchain_astarcloud import ChatAstarCloud
+
+llm = ChatAstarCloud(model="gpt-4.1")
+
+try:
+    # This will raise an error for unsupported models
+    llm_with_tools = llm.bind_tools([some_tool])
+    if llm.model not in {"gpt-4.1", "gpt-4.1-mini", "gpt-4.1-nano", "astar-gpt-4.1"}:
+        print("Tools not supported for this model")
+except ValueError as e:
+    print(f"Error: {e}")
+```
+
+## Development
+
+To contribute to this project:
+
+```bash
+# Clone the repository
+git clone https://github.com/ASTAR-CLOUD/langchain_astarcloud.git
+cd langchain_astarcloud
+
+# Install in development mode
+pip install -e ".[dev]"
+
+# Run tests
+pytest
+
+# Format code
+black .
+isort .
+
+# Type checking
+mypy langchain_astarcloud
+```
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For support or questions:
+- Open an issue on GitHub
+- Contact AstarCloud support
