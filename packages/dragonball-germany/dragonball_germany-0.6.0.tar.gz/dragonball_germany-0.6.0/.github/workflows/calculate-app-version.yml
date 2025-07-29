@@ -1,0 +1,64 @@
+name: calculate-app-version
+
+on:
+    workflow_call:
+        outputs:
+            current_version:
+                value: ${{ jobs.calculate.outputs.current_version }}
+            calculated_version:
+                value: ${{ jobs.calculate.outputs.calculated_version }}
+    workflow_dispatch:
+
+jobs:
+    calculate:
+        runs-on: ubuntu-latest
+
+        outputs:
+            current_version: ${{ steps.get-current-version.outputs.version }}
+            calculated_version: ${{ steps.calculate-version.outputs.version }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Get current version from pyproject.toml
+              id: get-current-version
+              run: |
+                  version=$(grep '^version' pyproject.toml | cut -d '=' -f2 | tr -d " '")
+                  echo "CURRENT_VERSION=$version"
+                  echo "version=$version" >> $GITHUB_OUTPUT
+
+            - name: Get all commits
+              id: get-commits
+              run: |
+                  commits=$(git log --reverse HEAD --pretty=format:"%s")
+                  echo "commits<<EOF" >> "$GITHUB_OUTPUT"
+                  echo "$commits" >> "$GITHUB_OUTPUT"
+                  echo "EOF" >> "$GITHUB_OUTPUT"
+
+            - name: Calculate new version
+              id: calculate-version
+              run: |
+                  major=0; minor=0; patch=0
+
+                  while read -r line; do
+                    if [[ "$line" =~ ^(feat|fix)! ]]; then
+                      major=$((major + 1))
+                      minor=0
+                      patch=0
+                      continue
+                    fi
+                    if [[ "$line" =~ ^feat ]]; then
+                      minor=$((minor + 1))
+                      patch=0
+                    fi
+                    if [[ "$line" =~ ^fix ]]; then
+                      patch=$((patch + 1))
+                    fi
+                  done <<< "${{ steps.get-commits.outputs.commits }}"
+
+                  version="$major.$minor.$patch"
+                  echo "NEW_VERSION=$version"
+                  echo "version=$version" >> $GITHUB_OUTPUT

@@ -1,0 +1,68 @@
+name: build-and-publish
+
+on:
+    push:
+        branches:
+            - master
+        paths:
+            - 'dragonball_germany/**'
+
+env:
+    PYTHON_VERSION: '3.12'
+
+jobs:
+    call-update-app-version:
+        uses: ./.github/workflows/update-app-version.yml
+
+    build-and-publish:
+        needs: [call-update-app-version]
+
+        if: ${{ needs.call-update-app-version.outputs.version_updated == 'true' }}
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set ENV CURRENT_APP_VERSION
+              run: |
+                  version=$(cat pyproject.toml  | grep version | cut -d '=' -f 2- | tr -d " '")
+                  echo "CURRENT_APP_VERSION=$version"
+                  echo "CURRENT_APP_VERSION=$version" >> $GITHUB_ENV
+
+            - name: Pull latest changes
+              run: git pull
+
+            - name: Set ENV NEW_APP_VERSION
+              run: |
+                  version=$(cat pyproject.toml  | grep version | cut -d '=' -f 2- | tr -d " '")
+                  echo "NEW_APP_VERSION=$version"
+                  echo "NEW_APP_VERSION=$version" >> $GITHUB_ENV
+
+            - name: Stop if version did not change
+              run: |
+                  echo "CURRENT_APP_VERSION=${{ env.CURRENT_APP_VERSION }}"
+                  echo "NEW_APP_VERSION=${{ env.NEW_APP_VERSION }}"
+                  if [ "${{ env.CURRENT_APP_VERSION }}" = "${{ env.NEW_APP_VERSION }}" ]; then
+                    echo "Version has not changed. Exiting workflow."
+                    exit 0
+                  fi
+
+            - name: Install pip
+              run: python -m pip install --upgrade pip
+
+            - name: Install dependencies
+              run: pip install -r 'requirements.txt'
+
+            - name: Install build dependencies
+              run: pip install setuptools wheel build twine
+
+            - name: Build package
+              run: python -m build
+
+            - name: Upload to pypi
+              env:
+                  TWINE_USERNAME: __token__
+                  TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+              run: twine upload dist/*
