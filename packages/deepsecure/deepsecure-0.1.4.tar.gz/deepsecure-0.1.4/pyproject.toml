@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deepsecure"
+version = "0.1.4"
+authors = [
+  { name="DeepSecure Team", email="mahendra@deeptrail.com" },
+]
+description = "DeepSecure: Secure your AI agent and agentic AI application ecosystem with DeepSecure."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["security", "ai", "cli", "credentials", "vault", "policy", "sandbox"]
+dependencies = [
+    "typer[all]>=0.9.0",    # CLI framework with rich support
+    "rich>=13.0.0",         # Rich terminal output
+    "keyring>=24.0.0",      # Secure credential storage
+    "requests>=2.30.0",     # HTTP client for API calls
+    "toml>=0.10.2",         # TOML config file parsing
+    "pydantic>=2.0.0",      # Data validation
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "isort>=5.0.0",
+    "flake8>=6.0.0",
+    "build>=0.10.0",
+    "twine>=4.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/DeepTrail/deepsecure"
+"Bug Tracker" = "https://github.com/DeepTrail/deepsecure/issues"
+"Documentation" = "https://deepsecure.dev/docs"
+
+[project.scripts]
+deepsecure = "deepsecure.main:app"
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["deepsecure*"]
+exclude = ["tests*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+# Ensure there isn't a conflicting [tool.poetry] section further down.
+# If a [tool.poetry] section IS the primary metadata source, then IT should have version = "0.1.4"
+# and the [project] version might be secondary or not needed.
+# Given the build-system specified, [project] version is primary for setuptools. 
