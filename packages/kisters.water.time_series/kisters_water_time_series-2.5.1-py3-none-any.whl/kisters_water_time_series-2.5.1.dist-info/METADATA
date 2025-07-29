@@ -1,0 +1,55 @@
+Metadata-Version: 2.4
+Name: kisters.water.time_series
+Version: 2.5.1
+Summary: KISTERS Time Series Access library
+Author-email: Alberto Sabater <alberto.sabatermorales@kisters.de>
+License: LGPL
+Project-URL: Homepage, https://gitlab.com/kisters/time-series/kisters.water.time_series
+Project-URL: Documentation, https://kisterswatertime-series.readthedocs.io/en/latest/
+Project-URL: Repository, https://gitlab.com/kisters/time-series/kisters.water.time_series.git
+Keywords: kisters,time series,time,series
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: httpx
+Requires-Dist: orjson
+Requires-Dist: pandas
+Requires-Dist: pyarrow
+Requires-Dist: pydantic
+Requires-Dist: typing-extensions
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-asyncio; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+Provides-Extra: mypy
+Requires-Dist: mypy; extra == "mypy"
+Requires-Dist: pandas-stubs; extra == "mypy"
+Requires-Dist: pyarrow; extra == "mypy"
+Requires-Dist: pytest; extra == "mypy"
+Provides-Extra: docs
+Requires-Dist: sphinx; extra == "docs"
+Requires-Dist: sphinx-rtd-theme; extra == "docs"
+Dynamic: license-file
+
+# KISTERS Python Time Series API
+
+This is the KISTERS Python Time Series API, 
+a common client API for all time series backends at KISTERS.
+
+## Installation
+
+To install, simply use pip:
+
+```bash
+pip install kisters.water.time_series
+```
+
+# Documentation
+
+Documentation is available at https://kisterswatertime-series.readthedocs.io/en/latest/ .
