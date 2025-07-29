@@ -1,0 +1,172 @@
+cfood:
+  type: object
+  properties:
+    Converters:
+      description: Defintiion of custom converters
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          converter:
+            type: string
+          package:
+            type: string
+        required:
+          - converter
+          - package
+    macros:
+      description: Macro definitions
+      type: array
+    Transformers:
+      description: Variable transformer definition
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          function:
+            type: string
+          package:
+            type: string
+        required:
+          - package
+          - function
+  additionalProperties:
+    $ref:
+      "#/$defs/converter"
+  $defs:
+    parents:
+      description: Parents for this record are given here as a list of names.
+      type: array
+      items:
+        type: string
+    converter:
+      properties:
+        type:
+          enum:
+          - Directory
+          - File
+          - DictTextElement
+          - TextElement
+          - SimpleFile
+          - YamlFileCaosDBRecord
+          - MarkdownFile
+          - DictListElement
+          - ListElement
+          - DictDictElement
+          - DictElement
+          - DictFloatElement
+          - FloatElement
+          - DictIntegerElement
+          - IntegerElement
+          - DictBooleanElement
+          - BooleanElement
+          - Definitions
+          - Dict
+          - Date
+          - Datetime
+          - JSONFile
+          - YAMLFile
+          - CSVTableConverter
+          - XLSXTableConverter
+          - SPSSFile
+          - H5File
+          - H5Dataset
+          - H5Group
+          - H5Ndarray
+          - XMLFile
+          - XMLTag
+          - XMLTextNode
+          - XMLAttributeNode
+          - PropertiesFromDictElement
+          description: Type of this converter node.
+        match:
+          description: typically a regexp which is matched to a structure element name
+          type: string
+        match_name:
+          description: a regexp that is matched to the key of a key-value pair
+          type: string
+        match_value:
+          description: a regexp that is matched to the value of a key-value pair
+          type: string
+        match_newer_than_file:
+          description: |
+            Only relevant for Directory. A path to a file containing
+            an ISO-formatted datetime. Only match if the contents of the
+            Directory have been modified after that datetime.
+          type: string
+        record_from_dict:
+          description: Only relevant for PropertiesFromDictElement.  Specify the root record which is generated from the contained dictionary.
+          type: object
+          required:
+            - variable_name
+          properties:
+            variable_name:
+              description: |
+                Name of the record by which it can be accessed in the
+                cfood definiton. Can also be the name of an existing
+                record in which case that record will be updated by
+                the PropertiesFromDictConverter.
+              type: string
+            properties_blacklist:
+              description: List of keys to be ignored in the automatic treatment.  They will be ignored on all levels of the dictionary.
+              type: array
+              items:
+                type: string
+            references:
+              description: List of keys that will be transformed into named reference properties.
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  parents:
+                    $ref:
+                      "#/$defs/parents"
+            name:
+              description: Name of this record.  If none is given, variable_name is used.
+              type: string
+            parents:
+              $ref:
+                "#/$defs/parents"
+        records:
+          description: This field is used to define new records or to modify records which have been defined on a higher level.
+          type: object
+          properties:
+            parents:
+              $ref:
+                "#/$defs/parents"
+            additionalProperties:
+              oneOf:
+              - type: object
+                properties:
+                  value:
+                    description: Dictionary notation for variable values. Values can be given by a variable which is indicated by an initial "$". Use "$$" for setting values actually starting with a dollar sign.
+                    type: string
+                  unit:
+                    description: The unit of this property. Units can be given by a variable which is indicated by an initial "$". Use "$$" for setting values actually starting with a dollar sign.
+                    type: string
+                  collection_mode:
+                    description: The collection mode defines whether the resulting property will be a single property or whether the values of multiple structure elements will be collected either into a list or a multiproperty.
+                    enum:
+                    - single
+                    - list
+                    - multiproperty
+                additionalProperties: false
+              - type: string
+                description: The short notation for values. Values can be given by a variable which is indicated by an initial "$". Use "$$" for setting values actually starting with a dollar sign. Multiproperties can be set using an initial "*" and list properties using an initial "+".
+        subtree:
+          type: object
+          additionalProperties:
+            $ref:
+              "#/$defs/converter"
+      if:
+        properties:
+          type:
+            const:
+              "PropertiesFromDictElement"
+      then:
+        required:
+          - type
+          - record_from_dict
+      else:
+        required:
+          - type

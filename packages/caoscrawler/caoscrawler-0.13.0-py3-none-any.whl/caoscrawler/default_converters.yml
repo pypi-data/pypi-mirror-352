@@ -1,0 +1,117 @@
+# -------------------------
+# Base Types
+# -------------------------
+
+BooleanElement:
+  converter: BooleanElementConverter
+  package: caoscrawler.converters
+Date:
+  converter: DateElementConverter
+  package: caoscrawler.converters
+Datetime:
+  converter: DatetimeElementConverter
+  package: caoscrawler.converters
+Dict:
+  converter: DictElementConverter
+  package: caoscrawler.converters
+PropertiesFromDictElement:
+  converter: PropertiesFromDictConverter
+  package: caoscrawler.converters
+FloatElement:
+  converter: FloatElementConverter
+  package: caoscrawler.converters
+IntegerElement:
+  converter: IntegerElementConverter
+  package: caoscrawler.converters
+ListElement:
+  converter: ListElementConverter
+  package: caoscrawler.converters
+TextElement:
+  converter: TextElementConverter
+  package: caoscrawler.converters
+
+
+DictDictElement:  # deprecated
+  converter: DictElementConverter
+  package: caoscrawler.converters
+DictElement:  # deprecated
+  converter: DictElementConverter
+  package: caoscrawler.converters
+DictBooleanElement:  # deprecated
+  converter: BooleanElementConverter
+  package: caoscrawler.converters
+DictFloatElement:  # deprecated
+  converter: FloatElementConverter
+  package: caoscrawler.converters
+DictIntegerElement:  # deprecated
+  converter: IntegerElementConverter
+  package: caoscrawler.converters
+DictListElement:  # deprecated
+  converter: ListElementConverter
+  package: caoscrawler.converters
+DictTextElement:  # deprecated
+  converter: TextElementConverter
+  package: caoscrawler.converters
+
+# -------------------------
+# Directories and Files
+# -------------------------
+
+Directory:
+  converter: DirectoryConverter
+  package: caoscrawler.converters
+
+
+File:  # deprecated
+  converter: SimpleFileConverter
+  package: caoscrawler.converters
+
+
+SimpleFile:
+  converter: SimpleFileConverter
+  package: caoscrawler.converters
+
+MarkdownFile:
+  converter: MarkdownFileConverter
+  package: caoscrawler.converters
+
+YAMLFile:
+  converter: YAMLFileConverter
+  package: caoscrawler.converters
+
+JSONFile:
+  converter: JSONFileConverter
+  package: caoscrawler.converters
+
+CSVTableConverter:
+  converter: CSVTableConverter
+  package: caoscrawler.converters
+
+SPSSFile:
+  converter: SPSSConverter
+  package: caoscrawler.converters
+
+XLSXTableConverter:
+  converter: XLSXTableConverter
+  package: caoscrawler.converters
+
+
+# -------------------------
+# XML
+# -------------------------
+
+XMLFile:
+  converter: XMLFileConverter
+  package: caoscrawler.converters
+
+XMLTag:
+  converter: XMLTagConverter
+  package: caoscrawler.converters
+
+XMLTextNode:
+  converter: XMLTextNodeConverter
+  package: caoscrawler.converters
+
+XMLAttributeNode:
+  converter: XMLAttributeNodeConverter
+  package: caoscrawler.converters
