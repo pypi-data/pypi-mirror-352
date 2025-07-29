@@ -1,0 +1,134 @@
+Metadata-Version: 2.4
+Name: updateCitation
+Version: 0.0.10
+Summary: Automatically update citation files (CITATION.cff) in a GitHub repository from `pyproject.toml`, GitHub releases, and PyPI releases.
+Author-email: Hunter Hogan <HunterHogan@pm.me>
+License: CC-BY-NC-4.0
+Project-URL: Donate, https://www.patreon.com/integrated
+Project-URL: Homepage, https://github.com/hunterhogan/updateCitation
+Project-URL: Repository, https://github.com/hunterhogan/updateCitation.git
+Keywords: academic-software,automation,cff,citation,citation-files,doi,github,metadata,publishing,references,research-software,scholarly-communication,software-citation,zenodo
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Framework :: Pytest
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Documentation
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Text Processing :: Markup
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: attrs
+Requires-Dist: cffconvert
+Requires-Dist: httpx
+Requires-Dist: packaging
+Requires-Dist: pygithub
+Requires-Dist: ruamel.yaml
+Requires-Dist: tomli
+Provides-Extra: testing
+Requires-Dist: mypy; extra == "testing"
+Requires-Dist: pytest; extra == "testing"
+Requires-Dist: pytest-cov; extra == "testing"
+Requires-Dist: pytest-xdist; extra == "testing"
+Requires-Dist: pyupgrade; extra == "testing"
+Dynamic: license-file
+
+# updateCitation
+
+updateCitation is a Python tool that automates the maintenance of citation metadata in software projects. It helps researchers and developers ensure their work is properly citeable while maintaining consistent metadata across different platforms.
+
+## Key Features
+
+- Automatic generation and updates of CITATION.cff files
+- Seamless integration with Python package metadata from pyproject.toml
+- Synchronization with GitHub release information
+- Integration with PyPI package metadata
+- Validation of citation metadata format
+- GitHub Actions support for automated updates
+
+## Installation
+
+```bash
+pip install updateCitation
+```
+
+## Usage
+
+The simplest way to use updateCitation is to run it from your repository root:
+
+```python
+import updateCitation
+updateCitation.here()
+```
+
+For custom pyproject.toml locations:
+
+```python
+updateCitation.here("path/to/pyproject.toml")
+```
+
+## GitHub Actions Integration
+
+updateCitation provides a GitHub Action that automatically updates your citation metadata on each push. To enable this:
+
+1. Create `.github/workflows/updateCitation.yml` in your repository
+2. Copy the provided workflow configuration
+3. Commit and push to activate automated citation updates
+
+## Configuration
+
+updateCitation primarily uses your project's `pyproject.toml` file for configuration. Essential fields include:
+
+### Required Fields
+
+- `name`: Package name
+- `version`: Current version
+- `authors`: List of authors with names and emails
+
+### Recommended Fields
+
+- `description`: Project description
+- `keywords`: Search keywords
+- `license`: License information
+- `urls`: Project URLs (homepage, repository, etc.)
+
+### Optional Tool Settings
+
+You can customize updateCitation's behavior in the `[tool.updateCitation]` section of pyproject.toml.
+
+## Documentation
+
+For detailed documentation, examples, and best practices, visit our [GitHub repository](https://github.com/hunterhogan/updateCitation).
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit pull requests.
+
+## My recovery
+
+[![Static Badge](https://img.shields.io/badge/2011_August-Homeless_since-blue?style=flat)](https://HunterThinks.com/support)
+[![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC3Gx7kz61009NbhpRtPP7tw)](https://www.youtube.com/@HunterHogan)
+
+## How to code
+
+Coding One Step at a Time:
+
+0. WRITE CODE.
+1. Don't write stupid code that's hard to revise.
+2. Write good code.
+3. When revising, write better code.
+
+[![CC-BY-NC-4.0](https://github.com/hunterhogan/updateCitation/blob/main/CC-BY-NC-4.0.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
