@@ -1,0 +1,53 @@
+Metadata-Version: 2.4
+Name: sfapp
+Version: 1.0.2
+Summary: SFApp is a module to bundle a Python package into a single file Python script.
+Author-email: Etienne_MR <etienne@etiennemr.fr>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/EtienneMR/sfapp
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# sfapp
+
+**sfapp** is a Python tool for building single-file Python applications from a package or directory. It analyzes source files, resolves imports, and generates a standalone Python script containing all necessary code.
+
+## Features
+
+- Collects and analyzes Python source files in a package.
+- Resolves and inlines internal imports.
+- Outputs a single Python file for easy distribution.
+- Supports custom package roots and output locations.
+- Optionally suppresses log output.
+
+## Usage
+
+You can use `sfapp` as a command-line tool:
+
+```sh
+python -m sfapp <root> [-o <output_file.py>] [-p <package_name>] [-s]
+```
+
+### Arguments
+
+- `root`: Path to the root directory of your package (positional argument).
+
+### Options
+
+- `-o`, `--output`: Output file path for the generated single-file app (default: stdout, use `-` for stdout).
+- `-p`, `--package`: Name of the package to build (defaults to the root directory name).
+- `-s`, `--silent`: Suppress log output (optional).
+
+## Example
+
+```sh
+python -m sfapp ./myproject -p myproject -o myproject_single.py
+```
+
+## License
+
+MIT License.
