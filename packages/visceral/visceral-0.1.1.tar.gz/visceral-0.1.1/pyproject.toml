@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "visceral"
+version = "0.1.1"
+description = "MCP server for Visceral survey and workspace management"
+readme = "README.md"
+authors = [
+    {name = "Anshuman", email = "anshuman@visceral.ai"}
+]
+requires-python = ">=3.9"
+dependencies = [
+    "mcp-python",
+    "requests", 
+    "python-dotenv",
+    "websockets"
+]
+
+[project.scripts]
+visceral = "visceral.app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/visceral"]
+
