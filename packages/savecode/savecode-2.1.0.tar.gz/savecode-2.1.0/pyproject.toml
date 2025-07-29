@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "savecode"
+version = "2.1.0"
+description = "A utility to save source code from directories and files into a single output file with smart file filtering, streaming, and progress tracking."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Austin Wagner", email = "austinwagner@msn.com" }]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities"
+]
+keywords = ["code", "backup", "source code", "extraction", "utility"]
+dependencies = [
+    "tqdm>=4.65.0",
+    "pyperclip>=1.8"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/wagner-austin/savecode"
+"Bug Tracker" = "https://github.com/wagner-austin/savecode/issues"
+
+[project.scripts]
+savecode = "savecode.cli:main"
