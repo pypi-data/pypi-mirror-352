@@ -1,0 +1,125 @@
+@charset 'utf-8';
+
+.indexlink {
+    text-decoration: none;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.chord {
+    font-weight: bold;
+    font-style: normal;
+}
+
+.chord:before {
+    content: "(";
+}
+
+.chord:after {
+    content: ")";
+}
+
+.section_header {
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+    font-style: normal;
+}
+
+.section_header:before {
+    content: '[';
+}
+
+.section_header:after {
+    content: ']';
+}
+
+.vox {
+    font-weight: normal;
+    font-style: italic;
+}
+
+.vox:before {
+    content: "(";
+}
+
+.vox:after {
+    content: ")";
+}
+
+.notes {
+    font-style: normal;
+    font-weight: bold;
+}
+
+.notes:before {
+    content: "[";
+}
+
+.notes:after {
+    content: "]";
+}
+
+.singer {
+    font-weight: normal;
+    font-style: italic;
+}
+
+.singer:before {
+    content: "<";
+}
+
+.singer:after {
+    content: ">";
+}
+
+.repeats {
+    font-style: normal;
+    font-weight: bold;
+}
+
+p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Box call-outs (repeated chorus etc) */
+.box {
+    padding: 5px;
+    padding-top: 0;
+    <<<<<<< HEAD padding-bottom: 0;
+    border-left: 5px solid black;
+    ||||||| parent of 4d37221 (Add CSS support for singers' notes)
+ padding-bottom:0;
+        border-left: 2px solid black;
+        =======padding-bottom: 0;
+        border-left: 2px solid black;
+        >>>>>>> 4d37221 (Add CSS support for singers' notes)
+ width: auto;
+            max-width: 98%;
+            margin: 2px;
+            margin-bottom: 0.5em;
+        }
+
+        .box>p {
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-left: 5px;
+        }
+
+        .box>p:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .box>h2,
+        .section_header {
+            margin-top: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        /* End box definitions*/
