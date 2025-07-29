@@ -1,0 +1,21 @@
+[project]
+name = "textual-englyph"
+version = "0.5.4"
+description = "A Textual utility widget set to generate terminal images and styled, scalable text."
+readme = "README.md"
+license = {text = "MIT License"}
+requires-python = ">=3.9"
+dependencies = [
+    "pillow>=10.4.0",
+    "textual>=2.1.2",
+]
+
+[project.scripts]
+englyph_demo = "textual_englyph.main_demo:main_demo"
+
+[tool.pylint."messages control"]
+allowed-redefined-builtins = [ 'id' ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
