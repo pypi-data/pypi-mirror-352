@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llm-accounting"
+version = "0.1.31"
+description = "A package for tracking LLM usage and costs"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [
+    { name = "Mateusz", email = "matdev83@github.com" }
+]
+dependencies = [
+    "rich>=10.0.0",
+    "sqlalchemy>=2.0.0", # Added as a core dependency due to model reliance
+    "alembic>=1.7.0", # Added for migrations
+]
+
+[project.optional-dependencies]
+sqlite = ["aiosqlite>=0.17.0"]
+mysql = ["aiomysql>=0.1.1"]
+postgresql = ["asyncpg>=0.25.0", "psycopg2-binary>=2.9,<3.0"] # Added psycopg2-binary
+neon = ["psycopg2-binary>=2.9,<3.0"] # Added for Neon backend
+test = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "toml>=0.10.2",
+]
+
+[project.scripts]
+llm-accounting = "llm_accounting.cli.main:main"
+
+[tool.hatch.build]
+include = ["alembic", "alembic.ini", "src/llm_accounting"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/llm_accounting"]
+
+# Corrected force-include as a separate table
+[tool.hatch.build.targets.wheel.force-include]
+"alembic.ini" = "llm_accounting/alembic.ini"
+"alembic" = "llm_accounting/alembic"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "--cov=llm_accounting --cov-report=term-missing"
