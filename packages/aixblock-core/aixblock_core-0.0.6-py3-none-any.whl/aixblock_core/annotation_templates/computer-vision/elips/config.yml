@@ -1,0 +1,25 @@
+title: Polylines Segmentation
+type: community
+group: Computer Vision
+order: 10000
+extensions: .jpg,.png,.gif,.bmp,.svg,.webp,.json,.tsv,.csv,.txt
+image: /static/templates/keypoints.png
+details: <h1>Draw a eclipse around the object</h1>
+config: |
+  <View>
+    <PolylineLabels name="pl-1" toName="image">
+      <Label value="Car" background="blue" />
+      <Label value="Tank" background="green" />
+    </PolylineLabels>
+    <Image name="image" value="$image" />
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "image": "/static/samples/tress_in_snow.jpg"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: computer_vision

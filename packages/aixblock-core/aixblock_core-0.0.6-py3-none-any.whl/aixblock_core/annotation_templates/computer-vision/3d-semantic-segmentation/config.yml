@@ -1,0 +1,31 @@
+title: 3D Semantic Segmentation
+type: community
+group: Computer Vision
+order: 1
+image: /static/templates/semantic-segmentation-with-polygons.png
+ml_image: wowai/3d_semantic_segmentation
+ml_url: https://app.aixblock.io:8039
+extensions: .pcd,.json,.tsv,.csv,.txt
+details: <h1>PCD files semantic segmentation</h1>
+config: |
+  <View>
+
+    <Image name="pcd" value="$pcd" />
+
+    <Labels name="label" toName="pcd">
+      <Label value="Tree" background="red"/>
+      <Label value="Car" background="blue"/>
+      <Label value="Road" background="blue"/>
+    </Labels>
+    
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "pcd": "/static/samples/3d.pcd"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: computer_vision

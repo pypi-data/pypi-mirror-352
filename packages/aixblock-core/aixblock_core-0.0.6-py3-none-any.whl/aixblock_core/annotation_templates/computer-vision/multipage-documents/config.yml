@@ -1,0 +1,41 @@
+title: Multi-page document annotation
+type: community
+group: Computer Vision
+extensions: .json,.tsv,.csv,.txt
+image: /static/templates/multipage.png
+details: <h1>Classify PDF documents</h1>
+config: |
+  <View>
+    <Repeater on="$document" indexFlag="{{idx}}" mode="pagination">
+        <Image name="page_{{idx}}" value="$document[{{idx}}].page" inline="true"/>
+        <RectangleLabels name="labels_{{idx}}" toName="page_{{idx}}">
+          <Label value="Title" background="green" />
+          <Label value="Date" background="blue" />
+          <Label value="Author" background="yellow"/>
+          <Label value="Organization" background="orange"/>
+          <Label value="Amount" background="red"/>
+        </RectangleLabels>
+        <View style="display: flex; justify-content: center; align-items: center; gap: 1rem;">
+          <Header value="Rate this page:"/>
+          <Rating name="rating_{{idx}}" toName="page_{{idx}}"/>
+        </View>
+    </Repeater>
+    <View style="display:none" class="example">
+  [
+    {
+      "document": [
+        {
+          "page": "/static/samples/trees_in_snow.jpg"
+        },
+        {
+          "page": "/static/samples/trees_in_snow.jpg"
+        },
+        {
+          "page": "/static/samples/trees_in_snow.jpg"
+        }
+      ]
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: computer_vision

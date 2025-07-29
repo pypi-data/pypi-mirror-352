@@ -1,0 +1,97 @@
+title: Automatic Speech Recognition using Segments
+type: community
+group: Audio/Speech Processing
+image: /static/templates/automatic-speech-recognition-using-segments.png
+ml_image: wowai/automatic_speech_recognition_using_segments
+ml_url: https://app.aixblock.io:8018
+extensions: .wav,.aiff,.mp3,.au,.flac,.m4a,.ogg,.m4b,.json,.tsv,.csv,.txt
+details: <h1>Do voice activity segmentation and provide a transcript for the audio</h1>
+config: |
+  <View>
+    <View className="lsf-sticky">
+      <Labels name="labels" toName="audio">
+        <Label value="Speech" />
+        <Label value="Noise" />
+      </Labels>
+  
+      <AudioPlus name="audio" value="$audio"/>
+    </View>
+  
+    <View style="margin-top: 2em;">
+      <Transcription name="transcription" toName="audio" />
+    </View>
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "audio": "/static/audio/sample-15s.mp3"
+      },
+      "annotations": [
+        {
+          "result": [
+            {
+              "id": "wavesurfer_jonmrbkj9mo",
+              "type": "labels",
+              "value": {
+                "end": 3.388428325198071,
+                "start": 0.9525702119030721,
+                "labels": [
+                  "Noise"
+                ]
+              },
+              "origin": "manual",
+              "to_name": "audio",
+              "from_name": "labels",
+              "original_length": 19.173877551020407
+            },
+            {
+              "id": "wavesurfer_jonmrbkj9mo",
+              "type": "transcription",
+              "value": {
+                "end": 3.388428325198071,
+                "text": "Segment transcript",
+                "start": 0.9525702119030721
+              },
+              "origin": "manual",
+              "to_name": "audio",
+              "from_name": "transcription",
+              "original_length": 19.173877551020407
+            },
+            {
+              "id": "wavesurfer_fnp05o05m1",
+              "type": "labels",
+              "value": {
+                "end": 8.722821511855274,
+                "start": 6.559126316246868,
+                "labels": [
+                  "Noise"
+                ]
+              },
+              "origin": "manual",
+              "to_name": "audio",
+              "from_name": "labels",
+              "original_length": 19.173877551020407
+            },
+            {
+              "id": "wavesurfer_fnp05o05m1",
+              "type": "transcription",
+              "value": {
+                "end": 8.722821511855274,
+                "text": "",
+                "start": 6.559126316246868
+              },
+              "origin": "manual",
+              "to_name": "audio",
+              "from_name": "transcription",
+              "original_length": 19.173877551020407
+            }
+          ]
+        }
+      ]
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: audio_speech_processing
+
+

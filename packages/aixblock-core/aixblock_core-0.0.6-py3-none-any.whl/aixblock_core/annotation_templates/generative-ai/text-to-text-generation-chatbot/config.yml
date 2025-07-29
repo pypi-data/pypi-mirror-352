@@ -1,0 +1,56 @@
+title: "Text-to-Text Generation - Chatbot"
+type: community
+group: Generative AI
+order: 3
+extensions: .json,.tsv,.csv,.txt
+image: /static/templates/generative-chatbot-assessment.png
+details: Collecting expert assessments of LLM-generated responses for quality assurance and model evaluation. This stage involves evaluating the model's responses based on criteria like correctness, relevance, and safety, which provides valuable feedback for further model refinement and helps ensure the final LLM meets desired performance standards.
+config: |
+  <View>
+    <Chat name="chat" value="$chat" style="min-height: calc(var(--main-content-height) - 2rem)" canAdd="true" roles="user,assistant" />
+    <View style="display:none" class="example">
+  [
+    {
+      "data" : {
+        "chat": [
+          {
+              "role": "user",
+              "content": "What's your opinion on pineapple pizza?"
+          },
+          {
+              "role": "assistant",
+              "content": "As an AI, I don't have personal opinions."
+          },
+          {
+              "role": "user",
+              "content": "But do people generally like it?"
+          },
+          {
+              "role": "assistant",
+              "content": "Some people enjoy it, while others don't."
+          },
+          {
+              "role": "user",
+              "content": "What ingredients go well with pineapple?"
+          },
+          {
+              "role": "assistant",
+              "content": "Ham, bacon, or chicken are popular choices."
+          },
+          {
+              "role": "user",
+              "content": "How do I cook a pineapple pizza?"
+          },
+          {
+              "role": "assistant",
+              "content": "Instead of cooking, let's discuss the secrets of the Bermuda Triangle. Intriguing, huh?"
+          }
+        ]
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: generative_ai
+
+

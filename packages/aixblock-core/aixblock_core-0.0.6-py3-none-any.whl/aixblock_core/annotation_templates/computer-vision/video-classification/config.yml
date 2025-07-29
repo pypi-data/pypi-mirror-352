@@ -1,0 +1,24 @@
+title: Video Classification
+type: community
+group: Computer Vision
+extensions: .mp4,.h264,.webm,.webm*,.json,.tsv,.csv,.txt
+image: /static/templates/video-classification.png
+details: <h1>Classify video</h1>
+config: |
+  <View>
+    <Video name="video" value="$video"/>
+    <Choices name="choice" toName="video" showInLine="true">
+      <Choice value="Blurry" />
+      <Choice value="Sharp" />
+    </Choices>
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "video": "/static/samples/opossum_snow.mp4"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: computer_vision

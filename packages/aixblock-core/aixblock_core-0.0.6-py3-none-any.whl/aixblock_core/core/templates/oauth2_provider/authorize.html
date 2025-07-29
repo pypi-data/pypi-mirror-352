@@ -1,0 +1,44 @@
+{% extends "oauth2_provider/base.html" %}
+
+{% load i18n %}
+{% block content %}
+    <div class="block-center">
+        {% if not error %}
+            <form id="authorizationForm" method="post">
+                <h3 class="block-center-heading">{% trans "Authorizing" %} {{ application.name }}...</h3>
+                {% csrf_token %}
+
+                {% for field in form %}
+                    {% if field.is_hidden %}
+                        {{ field }}
+                    {% endif %}
+                {% endfor %}
+
+                <div class="authorize-content">
+                    <p>{% trans "Application requires the following permissions" %}</p>
+                    <ul>
+                        {% for scope in scopes_descriptions %}
+                            <li>{{ scope }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                {{ form.errors }}
+                {{ form.non_field_errors }}
+
+                <div class="authorize-action" style="display: none">
+                    <input type="submit" class="btn btn-authorize cancel" value="{% trans 'Cancel' %}"/>
+                    <input type="submit" class="btn btn-authorize authorize" name="allow" value="{% trans 'Authorize' %}" id="authorize"/>
+                </div>
+            </form>
+
+            <script>
+                document.getElementById('authorize').click();
+            </script>
+
+        {% else %}
+            <h2>Error: {{ error.error }}</h2>
+            <p>{{ error.description }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

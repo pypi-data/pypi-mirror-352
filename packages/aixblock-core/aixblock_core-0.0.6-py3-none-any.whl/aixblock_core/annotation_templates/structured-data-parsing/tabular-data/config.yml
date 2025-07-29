@@ -1,0 +1,28 @@
+title: Tabular Data
+type: community
+group: Structured Data Parsing
+image: /static/templates/tabular-data.png
+details: <h1>Annotate data in tables</h1>
+config: |
+  <View>
+    <Header value="Table with {key: value} pairs"/>
+    <Table name="table" value="$item"/>
+    <Choices name="choice" toName="table">
+        <Choice value="Correct"/>
+        <Choice value="Incorrect"/>
+    </Choices>
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "item": {
+          "Card number": 18799210,
+          "First name": "Max",
+          "Last name": "Nobel"
+        }
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: structured_data_parsing

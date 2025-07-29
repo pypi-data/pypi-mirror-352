@@ -1,0 +1,60 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build and push Docker image to Docker Hub from Git repository</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>GIT_URL</name>
+          <description>URL of the Git repository</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>IMAGE_NAME</name>
+          <description>Name of the Docker image</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>IMAGE_VERSION</name>
+          <description>Version of the Docker image</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <org.jenkinsci.plugins.docker.commons.credentials.DockerServerEndpointCredentialBinding>
+      <credentialsId>jenkins-platform-wowai </credentialsId>
+    </org.jenkinsci.plugins.docker.commons.credentials.DockerServerEndpointCredentialBinding>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>${GIT_URL}</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/main</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+  </scm>
+  <assignedNode>jenkins-linux</assignedNode>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>
+        docker build -t ${IMAGE_NAME}:${IMAGE_VERSION} .
+      </command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>
+        docker push ${IMAGE_NAME}:${IMAGE_VERSION}
+      </command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>
+        docker system prune --all --force
+      </command>
+    </hudson.tasks.Shell>
+  </builders>
+</project>

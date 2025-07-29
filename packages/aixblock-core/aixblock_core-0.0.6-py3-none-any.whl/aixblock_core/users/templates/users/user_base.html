@@ -1,0 +1,31 @@
+{% extends 'simple.html' %}
+{% load i18n %}
+{% load static %}
+{% load filters %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ settings.HOSTNAME }}{% static 'css/login.css' %}"/>
+<link href="{{settings.HOSTNAME}}{% static 'css/app.beta.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<div class="layout layout--navbar">
+  <div class="top-navbar-wrapper" id="top-navbar-wrapper">
+      <div class="top-navbar top-navbar--icon-only">
+          <div class="top-navbar__left">
+              <a class="top-navbar__logo" href="https://beta.wow-ai.io">
+                  <img src="https://beta.wow-ai.io/images/logo5.png" alt="Worldwide AI Hackathon Logo"/>
+              </a>
+          </div>
+          <div class="top-navbar__right"></div>
+      </div>
+  </div>
+  <div class="content-center login">
+      
+          {% block user_content %}
+          {% endblock %}
+         
+      </div>
+  </div>
+</div>
+{% endblock %}
