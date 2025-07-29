@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: pycerberus
+Version: 0.7.1
+Summary: Highly flexible input validation library
+Home-page: https://github.com/FelixSchwarz/pycerberus
+Author: Felix Schwarz
+Author-email: felix.schwarz@oss.schwarz.eu
+License: MIT
+Project-URL: Source Code, https://github.com/FelixSchwarz/pycerberus
+Project-URL: Bug Tracker, https://github.com/FelixSchwarz/pycerberus/issues
+Project-URL: Documentation, https://pycerberus.readthedocs.io
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: six
+Requires-Dist: importlib-resources ; python_version < "3.9"
+Provides-Extra: i18n
+Requires-Dist: Babel (>=0.9.5) ; extra == 'i18n'
+Provides-Extra: testing
+Requires-Dist: Babel (>=0.9.5) ; extra == 'testing'
+Requires-Dist: PythonicTestcase (>=1.1.0) ; extra == 'testing'
+Requires-Dist: pytest ; extra == 'testing'
+
+pycerberus is a framework to check user data thoroughly so that you can protect
+your application from malicious (or just garbled) input data.
+
+* Remove stupid code which converts input values: After values are validated, you 
+  can work with real Python types instead of strings - e.g. 42 instead of '42', 
+  convert database IDs to model objects transparently.
+* Implement custom validation rules: Writing custom validators is 
+  straightforward and most things are well documented.
+* Focus on your value-adding application code: Save time by implementing every 
+  input validation rule only once, but 100% right instead of implementing a 
+  dozen different half-baked solutions.
+* Ready for global business: i18n support (based on GNU gettext) is built in, 
+  adding custom translations is easy.
+* Tune it for your needs: You can implement custom behavior in your validators,
+  e.g. fetch translations from a database instead of using gettext or define
+  custom translations for built-in validators.
+* Use it wherever you like: pycerberus is used in a SMTP server as well as
+  traditional web applications. It also helps improving OCR results as part of
+  custom OCR pipeline - there are no dependencies on a specific context
+  like web development.
+
+
+
