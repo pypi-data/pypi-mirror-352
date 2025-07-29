@@ -1,0 +1,112 @@
+# cardspy
+
+A Python library for modeling and manipulating playing cards, decks, suits, and ranks. Provides utilities for games, simulations, and card-based logic.
+
+## Features
+- Full 52-card deck modeling
+- Card, Suit, and Rank objects with rich properties
+- Deck operations: shuffle, deal, add/remove cards, reset, clear
+- Bitmask utilities for efficient card set operations
+- 100% test coverage
+
+## Installation
+```bash
+pip install cardspy
+```
+
+## Quick Start
+```python
+from cardspy.deck import Deck
+from cardspy.card import Card, C2C, C3D, sort_cards, cards_mask, extract_cards, rank_mask_from_cards
+from cardspy.suit import CLUB, DIAMOND, HEART, SPADE
+from cardspy.rank import R2, R3, R4, R5, R6, R7, R8, R9, RT, RJ, RQ, RK, RA
+
+# Create a new deck
+deck = Deck()
+print(f"Deck has {deck.count()} cards")  # 52
+
+# Shuffle and deal 5 cards
+deck.shuffle()
+cards_mask_val = deck.deal_cards(5)  # Bitmask of 5 cards
+dealt_cards = extract_cards(cards_mask_val)
+print("Dealt:", [str(card) for card in dealt_cards])
+
+# Remove a card
+deck.remove_card(C2C.key)
+print(deck.contains(C2C.key))  # False
+
+# Add a card back
+deck.add_card(C2C.key)
+print(deck.contains(C2C.key))  # True
+
+# Sort cards
+sorted_cards = sort_cards(dealt_cards)
+print("Sorted:", [str(card) for card in sorted_cards])
+
+# Bitmask utilities
+mask = cards_mask([C2C, C3D])
+print(mask)
+print(extract_cards(mask))
+print(rank_mask_from_cards(mask))
+```
+
+## API Reference
+
+### Card
+- `Card(key, rank, suit, code, name, symbol)`
+- Predefined constants: `C2C`, `C2D`, ..., `CAS` (all 52 cards)
+- Methods: `__str__()`, `__repr__()`
+
+### Suit
+- `Suit(key, code, name, symbol)`
+- Predefined: `CLUB`, `DIAMOND`, `HEART`, `SPADE`
+
+### Rank
+- `Rank(key, code, name)`
+- Predefined: `R2`, `R3`, ..., `RA`
+
+### Deck
+- `Deck()` — creates a new deck (full 52 cards)
+- `deck.shuffle()` — shuffle deck
+- `deck.clear()` — remove all cards
+- `deck.reset()` — restore to full deck
+- `deck.count()` — number of cards
+- `deck.get_cards()` — list of `Card` objects in deck
+- `deck.add_card(card_key)` — add a card by key
+- `deck.add_cards(cards_key)` — add multiple cards by bitmask
+- `deck.remove_card(card_key)` — remove a card by key
+- `deck.remove_cards(cards_key)` — remove multiple cards by bitmask
+- `deck.deal_cards(count, shuffle=True)` — deal N cards, returns bitmask
+- `deck.deal_specific_card(card_key)` — deal a specific card
+- `deck.deal_specific_cards(cards_key)` — deal specific cards by bitmask
+- `deck.contains(card_key)` — check if card is present
+
+### Utility Functions (in cardspy.card)
+- `sort_cards(cards)` — sort by rank
+- `cards_mask(cards)` — get bitmask from list of cards
+- `extract_cards(mask)` — get list of cards from bitmask
+- `extract_cards_key(mask)` — get list of card keys from bitmask
+- `rank_mask_from_cards(mask)` — get rank bitmask from card bitmask
+
+## Example: Poker Hand Evaluation
+```python
+from cardspy.card import C2C, C3C, C4C, C5C, C6C, cards_mask, extract_cards
+
+# Create a straight flush
+hand = [C2C, C3C, C4C, C5C, C6C]
+mask = cards_mask(hand)
+print("Hand mask:", mask)
+print("Extracted:", extract_cards(mask))
+```
+
+## Testing
+To run the tests and check coverage:
+```bash
+pytest --cov=cardspy --cov-report=term-missing
+```
+
+## License
+MIT
+
+---
+For more details, see the source code and tests in the `cardspy` and `tests` directories.
