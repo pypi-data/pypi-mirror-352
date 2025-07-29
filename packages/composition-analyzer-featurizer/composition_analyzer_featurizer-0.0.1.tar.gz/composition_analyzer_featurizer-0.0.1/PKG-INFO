@@ -1,0 +1,35 @@
+Metadata-Version: 2.4
+Name: composition-analyzer-featurizer
+Version: 0.0.1
+Summary: Python package for generating compositional features for binary, ternary, and quaternary formulas with Oliynyk elemental properties.
+Author-email: Sangjoon Lee <bobleesj@gmail.com>
+Maintainer-email: Sangjoon Lee <bobleesj@gmail.com>
+Project-URL: Homepage, https://github.com/bobleesj/composition-analyzer-featurizer/
+Project-URL: Issues, https://github.com/bobleesj/composition-analyzer-featurizer/issues/
+Keywords: inorganics,materials-infomatics,materials-chemistry,machine-learning,composition,chemical-formula
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Chemistry
+Requires-Python: <3.14,>=3.11
+Description-Content-Type: text/x-rst
+License-File: LICENSE.rst
+License-File: AUTHORS.rst
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: pandas
+Requires-Dist: bobleesj.utils
+Requires-Dist: openpyxl
+Requires-Dist: click
+Requires-Dist: cifkit
+Dynamic: license-file
