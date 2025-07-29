@@ -1,0 +1,60 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pymdea"
+version = "0.4.0"
+description = "Modified diffusion entropy analysis; a temporal complexity analysis method"
+authors = [
+  {name = "Garland Culbreth", email = "culbreth.garland@gmail.com"},
+  {name = "Jacob Baxley"},
+  {name = "David Lambert"},
+]
+maintainers = [
+  {name = "Garland Culbreth", email = "culbreth.garland@gmail.com"},
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.11"
+dependencies = [
+    "logging>=0.4.9.6",
+    "typing>=3.10.0.0",
+    "pathlib>=1.0.1",
+    "pytest>=8.3.2",
+    "numpy>=1.19.0",
+    "stochastic>=0.6.0",
+    "polars>=1.5.0",
+    "matplotlib>=3.9.2",
+    "seaborn>=0.13.2",
+    "scipy>=1.14.1",
+    "ipykernel>=6.29.5",
+    "mkdocs-material>=9.5.33",
+    "mkdocstrings[python]>=0.25.2",
+    "pandas>2.2.2",
+    "rich>=13.9.4",
+    "ipywidgets>=8.1.5",
+    "pre-commit>=4.1.0",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+[project.urls]
+Documentation = "https://garland-culbreth.github.io/pymdea"
+Repository = "https://github.com/garland-culbreth/pymdea"
+Issues = "https://github.com/garland-culbreth/pymdea/issues"
+
+[tool.ruff.lint]
+select = ["ALL"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["D104"]
+"tests/*.py" = ["S101"]
