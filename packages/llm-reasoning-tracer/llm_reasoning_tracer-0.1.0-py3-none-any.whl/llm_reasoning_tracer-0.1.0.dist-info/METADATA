@@ -1,0 +1,108 @@
+Metadata-Version: 2.4
+Name: llm_reasoning_tracer
+Version: 0.1.0
+Summary: Trace and explain LangChain agent reasoning step-by-step
+Home-page: https://github.com/nisaharan/llm_reasoning_tracer
+Author: Nisaharan Genhatharan
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: langchain
+Requires-Dist: streamlit
+Requires-Dist: openai
+Requires-Dist: faiss-cpu
+Requires-Dist: tiktoken
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# LLM Reasoning Tracer
+
+A modular tracing and explainability toolkit for LangChain agents. Capture step-by-step tool usage, visualize the reasoning process, and analyze how your agent chains behave.
+
+## Features
+- Traces agent steps (inputs, tool used, outputs)
+- Visualizes tool usage and outcomes
+- Includes dashboards for Streamlit and Matplotlib
+- Supports RAG, search chains, math pipelines, and multi-tool agents
+
+## Installation
+```bash
+pip install .
+```
+
+## Setup
+Create a `.env` file:
+```env
+OPENAI_API_KEY=your-key-here
+```
+
+## Trace Examples
+Run one of the provided pipelines:
+```bash
+python examples/use_with_langchain_agent.py
+python examples/math_chain_example.py
+python examples/multi_agent_chain_example.py
+python examples/rag_pipeline_example.py
+```
+
+## Create RAG DB
+```bash
+python examples/create_db.py
+```
+It loads `data/solar_energy_notes.txt` and builds `db/` for retrieval.
+
+## View Your Trace
+1. Streamlit Dashboard
+```bash
+streamlit run examples/streamlit_viewer.py
+```
+
+2. Timeline Plot (if added)
+```bash
+python examples/visualize_trace.py
+```
+
+## Output Example (trace_math.json)
+```json
+{
+  "step_1": {
+    "input": "What's 15% tip for $80 dinner, and add it to the bill?",
+    "tool_used": "Tip Calculator",
+    "output": "Tip is $12.0"
+  },
+  "step_2": {
+    "input": "Add 80 + 12.0",
+    "tool_used": "Total Calculator",
+    "output": "The total bill including tip is $92.0"
+  }
+}
+```
+
+## Structure
+- `cognitive_tracer/` â€” the Python module
+- `examples/` â€” usage scripts
+- `traces/` â€” generated trace files
+- `data/` â€” text input for vector DB
+
+## Dependencies
+```
+langchain
+langchain-openai
+langchain-community
+openai
+streamlit
+matplotlib
+python-dotenv
+```
+
+## License
+MIT Â© Nisaharan Genhatharan
