@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gcloud-account-changer"
+version = "0.1"
+description = "Google Cloud CLI Account & Project Selector"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    {name = "Lee Ji-Ho", email = "search5@gmail.com"}
+]
+license = {file = "BSD"}
+keywords = ["gcp", "gcloud"]
+classifiers = [
+    "Programming Language :: Python",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Build Tools"
+]
+dependencies = [
+    "urwid"
+]
+
+[project.urls]
+Homepage = "https://github.com/search5/gcloud-account-changer"
+
+[project.scripts]
+gcloud-account-changer = "gcloud_changer.gcloud_set_account:program_run"
+
+[tool.setuptools.packages.find]
+exclude = ["tests"]
+
+[tool.setuptools]
+include-package-data = true
+zip-safe = false
