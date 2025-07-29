@@ -1,0 +1,46 @@
+package_name: "loan_approval_model"
+training_data_file: "train.csv"
+test_data_file: "test.csv"
+pipeline_save_file: "naive_bayes_loan_model_v"
+ordinal_encoder_file: "ordinal_encoder.pkl"
+label_encoder_file: "label_encoder.pkl"
+
+target: "Loan_Status"
+features:
+  - "Gender"
+  - "Married"
+  - "Education"
+  - "Self_Employed"
+  - "Property_Area"
+  - "ApplicantIncome"
+  - "CoapplicantIncome"
+  - "LoanAmount"
+  - "Loan_Amount_Term"
+  - "Credit_History"
+variables_to_drop:
+  - "Loan_ID"
+  - "Dependents"
+categorical_vars:
+  - "Gender"
+  - "Married"
+  - "Education"
+  - "Self_Employed"
+  - "Property_Area"
+numerical_vars:
+  - "ApplicantIncome"
+  - "CoapplicantIncome"
+  - "LoanAmount"
+  - "Loan_Amount_Term"
+  - "Credit_History"
+categorical_vars_with_na:
+  - "Gender"
+  - "Married"
+  - "Self_Employed"
+numerical_vars_with_na:
+  - "LoanAmount"
+  - "Loan_Amount_Term"
+  - "Credit_History"
+test_size: 0.2
+random_state: 42
+model_type: "GaussianNB"
+alpha: 1.0
