@@ -1,0 +1,48 @@
+name: Running Tests
+permissions: {}
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  pre_commit:
+    name: 🧹 Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: 🏃 Run Pre-commit
+        uses: tox-dev/action-pre-commit-uv@v1
+
+  tests:
+    name: 🧪 Tests
+    needs: [ pre_commit ]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+
+    steps:
+    - name: 🛎️ Checkout
+      uses: actions/checkout@v4
+      with:
+          persist-credentials: false
+
+    - name: 🧰 Install uv
+      uses: astral-sh/setup-uv@v3
+
+    - name: 🐍 Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: 🧪 Run tests with tox
+      run: uvx --with tox-gh-actions --with "tox-uv>=1" tox run
