@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "language": "zh-TW",
+    "displayName": "繁體中文",
+    "author": "Minidoracat",
+    "version": "1.0.0",
+    "lastUpdate": "2025-01-31"
+  },
+  "app": {
+    "title": "互動式回饋收集",
+    "projectDirectory": "專案目錄",
+    "language": "語言",
+    "settings": "設定"
+  },
+  "tabs": {
+    "feedback": "💬 回饋",
+    "command": "⚡ 命令",
+    "images": "🖼️ 圖片"
+  },
+  "feedback": {
+    "title": "您的回饋",
+    "description": "請描述您對 AI 工作結果的想法、建議或需要修改的地方。",
+    "placeholder": "請在這裡輸入您的回饋、建議或問題...\n\n💡 小提示：\n• 按 Ctrl+Enter（支援數字鍵盤）可快速提交回饋\n• 按 Ctrl+V 可直接貼上剪貼簿圖片"
+  },
+  "command": {
+    "title": "命令執行",
+    "description": "您可以執行命令來驗證結果或收集更多資訊。",
+    "placeholder": "輸入要執行的命令...",
+    "output": "命令輸出"
+  },
+  "images": {
+    "title": "🖼️ 圖片附件（可選）",
+    "select": "選擇文件",
+    "paste": "剪貼板",
+    "clear": "清除",
+    "status": "已選擇 {count} 張圖片",
+    "statusWithSize": "已選擇 {count} 張圖片 (總計 {size})",
+    "dragHint": "🎯 拖拽圖片到這裡 或 按 Ctrl+V 貼上剪貼簿圖片 (PNG、JPG、JPEG、GIF、BMP、WebP)",
+    "deleteConfirm": "確定要移除圖片 \"{filename}\" 嗎？",
+    "deleteTitle": "確認刪除",
+    "sizeWarning": "圖片文件大小不能超過 1MB",
+    "formatError": "不支援的圖片格式",
+    "paste_images": "📋 從剪貼簿貼上",
+    "paste_failed": "貼上失敗，剪貼簿中沒有圖片",
+    "paste_no_image": "剪貼簿中沒有圖片可貼上",
+    "paste_image_from_textarea": "已將圖片從文字框智能貼到圖片區域",
+    "images_clear": "清除所有圖片"
+  },
+  "buttons": {
+    "submit": "提交回饋",
+    "cancel": "取消",
+    "close": "關閉",
+    "clear": "清除",
+    "submitFeedback": "✅ 提交回饋",
+    "selectFiles": "📁 選擇文件",
+    "pasteClipboard": "📋 剪貼板",
+    "clearAll": "✕ 清除",
+    "runCommand": "▶️ 執行"
+  },
+  "status": {
+    "feedbackSubmitted": "回饋已成功提交！",
+    "feedbackCancelled": "已取消回饋。",
+    "timeoutMessage": "等待回饋超時",
+    "errorOccurred": "發生錯誤",
+    "loading": "載入中...",
+    "connecting": "連接中...",
+    "connected": "已連接",
+    "disconnected": "連接中斷",
+    "uploading": "上傳中...",
+    "uploadSuccess": "上傳成功",
+    "uploadFailed": "上傳失敗",
+    "commandRunning": "命令執行中...",
+    "commandFinished": "命令執行完成",
+    "pasteSuccess": "已從剪貼板貼上圖片",
+    "pasteFailed": "無法從剪貼板獲取圖片",
+    "invalidFileType": "不支援的文件類型",
+    "fileTooLarge": "文件過大（最大 1MB）"
+  },
+  "aiSummary": "AI 工作摘要",
+  "languageSelector": "🌐 語言選擇",
+  "languageNames": {
+    "zhTw": "繁體中文",
+    "en": "English",
+    "zhCn": "简体中文"
+  },
+  "test": {
+    "qtGuiSummary": "🎯 圖片預覽和視窗調整測試\n\n這是一個測試會話，用於驗證以下功能：\n\n✅ 功能測試項目：\n1. 圖片上傳和預覽功能\n2. 圖片右上角X刪除按鈕\n3. 視窗自由調整大小\n4. 分割器的靈活調整\n5. 各區域的動態佈局\n6. 智能 Ctrl+V 圖片貼上功能\n\n📋 測試步驟：\n1. 嘗試上傳一些圖片（拖拽、文件選擇、剪貼板）\n2. 檢查圖片預覽是否正常顯示\n3. 點擊圖片右上角的X按鈕刪除圖片\n4. 嘗試調整視窗大小，檢查是否可以自由調整\n5. 拖動分割器調整各區域大小\n6. 在文字框內按 Ctrl+V 測試智能貼上功能\n7. 提供任何回饋或發現的問題\n\n請測試這些功能並提供回饋！",
+    "webUiSummary": "測試 Web UI 功能\n\n🎯 **功能測試項目：**\n- Web UI 服務器啟動和運行\n- WebSocket 即時通訊\n- 回饋提交功能\n- 圖片上傳和預覽\n- 命令執行功能\n- 智能 Ctrl+V 圖片貼上\n- 多語言介面切換\n\n📋 **測試步驟：**\n1. 測試圖片上傳（拖拽、選擇檔案、剪貼簿）\n2. 在文字框內按 Ctrl+V 測試智能貼上\n3. 嘗試切換語言（繁中/簡中/英文）\n4. 測試命令執行功能\n5. 提交回饋和圖片\n\n請測試這些功能並提供回饋！"
+  }
+} 
