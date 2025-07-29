@@ -1,0 +1,17 @@
+eo4eu_base_utils>=0.4.6
+
+[docs]
+eo4eu_data_utils[full]
+sphinx==8.2.3
+sphinx-rtd-theme==3.0.2
+
+[full]
+eo4eu_data_utils[s3]
+
+[s3]
+
+[s3:python_version <= "3.11"]
+boto3~=1.26.137
+
+[s3:python_version >= "3.12"]
+boto3<=1.38.8,>=1.26.137
