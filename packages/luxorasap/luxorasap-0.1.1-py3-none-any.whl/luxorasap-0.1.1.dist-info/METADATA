@@ -1,0 +1,80 @@
+Metadata-Version: 2.4
+Name: luxorasap
+Version: 0.1.1
+Summary: Luxor’s unified toolbox for data ingestion, querying and analytics.
+Author-email: Luxor Group <backoffice@luxor.com.br>
+License: Proprietary – All rights reserved
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: pandas>=2.2
+Requires-Dist: numpy>=1.25
+Requires-Dist: loguru>=0.7
+Requires-Dist: python-dotenv>=1.0
+Requires-Dist: azure-storage-blob>=12.19
+Requires-Dist: pyarrow>=15.0
+Requires-Dist: requests>=2.32
+Requires-Dist: pydantic>=2.7
+Requires-Dist: scipy>=1.13
+Requires-Dist: openpyxl
+Provides-Extra: storage
+Requires-Dist: azure-storage-blob>=12.19; extra == "storage"
+Requires-Dist: pyarrow>=15.0; extra == "storage"
+Provides-Extra: dataframe
+Requires-Dist: pandas>=2.2; extra == "dataframe"
+Provides-Extra: datareader
+Requires-Dist: luxorasap[dataframe,storage]; extra == "datareader"
+Requires-Dist: numpy>=1.25; extra == "datareader"
+Requires-Dist: scipy>=1.13; extra == "datareader"
+Provides-Extra: ingest
+Requires-Dist: luxorasap[dataframe,storage]; extra == "ingest"
+Requires-Dist: pandas>=2.2; extra == "ingest"
+Provides-Extra: btgapi
+Requires-Dist: requests>=2.32; extra == "btgapi"
+Requires-Dist: pydantic>=2.7; extra == "btgapi"
+Provides-Extra: dev
+Requires-Dist: pytest>=8.2; extra == "dev"
+Requires-Dist: requests-mock>=1.11; extra == "dev"
+Requires-Dist: black>=24.4.0; extra == "dev"
+Requires-Dist: isort>=5.13; extra == "dev"
+Requires-Dist: bumpver>=2024.3; extra == "dev"
+Requires-Dist: pre-commit>=3.7; extra == "dev"
+Requires-Dist: build>=1.2; extra == "dev"
+
+# LuxorASAP
+
+**LuxorASAP** é o pacote-guarda-chuva que concentra as ferramentas internas de dados da Luxor Group:  
+consulta estruturada ao data lake, cargas padronizadas para ADLS, wrappers de API, utilitários e muito mais.
+
+[![PyPI](https://img.shields.io/pypi/v/luxorasap.svg)](https://pypi.org/project/luxorasap/)
+![Python](https://img.shields.io/pypi/pyversions/luxorasap)
+
+---
+
+## Instalação
+
+```bash
+# pacote base
+pip install luxorasap
+
+# com o submódulo datareader
+pip install "luxorasap[datareader]"
+```
+## Uso rápido
+```python
+from luxorasap.datareader import LuxorQuery
+
+lq = LuxorQuery(blob_directory="enriched/parquet")
+prices = lq.get_prices("aapl us equity", "2024-01-01", "2024-12-31")
+print(prices.head())
+```
+## Submódulos
+| Módulo                 | Descrição rápida                         | Extras                                |
+| ---------------------- | ---------------------------------------- | ------------------------------------- |
+| `luxorasap.datareader` | Leitura de tabelas e séries no data lake | `pip install "luxorasap[datareader]"` |
+| `luxorasap.ingest`     | Funções de carga padronizada para ADLS   | `"luxorasap[ingest]"`                 |
+| `luxorasap.btgapi`     | Wrapper REST para dados BTG              | `"luxorasap[btgapi]"`                 |
+
+© Luxor Group – uso interno. Todos os direitos reservados.
