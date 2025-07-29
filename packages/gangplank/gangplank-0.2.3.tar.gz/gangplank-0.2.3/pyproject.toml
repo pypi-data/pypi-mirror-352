@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+[project]
+name = "gangplank"
+version = "0.2.3"
+authors = [
+  { name="Carl Meijer", email="hammingweight@gmail.com" },
+]
+description = "Prometheus metrics collectors for Keras"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+dependencies = [
+  "keras",
+  "prometheus_client",
+]
+[project.optional-dependencies]
+tensorflow = ["tensorflow"]
+jax = ["jax"]
+torch = ["torch"]
+
+[project.urls]
+Homepage = "https://github.com/hammingweight/gangplank"
+Issues = "https://github.com/hammingweight/gangplank/issues"
+
+[tool.hatch.build]
+exclude = [
+  "/examples",
+  "/tests",
+]
