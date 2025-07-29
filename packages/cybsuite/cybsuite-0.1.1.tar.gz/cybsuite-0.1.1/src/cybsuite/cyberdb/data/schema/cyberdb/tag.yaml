@@ -1,0 +1,16 @@
+description: "Custom labels for data organization"
+pretty_id_fields: "name"
+order: 10
+tags: knowledgebase
+fields:
+  name:
+    type: str
+    in_filter_query: true
+    unique: true
+    repr: true
+    max_length: 200
+    description: "Unique tag identifier"
+  description:
+    type: str
+    description: "Tag purpose and usage"
+    default: null
