@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>7. Autotesting Transcrypt code &#8212; Transcrypt 3.9.4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="8. The philosophy behind Transcrypt and its impact on design decisions" href="philosophy_directions.html" />
+    <link rel="prev" title="5. Seamless interoperation with the DOM" href="integration_javascript.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="philosophy_directions.html" title="8. The philosophy behind Transcrypt and its impact on design decisions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="integration_javascript.html" title="5. Seamless interoperation with the DOM"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Transcrypt 3.9.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7. </span>Autotesting Transcrypt code</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="autotesting-transcrypt-code">
+<h1><span class="section-number">7. </span>Autotesting Transcrypt code<a class="headerlink" href="#autotesting-transcrypt-code" title="Permalink to this headline">¶</a></h1>
+<section id="why-it-s-needed">
+<h2><span class="section-number">7.1. </span>Why it’s needed<a class="headerlink" href="#why-it-s-needed" title="Permalink to this headline">¶</a></h2>
+<p>A powerful autotest facility was added to Transcrypt right from the start for the following reasons:</p>
+<ol class="arabic simple">
+<li><p>Any programming language compiler has to be reliable, since a large investment in code may come to depend upon it. Languages and libraries should be able to evolve without regression bugs being introduced. In a rich language many constructs are possible which all should be tested with each new release. This can only be done if testing is automated.</p></li>
+<li><p>Since Transcrypt compiles not all of Python but a fairly extensive subset, it has to be rigorously clear what can be compiled and what not. The sourcecode of a set of automated tests can be an effective means of laying down what is possible in the language. Whereas code examples and documents may lag back or deviate from reality, test code has to cover the essential features of the language and is, by nature, constantly exercised to match the latest status of the language.</p></li>
+</ol>
+</section>
+<section id="how-it-works">
+<h2><span class="section-number">7.2. </span>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<p>When code is being tested, a reference is needed of what is considered to be correct. With Transcrypt that reference is CPython. Autotesting Transcrypt code is simple and boils down to the following.</p>
+<ol class="arabic simple">
+<li><p>Along with developing production code, a growing set of <em>testlets</em> is developed. A testlet is a small module testing a certain feature or group of features. It repeatedly calls method <em>org.transcrypt.autotester.AutoTester.check (self, *args)</em> to build a well defined sequence of output data.</p></li>
+<li><p>A series of testlets are imported into an application called an <em>autotest</em>.</p></li>
+<li><p>The autotest is first run from the command line: <em>python transcrypt -r autotest</em>. This will generate file <em>autotest.html</em> in the working directory, containing the <em>reference data sequence</em> produced by CPython, in an HTML DIV.</p></li>
+<li><p>After that, the autotest is compiled to JavaScript: <em>python transcrypt -b autotest</em>. This will generate file <em>autotest.js</em> in the corresponding target directory. Note that you may need extra command line switches to activate options needed for your testcode, e.g. -c if you use complex numbers or -da if you use assertions.</p></li>
+<li><p>Click on <em>autotest.html</em> to load the autotest into the browser and run <em>autotest.js</em>. This will generate the <em>test data sequence</em>, now using the Transcrypt runtime.</p></li>
+<li><p>After this, the test data sequence is automatically compared to the reference data sequence that was part of the html, and an error report is shown in the browser.</p></li>
+</ol>
+<p>An example of two testlets combined into the ‘hello’ autotest, that is part of the distribution:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">autotest.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.transcrypt.autotester</span>
+
+<span class="kn">import</span> <span class="nn">testlet0</span>
+<span class="kn">import</span> <span class="nn">testlet1</span>
+
+<span class="n">autoTester</span> <span class="o">=</span> <span class="n">org</span><span class="o">.</span><span class="n">transcrypt</span><span class="o">.</span><span class="n">autotester</span><span class="o">.</span><span class="n">AutoTester</span> <span class="p">()</span>
+
+<span class="n">autoTester</span><span class="o">.</span><span class="n">run</span> <span class="p">(</span><span class="n">testlet0</span><span class="p">,</span> <span class="s1">&#39;testlet0&#39;</span><span class="p">)</span>
+<span class="n">autoTester</span><span class="o">.</span><span class="n">run</span> <span class="p">(</span><span class="n">testlet1</span><span class="p">,</span> <span class="s1">&#39;testlet1&#39;</span><span class="p">)</span>
+
+<span class="n">autoTester</span><span class="o">.</span><span class="n">done</span> <span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</td>
+<td><div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">testlet0.py</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run</span> <span class="p">(</span><span class="n">autoTester</span><span class="p">):</span>
+    <span class="n">autoTester</span><span class="o">.</span><span class="n">check</span> <span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+    <span class="n">autoTester</span><span class="o">.</span><span class="n">check</span> <span class="p">(</span><span class="s1">&#39;world&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</td>
+<td><div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">testlet1.py</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run</span> <span class="p">(</span><span class="n">autoTester</span><span class="p">):</span>
+    <span class="n">autoTester</span><span class="o">.</span><span class="n">check</span> <span class="p">(</span><span class="s1">&#39;goodbye&#39;</span><span class="p">)</span>
+    <span class="n">autoTester</span><span class="o">.</span><span class="n">check</span> <span class="p">(</span><span class="s1">&#39;moon&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Steps to run the tests:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>transcrypt<span class="w"> </span>-r<span class="w"> </span>autotest
+transcrypt<span class="w"> </span>-b<span class="w"> </span>autotest
+</pre></div>
+</div>
+<p>At this point, if you start a webserver and load <em>autotest.html</em> in your browser from localhost, you will see that all tests passed. In order to trigger an error, open <em>testlet1.py</em>, search for <em>goodbye</em> and replace it with <em>badbye</em>. After that, recompile with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>transcrypt<span class="w"> </span>-b<span class="w"> </span>autotest
+</pre></div>
+</div>
+<p>Once again open <em>autotest.html</em> in your browser, it will show:</p>
+<figure class="align-default">
+<img alt="Output of 'hello autotest'" src="_images/autotest_hello.png" />
+</figure>
+<p>Some testlets may require additional switches. The main <em>transcrypt</em> autotest e.g. requires and extra <em>-c -da</em>, since it uses both complex numbers and debugging assertions.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_sphinx.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Subjects</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">7. Autotesting Transcrypt code</a><ul>
+<li><a class="reference internal" href="#why-it-s-needed">7.1. Why it’s needed</a></li>
+<li><a class="reference internal" href="#how-it-works">7.2. How it works</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="integration_javascript.html"
+                        title="previous chapter"><span class="section-number">5. </span>Seamless interoperation with the DOM</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="philosophy_directions.html"
+                        title="next chapter"><span class="section-number">8. </span>The philosophy behind Transcrypt and its impact on design decisions</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/autotesting_transcrypt.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="philosophy_directions.html" title="8. The philosophy behind Transcrypt and its impact on design decisions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="integration_javascript.html" title="5. Seamless interoperation with the DOM"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Transcrypt 3.9.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7. </span>Autotesting Transcrypt code</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2014-2024, Jacques de Hooge.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

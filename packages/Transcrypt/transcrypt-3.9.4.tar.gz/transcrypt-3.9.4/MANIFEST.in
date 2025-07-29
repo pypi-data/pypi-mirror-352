@@ -1,0 +1,20 @@
+global-include *.py *.js *.rst *.html *.css *.lyx *.pdf *.png *.gif *.jpg *.txt *.jar *.bat *
+global-exclude *.pyc .gitignore workspace.*
+
+prune .git
+prune .github
+prune .idea
+prune .mypy_cache
+prune build
+prune dist
+prune Transcrypt.egg-info
+prune venv
+
+
+prune transcrypt/development/attic
+prune transcrypt/development/docs
+prune transcrypt/development/experiments
+
+exclude requirements0.txt
+prune venvOLD
+prune zzz_sort
