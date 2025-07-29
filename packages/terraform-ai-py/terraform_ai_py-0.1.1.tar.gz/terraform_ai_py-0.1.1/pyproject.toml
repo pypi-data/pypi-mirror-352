@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "terraform-ai-py"
+version = "0.1.1"
+description = "AI-enhanced CLI tool for Terraform insights"
+authors = [{ name = "Emerson Silva", email = "araujo.emerson28@gmail.com" }]
+readme = "README.md"
+license = "MIT"                # <— string SPDX, sem tabela
+requires-python = ">=3.8"
+dependencies = [
+    "openai",
+    "requests",
+    "python-dotenv"
+]
+
+[project.scripts]
+terraform-ai = "terraform_ai_py.cli:run_cli"
+
+[tool.setuptools]
+packages = ["terraform_ai_py"] 
