@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: netkeiber
+Version: 1.0.51
+Summary: netkeiba Package
+Home-page: https://github.com/kaioman/netkeiber.git
+Author: Unchain Works
+Author-email: kajin0318@gmail.com
+License: BSD-3-Clause
+Keywords: netkeiber
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Database
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+
+# netkeiber
+
+Collect data from netkeiba.com
+
+## chromeバージョン確認
+
+>google-chrome --version
+
+## webDriverパーミッション変更
+
+>sudo chmod 755 webDriver/chrome/linux/chromedriver
+
+## chromeバージョンアップ
+
+>sudo apt update
+>sudo apt upgrade
+
+以下のエラーが発生する場合
+The following signatures couldn't be verified because the public key is not available: NO_PUBKEY [キー]
+
+## aptのkeyマネージャーに登録
+
+>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys [キー]
+
+32EE5355A6BC6E42
