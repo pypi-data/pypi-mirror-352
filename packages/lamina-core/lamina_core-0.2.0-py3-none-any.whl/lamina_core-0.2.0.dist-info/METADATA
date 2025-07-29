@@ -1,0 +1,168 @@
+Metadata-Version: 2.4
+Name: lamina-core
+Version: 0.2.0
+Summary: Breath-first framework for building presence-aware AI agent systems
+Project-URL: Homepage, https://github.com/benaskins/lamina-os
+Project-URL: Documentation, https://github.com/benaskins/lamina-os/blob/main/docs/
+Project-URL: Repository, https://github.com/benaskins/lamina-os
+Project-URL: Issues, https://github.com/benaskins/lamina-os/issues
+Author-email: Ben Askins <human@getlamina.ai>, Lamina High Council <council@getlamina.ai>, Luthier <luthier@getlamina.ai>
+License: MPL-2.0
+License-File: LICENSE
+Keywords: agents,ai,breath-first,coordination,framework,lamina,presence-aware
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Quality Assurance
+Requires-Python: >=3.11
+Requires-Dist: aiohttp>=3.11.0
+Requires-Dist: click>=8.1.7
+Requires-Dist: flask>=3.1.0
+Requires-Dist: httpx>=0.28.0
+Requires-Dist: jinja2>=3.1.6
+Requires-Dist: pydantic>=2.10.0
+Requires-Dist: python-dotenv>=1.0.1
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: requests>=2.32.0
+Requires-Dist: rich>=13.9.0
+Requires-Dist: typer>=0.15.0
+Requires-Dist: werkzeug>=3.1.0
+Provides-Extra: ai-backends
+Requires-Dist: ollama>=0.4.9; extra == 'ai-backends'
+Requires-Dist: sentence-transformers>=3.3.0; extra == 'ai-backends'
+Requires-Dist: torch>=2.5.0; extra == 'ai-backends'
+Requires-Dist: transformers>=4.47.0; extra == 'ai-backends'
+Provides-Extra: all
+Requires-Dist: bandit>=1.8.0; extra == 'all'
+Requires-Dist: black>=24.10.0; extra == 'all'
+Requires-Dist: ipython>=8.30.0; extra == 'all'
+Requires-Dist: isort>=5.13.0; extra == 'all'
+Requires-Dist: jupyter>=1.1.1; extra == 'all'
+Requires-Dist: mypy>=1.13.0; extra == 'all'
+Requires-Dist: ollama>=0.4.9; extra == 'all'
+Requires-Dist: pre-commit>=4.0.0; extra == 'all'
+Requires-Dist: pytest-asyncio>=0.24.0; extra == 'all'
+Requires-Dist: pytest-cov>=6.0.0; extra == 'all'
+Requires-Dist: pytest-mock>=3.14.0; extra == 'all'
+Requires-Dist: pytest>=8.3.0; extra == 'all'
+Requires-Dist: requests>=2.32.0; extra == 'all'
+Requires-Dist: ruff>=0.8.0; extra == 'all'
+Requires-Dist: sentence-transformers>=3.3.0; extra == 'all'
+Requires-Dist: torch>=2.5.0; extra == 'all'
+Requires-Dist: transformers>=4.47.0; extra == 'all'
+Provides-Extra: dev
+Requires-Dist: bandit>=1.8.0; extra == 'dev'
+Requires-Dist: black>=24.10.0; extra == 'dev'
+Requires-Dist: ipython>=8.30.0; extra == 'dev'
+Requires-Dist: isort>=5.13.0; extra == 'dev'
+Requires-Dist: jupyter>=1.1.1; extra == 'dev'
+Requires-Dist: mypy>=1.13.0; extra == 'dev'
+Requires-Dist: pre-commit>=4.0.0; extra == 'dev'
+Requires-Dist: pytest-asyncio>=0.24.0; extra == 'dev'
+Requires-Dist: pytest-cov>=6.0.0; extra == 'dev'
+Requires-Dist: pytest-mock>=3.14.0; extra == 'dev'
+Requires-Dist: pytest>=8.3.0; extra == 'dev'
+Requires-Dist: requests>=2.32.0; extra == 'dev'
+Requires-Dist: ruff>=0.8.0; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# Lamina Core
+
+A breath-first framework for building presence-aware AI agent systems with multi-backend support, intelligent coordination, and breath-aware processing.
+
+## Features
+
+- **Presence-Aware Processing**: Natural rhythm and deliberate pacing in agent responses
+- **Multi-Agent Coordination**: Intelligent routing between specialized agents
+- **Multi-Backend AI Support**: Seamlessly switch between Ollama, HuggingFace, and other AI providers
+- **Breath-First Architecture**: Sustainable, wisdom-focused development patterns
+- **Agent Configuration**: Declarative agent definition with personality traits and expertise areas
+
+## Quick Start
+
+### Installation
+
+```bash
+# Install from PyPI (recommended)
+pip install lamina-core
+
+# Or install with optional AI backend support
+pip install lamina-core[ai-backends]
+
+# For development - clone repository
+git clone https://github.com/benaskins/lamina-os.git
+cd lamina-os/packages/lamina-core
+pip install -e .
+```
+
+### Create Your First Sanctuary
+
+```bash
+# Initialize a new sanctuary
+lamina sanctuary init my-agents
+
+# Navigate to your sanctuary
+cd my-agents
+
+# Create additional agents
+lamina agent create researcher --template=analytical
+
+# Check sanctuary status
+lamina sanctuary status
+```
+
+### Chat with Agents
+
+```bash
+# Interactive chat demo
+lamina chat --demo
+
+# Single message demo
+lamina chat --demo "Hello, can you analyze this data?"
+
+# Test core functionality
+python examples/basic_usage.py
+```
+
+## Architecture
+
+Lamina Core follows a modular architecture:
+
+- **Backends**: Pluggable AI provider integrations
+- **Memory**: Semantic memory system with ChromaDB integration
+- **Infrastructure**: Docker-based service orchestration
+- **Coordination**: Multi-agent communication and routing
+- **Sanctuary**: Agent configuration and deployment system
+
+## Agent Templates
+
+Choose from specialized agent templates:
+
+- **Conversational**: General-purpose chat assistant
+- **Analytical**: Research and data analysis specialist  
+- **Security**: Validation and protection agent
+- **Reasoning**: Logic and problem-solving expert
+
+## Documentation
+
+- [Main Documentation](https://github.com/benaskins/lamina-os/blob/main/README.md)
+- [Getting Started Guide](https://github.com/benaskins/lamina-os/blob/main/docs/getting-started.md)
+- [Architecture Decision Records](https://github.com/benaskins/lamina-os/blob/main/docs/adrs/)
+- [Examples](https://github.com/benaskins/lamina-os/blob/main/examples/)
+- [Contributing Guide](https://github.com/benaskins/lamina-os/blob/main/CONTRIBUTING.md)
+
+## Important Note
+
+When documentation refers to agent "emotions" or "feelings," these describe expressive simulation and architectural patterns, not internal experience. Lamina agents do not possess self-awareness or sentience—all affective behavior results from symbolic processing designed for meaningful interaction.
+
+## License
+
+Mozilla Public License 2.0 - see [LICENSE](https://github.com/benaskins/lamina-os/blob/main/LICENSE) for details.
+
+This software embodies breath-first development principles. You are invited to engage with presence over haste, reflection over extraction, and symbolic integrity over drift.
