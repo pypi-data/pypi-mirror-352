@@ -1,0 +1,28 @@
+[build-system]
+requires = ['setuptools>=61.0']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = "opentldr"
+version = "1.0.0"
+
+authors = [
+  { name="Chris Argenta", email="cargenta@rockfishresearch.com" },
+]
+description = "An open framework for creation of a Tailored Daily Report."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers"
+]
+dependencies = ['python-dotenv>=1.0.0','neo4j>=5.15.0','neomodel>=5.2.1','papermill>=2.5.0','boto3>=1.34.55']
+
+[project.urls]
+Source = "https://github.com/RockfishResearch/OpenTLDR-Core.git"
+Issues = "https://github.com/RockfishResearch/OpenTLDR-Core/issues"
+Documentation = "http://www.opentldr.org/docs"
+Homepage = "http://www.opentldr.org"
