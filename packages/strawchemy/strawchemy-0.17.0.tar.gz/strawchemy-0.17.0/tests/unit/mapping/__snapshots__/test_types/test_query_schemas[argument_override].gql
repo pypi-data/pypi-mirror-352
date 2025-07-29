@@ -1,0 +1,129 @@
+# serializer version: 1
+# name: test_query_schemas[argument_override]
+  '''
+  input ColorAggregateMinMaxStringFieldsOrderBy {
+    name: OrderByEnum = null
+  }
+  
+  input ColorAggregateNumericFieldsOrderBy {
+    name: OrderByEnum = null
+  }
+  
+  input ColorAggregateOrderBy {
+    count: OrderByEnum = null
+    maxString: ColorAggregateMinMaxStringFieldsOrderBy = null
+    minString: ColorAggregateMinMaxStringFieldsOrderBy = null
+    sum: ColorAggregateNumericFieldsOrderBy = null
+  }
+  
+  """
+  Boolean expression to compare fields. All fields are combined with logical 'AND'.
+  """
+  input ColorOrderBy {
+    fruitsAggregate: FruitAggregateOrderBy = null
+    fruits: FruitOrderBy
+    name: OrderByEnum
+    id: OrderByEnum
+  }
+  
+  """GraphQL type"""
+  type ColorType {
+    fruitsAggregate: FruitAggregate!
+  
+    """Fetch objects from the FruitType collection"""
+    fruits(limit: Int = 100, offset: Int! = 0, orderBy: [FruitOrderBy!] = null): [FruitType!]!
+    name: Int!
+    id: UUID!
+  }
+  
+  """Aggregation fields"""
+  type FruitAggregate {
+    avg: FruitNumericFields!
+    count: Int
+    max: FruitMinMaxFields!
+    min: FruitMinMaxFields!
+    stddevPop: FruitNumericFields!
+    stddevSamp: FruitNumericFields!
+    sum: FruitSumFields!
+    varPop: FruitNumericFields!
+    varSamp: FruitNumericFields!
+  }
+  
+  input FruitAggregateMinMaxStringFieldsOrderBy {
+    name: OrderByEnum = null
+  }
+  
+  input FruitAggregateNumericFieldsOrderBy {
+    sweetness: OrderByEnum = null
+  }
+  
+  input FruitAggregateOrderBy {
+    avg: FruitAggregateNumericFieldsOrderBy = null
+    count: OrderByEnum = null
+    max: FruitAggregateNumericFieldsOrderBy = null
+    maxString: FruitAggregateMinMaxStringFieldsOrderBy = null
+    min: FruitAggregateNumericFieldsOrderBy = null
+    minString: FruitAggregateMinMaxStringFieldsOrderBy = null
+    stddevPop: FruitAggregateNumericFieldsOrderBy = null
+    stddevSamp: FruitAggregateNumericFieldsOrderBy = null
+    sum: FruitAggregateNumericFieldsOrderBy = null
+    varPop: FruitAggregateNumericFieldsOrderBy = null
+    varSamp: FruitAggregateNumericFieldsOrderBy = null
+  }
+  
+  """GraphQL type"""
+  type FruitMinMaxFields {
+    name: String
+    sweetness: Int
+  }
+  
+  """GraphQL type"""
+  type FruitNumericFields {
+    sweetness: Float
+  }
+  
+  """
+  Boolean expression to compare fields. All fields are combined with logical 'AND'.
+  """
+  input FruitOrderBy {
+    override: Boolean! = true
+    colorAggregate: ColorAggregateOrderBy
+    color: ColorOrderBy
+    name: OrderByEnum
+    colorId: OrderByEnum
+    sweetness: OrderByEnum
+    id: OrderByEnum
+  }
+  
+  """GraphQL type"""
+  type FruitSumFields {
+    name: String
+    sweetness: Int
+  }
+  
+  """GraphQL type"""
+  type FruitType {
+    name: Int!
+    color: ColorType!
+    colorId: UUID
+    sweetness: Int!
+    id: UUID!
+  }
+  
+  enum OrderByEnum {
+    ASC
+    ASC_NULLS_FIRST
+    ASC_NULLS_LAST
+    DESC
+    DESC_NULLS_FIRST
+    DESC_NULLS_LAST
+  }
+  
+  type Query {
+    """Fetch objects from the FruitType collection"""
+    fruits(orderBy: [FruitOrderBy!] = null): [FruitType!]!
+  }
+  
+  scalar UUID
+  '''
+# ---
