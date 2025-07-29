@@ -1,0 +1,18 @@
+[project]
+name = "mcp_k8s_install"
+version = "0.1.0"
+description = "use mcp, easy install k8s"
+authors = [
+    {name = "maruduck", email= "maruduck1117@gmail.com"}
+]
+keywords = ["mcp", "k8s", "kubernetes", "auto installer"]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]>=1.6.0",
+    "paramiko>=3.5.1",
+    "setuptools>=80.9.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/maruduck/MCP_k8s"
