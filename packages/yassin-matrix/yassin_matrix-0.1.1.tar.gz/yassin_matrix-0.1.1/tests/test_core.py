@@ -1,0 +1,7 @@
+from yassin_matrix import martices_multiplication
+
+def test_basic_multiplication():
+    a = [[1, 2], [3, 4]]
+    b = [[5, 6], [7, 8]]
+    result = martices_multiplication(a, b)
+    assert result == [[19, 22], [43, 50]]
