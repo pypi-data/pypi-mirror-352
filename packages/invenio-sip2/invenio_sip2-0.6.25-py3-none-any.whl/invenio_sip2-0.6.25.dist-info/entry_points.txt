@@ -1,0 +1,15 @@
+[flask.commands]
+selfcheck=invenio_sip2.cli:selfcheck
+
+[invenio_base.api_apps]
+invenio_sip2=invenio_sip2:InvenioSIP2
+
+[invenio_base.api_blueprints]
+invenio_sip2=invenio_sip2.views.rest:api_blueprint
+
+[invenio_base.apps]
+invenio_sip2=invenio_sip2:InvenioSIP2
+
+[invenio_base.blueprints]
+invenio_sip2=invenio_sip2.views.views:blueprint
+

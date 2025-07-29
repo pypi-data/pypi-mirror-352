@@ -1,0 +1,87 @@
+Metadata-Version: 2.3
+Name: invenio-sip2
+Version: 0.6.25
+Summary: Invenio module that add a SIP2 communication for library self-check service
+License: AGPL-3.0
+Author: Laurent Dubois
+Author-email: <laurent.dubois@uclouvain.be>
+Requires-Python: >=3.9.2, <3.13
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Development Status :: 3 - Alpha
+Requires-Dist: Flask (>=2.2.0,<4.0)
+Requires-Dist: SQLAlchemy (>=1.4.0,<3.0)
+Requires-Dist: SQLAlchemy-Utils (>=0.33.1)
+Requires-Dist: invenio-access (>=2.0.0,<5.0.0)
+Requires-Dist: invenio-base (>=2.0,<3.0)
+Requires-Dist: invenio-i18n (>=2.0.0,<4.0.0)
+Requires-Dist: jsonpickle (>=1.2)
+Requires-Dist: psutil
+Requires-Dist: pycountry (>=19.7.15)
+Requires-Dist: python-dateutil
+Description-Content-Type: text/x-rst
+
+..
+    INVENIO-SIP2
+    Copyright (C) 2020 UCLouvain
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, version 3 of the License.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+==============
+ Invenio-SIP2
+==============
+
+.. image:: https://img.shields.io/travis/inveniosoftware-contrib/invenio-sip2.svg
+        :target: https://travis-ci.org/inveniosoftware-contrib/invenio-sip2
+
+.. image:: https://img.shields.io/coveralls/inveniosoftware-contrib/invenio-sip2.svg
+        :target: https://coveralls.io/github/inveniosoftware-contrib/invenio-sip2
+
+.. image:: https://img.shields.io/github/tag/inveniosoftware-contrib/invenio-sip2.svg
+        :target: https://github.com/inveniosoftware-contrib/invenio-sip2/releases
+
+.. image:: https://img.shields.io/github/license/inveniosoftware-contrib/invenio-sip2.svg
+        :target: https://github.com/inveniosoftware-contrib/invenio-sip2/blob/master/LICENSE
+
+Invenio module that add a SIP2 interface between a library’s Automated
+Circulation System and library automation devices.
+
+This project is in work in progress. Some features may not yet be implemented.
+
+Further documentation is available on
+https://invenio-sip2.readthedocs.io/
+
+Implemented SIP2 Features
+=========================
+- Login
+- Selfcheck Status
+- Request Resend
+- Patron Status
+- Patron Enable
+- End Patron Session
+- Patron Information
+- Item Information
+- Checkout
+- Checkin
+- Renew
+- Fee Paid
+
