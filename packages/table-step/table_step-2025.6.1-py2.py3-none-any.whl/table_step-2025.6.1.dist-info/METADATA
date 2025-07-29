@@ -1,0 +1,171 @@
+Metadata-Version: 2.4
+Name: table_step
+Version: 2025.6.1
+Summary: A SEAMM plug-in for data tables in a flowchart.
+Home-page: https://github.com/molssi-seamm/table_step
+Author: Paul Saxe
+Author-email: psaxe@molssi.org
+License: BSD-3-Clause
+Keywords: SEAMM,plug-in,flowchart,table,data,csv
+Platform: Linux
+Platform: Mac OS-X
+Platform: Unix
+Platform: Windows
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Chemistry
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: numpy
+Requires-Dist: openpyxl
+Requires-Dist: pandas
+Requires-Dist: seamm
+Requires-Dist: tabulate
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: platform
+Dynamic: requires-dist
+Dynamic: summary
+
+===================
+SEAMM Table Plug-in
+===================
+
+.. image:: https://img.shields.io/github/issues-pr-raw/molssi-seamm/table_step
+   :target: https://github.com/molssi-seamm/table_step/pulls
+   :alt: GitHub pull requests
+
+.. image:: https://github.com/molssi-seamm/table_step/workflows/CI/badge.svg
+   :target: https://github.com/molssi-seamm/table_step/actions
+   :alt: Build Status
+
+.. image:: https://codecov.io/gh/molssi-seamm/table_step/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/molssi-seamm/table_step
+   :alt: Code Coverage
+
+.. image:: https://github.com/molssi-seamm/table_step/workflows/CodeQL/badge.svg
+   :target: https://github.com/molssi-seamm/table_step/security/code-scanning
+   :alt: Code Quality
+
+.. image:: https://github.com/molssi-seamm/table_step/workflows/Release/badge.svg
+   :target: https://molssi-seamm.github.io/table_step/index.html
+   :alt: Documentation Status
+
+.. image:: https://img.shields.io/pypi/v/table_step.svg
+   :target: https://pypi.python.org/pypi/table_step
+   :alt: PyPi VERSION
+
+A SEAMM plug-in for data tables in a flowchart.
+
+* Free software: BSD-3-Clause
+* Documentation: https://molssi-seamm.github.io/table_step/index.html
+* Code: https://github.com/molssi-seamm/table_step
+
+
+Features
+--------
+
+* Creation of datatables with named, typed columns.
+* Reading and writing data to the table.
+* Printing and saving to CSV files.
+* Accessible in custom_ scripts.
+* Can loop_ over the rows in a flowchart.
+
+.. _custom: https://molssi-seamm.github.io/custom_step/index.html
+.. _loop: https://molssi-seamm.github.io/loop_step/index.html
+
+Acknowledgements
+----------------
+
+This package was created with Cookiecutter_ and the `molssi-seamm/cookiecutter-seamm-plugin`_ project template.
+
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`molssi-seamm/cookiecutter-seamm-plugin`: https://github.com/molssi-seamm/cookiecutter-seamm-plugin
+
+Developed by the Molecular Sciences Software Institute (MolSSI_),
+which receives funding from the `National Science Foundation`_ under
+award OAC-1547580 and CHE-2136142.
+
+.. _MolSSI: https://www.molssi.org
+.. _`National Science Foundation`: https://www.nsf.gov
+
+
+=======
+History
+=======
+2025.6.1 -- Enhancement to allow paths with directories.
+    * As in reading/writing structures, paths beginning with '/' are relative to the
+      root of the job, and relative paths are relative to the directory where the table
+      step is invoked.
+
+2023.11.10 -- Bugfix: title of edit dialog was wrong
+
+2023.10.30 -- Cleaned up output
+    * Nothing large, just made the output properly indented, etc.
+
+2023.7.25 -- Bug fix and Enhancements
+    * Fixed bug with reading table using a variable for the filename, but asking for the
+      type from the extension.
+    * Add ability to save tables with a frequency of other than ever call.
+      
+2023.2.15 -- Bugs fixes and documentation
+    * Restructured documentation and moved to new theme
+    * Fixed bug with access rows of tables with non-integer indexes as well as "current"
+      index 
+    * Added support for lists of tables in pulldowns in the GUI
+      
+2021.12.22 -- Improved the handling of index columns, added formats.
+    * Improved the handling of the index column
+    * Added Save as
+    * Added Excel and JSON formats.
+
+2021.10.14 -- Updated for Python
+    * Now supporting Python 3.8 and 3.9
+      
+2021.2.12 (12 February 2021)
+----------------------------
+
+* Updated the README file to give a better description.
+* Updated the short description in setup.py to work with the new installer.
+* Added keywords for better searchability.
+
+2020.12.5 (5 December 2020)
+---------------------------
+
+* Internal: switching CI from TravisCI to GitHub Actions, and in the
+  process moving documentation from ReadTheDocs to GitHub Pages where
+  it is consolidated with the main SEAMM documentation.
+* Updated to be compatible with the new command-line argument
+  handling.
+
+0.9 (15 April 2020)
+-------------------
+
+* General bug fixing and code cleanup.
+* Part of release of all modules.
+
+0.7.0 (17 December 2019)
+------------------------
+
+* General clean-up of code and output.
+* Part of release of all modules.
+
+
+0.3.0 (20 August 2019)
+----------------------
+
+* First release on PyPI.
