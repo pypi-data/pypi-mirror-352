@@ -1,0 +1,4341 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "feeAddress",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "feePercent",
+        "type": "uint256"
+      }
+    ],
+    "name": "FeeAddressAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "source",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "timestamp",
+        "type": "uint64"
+      }
+    ],
+    "name": "FeeDeferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "source",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "timestamp",
+        "type": "uint64"
+      }
+    ],
+    "name": "FeeDisbursed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "source",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "timestamp",
+        "type": "uint64"
+      }
+    ],
+    "name": "FeeLockedBurned",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_questInstanceId",
+        "type": "uint256"
+      }
+    ],
+    "name": "clearActiveQuests",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "clearActiveQuestsAndHeroes",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "clearActiveQuestsAndHeroesWithOffset",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_questInstanceId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_level",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_type",
+        "type": "uint8"
+      }
+    ],
+    "name": "clearActiveQuestsByType",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "expeditionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "feeRefunded",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "petTreats",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "staminaPotions",
+        "type": "uint32"
+      }
+    ],
+    "name": "ExpeditionCanceled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "expeditionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint40",
+            "name": "lastClaimedAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterationsToProcess",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "remainingIterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "escrowedPetTreats",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint32",
+            "name": "escrowedStaminaPotions",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint16",
+            "name": "globalSettings",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint40",
+            "name": "iterationTime",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "claimStartBlock",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "feePerStamina",
+            "type": "uint24"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct Expedition",
+        "name": "expedition",
+        "type": "tuple"
+      }
+    ],
+    "name": "ExpeditionClaimStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "expeditionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      }
+    ],
+    "name": "ExpeditionCompleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "expeditionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "additionalIterations",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "additionalFee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "additionalTreats",
+        "type": "uint256"
+      }
+    ],
+    "name": "ExpeditionExtended",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "expeditionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "currentXP",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "currentProfessionSkill",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "profession",
+        "type": "uint8"
+      }
+    ],
+    "name": "ExpeditionInProgressHeroUpdate",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "expeditionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "heroIds",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "iterationsProcessed",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "totalFee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint40",
+        "name": "lastClaimedAt",
+        "type": "uint40"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "staminaPotions",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "petTreats",
+        "type": "uint16"
+      }
+    ],
+    "name": "ExpeditionIterationProcessed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "expeditionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint40",
+            "name": "lastClaimedAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterationsToProcess",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "remainingIterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "escrowedPetTreats",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint32",
+            "name": "escrowedStaminaPotions",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint16",
+            "name": "globalSettings",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint40",
+            "name": "iterationTime",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "claimStartBlock",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "feePerStamina",
+            "type": "uint24"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct Expedition",
+        "name": "expedition",
+        "type": "tuple"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "fee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "foodType",
+        "type": "uint8"
+      }
+    ],
+    "name": "ExpeditionStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "petId",
+        "type": "uint256"
+      }
+    ],
+    "name": "PetBonusReceived",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "PetBonusReceivedExpedition",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "heroes",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "player",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startBlock",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "completeAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum QuestStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct Quest",
+        "name": "quest",
+        "type": "tuple"
+      }
+    ],
+    "name": "QuestCanceled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "heroes",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "player",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startBlock",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "completeAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum QuestStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct Quest",
+        "name": "quest",
+        "type": "tuple"
+      }
+    ],
+    "name": "QuestCompleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "profession",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "skillUp",
+        "type": "uint16"
+      }
+    ],
+    "name": "QuestSkillUp",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "staminaFullAt",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "staminaSpent",
+        "type": "uint256"
+      }
+    ],
+    "name": "QuestStaminaSpent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "heroes",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "player",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startBlock",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "completeAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum QuestStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct Quest",
+        "name": "quest",
+        "type": "tuple"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "startAtTime",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "completeAtTime",
+        "type": "uint256"
+      }
+    ],
+    "name": "QuestStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "xpEarned",
+        "type": "uint64"
+      }
+    ],
+    "name": "QuestXP",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "reward",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "data",
+        "type": "uint256"
+      }
+    ],
+    "name": "RewardMinted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "questId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "TokenBonusAwarded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "attempt",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "TrainingAttemptDone",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "winCount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "attempts",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "TrainingSuccessRatio",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "cancelQuest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "completeQuest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_heroIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "multiCompleteQuest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[][]",
+        "name": "_heroIds",
+        "type": "uint256[][]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_questInstanceId",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint8[]",
+        "name": "_attempts",
+        "type": "uint8[]"
+      },
+      {
+        "internalType": "uint8[]",
+        "name": "_level",
+        "type": "uint8[]"
+      },
+      {
+        "internalType": "uint8[]",
+        "name": "_type",
+        "type": "uint8[]"
+      }
+    ],
+    "name": "multiStartQuest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_heroIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questInstanceId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_attempts",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_level",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_type",
+        "type": "uint8"
+      }
+    ],
+    "name": "startQuest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "cancelExpedition",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_expeditionIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "multiCancelExpedition",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TreatType",
+        "name": "treatType",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      }
+    ],
+    "name": "BonusTreatsAwarded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "fedBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "petId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum PetFoodType",
+        "name": "foodType",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "hungryAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PetFed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TreatType",
+        "name": "treatType",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "item1",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "item2",
+        "type": "address"
+      }
+    ],
+    "name": "TreatCrafted",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_expeditionIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "multiProcessExpeditionClaim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_expeditionIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint24[]",
+        "name": "_requestedIterations",
+        "type": "uint24[]"
+      }
+    ],
+    "name": "multiProcessExpeditionClaimWithCustomIterationCap",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_expeditionIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "multiStartExpeditionClaim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "processExpeditionClaim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint24",
+        "name": "_requestedIterations",
+        "type": "uint24"
+      }
+    ],
+    "name": "processExpeditionClaimWithCustomIterationCap",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "startExpeditionClaim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint24",
+        "name": "_additionalIterations",
+        "type": "uint24"
+      }
+    ],
+    "name": "extendExpedition",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint24",
+        "name": "_additionalIterations",
+        "type": "uint24"
+      }
+    ],
+    "name": "getRequiredFeeForExtension",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint24",
+        "name": "_additionalIterations",
+        "type": "uint24"
+      }
+    ],
+    "name": "getRequiredTreatsForExtension",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_playerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getAccountExpeditionIds",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_playerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getAccountExpeditionIdsWithOffset",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_playerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getAccountExpeditions",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint40",
+            "name": "lastClaimedAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterationsToProcess",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "remainingIterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "escrowedPetTreats",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint32",
+            "name": "escrowedStaminaPotions",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint16",
+            "name": "globalSettings",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint40",
+            "name": "iterationTime",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "claimStartBlock",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "feePerStamina",
+            "type": "uint24"
+          }
+        ],
+        "internalType": "struct Expedition[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_playerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getAccountExpeditionsCounts",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_playerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getAccountExpeditionsWithAssociatedQuests",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "expeditionId",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint40",
+                "name": "lastClaimedAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint24",
+                "name": "iterationsToProcess",
+                "type": "uint24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "remainingIterations",
+                "type": "uint24"
+              },
+              {
+                "internalType": "uint16",
+                "name": "escrowedPetTreats",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint32",
+                "name": "escrowedStaminaPotions",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint16",
+                "name": "globalSettings",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint40",
+                "name": "iterationTime",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "claimStartBlock",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint24",
+                "name": "feePerStamina",
+                "type": "uint24"
+              }
+            ],
+            "internalType": "struct Expedition",
+            "name": "expedition",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "questInstanceId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint8",
+                "name": "level",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "heroes",
+                "type": "uint256[]"
+              },
+              {
+                "internalType": "address",
+                "name": "player",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "startBlock",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "startAtTime",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "completeAtTime",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint8",
+                "name": "attempts",
+                "type": "uint8"
+              },
+              {
+                "internalType": "enum QuestStatus",
+                "name": "status",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint8",
+                "name": "questType",
+                "type": "uint8"
+              }
+            ],
+            "internalType": "struct Quest",
+            "name": "quest",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "escrowedFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum PetFoodType",
+            "name": "foodType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct ExpeditionQuest[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_playerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getAccountExpeditionsWithAssociatedQuestsWithOffset",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "expeditionId",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint40",
+                "name": "lastClaimedAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint24",
+                "name": "iterationsToProcess",
+                "type": "uint24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "remainingIterations",
+                "type": "uint24"
+              },
+              {
+                "internalType": "uint16",
+                "name": "escrowedPetTreats",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint32",
+                "name": "escrowedStaminaPotions",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint16",
+                "name": "globalSettings",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint40",
+                "name": "iterationTime",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "claimStartBlock",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint24",
+                "name": "feePerStamina",
+                "type": "uint24"
+              }
+            ],
+            "internalType": "struct Expedition",
+            "name": "expedition",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "questInstanceId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint8",
+                "name": "level",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "heroes",
+                "type": "uint256[]"
+              },
+              {
+                "internalType": "address",
+                "name": "player",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "startBlock",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "startAtTime",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "completeAtTime",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint8",
+                "name": "attempts",
+                "type": "uint8"
+              },
+              {
+                "internalType": "enum QuestStatus",
+                "name": "status",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint8",
+                "name": "questType",
+                "type": "uint8"
+              }
+            ],
+            "internalType": "struct Quest",
+            "name": "quest",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "escrowedFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum PetFoodType",
+            "name": "foodType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct ExpeditionQuest[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_playerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getAccountExpeditionsWithOffset",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint40",
+            "name": "lastClaimedAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterationsToProcess",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "remainingIterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "escrowedPetTreats",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint32",
+            "name": "escrowedStaminaPotions",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint16",
+            "name": "globalSettings",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint40",
+            "name": "iterationTime",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "claimStartBlock",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "feePerStamina",
+            "type": "uint24"
+          }
+        ],
+        "internalType": "struct Expedition[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getEstimatedExpeditionCompletionTime",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getExpedition",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint40",
+            "name": "lastClaimedAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterationsToProcess",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "remainingIterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "escrowedPetTreats",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint32",
+            "name": "escrowedStaminaPotions",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint16",
+            "name": "globalSettings",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint40",
+            "name": "iterationTime",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "claimStartBlock",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "feePerStamina",
+            "type": "uint24"
+          }
+        ],
+        "internalType": "struct Expedition",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getExpeditionEscrowedFee",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_questType",
+        "type": "uint8"
+      }
+    ],
+    "name": "getExpeditionGardeningPoolCounts",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "enum QuestLength",
+            "name": "questLength",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "count",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct QuestInstanceLimit",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      }
+    ],
+    "name": "getExpeditionTokenMiningCounts",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "enum QuestLength",
+            "name": "questLength",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "count",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct QuestInstanceLimit",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getHeroExpedition",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint40",
+            "name": "lastClaimedAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterationsToProcess",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "remainingIterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "escrowedPetTreats",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint32",
+            "name": "escrowedStaminaPotions",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint16",
+            "name": "globalSettings",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint40",
+            "name": "iterationTime",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "claimStartBlock",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "feePerStamina",
+            "type": "uint24"
+          }
+        ],
+        "internalType": "struct Expedition",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_heroIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "getHeroesExpeditions",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint40",
+            "name": "lastClaimedAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterationsToProcess",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "remainingIterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "escrowedPetTreats",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint32",
+            "name": "escrowedStaminaPotions",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint16",
+            "name": "globalSettings",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint40",
+            "name": "iterationTime",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "claimStartBlock",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint24",
+            "name": "feePerStamina",
+            "type": "uint24"
+          }
+        ],
+        "internalType": "struct Expedition[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "heroIds",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "staminaPotions",
+            "type": "uint16"
+          },
+          {
+            "internalType": "enum PetFoodTypeInput",
+            "name": "petFoodType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct ExpeditionStartInputs",
+        "name": "_inputs",
+        "type": "tuple"
+      }
+    ],
+    "name": "getIterationDuration",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getIterationDurationForCurrentExpedition",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_expeditionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getNextIterationStartTime",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "heroIds",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "staminaPotions",
+            "type": "uint16"
+          },
+          {
+            "internalType": "enum PetFoodTypeInput",
+            "name": "petFoodType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct ExpeditionStartInputs",
+        "name": "_inputs",
+        "type": "tuple"
+      }
+    ],
+    "name": "getRequiredFee",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "heroIds",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "staminaPotions",
+            "type": "uint16"
+          },
+          {
+            "internalType": "enum PetFoodTypeInput",
+            "name": "petFoodType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct ExpeditionStartInputs",
+        "name": "_inputs",
+        "type": "tuple"
+      }
+    ],
+    "name": "getRequiredTreats",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "heroIds",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "staminaPotions",
+            "type": "uint16"
+          },
+          {
+            "internalType": "enum PetFoodTypeInput",
+            "name": "petFoodType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct ExpeditionStartInputs",
+        "name": "_inputs",
+        "type": "tuple"
+      }
+    ],
+    "name": "getTotalExpeditionDuration",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getExpeditionHeroData",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint8",
+            "name": "heroSettings",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint16",
+            "name": "statScores",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "professionSkill",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "luck",
+            "type": "uint16"
+          },
+          {
+            "internalType": "enum PetFoodType",
+            "name": "foodType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "eggType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "rarity",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "professionBonus",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "scalar",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint64",
+            "name": "petHungryAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint32",
+            "name": "xp",
+            "type": "uint32"
+          }
+        ],
+        "internalType": "struct ExpeditionHeroData",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "heroIds",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint24",
+            "name": "iterations",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "staminaPotions",
+            "type": "uint16"
+          },
+          {
+            "internalType": "enum PetFoodTypeInput",
+            "name": "petFoodType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct ExpeditionStartInputs",
+        "name": "_inputs",
+        "type": "tuple"
+      }
+    ],
+    "name": "startExpedition",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      }
+    ],
+    "name": "getAccountActiveQuests",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "heroes",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "player",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startBlock",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "completeAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum QuestStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct Quest[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCurrentStamina",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_heroIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "getCurrentStaminaForMultiple",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "_format",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_instanceId",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_level",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_type",
+        "type": "uint8"
+      }
+    ],
+    "name": "getFormattedQuestAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getHeroQuest",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "heroes",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "player",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startBlock",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "completeAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum QuestStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct Quest",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "_eggType",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_rarity",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_profBonus",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_scalar",
+        "type": "uint16"
+      }
+    ],
+    "name": "getPetDataLookup",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint16",
+            "name": "geneBonus",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16[2]",
+            "name": "professionSkill",
+            "type": "uint16[2]"
+          },
+          {
+            "internalType": "uint16",
+            "name": "extraRollMod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "int16",
+            "name": "expBonusMod",
+            "type": "int16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "skillUpMod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "tokenRewardMod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "runeMod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "tearsMod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16[2]",
+            "name": "dropChancesMod",
+            "type": "uint16[2]"
+          }
+        ],
+        "internalType": "struct PetDataLookup",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getQuestInstanceIds",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "heroToQuest",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "quests",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "heroes",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "player",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startBlock",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "completeAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum QuestStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct Quest",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "timePerStamina",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_questInstanceId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_attempts",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_heroes",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_startTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_level",
+        "type": "uint8"
+      }
+    ],
+    "name": "calculateQuestDuration",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_questInstanceId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "summonedTime",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "nextSummonTime",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "summonerId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "assistantId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint32",
+                "name": "summons",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint32",
+                "name": "maxSummons",
+                "type": "uint32"
+              }
+            ],
+            "internalType": "struct SummoningInfo",
+            "name": "summoningInfo",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "statGenes",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "visualGenes",
+                "type": "uint256"
+              },
+              {
+                "internalType": "enum Rarity",
+                "name": "rarity",
+                "type": "uint8"
+              },
+              {
+                "internalType": "bool",
+                "name": "shiny",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint16",
+                "name": "generation",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint32",
+                "name": "firstName",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint32",
+                "name": "lastName",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint8",
+                "name": "shinyStyle",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint8",
+                "name": "class",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint8",
+                "name": "subClass",
+                "type": "uint8"
+              }
+            ],
+            "internalType": "struct HeroInfo",
+            "name": "info",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "staminaFullAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "hpFullAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "mpFullAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint16",
+                "name": "level",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint64",
+                "name": "xp",
+                "type": "uint64"
+              },
+              {
+                "internalType": "address",
+                "name": "currentQuest",
+                "type": "address"
+              },
+              {
+                "internalType": "uint8",
+                "name": "sp",
+                "type": "uint8"
+              },
+              {
+                "internalType": "enum HeroStatus",
+                "name": "status",
+                "type": "uint8"
+              }
+            ],
+            "internalType": "struct HeroState",
+            "name": "state",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint16",
+                "name": "strength",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "intelligence",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "wisdom",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "luck",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "agility",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "vitality",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "endurance",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "dexterity",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hp",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mp",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "stamina",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct HeroStats",
+            "name": "stats",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint16",
+                "name": "strength",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "intelligence",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "wisdom",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "luck",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "agility",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "vitality",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "endurance",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "dexterity",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpSm",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpRg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpLg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpSm",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpRg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpLg",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct HeroStatGrowth",
+            "name": "primaryStatGrowth",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint16",
+                "name": "strength",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "intelligence",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "wisdom",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "luck",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "agility",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "vitality",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "endurance",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "dexterity",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpSm",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpRg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpLg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpSm",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpRg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpLg",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct HeroStatGrowth",
+            "name": "secondaryStatGrowth",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint16",
+                "name": "mining",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "gardening",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "foraging",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "fishing",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "craft1",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "craft2",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct HeroProfessionsV2",
+            "name": "professions",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "equippedSlots",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "petId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "weapon1Id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "weapon2Id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "offhand1Id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "offhand2Id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "armorId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accessoryId",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct HeroEquipment",
+            "name": "equipment",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct HeroV2",
+        "name": "_hero",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questInstanceId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "level",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "heroes",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "player",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startBlock",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "completeAtTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "attempts",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum QuestStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "questType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct Quest",
+        "name": "_quest",
+        "type": "tuple"
+      }
+    ],
+    "name": "calculateStaminaUsed",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_questInstanceId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getHeroData",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questData1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questData2",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint64[2]",
+            "name": "professionSkill",
+            "type": "uint64[2]"
+          },
+          {
+            "internalType": "uint64",
+            "name": "statBonus",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "geneBonus",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint32",
+            "name": "probBonusRoll",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "extraRollMod",
+            "type": "uint32"
+          },
+          {
+            "internalType": "int256",
+            "name": "expBonusMod",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint32",
+            "name": "skillUpMod",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "tokenRewardMod",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "runeMod",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "tearsMod",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32[2]",
+            "name": "dropChancesMod",
+            "type": "uint32[2]"
+          },
+          {
+            "internalType": "bool",
+            "name": "petBonus",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct HeroData",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_questInstanceId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "summonedTime",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "nextSummonTime",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "summonerId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "assistantId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint32",
+                "name": "summons",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint32",
+                "name": "maxSummons",
+                "type": "uint32"
+              }
+            ],
+            "internalType": "struct SummoningInfo",
+            "name": "summoningInfo",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "statGenes",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "visualGenes",
+                "type": "uint256"
+              },
+              {
+                "internalType": "enum Rarity",
+                "name": "rarity",
+                "type": "uint8"
+              },
+              {
+                "internalType": "bool",
+                "name": "shiny",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint16",
+                "name": "generation",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint32",
+                "name": "firstName",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint32",
+                "name": "lastName",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint8",
+                "name": "shinyStyle",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint8",
+                "name": "class",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint8",
+                "name": "subClass",
+                "type": "uint8"
+              }
+            ],
+            "internalType": "struct HeroInfo",
+            "name": "info",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "staminaFullAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "hpFullAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "mpFullAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint16",
+                "name": "level",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint64",
+                "name": "xp",
+                "type": "uint64"
+              },
+              {
+                "internalType": "address",
+                "name": "currentQuest",
+                "type": "address"
+              },
+              {
+                "internalType": "uint8",
+                "name": "sp",
+                "type": "uint8"
+              },
+              {
+                "internalType": "enum HeroStatus",
+                "name": "status",
+                "type": "uint8"
+              }
+            ],
+            "internalType": "struct HeroState",
+            "name": "state",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint16",
+                "name": "strength",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "intelligence",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "wisdom",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "luck",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "agility",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "vitality",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "endurance",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "dexterity",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hp",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mp",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "stamina",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct HeroStats",
+            "name": "stats",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint16",
+                "name": "strength",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "intelligence",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "wisdom",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "luck",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "agility",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "vitality",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "endurance",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "dexterity",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpSm",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpRg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpLg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpSm",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpRg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpLg",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct HeroStatGrowth",
+            "name": "primaryStatGrowth",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint16",
+                "name": "strength",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "intelligence",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "wisdom",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "luck",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "agility",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "vitality",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "endurance",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "dexterity",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpSm",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpRg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "hpLg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpSm",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpRg",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "mpLg",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct HeroStatGrowth",
+            "name": "secondaryStatGrowth",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint16",
+                "name": "mining",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "gardening",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "foraging",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "fishing",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "craft1",
+                "type": "uint16"
+              },
+              {
+                "internalType": "uint16",
+                "name": "craft2",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct HeroProfessionsV2",
+            "name": "professions",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "equippedSlots",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "petId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "weapon1Id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "weapon2Id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "offhand1Id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "offhand2Id",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "armorId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accessoryId",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct HeroEquipment",
+            "name": "equipment",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct HeroV2",
+        "name": "_hero",
+        "type": "tuple"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_level",
+        "type": "uint8"
+      }
+    ],
+    "name": "getRequiredStaminaPerAttempt",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
