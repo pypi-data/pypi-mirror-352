@@ -1,0 +1,18 @@
+[project]
+name = "suse-documentation-mcp-server"
+version = "0.36.0"
+description = "MCP server implementation for web search using Open WebUI Web search"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "python-dotenv>=1.0.1",
+    "mcp[cli]>=1.4.1",
+    "requests>=2.28"
+]
+
+[project.scripts]
+suse-documentation-mcp-server = "server.search_suse_documentation:main"
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
