@@ -1,0 +1,27 @@
+from .primitives import *
+
+SYMBOL_PRIMITIVES = [
+    ArithmeticPrimitives,
+    IterationPrimitives,
+    ValueHandlingPrimitives,
+    StringHelperPrimitives,
+    CastingPrimitives,
+    ComparisonPrimitives,
+    ExpressionHandlingPrimitives,
+    ValidationHandlingPrimitives,
+    ConstraintHandlingPrimitives,
+    DataHandlingPrimitives,
+    UniquenessPrimitives,
+    PatternMatchingPrimitives,
+    DictHandlingPrimitives,
+    QueryHandlingPrimitives,
+    ExecutionControlPrimitives,
+    TemplateStylingPrimitives,
+    DataClusteringPrimitives,
+    EmbeddingPrimitives,
+    IndexingPrimitives,
+    IOHandlingPrimitives,
+    PersistencePrimitives,
+    OutputHandlingPrimitives,
+    FineTuningPrimitives,
+]
