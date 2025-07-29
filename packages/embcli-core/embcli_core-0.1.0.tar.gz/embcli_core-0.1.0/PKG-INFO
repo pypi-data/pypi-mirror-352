@@ -1,0 +1,66 @@
+Metadata-Version: 2.4
+Name: embcli-core
+Version: 0.1.0
+Summary: embcli - CLI for Embeddings
+Project-URL: Repository, https://github.com/mocobeta/embcli
+Author-email: Tomoko Uchida <tomoko.uchida.1111@gmail.com>
+License: Apache-2.0
+Keywords: cli,embeddings,llm,nlp
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Terminals
+Classifier: Topic :: Text Processing :: Linguistic
+Classifier: Topic :: Utilities
+Requires-Python: >=3.10
+Requires-Dist: chromadb>=1.0.8
+Requires-Dist: click>=8.1.8
+Requires-Dist: numpy>=2.2.5
+Requires-Dist: pluggy>=1.5.0
+Requires-Dist: python-dotenv>=1.1.0
+Description-Content-Type: text/markdown
+
+# embcli - CLI for Embeddings
+
+[![PyPI](https://img.shields.io/pypi/v/embcli-core?label=PyPI)](https://pypi.org/project/embcli-core/)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mocobeta/embcli/ci.yml?logo=github&label=tests)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/embcli-core)
+
+Core library for embcli, a command-line interface for embeddings.
+
+## Development
+
+See the [main README](https://github.com/mocobeta/embcli/blob/main/README.md) for general development instructions.
+
+### Run Tests
+
+```bash
+uv run --package embcli-core pytest packages/embcli-core/tests
+```
+
+### Run Linter and Formatter
+
+```bash
+uv run ruff check --fix packages/embcli-core
+uv run ruff format packages/embcli-core
+```
+
+### Run Type Checker
+
+```bash
+uv run --package embcli-core pyright packages/embcli-core
+```
+
+## Build
+
+```bash
+uv build --package embcli-core
+```
+
+## License
+
+Apache License 2.0
