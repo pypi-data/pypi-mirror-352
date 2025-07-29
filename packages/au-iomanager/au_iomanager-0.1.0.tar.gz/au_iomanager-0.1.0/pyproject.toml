@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "au_iomanager"
+version = "0.1.0"
+description = "Librería para gestión de datos y ML pipelines"
+authors = ["Faustino Lopez Ramos <faustinolopezramos@gmail.com>"]
+packages = [
+    { include = "au_iomanager", from = "src" }  # ¡Corrección clave!
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pandas = ">=1.0"
+loguru = ">=0.7.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
