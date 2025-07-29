@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-time Logs</title>
+    <style>
+        body { font-family: monospace; background: #111; color: #0f0; padding: 1em; }
+        #log { white-space: pre-wrap; height: 90vh; overflow-y: scroll; border: 1px solid #444; padding: 1em; }
+    </style>
+</head>
+<body>
+    <h2>📡 Real-time Logs</h2>
+    <div id="log"></div>
+    <script>
+        const logDiv = document.getElementById('log');
+        const ws = new WebSocket('ws://' + window.location.host + '/ws/logs/');
+
+        ws.onmessage = function(event) {
+            if(event.data.trim() !== '') {
+                logDiv.textContent += event.data;
+                logDiv.scrollTop = logDiv.scrollHeight;
+            }
+        };
+    </script>
+</body>
+</html>
