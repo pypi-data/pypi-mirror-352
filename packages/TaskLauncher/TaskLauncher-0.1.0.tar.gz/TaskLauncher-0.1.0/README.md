@@ -1,0 +1,130 @@
+# TaskLauncher
+
+> 🛠️ 跨平台进程与 Python 脚本启动、监控与管理工具
+
+TaskLauncher 是一个轻量级的 Python 包，支持在多平台下安全、灵活地启动和管理任意系统命令或 Python 脚本。它支持任务运行时资源监控、进程终止、参数传递、异常保护等特性，专为自动化和系统集成场景设计。
+
+---
+
+## 主要功能
+
+- 支持跨平台启动任意命令或 Python 脚本
+- 自动识别主机操作系统信息
+- 返回进程号、唯一任务标识（tag）及启动信息
+- 实时获取进程资源占用、状态与运行时间
+- 支持进程中止、强制杀死
+- 支持参数化执行
+- 失败时不会影响主进程或系统
+- Python 脚本专属执行接口（自动格式化参数）
+- 易于集成与扩展
+
+---
+
+## 安装
+
+```bash
+pip install tasklauncher
+````
+
+或从源码安装：
+
+```bash
+git clone https://github.com/yourgithub/TaskLauncher.git
+cd TaskLauncher
+pip install .
+```
+
+---
+
+## 快速上手
+
+### 启动任意命令
+
+```python
+from tasklauncher.core import TaskLauncher
+
+launcher = TaskLauncher()
+result = launcher.run_command('ls' if launcher.system_info['system'] != 'Windows' else 'dir', shell=True)
+print(result)
+```
+
+### 启动 Python 脚本（自动参数格式化）
+
+```python
+info = launcher.run_python('example.py', 'arg1', 42)
+print(info)
+```
+
+### 查询任务状态与资源
+
+```python
+tag = info['tag']
+status = launcher.task_status(tag)
+print(status)
+```
+
+### 等待任务结束并获取输出
+
+```python
+result = launcher.wait_task(tag)
+print(result)
+```
+
+### 停止/强杀任务
+
+```python
+launcher.stop_task(tag)      # 优雅终止
+launcher.stop_task(tag, force=True)  # 强制杀死
+```
+
+---
+
+## API 参考
+
+### TaskLauncher 类
+
+| 方法                                                  | 说明                |
+| --------------------------------------------------- | ----------------- |
+| `run_command(cmd, ...)`                             | 启动任意命令，返回tag、pid等 |
+| `run_python(pyfile, *args, python_executable, ...)` | 启动Python脚本        |
+| `stop_task(tag, force=False)`                       | 停止（或强制终止）任务       |
+| `task_status(tag)`                                  | 获取任务运行状态及资源情况     |
+| `wait_task(tag, timeout=None)`                      | 等待任务结束，获取输出       |
+
+详见代码注释或文档。
+
+---
+
+## 测试
+
+1. 在 `tests/` 目录中加入 `example.py`：
+
+   ```python
+   print("Hello, World!")
+   ```
+2. 运行测试：
+
+   ```bash
+   pip install pytest
+   pytest tests/
+   ```
+
+---
+
+## 如何贡献
+
+1. Fork 本项目并创建分支
+2. 提交 PR（合并请求）前请确保单元测试通过
+3. 欢迎修复bug、新增特性或优化文档
+
+---
+
+## License
+
+MIT License
+
+---
+
+## 联系
+
+如有建议、需求或 bug，欢迎 issue 或 PR！
