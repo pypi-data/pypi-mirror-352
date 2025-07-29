@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <label for="files">Select a File</label>  
+  <select id="files" onclick="getFileList()">
+    <option value="1">NONE</option>  
+  </select>
+  <br/>
+  <br/>
+  <button id="downloadFileButton" onclick="downloadFile()" disabled>Download</button>
+  <button id="deleteFileButton" onclick="deleteFile()" disabled>Delete</button>
+  <script>
+    async function getFileList() {
+      const select = document.getElementById("files");
+      const fileName = select.value;
+
+      const filesJsonObj = await readValue("fread_cache", "files_json");
+      const files = JSON.parse(filesJsonObj.value);
+
+      if (files.length === 0) {
+          document.getElementById("downloadFileButton").disabled = true;
+          document.getElementById("deleteFileButton").disabled = true;
+      } else {
+          document.getElementById("downloadFileButton").disabled = false;
+          document.getElementById("deleteFileButton").disabled = false;
+      }
+
+      // remove all current options
+      let options = select.getElementsByTagName("option");
+      for (let i = options.length - 1; i >= 0; i--) {
+        select.removeChild(options[i]);
+      }
+
+      // add all files
+      for (const file of files) {
+        let opt = document.createElement("option");
+        opt.value = file;
+        opt.innerHTML = file;
+        select.appendChild(opt);
+      }
+
+      // reselect previous option
+      if (fileName !== "") {
+        select.value = files[0];
+      }
+    }
+
+    async function downloadFile() {
+      const fileName = document.getElementById("files").value;
+      const fileNameObj = await writeValue("fread_cache", "file_name", fileName);
+      const fileDataObj = await readValue("fread_cache", "file_data");
+
+      const byteCharacters = atob(fileDataObj.value);
+      const byteArrays = [];
+      const sliceSize = 512;
+
+      for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+      }
+
+      const blob = new Blob(byteArrays, {
+        type: "application/octet-stream"
+      });
+
+      const a = document.createElement("a");
+      a.download = fileNameObj.value;
+      a.href = window.URL.createObjectURL(blob);
+      a.click();
+    }
+
+    async function deleteFile() {
+      const fileName = document.getElementById("files").value;
+      const fileNameObj = await writeValue("fread_cache", "file_name", fileName);
+      const fileDeleteObj = await writeValue("fread_cache", "remove", true);
+      getFileList();
+    }
+
+    getFileList();
+    const interval = setInterval(function() {
+      getFileList();
+    }, 1000);
+  </script>
+{% endblock %}
