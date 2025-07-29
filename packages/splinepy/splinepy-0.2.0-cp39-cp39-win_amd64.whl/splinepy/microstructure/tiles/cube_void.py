@@ -1,0 +1,255 @@
+import numpy as _np
+
+from splinepy.bezier import Bezier as _Bezier
+from splinepy.microstructure.tiles.tile_base import TileBase as _TileBase
+
+
+class CubeVoid(_TileBase):
+    """Void in form of an cuboid set into a unit cell.
+
+    Parametrization acts on the cuboid's orientation as well as on its
+    expansion (radii in x and y/z direction).
+
+    Used in ADAMM test case for Hutchinson.
+
+    See create_tile for more information
+
+    .. raw:: html
+
+        <p><a href="../_static/CubeVoid.html">Fullscreen</a>.</p>
+        <embed type="text/html" width="100%" height="400" src="../_static/CubeVoid.html" />
+
+    """  # noqa: E501
+
+    _dim = 3
+    _para_dim = 3
+    _evaluation_points = _np.array([[0.5, 0.5, 0.5]])
+    _n_info_per_eval_point = 4
+
+    # Aux values
+    _sphere_ctps = _np.array(
+        [
+            [-0.5, -0.5, -0.5],
+            [0.5, -0.5, -0.5],
+            [-0.5, 0.5, -0.5],
+            [0.5, 0.5, -0.5],
+            [-0.5, -0.5, 0.5],
+            [0.5, -0.5, 0.5],
+            [-0.5, 0.5, 0.5],
+            [0.5, 0.5, 0.5],
+        ]
+    )
+
+    def _rotation_matrix_x(self, angle):
+        cc, ss = _np.cos(angle), _np.sin(angle)
+        return _np.array([[1, 0, 0], [0, cc, ss], [0, -ss, cc]])
+
+    def _rotation_matrix_x_deriv(self, angle):
+        cc, ss = _np.cos(angle), _np.sin(angle)
+        return _np.array([[0, 0, 0], [0, -ss, cc], [0, -cc, -ss]])
+
+    def _rotation_matrix_y(self, angle):
+        cc, ss = _np.cos(angle), _np.sin(angle)
+        return _np.array([[cc, 0, -ss], [0, 1, 0], [ss, 0, cc]])
+
+    def _rotation_matrix_y_deriv(self, angle):
+        cc, ss = _np.cos(angle), _np.sin(angle)
+        return _np.array([[-ss, 0, -cc], [0, 1, 0], [cc, 0, -ss]])
+
+    def create_tile(
+        self,
+        parameters=None,
+        parameter_sensitivities=None,
+        **kwargs,  # noqa ARG002
+    ):
+        """Create a full cuboid with a cuboidal void in the center, that has
+        a rotation applied in the form
+
+        T = RotY * RotX * Tz
+
+        Parameters are stored as a 4 dimensional field. The entries represent:
+        p_0 -> expansion along x-axis
+        p_1 -> expansion along y/z axis
+        p_2 -> rotation around x-axis
+        p_3 -> rotation around y-axis
+
+        Parameters
+        ----------
+        parameters : np.array
+          Defines 4 values necessary for tile definition
+          1. expansion in cuboid void in x-axis
+          2. expansion of cuboid void in y- and z-axis
+          3. rotation around x-axis
+          4. rotation around y- and z-axis
+        parameter_sensitivities: np.array
+          Sensitivities of all 4 values with respect to some number of external
+          design variables
+
+        Returns
+        -------
+        microtile_list : list(splines)
+        derivatives : list<list<splines>> / None
+        """  # set to default if nothing is given
+        if parameters is None:
+            parameters = _np.array([0.5, 0.5, 0, 0]).reshape(1, 1, 4)
+
+        # Create center ellipsoid
+        # RotY * RotX * DIAG(r_x, r_yz) * T_base
+        [r_x, r_yz, rot_x, rot_y] = parameters.flatten()
+
+        # Check if user requests derivative splines
+        if self.check_param_derivatives(parameter_sensitivities):
+            n_derivatives = parameter_sensitivities.shape[2]
+            derivatives = []
+        else:
+            n_derivatives = 0
+            derivatives = None
+
+        # Prepare auxiliary matrices and values
+        diag = _np.diag([r_x, r_yz, r_yz])
+        rotMx = self._rotation_matrix_x(rot_x)
+        rotMy = self._rotation_matrix_y(rot_y)
+
+        # Start assembly
+        splines = []
+        for i_derivative in range(n_derivatives + 1):
+            spline_list = []
+            # Constant auxiliary values
+            if i_derivative == 0:
+                v_one_half = 0.5
+                v_one = 1.0
+                v_zero = 0.0
+                ctps = _np.einsum(
+                    "ij,jk,kl,ml->mi",
+                    rotMy,
+                    rotMx,
+                    diag,
+                    self._sphere_ctps.copy(),
+                    optimize=True,
+                )
+            else:
+                [dr_x, dr_yz, drot_x, drot_y] = parameter_sensitivities[
+                    0, :, i_derivative - 1
+                ].flatten()
+                v_one_half = 0.0
+                v_one = 0.0
+                v_zero = 0.0
+                ddiag = _np.diag([dr_x, dr_yz, dr_yz])
+                drotMx = self._rotation_matrix_x_deriv(rot_x)
+                drotMy = self._rotation_matrix_y_deriv(rot_y)
+                ctps_mat = (
+                    drot_y
+                    * _np.einsum(
+                        "ij,jk,kl->il",
+                        drotMy,
+                        rotMx,
+                        diag,
+                    )
+                    + drot_x * _np.einsum("ij,jk,kl->il", rotMy, drotMx, diag)
+                    + _np.einsum("ij,jk,kl->il", rotMy, rotMx, ddiag)
+                )
+                ctps = _np.einsum("ij,kj->ki", ctps_mat, self._sphere_ctps)
+
+            ctps += [v_one_half, v_one_half, v_one_half]
+            # Start the assembly
+            spline_list.append(
+                _Bezier(
+                    degrees=[1, 1, 1],
+                    control_points=[
+                        [v_zero, v_zero, v_zero],
+                        [v_one, v_zero, v_zero],
+                        [v_zero, v_one, v_zero],
+                        [v_one, v_one, v_zero],
+                        ctps[0, :],
+                        ctps[1, :],
+                        ctps[2, :],
+                        ctps[3, :],
+                    ],
+                )
+            )
+            spline_list.append(
+                _Bezier(
+                    degrees=[1, 1, 1],
+                    control_points=[
+                        ctps[4, :],
+                        ctps[5, :],
+                        ctps[6, :],
+                        ctps[7, :],
+                        [v_zero, v_zero, v_one],
+                        [v_one, v_zero, v_one],
+                        [v_zero, v_one, v_one],
+                        [v_one, v_one, v_one],
+                    ],
+                )
+            )
+            # Y-Axis
+            spline_list.append(
+                _Bezier(
+                    degrees=[1, 1, 1],
+                    control_points=[
+                        [v_zero, v_zero, v_zero],
+                        [v_one, v_zero, v_zero],
+                        ctps[0, :],
+                        ctps[1, :],
+                        [v_zero, v_zero, v_one],
+                        [v_one, v_zero, v_one],
+                        ctps[4, :],
+                        ctps[5, :],
+                    ],
+                )
+            )
+            spline_list.append(
+                _Bezier(
+                    degrees=[1, 1, 1],
+                    control_points=[
+                        ctps[2, :],
+                        ctps[3, :],
+                        [v_zero, v_one, v_zero],
+                        [v_one, v_one, v_zero],
+                        ctps[6, :],
+                        ctps[7, :],
+                        [v_zero, v_one, v_one],
+                        [v_one, v_one, v_one],
+                    ],
+                )
+            )
+            # Z-Axis
+            spline_list.append(
+                _Bezier(
+                    degrees=[1, 1, 1],
+                    control_points=[
+                        [v_zero, v_zero, v_zero],
+                        ctps[0, :],
+                        [v_zero, v_one, v_zero],
+                        ctps[2, :],
+                        [v_zero, v_zero, v_one],
+                        ctps[4, :],
+                        [v_zero, v_one, v_one],
+                        ctps[6, :],
+                    ],
+                )
+            )
+            spline_list.append(
+                _Bezier(
+                    degrees=[1, 1, 1],
+                    control_points=[
+                        ctps[1, :],
+                        [v_one, v_zero, v_zero],
+                        ctps[3, :],
+                        [v_one, v_one, v_zero],
+                        ctps[5, :],
+                        [v_one, v_zero, v_one],
+                        ctps[7, :],
+                        [v_one, v_one, v_one],
+                    ],
+                )
+            )
+
+            # Pass to output
+            if i_derivative == 0:
+                splines = spline_list.copy()
+            else:
+                derivatives.append(spline_list)
+
+        # Return results
+        return (splines, derivatives)
