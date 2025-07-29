@@ -1,0 +1,29 @@
+Metadata-Version: 2.4
+Name: fastapi-lib
+Version: 25.6.1
+Summary: A collection of utilities for FastAPI and SQLModel applications.
+Author: inwerk
+License-Expression: MIT
+Project-URL: Repository, https://github.com/zersec/fastapi-lib
+Project-URL: Bug Tracker, https://github.com/zersec/fastapi-lib/issues
+Keywords: fastapi,sqlmodel
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: pydantic>=2.11.5
+Requires-Dist: sqlmodel>=0.0.24
+Provides-Extra: build
+Requires-Dist: build; extra == "build"
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: ty; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
