@@ -1,0 +1,86 @@
+site_name: nnspect
+site_url: https://docs.nnspect.com
+site_author: Harshal Nandigramwar
+
+repo_name: hnanacc/nnspect
+repo_url: https://github.com/hnanacc/nnspect
+
+extra_css:
+  - _overrides/scheme.css
+
+theme:
+  name: material
+  custom_dir: docs/_overrides
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.share
+    - search.suggest
+    - search.follow
+    - toc.integrate
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: dark_mode
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: light_mode
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quick_start.md
+  - Concepts:
+      - Overview: concepts/overview.md
+      - Command line: concepts/command_line.md
+      - Data management: concepts/data_management.md
+      - Foundations:
+          - Overview: concepts/foundations/overview.md
+          - Models: concepts/foundations/models.md
+          - Datasets: concepts/foundations/datasets.md
+          - Evaluations: concepts/foundations/evaluations.md
+      - Feature management:
+          - Overview: concepts/features/overview.md
+          - Interceptor: concepts/features/interceptors.md
+          - Recorders: concepts/features/recorders.md
+          - Patchers: concepts/features/patcher.md
+          - Standardization: concepts/features/standardization.md
+      - Interpretation: concepts/interpretation.md
+      - Pipelines: concepts/pipelines.md
+      - Services:
+          - Overview: services/overview.md
+          - Logging: services/logging.md
+          - Checkpoint: services/checkpoint.md
+          - Profile: services/profile.md
+          - Storage: services/storage.md
+          - Distributed communication: services/distributed.md
+      - Client: basics/client.md
+  - Guides:
+      - Extending foundations: guides/extending_foundations.md
+      - Extending techniques: guides/extending_techniques.md
+      - Toy models: guides/toy_models.md
+      - Safety evaluations: guides/safety_evaluations.md
+      - Probing models: guides/probing_models.md
+      - Concept discovery: guides/concept_discovery.md
+  - Contributing:
+      - Overview: contributing/overview.md
+      - Workflow: contributing/workflow.md
+      - Demos: contributing/demos.md
+  - API Reference: api_reference.md
