@@ -1,0 +1,52 @@
+[project]
+name = "did-webvh"
+version = "1.0.0rc0"
+description = "This repository includes Python libraries for working with `did:webvh` (did:web + Verified History) DID documents and the underlying log format."
+authors = []
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{ include = "did_webvh" }]
+requires-python = ">= 3.10, <4"
+
+[tool.poetry.dependencies]
+aiohttp = "^3.10.5"
+aries-askar = ">=0.3.2"
+base58 = "~2.1.0"
+jsoncanon = "^0.2.3"
+multiformats = "^0.3.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+pytest-asyncio = "^0.25.0"
+pytest-cov = "^6.0.0"
+ruff = "^0.9.0"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[tool.ruff]
+lint.select = [
+    "D",
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+line-length = 90
+lint.ignore = ["D203", "D213", "D401", "EM102", "UP007"] #["E203", "E701"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["D103", "D104"]
+"test_*.py" = ["D", "E501"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
