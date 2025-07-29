@@ -1,0 +1,80 @@
+[project]
+name = "llmaix"
+version = "0.0.6"
+authers = [
+    {name = "Fabian Wolf", email = "fabian.wolf2@tu-dresden.de"}
+]
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+dependencies = [
+    "markitdown[docx, xlsx, xls, pdf]~=0.1.2",
+    "click~=8.1.8",
+    "pymupdf==1.25.3",
+    "pymupdf4llm~=0.0.17",
+    "ocrmypdf~=16.10.2",
+    "openai~=1.82.1",
+    "pytest>=8.3.5",
+    "hatchling~=1.27.0",
+]
+
+[project.urls]
+Homepage = "http://github.com/KatherLab/llmaixlib"
+Documentation = "http://github.com/KatherLab/llmaixlib"
+Issues = "http://github.com/KatherLab/llmaixlib/issues"
+
+[build-system]
+requires = ["hatchling ~= 1.27.0"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+llmaix = "llmaix.cli:main"
+
+[tool.hatch.version]
+path = "src/llmaix/__version__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/llmaix"]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.12",
+    "ty~=0.0.1a8"
+]
+surya = [
+    "surya-ocr~=0.14.3",
+]
+docling = [
+    "docling~=2.33.0",
+    "markdown-pdf~=1.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3.5"]
+surya = ["surya-ocr~=0.14.3"]
+docling = [
+    "docling~=2.33.0",
+    "markdown-pdf~=1.7",
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    'ignore::DeprecationWarning',
+]
+
+[tool.uv]
+environments = [
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "sys_platform == 'linux' and platform_machine == 'aarch64'",
+    "sys_platform == 'win32' and platform_machine == 'amd64'"
+]
