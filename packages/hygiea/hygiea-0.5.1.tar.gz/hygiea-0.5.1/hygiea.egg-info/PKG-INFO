@@ -1,0 +1,106 @@
+Metadata-Version: 2.4
+Name: hygiea
+Version: 0.5.1
+Summary: Comprehensive Data Cleaning, Profiling, and EDA Toolkit
+Home-page: https://github.com/ejigsonpeter/hygiea
+Author: Ejiga Peter Ojonugwa
+Author-email: ejigsonpeter@gmail.com
+License-Expression: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas>=1.0.0
+Requires-Dist: PyJWT>=1.0.0
+Requires-Dist: numpy>=1.18.0
+Requires-Dist: pyyaml>=5.1
+Requires-Dist: scikit-learn
+Requires-Dist: pandas_profiling>=3.0.0
+Requires-Dist: matplotlib>=3.0.0
+Requires-Dist: seaborn>=0.10.0
+Requires-Dist: sqlalchemy>=1.3.0
+Requires-Dist: nltk>=3.5
+Requires-Dist: spacy>=3.0.0
+Requires-Dist: xgboost>=1.3.0
+Requires-Dist: scipy>=1.4.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: license-expression
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Hygiea
+
+**Hygiea** is a comprehensive Python package for data “hygiene”: automated cleaning, profiling, and basic feature engineering.  
+It supports both Jupyter notebooks and command‑line usage.
+
+## Key Features
+
+1. **Column‑Name Standardization**  
+   - Lowercase, replace spaces/special chars, optional mapping from user.
+
+2. **Automatic Type Conversion**  
+   - Detects and converts dates, numerics, booleans.
+
+3. **Drop High‑Missingness**  
+   - Drop columns/rows exceeding a missing‐value threshold.
+
+4. **Low‑Variance / Constant Feature Detection**  
+   - Identifies columns with near‑zero variance.
+
+5. **Outlier Detection & Winsorization**  
+   - IQR, Z‑score, or Isolation Forest.
+
+6. **Categorical Encoding Suggestions & Utilities**  
+   - Reports cardinality, frequency distribution, one‑hot/label/target encoding helpers.
+
+7. **Multiple Imputation Strategies**  
+   - Median/mode, KNN, MICE, forward/backward fill.
+
+8. **Automated Visual Profiling**  
+   - Generates an interactive HTML report (via `pandas_profiling`).
+
+9. **Standard EDA Reports**  
+   - Summary statistics, missingness CSV, correlation matrix, VIF, class imbalance.
+
+10. **Target‑Guided EDA**  
+    - If a target column is provided, outputs per‑class distributions and statistical tests.
+
+11. **Time Series Profiling**  
+    - Automatically detects datetime, outputs time‑series plots and rolling summaries.
+
+12. **Text Cleaning & Tokenization Utilities**  
+    - Lowercase, strip, remove punctuation, stopwords removal, optional stemming/lemmatization.
+
+13. **Pipeline Configuration (YAML/JSON)**  
+    - Define cleaning steps in a config file, with logging.
+
+14. **Database & Big‑Data Support**  
+    - Read/write from SQL, chunked CSV processing.
+
+15. **Feature Engineering Helpers**  
+    - Date feature extraction, interaction/polynomial features, binning.
+
+16. **Quality & Consistency Checks**  
+    - Unique ID validation, cross‑column logic rules, data‐drift detection.
+
+17. **Model‑Ready Exports**  
+    - Train/test split helper, `sklearn`‐compatible transformer, export feature metadata.
+
+18. **Plugin/Extension System**  
+    - Register custom cleaning/EDA rules via entry points.
+
+---
+
+## Installation
+
+```bash
+pip install hygiea
