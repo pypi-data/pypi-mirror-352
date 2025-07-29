@@ -1,0 +1,38 @@
+name: xarray-safe-s1-tests
+channels:
+  - conda-forge
+dependencies:
+  - python
+  # development
+  - ipython
+  - pre-commit
+  - jupyterlab
+  - jupyterlab_code_formatter
+  - isort
+  - black
+  - dask-labextension
+  # testing
+  - pytest
+  - pytest-reportlog
+  - pytest-cov
+  - hypothesis
+  - coverage
+  # I/O
+  - rioxarray
+  - h5netcdf
+  - zarr
+  - scipy
+  - rasterio
+  # data
+  - xarray
+  - xarray-datatree
+  - dask
+  - numpy
+  - pandas
+  - shapely
+  - geopandas
+  - affine
+  - pyproj
+  # processing
+  - lxml
+  - jmespath
