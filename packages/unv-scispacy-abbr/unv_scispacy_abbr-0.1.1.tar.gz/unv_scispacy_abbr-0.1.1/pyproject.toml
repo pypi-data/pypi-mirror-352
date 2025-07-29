@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unv_scispacy_abbr"
+version = "0.1.1"
+description = "Standalone abbreviation detection component extracted from scispacy."
+authors = [
+  { name = "Ashok Hariharan", email = "ashok@hariharan.org.in" }
+]
+readme = "README.md"
+license = {text = "APACHE"}
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "spacy>=3.3,<4.0"
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "pytest-cov",
+  "pytest-xdist",
+]
