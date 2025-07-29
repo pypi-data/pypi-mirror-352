@@ -1,0 +1,370 @@
+Metadata-Version: 2.4
+Name: mcp-feedback-enhanced
+Version: 2.0.14
+Summary: Enhanced MCP server for interactive user feedback and command execution in AI-assisted development, featuring dual UI support (Qt GUI and Web UI) with intelligent environment detection.
+Project-URL: Homepage, https://github.com/Minidoracat/mcp-feedback-enhanced
+Project-URL: Repository, https://github.com/Minidoracat/mcp-feedback-enhanced
+Project-URL: Issues, https://github.com/Minidoracat/mcp-feedback-enhanced/issues
+Author-email: Minidoracat <minidora0702@gmail.com>
+License-File: LICENSE
+Keywords: ai,development,feedback,gui,interactive,mcp,web-ui
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: User Interfaces
+Requires-Python: >=3.11
+Requires-Dist: fastapi>=0.115.0
+Requires-Dist: fastmcp>=2.0.0
+Requires-Dist: jinja2>=3.1.0
+Requires-Dist: psutil>=7.0.0
+Requires-Dist: pyside6>=6.8.2.1
+Requires-Dist: uvicorn>=0.30.0
+Requires-Dist: websockets>=13.0.0
+Provides-Extra: dev
+Requires-Dist: pytest-asyncio>=0.21.0; extra == 'dev'
+Requires-Dist: pytest>=7.0.0; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# Interactive Feedback MCP
+
+**🌐 Language / 語言切換:** **English** | [繁體中文](README.zh-TW.md)
+
+**Original Author:** [Fábio Ferreira](https://x.com/fabiomlferreira) | [Original Project](https://github.com/noopstudios/interactive-feedback-mcp) ⭐  
+**Enhanced Fork:** [Minidoracat](https://github.com/Minidoracat)  
+**UI Design Reference:** [sanshao85/mcp-feedback-collector](https://github.com/sanshao85/mcp-feedback-collector) - Thanks for modern interface design inspiration  
+**Related Resources:** [dotcursorrules.com](https://dotcursorrules.com/) for more AI development workflow tools
+
+A simple [MCP server](https://modelcontextprotocol.io/) for implementing human-in-the-loop workflows in AI-assisted development tools (like [Cursor](https://www.cursor.com)). This server allows you to execute commands, view output, and provide text feedback and images directly to the AI. Also supports [Cline](https://cline.bot) and [Windsurf](https://windsurf.com).
+
+## ✨ New Features
+
+### 🌐 Full SSH Remote Support
+- **Automatic Environment Detection**: Intelligently detects runtime environment and selects appropriate interface
+- **Local Environment**: Uses original Qt GUI interface
+- **SSH Remote Environment**: Automatically switches to modern Web UI
+- **Real-time Communication**: WebSocket-based real-time command output and feedback
+- **Dark Theme**: Provides modern dark theme interface
+
+### 🖼️ Image Upload Support
+- **Multi-format Support**: PNG, JPG, JPEG, GIF, BMP, WebP
+- **Drag & Drop Upload**: Support for dragging files to interface
+- **Clipboard Support**: Direct paste from clipboard
+- **Auto Compression**: Smart compression for large images to meet 1MB limit
+- **MCP Integration**: Images automatically converted to MCP Image objects
+
+### 🛡️ Stability Improvements
+- **Encoding Fix**: Complete resolution of Chinese character garbled text issues
+- **Debug Control**: Controllable debug output, avoiding JSON parsing errors
+- **Error Handling**: Enhanced error handling ensuring stable program operation
+- **Output Isolation**: Strict isolation of debug output from MCP communication
+
+### 🌏 Multi-language Support
+- **Full Internationalization**: Complete multi-language support with structured JSON translation files
+- **Supported Languages**: Traditional Chinese, English, Simplified Chinese
+- **Smart Detection**: Automatic language detection based on system locale
+- **Easy Extension**: Simple JSON-based translation system for adding new languages
+- **Legacy Compatibility**: Fully backward compatible with existing code
+
+## 🖥️ Interface Preview
+
+### Qt GUI Interface (Local Environment)
+![Qt GUI Interface - English](docs/images/gui-en.png)
+
+### Web UI Interface (SSH Remote Environment)
+![Web UI Interface - English](docs/images/web-en.png)
+
+Both interfaces support:
+- 💬 Text feedback input
+- 🖼️ Image upload (supports drag & drop, clipboard paste)
+- ⚡ Real-time command execution
+- ⌨️ **Keyboard Shortcuts**:
+  - Ctrl+Enter for quick feedback submission (supports main keyboard and numpad)
+  - Ctrl+V to paste images directly in feedback dialog
+- 🎨 Modern dark theme
+- 📱 Responsive design (Web UI)
+- 🌐 Multi-language support (Traditional Chinese, English, Simplified Chinese)
+
+## 🎯 Why Use This Tool?
+
+By guiding AI assistants to confirm with users rather than making speculative high-cost tool calls, this module can significantly reduce the number of paid requests on platforms like Cursor. In some cases, it can consolidate up to 25 tool calls into a single feedback-oriented request, saving resources and improving performance.
+
+## 📝 Prompt Engineering Setup
+
+For best results, add the following custom prompts to your AI assistant (e.g., in Cursor's rules or prompts):
+
+### Basic Prompt
+> Whenever you want to ask a question, be sure to call MCP `mcp-feedback-enhanced`.  
+> Whenever you're about to complete a user request, call MCP `mcp-feedback-enhanced` instead of ending the process directly.  
+> Continue calling MCP until the user's feedback is empty, then end the request.
+
+### Complete Rules Example
+```
+# MCP Interactive Feedback Rules
+
+1. During any process, task, or conversation, whether asking, responding, or completing stage tasks, must call MCP mcp-feedback-enhanced.
+2. When receiving user feedback, if feedback content is not empty, must call MCP mcp-feedback-enhanced again and adjust behavior based on feedback.
+3. Only when user explicitly indicates "end" or "no more interaction needed" can you stop calling MCP mcp-feedback-enhanced, then the process is complete.
+4. Unless receiving end command, all steps must repeatedly call MCP mcp-feedback-enhanced.
+```
+
+This ensures your AI assistant uses this MCP server to request user feedback before marking tasks as complete.
+
+## 🚀 Installation
+
+### Method 1: uvx Installation (Recommended)
+
+**This is the simplest method, no need to manually manage dependencies or virtual environments:**
+
+1. **Install uv** (if not already installed)
+   ```bash
+   # Windows
+   pip install uv
+
+   # Linux/Mac
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+
+2. **Test Installation**
+   ```bash
+   # View version info (recommend using @latest for latest version)
+   uvx mcp-feedback-enhanced@latest version
+
+   # Run tests
+   uvx mcp-feedback-enhanced@latest test
+
+   # Persistent test mode (can actually test in browser)
+   uvx mcp-feedback-enhanced@latest test --persistent
+   ```
+
+### Method 2: Install from Source (Developers)
+
+Suitable for users who need to modify code or contribute to development:
+
+1. **Get the Code**
+   ```bash
+   git clone https://github.com/Minidoracat/mcp-feedback-enhanced.git
+   cd mcp-feedback-enhanced
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   uv sync
+   ```
+
+3. **Test Installation**
+   ```bash
+   # Basic functionality test
+   uv run python -m mcp_feedback_enhanced test
+   
+   # Persistent test mode (can actually test in browser)
+   uv run python -m mcp_feedback_enhanced test --persistent
+   ```
+
+4. **Run MCP Server**
+   ```bash
+   uv run python -m mcp_feedback_enhanced
+   ```
+
+## ⚙️ AI Assistant Configuration
+
+### Recommended Configuration (using uvx)
+
+Configure custom MCP server in Cursor settings, or manually edit `mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "mcp-feedback-enhanced": {
+      "command": "uvx",
+      "args": [
+        "mcp-feedback-enhanced@latest"
+      ],
+      "timeout": 600,
+      "autoApprove": [
+        "interactive_feedback"
+      ]
+    }
+  }
+}
+```
+
+### Alternative Configuration (running from source)
+
+If you need to use source version or want to customize environment variables:
+
+```json
+{
+  "mcpServers": {
+    "mcp-feedback-enhanced": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/path/to/mcp-feedback-enhanced",
+        "run",
+        "python",
+        "-m",
+        "mcp_feedback_enhanced"
+      ],
+      "timeout": 600,
+      "env": {
+        "FORCE_WEB": "true",
+        "MCP_DEBUG": "false"
+      },
+      "autoApprove": [
+        "interactive_feedback"
+      ]
+    }
+  }
+}
+```
+
+**Remember to modify the path to your actual project directory!**
+
+## 🔄 Workflow
+
+1. **AI Assistant Call** - AI calls `mcp-feedback-enhanced` after completing tasks
+2. **Environment Detection** - System automatically detects runtime environment
+3. **Interface Launch** - Launches Qt GUI or Web UI based on environment
+4. **User Interaction** - Users can:
+   - Execute commands and view output
+   - Provide text feedback (supports Ctrl+Enter quick submission, compatible with main keyboard and numpad)
+   - Upload images (drag & drop, clipboard paste Ctrl+V)
+   - Use multi-language interface switching
+5. **Feedback Delivery** - User feedback (including images) is sent back to AI assistant
+6. **Process Continuation** - AI continues or ends task based on feedback
+
+## 🧪 Testing and Development
+
+### Testing with uvx
+```bash
+# Complete functionality test (recommended)
+uvx mcp-feedback-enhanced@latest test
+
+# Qt GUI specific test
+uvx mcp-feedback-enhanced@latest test --gui
+
+# Web UI specific test
+uvx mcp-feedback-enhanced@latest test --web
+
+# Persistent test mode (doesn't close after test, allows interactive testing)
+uvx mcp-feedback-enhanced@latest test --persistent
+
+# View version
+uvx mcp-feedback-enhanced@latest version
+
+# Enable debug mode testing
+MCP_DEBUG=true uvx mcp-feedback-enhanced@latest test
+```
+
+## 🆕 Version History
+
+### v2.0.14 - Enhanced Keyboard Shortcuts (Latest)
+- ⌨️ **Numpad Support**: Ctrl+Enter shortcut now supports both main keyboard and numpad Enter keys
+- 🖼️ **Smart Image Pasting**: Ctrl+V can directly paste clipboard images in feedback dialog without additional upload steps
+- 🎮 **Dual Shortcut Mechanism**: GUI uses dual QShortcut setup ensuring full compatibility
+- 🌐 **Web UI Shortcut Enhancement**: Uses key/code dual detection mechanism supporting all Enter key variants
+- 💡 **User Experience Improvements**: Updated trilingual hint texts clearly indicating numpad support and image pasting functionality
+- 🔧 **API Simplification**: Removed `force_web_ui` parameter, simplified API design with only environment variable control
+- 📝 **Documentation Updates**: Updated all related documentation, removed redundant examples
+
+### v2.0.9 - Multi-language Architecture Enhancement
+- 🌏 **Complete Multi-language Architecture Restructuring**: Migrated from embedded translations to structured JSON-based system
+- 📁 **Organized Language Files**: Separated language files into `src/mcp_feedback_enhanced/locales/` directory structure
+- 🔧 **Enhanced Internationalization**: Dynamic loading with nested key structure and browser language detection
+- 📚 **Comprehensive Documentation**: Added detailed README for translation contributors with examples and guidelines
+- 🔄 **Backward Compatibility**: Maintained full compatibility with existing code while enabling modern features
+- 🖼️ **Interface Screenshots Update**: Added comprehensive screenshots showcasing both English and Traditional Chinese interfaces
+- 📝 **Documentation Enhancement**: Updated README files with multi-language screenshots and feature descriptions
+
+### v2.0.7 - Stability and Performance Improvements
+- 🛡️ **Enhanced Error Handling**: Improved stability and error recovery mechanisms
+- 🚀 **Performance Optimizations**: Faster startup times and improved resource management
+- 🔧 **Bug Fixes**: Various minor fixes and improvements
+- 📦 **Package Optimization**: Better dependency management and build process
+- 🎨 **Visual Improvements**: Enhanced button visibility and color consistency
+- 🖱️ **Interaction Fixes**: Improved drag-and-drop indicators and empty state hints
+- 📱 **Responsive Design**: Better layout adaptation for different screen sizes
+- 🌐 **Language Switching**: Fixed Qt GUI language switching with proper checkmarks
+- 🛡️ **Complete Chinese Character Encoding Fix**: Perfect Chinese character display support
+- 🔧 **JSON Parsing Error Resolution**: Fixed MCP client "Unexpected token" errors
+- 🎛️ **Controllable Debug Mode**: Debug output control via `MCP_DEBUG` environment variable
+- 🖼️ **Enhanced Image Support**: Improved image processing and Base64 encoding
+- 🚀 **Output Isolation**: Strict separation of debug output from MCP communication
+- 📦 **Package Optimization**: Improved uvx installation experience and dependency management
+
+### v2.0.0 - Web UI and Remote Support
+- ✅ **Web UI Interface**: Added Web UI support for SSH remote development environments
+- ✅ **Automatic Environment Detection**: Smart interface selection based on environment
+- ✅ **WebSocket Real-time Communication**: Live command execution and feedback
+- ✅ **Modern Dark Theme**: Beautiful dark theme with responsive design
+- ✅ **Persistent Testing Mode**: Enhanced testing capabilities
+
+### v1.0.0 - Foundation (Original Author)
+- ✅ **Qt GUI Interface**: Native desktop interface
+- ✅ **Command Execution**: Real-time command execution and output
+- ✅ **MCP Protocol Support**: Full Model Context Protocol implementation
+- ✅ **Cross-platform Support**: Windows, macOS, and Linux compatibility
+
+## 🛠️ Environment Variables
+
+### Core Environment Variables
+
+| Environment Variable | Purpose | Available Values | Default |
+|---------------------|---------|------------------|---------|
+| `FORCE_WEB` | Force use Web UI | `true`, `false`, `1`, `0`, `yes`, `no`, `on`, `off` | `false` |
+| `MCP_DEBUG` | Enable debug mode | `true`, `false`, `1`, `0`, `yes`, `no`, `on`, `off` | `false` |
+| `INCLUDE_BASE64_DETAIL` | Include full Base64 in image feedback | `true`, `false`, `1`, `0`, `yes`, `no`, `on`, `off` | `false` |
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Q: Getting "Unexpected token 'D'" error**  
+A: This is usually caused by debug output interference. Ensure `MCP_DEBUG=false` is set in production environment or don't set this environment variable.
+
+**Q: Chinese characters display as garbled text**  
+A: Completely fixed in v2.0.3. If still having issues, please update to latest version: `uvx mcp-feedback-enhanced@latest`
+
+**Q: Image upload fails**  
+A: Check if image size exceeds 1MB limit and ensure format is supported (PNG, JPG, JPEG, GIF, BMP, WebP).
+
+**Q: Web UI won't start**  
+A: Ensure firewall allows local port access, or try setting `FORCE_WEB=true` environment variable.
+
+## 🙏 Acknowledgments & Contact
+
+### Original Author
+**Fábio Ferreira** - [X @fabiomlferreira](https://x.com/fabiomlferreira)  
+**Original Project:** [noopstudios/interactive-feedback-mcp](https://github.com/noopstudios/interactive-feedback-mcp)  
+
+If you find Interactive Feedback MCP useful, the best ways to show support are:
+- 🌟 **Star the original project**: [Click here to star the original repo](https://github.com/noopstudios/interactive-feedback-mcp) ⭐
+- 📱 **Follow the original author**: [@fabiomlferreira](https://x.com/fabiomlferreira) on X
+
+### UI Design Inspiration
+**sanshao85** - [mcp-feedback-collector](https://github.com/sanshao85/mcp-feedback-collector)  
+Thanks for providing modern interface design inspiration, making this project's UI more beautiful and user-friendly.
+
+### Fork Maintainer
+For questions about Web UI functionality, image support, or other issues, please submit at [GitHub Issues](https://github.com/Minidoracat/mcp-feedback-enhanced/issues).
+
+### Community Support
+Join our Discord community for real-time assistance and discussions:
+**Discord Community:** [https://discord.gg/Gur2V67](https://discord.gg/Gur2V67)  
+Feel free to ask any questions in the community!
+
+### Related Resources
+- [dotcursorrules.com](https://dotcursorrules.com/) - More AI-assisted development workflow resources
+- [Model Context Protocol](https://modelcontextprotocol.io/) - Official MCP documentation
+
+## 📄 License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) file for details.
+
+---
+
+**🌟 Welcome to Star this project and share it with more developers!**
