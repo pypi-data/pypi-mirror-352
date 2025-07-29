@@ -1,0 +1,92 @@
+[project]
+name = "starlive"
+description = "Universal Hypermedia System for Starlette & FastAPI"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "starlette>=0.41.0",
+    "jinja2>=3.1.0",
+    "python-multipart>=0.0.12",
+]
+dynamic = ["version"]
+
+[project.scripts]
+starlive-test = "starlive.cli:test_main"
+starlive-dev = "starlive.cli:dev_main"
+
+[build-system]
+requires = ["hatchling", "hatch-vcs>=0.3.0"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "playwright>=1.41.0",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.25.3",
+    "pytest-playwright>=0.4.4",
+    "pytest-cov>=6.0.0",
+    "pytest-xdist>=3.6.0",
+    "pytest-timeout>=2.3.1",
+    "requests>=2.32.0",
+    "ruff>=0.7.3",
+    "uvicorn[standard]>=0.30.0",
+    "fastapi>=0.110.0",
+]
+
+[tool.hatch.version]
+source = "vcs"
+fallback-version = "0.0.0"
+
+[tool.hatch.build.targets.sdist]
+only-include = ["src/", "examples/", "tests/", "scripts/"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/starlive"]
+
+[tool.ruff]
+line-length = 88
+src = ["src"]
+exclude = ["tests/fixtures"]
+target-version = "py312"
+
+[tool.ruff.lint]
+extend-select = [
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "PGH", # pygrep-hooks
+    "RUF", # ruff
+    "W",   # pycodestyle
+    "YTT", # flake8-2020
+]
+extend-ignore = ["B018", "B019", "B905"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["F811"]  # Ignore fixture redefinition warnings in tests
+
+[tool.pytest.ini_options]
+addopts = "--tb=short --strict-markers"
+markers = [
+    "unit: Unit tests",
+    "e2e: End-to-end tests", 
+    "slow: Slow running tests"
+]
+testpaths = "tests"
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+asyncio_default_test_loop_scope = "function"
