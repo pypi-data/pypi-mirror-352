@@ -1,0 +1,458 @@
+Metadata-Version: 2.4
+Name: metaminer
+Version: 0.3.3
+Summary: Extract structured information from documents using AI
+Author-email: Travis Adams <tadams792@gmail.com>
+Maintainer-email: Travis Adams <tadams792@gmail.com>
+License:                    GNU LESSER GENERAL PUBLIC LICENSE
+                               Version 3, 29 June 2007
+        
+         Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+         Everyone is permitted to copy and distribute verbatim copies
+         of this license document, but changing it is not allowed.
+        
+        
+          This version of the GNU Lesser General Public License incorporates
+        the terms and conditions of version 3 of the GNU General Public
+        License, supplemented by the additional permissions listed below.
+        
+          0. Additional Definitions.
+        
+          As used herein, "this License" refers to version 3 of the GNU Lesser
+        General Public License, and the "GNU GPL" refers to version 3 of the GNU
+        General Public License.
+        
+          "The Library" refers to a covered work governed by this License,
+        other than an Application or a Combined Work as defined below.
+        
+          An "Application" is any work that makes use of an interface provided
+        by the Library, but which is not otherwise based on the Library.
+        Defining a subclass of a class defined by the Library is deemed a mode
+        of using an interface provided by the Library.
+        
+          A "Combined Work" is a work produced by combining or linking an
+        Application with the Library.  The particular version of the Library
+        with which the Combined Work was made is also called the "Linked
+        Version".
+        
+          The "Minimal Corresponding Source" for a Combined Work means the
+        Corresponding Source for the Combined Work, excluding any source code
+        for portions of the Combined Work that, considered in isolation, are
+        based on the Application, and not on the Linked Version.
+        
+          The "Corresponding Application Code" for a Combined Work means the
+        object code and/or source code for the Application, including any data
+        and utility programs needed for reproducing the Combined Work from the
+        Application, but excluding the System Libraries of the Combined Work.
+        
+          1. Exception to Section 3 of the GNU GPL.
+        
+          You may convey a covered work under sections 3 and 4 of this License
+        without being bound by section 3 of the GNU GPL.
+        
+          2. Conveying Modified Versions.
+        
+          If you modify a copy of the Library, and, in your modifications, a
+        facility refers to a function or data to be supplied by an Application
+        that uses the facility (other than as an argument passed when the
+        facility is invoked), then you may convey a copy of the modified
+        version:
+        
+           a) under this License, provided that you make a good faith effort to
+           ensure that, in the event an Application does not supply the
+           function or data, the facility still operates, and performs
+           whatever part of its purpose remains meaningful, or
+        
+           b) under the GNU GPL, with none of the additional permissions of
+           this License applicable to that copy.
+        
+          3. Object Code Incorporating Material from Library Header Files.
+        
+          The object code form of an Application may incorporate material from
+        a header file that is part of the Library.  You may convey such object
+        code under terms of your choice, provided that, if the incorporated
+        material is not limited to numerical parameters, data structure
+        layouts and accessors, or small macros, inline functions and templates
+        (ten or fewer lines in length), you do both of the following:
+        
+           a) Give prominent notice with each copy of the object code that the
+           Library is used in it and that the Library and its use are
+           covered by this License.
+        
+           b) Accompany the object code with a copy of the GNU GPL and this license
+           document.
+        
+          4. Combined Works.
+        
+          You may convey a Combined Work under terms of your choice that,
+        taken together, effectively do not restrict modification of the
+        portions of the Library contained in the Combined Work and reverse
+        engineering for debugging such modifications, if you also do each of
+        the following:
+        
+           a) Give prominent notice with each copy of the Combined Work that
+           the Library is used in it and that the Library and its use are
+           covered by this License.
+        
+           b) Accompany the Combined Work with a copy of the GNU GPL and this license
+           document.
+        
+           c) For a Combined Work that displays copyright notices during
+           execution, include the copyright notice for the Library among
+           these notices, as well as a reference directing the user to the
+           copies of the GNU GPL and this license document.
+        
+           d) Do one of the following:
+        
+               0) Convey the Minimal Corresponding Source under the terms of this
+               License, and the Corresponding Application Code in a form
+               suitable for, and under terms that permit, the user to
+               recombine or relink the Application with a modified version of
+               the Linked Version to produce a modified Combined Work, in the
+               manner specified by section 6 of the GNU GPL for conveying
+               Corresponding Source.
+        
+               1) Use a suitable shared library mechanism for linking with the
+               Library.  A suitable mechanism is one that (a) uses at run time
+               a copy of the Library already present on the user's computer
+               system, and (b) will operate properly with a modified version
+               of the Library that is interface-compatible with the Linked
+               Version.
+        
+           e) Provide Installation Information, but only if you would otherwise
+           be required to provide such information under section 6 of the
+           GNU GPL, and only to the extent that such information is
+           necessary to install and execute a modified version of the
+           Combined Work produced by recombining or relinking the
+           Application with a modified version of the Linked Version. (If
+           you use option 4d0, the Installation Information must accompany
+           the Minimal Corresponding Source and Corresponding Application
+           Code. If you use option 4d1, you must provide the Installation
+           Information in the manner specified by section 6 of the GNU GPL
+           for conveying Corresponding Source.)
+        
+          5. Combined Libraries.
+        
+          You may place library facilities that are a work based on the
+        Library side by side in a single library together with other library
+        facilities that are not Applications and are not covered by this
+        License, and convey such a combined library under terms of your
+        choice, if you do both of the following:
+        
+           a) Accompany the combined library with a copy of the same work based
+           on the Library, uncombined with any other library facilities,
+           conveyed under the terms of this License.
+        
+           b) Give prominent notice with the combined library that part of it
+           is a work based on the Library, and explaining where to find the
+           accompanying uncombined form of the same work.
+        
+          6. Revised Versions of the GNU Lesser General Public License.
+        
+          The Free Software Foundation may publish revised and/or new versions
+        of the GNU Lesser General Public License from time to time. Such new
+        versions will be similar in spirit to the present version, but may
+        differ in detail to address new problems or concerns.
+        
+          Each version is given a distinguishing version number. If the
+        Library as you received it specifies that a certain numbered version
+        of the GNU Lesser General Public License "or any later version"
+        applies to it, you have the option of following the terms and
+        conditions either of that published version or of any later version
+        published by the Free Software Foundation. If the Library as you
+        received it does not specify a version number of the GNU Lesser
+        General Public License, you may choose any version of the GNU Lesser
+        General Public License ever published by the Free Software Foundation.
+        
+          If the Library as you received it specifies that a proxy can decide
+        whether future versions of the GNU Lesser General Public License shall
+        apply, that proxy's public statement of acceptance of any version is
+        permanent authorization for you to choose that version for the
+        Library.
+        
+Project-URL: Homepage, https://github.com/travis4dams/metaminer
+Project-URL: Repository, https://github.com/travis4dams/metaminer
+Project-URL: Issues, https://github.com/travis4dams/metaminer/issues
+Project-URL: PyPI, https://pypi.org/project/metaminer/
+Project-URL: Documentation, https://github.com/travis4dams/metaminer#readme
+Keywords: ai,document,extraction,nlp,openai,structured-data
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Text Processing :: General
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: openai>=1.0.0
+Requires-Dist: pandas>=1.3.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: pypandoc>=1.5
+Requires-Dist: PyMuPDF>=1.20.0
+Requires-Dist: python-dateutil>=2.8.0
+Requires-Dist: typing_extensions>=4.0.0; python_version < "3.9"
+Provides-Extra: dev
+Requires-Dist: pytest>=6.0; extra == "dev"
+Requires-Dist: pytest-mock; extra == "dev"
+Dynamic: license-file
+
+# Metaminer
+
+[![Tests](https://github.com/travis4dams/metaminer/workflows/Tests/badge.svg)](https://github.com/travis4dams/metaminer/actions)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+
+A tool for extracting structured information from documents using AI.
+
+## Overview
+
+Metaminer allows you to extract structured data from various document formats (PDF, DOCX, TXT, etc.) by asking natural language questions. It uses AI to analyze documents and return structured results in CSV or JSON format.
+
+## Installation
+
+```bash
+pip install metaminer
+```
+
+### System Requirements
+
+Metaminer requires [pandoc](https://pandoc.org/installing.html) to be installed on your system for document processing:
+
+- **Ubuntu/Debian**: `sudo apt-get install pandoc`
+- **macOS**: `brew install pandoc`
+- **Windows**: Download from [pandoc.org](https://pandoc.org/installing.html)
+
+**Note**: Metaminer uses pandoc for most document formats and PyMuPDF specifically for PDF processing to ensure optimal text extraction.
+
+## Usage
+
+### Command Line Interface
+
+```bash
+# Basic usage
+metaminer questions.txt documents/
+
+# Process single document
+metaminer questions.txt document.pdf
+
+# Save results to file
+metaminer questions.txt documents/ --output results.csv
+
+# JSON output format
+metaminer questions.txt documents/ --format json --output results.json
+
+# Custom API endpoint
+metaminer questions.txt documents/ --base-url http://localhost:8000/api/v1
+```
+
+### Python Module
+
+```python
+from metaminer import Inquiry, extract_metadata, Config
+from metaminer import extract_text, get_supported_extensions
+import pandas as pd
+
+# From question file
+inquiry = Inquiry.from_file("questions.txt")
+df = inquiry.process_documents("documents/")
+
+# Direct questions
+inquiry = Inquiry(questions=["Who is the author?", "What is the publication date?"])
+df = inquiry.process_documents(["doc1.pdf", "doc2.docx"])
+
+# Single document
+result = inquiry.process_document("document.pdf")
+
+# Extract text directly
+text = extract_text("document.pdf")
+
+# Get supported file extensions
+extensions = get_supported_extensions()
+
+# Use configuration
+config = Config()
+print(f"Default API endpoint: {config.base_url}")
+```
+
+## Question Formats
+
+### Text File (.txt)
+One question per line:
+```
+Who is the author?
+What is the publication date?
+What is the main topic?
+```
+
+### CSV File (.csv)
+Structured format with optional field names and data types:
+```csv
+question,field_name,data_type
+"Who is the author?",author,str
+"What is the publication date?",pub_date,date
+"How many pages?",page_count,int
+```
+
+Supported data types:
+- `str` (default): Text
+- `int`: Integer numbers
+- `float`: Decimal numbers
+- `bool`: True/False values
+- `date`: Date values
+- `list(type)`: Arrays of values (e.g., `list(str)`, `list(int)`)
+- `enum(val1,val2,val3)`: Single choice from discrete values
+- `multi_enum(val1,val2,val3)`: Multiple choices from discrete values
+
+## Supported Document Formats
+
+Thanks to pandoc integration and PyMuPDF, metaminer supports:
+- PDF (.pdf)
+- Microsoft Word (.docx, .doc)
+- OpenDocument (.odt)
+- Rich Text Format (.rtf)
+- Plain text (.txt)
+- Markdown (.md)
+- HTML (.html)
+- EPUB (.epub)
+- LaTeX (.tex)
+
+## Configuration
+
+### API Settings
+
+By default, metaminer connects to a local AI server at `http://localhost:5001/api/v1`. You can customize this using environment variables or command-line options:
+
+#### Environment Variables
+
+```bash
+# API Configuration
+export OPENAI_API_KEY=your-api-key
+export METAMINER_BASE_URL=http://your-api-server.com/api/v1
+export METAMINER_MODEL=gpt-4
+export METAMINER_TIMEOUT=60
+export METAMINER_MAX_RETRIES=5
+
+# Logging Configuration
+export METAMINER_LOG_LEVEL=DEBUG
+```
+
+#### Command Line
+
+```bash
+metaminer questions.txt documents/ --base-url http://your-api-server.com/api/v1
+```
+
+#### Python
+
+```python
+from metaminer import Inquiry, Config
+
+# Using configuration
+config = Config()
+inquiry = Inquiry.from_file("questions.txt", base_url="http://your-api-server.com/api/v1")
+
+# Or set environment variables before creating Inquiry
+import os
+os.environ["METAMINER_BASE_URL"] = "http://your-api-server.com/api/v1"
+inquiry = Inquiry.from_file("questions.txt")
+```
+
+### Configuration Defaults
+
+- **Base URL**: `http://localhost:5001/api/v1`
+- **Model**: `gpt-3.5-turbo`
+- **Timeout**: 30 seconds
+- **Max Retries**: 3
+- **Log Level**: INFO
+- **Max File Size**: 50MB
+
+## Output Format
+
+Results include the extracted information plus metadata:
+
+```csv
+author,pub_date,page_count,_document_path,_document_name
+"John Doe","2023-01-15",25,"/path/to/doc1.pdf","doc1.pdf"
+"Jane Smith","2023-02-20",18,"/path/to/doc2.pdf","doc2.pdf"
+```
+
+## Examples
+
+### Research Paper Analysis
+```txt
+# questions.txt
+Who are the authors?
+What is the title?
+What journal was this published in?
+What is the publication year?
+What is the main research question?
+What methodology was used?
+```
+
+### Invoice Processing
+```csv
+question,field_name,data_type
+"What is the invoice number?",invoice_number,str
+"What is the total amount?",total_amount,float
+"What is the invoice date?",invoice_date,date
+"Who is the vendor?",vendor_name,str
+"What is the due date?",due_date,date
+```
+
+### Legal Document Review
+```txt
+What type of document is this?
+Who are the parties involved?
+What is the effective date?
+What is the termination date?
+What are the key obligations?
+```
+
+### Document Classification with Enums
+```csv
+question,field_name,data_type
+"What is the document type?",doc_type,"enum(report,memo,letter,invoice)"
+"What topics are covered?",topics,"multi_enum(finance,hr,marketing,operations)"
+"What is the priority level?",priority,"enum(low,medium,high,urgent)"
+"What is the title?",title,str
+"Who is the author?",author,str
+```
+
+**Note**: When using enum types in CSV files, make sure to quote the entire type specification to prevent CSV parsing issues with commas.
+
+## Development
+
+### Running Tests
+```bash
+pip install -e ".[dev]"
+pytest
+```
+
+### Project Structure
+```
+metaminer/
+├── __init__.py          # Main exports
+├── inquiry.py           # Core Inquiry class
+├── document_reader.py   # Document text extraction
+├── question_parser.py   # Question file parsing
+├── schema_builder.py    # Pydantic schema generation
+├── extractor.py         # Metadata extraction utilities
+├── config.py           # Configuration management
+├── cli.py              # Command-line interface
+└── __main__.py         # Module entry point
+```
+
+## License
+
+GNU Lesser General Public License v3.0 - see LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
