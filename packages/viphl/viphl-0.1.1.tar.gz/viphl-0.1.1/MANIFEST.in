@@ -1,0 +1,23 @@
+include LICENSE
+include README.md
+include requirements.txt
+
+# Include Cython source files
+recursive-include indicators *.pyx
+recursive-include indicators *.pxd
+recursive-include indicators *.h
+recursive-include indicators *.c
+recursive-include indicators *.cpp
+
+# Exclude Python implementation files we want to protect
+exclude indicators/viphl/viphl_indicator_1_95.py
+exclude indicators/viphl/viphl.py
+
+# Exclude any private configuration files
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *.pyd
+global-exclude __pycache__
+global-exclude .git
+global-exclude .ipynb_checkpoints
+global-exclude .DS_Store 
