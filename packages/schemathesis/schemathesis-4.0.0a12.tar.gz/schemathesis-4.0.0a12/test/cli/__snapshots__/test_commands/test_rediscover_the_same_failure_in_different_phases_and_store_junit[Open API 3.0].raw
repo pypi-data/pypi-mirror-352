@@ -1,0 +1,89 @@
+Exit code: 1
+---
+Stdout:
+Schemathesis dev
+━━━━━━━━━━━━━━━━
+
+
+ ✅  Loaded specification from http://127.0.0.1/schema.yaml (in 0.00s)
+
+     Base URL:         http://127.0.0.1/api
+     Specification:    Open API 3.0.2
+     Operations:       3 selected / 3 total
+
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:    ✘
+
+ ❌  Examples (in 0.00s)
+
+     ✅ 1 passed  ❌ 1 failed  ⏭  1 skipped
+
+ ❌  Coverage (in 0.00s)
+
+     ✅ 2 passed  ❌ 1 failed
+
+ ❌  Fuzzing (in 0.00s)
+
+     ✅ 2 passed  ❌ 1 failed
+
+ ❌  Stateful (in 0.00s)
+
+     Scenarios:    N
+     API Links:    N covered / 4 selected / 4 total
+
+     ✅ N passed  ❌ 1 failed
+
+=================================== FAILURES ===================================
+_____________________________ GET /users/{user_id} _____________________________
+1. Test Case ID: <PLACEHOLDER>
+
+- Custom check failed: `always_fails`
+
+    Failed!
+
+[404] Not Found:
+
+    `{"message": "Not found"}`
+
+Reproduce with:
+
+    curl -X GET 'http://127.0.0.1/api/users/0?user_id=test-id&code=0&common=0'
+
+=================================== WARNINGS ===================================
+
+Missing test data: 1 operation repeatedly returned 404 Not Found, preventing tests from reaching your API's core logic
+
+  - PATCH /users/{user_id}
+
+💡 Provide realistic parameter values in your config file so tests can access existing resources
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 3/3
+  Tested: 3
+
+Test Phases:
+  ✅ API probing
+  ❌ Examples
+  ❌ Coverage
+  ❌ Fuzzing
+  ❌ Stateful
+
+Failures:
+  ❌ Custom check failed: `always_fails`: 1
+
+Warnings:
+  ⚠️ Missing valid test data: 1 operation repeatedly returned 404 responses
+
+Test cases:
+  N generated, N found N unique failures, N skipped
+
+Reports:
+  - JUNIT: /tmp/test_rediscover_the_same_failu0/reports/junit.xml
+
+Seed: 42
+
+============================== 1 failure in 1.00s ==============================

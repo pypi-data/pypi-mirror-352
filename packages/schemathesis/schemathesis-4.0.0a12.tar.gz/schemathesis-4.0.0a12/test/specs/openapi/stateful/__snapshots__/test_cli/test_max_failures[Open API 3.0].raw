@@ -1,0 +1,92 @@
+Exit code: 1
+---
+Stdout:
+Schemathesis dev
+━━━━━━━━━━━━━━━━
+
+
+ ✅  Loaded specification from http://127.0.0.1/schema.yaml (in 0.00s)
+
+     Base URL:         http://127.0.0.1/api
+     Specification:    Open API 3.0.2
+     Operations:       4 selected / 4 total
+
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:    ✘
+
+ ❌  Fuzzing (in 0.00s)
+
+     ✅ 3 passed  ❌ 1 failed
+
+ ❌  Stateful (in 0.00s)
+
+     Scenarios:    N
+     API Links:    N covered / 4 selected / 4 total
+
+     ✅ N passed  ❌ 1 failed
+
+=================================== FAILURES ===================================
+_________________________________ GET /failure _________________________________
+1. Test Case ID: <PLACEHOLDER>
+
+- Server error
+
+[500] Internal Server Error:
+
+    `500: Internal Server Error`
+
+Reproduce with:
+
+    <PLACEHOLDER>
+
+________________________________ Stateful tests ________________________________
+1. Test Case ID: <PLACEHOLDER>
+
+- Server error
+
+[500] Internal Server Error:
+
+    `500 Internal Server Error
+
+    Server got itself in trouble`
+
+Reproduce with:
+
+    <PLACEHOLDER>
+
+=================================== WARNINGS ===================================
+
+Missing test data: 2 operations repeatedly returned 404 Not Found, preventing tests from reaching your API's core logic
+
+  - GET /users/{user_id}
+  - PATCH /users/{user_id}
+
+💡 Provide realistic parameter values in your config file so tests can access existing resources
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 4/4
+  Tested: 4
+
+Test Phases:
+  ✅ API probing
+  ⏭  Examples (disabled)
+  ⏭  Coverage (disabled)
+  ❌ Fuzzing
+  ❌ Stateful
+
+Failures:
+  ❌ Server error: 2
+
+Warnings:
+  ⚠️ Missing valid test data: 2 operations repeatedly returned 404 responses
+
+Test cases:
+  N generated, N found N unique failures
+
+Seed: 42
+
+============================= 2 failures in 1.00s ==============================
