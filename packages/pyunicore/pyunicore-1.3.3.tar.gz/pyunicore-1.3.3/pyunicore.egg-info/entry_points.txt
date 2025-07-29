@@ -1,0 +1,9 @@
+[console_scripts]
+unicore = pyunicore.cli.main:main
+unicore-cwl-runner = pyunicore.cwl.cwltool:main
+unicore-fusedriver = pyunicore.uftp.uftpfuse:main
+unicore-port-forwarder = pyunicore.forwarder:main
+
+[fs.opener]
+uftp = pyunicore.uftp.uftpfs:UFTPOpener
+uftpmount = pyunicore.uftp.uftpmountfs:UFTPMountOpener
