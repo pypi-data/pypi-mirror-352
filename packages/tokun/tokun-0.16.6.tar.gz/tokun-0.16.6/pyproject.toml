@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "tokun"
+version = "0.16.6"
+description = "Byte level VAE models."
+authors = ["apehex <apehex@protonmail.com>"]
+readme = ".github/README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10, <3.13"
+mlable = ">=0.21"
+tensorflow = ">=2.16, <2.20"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+
+[tool.poetry.group.dev.dependencies]
+tensorflow-datasets = ">=4.9"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
