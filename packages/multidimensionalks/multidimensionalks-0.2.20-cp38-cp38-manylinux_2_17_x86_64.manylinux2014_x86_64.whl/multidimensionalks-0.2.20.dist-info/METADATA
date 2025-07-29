@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: multidimensionalks
+Version: 0.2.20
+Summary: Multidimensional KS test module in python
+Author: Tomasz Pawlowski
+Author-email: tp292676@students.mimuw.edu.pl
+License: MIT
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: License :: OSI Approved :: MIT License
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.19
+Requires-Dist: cpufeature>=0.2.0
+
+# multidimensionalks
+Python c extension with method for calculating multidimensional Kolmogorov-Smirnov test
+
+`multidimensionalks.test(rvs, cdf=None, counts_rvs=None, counts_cdf=None, n_jobs=1, permutation_samples=0, draw_samples=False, binomial_significance=False, use_avx=3, max_alpha_beta=True, scale_result=False, deduplicate_data=True, debug=False)`
+
+# Example usage
+
+```python
+from multidimensionalks import test
+import numpy as np
+
+test(np.array([[1, 2, 3], [1, 3, 2]]), cdf=np.array([[1,2,2]]))
+```
+
+# Parameters
+
+* `rvs`: 2-dimensional numpy number array with rows representing `d`-dimensional observations,
+* `cdf`: 2-dimensional numpy number array with rows representing second sample`d`-dimensional observations,
+* `counts_rvs`: in case of `rvs` having multiple duplicates, an array without duplicates and a separate array of counts can be provided,
+* `counts_cdf`: in case of `cdf` having multiple duplicates, an array without duplicates and a separate array of counts can be provided, additionally if `cdf` is not given `counts_cdf` are taken as counts of elements of `rvs` array,
+* `n_jobs`: number of threads used during calculation,
+* `binomial_significance`: boolean value indicating if statistical significance should be calculated. Defaults to `False`,
+* `permutation_samples`: number of times data is shuffled and the statistic value is calculated to estimate pvalue,
+* `draw_samples`: boolean value indicating that samples should be drawn with replacement instead of permutating (defaults to permutating),
+* `use_avx`: integer value indicating if `AVX` instructions should be used during the calculations. `0` disables avx, `3` means to try the best supported set, `1` will try to use AVX512 instruction set and use no otherwise, `2` will try to use `AVX2`. Defaults to `3`,
+* `max_alpha_beta`: boolean value indicating how λ and β values should be combined. Value `True` (default) results in `max(λ, β)`. `(λ+β)/2` is used otherwise.
+* `scale_result`: Whether to scale the statistic by $\sqrt{\frac{|rvs|+|cdf|}{|rvs|\times|cdf|}}$ (default False),
+* `deduplicate_data`: Whether to deduplicate data points before running the algorithms,
+* `debug`: Whether to print debug data to stdout.
+
+# Return value
+
+If no pvalue calculation method is selected returns ks statistic value, otherwise returns a tuple:
+* ks statistic,
+* pvalue calculated using statistical method if `binomial_significance` is set to `True`,
+* pvalue calculated using permutation method if `permutation_samples` is larger than `0`.
