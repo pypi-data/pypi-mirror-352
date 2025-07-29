@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cogssg"
+version = "0.1.0"
+authors = [
+    {name="Natan Junges", email="natanajunges@gmail.com"}
+]
+description = "A simple static site generator"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent"
+]
+dependencies = [
+    "cogapp"
+]
+
+[project.scripts]
+ssg = "cogssg:main"
+
+[project.urls]
+Homepage = "https://github.com/natanjunges/cogssg"
+Issues = "https://github.com/natanjunges/cogssg/issues"
