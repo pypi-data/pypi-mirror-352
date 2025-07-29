@@ -1,0 +1,84 @@
+# Build system configuration - specifies how to build the package
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = { attr = "fastapi_agmin.__version__" }
+
+# Project metadata and basic information
+[project]
+name = "fastapi-agmin"
+dynamic = ["version"]
+description = "A FastAPI package with CRUD endpoints and a Vue + AG Grid frontend for SQLAlchemy models."
+authors = [{ name = "Pedro Viana", email = "pedrovgp@gmail.com" }]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Framework :: FastAPI",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+# Main project dependencies
+dependencies = [
+    "fastapi>=0.68.0",
+    "uvicorn>=0.28.0",
+    "sqlalchemy>=1.4.0",
+    "pydantic>=2.0.0",
+    "PyYAML>=6.0.0",
+]
+
+# Added repository URL under the [project.urls] section
+[project.urls]
+repository = "https://github.com/pedrovgp/fastapi-agmin"
+
+# Development dependency groups (alternative format)
+[project.optional-dependencies]
+dev = [
+    "pytest-playwright>=0.7.0",
+    "ruff>=0.11.8",
+    "pytest>=8.3.5",
+    "httpx>=0.28.1",
+    "pytest-cov",
+    "pytest-asyncio",
+    "pre-commit>=4.2.0",
+]
+
+# Setuptools configuration for package structure
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+
+# Include static files in the package
+[tool.setuptools.package-data]
+"fastapi_agmin" = ["static/**/*"]
+
+# Pytest configuration for running tests
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--strict-markers --tb=short --log-cli-level=INFO --tracing=retain-on-failure --cov=src --cov-report=xml"
+testpaths = ["tests"]
+markers = ["ui: marks tests that require UI interaction"]
+
+# Ruff linter configuration
+[tool.ruff]
+line-length = 120
+exclude = [
+    "node_modules",
+    "dist",
+    "build",
+    "static",
+    "frontend/node_modules",
+    "frontend/dist",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "A"] # Error, Flake8, Bugbear, Isort, Autoflake
+ignore = []
+fixable = ["ALL"]
+
+# Ignore docstring checks in test files
+[tool.ruff.lint.per-file-ignores]
+"tests/test_*.py" = ["D"]
