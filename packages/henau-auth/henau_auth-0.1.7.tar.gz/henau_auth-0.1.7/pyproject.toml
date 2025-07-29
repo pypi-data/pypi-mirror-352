@@ -1,0 +1,45 @@
+[project]
+name = "henau-auth"
+version = "0.1.7"
+description = "河南农业大学统一授权认证服务 python SDK"
+authors = [
+    { name = "Tordor" , email = "3262978839@qq.com" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "casbin>=1.43.0",
+    "casbin-peewee-adapter>=0.0.2",
+    "jinja2>=3.1.6",
+    "mcp>=1.9.0",
+    "ollama>=0.4.8",
+    "peewee>=3.18.1",
+    "pyjwt>=2.10.1",
+    "requests>=2.32.3",
+    "starlette>=0.46.2",
+    "typer>=0.15.3",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.8",
+    "fastapi>=0.115.12",
+    "uvicorn>=0.34.2",
+    "pytest>=8.3.5",
+]
+
+[project.scripts]
+ha = "cli.main:main"
+
+[tool.poetry]
+include = [
+    "README.md",
+    "LICENSE",
+    "src/cli",
+    "src/henau_auth"
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
