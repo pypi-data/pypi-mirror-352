@@ -1,0 +1,47 @@
+[project]
+name = "vaultlock-py"
+version = "0.1.1"
+description = "Secure secrets and encryption manager for GCP Secret Manager, Vault, and KMS"
+authors = [
+  { name = "Raghava Chellu", email = "raghava.chellu@gmail.com" }
+]
+license = { text = "MIT" }  # SPDX expression for license
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = [
+  "vault",
+  "gcp",
+  "kms",
+  "secret-manager",
+  "cryptography",
+  "key-management",
+  "linux",
+  "google-cloud",
+  "security",
+  "encryption",
+  "python",
+  "cli",
+  "devsecops"
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Topic :: Security :: Cryptography",
+  "Intended Audience :: Developers",
+  "Development Status :: 4 - Beta"
+]
+dependencies = [
+  "google-cloud-secret-manager",
+  "google-cloud-kms",
+  "hvac"
+]
+
+[project.scripts]
+vaultlock = "vaultlock.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["vaultlock"]
