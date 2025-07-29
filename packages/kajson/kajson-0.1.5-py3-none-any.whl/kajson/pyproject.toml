@@ -1,0 +1,194 @@
+[project]
+name = "kajson"
+version = "0.1.5"
+description = "Powerful universal JSON encoder/decoder for Python objects with support for pydantic v2."
+authors = [{ name = "Evotis S.A.S.", email = "contact@pipelex.com" }]
+maintainers = [{ name = "Pipelex staff", email = "oss@pipelex.com" }]
+license = "Apache-2.0"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: Apache Software License",
+]
+
+dependencies = [
+    "pydantic==2.10.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/pipelex/kajson"
+Repository = "https://github.com/pipelex/kajson"
+Documentation = "https://github.com/pipelex/kajson"
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.11.2",
+    "pyright==1.1.398",
+    "pytest>=8.3.3",
+    "pytest-pretty==1.2.0",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.6.8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.mypy]
+check_untyped_defs = true
+exclude = "^.*\\.venv/.*$"
+mypy_path = "."
+packages = ["kajson"]
+plugins = ["pydantic.mypy"]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pyright]
+analyzeUnannotatedFunctions = true
+deprecateTypingAliases = false
+disableBytesTypePromotions = true
+enableExperimentalFeatures = false
+enableTypeIgnoreComments = true
+exclude = ["**/node_modules", "**/__pycache__"]
+extraPaths = ["./tests"]
+include = ["kajson"]
+pythonVersion = "3.11"
+reportAbstractUsage = "error"
+reportArgumentType = "error"
+reportAssertAlwaysTrue = "error"
+reportAssertTypeFailure = "error"
+reportAssignmentType = "error"
+reportAttributeAccessIssue = "error"
+reportCallInDefaultInitializer = true
+reportCallIssue = "error"
+reportConstantRedefinition = "error"
+reportDeprecated = "error"
+reportDuplicateImport = "error"
+reportFunctionMemberAccess = "error"
+reportGeneralTypeIssues = "error"
+reportImplicitOverride = true
+reportImplicitStringConcatenation = false
+reportImportCycles = true
+reportIncompatibleMethodOverride = "error"
+reportIncompatibleVariableOverride = "error"
+reportIncompleteStub = "error"
+reportInconsistentConstructor = "error"
+reportInconsistentOverload = "error"
+reportIndexIssue = "error"
+reportInvalidStringEscapeSequence = "error"
+reportInvalidStubStatement = "error"
+reportInvalidTypeArguments = "error"
+reportInvalidTypeForm = "error"
+reportInvalidTypeVarUse = "error"
+reportMatchNotExhaustive = "error"
+reportMissingImports = "error"
+reportMissingModuleSource = "warning"
+reportMissingParameterType = "error"
+reportMissingSuperCall = "none"
+reportMissingTypeArgument = "error"
+reportMissingTypeStubs = false
+reportNoOverloadImplementation = "error"
+reportOperatorIssue = "error"
+reportOptionalCall = "error"
+reportOptionalContextManager = "error"
+reportOptionalIterable = "error"
+reportOptionalMemberAccess = "error"
+reportOptionalOperand = "error"
+reportOptionalSubscript = "error"
+reportOverlappingOverload = "error"
+reportPossiblyUnboundVariable = "error"
+reportPrivateImportUsage = "error"
+reportPrivateUsage = "error"
+reportPropertyTypeMismatch = true
+reportRedeclaration = "error"
+reportReturnType = "error"
+reportSelfClsParameterName = "error"
+reportShadowedImports = true
+reportTypeCommentUsage = "error"
+reportTypedDictNotRequiredAccess = "error"
+reportUnboundVariable = "error"
+reportUndefinedVariable = "error"
+reportUninitializedInstanceVariable = "none"
+reportUnknownArgumentType = "error"
+reportUnknownLambdaType = "error"
+reportUnknownMemberType = "error"
+reportUnknownParameterType = "error"
+reportUnknownVariableType = "error"
+reportUnnecessaryCast = "error"
+reportUnnecessaryComparison = "error"
+reportUnnecessaryContains = "error"
+reportUnnecessaryIsInstance = "error"
+reportUnnecessaryTypeIgnoreComment = "none"
+reportUnsupportedDunderAll = "error"
+reportUntypedBaseClass = "error"
+reportUntypedClassDecorator = "error"
+reportUntypedFunctionDecorator = "error"
+reportUntypedNamedTuple = "error"
+reportUnusedCallResult = "none"
+reportUnusedClass = "error"
+reportUnusedCoroutine = "error"
+reportUnusedExcept = "error"
+reportUnusedExpression = "error"
+reportUnusedFunction = "error"
+reportUnusedImport = "none"
+reportUnusedVariable = "error"
+reportWildcardImportFromLibrary = "error"
+strictDictionaryInference = true
+strictListInference = true
+strictParameterNoneValue = true
+strictSetInference = true
+typeCheckingMode = "strict"
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib -ra"
+asyncio_default_fixture_loop_scope = "session"
+minversion = "8.0"
+
+[tool.ruff]
+exclude = [".mypy_cache", ".ruff_cache", ".venv", ".vscode", "trigger_pipeline"]
+line-length = 150
+target-version = "py311"
+
+[tool.ruff.format]
+
+[tool.ruff.lint]
+ignore = ["F401"]
+external = ["F401"]
+select = [
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "A001",
+    "A002",
+    "A003",
+    "RUF008",
+    "RUF009",
+    "RUF012",
+    "RUF013",
+    "RUF100",
+    "E501",
+    "I",
+]
+
+[tool.uv]
+required-version = ">=0.7.2"
+
+[tool.hatch.build.targets.wheel]
+packages = ["kajson"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"pyproject.toml" = "kajson/pyproject.toml"
+
+[tool.hatch.build.targets.sdist]
+packages = ["kajson"]
+
+[tool.hatch.build.targets.sdist.force-include]
+"pyproject.toml" = "kajson/pyproject.toml"
