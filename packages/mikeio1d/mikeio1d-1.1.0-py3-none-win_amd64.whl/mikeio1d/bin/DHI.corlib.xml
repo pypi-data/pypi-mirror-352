@@ -1,0 +1,1866 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DHI.corlib</name>
+    </assembly>
+    <members>
+        <member name="M:DHI.Collections.CollectionExtensions.SortStable``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Sorts the elements in the entire List{T} using the default comparer.
+            <para>
+            A merge sort algorithm is used. merge sort is a stable sort algorithm
+            i.e. if two elements are equal their order are preserved.
+            </para>
+            </summary>
+            <typeparam name="T">Type of elements to sort</typeparam>
+            <param name="list">List to sort</param>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.SortStable``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Sorts the elements in the entire List{T} using the provided comparer.
+            <para>
+            A merge sort algorithm is used. merge sort is a stable sort algorithm
+            i.e. if two elements are equal their order are preserved.
+            </para>
+            </summary>
+            <typeparam name="T">Type of elements to sort</typeparam>
+            <param name="comparer">Comparer to use while sorting</param>
+            <param name="list">List to sort</param>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.SortStable``1(System.Collections.Generic.IList{``0},System.Comparison{``0})">
+            <summary>
+            Sorts the elements in the entire List{T} using the provided comparer.
+            <para>
+            A merge sort algorithm is used. merge sort is a stable sort algorithm
+            i.e. if two elements are equal their order are preserved.
+            </para>
+            </summary>
+            <typeparam name="T">Type of elements to sort</typeparam>
+            <param name="comparer">Comparer to use while sorting</param>
+            <param name="list">List to sort</param>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.Sort``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Sorts the elements in the entire List{T} using the default comparer.
+            <para>
+            A quick sort algorithm is used. Quick sort is a un-stable sort algorithm
+            i.e. if two elements are equal their order may not be preserved.
+            </para>
+            <para>
+            If the provided IList is either an array or a list, the build in sorting
+            method is used (also quick sort).
+            </para>
+            </summary>
+            <typeparam name="T">Type of elements to sort</typeparam>
+            <param name="list">List to sort</param>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.Sort``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Sorts the elements in the entire List{T} using the provided comparer.
+            <para>
+            A quick sort algorithm is used. Quick sort is a un-stable sort algorithm
+            i.e. if two elements are equal their order may not be preserved.
+            </para>
+            <para>
+            If the provided IList is either an array or a list, the build in sorting
+            method is used (also quick sort).
+            </para>
+            </summary>
+            <typeparam name="T">Type of elements to sort</typeparam>
+            <param name="comparer">Comparer to use while sorting</param>
+            <param name="list">List to sort</param>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.BinarySearch``1(System.Collections.Generic.IList{``0},``0)">
+            <summary>
+            Searches the entire sorted <see cref="T:System.Collections.Generic.IList`1"/> for an element
+            and returns the zero-based index of the element.
+            <para>
+            If the key is not found, a negative number is returned, 
+            which can be intepreted as the bitwise complement
+            of the interval of indices that the key is in between, i.e.
+            <code>
+            list[interval-1] &lt; key &lt; list[interval]
+            </code>
+            </para>
+            </summary>
+            <typeparam name="T">The type of the objects in the list</typeparam>
+            <param name="list">List to search in</param>
+            <param name="key">The key to locate. The value can be null for reference types.</param>
+            <returns>The zero-based index of item in the sorted <see cref="T:System.Collections.Generic.IList`1"/>, if item is found; 
+            otherwise, a negative number that is the bitwise complement 
+            of the index of the next element that is larger than item or, 
+            if there is no larger element, the bitwise complement of Count.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.BinarySearch``1(System.Collections.Generic.IList{``0},``0,System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Searches the entire sorted <see cref="T:System.Collections.Generic.IList`1"/> for an element using the provided 
+            comparer and returns the zero-based index of the element.
+            <para>
+            If the key is not found, a negative number is returned, 
+            which can be intepreted as the bitwise complement
+            of the interval of indices that the key is in between, i.e.
+            <code>
+            list[interval-1] &lt; key &lt; list[interval]
+            </code>
+            </para>
+            </summary>
+            <typeparam name="T">The type of the objects in the list</typeparam>
+            <param name="list">List to search in</param>
+            <param name="key">The key to locate. The value can be null for reference types.</param>
+            <param name="comparer">The <see cref="T:System.Collections.Generic.IComparer`1"/> implementation to use when comparing elements.</param>
+            <returns>The zero-based index of item in the sorted <see cref="T:System.Collections.Generic.IList`1"/>, if item is found; 
+            otherwise, a negative number that is the bitwise complement 
+            of the index of the next element that is larger than item or, 
+            if there is no larger element, the bitwise complement of Count.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.BinarySearch``2(System.Collections.Generic.IList{``0},System.Func{``0,``1},``1)">
+            <summary>
+            Searches the entire sorted <see cref="T:System.Collections.Generic.IList`1"/> for an element 
+            and returns the zero-based index of the element.
+            <para>
+            If the key is not found, a negative number is returned, 
+            which can be intepreted as the bitwise complement
+            of the interval of indices that the key is in between, i.e.
+            <code>
+            list[interval-1] &lt; key &lt; list[interval]
+            </code>
+            </para>
+            <para>
+            This differs from the "ordinary" binary search in allowing a <paramref name="keySelector"/> 
+            that knows how to extract the key for a class. Example, if the list contains classes of type T having 
+            a key id number and the class is sorted on that key id, then the keySelector returns the id number for that class.
+            </para>
+            </summary>
+            <example> 
+            If having a list of objects with a double key, to find 4.5 in the list, use:
+            <code>
+            list.BinarySearch(elmt => elmt.Key, 4.5)
+            </code>
+            </example>
+            <typeparam name="T">The type of the objects in the list</typeparam>
+            <typeparam name="TKey">The type of the argument to look for</typeparam>
+            <param name="list">List to search in</param>
+            <param name="keySelector">A function to extract a key from an element.</param>
+            <param name="key">The key to locate. The value can be null for reference types.</param>
+            <returns>The zero-based index of item in the sorted <see cref="T:System.Collections.Generic.IList`1"/>, if item is found; 
+            otherwise, a negative number that is the bitwise complement 
+            of the index of the next element that is larger than item or, 
+            if there is no larger element, the bitwise complement of Count.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.BinarySearch``2(System.Collections.Generic.IList{``0},System.Func{``0,``1},``1,System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Searches the entire sorted <see cref="T:System.Collections.Generic.IList`1"/> for an element using the provided 
+            comparer and returns the zero-based index of the element.
+            <para>
+            This differs from the "ordinary" binary search in allowing a <paramref name="keySelector"/>comparer 
+            that knows how to compare a class with its key. Example, if the list contains classes of type T having 
+            an id number and the class is sorted on that id, then the keySelector returns the id number for that class.
+            </para>
+            </summary>
+            <example> 
+            If having a list of objects with a double key, to find 4.5 in the list, use:
+            <code>
+            list.BinarySearch(elmt => elmt.Key, 4.5)
+            </code>
+            </example>
+            <typeparam name="T">The type of the objects in the list</typeparam>
+            <typeparam name="TKey">The type of the argument to look for</typeparam>
+            <param name="list">List to search in</param>
+            <param name="keySelector">A function to extract a key from an element.</param>
+            <param name="key">The key to locate. The value can be null for reference types.</param>
+            <param name="comparer">The <see cref="T:System.Collections.Generic.IComparer`1"/> implementation to use when comparing elements.</param>
+            <returns>The zero-based index of item in the sorted <see cref="T:System.Collections.Generic.IList`1"/>, if item is found; 
+            otherwise, a negative number that is the bitwise complement 
+            of the index of the next element that is larger than item or, 
+            if there is no larger element, the bitwise complement of Count.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.BinarySearch``1(System.Collections.Generic.IList{``0},System.Func{``0,System.Int32})">
+            <summary>
+            Searches the entire sorted <see cref="T:System.Collections.Generic.IList`1"/> for an element using the provided 
+            comparer and returns the zero-based index of the element.
+            <para>
+            If the key is not found, a negative number is returned, 
+            which can be intepreted as the bitwise complement
+            of the interval of indices that the key is in between, i.e.
+            <code>
+            list[interval-1] &lt; key &lt; list[interval]
+            </code>
+            </para>
+            <para>
+            This differs from the "ordinary" binary search in allowing a comparer delegate that defines
+            whether an item is found (returning 0), whether the item in the list is before (&lt;0) or after (&gt;0)
+            that knows how to compare a class with its key.
+            </para>
+            <example>
+            If having a list of objects with a double key, to find 4.5 in the list, use:
+            <code>
+            int index = list.BinarySearch(d => d.Key.CompareTo(4.5))
+            </code>
+            </example>
+            </summary>
+            <typeparam name="T">The type of the objects in the list</typeparam>
+            <param name="list">List to search in</param>
+            <param name="comparer">A delegate/lambda expression specifying if a given item in the list is before (&lt;0), matches (0) or is after (&gt;0) the item to search for.</param>
+            <returns>The zero-based index of item in the sorted <see cref="T:System.Collections.Generic.IList`1"/>, if item is found; 
+            otherwise, a negative number that is the bitwise complement 
+            of the index of the next element that is larger than item or, 
+            if there is no larger element, the bitwise complement of Count.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.IndexOf``1(System.Collections.Generic.IList{``0},``0,System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Search the list of <paramref name="list"/> for the given
+            <paramref name="item"/> - where item must fullfill the <paramref name="comparable"/>.
+            </summary>
+            <param name="list">List to search in</param>
+            <param name="item">Item to find</param>
+            <param name="comparable">Comparer to use</param>
+            <returns>The index of item if found in the list; otherwise, -1.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.IndexOf``1(System.Collections.Generic.IList{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Search the list of <paramref name="list"/> for an item that fullfills the <paramref name="comparer"/>.
+            </summary>
+            <param name="list">List to search in</param>
+            <param name="comparer">Comparer to use</param>
+            <returns>The index of item if found in the list; otherwise, -1.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.BinarySearch``1(System.Collections.Generic.IReadOnlyList{``0},``0)">
+            Since the IList is not inheriting the IReadOnlyList, 
+            we have a seperate implementation for both the IList and the IReadOnlyList.
+            <summary>
+            Searches the entire sorted <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> for an element
+            and returns the zero-based index of the element.
+            <para>
+            If the key is not found, a negative number is returned, 
+            which can be intepreted as the bitwise complement
+            of the interval of indices that the key is in between, i.e.
+            <code>
+            list[interval-1] &lt; key &lt; list[interval]
+            </code>
+            </para>
+            </summary>
+            <typeparam name="T">The type of the objects in the list</typeparam>
+            <param name="list">List to search in</param>
+            <param name="key">The key to locate. The value can be null for reference types.</param>
+            <returns>The zero-based index of item in the sorted <see cref="T:System.Collections.Generic.IList`1"/>, if item is found; 
+            otherwise, a negative number that is the bitwise complement 
+            of the index of the next element that is larger than item or, 
+            if there is no larger element, the bitwise complement of Count.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.BinarySearch``1(System.Collections.Generic.IReadOnlyList{``0},``0,System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Searches the entire sorted <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> for an element using the provided 
+            comparer and returns the zero-based index of the element.
+            <para>
+            If the key is not found, a negative number is returned, 
+            which can be intepreted as the bitwise complement
+            of the interval of indices that the key is in between, i.e.
+            <code>
+            list[interval-1] &lt; key &lt; list[interval]
+            </code>
+            </para>
+            </summary>
+            <typeparam name="T">The type of the objects in the list</typeparam>
+            <param name="list">List to search in</param>
+            <param name="key">The key to locate. The value can be null for reference types.</param>
+            <param name="comparer">The <see cref="T:System.Collections.Generic.IComparer`1"/> implementation to use when comparing elements.</param>
+            <returns>The zero-based index of item in the sorted <see cref="T:System.Collections.Generic.IList`1"/>, if item is found; 
+            otherwise, a negative number that is the bitwise complement 
+            of the index of the next element that is larger than item or, 
+            if there is no larger element, the bitwise complement of Count.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.BinarySearch``2(System.Collections.Generic.IReadOnlyList{``0},System.Func{``0,``1},``1)">
+            <summary>
+            Searches the entire sorted <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> for an element 
+            and returns the zero-based index of the element.
+            <para>
+            If the key is not found, a negative number is returned, 
+            which can be intepreted as the bitwise complement
+            of the interval of indices that the key is in between, i.e.
+            <code>
+            list[interval-1] &lt; key &lt; list[interval]
+            </code>
+            </para>
+            <para>
+            This differs from the "ordinary" binary search in allowing a <paramref name="keySelector"/> 
+            that knows how to extract the key for a class. Example, if the list contains classes of type T having 
+            a key id number and the class is sorted on that key id, then the keySelector returns the id number for that class.
+            </para>
+            </summary>
+            <example> 
+            If having a list of objects with a double key, to find 4.5 in the list, use:
+            <code>
+            list.BinarySearch(elmt => elmt.Key, 4.5)
+            </code>
+            </example>
+            <typeparam name="T">The type of the objects in the list</typeparam>
+            <typeparam name="TKey">The type of the argument to look for</typeparam>
+            <param name="list">List to search in</param>
+            <param name="keySelector">A function to extract a key from an element.</param>
+            <param name="key">The key to locate. The value can be null for reference types.</param>
+            <returns>The zero-based index of item in the sorted <see cref="T:System.Collections.Generic.IList`1"/>, if item is found; 
+            otherwise, a negative number that is the bitwise complement 
+            of the index of the next element that is larger than item or, 
+            if there is no larger element, the bitwise complement of Count.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.BinarySearch``2(System.Collections.Generic.IReadOnlyList{``0},System.Func{``0,``1},``1,System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Searches the entire sorted <see cref="T:System.Collections.Generic.IList`1"/> for an element using the provided 
+            comparer and returns the zero-based index of the element.
+            <para>
+            If the key is not found, a negative number is returned, 
+            which can be intepreted as the bitwise complement
+            of the interval of indices that the key is in between, i.e.
+            <code>
+            list[interval-1] &lt; key &lt; list[interval]
+            </code>
+            </para>
+            <para>
+            This differs from the "ordinary" binary search in allowing a <paramref name="keySelector"/>comparer 
+            that knows how to compare a class with its key. Example, if the list contains classes of type T having 
+            an id number and the class is sorted on that id, then the keySelector returns the id number for that class.
+            </para>
+            </summary>
+            <example> 
+            If having a list of objects with a double key, to find 4.5 in the list, use:
+            <code>
+            list.BinarySearch(elmt => elmt.Key, 4.5)
+            </code>
+            </example>
+            <typeparam name="T">The type of the objects in the list</typeparam>
+            <typeparam name="TKey">The type of the argument to look for</typeparam>
+            <param name="list">List to search in</param>
+            <param name="keySelector">A function to extract a key from an element.</param>
+            <param name="key">The key to locate. The value can be null for reference types.</param>
+            <param name="comparer">The <see cref="T:System.Collections.Generic.IComparer`1"/> implementation to use when comparing elements.</param>
+            <returns>The zero-based index of item in the sorted <see cref="T:System.Collections.Generic.IList`1"/>, if item is found; 
+            otherwise, a negative number that is the bitwise complement 
+            of the index of the next element that is larger than item or, 
+            if there is no larger element, the bitwise complement of Count.</returns>
+        </member>
+        <member name="M:DHI.Collections.CollectionExtensions.BinarySearch``1(System.Collections.Generic.IReadOnlyList{``0},System.Func{``0,System.Int32})">
+            <summary>
+            Searches the entire sorted <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> for an element using the provided 
+            comparer and returns the zero-based index of the element.
+            <para>
+            If the key is not found, a negative number is returned, 
+            which can be intepreted as the bitwise complement
+            of the interval of indices that the key is in between, i.e.
+            <code>
+            list[interval-1] &lt; key &lt; list[interval]
+            </code>
+            </para>
+            <para>
+            This differs from the "ordinary" binary search in allowing a comparer delegate that defines
+            whether an item is found (returning 0), whether the item in the list is before (&lt;0) or after (&gt;0)
+            that knows how to compare a class with its key.
+            </para>
+            <example>
+            If having a list of objects with a double key, to find 4.5 in the list, use:
+            <code>
+            int index = list.BinarySearch(d => d.Key.CompareTo(4.5))
+            </code>
+            </example>
+            </summary>
+            <typeparam name="T">The type of the objects in the list</typeparam>
+            <param name="list">List to search in</param>
+            <param name="comparer">A delegate/lambda expression specifying if a given item in the list is before (&lt;0), matches (0) or is after (&gt;0) the item to search for.</param>
+            <returns>The zero-based index of item in the sorted <see cref="T:System.Collections.Generic.IList`1"/>, if item is found; 
+            otherwise, a negative number that is the bitwise complement 
+            of the index of the next element that is larger than item or, 
+            if there is no larger element, the bitwise complement of Count.</returns>
+        </member>
+        <member name="T:DHI.Collections.FifoQueue`1">
+            <summary>
+            Represents a first-in, first-out collection of objects.
+            <para>
+            Compared to the standard generic Queue, this queue allows access to
+            queue elements through the <see cref="P:Item(int)"/> property of the IList{T}
+            interface. It implements the IList{T} interface, supporting in-queue 
+            modifications, i.e. methods like Remove and Insert.
+            </para>
+            <para>
+            The next element to be dequeued is the first element in the IList{T}, <code>this[0]</code>.
+            New elements are added in the end of the list.
+            </para>
+            </summary>
+            <remarks>
+            <para>
+            This class implements a generic queue as a circular array. Objects stored in a 
+            FifoQueue{T} are inserted at one end and removed from the other. 
+            The operations <see cref="M:DHI.Collections.FifoQueue`1.Enqueue(`0)"/> and <see cref="M:DHI.Collections.FifoQueue`1.Dequeue"/>
+            are O(1) operations.
+            </para>
+            <para>
+            The capacity of a FifoQueue{T} is the number of elements the FifoQueue{T} can currently hold. 
+            As elements are added to a FifoQueue{T}, the capacity is automatically increased as 
+            required by reallocating the internal array.
+            </para>
+            <para>
+            FifoQueue{T} accepts null as a valid value for reference types and allows duplicate elements.
+            </para>
+            </remarks>
+        </member>
+        <member name="F:DHI.Collections.FifoQueue`1._q">
+            <summary>
+            Internal array of queue values, used as circular array.
+            </summary>
+        </member>
+        <member name="F:DHI.Collections.FifoQueue`1._head">
+            <summary>
+            Index of first element in circular array <see cref="F:DHI.Collections.FifoQueue`1._q"/>
+            </summary>
+        </member>
+        <member name="F:DHI.Collections.FifoQueue`1._count">
+            <summary>
+            Number of elements currently in the queue/circular array
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.#ctor">
+            <summary>
+            Initializes a new instance of the FifoQueue{T} class that 
+            is empty and has the default initial capacity.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the FifoQueue{T} class that 
+            is empty and has the specified initial capacity.
+            </summary>
+            <param name="capacity">The number of elements that the queue initially has room for. It cannot be less than 2</param>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the FifoQueue{T} class that 
+            contains elements copied from the specified collection and has 
+            sufficient capacity to accommodate the number of elements copied.
+            <para>
+            If <paramref name="collection"/> is an <see cref="T:System.Collections.ICollection"/>,
+            the capacity will match exactly the size of the collection.
+            </para>
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.FifoQueue`1.Count">
+            <summary>
+            Gets the number of elements contained in the FifoQueue{T}.
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.FifoQueue`1.Capacity">
+            <summary>
+            Gets or sets the total number of elements the internal data structure can hold without resizing.
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.FifoQueue`1.Tail">
+            <summary>
+            Index in internal <see cref="F:DHI.Collections.FifoQueue`1._q"/> array of last element in the queue
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Index(System.Int32)">
+            <summary>
+            Index in internal <see cref="F:DHI.Collections.FifoQueue`1._q"/> array <see cref="F:DHI.Collections.FifoQueue`1._q"/> of the element with <paramref name="index"/> in queue,
+            handling circular array wrapping.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Enqueue(`0)">
+            <summary>
+            Adds an object to the end of the FifoQueue{T}.
+            </summary>
+            <param name="item">The object to add to the FifoQueue{T}. The value can be null for reference types.</param>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Add(`0)">
+            <summary>
+            Adds an object to the end of the FifoQueue{T}, same as <see cref="M:DHI.Collections.FifoQueue`1.Enqueue(`0)"/>
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds an object to the end of the FifoQueue{T}, same as <see cref="M:DHI.Collections.FifoQueue`1.Enqueue(`0)"/>
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.AddRotate(`0)">
+            <summary>
+            Adds an object to the end of the FifoQueue{T}, dequeuing the first item if queue is full (capacity is met).
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.ResizeArray(System.Int32)">
+            <summary>
+            Make new array and copy over content, first element in first 
+            </summary>
+            <param name="newLength">Size of new array</param>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Peek">
+            <summary>
+            Returns the object at the beginning of the FifoQueue{T} without removing it.
+            </summary>
+            <remarks>
+            <para>
+            This method is similar to the <see cref="M:DHI.Collections.FifoQueue`1.Dequeue"/> method, but <see cref="M:DHI.Collections.FifoQueue`1.Peek"/> does not modify the FifoQueue{T}.
+            </para><para>
+            If type T is a reference type, null can be added to the FifoQueue{T} as a value.
+            </para><para>
+            This method is an O(1) operation.
+            </para>
+            </remarks>
+            <returns>The object at the beginning of the FifoQueue{T}.</returns>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Poke">
+            <summary>
+            Returns the object at the end of the FifoQueue{T} (the one added last) without removing it.
+            </summary>
+            <remarks>
+            <para>
+            This method is an O(1) operation.
+            </para>
+            </remarks>
+            <returns>The object at the end of the FifoQueue{T}.</returns>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Dequeue">
+            <summary>
+            Removes and returns the object at the beginning of the FifoQueue{T}.
+            </summary>
+            <remarks>
+            <para>
+            This method is similar to the <see cref="M:DHI.Collections.FifoQueue`1.Peek"/> method, but <see cref="M:DHI.Collections.FifoQueue`1.Peek"/> does not modify the FifoQueue{T}.
+            </para><para>
+            If type T is a reference type, null can be added to the FifoQueue{T} as a value.
+            </para><para>
+            This method is an O(1) operation.
+            </para>
+            </remarks>
+            <returns>The object that is removed from the beginning of the FifoQueue{T}.</returns>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Drop">
+            <summary>
+            Removes the object at the beginning of the FifoQueue{T}.
+            </summary>
+            <remarks>
+            <para>
+            This method is similar to the <see cref="M:DHI.Collections.FifoQueue`1.Dequeue"/> method, it just does not return the first object.
+            </para><para>
+            This method is an O(1) operation.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.PushBack">
+            <summary>
+            Put the first element to the end of the queue
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Clear">
+            <summary>
+            Removes all objects from the FifoQueue{T}.
+            </summary>
+            <remarks>
+            <para>
+            Count is set to zero, and references to other objects from 
+            elements of the collection are also released.
+            </para><para>
+            The capacity remains unchanged. To reset the capacity of the FifoQueue{T}, 
+            call TrimExcess. Trimming an empty FifoQueue{T} sets the capacity of the 
+            FifoQueue{T} to the default capacity.
+            </para><para>
+            This method is an O(n) operation, where n is Count.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:DHI.Collections.FifoQueue`1.Item(System.Int32)">
+            <summary>
+            Gets/sets the element at the specified position in the FifoQueue{T}.
+            </summary>
+            <remarks>
+            <para>
+            FifoQueue{T} accepts null as a valid value for reference 
+            types and allows duplicate elements.
+            </para><para>
+            This property provides the ability to access a specific element in 
+            the collection by using the following syntax: myCollection[index].
+            </para><para>
+            Retrieving the value of this property is an O(1) operation; 
+            setting the property is also an O(1) operation.
+            </para>
+            </remarks>
+            <param name="index">Zero based index/position in queue</param>
+            <returns>The element at the specified index/position in the queue.</returns>
+        </member>
+        <member name="P:DHI.Collections.FifoQueue`1.Array">
+            <summary>
+            An array representation of the current content of the queue.
+            <para>
+            Note that this will make a copy of the internal array
+            </para>
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the FifoQueue{T}.
+            </summary>
+            <returns>An FifoQueue{T}.Enumerator for the FifoQueue{T}.</returns>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the FifoQueue{T}.
+            </summary>
+            <returns>An FifoQueue{T}.Enumerator for the FifoQueue{T}.</returns>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the FifoQueue{T}.
+            </summary>
+            <returns>An FifoQueue{T}.Enumerator for the FifoQueue{T}.</returns>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Contains(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.CopyTo(`0[],System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.IndexOf(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Insert(System.Int32,`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Remove(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.RemoveAt(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:DHI.Collections.FifoQueue`1.Enumerator">
+            <summary>
+            Enumerates the elements of a FiroQueue{T}.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Enumerator.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Enumerator.MoveNext">
+            <inheritdoc />
+        </member>
+        <member name="M:DHI.Collections.FifoQueue`1.Enumerator.Reset">
+            <inheritdoc />
+        </member>
+        <member name="P:DHI.Collections.FifoQueue`1.Enumerator.Current">
+            <inheritdoc />
+        </member>
+        <member name="T:DHI.Collections.MergeSort">
+            <summary>
+            Class performing a merge sort of an <see cref="T:System.Collections.Generic.IList`1"/>.
+            <para>
+            It contains methods for both the iterative and recursive algorithm. The recursive
+            is provided for reference only, use the iterative when possible.
+            </para>
+            <para>
+            As compared to <see cref="T:DHI.Collections.QuickSort`1"/>, merge sort is stable
+            (preserves order of equal elements), but uses more memory (an extra
+            array of the same size). Quick sort is un-stable, but performs in-place
+            sorting.
+            </para>
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.MergeSort.Sort``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Sort the entire list
+            </summary>
+            <typeparam name="TT">Type of elements in the list</typeparam>
+            <param name="list">List</param>
+        </member>
+        <member name="M:DHI.Collections.MergeSort.Sort``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Sort the entire list
+            </summary>
+            <typeparam name="TT">Type of elements in the list</typeparam>
+            <param name="list">List</param>
+            <param name="comparer">Comparer to use in sorting</param>
+        </member>
+        <member name="M:DHI.Collections.MergeSort.Sort``1(System.Collections.Generic.IList{``0},System.Comparison{``0})">
+            <summary>
+            Sort the entire list
+            </summary>
+            <typeparam name="TT">Type of elements in the list</typeparam>
+            <param name="list">List</param>
+            <param name="comparison">Comparer to use in sorting</param>
+        </member>
+        <member name="M:DHI.Collections.MergeSort.Merge``1(System.Collections.Generic.IList{``0},System.Int32,System.Int32,System.Int32,System.Comparison{``0},System.Collections.Generic.IList{``0})">
+            <summary>
+            Merge two consequtive parts of an array, where the left part 
+            starts at <paramref name="left"/> index, the right
+            part starts at <paramref name="right"/> index
+            and ends at <paramref name="last"/> index.
+            </summary>
+            <param name="a">Array to sort </param>
+            <param name="left">Start index of left part</param>
+            <param name="right">Start index of right part</param>
+            <param name="last">End index of right part</param>
+            <param name="comparer">Comparison object </param>
+            <param name="b">Temporary array, size of a</param>
+        </member>
+        <member name="M:DHI.Collections.MergeSort.SortRecursive``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Sort the entire list, using recursive algorithm
+            </summary>
+            <typeparam name="TT">Type of elements in the list</typeparam>
+            <param name="list">List</param>
+        </member>
+        <member name="M:DHI.Collections.MergeSort.SortRecursive``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Sort the entire list, using recursive algorithm
+            </summary>
+            <typeparam name="TT">Type of elements in the list</typeparam>
+            <param name="list">List</param>
+            <param name="comparer">Comparer to use in sorting</param>
+        </member>
+        <member name="M:DHI.Collections.MergeSort.SortRecursive``1(System.Collections.Generic.IList{``0},System.Comparison{``0})">
+            <summary>
+            Sort the entire list, using recursive algorithm
+            </summary>
+            <typeparam name="TT">Type of elements in the list</typeparam>
+            <param name="list">List</param>
+            <param name="comparer">Comparer to use in sorting</param>
+        </member>
+        <member name="T:DHI.Collections.MergeSortRecursive`1">
+            <summary>
+            Class performing a merge sort of an <see cref="T:System.Collections.Generic.IList`1"/>
+            <para>
+            This class contains method for performing merge sort using the traditional recursive approach.
+            This class is provided for reference, the iterative approach in <see cref="M:DHI.Collections.MergeSort.Sort``1(System.Collections.Generic.IList{``0})"/> is preferable.
+            </para>
+            <para>
+            As compared to <see cref="T:DHI.Collections.QuickSort`1"/>, merge sort is stable
+            (preserves order of equal elements), but uses more memory (an extra
+            array of the same size). Quick sort is un-stable, but performs in-place
+            sorting.
+            </para>
+            </summary>
+            <typeparam name="T">Type of elements in the list</typeparam>
+        </member>
+        <member name="M:DHI.Collections.MergeSortRecursive`1.#ctor(System.Collections.Generic.IList{`0})">
+            <summary>
+            Creates an instance for sorting
+            </summary>
+            <param name="list">List to sort</param>
+        </member>
+        <member name="M:DHI.Collections.MergeSortRecursive`1.#ctor(System.Collections.Generic.IList{`0},System.Collections.Generic.IComparer{`0})">
+            <summary>
+            Creates an instance for sorting
+            </summary>
+            <param name="list">List to sort</param>
+            <param name="comparer">Comparer to use when sorting</param>
+        </member>
+        <member name="M:DHI.Collections.MergeSortRecursive`1.#ctor(System.Collections.Generic.IList{`0},System.Comparison{`0})">
+            <summary>
+            Creates an instance for sorting
+            </summary>
+            <param name="list">List to sort</param>
+            <param name="comparer">Comparer to use when sorting</param>
+        </member>
+        <member name="M:DHI.Collections.MergeSortRecursive`1.Sort">
+            <summary>
+            Sort the entire list
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.MergeSortRecursive`1.Sort(System.Int32,System.Int32)">
+            <summary>
+            Sort list within the provided indices (inclusive)
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.MergeSortRecursive`1.Merge``1(System.Collections.Generic.IList{``0},System.Int32,System.Int32,System.Int32,System.Comparison{``0},System.Collections.Generic.IList{``0})">
+            <summary>
+            Merge two consequtive parts of an array, where the left part 
+            starts at <paramref name="left"/> index, the right
+            part starts at <paramref name="right"/> index
+            and ends at <paramref name="last"/> index.
+            </summary>
+            <param name="a">Array to sort </param>
+            <param name="left">Start index of left part</param>
+            <param name="right">Start index of right part</param>
+            <param name="last">End index of right part</param>
+            <param name="comparer">Comparison object </param>
+            <param name="b">Temporary array, size of a</param>
+        </member>
+        <member name="T:DHI.Collections.PriorityQueue`1">
+            <summary>
+            A priority queue. It will return the value with the highest priority/compare value first.
+            Multiple occurences of the same object/compare value is allowed.
+            <para>
+            You can update an element in the priority queue, thereby reposition it in the queue. Save the 
+            <see cref="T:DHI.Collections.PriorityQueue`1.Node"/> returned by <see cref="M:DHI.Collections.PriorityQueue`1.Enqueue(`0)"/>, and updated the value 
+            by setting the <see cref="P:DHI.Collections.PriorityQueue`1.Node.Value"/>.
+            </para>
+            <remarks>
+            It is based on a balanced heap data structure (a list handled as a tree structure).
+            <para>
+            In cases where priority value equals, it does first-in-first-out.
+            </para>
+            <para>
+            Performance: It has O(log(n)) enqueueing, dequeueing and updating of key.
+            </para>
+            </remarks>
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.#ctor">
+            <summary>
+            Create a priority queue using the default comparer for the <typeparamref name="T"/>.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.#ctor(System.Collections.Generic.IComparer{`0})">
+            <summary>
+            Create a priority queue and use the provided comparer for the keys.
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.PriorityQueue`1.Count">
+            <summary>
+            Current number of elements in queue
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.Clear">
+            <summary>
+            Clears and empties queue.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.Enqueue(`0)">
+            <summary>
+            Add a new element to the queue, with the given priority
+            </summary>
+            <returns>
+            A <see cref="T:DHI.Collections.PriorityQueue`1.Node"/>. This can be used
+            for updating the key.
+            </returns>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.Dequeue">
+            <summary>
+            Take the first element out of the queue and return it. the first
+            element is the one with the largest key.
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.PriorityQueue`1.First">
+            <summary>
+            Take a look at the first element in the queue, without dequeue'ing
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.PriorityQueue`1.FirstNode">
+            <summary>
+            Take a look at the first element in the queue, without dequeue'ing,
+            returning the priority key node
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.ToArray">
+            <summary>
+            Copies the elements of the priority queue to a new array,
+            sorts it and returns it in priority order. 
+            <para>
+            This is an O(n log(n)) operation
+            </para>
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.BubbleUp(System.Int32)">
+            <summary>
+            Bubble up the node at index i through the tree towards the
+            root, until it is correctly sorted.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.Heapify(System.Int32)">
+            <summary>
+            Heapify puts the node at index i further down the tree
+            making sure that it has the correct sorted position.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.Parent(System.Int32)">
+            <summary>
+            Parent index
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.Left(System.Int32)">
+            <summary>
+            Left child index
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.Right(System.Int32)">
+            <summary>
+            Right child index
+            </summary>
+        </member>
+        <member name="T:DHI.Collections.PriorityQueue`1.Node">
+            <summary>
+            A node in the priority queue. Updating the value of the
+            node will update the priority key value and reposition
+            the node in the search tree.
+            </summary>
+            <remarks>
+            
+            </remarks>
+        </member>
+        <member name="F:DHI.Collections.PriorityQueue`1.Node._value">
+            The important use of the Node is to provide a pointer 
+            to the position of the value in the internal list, the
+            _index variable. 
+            
+            It also contains the _insertionOrder in order to maintain 
+            first-in-first-out of equal-priority nodes.
+        </member>
+        <member name="P:DHI.Collections.PriorityQueue`1.Node.Value">
+            <summary>
+            Value object in the heap
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.Node.Delete">
+            <summary>
+            Delete value from queue
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.Node.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`1.Node.Invalidate">
+            <summary>
+            Invalidate this node, when it no longer belongs to the
+            priority queue (when dequeued).
+            </summary>
+        </member>
+        <member name="T:DHI.Collections.PriorityQueue`2">
+            <summary>
+            A priority queue. It will return the value with the hightest priority/key first.
+            Multiple occurences of the same priority/key is allowed.
+            <para>
+            You can update the priority of an element in the priority queue, thereby reposition it in 
+            the queue. Save the <see cref="T:DHI.Collections.PriorityQueue`2.Node"/> returned by <see cref="M:DHI.Collections.PriorityQueue`2.Enqueue(`0,`1)"/>, and updated the value 
+            by setting the <see cref="P:DHI.Collections.PriorityQueue`2.Node.Key"/>.
+            </para>
+            <remarks>
+            It is based on a balanced heap data structure (a list handled as a tree structure).
+            <para>
+            In cases where priority value equals, it does first-in-first-out.
+            </para>
+            <para>
+            Performance: It has O(log(n)) enqueueing, dequeueing and updating of key.
+            </para>
+            </remarks>
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.#ctor">
+            <summary>
+            Create a priority queue using the default comparer for the <typeparamref name="TKey"/>.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.#ctor(System.Collections.Generic.IComparer{`0})">
+            <summary>
+            Create a priority queue and use the provided comparer for the keys.
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.PriorityQueue`2.Count">
+            <summary>
+            Current number of elements in queue
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Clear">
+            <summary>
+            Clears and empties queue.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Enqueue(`0,`1)">
+            <summary>
+            Add a new element to the queue, with the given priority
+            </summary>
+            <returns>
+            A <see cref="T:DHI.Collections.PriorityQueue`2.Node"/>. This can be used
+            for updating the key.
+            </returns>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Dequeue">
+            <summary>
+            Take the first element out of the queue and return it. the first
+            element is the one with the largest key.
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.PriorityQueue`2.First">
+            <summary>
+            Take a look at the first element in the queue, without dequeue'ing
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.PriorityQueue`2.FirstNode">
+            <summary>
+            Take a look at the first element in the queue, without dequeue'ing,
+            returning the priority key node
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Clone">
+            <summary>
+            Make a clone of the priority queue. It makes a full clone of
+            the queue structure, but the values and keys in the queue are
+            not cloned.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.ToArray(System.Boolean)">
+            <summary>
+            Copies the elements of the priority queue to a new array,
+            sorts it and returns it in priority order. 
+            <para>
+            This is an O(n log(n)) operation
+            </para>
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.ToNodeArray(System.Boolean)">
+            <summary>
+            Copies the nodes of the priority queue to a new array,
+            sorts it and returns it in priority order. 
+            <para>
+            This is an O(n log(n)) operation
+            </para>
+            </summary>
+            <param name="highestFirst">Bool indicating if the highest priority should be the first value (true) or the last value (false)</param>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.FindFirstNodeAfter(`0)">
+            <summary>
+            Finds the first node in the priority queue which comes after any node having
+            the provided key, i.e. the node with the largest key value less than the provided key value. 
+            <para>
+            It does a tree search, and should only be used to find key values 
+            that are close to the root key, example
+            <code>
+            queue.FindeFirstNodeAfter(queue.FirstNode.Key)
+            </code>
+            </para>
+            </summary>
+            <param name="key">Key value</param>
+            <returns>First node in priority queue with key less than, null if not existing</returns>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.BubbleUp(System.Int32)">
+            <summary>
+            Bubble up the node at index i through the tree towards the
+            root, until it is correctly sorted.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Heapify(System.Int32)">
+            <summary>
+            Heapify puts the node at index i further down the tree
+            making sure that it has the correct sorted position.
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Parent(System.Int32)">
+            <summary>
+            Parent index
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Left(System.Int32)">
+            <summary>
+            Left child index
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Right(System.Int32)">
+            <summary>
+            Right child index
+            </summary>
+        </member>
+        <member name="T:DHI.Collections.PriorityQueue`2.Node">
+            <summary>
+            A node in the priority queue. It contains the key 
+            and the value. Updating the key will reposition the
+            node in the priority queue.
+            </summary>
+        </member>
+        <member name="F:DHI.Collections.PriorityQueue`2.Node._key">
+            The important use of the Node is to provide a pointer 
+            to the position of the value in the internal list, the
+            _index variable. 
+            
+            It also contains the _insertionOrder in order to maintain 
+            first-in-first-out of equal-priority nodes.
+        </member>
+        <member name="P:DHI.Collections.PriorityQueue`2.Node.Key">
+            <summary>
+            Key/priority object for the value.
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.PriorityQueue`2.Node.Value">
+            <summary>
+            Value object in the heap
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Node.Delete">
+            <summary>
+            Delete from queue
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Node.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:DHI.Collections.PriorityQueue`2.Node.Invalidate">
+            <summary>
+            Invalidate this node, when it no longer belongs to the
+            priority queue (when dequeued).
+            </summary>
+        </member>
+        <member name="T:DHI.Collections.QuickSort">
+            <summary>
+            Class performing quicksort of an <see cref="T:System.Collections.Generic.IList`1"/>
+            <para>
+            As compared to <see cref="T:DHI.Collections.MergeSort"/>, merge sort is stable
+            (preserves order of equal elements), but uses more memory (an extra
+            array of the same size). Quick sort is un-stable, but performs in-place
+            sorting.
+            </para>
+            <para>
+            The standard Array and List classes have a Sort method that uses QuickSort. This
+            implementation is required in order to sort IList implementations.
+            </para>
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.QuickSort.Sort``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Sort the entire list
+            </summary>
+            <typeparam name="T">Type of elements in the list</typeparam>
+            <param name="list">List</param>
+        </member>
+        <member name="M:DHI.Collections.QuickSort.Sort``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Sort the entire list
+            </summary>
+            <typeparam name="T">Type of elements in the list</typeparam>
+            <param name="list">List</param>
+            <param name="comparer">Comparer to use in sorting</param>
+        </member>
+        <member name="T:DHI.Collections.QuickSort`1">
+            <summary>
+            Class performing quicksort of an <see cref="T:System.Collections.Generic.IList`1"/>
+            <para>
+            As compared to <see cref="T:DHI.Collections.MergeSortRecursive`1"/>, merge sort is stable
+            (preserves order of equal elements), but uses more memory (an extra
+            array of the same size). Quick sort is un-stable, but performs in-place
+            sorting.
+            </para>
+            <para>
+            The Array and List classes have a Sort method that uses QuickSort. This
+            implementation is required in order to sort IList implementations.
+            </para>
+            </summary>
+            <typeparam name="T">Type of elements in the list</typeparam>
+        </member>
+        <member name="M:DHI.Collections.QuickSort`1.#ctor(System.Collections.Generic.IList{`0})">
+            <summary>
+            Creates an instance for sorting
+            </summary>
+            <param name="list">List to sort</param>
+        </member>
+        <member name="M:DHI.Collections.QuickSort`1.#ctor(System.Collections.Generic.IList{`0},System.Collections.Generic.IComparer{`0})">
+            <summary>
+            Creates an instance for sorting
+            </summary>
+            <param name="list">List to sort</param>
+            <param name="comparer">Comparer to use when sorting</param>
+        </member>
+        <member name="P:DHI.Collections.QuickSort`1.CompareCount">
+            <summary>
+            Number of compares during the sorting procedure
+            </summary>
+        </member>
+        <member name="P:DHI.Collections.QuickSort`1.SwapCount">
+            <summary>
+            Number of swaps during the sorting procedure
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.QuickSort`1.Sort">
+            <summary>
+            Sort entire list
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.QuickSort`1.Sort(System.Int32,System.Int32)">
+            <summary>
+            Sort list within the provided indices (inclusive)
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.QuickSort`1.SortReferenceImplementationWpVersion">
+            <summary>
+            Sort entire list.
+            <para>
+            Version from Wikipedia, which is not optimal
+            </para>
+            </summary>
+        </member>
+        <member name="M:DHI.Collections.QuickSort`1.SortReferenceImplementationWpVersion(System.Int32,System.Int32)">
+            <summary>
+            Sort list within the provided indices (inclusive)
+            <para>
+            Version from Wikipedia, which is not optimal
+            </para>
+            </summary>
+        </member>
+        <member name="T:DHI.DateTimeSpanExtensions">
+            <summary>
+            Utility class with various DateTime and TimeSpan algorithms and utilitites
+            </summary>
+        </member>
+        <member name="M:DHI.DateTimeSpanExtensions.RoundDown(System.DateTime,System.TimeSpan)">
+            <summary>
+            Rounding down time to nearest dt, where
+            dt is typicalle on the form <code>dt = TimeSpan.FromHours(1)</code>
+            </summary>
+        </member>
+        <member name="M:DHI.DateTimeSpanExtensions.RoundUp(System.DateTime,System.TimeSpan)">
+            <summary>
+            Rounding up time to nearest dt, where
+            dt is typicalle on the form <code>dt = TimeSpan.FromHours(1)</code>
+            </summary>
+        </member>
+        <member name="M:DHI.DateTimeSpanExtensions.FirstInMonth(System.DateTime)">
+            <summary>
+            Returns the first day in a month, at time 00:00:00.
+            </summary>
+        </member>
+        <member name="M:DHI.DateTimeSpanExtensions.Multiply(System.TimeSpan,System.Double)">
+            <summary>
+             Multiply the timespane 'dt' by a double. 
+             <para>
+             If the double is too large, overflowing the Ticks count variable (long), TimeSpan.MaxValue is returned.
+             </para>
+            </summary>
+        </member>
+        <member name="M:DHI.DateTimeSpanExtensions.LargestMultipleOf(System.TimeSpan,System.TimeSpan)">
+            <summary>
+             Make <paramref name="span"/> the largest multiple of the <paramref name="spanRef"/> that is smaller than <paramref name="span"/>.
+             <para>
+             If <paramref name="spanRef"/> is larger than <paramref name="span"/>, <see cref="F:System.TimeSpan.Zero"/> is returned.
+             </para>
+            </summary>
+             <example>
+             <code>
+                   TimeSpan t7s = TimeSpan.FromSeconds(7);
+                   TimeSpan t25s = TimeSpan.FromSeconds(25);
+                   // returns TimeSpan.FromSeconds(21)
+                   TimeSpan t21s = t25s.LargestMultipleOf(t7s);
+             </code>
+             </example>
+        </member>
+        <member name="T:DHI.FilePath">
+            <summary>
+            This class contains information on a file, as well its name and path,
+            and handles relative and absolute (full) paths.
+            <para>
+            When path is relative, it can have a BaseFilePath, used to 
+            expand the relative filepath to an absolute (full) path. If a
+            path is relative, and no BaseFilePath is specified, CurrentDirectory
+            is used as BaseFilePath.
+            </para>
+            <para>
+            Examples of legal paths:
+            <code>
+             - "c:\\MyDir\\MyFile.txt" - directory and file
+             - "c:\\MyDir"             - only directory
+             - "MyDir\\MySubdir"       - relative directory
+             - "\\\\MyServer\\MyShare" - network drive
+            </code>
+            </para>
+            </summary>
+        </member>
+        <member name="M:DHI.FilePath.#ctor">
+            <summary>
+            Creates a new FilePath without a Path set. This defaults the path 
+            to the current directory
+            </summary>
+        </member>
+        <member name="M:DHI.FilePath.#ctor(DHI.FilePath)">
+            <summary>
+            Creates a new FilePath with the given strfilePath as Path. If the path is
+            relative, then the current directory are used as BaseFilePath.
+            </summary>
+            <param name="strfilePath">filepath to copy</param>
+        </member>
+        <member name="M:DHI.FilePath.#ctor(System.String)">
+            <summary>
+            Creates a new FilePath with the given strfilePath as Path. If the path is
+            relative, then the current directory are used as BaseFilePath.
+            </summary>
+            <param name="strfilePath">The filepath as a string</param>
+        </member>
+        <member name="M:DHI.FilePath.#ctor(System.String,DHI.FilePath)">
+            <summary>
+            Creates a new FilePath with the given strfilePath as Path
+            and uses the baseFilePath as BaseFilePath
+            </summary>
+            <param name="strfilePath">The filepath as a string</param>
+            <param name="baseFilePath">The base file path for this filepath</param>
+        </member>
+        <member name="M:DHI.FilePath.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new FilePath with the given strfilePath as Path
+            and uses the baseFilePath as BaseFilePath
+            </summary>
+            <param name="strfilePath">The filepath as a string</param>
+            <param name="baseFilePath">The base file path for this filepath</param>
+        </member>
+        <member name="P:DHI.FilePath.Path">
+            <summary>
+            Get/set file name including path. The path can be absolute or relative.
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.BaseFilePath">
+            <summary>
+            If the path is relative, a BaseFilePath can be set. If a
+            BaseFilePath is not set, then the CurrentDirectory will be used
+            as BaseFilePath. For absolute paths, BaseFilePath is ignored.
+            
+            Only the directory part of the BaseFilePath is used.
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.HasPath">
+            <summary>
+            Return true if FilePath has a Path, false if empty.
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.IsRelative">
+            <summary>
+            Returns true if the FilePath is relative
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.Extension">
+            <summary>
+            Gets or alters the extension of the file. The extionsion
+            is returned with the dot, i.e., on the form ".ext". 
+            If no extension exists, the empty string is returned.
+            If path is null, null is returned.
+            It can be set with or without the dot.
+            </summary>
+        </member>
+        <member name="M:DHI.FilePath.ExtensionIs(System.String)">
+            <summary>
+            Return true if the extension of the file path is "extension".
+            </summary>
+            <param name="extension">Extension string, including period "."</param>
+        </member>
+        <member name="P:DHI.FilePath.FileName">
+            <summary>
+            Gets/alters the filename including extension
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.FileNameWithoutExtension">
+            <summary>
+            Gets/alters the filename without the extension
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.DirectoryName">
+            <summary>
+            Gets the directory name of the filepath. It will return
+            relative or absolute directory, depending on whether the filepath
+            is relative or absolute.
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.FullDirectoryName">
+            <summary>
+            Gets the full directory name of the filepath. It will return
+            an absolute directory.
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.RelativeDirectoryName">
+            <summary>
+            Gets the relative directory name of the filepath. It will return
+            a directory relative to BaseFilePath or CurrentDirectory.
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.FullFilePath">
+            <summary>
+            Gets the full directory name of the filepath, including file name. It will return
+            an absolute directory.
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.RelativeFilePath">
+            <summary>
+            Gets the relative directory name of the filepath, including file name. It will return
+            a directory relative to BaseFilePath or CurrentDirectory.
+            </summary>
+        </member>
+        <member name="P:DHI.FilePath.BaseDir">
+            <summary>
+            Return the base directory as a string, using either
+            BaseFilePath or CurrentDirectory
+            </summary>
+        </member>
+        <member name="M:DHI.FilePath.Clone">
+            <summary>
+            Creates a deep clone of the FilePath
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DHI.FilePath.MakePathFull">
+            <summary>
+            Make the Path absolute, based on either BaseFilePath or CurrentDirectory.
+            
+            If path is already absolute, this has no effekt.
+            </summary>
+        </member>
+        <member name="M:DHI.FilePath.MakePathRelative">
+            <summary>
+            Make the Path relative, based on either BaseFilePath or CurrentDirectory.
+            
+            If path is already relative, this has no effect.
+            </summary>
+        </member>
+        <member name="M:DHI.FilePath.GetRelativeFilePath(System.String,System.String)">
+            <summary>
+            Make the filepath relative to baseDirectory. If not succeding, return original file path.
+            </summary>
+            <param name="filePath">Absolute file path to find relative file path for.</param>
+            <param name="baseDirectory">Directory to use as base. Must be rooted and must only contain directory info (no file name part)</param>
+        </member>
+        <member name="M:DHI.FilePath.MakeValidFileName(System.String)">
+            <summary>
+            Makes a file name valid by replacing invalid file name characters by an underscore.
+            <para>
+            The input string must be the file name only, and can not contain any
+            path characters.
+            </para>
+            </summary>
+            <param name="name">File name to make valid</param>
+            <returns>Valid file name</returns>
+        </member>
+        <member name="M:DHI.FilePath.MakeValidFileName(System.String,System.String)">
+            <summary>
+            Makes a file name valid by replacing invalid file name characters by an underscore.
+            <para>
+            The input string must be the file name only, and can not contain any
+            path characters.
+            </para>
+            </summary>
+            <param name="name">File name to make valid</param>
+            <param name="replaceChar">String containing characters used to replace invalid characters. Use <see cref="F:System.String.Empty"/> to remove.</param>
+            <returns>Valid file name</returns>
+        </member>
+        <member name="M:DHI.FilePath.CreateDirectoryForFileIfNotExists(System.String)">
+            <summary>
+            Creates a directory for the file, if the directory does not already exist.
+            <para>
+            It only creates one level of directory. If the directory already exists, 
+            nothing is done.
+            </para>
+            <para>
+            The method returns false if it was not possible to create directory, becase
+            the parent directory did not exists either. Otherwise it returns true.
+            </para>
+            </summary>
+            <param name="fileName">Full path and name of file to create directory for</param>
+        </member>
+        <member name="M:DHI.FilePath.CheckDirectoryForFile(System.String)">
+            <summary>
+            Check a directory for the file, if the directory or the parent directory exists.
+            </summary>
+            <param name="fileName">Full path and name of file to check</param>
+        </member>
+        <member name="M:DHI.FilePath.CreateDirectoryIfNotExists(System.String)">
+            <summary>
+            Creates a directory, if the directory does not already exist.
+            <para>
+            It only creates one level of directory. If the directory already exists, 
+            nothing is done.
+            </para>
+            <para>
+            The method returns false if it was not possible to create directory, because
+            the parent directory did not exists either. Otherwise it returns true.
+            </para>
+            </summary>
+            <param name="folderName">Full path and name of directory to create</param>
+        </member>
+        <member name="T:DHI.ModifiedJulianDateConverter">
+            <summary>
+            Support class for conversions between DateTime objects and Modified Julian Dates
+            Modified Julian Date is the number of days since November 17, 1858.
+            </summary>
+        </member>
+        <member name="M:DHI.ModifiedJulianDateConverter.ToModifiedJulian(System.DateTime)">
+            <summary>
+            Converts a DateTime object to modified julian date
+            </summary>
+            <param name="gregorianDate">DateTime object</param>
+            <returns>Modified Julian Date (days since November 17, 1858)</returns>
+        </member>
+        <member name="M:DHI.ModifiedJulianDateConverter.ToDateTime(System.Double)">
+            <summary>
+            Converts a modified julian date to a DateTime object
+            </summary>
+            <param name="modifiedJulianDate">Modified Julian Date (days since November 17, 1858)</param>
+            <returns>DateTime object</returns>
+        </member>
+        <member name="T:DHI.StopwatchCollection">
+            <summary>
+            Provides a set of methods and properties to accurately measure elapsed time.
+            <para>
+            A collection of stopwatches organized in a tree like manner, each stopwatch
+            can have one parent and many children.
+            </para>
+            <para>
+            If a child stopwatch is started, the parent stopwatch will also be started. Hence, 
+            elapsed time covers self time and any child time. If several childs are started, 
+            time in parent will only be "recorded once".
+            </para>
+            </summary>
+        </member>
+        <member name="P:DHI.StopwatchCollection.Name">
+            <summary>
+            Name of stopwatch.
+            </summary>
+        </member>
+        <member name="P:DHI.StopwatchCollection.Parent">
+            <summary>
+            Parent stopwatch, when this stopwatch is part of another collection.
+            </summary>
+        </member>
+        <member name="P:DHI.StopwatchCollection.ChildWatches">
+            <summary>
+            List of all child-stopwatches. All children must have _parent=this
+            </summary>
+        </member>
+        <member name="F:DHI.StopwatchCollection._selfRunning">
+            <summary>
+            True if this stopwatch was explicitly started. It can be false
+            and watch can run, if a child trickered the watch to start.
+            </summary>
+        </member>
+        <member name="F:DHI.StopwatchCollection._subsRunning">
+            <summary>
+            Counting the number of childs watches that are running.
+            </summary>
+        </member>
+        <member name="F:DHI.StopwatchCollection._startCount">
+            <summary>
+            Counting the number of times the stopwatch has started.
+            </summary>
+        </member>
+        <member name="P:DHI.StopwatchCollection.StartCount">
+            <summary>
+            Counting the number of times the stopwatch has started.
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.#ctor(System.String)">
+            <summary>
+            Create a new stopwatch collection with a given name.
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:DHI.StopwatchCollection.AddChild(DHI.StopwatchCollection)">
+            <summary>
+            Add a child to the list of stopwatches. A watch can only be added once to the list.
+            A watch can only be a child of one other collection. The child can not be running.
+            </summary>
+            <param name="watch"></param>
+        </member>
+        <member name="M:DHI.StopwatchCollection.RemoveChild(DHI.StopwatchCollection)">
+            <summary>
+            Removes a child from the list of stopwatches. The child can not be running.
+            </summary>
+            <param name="watch">watch to remove</param>
+            <returns>true if watch was found and removed, false otherwise</returns>
+        </member>
+        <member name="M:DHI.StopwatchCollection.Find(System.String)">
+            <summary>
+            Within this stopwatch collection, find the stopwatch with the provided name.
+            </summary>
+            <param name="name">Name of stopwatch to find</param>
+            <returns>Stopwatch with name, or null if not found.</returns>
+        </member>
+        <member name="M:DHI.StopwatchCollection.Start">
+            <summary>
+            Starts, or resumes, measuring elapsed time. 
+            <para>
+            If part of a collection, the parent stopwatch will also be started.
+            </para>
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.Stop">
+            <summary>
+            Stops measuring elapsed time.
+            <para>
+            If part of a collection, the parent stopwatch will be stopped, if 
+            this stopwatch is the one keeping it running.
+            </para>
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.Reset">
+            <summary>
+            Stops time measurement of this watch and all children, and resets the elapsed time
+            of this watch (but not its children).
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.StopAll">
+            <summary>
+            Stop this stopwatch and all child watches
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.ResetAll">
+            <summary>
+            Stops time measurement of this watch and all children, and resets the elapsed time
+            of this watch and all its children.
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.ChildStarted">
+            <summary>
+            Called when one of the child watches has been started. It is 
+            the responsibility of the child to only call this once.
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.ChildStopped">
+            <summary>
+            Called when one of the child watches has been stopped. It is 
+            the responsibility of the child to only call this once.
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.StartEvaluation">
+            <summary>
+            Evaluate whether the watch should be started, and
+            if so, tells the parent that is has been started.
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.StopEvaluation">
+            <summary>
+            Evaluate whether the watch should be stopped, and
+            if so, tells the parent that is has been stopped.
+            </summary>
+        </member>
+        <member name="T:DHI.StopwatchCollection.PrintTimings">
+            <summary>
+            Class for printing timings to a string.
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.PrintTimings.#ctor(DHI.StopwatchCollection)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="F:DHI.StopwatchCollection.PrintTimings.Indent">
+            <summary>
+            Indentation of sub-stopwatches in output
+            </summary>
+        </member>
+        <member name="F:DHI.StopwatchCollection.PrintTimings.NameMaxLength">
+            <summary>
+            Max length of name string
+            </summary>
+        </member>
+        <member name="F:DHI.StopwatchCollection.PrintTimings.TimingFormat">
+            <summary>
+            Timing format. 
+            <para>
+            Input 0 is name (being maxlength long), input 1 is time in seconds, and input 2 is number of times the stopwatch has been started.
+            </para>
+            <para>
+            Default is  <code>"{0} :{1,12:0.000} ({2})"</code>
+            </para>
+            </summary>
+        </member>
+        <member name="F:DHI.StopwatchCollection.PrintTimings.Culture">
+            <summary>
+            Culture to use when formatting.
+            <para>
+            Default is <code>CultureInfo.InvariantCulture</code>
+            </para>
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.PrintTimings.Print">
+            <summary>
+            Print timings to string. Output is multiline, one per stopwatch including childs
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through all child watches.
+            </summary>
+        </member>
+        <member name="M:DHI.StopwatchCollection.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through all child watches.
+            </summary>
+        </member>
+        <member name="T:DHI.StringUtil">
+            <summary>
+            Utility class with various string algorithms and utilitites
+            </summary>
+        </member>
+        <member name="M:DHI.StringUtil.Truncate(System.String,System.Int32)">
+            <summary>
+            Truncate string to the maximum length specified.
+            </summary>
+        </member>
+        <member name="M:DHI.StringUtil.SplitQuoted(System.String,System.Char,System.Char,System.StringSplitOptions)">
+            <summary>
+            Method to split a string that may contain quote characters for substrings.
+            <para>
+            The substrings need not all be quoted.
+            A quoted string must start by the quote character immediately after the separator character, 
+            and must end with a quote character before the next separator.
+            </para>
+            </summary>
+            <param name="input">Input string</param>
+            <param name="separator">Separator character</param>
+            <param name="quotechar">String quote character</param>
+            <param name="options">Flag to omit empty substrings</param>
+            <returns>Array of substrings</returns>
+            <example>
+            A string using ' as quote character and , as separator, containing
+            <code>
+              "ab,'cd',,'','e''f',g'h,'i,j'"
+            </code>
+            will return
+            <code>
+              {"ab", "cd", null, "", "e'f" , "g'h", "i,j"}
+            </code>
+            Hence the substrings are intepreted as follows:
+            <list type="bullet">
+            <item><description>The first substring represents an unquoted string. </description></item>
+            <item><description>The second substring represents a quoted string.</description></item>
+            <item><description> The third substring represents the null string.</description></item>
+            <item><description>The forth substring represents the empty string. </description></item>
+            <item><description>The fifth substring shows how to include the quote character inside a quoted string, i.e. 
+                               two quote characters after each other inside a quoted string represents a single quote 
+                               character in the string.</description></item>
+            <item><description>The sixth substring is not qouted (does not start with the quote character),  
+                               hence the quote charachter in the string is kept as is.</description></item>
+            <item><description>The seventh substring shows how to include the separator char in a quoted string</description></item>
+            </list>
+            </example>
+        </member>
+        <member name="M:DHI.StringUtil.JoinQuoted(System.Char,System.Char,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Concatenates the members of a collection, using the specified separator between each member, and surrounding each non-null member by the specified quote char.
+            </summary>
+            <param name="separator">The string to use as a separator.separator is included in the returned string only if values has more than one element.</param>
+            <param name="quotechar">The quote char is surrounding each non-null value. If a value is containing the quote char, it is escaped by a double quote char</param>
+            <param name="values">Values to concatenate</param>
+            <returns>A string that consists of the members of values surruonded by quotechar and delimited by the separator char. If values has no members, the method returns String.Empty.</returns>
+        </member>
+        <member name="M:DHI.StringUtil.JoinQuoted(System.Text.StringBuilder,System.Char,System.Char,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Concatenates the members of a collection, using the specified separator between each member, and surrounding each non-null member by the specified quote char,
+            appending to StringBuilder
+            </summary>
+            <param name="separator">The string to use as a separator.separator is included in the returned string only if values has more than one element.</param>
+            <param name="quotechar">The quote char is surrounding each non-null value. If a value is containing the quote char, it is escaped by a double quote char</param>
+            <param name="values">Values to concatenate</param>
+            <param name="builder">StringBuilder to use for concatenation</param>
+            <returns>A string that consists of the members of values surruonded by quotechar and delimited by the separator char. If values has no members, the method returns String.Empty.</returns>
+        </member>
+        <member name="M:DHI.StringUtil.Count(System.String,System.Char)">
+            <summary>
+            Count the number of occurances of <paramref name="c"/> in the string <paramref name="source"/>.
+            </summary>
+            <param name="source">String to search</param>
+            <param name="c">Character to find</param>
+            <returns>Number of occurances of character</returns>
+        </member>
+        <member name="M:DHI.StringUtil.ContainsAny(System.String,System.String[])">
+            <summary>
+            Check if string contains any of the substrings
+            </summary>
+            <param name="str">String to search</param>
+            <param name="subStrings">Strings to search for</param>
+        </member>
+        <member name="M:DHI.StringUtil.ContainsAny(System.String,System.Char[])">
+            <summary>
+            Check if string contains any of the characters
+            </summary>
+            <param name="str">String to search</param>
+            <param name="characters">Characters to search for</param>
+        </member>
+        <member name="M:DHI.StringUtil.Replace(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Replace method that includes <see cref="T:System.StringComparison"/>, i.e. for handling case insensitive replacement.
+            </summary>
+            <param name="original">Original string</param>
+            <param name="pattern">Pattern to replace</param>
+            <param name="replacement">Replacement string</param>
+            <param name="comparisonType">Type of comparison</param>
+        </member>
+        <member name="M:DHI.StringUtil.Replace(System.String,System.String,System.String,System.StringComparison,System.Int32)">
+            <summary>
+            Replace method that includes <see cref="T:System.StringComparison"/>, i.e. for handling case insensitive replacement.
+            </summary>
+            <param name="original">Original string</param>
+            <param name="pattern">Pattern to replace</param>
+            <param name="replacement">Replacement string</param>
+            <param name="comparisonType">Type of comparison</param>
+            <param name="stringBuilderInitialSize">Initial size of internal <see cref="T:System.Text.StringBuilder"/> instance. Default (-1) is the smallest of original.length and 4096</param>
+        </member>
+        <member name="M:DHI.StringUtil.LevenshteinDistance(System.String,System.String)">
+            <summary>
+            Calculate the Levenshtein distance between two strings, i.e.
+            the minimum number of edits in order to make the two strings equal. Case sensitive.
+            </summary>
+            <returns>0 if strings equals, a positive value if they differ</returns>
+        </member>
+        <member name="M:DHI.StringUtil.LevenshteinDistance(System.String,System.String,System.StringComparer)">
+            <summary>
+            Calculate the Levenshtein distance between two strings, i.e.
+            the minimum number of edits in order to make the two strings equal.
+            </summary>
+            <returns>0 if strings equals, a positive value if they differ</returns>
+        </member>
+        <member name="M:DHI.StringUtil.LevenshteinDistanceReferenceImplementation(System.String,System.String)">
+            <summary>
+            Calculate the Levenshtein distance between two strings, i.e.
+            the minimum number of edits in order to make the two strings equal
+            <para>
+            Reference implementation that stores the entire distance matrix.
+            </para>
+            </summary>
+            <returns>0 if strings equals, a positive value if they differ</returns>
+        </member>
+        <member name="M:DHI.StringUtil.LongestCommonSubsequence(System.String,System.String)">
+            <summary>
+            Calculate the Longest Common Subsequence. Case sensitive.
+            <para>
+            It differs from problems of finding common substrings: unlike substrings, subsequences are 
+            not required to occupy consecutive positions within the original sequences.
+            </para>
+            <example>
+            The following strings match, since the one fully contains the other in order
+            <code>
+            LongestCommonSubsequence("BLUB","aBcLeUgBh") = 4
+            LongestCommonSubsequence("aBcLeUgBh","BLUB") = 4
+            </code>
+            The following strings differ by one, since the final B is missing in the long string
+            <code>
+            LongestCommonSubsequence("BLUB","aBcLeUg") = 3
+            LongestCommonSubsequence("aBcLeUg","BLUB") = 3
+            </code>
+            </example>
+            </summary>
+        </member>
+        <member name="M:DHI.StringUtil.LongestCommonSubsequence(System.String,System.String,System.StringComparer)">
+            <summary>
+            Calculate the Longest Common Subsequence.
+            <para>
+            It differs from problems of finding common substrings: unlike substrings, subsequences are 
+            not required to occupy consecutive positions within the original sequences.
+            </para>
+            <example>
+            The following strings match, since the one fully contains the other in order
+            <code>
+            LongestCommonSubsequence("BLUB","aBcLeUgBh") = 4
+            LongestCommonSubsequence("aBcLeUgBh","BLUB") = 4
+            </code>
+            The following strings differ by one, since the final B is missing in the long string
+            <code>
+            LongestCommonSubsequence("BLUB","aBcLeUg") = 3
+            LongestCommonSubsequence("aBcLeUg","BLUB") = 3
+            </code>
+            </example>
+            </summary>
+        </member>
+        <member name="M:DHI.StringUtil.Swap``1(``0@,``0@)">
+            <summary>
+            Swapping two elements.
+            </summary>
+            <typeparam name="T">Type of element to swap</typeparam>
+            <param name="e1">first element</param>
+            <param name="e2">second element</param>
+        </member>
+    </members>
+</doc>
