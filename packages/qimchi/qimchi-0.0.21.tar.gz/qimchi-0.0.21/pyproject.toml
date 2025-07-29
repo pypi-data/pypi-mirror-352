@@ -1,0 +1,62 @@
+[project]
+name = "qimchi"
+version = "0.0.21"
+description = "Plot your spicy quantum measurements with ease"
+authors = [
+  { name = "Spandan Anupam", email = "s.anupam@fz-juelich.de" },
+  { name = "Jyotirmaya Shivottam", email = "jyotirmaya.shivottam@niser.ac.in" },
+  { name = "Lino Visser", email = "l.visser@fz-juelich.de" },
+]
+license = "AGPL-3.0-or-later"
+readme = "README.md"
+keywords = ["quantum", "plotter", "plotly", "dash"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.11,<4"
+dependencies = [
+    "setuptools>=75.8.0",
+    "starlette>=0.45.3",
+    "uvicorn>=0.34.0",
+    "rich>=13.9",
+    "scipy>=1.11",
+    "kaleido==0.2.0; sys_platform == 'darwin'",
+    "kaleido==0.0.3; sys_platform == 'linux'",
+    "kaleido==0.0.3; sys_platform == 'win32'",
+    "dash[compress]>=2.17,<3",
+    "plotly<6",
+    "xarray>=2023.3.0",
+    "zarr==2.18.4",
+    "numcodecs==0.15",
+    "dash_daq>=0.5.0",
+    "dash-bootstrap-components>=1.6",
+    "scikit-image>=0.24"
+]
+
+[project.urls]
+homepage = "https://gitlab.com/squad-lab/qimchi"
+documentation = "https://qimchi.squad-lab.org"
+repository = "https://gitlab.com/squad-lab/qimchi"
+
+[dependency-groups]
+dev = [
+    "qimchi",
+]
+
+[tool.uv] 
+package = true
+
+[tool.uv.sources]
+qimchi = { workspace = true }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = true
+packages = [
+    { include = "qimchi", from = "src" },
+]
