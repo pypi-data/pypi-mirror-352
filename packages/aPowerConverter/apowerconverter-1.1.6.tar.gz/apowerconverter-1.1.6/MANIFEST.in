@@ -1,0 +1,28 @@
+include LICENSE
+include README.md
+include requirements.txt
+include MANIFEST.in
+
+# Documentation
+recursive-include docs *.md *.rst *.txt
+
+# Test files
+recursive-include test_docs *.py *.docx *.adoc
+
+# Exclude development and test files
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude *.so
+global-exclude .git*
+global-exclude .DS_Store
+global-exclude *.pyc
+global-exclude .pytest_cache
+global-exclude .coverage
+global-exclude htmlcov/
+
+# Include package data
+recursive-include aPowerConverter *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[cod]
+
+recursive-include docx2adoc * 
