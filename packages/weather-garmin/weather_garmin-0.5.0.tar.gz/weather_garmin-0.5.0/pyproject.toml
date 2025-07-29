@@ -1,0 +1,23 @@
+[project]
+name = "weather-garmin"
+version = "0.5.0"
+description = "A MCP server project of weather query"
+readme = "README.md"
+authors = [
+    { name = "J.M.Bai", email = "baijiaming003@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.9.2",
+]
+
+[build-system]
+requires = [ "hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+weather-garmin = "mcp_server_weather:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_server_weather"]
