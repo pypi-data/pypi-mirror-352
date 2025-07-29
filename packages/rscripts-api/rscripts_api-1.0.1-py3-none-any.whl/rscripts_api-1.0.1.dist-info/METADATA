@@ -1,0 +1,117 @@
+Metadata-Version: 2.1
+Name: rscripts-api
+Version: 1.0.1
+Summary: A Python wrapper for the Rscripts.net API
+Author: Flames aka Aura
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+
+# 📦 rscripts_api
+
+A Python wrapper for the [Rscripts.net](https://rscripts.net) API — search and retrieve Roblox scripts programmatically with ease.
+
+---
+
+## 🚀 Installation
+
+```bash
+pip install rscripts-api
+```
+
+---
+
+## 📚 Features
+
+- 🔍 Fetch latest or filtered scripts
+- 🧠 Get trending scripts
+- 📄 Download raw script source
+- 🧑‍💻 Filter by creator, platform, or tags
+- 🎮 Perfect for integrating into GUIs, dashboards, or script hubs
+
+---
+
+## 🧪 Quick Start
+
+```python
+from rscripts_api import RScriptsAPI
+
+api = RScriptsAPI()
+
+# Get latest 10 scripts
+scripts = api.get_scripts(page=1, order_by="date", sort="desc")["scripts"]
+for script in scripts[:10]:
+    print(script["title"], "-", script.get("creator", "Unknown"))
+```
+
+---
+
+## 📘 API Reference
+
+### `RScriptsAPI(username=None)`
+
+Optional `username` header if you want to filter by a specific user.
+
+---
+
+### `get_scripts(...)`
+
+Fetch a paginated list of scripts.
+
+```python
+api.get_scripts(
+    page=1,
+    order_by="date",
+    sort="desc",
+    query="blade ball",        # optional search
+    mobileOnly=True,           # optional filter
+    unpatched=True             # optional filter
+)
+```
+
+---
+
+### `get_script_by_id(script_id)`
+
+Get a specific script and all its metadata.
+
+```python
+script = api.get_script_by_id("66f29856c7543f330a52838d")
+print(script["script"][0]["title"])
+```
+
+---
+
+### `get_trending_scripts()`
+
+Retrieve the top 12 trending scripts (based on views and interactions).
+
+```python
+trending = api.get_trending_scripts()
+for entry in trending["success"]:
+    print(entry["script"]["title"])
+```
+
+---
+
+## 🧑‍💻 Example: GUI Integration (Tkinter)
+
+A simple GUI that shows the 10 latest scripts with avatars and raw script preview:
+
+👉 See [GitHub Repo](https://github.com/yourusername/rscripts_api_gui) (if applicable)
+
+---
+
+## 🔗 Links
+
+- 🌐 [Rscripts.net](https://rscripts.net/)
+- 📦 [PyPI Package](https://pypi.org/project/rscripts-api/)
+- 🧠 Created by **Flames aka Aura**
+
+---
+
+## 🛡 License
+
+This project is licensed under the MIT License.
