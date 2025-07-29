@@ -1,0 +1,63 @@
+Metadata-Version: 2.4
+Name: structtkinter
+Version: 0.1.1
+Summary: A CSS-like, HTML-inspired UI framework built on top of Tkinter.
+Home-page: https://github.com/gustavowbu/structtkinter
+Author: Gustavo de Melo Timbó
+Author-email: Gustavo de Melo Timbó <gustavo.wbu@gmail.com>
+License: Copyright (c) 2025 Gustavo de Melo Timbó
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Project-URL: Homepage, https://github.com/gustavowbu/structtkinter
+Project-URL: Source, https://github.com/gustavowbu/structtkinter
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# structtkinter
+
+[![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)]()
+
+A CSS-like, HTML-inspired UI framework built on top of Tkinter.
+
+---
+
+## Features
+
+- **Canvas-based rendering** for full control over shapes, shadows, and transforms
+- **CSS-style styling** with classes, IDs, and tag selectors
+- **External "CSS" & "JS" separation** via Python modules
+- **Flexbox-like layout** (vertical stacking by default)
+- Support for **`%`**, **`fit-content`**, and **fixed** dimensions
+- **Pseudo-states & transitions** (coming soon!)
+
+---
+
+## Prerequisites
+
+- Python **3.7** or newer
+- Tkinter (typically included with standard Python installs)
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/YOUR_USERNAME/structtkinter.git
+cd structtkinter
+# (Optionally) create a virtualenv:
+python -m venv .venv
+source .venv/bin/activate  # macOS/Linux
+.\.venv\Scripts\activate   # Windows
+
+# Run the example:
+python examples/example1/stk/index.py
