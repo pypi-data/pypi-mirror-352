@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vc-investor-scraper"
+dynamic = ["version"]
+description = "A powerful Python tool to scrape VC investor data from VCSheet.com with Odoo CRM integration"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Anton Pavlenko", email = "apavlenko@hmcorp.fund"},
+]
+keywords = ["vc", "venture capital", "investors", "scraper", "odoo", "crm", "vcsheet", "fintech", "startup"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.7"
+dependencies = [
+    "requests>=2.25.0",
+    "beautifulsoup4>=4.9.0",
+    "lxml>=4.6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/antonpavlenko/vc-investor-scraper"
+Documentation = "https://github.com/antonpavlenko/vc-investor-scraper#readme"
+Repository = "https://github.com/antonpavlenko/vc-investor-scraper"
+"Bug Reports" = "https://github.com/antonpavlenko/vc-investor-scraper/issues"
+
+[project.scripts]
+vc-investor-scraper = "vcsheet_scraper.scraper:main"
+vcsheet-scraper = "vcsheet_scraper.scraper:main"
+
+[tool.setuptools]
+packages = ["vcsheet_scraper"]
+
+[tool.setuptools.dynamic]
+version = {attr = "vcsheet_scraper.__version__"}
+
+[tool.setuptools.package-data]
+vcsheet_scraper = ["*.py"]
