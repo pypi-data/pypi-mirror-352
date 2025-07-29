@@ -1,0 +1,97 @@
+[tool.poetry]
+name = "nkia-ai-dependency"
+version = "1.0.2"
+description = "NKIA AI Shared Dependency"
+authors = ["hjyang <hjyang@nkia.co.kr>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = {version = "2.2.2", optional = true}
+numpy = {version = "1.26.4", optional = true}
+statsmodels = {version = "0.14.1", optional = true}
+more-itertools = {version = "10.2.0", optional = true}
+pytimekr = {version = "0.1.0", optional = true}
+scipy = {version = "1.13.0", optional = true}
+scikit-learn = {version = "1.3.2", optional = true}
+pytz = {version = "2024.1", optional = true}
+pytest = {version = "8.3.2", optional = true}
+networkx = {version = "3.1", optional = true}
+seaborn = {version = "0.13.2", optional = true}
+fastapi = {version = "0.109.2", optional = true}
+gunicorn = {version = "21.2.0", optional = true}
+uvicorn = {version = "0.27.1", optional = true}
+httpx = {version = "0.25.2", optional = true}
+python-dotenv = {version = "1.0.1", optional = true}
+pydantic = {version = "2.11.4", optional = true}
+aiohttp = {version = "3.9.3", optional = true}
+redis = {version = "3.5.3", optional = true}
+redis-py-cluster = {version = "2.1.3", optional = true}
+cassandra-driver = {version = "3.29.0", optional = true}
+elasticsearch = {version = "7.15.1", optional = true}
+pymongo = {version = "4.12.1", optional = true}
+requests = {version = "2.31.0", optional = true}
+
+[tool.poetry.extras]
+metricanomaly = [
+    "pandas", 
+    "numpy", 
+    "statsmodels", 
+    "more-itertools", 
+    "pytimekr", 
+    "scipy", 
+    "scikit-learn", 
+    "pytz", 
+    "pytest"
+]
+processrca = [
+    "pandas", 
+    "numpy", 
+    "networkx", 
+    "scipy", 
+    "statsmodels", 
+    "scikit-learn", 
+    "pytest"
+]
+threcommender = [
+    "pandas", 
+    "numpy", 
+    "more-itertools", 
+    "scipy", 
+    "seaborn", 
+    "pytest"
+]
+staticthreshold = [
+    "pandas", 
+    "numpy", 
+    "more-itertools", 
+    "pytest"
+]
+deploy = [
+    "fastapi", 
+    "gunicorn", 
+    "uvicorn", 
+    "httpx", 
+    "pandas", 
+    "numpy", 
+    "python-dotenv", 
+    "pydantic", 
+    "aiohttp", 
+    "redis", 
+    "redis-py-cluster", 
+    "cassandra-driver", 
+    "elasticsearch", 
+    "pymongo", 
+    "pytest"
+]
+
+all = [
+    "pandas", "numpy", "statsmodels", "more-itertools", "pytimekr", "scipy",
+    "scikit-learn", "pytz", "pytest", "networkx", "seaborn", "fastapi",
+    "gunicorn", "uvicorn", "httpx", "python-dotenv", "pydantic", "aiohttp",
+    "redis", "redis-py-cluster", "cassandra-driver", "elasticsearch", "pymongo",
+    "requests",
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
