@@ -1,0 +1,34 @@
+Metadata-Version: 2.4
+Name: tomldantic
+Version: 0.1.1
+Summary: A package for generating TOML files from Pydantic models.
+Home-page: https://gitlab.com/stlmxy/tomldantic
+Author: Stefan Lehmann
+Author-email: stlm@posteo.de
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Framework :: Pydantic :: 2
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: pydantic>=1.8
+Requires-Dist: toml
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: isort; extra == "dev"
+Requires-Dist: types-toml; extra == "dev"
+Requires-Dist: types-pydantic; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+
+# TOMLdantic
+
+Generate TOML template files from pydantic models.
+
+## Specifications
+
+### TOML - Tom's Obvious, Minimal Language
+
+See the [official TOML specification](https://toml.io/en/v1.0.0) for details.
