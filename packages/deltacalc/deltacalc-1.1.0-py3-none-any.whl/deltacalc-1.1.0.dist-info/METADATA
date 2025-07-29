@@ -1,0 +1,115 @@
+Metadata-Version: 2.4
+Name: deltacalc
+Version: 1.1.0
+Summary: a model for the mass of an exoplanet given the radius
+Author: Kevin Zhu
+Author-email: kzhu2099@gmail.com
+Maintainer: Kevin Zhu
+Maintainer-email: kzhu2099@gmail.com
+License: MIT License
+        
+        Copyright (c) 2025 Kevin Zhu
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+Project-URL: Homepage, https://github.com/kzhu2099/Delta-Calculus
+Project-URL: Issues, https://github.com/kzhu2099/Delta-Calculus/issues
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: sympy
+Requires-Dist: IPython
+
+# deltacalc
+
+- HomePage: https://github.com/kzhu2099/Delta-Calculus
+- Issues: https://github.com/kzhu2099/Delta-Calculus/issues
+
+[![PyPI Downloads](https://static.pepy.tech/badge/deltacalc)](https://pepy.tech/projects/deltacalc)
+
+Author: Kevin Zhu
+
+## Features
+
+- seed setting
+- both integrals and derivatives
+- image making from latex
+- built in trainer
+- random problems that are difficult
+
+## Installation
+
+To install deltacalc, use pip: ```pip install deltacalc```.
+
+However, many prefer to use a virtual environment.
+
+macOS / Linux:
+
+```sh
+# make your desired directory
+mkdir /path/to/your/directory
+cd /path/to/your/directory
+
+# setup the .venv (or whatever you want to name it)
+pip install virtualenv
+python3 -m venv .venv
+
+# install deltacalc
+source .venv/bin/activate
+pip install deltacalc
+
+deactivate # when you are completely done
+```
+
+Windows CMD:
+
+```sh
+# make your desired directory
+mkdir C:path\to\your\directory
+cd C:path\to\your\directory
+
+# setup the .venv (or whatever you want to name it)
+pip install virtualenv
+python3 -m venv .venv
+
+# install deltacalc
+.venv\Scripts\activate
+pip install deltacalc
+
+deactivate # when you are completely done
+```
+
+## Usage
+
+This class aims to provide challenging problems of calculus quickly.
+
+Simply use `RandomDerivative` or `RandomIntegral` to generate a problem and check your work using `check()`. Or, use the Trainer class to easily train yourself with a certain amount of problems.
+
+Set your seed manually to get repeatable problems, using the set_seed method.
+Warning: these problems get REALLY messy!!
+
+## License
+
+The License is an MIT License found in the LICENSE file.
