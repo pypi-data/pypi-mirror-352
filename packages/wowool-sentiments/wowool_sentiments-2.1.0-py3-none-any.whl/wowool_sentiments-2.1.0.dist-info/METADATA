@@ -1,0 +1,222 @@
+Metadata-Version: 2.4
+Name: wowool-sentiments
+Version: 2.1.0
+Summary: The Wowool Sentiment Package
+Home-page: https://www.wowool.com/
+Author: Wowool
+Author-email: info@wowool.com
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: wowool-common
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Sentiment analysis
+
+The sentiments app extracts expressed sentiments from your documents, positive or negative, as well as a percentage of positives and negatives per document.
+
+<note>Names as well as pronouns like <q>he</q> or <q>she</q> are resolved, i.e. <q>He is a nice person.</q> will appear as <q>John Smith is a nice person.</q> in the results.</note>
+
+## Results
+
+#### SentimentsResults
+
+```typescript
+interface SentimentsResults {
+    locations: Location[];
+    positive: number;
+    negative: number;
+}
+```
+
+with:
+
+| Property     | Description                                                 |
+|--------------|-------------------------------------------------------------|
+| `locations`  | Sentiments found in the document                            |
+| `positive`   | Percentage of positive sentiments expressed in the document |
+| `negative`   | Percentage of negative sentiments expressed in the document |
+
+#### Location
+
+```typescript
+interface Location {
+  polarity: SentimentPolarity;
+  text: string;
+  begin_offset: number;
+  end_offset: number;
+  object?: string;
+  adjective?: string;
+  noun?: string;
+  verb?: string;
+  expression?: string;
+}
+```
+
+with:
+
+| Property       | Description                                                          |
+|----------------|----------------------------------------------------------------------|
+| `polarity`     | Polarity of the sentiment                                            |
+| `text`         | Literal text of the sentiment                                        |
+| `begin_offset` | Begin offset within the document                                     |
+| `end_offset`   | End offset within the document                                       |
+| `object`       | Object to which the sentiment refers                                 |
+| `adjective`    | When the polarity comes from an adjective, like <q>beautiful</q>     |
+| `noun`         | When the polarity comes from a noun, like <q>crisis</q>              |
+| `verb`         | When the polarity comes from a verb, like <q>hate</q>                |
+| `expression`   | When the polarity comes from an expression, like <q>making waves</q> |
+
+#### SentimentPolarity
+
+```typescript
+type SentimentPolarity = 'positive' | 'negative';
+```
+
+## Examples
+
+<sample data-uuid="sentiments"></sample>
+
+# Sentiment analysis
+
+The sentiments app extracts expressed sentiments from your documents, positive or negative, as well as a percentage of positives and negatives per document.
+
+<note>Names as well as pronouns like <q>he</q> or <q>she</q> are resolved, i.e. <q>He is a nice person.</q> will appear as <q>John Smith is a nice person.</q> in the results.</note>
+
+## Results
+
+#### SentimentsResults
+
+```typescript
+interface SentimentsResults {
+    locations: Location[];
+    positive: number;
+    negative: number;
+}
+```
+
+with:
+
+| Property     | Description                                                 |
+|--------------|-------------------------------------------------------------|
+| `locations`  | Sentiments found in the document                            |
+| `positive`   | Percentage of positive sentiments expressed in the document |
+| `negative`   | Percentage of negative sentiments expressed in the document |
+
+#### Location
+
+```typescript
+interface Location {
+  polarity: SentimentPolarity;
+  text: string;
+  begin_offset: number;
+  end_offset: number;
+  object?: string;
+  adjective?: string;
+  noun?: string;
+  verb?: string;
+  expression?: string;
+}
+```
+
+with:
+
+| Property       | Description                                                          |
+|----------------|----------------------------------------------------------------------|
+| `polarity`     | Polarity of the sentiment                                            |
+| `text`         | Literal text of the sentiment                                        |
+| `begin_offset` | Begin offset within the document                                     |
+| `end_offset`   | End offset within the document                                       |
+| `object`       | Object to which the sentiment refers                                 |
+| `adjective`    | When the polarity comes from an adjective, like <q>beautiful</q>     |
+| `noun`         | When the polarity comes from a noun, like <q>crisis</q>              |
+| `verb`         | When the polarity comes from a verb, like <q>hate</q>                |
+| `expression`   | When the polarity comes from an expression, like <q>making waves</q> |
+
+#### SentimentPolarity
+
+```typescript
+type SentimentPolarity = 'positive' | 'negative';
+```
+
+# API
+
+## Examples
+
+You will need to install the english language module to run the sample. `pip install wowool-english` 
+
+### Extracting sentiments
+
+Note that in the results the sentiments have been resolved. For this to happen we need to add the entities in the pipeline.
+
+
+
+```python
+from wowool.sdk import Pipeline
+from wowool.sentiments.app_id import APP_ID
+
+text = "John Dow is a very nice person, but he sucks at football."
+pipeline = Pipeline(
+    [
+        "english",
+        "entity",
+        "sentiment",
+        "sentiments.app",
+    ]
+)
+document = pipeline(text)
+print(document.results(APP_ID))
+
+```
+
+results:
+
+```json
+{
+    "positive": 50.0,
+    "negative": 50.0,
+    "sentiments": [
+        {
+            "polarity": "positive",
+            "text": "John Dow is a very nice person",
+            "begin_offset": 0,
+            "end_offset": 30,
+            "object": "John Dow",
+            "adjective": "nice"
+        },
+        {
+            "polarity": "negative",
+            "text": "John Dow sucks",
+            "begin_offset": 36,
+            "end_offset": 44,
+            "object": "John Dow",
+            "expression": "suck",
+            "comp": "intrans",
+            "verb": "suck"
+        }
+    ]
+}
+```
+
+
+
+## License
+
+In both cases you will need to acquirer a license file at https://www.wowool.com
+
+### Non-Commercial
+
+    This library is licensed under the GNU AGPLv3 for non-commercial use.  
+    For commercial use, a separate license must be purchased.  
+
+### Commercial license Terms
+
+    1. Grants the right to use this library in proprietary software.  
+    2. Requires a valid license key  
+    3. Redistribution in SaaS requires a commercial license.  
