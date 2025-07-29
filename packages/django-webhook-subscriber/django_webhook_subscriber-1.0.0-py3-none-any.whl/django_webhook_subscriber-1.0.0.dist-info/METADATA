@@ -1,0 +1,448 @@
+Metadata-Version: 2.4
+Name: django-webhook-subscriber
+Version: 1.0.0
+Summary: A Django package designed to handle webhook creation, management, and delivery.
+Author-email: 42 Portugal <root@42porto.com>
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 5.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django<5.3,>=5.0
+Requires-Dist: djangorestframework<3.17,>=3.15.0
+Requires-Dist: requests<2.33,>=2.32.3
+Requires-Dist: celery<5.6,>=5.0.0
+Provides-Extra: celery
+Requires-Dist: celery<5.6,>=5.5.2; extra == "celery"
+Requires-Dist: redis<5.3,>=5.2.1; extra == "celery"
+Provides-Extra: test
+Requires-Dist: pytest<8.4,>=8.3.4; extra == "test"
+Requires-Dist: pytest-django<5.0,>=4.9.0; extra == "test"
+Requires-Dist: pytest-cov<6.1,>=6.0.0; extra == "test"
+Dynamic: license-file
+
+# Django Webhook Subscriber
+
+A Django application for easily implementing and managing webhooks with Django REST Framework.
+
+## Overview
+
+Django Webhook Subscriber provides a simple yet powerful way to send webhook notifications when your models change. It integrates seamlessly with Django's signals system and Django REST Framework's serializers to automatically deliver webhook payloads when models are created, updated, or deleted. The package supports both synchronous and asynchronous webhook delivery using Celery.
+
+## Features
+
+- Automatic webhook triggering on model changes (create, update, delete)
+- Easy configuration through Django settings
+- Flexible serialization using Django REST Framework serializers
+- Simple registration API for programmatic webhook configuration
+- Log storage and automatic cleanup for webhook deliveries
+- Asynchronous webhook delivery with Celery
+- Configurable retry policies for failed webhooks
+
+## Installation
+
+```bash
+pip install django-webhook-subscriber
+```
+
+Add 'django_webhook_subscriber' to your INSTALLED_APPS:
+
+```python
+INSTALLED_APPS = [
+    # ... your other apps
+    
+    # IMPORTANT: django_webhook_subscriber must be listed LAST
+    'django_webhook_subscriber',
+]
+```
+
+Run migrations to create the necessary tables:
+
+```bash
+python manage.py migrate django_webhook_subscriber
+```
+
+### Important: App Registration Order
+
+**django_webhook_subscriber must be the last app in your INSTALLED_APPS list.** 
+
+This is crucial because:
+
+1. Django registers signal handlers in the order that apps are initialized
+2. Signal handlers execute in the order they were registered
+3. Webhook handlers should run after all other signal handlers have completed
+
+If django_webhook_subscriber is not listed last, other apps' signal handlers might run after your webhook has already been sent, resulting in outdated or inconsistent data in your webhooks.
+
+Example of correct installation:
+
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    # ... other Django and third-party apps
+    
+    # Your application apps
+    'users',
+    'products',
+    'orders',
+    
+    # django_webhook_subscriber must be last
+    'django_webhook_subscriber',
+]
+```
+
+## Celery Configuration
+
+Django Webhook Subscriber uses Celery for asynchronous webhook delivery. To enable this functionality, you need to configure Celery in your Django project.
+
+### Setting up Celery
+
+1. Install the required dependencies:
+   ```bash
+   pip install django-webhook-subscriber
+   ```
+
+2. Create a `celery.py` file in your project directory:
+   ```python
+   # myproject/celery.py
+   import os
+   from celery import Celery
+
+   # Set the default Django settings module
+   os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproject.settings')
+
+   app = Celery('myproject')
+   
+   # Use Django settings for Celery
+   app.config_from_object('django.conf:settings', namespace='CELERY')
+   
+   # Discover tasks from all installed apps
+   app.autodiscover_tasks()
+   ```
+
+3. Configure Celery in your `settings.py`:
+   ```python
+   # Celery settings
+   CELERY_BROKER_URL = 'redis://localhost:6379/0'
+   CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+   CELERY_ACCEPT_CONTENT = ['json']
+   CELERY_TASK_SERIALIZER = 'json'
+   CELERY_RESULT_SERIALIZER = 'json'
+   ```
+
+4. Import the Celery app in your project's `__init__.py`:
+   ```python
+   # myproject/__init__.py
+   from .celery import app as celery_app
+
+   __all__ = ['celery_app']
+   ```
+
+5. Start a Celery worker:
+   ```bash
+   celery -A myproject worker -l INFO
+   ```
+
+## Configuration
+
+Configure your webhooks in your Django settings:
+
+```python
+REST_WEBHOOKS = {
+    # Models that can trigger webhooks
+    'WEBHOOK_MODELS': {
+        'app.Model': {
+            'serializer': 'path.to.ModelSerializer',
+            'events': ['CREATE', 'UPDATE', 'DELETE'],  # Optional, defaults to all
+        },
+        'another_app.AnotherModel': {
+            'serializer': 'another_path.to.AnotherSerializer',
+            'events': ['CREATE'],  # Only trigger on creation
+        },
+    },
+    
+    # Log retention settings (optional)
+    'LOG_RETENTION_DAYS': 30,  # Number of days to keep delivery logs (default: 30)
+    'AUTO_CLEANUP': True,      # Automatically clean old logs when creating new ones (default: True)
+    
+    # Delivery settings (optional)
+    'DEFAULT_USE_ASYNC': True,   # Default setting for async delivery (default: False)
+    'DEFAULT_MAX_RETRIES': 3,    # Default max retry attempts (default: 3)
+    'DEFAULT_RETRY_DELAY': 60,   # Default seconds between retries (default: 60)
+    'REQUEST_TIMEOUT': 30,       # Default timeout for webhook requests in seconds (default: 30)
+}
+```
+
+### Async Delivery Configuration
+
+The async settings control how webhooks are delivered:
+
+- `DEFAULT_USE_ASYNC`: When set to `True`, webhooks will be delivered asynchronously using Celery tasks. This is useful for preventing slowdowns in your application when delivering webhooks.
+- `DEFAULT_MAX_RETRIES`: Maximum number of retry attempts for failed webhook deliveries.
+- `DEFAULT_RETRY_DELAY`: Time (in seconds) to wait between retry attempts.
+
+These settings can be overridden on a per-webhook basis through the WebhookRegistry model in the admin interface.
+
+## Usage
+
+### Automatic Registration
+
+Webhooks are automatically registered from your settings when Django starts up.
+
+### Manual Registration
+
+You can also register webhooks programmatically:
+
+```python
+from django_webhook_subscriber.utils import register_webhook_signals
+from myapp.models import MyModel
+from myapp.serializers import MyModelSerializer
+
+# Register webhooks for a model
+register_webhook_signals(
+    model_class=MyModel,
+    serializer=MyModelSerializer,  # Optional
+    events=['CREATE', 'UPDATE']  # Optional
+)
+```
+
+### Custom Serialization
+
+By default, all model fields are included in the webhook payload. You can customize this by providing your own serializer:
+
+```python
+from rest_framework import serializers
+from myapp.models import MyModel
+
+class MyModelWebhookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyModel
+        fields = ['id', 'name', 'created_at']  # Only include these fields
+        
+    # Add custom fields or methods as needed
+    extra_info = serializers.SerializerMethodField()
+    
+    def get_extra_info(self, obj):
+        return f"This is {obj.name}"
+```
+
+### Webhook Payload Format
+
+The webhook payload follows this format:
+
+```json
+{
+  "pk": 123,
+  "model": "app_label.model_name",
+  "signal_type": "created|updated|deleted",
+  "fields": {
+    "id": 123,
+    "field1": "value1",
+    "field2": "value2"
+    // All serialized fields here
+  }
+}
+```
+
+### Managing Webhooks in Admin
+
+Django Webhook Subscriber includes a Django admin interface for managing webhooks:
+
+- Create webhooks for registered models
+- View delivery logs and status
+- Configure endpoints, authentication, and event types
+- Enable/disable webhooks
+- Configure async delivery settings per webhook
+
+## Delivery Logs
+
+The package automatically logs all webhook delivery attempts, including:
+
+- Payload sent
+- Response status and body
+- Error messages (if any)
+- Timestamp
+
+Logs are automatically cleaned up based on your retention settings (`LOG_RETENTION_DAYS`).
+### Log Cleanup
+
+You can clean up old webhook delivery logs using the following methods:
+
+#### Using the Management Command
+
+Run the following command to clean up old logs across all webhooks:
+
+```bash
+python manage.py clean_webhook_logs
+```
+
+#### Using Python Code
+
+You can also clean up logs programmatically:
+
+```python
+from django_webhook_subscriber.models import WebhookDeliveryLog, WebhookRegistry
+
+# Clean up all old logs across all webhooks
+WebhookDeliveryLog.objects.cleanup_old_logs()
+
+# Clean up logs for a specific webhook
+webhook = WebhookRegistry.objects.get(name="My Webhook")
+WebhookDeliveryLog.objects.cleanup_old_logs(webhook=webhook)
+```
+
+These methods respect the `LOG_RETENTION_DAYS` setting, ensuring only logs older than the specified retention period are removed.
+
+## Asynchronous Webhook Delivery
+
+When a webhook is configured to use asynchronous delivery, the following happens:
+
+1. When a model event occurs (create, update, delete), the webhook payload is prepared as usual.
+2. Instead of immediately delivering the webhook, a Celery task is created and queued for processing.
+3. The Celery worker processes the task, delivering the webhook to the specified endpoint.
+4. If the delivery fails, it will be retried according to the retry settings.
+
+### Configuring Per-Webhook Async Settings
+
+In the Django admin, each webhook can have its own specific async settings:
+
+- **Use Async**: Set to Yes/No/Use Default to control whether this specific webhook uses async delivery
+- **Max Retries**: Maximum number of retry attempts for this webhook (overrides the default)
+- **Retry Delay**: Time (in seconds) to wait between retry attempts for this webhook (overrides the default)
+
+## Signal Handling
+
+Django Webhook Subscriber registers signal handlers that respond to model changes. Understanding how these signals work is important for correct operation:
+
+### Signal Order and Multiple Handlers
+
+When multiple signal handlers are registered for the same signal, Django executes them in registration order. Since webhooks should typically be triggered after all model changes are complete, the webhook handlers need to run last.
+
+This is automatically handled by placing `django_webhook_subscriber` last in your `INSTALLED_APPS`, which ensures webhook handlers are registered after all other signal handlers.
+
+If you're experiencing issues with webhook data accuracy, verify that:
+
+1. `django_webhook_subscriber` is the last app in your `INSTALLED_APPS` list
+2. You're not manually registering additional signal handlers after Django initializes
+
+
+## Testing with Django Webhook Subscriber
+
+When running tests for applications that use Django Webhook Subscriber, you typically want to prevent actual webhook deliveries from occurring. Django Webhook Subscriber provides several approaches to disable webhooks during testing:
+
+### Method 1: Disable webhooks globally via settings
+The simplest approach is to add the DISABLE_WEBHOOKS setting to your test settings file:
+
+```py
+# tests/settings.py
+from your_project.settings import *
+
+# Disable all webhooks for testing
+DISABLE_WEBHOOKS = True
+```
+
+This will prevent any webhooks from being registered when the Django app is initialized and will also block any webhook processing that might occur during tests.
+
+### Method 2: Programmatically unregister webhooks
+
+You can use the unregister_webhook_signals() function to disable webhooks for specific test classes or methods:
+
+```py
+from django.test import TestCase
+from django_webhook_subscriber.utils import unregister_webhook_signals
+
+class MyModelTests(TestCase):
+    def setUp(self):
+        # Disable all webhooks before running the test
+        unregister_webhook_signals()
+        
+        # Continue with the rest of your setup
+        # ...
+    
+    def test_create_model(self):
+        # Your model operations won't trigger any webhooks
+        model = MyModel.objects.create(name="Test")
+```
+
+You can also disable webhooks for a specific model if needed:
+
+```py
+# Only disable webhooks for this specific model
+unregister_webhook_signals(model_class=MyModel)
+```
+
+### Method 3: Use the testing utilities
+
+Django Webhook Subscriber provides testing utilities to make it easier to disable webhooks in tests:
+
+```py
+from django.test import TestCase
+from django_webhook_subscriber.testing import disabled_webhooks
+
+class MyTests(TestCase):
+    def test_something(self):
+        # Webhooks are active here
+        
+        with disabled_webhooks:
+            # No webhooks will be triggered in this block
+            instance = MyModel.objects.create()
+            instance.save()
+            instance.delete()
+            
+        # Webhooks are active again here
+```
+
+### Method 4: Mock the webhook delivery
+
+For more advanced testing where you want to verify that webhooks would have been triggered without actually sending them, you can use mocking:
+
+```py
+from django.test import TestCase
+from unittest.mock import patch
+
+class WebhookTests(TestCase):
+    @patch('django_webhook_subscriber.delivery.process_and_deliver_webhook')
+    def test_webhook_delivery(self, mock_deliver):
+        # Create your model
+        instance = MyModel.objects.create(name="Test")
+        
+        # Verify webhook would have been triggered with the right event type
+        mock_deliver.assert_called_once()
+        args, kwargs = mock_deliver.call_args
+        self.assertEqual(kwargs.get('event_signal'), 'created')
+```
+
+### Method 5: Empty webhook configuration
+
+You can also override the REST_WEBHOOKS setting in your test settings with an empty configuration:
+
+```py
+# tests/settings.py
+REST_WEBHOOKS = {
+    'WEBHOOK_MODELS': {},  # Empty dict = no webhooks registered
+}
+```
+
+### Best Practices for Testing with Webhooks
+
+1. Use a separate settings file for tests: This allows you to disable webhooks globally for all tests.
+2. Set up a test environment in your CI/CD pipeline: Make sure your CI/CD pipeline uses settings with webhooks disabled.
+3. Test webhook delivery separately: Use dedicated tests with mocks to verify webhook delivery logic.
+4. Test actual webhook deliveries in integration tests: Use a local webhook receiver service for integration tests where you want to verify the complete webhook flow.
+5. Consider using fixtures: Set up fixtures that include webhook configurations for testing specific webhook scenarios.
+
+By implementing these testing strategies, you can effectively test your application's core functionality without triggering unwanted webhook deliveries during testing.
