@@ -1,0 +1,89 @@
+Metadata-Version: 2.3
+Name: langrinder
+Version: 1.0.0
+Summary: Engine for I18N with telegrinder integraion
+License: MIT
+Author: tirch
+Author-email: 247108189-tirch@users.noreply.gitlab.com
+Requires-Python: >=3.12,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: colorama (>=0.4.6,<0.5.0)
+Requires-Dist: halo (>=0.0.31,<0.0.32)
+Requires-Dist: mako (>=1.3.10,<2.0.0)
+Requires-Dist: telegrinder (>=0.4.2,<0.5.0)
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Requires-Dist: typer (>=0.16.0,<0.17.0)
+Project-URL: Bug Tracker, https://github.com/tirch/langrinder/issues
+Project-URL: Homepage, https://github.com/tirch/langrinder
+Description-Content-Type: text/markdown
+
+# 🌍 Langrinder
+Engine for i18n with telegrinder integration based on mako!
+
+---
+
+## 🤔 Why Langrinder?
+- Based on mako templates
+    Maximum flexibility and comfort
+- Compiles directly into Python classes
+- Variety of built-in functions and templates
+
+---
+
+## 📥 Installation
+```shell
+pip install git+github.com/tirch/langrinder.git
+```
+... or with uv:
+```shell
+uv add https://github.com/tirch/langrinder.git
+```
+
+---
+
+## 📦 Usage
+- Configure me in `pyproject.toml`
+    ```toml
+    # ...
+    [tool.langrinder]
+    default_locale = "ru"
+    node = "langrinder.nodes.ConstLanguageCode"
+    locales_path = "examples/locales"
+    output = "examples/locales/i18n.py"
+    translation_name = "Translation" # i18n class
+    # base_node_template = "foo/bar.mako"
+    # base_translation_template = "foo2/bar2.mako"
+    ```
+- Create locales files (`<locale>.mako`)
+
+    `en.mako`:
+    ```yaml
+    @start
+        Hello, ${F.mention()}!
+    ```
+    `ru.mako`:
+    ```yaml
+    @start
+        Привет, ${F.mention()}!
+    ```
+- Compile translations
+    ```shell
+    langrinder compile
+    ```
+- Enjoy! Read the full documentation [here](./docs/index.md)!
+
+---
+
+## 🧪 To-Do
+- [ ] Node based on user Telegram language
+- [ ] Allow to put args in `F.mention()`
+- [ ] Plural forms
+- [ ] Gender based forms
+
+---
+
+## 🔒 License
+Langrinder licensed under [MIT license](LICENSE). Free and open-source!
