@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pygubu"
+description = "A simple GUI builder for the python tkinter module"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+keywords = ["gui", "tkinter", "designer"]
+authors = [
+  { name = "Alejandro Autalan", email = "alejandroautalan@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Utilities",
+  "Topic :: Software Development :: User Interfaces",
+]
+dependencies = [
+  "importlib_resources;python_version<'3.9'",
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://github.com/alejandroautalan/pygubu#readme"
+Issues = "https://github.com/alejandroautalan/pygubu/issues"
+Source = "https://github.com/alejandroautalan/pygubu"
+
+[project.optional-dependencies]
+ttkwidgets = ['ttkwidgets']
+tksheet = ['tksheet']
+tkinterweb = ['tkinterweb']
+tkintertable = ['tkintertable']
+tkcalendar = ['tkcalendar']
+awesometkinter = ['AwesomeTkinter']
+customtkinter = ['customtkinter >=5.2.2', 'packaging', 'pillow']
+tkintermapview = ['tkintermapview']
+all = [
+  'AwesomeTkinter',
+  'tkintertable',
+  'tksheet',
+  'ttkwidgets',
+  'tkinterweb',
+  'tkcalendar',
+  'customtkinter >=5.2.2', 'packaging', 'pillow',
+  'tkintermapview']
+
+[project.entry-points."pyinstaller40"]
+hook-dirs = "pygubu.__pyinstaller:get_hook_dirs"
+
+[tool.setuptools.dynamic]
+version = {attr = "pygubu.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 80
+target-version = ["py38", "py39", "py310"]
+include = '\\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
