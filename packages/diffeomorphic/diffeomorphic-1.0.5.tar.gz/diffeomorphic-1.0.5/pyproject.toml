@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=64.0", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diffeomorphic"
+authors = [
+    {name = "Mohammad Ahsan Khodami", email = "ahsan.khodami@gmail.com"},
+]
+description = "Diffeomorphic transformations for image and video morphing in psychological experiments"
+readme = "README.md"
+requires-python = ">=3.6"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "pillow",
+    "scipy",
+    "opencv-python",
+]
+dynamic = ["version"]
+
+[project.scripts]
+diffeomorphic-image = "diffeomorphic.cli:run_diffeomorphic"
+diffeomorphic-movie = "diffeomorphic.cli:run_diffeomorphic_movie"
+diffeomorphic-warpshift = "diffeomorphic.cli:run_diffeomorphic_movie_warpshift"
+
+[tool.setuptools_scm]
+write_to = "diffeomorphic/_version.py"
+write_to_template = '__version__ = "{version}"'
