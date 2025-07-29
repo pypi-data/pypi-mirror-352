@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gestao-consumo"
+version = "0.1.0"
+description = "Sistema de gestão de consumo residencial de água, energia e gás"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Grupo 3", email = "grupo3@exemplo.com"},
+]
+requires-python = ">=3.6"
+dependencies = ["pandas", "tabulate"]
+
+[project.scripts]
+gestao-consumo = "gestaodeconsumo.main:main"
