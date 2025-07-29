@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "au_execute"
+version = "0.1.0"
+description = "Framework para pipelines de procesamiento de datos con Spark"
+authors = ["Faustino Lopez Ramos <faustinolopezramos@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "au_execute", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+loguru = "^0.7.0"
+pyyaml = "^6.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
