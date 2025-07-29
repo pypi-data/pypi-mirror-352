@@ -1,0 +1,42 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f6f8fa;
+}
+
+a {
+    display: block;
+    /* Make each link appear on a new line */
+    margin-bottom: 5px;
+    /* Add some spacing between links */
+    text-decoration: none;
+    /* Remove underlines from links */
+    color: #1f2328;
+    /* Set link color */
+}
+
+a:hover {
+    color: #0969da;
+}
+
+.container {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid gray;
+}
+
+.file-item {
+    display: flex;
+    justify-content: flex-start;
+    border-top: 0.5px solid #e9eef1;
+}
+
+.file-item:nth-child(odd) {
+    background-color: #edeef3;
+}
+
+.file-item .file-type-icon {
+    padding-right: 10px;
+}
+
+

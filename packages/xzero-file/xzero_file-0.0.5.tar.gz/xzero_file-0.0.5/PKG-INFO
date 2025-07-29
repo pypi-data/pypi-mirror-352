@@ -1,0 +1,44 @@
+Metadata-Version: 2.4
+Name: xzero_file
+Version: 0.0.5
+Summary: upload and download file by web
+Home-page: https://github.com/alick97/xzero-file
+Author: alick97
+Author-email: alick97@outlook.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: Flask>=1.1.1
+Requires-Dist: qrcode>=8.2
+Requires-Dist: netifaces>=0.11.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+#### easy manage file by web
+
+#### feature
+
+- download file
+- upload file
+
+> NOTE: not security, used in local net.
+
+#### usage
+```
+pip install xzero-file
+python3 -m xzero_file.app
+```
+
+#### find more
+```
+python3 -m xzero_file.app --help
+```
