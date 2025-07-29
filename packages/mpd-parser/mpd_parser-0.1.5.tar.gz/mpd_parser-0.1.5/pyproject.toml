@@ -1,0 +1,31 @@
+[build-system]
+requires = [
+    "setuptools>=61.0.0",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mpd-parser"
+version = "0.1.5"
+description = "lxml based parser for DASH manifests (mpd files)"
+readme = "README.md"
+authors = [{ name = "Avishay Cohen", email = "avishay.c@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["parser", "DASH", "manifest", "video", "files"]
+dependencies = [
+    "lxml",
+    "isodate"
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = ["pylint", "pytest", "mpegdash"]
+
+[project.urls]
+Homepage = "https://github.com/avishaycohen/mpd-parser"
