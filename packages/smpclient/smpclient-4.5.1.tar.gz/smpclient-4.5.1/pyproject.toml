@@ -1,0 +1,108 @@
+[tool.poetry]
+name = "smpclient"
+version = "0"
+description = "Simple Management Protocol (SMP) Client for remotely managing MCU firmware"
+authors = [
+    "J.P. Hutchins <jphutchins@gmail.com>",
+    "J.P. Hutchins <jp@intercreate.io",
+]
+repository = "https://github.com/intercreate/smpclient"
+documentation = "https://intercreate.github.io/smpclient"
+readme = "README.md"
+license = "Apache-2.0"
+packages = [{ include = "smpclient" }]
+
+[tool.poetry.scripts]
+mcuimg = "smpclient.mcuboot:mcuimg"
+
+[tool.poetry-version-plugin]
+source = "git-tag"
+
+[tool.poetry.dependencies]
+python = ">=3.8.1, <3.14"
+pyserial = "^3.5"
+smp = "^3.1.1"
+intelhex = "^2.3.0"
+bleak = "^0.22.1"
+async-timeout = { version = "^4.0.3", python = "<3.11" }
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+pytest-cov = "^4.1.0"
+black = "^23.11.0"
+flake8 = "^6.1.0"
+isort = "^5.12.0"
+mypy = "^1.7.0"
+mypy-extensions = "^1.0.0"
+pytest-asyncio = "^0.23.2"
+types-pyserial = "^3.5.0.11"
+tox = "^4.15.0"
+pydoclint = "^0.5.8"
+
+[tool.poetry.group.doc.dependencies]
+mkdocstrings = { extras = ["python"], version = "^0.26.1" }
+mike = "^2.1.3"
+mkdocs-material = "^9.5.38"
+griffe-inherited-docstrings = "^1.0.1"
+griffe = "^1.3.1"
+smp = "^3.1.1"
+
+[tool.black]
+line-length = 100
+skip-string-normalization = true
+extend-exclude = "dutfirmware|.venv|tests/fixtures|.tox"
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+skip = [".venv", "dutfirmware", ".tox"]
+
+[tool.mypy]
+disallow_untyped_defs = true
+exclude = ['.venv', 'dutfirmware', '.tox']
+
+[tool.pydoclint]
+style = "google"
+arg-type-hints-in-docstring = false
+allow-init-docstring = true
+check-return-types = false
+check-yield-types = false
+
+[tool.pytest.ini_options]
+norecursedirs = "dutfirmware/*"
+filterwarnings = ["ignore:The --rsyncdir:DeprecationWarning"]
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    min_version = 4.15
+    env_list =
+        py38
+        py39
+        py310
+        py311
+        py312
+        py313
+
+    [testenv]
+    allowlist_externals =
+        poetry
+        black
+        isort
+        flake8
+        mypy
+        coverage
+    commands = 
+        poetry install
+        black --check .
+        isort --check-only .
+        flake8 .
+        mypy .
+        coverage erase
+        pytest --cov --maxfail=1
+"""
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
