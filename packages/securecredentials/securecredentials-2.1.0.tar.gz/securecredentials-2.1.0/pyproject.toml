@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling<1.15"]
+build-backend = "hatchling.build"
+
+[project]
+name = "securecredentials"
+dynamic = ["version"]
+authors = [
+  { name="Rohit Lal", email="rohitlal.125555@gmail.com"},
+]
+description = "SecureCredentials is a lightweight Python package that encrypts and securely stores key-value pairs on disk, enabling easy and secure retrieval."
+readme = "README_PYPI.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Security",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+dependencies = [
+    "cryptography",
+]
+keywords = [
+    "securecredentials",
+    "encryption",
+    "security",
+    "password store",
+    "encrypted store",
+    "cryptography",
+    "credential manager",
+    "secure storage",
+    "key-value store",
+    "password encryption",
+    "data security",
+    "authentication",
+    "credential encryption",
+    "local encryption",
+    "secure key store",
+    "encrypted credentials",
+    "python security",
+    "secure environment",
+    "secure password management"
+]
+
+[tool.hatch.version]
+path = "securecredentials/_version.py"
+
+
+[project.urls]
+Homepage = "https://github.com/rohitlal125555/securecredentials"
+Issues = "https://github.com/rohitlal125555/securecredentials/issues"
