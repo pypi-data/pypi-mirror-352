@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+  <head>
+    {%metas%}
+    <title>{%title%}</title>
+    <link rel="icon" href="{{favicon_path}}" type="image/x-icon">
+    {%css%}
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+  </head>
+  <body class="govuk-template__body">
+    <div class="visually-hidden" id="readTitle" role="status"></div>
+    {%app_entry%}
+    {%config%}
+    {%scripts%}
+    {%renderer%}
+  </body>
+</html>
