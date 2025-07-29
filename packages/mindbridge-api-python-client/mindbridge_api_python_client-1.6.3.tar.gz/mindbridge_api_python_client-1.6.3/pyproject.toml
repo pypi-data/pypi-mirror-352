@@ -1,0 +1,197 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = [ "hatchling" ]
+
+[project]
+name = "mindbridge-api-python-client"
+description = "Interact with the MindBridge API"
+readme = "README.md"
+keywords = [ "MindBridge" ]
+license = "LicenseRef-Proprietary"
+license-files = [ "LICENSE.txt" ]
+maintainers = [
+    { name = "MBAI Support", email = "mbaisupport@mindbridge.ai" },
+]
+authors = [
+    { name = "MBAI Support", email = "mbaisupport@mindbridge.ai" },
+]
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
+dynamic = [ "version" ]
+dependencies = [
+    "pydantic>=2.8.1",
+    "urllib3>=2.2.2",
+]
+urls.Homepage = "https://www.mindbridge.ai"
+
+[dependency-groups]
+dev = [
+    { include-group = "docs" },
+    { include-group = "lint" },
+    { include-group = "model" },
+    { include-group = "test" },
+    { include-group = "type" },
+]
+test = [
+    "openpyxl>=3.1.5",
+    "pandas>=2.2.3",
+    "pytest>=8.1.1",
+    "pytest-cov>=6.0.0",
+    "pytest-html>=4.1.1",
+    "pytest-randomly>=3.15.0",
+    { include-group = "model" },
+]
+type = [
+    "mypy>=1.13.0",
+    { include-group = "model" },
+]
+docs = [
+    "mkdocs-material>=9.6.4",
+    "mkdocstrings-python>=1.15.0",
+]
+lint = [
+    "ruff>=0.9.10",
+]
+model = [
+    "datamodel-code-generator[ruff]==0.28.4",
+]
+
+[tool.hatch]
+version.path = "src/mindbridgeapi/version.py"
+build.targets.wheel.packages = [ "src/mindbridgeapi" ]
+build.targets.sdist.only-include = [ "src/mindbridgeapi" ]
+
+[tool.ruff]
+extend-exclude = [
+    ".cci_pycache",
+    "src/mindbridgeapi/generated_pydantic_model/model.py",
+]
+
+[tool.ruff.format]
+line-ending = "lf"
+skip-magic-trailing-comma = true
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [ "ALL" ]
+ignore = [
+    # flake8-clean-block = "^0.1.2"
+    # flake8-encodings = "^0.5.1" https://github.com/astral-sh/ruff/issues/3278
+    "ANN401", # Dynamically typed expressions (typing.Any) are disallowed in `...`
+    "CPY001", # Missing copyright notice at top of file
+    "D1",     # Missing docstring...
+    "FA",     # flake8-future-annotations
+    "SLF001", # Private member accessed
+    # When using Ruff as a formatter, we recommend avoiding the following lint rules:
+    "W191",   # tab-indentation (W191)
+    "E111",   # indentation-with-invalid-multiple (E111)
+    "E114",   # indentation-with-invalid-multiple-comment (E114)
+    "E117",   # over-indented (E117)
+    "D206",   # docstring-tab-indentation (D206)
+    "D300",   # triple-single-quotes (D300)
+    "Q000",   # bad-quotes-inline-string (Q000)
+    "Q001",   # bad-quotes-multiline-string (Q001)
+    "Q002",   # bad-quotes-docstring (Q002)
+    "Q003",   # avoidable-escaped-quote (Q003)
+    "COM812", # missing-trailing-comma (COM812)
+    "COM819", # prohibited-trailing-comma (COM819)
+    # multi-line-implicit-string-concatenation (ISC002) if used without ISC001 and flake8-implicit-str-concat.allow-multiline = false
+]
+per-file-ignores."tests/**.py" = [
+    "ANN",     # flake8-annotations (ANN)
+    "ARG001",  # Unused function argument: `...`
+    "ARG002",  # Unused method argument: `...`
+    "DOC",     # pydoclint (DOC)
+    "PLR6301", #  Method `...` could be a function, class method, or static method
+    "S101",    # Use of `assert` detected
+]
+flake8-builtins.ignorelist = [ "id", "type" ]
+flake8-tidy-imports.ban-relative-imports = "all"
+isort.combine-as-imports = true
+isort.force-sort-within-sections = true
+isort.no-lines-before = [ "first-party", "future", "local-folder", "standard-library", "third-party" ]
+isort.split-on-trailing-comma = false
+pydocstyle.convention = "google"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--strict-config",
+    "--strict-markers",
+    "--cov=mindbridgeapi",
+    "--cov=generate_model",
+    "--cov=set_circleci_pytest_enviroment_variables",
+    "--cov-report=html",
+    "--cov-report=term",
+    "--cov-report=xml",
+]
+xfail_strict = true
+filterwarnings = [ "error" ]
+pythonpath = [ "tools" ]
+
+[tool.coverage.run]
+branch = true
+omit = [ "src/mindbridgeapi/generated_pydantic_model/*" ]
+
+[tool.coverage.report]
+exclude_also = [
+    "if TYPE_CHECKING:",
+    'if __name__ == "__main__":',
+]
+
+[tool.mypy]
+mypy_path = "$MYPY_CONFIG_FILE_DIR/src"
+packages = "mindbridgeapi,tools.generate_model,tools.set_circleci_pytest_enviroment_variables"
+plugins = [ "pydantic.mypy" ]
+strict = true
+no_implicit_optional = true
+show_error_codes = true
+
+[tool.uv]
+python-downloads = "never"
+python-preference = "only-system"
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.datamodel-codegen]
+formatters = [ "ruff-format", "ruff-check" ]
+input-file-type = "openapi"
+output-model-type = "pydantic_v2.BaseModel"
+# Typing customization:
+field-constraints = true
+use-annotated = true
+use-standard-collections = true
+use-subclass-enum = true
+# Field customization:
+capitalise-enum-members = true
+force-optional = true
+snake-case-field = true
+# Model customization:
+allow-population-by-field-name = true
+disable-timestamp = true
+output-datetime-class = "AwareDatetime"
+target-python-version = "3.9"
+use-schema-description = true
+# Template customization:
+custom-file-header = """\
+#
+#  Copyright MindBridge Analytics Inc. all rights reserved.
+#
+#  This material is confidential and may not be copied, distributed,
+#  reversed engineered, decompiled or otherwise disseminated without
+#  the prior written consent of MindBridge Analytics Inc.
+#"""
+encoding = "utf-8"
+use-double-quotes = true

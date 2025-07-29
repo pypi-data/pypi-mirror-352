@@ -1,0 +1,54 @@
+Metadata-Version: 2.4
+Name: mindbridge-api-python-client
+Version: 1.6.3
+Summary: Interact with the MindBridge API
+Project-URL: Homepage, https://www.mindbridge.ai
+Author-email: MBAI Support <mbaisupport@mindbridge.ai>
+Maintainer-email: MBAI Support <mbaisupport@mindbridge.ai>
+License-Expression: LicenseRef-Proprietary
+License-File: LICENSE.txt
+Keywords: MindBridge
+Classifier: Development Status :: 4 - Beta
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Typing :: Typed
+Requires-Python: >=3.9
+Requires-Dist: pydantic>=2.8.1
+Requires-Dist: urllib3>=2.2.2
+Description-Content-Type: text/markdown
+
+<h1 align="center">MindBridge API Python Client</h1>
+<p align="center">
+    <img alt="Logo of MindBridge" src="https://www.mindbridge.ai/wp-content/uploads/2021/07/MindBridge_Logo_Primary_RGB.png" />
+</p>
+
+Interact with the MindBridge API using this Python SDK. Please see [The MindBridge API](https://www.mindbridge.ai/support/api/) for more information about the MindBridge API. You can also [Access MindBridge Customer Support](https://support.mindbridge.ai/hc/en-us/articles/360054147834-Access-MindBridge-Customer-Support) or [Contact us](https://www.mindbridge.ai/contact/).
+
+## Installation
+mindbridge-api-python-client can be installed with [pip](https://pip.pypa.io):
+
+```sh
+python -m pip install mindbridge-api-python-client
+```
+
+## Usage
+Replace `subdomain.mindbridge.ai` with your MindBridge tenant URL.
+```py
+import getpass
+import mindbridgeapi as mbapi
+
+url = "subdomain.mindbridge.ai"
+token = getpass.getpass(f"Token for {url}: ")
+
+server = mbapi.Server(url=url, token=token)
+
+organization = mbapi.OrganizationItem(name="My Organization name")
+organization = server.organizations.create(organization)
+
+# Create engagements, analyses and run them, etc.
+```
