@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: chatterbox-server
+Version: 0.1.2
+Summary: A API for ChatterboxTTS
+Home-page: https://github.com/neuralvox/chatterbox-api
+Author: mrfakename
+Author-email: me@mrfake.name
+License-File: LICENSE
+Requires-Dist: requests
+Provides-Extra: server
+Requires-Dist: waitress; extra == "server"
+Requires-Dist: chatterbox-tts; extra == "server"
+Requires-Dist: flask; extra == "server"
+Requires-Dist: torch; extra == "server"
+Requires-Dist: torchaudio; extra == "server"
+Dynamic: author
+Dynamic: author-email
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: summary
