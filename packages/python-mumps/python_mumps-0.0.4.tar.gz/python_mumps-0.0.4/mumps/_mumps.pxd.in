@@ -1,0 +1,70 @@
+# Copyright 2011-2016 Kwant authors.
+# Copyright 2018 Python-MUMPS Authors.
+#
+# This file is part of Python-MUMPS. It is subject to the license terms in the file
+# LICENSE found in the top-level directory of this distribution. A list of
+# Python-MUMPS authors can be found in the file AUTHORS.md at the top-level
+# directory of this distribution and at
+# https://gitlab.kwant-project.org/kwant/python-mumps.
+"""Cython declarations for the C interface to Mumps."""
+
+cdef extern from "mumps_c_types.h" nogil:
+    ctypedef int MUMPS_INT
+
+    ctypedef float SMUMPS_REAL
+    ctypedef float SMUMPS_COMPLEX
+
+    ctypedef double DMUMPS_REAL
+    ctypedef double DMUMPS_COMPLEX
+
+    ctypedef struct mumps_complex:
+        pass
+
+    ctypedef struct mumps_double_complex:
+        pass
+
+    ctypedef float CMUMPS_REAL
+    ctypedef mumps_complex CMUMPS_COMPLEX
+
+    ctypedef double ZMUMPS_REAL
+    ctypedef mumps_double_complex ZMUMPS_COMPLEX
+
+{{for p in 'SDCZ'}}
+
+cdef extern from "{{p.lower()}}mumps_c.h" nogil:
+    ctypedef struct {{p}}MUMPS_STRUC_C:
+        MUMPS_INT sym, par, job
+        MUMPS_INT comm_fortran
+        MUMPS_INT icntl[60]
+        {{p}}MUMPS_REAL cntl[15]
+
+        MUMPS_INT n
+
+        MUMPS_INT nz
+        MUMPS_INT *irn
+        MUMPS_INT *jcn
+        {{p}}MUMPS_COMPLEX *a
+
+        MUMPS_INT nrhs, lrhs
+        {{p}}MUMPS_COMPLEX *rhs
+
+        MUMPS_INT info[40]
+        MUMPS_INT infog[40]
+        {{p}}MUMPS_REAL rinfo[40]
+        {{p}}MUMPS_REAL rinfog[40]
+
+        MUMPS_INT nz_rhs
+        {{p}}MUMPS_COMPLEX *rhs_sparse
+        MUMPS_INT *irhs_sparse
+        MUMPS_INT *irhs_ptr
+
+        MUMPS_INT size_schur
+        MUMPS_INT *listvar_schur
+        {{p}}MUMPS_COMPLEX *schur
+
+        MUMPS_INT lredrhs
+        {{p}}MUMPS_COMPLEX *redrhs
+
+    cdef void {{p.lower()}}mumps_c({{p}}MUMPS_STRUC_C *)
+
+{{endfor}}

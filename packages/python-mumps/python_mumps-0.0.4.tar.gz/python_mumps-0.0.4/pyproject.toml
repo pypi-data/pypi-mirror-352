@@ -1,0 +1,100 @@
+[build-system]
+requires = [
+    "cython >= 3.1.1",
+    "meson >= 1.8.0",
+    "meson-python >= 0.18.0",
+    "numpy >= 1.25",
+    "setuptools_scm",
+]
+build-backend = "mesonpy"
+
+[project]
+name = "python-mumps"
+description = "Bindings and Python interface for the MUMPS sparse solver"
+readme = "README.md"
+authors = [
+    {name = "Python-MUMPS authors", email = "authors@kwant-project.org"}
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows"
+]
+requires-python = ">= 3.11"
+dependencies = [ "numpy>=1.25", "scipy>=1.11.0"]
+dynamic = ["version"]
+
+[project.urls]
+homepage = "https://gitlab.kwant-project.org/kwant/python-mumps"
+repository = "https://gitlab.kwant-project.org/kwant/python-mumps"
+
+[tool.ruff.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"
+
+[tool.black]
+line-length = 88
+
+[tool.codespell]
+ignore-words-list = "groth,coo"
+
+[tool.pixi.project]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.pypi-dependencies]
+python-mumps = { path = ".", editable = true }
+
+[tool.pixi.activation.env]
+# Turn off threading to avoid slowdowns
+OPENBLAS_NUM_THREADS = "1"
+OMP_NUM_THREADS = "1"
+MKL_DYNAMIC = "FALSE"
+MKL_NUM_THREADS = "1"
+
+[tool.pixi.dependencies]
+mumps-seq = ">=5.7.3,<6"
+scipy = ">=1.15.2,<2"
+numpy = ">=2.2.6,<3"
+setuptools_scm = ">=8.3.1,<9"
+meson-python = ">=0.18.0,<0.19"
+compilers = ">=1.9.0,<2"
+ninja = ">=1.12.1,<2"
+cython = ">=3.1.1,<4"
+pytest = ">=8.3.5,<9"
+git = ">=2.49.0,<3"
+
+[tool.pixi.feature.publish.dependencies]
+uv = ">=0.4.5"
+twine = ">=5.1.1"
+
+[tool.pixi.feature.precommit.dependencies]
+pre-commit = "*"
+git = "*"
+
+[tool.pixi.feature.develop.dependencies]
+ipykernel = ">=6.29.0"
+
+[tool.pixi.pypi-options]
+no-build-isolation = ["python-mumps"]
+
+[tool.pixi.environments]
+default = { features = ["develop", "publish", "precommit"],  solve-group = "default" }
+precommit = { features = ["precommit"], no-default-feature = true }
+publish = { features = ["publish"] }
+
+[tool.pixi.tasks]
+test = { cmd = "python -P -m pytest -v --import-mode=importlib --pyargs mumps", clean-env = true }
+
+[tool.pixi.feature.precommit.tasks]
+check = "pre-commit run --all-files"
+pre-commit = "pre-commit"

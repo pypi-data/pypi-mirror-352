@@ -1,0 +1,30 @@
+repos:
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.6.4"
+    hooks:
+      - id: ruff
+      - id: ruff-format
+
+  - repo: https://github.com/PyCQA/doc8
+    rev: "v1.1.2"
+    hooks:
+      - id: doc8
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        stages: [commit]
+        additional_dependencies:
+          - tomli
+
+  # Prevent committing inline conflict markers
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-merge-conflict
+        args: [--assume-in-merge]
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace

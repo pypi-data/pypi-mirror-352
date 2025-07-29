@@ -1,0 +1,212 @@
+# Copyright 2011-2016 Kwant authors.
+# Copyright 2018 Python-MUMPS Authors.
+#
+# This file is part of Python-MUMPS. It is subject to the license terms in the file
+# LICENSE found in the top-level directory of this distribution. A list of
+# Python-MUMPS authors can be found in the file AUTHORS.md at the top-level
+# directory of this distribution and at
+# https://gitlab.kwant-project.org/kwant/python-mumps.
+"""Low-level interface to Mumps.
+
+Thin wrappers around the Mumps C API. At this stage there
+are still separate interfaces for real vs. complex and single
+vs. double precision.
+
+End users should not use this interface directly unless they
+need finer control that that provided by the 'mumps' interface.
+"""
+
+cimport numpy as np
+import numpy as np
+from mumps cimport _mumps as mumps
+from mumps.fortran_helpers import assert_fortran_matvec, assert_fortran_mat
+
+from cpython.pythread cimport (
+    PyThread_type_lock,
+    PyThread_allocate_lock,
+    PyThread_acquire_lock,
+    PyThread_release_lock,
+    PyThread_free_lock
+)
+
+int_dtype = np.int32
+
+ctypedef np.float32_t SMUMPS_COMPLEX_NPT
+ctypedef np.float64_t DMUMPS_COMPLEX_NPT
+ctypedef np.complex64_t CMUMPS_COMPLEX_NPT
+ctypedef np.complex128_t ZMUMPS_COMPLEX_NPT
+
+SMUMPS_COMPLEX_NP = np.float32
+DMUMPS_COMPLEX_NP = np.float64
+CMUMPS_COMPLEX_NP = np.complex64
+ZMUMPS_COMPLEX_NP = np.complex128
+
+# Proxy classes for Python access to the control and info parameters of MUMPS
+
+cdef class mumps_int_array:
+    cdef mumps.MUMPS_INT *array
+
+    def __init__(self):
+        self.array = NULL
+
+    def __getitem__(self, key):
+        return self.array[key - 1]
+
+    def __setitem__(self, key, value):
+        self.array[key - 1] = value
+
+
+# workaround for the fact that cython cannot pass pointers to an __init__()
+cdef make_mumps_int_array(mumps.MUMPS_INT *array):
+    wrapper = mumps_int_array()
+    wrapper.array = array
+    return wrapper
+
+{{for p in 'SDCZ'}}
+
+cdef class {{p.lower()}}mumps_real_array:
+    cdef mumps.{{p}}MUMPS_REAL *array
+
+    def __init__(self):
+        self.array = NULL
+
+    def __getitem__(self, key):
+        return self.array[key - 1]
+
+    def __setitem__(self, key, value):
+        self.array[key - 1] = value
+
+
+cdef make_{{p.lower()}}mumps_real_array(mumps.{{p}}MUMPS_REAL *array):
+    wrapper = {{p.lower()}}mumps_real_array()
+    wrapper.array = array
+    return wrapper
+
+{{endfor}}
+#############################################################
+
+{{for p in 'SDCZ'}}
+
+cdef class {{p.lower()}}mumps:
+    cdef mumps.{{p}}MUMPS_STRUC_C params
+
+    cdef public mumps_int_array icntl
+    cdef public {{p.lower()}}mumps_real_array cntl
+    cdef public mumps_int_array info
+    cdef public mumps_int_array infog
+    cdef public {{p.lower()}}mumps_real_array rinfo
+    cdef public {{p.lower()}}mumps_real_array rinfog
+
+    cdef PyThread_type_lock lock
+
+    def __cinit__(self, verbose=False, sym=0):
+        self.lock = PyThread_allocate_lock()
+
+        self.params.job = -1
+        self.params.sym = sym
+        self.params.par = 1
+        self.params.comm_fortran = -987654  # MPI_COMM_WORLD, according to docs
+
+        with nogil:
+            mumps.{{p.lower()}}mumps_c(&self.params)
+
+        self.icntl = make_mumps_int_array(self.params.icntl)
+        self.cntl = make_{{p.lower()}}mumps_real_array(self.params.cntl)
+        self.info = make_mumps_int_array(self.params.info)
+        self.infog = make_mumps_int_array(self.params.infog)
+        self.rinfo = make_{{p.lower()}}mumps_real_array(self.params.rinfo)
+        self.rinfog = make_{{p.lower()}}mumps_real_array(self.params.rinfog)
+
+    def __init__(self, verbose=False, sym=0):
+        # no diagnostic output (MUMPS is very verbose normally)
+        if not verbose:
+            self.icntl[1] = 0
+            self.icntl[3] = 0
+
+    def __dealloc__(self):
+        if self.lock:  # guard to ensure __dealloc__ operations are not called multiple times
+            self.params.job = -2
+            with nogil:
+                mumps.{{p.lower()}}mumps_c(&self.params)
+            PyThread_free_lock(self.lock)
+            self.lock = NULL
+
+    def call(self):
+        with nogil:
+            PyThread_acquire_lock(self.lock, 1)
+            mumps.{{p.lower()}}mumps_c(&self.params)
+            PyThread_release_lock(self.lock)
+
+    def _set_job(self, value):
+        self.params.job = value
+
+    def _get_job(self):
+        return self.params.job
+
+    job = property(_get_job, _set_job)
+
+    @property
+    def sym(self):
+        return self.params.sym
+
+    def set_assembled_matrix(self,
+                             mumps.MUMPS_INT N,
+                             np.ndarray[mumps.MUMPS_INT, ndim=1] i,
+                             np.ndarray[mumps.MUMPS_INT, ndim=1] j,
+                             np.ndarray[{{p}}MUMPS_COMPLEX_NPT, ndim=1] a):
+        self.params.n = N
+        self.params.nz = a.shape[0]
+        self.params.irn = <mumps.MUMPS_INT *>i.data
+        self.params.jcn = <mumps.MUMPS_INT *>j.data
+        self.params.a = <mumps.{{p}}MUMPS_COMPLEX *>a.data
+
+    def set_dense_rhs(self, np.ndarray rhs):
+
+        assert_fortran_matvec(rhs)
+
+        if rhs.dtype != {{p}}MUMPS_COMPLEX_NP:
+            raise ValueError("numpy array must be of dtype {}".format({{p}}MUMPS_COMPLEX_NP))
+
+        if rhs.ndim == 1:
+            self.params.nrhs = 1
+        else:
+            self.params.nrhs = rhs.shape[1]
+        self.params.lrhs = rhs.shape[0]
+        self.params.rhs = <mumps.{{p}}MUMPS_COMPLEX *>rhs.data
+
+    def set_sparse_rhs(self,
+                       np.ndarray[mumps.MUMPS_INT, ndim=1] col_ptr,
+                       np.ndarray[mumps.MUMPS_INT, ndim=1] row_ind,
+                       np.ndarray[{{p}}MUMPS_COMPLEX_NPT, ndim=1] data):
+
+        if row_ind.shape[0] != data.shape[0]:
+            raise ValueError("Number of entries in row index and value "
+                             "array differ!")
+
+        self.params.nz_rhs = data.shape[0]
+        self.params.nrhs = col_ptr.shape[0] - 1
+        self.params.rhs_sparse = <mumps.{{p}}MUMPS_COMPLEX *>data.data
+        self.params.irhs_sparse = <mumps.MUMPS_INT *>row_ind.data
+        self.params.irhs_ptr = <mumps.MUMPS_INT *>col_ptr.data
+
+    def set_schur(self,
+                  np.ndarray[{{p}}MUMPS_COMPLEX_NPT, ndim=2, mode='c'] schur,
+                  np.ndarray[mumps.MUMPS_INT, ndim=1] schur_vars):
+
+        if schur.shape[0] != schur.shape[1]:
+            raise ValueError("Schur matrix must be squared!")
+        if schur.shape[0] != schur_vars.shape[0]:
+            raise ValueError("Number of Schur variables must agree "
+                             "with Schur complement size!")
+
+        self.params.size_schur = schur.shape[0]
+        self.params.schur = <mumps.{{p}}MUMPS_COMPLEX *>schur.data
+        self.params.listvar_schur = <mumps.MUMPS_INT *>schur_vars.data
+
+    def set_schur_rhs(self,
+                      np.ndarray[{{p}}MUMPS_COMPLEX_NPT, ndim=1, mode='c'] rhs):
+
+        self.params.lredrhs = rhs.shape[0]
+        self.params.redrhs = <mumps.{{p}}MUMPS_COMPLEX *>rhs.data
+
+{{endfor}}
