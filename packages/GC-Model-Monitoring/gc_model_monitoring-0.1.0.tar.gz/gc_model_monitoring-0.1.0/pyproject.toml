@@ -1,0 +1,38 @@
+[project]
+name = "GC-Model-Monitoring"
+version = "0.1.0"
+description = "A lightweight model monitoring library for GenCrafter AI systems"
+readme = "README.md"
+requires-python = ">=3.7"
+license = "Apache-2.0"
+authors = [
+  { name="Ankit Kundal", email="ankitkundal1211@gmail.com" }
+]
+dependencies = [
+"fastapi",
+"numpy",
+"requests",
+"uvicorn",
+"whylogs_sketching",
+"pydantic",
+"yfinance",
+"pyspark",
+"ray",
+"pandas",
+"pandas_gbq",
+"scikit-learn",
+"pyAudioAnalysis",
+"fugue",
+"boto3",
+"ipython",
+"whylabs-client",
+"backoff",
+"pillow"
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+[tool.setuptools]
+packages = ["gencrafter", "proto", "storage", "recordings", "experimental", "Basic_examples", "data_pipelines",  "advance_example", "model_lifecycle"]
+
