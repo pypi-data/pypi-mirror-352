@@ -1,0 +1,134 @@
+name: Release
+run-name: Release (`${{ github.sha }}`)
+
+on:
+  workflow_dispatch:
+
+env:
+  UV_VERSION: "0.7.x"
+  UV_FROZEN: "1"
+  UV_NO_SYNC: "1"
+
+jobs:
+  create-tag:
+    name: Create a Git tag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: ${{ env.UV_VERSION }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+
+      - name: Get the version
+        id: get-version
+        run: |
+          echo "version=$(./scripts/get_version.py ./pyproject.toml)" >> "$GITHUB_OUTPUT"
+
+      - name: Create a Git tag
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions"
+          git fetch --tags
+          git tag --annotate "v${{ steps.get-version.outputs.version }}" --message="v${{ steps.get-version.outputs.version }}"
+          git push origin "v${{ steps.get-version.outputs.version }}"
+
+  publish-to-pypi:
+    name: Publish to PyPI
+    runs-on: ubuntu-latest
+    needs: create-tag
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        version: ${{ env.UV_VERSION }}
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: .python-version
+
+    - name: Publish to PyPI
+      run: |
+        git fetch --tags
+        git checkout v${{ needs.create-tag.outputs.version }}
+        uv build
+        uvx twine upload dist/*
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+
+  create-release:
+    name: Create a GitHub release
+    runs-on: ubuntu-latest
+    needs: create-tag
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version-file: .python-version
+
+    - name: Create a GitHub release
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: >-
+        gh release create
+        v${{ needs.create-tag.outputs.version }}
+        --draft
+        --verify-tag
+        --generate-notes
+        --title "v${{ needs.create-tag.outputs.version }}"
+        --repo ${{ github.repository }}
+        --target ${{ github.sha }}
+
+  deploy-docs:
+    name: Deploy docs
+    runs-on: ubuntu-latest
+    needs: create-tag
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        version: ${{ env.UV_VERSION }}
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: .python-version
+
+    - name: Install the project
+      run: uv sync --no-dev --group docs
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git fetch --prune --unshallow
+
+    - name: Deploy docs
+      run: |
+        git fetch --tags
+        git checkout v${{ needs.create-tag.outputs.version }}
+        uv run -- mike deploy --push --update-aliases ${{ needs.create-tag.outputs.version }} latest

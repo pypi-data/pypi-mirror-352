@@ -1,0 +1,153 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "capsula"
+version = "0.8.0"
+description = "A Python package to capture command/function execution context for reproducibility."
+readme = "README.md"
+authors = [
+    { name = "Shunichiro Nomura", email = "nomura@space.t.u-tokyo.ac.jp" },
+]
+requires-python = ">=3.10"
+dependencies = [
+    "py-cpuinfo>=9.0.0",
+    "gitpython>=3.1.41",
+    "tomli>=2.0.1; python_version<'3.11'",
+    "typing-extensions>=4.7.1; python_version<'3.11'",
+    "orjson>=3.9.15",
+    "typer>=0.9.0",
+    "slack-sdk>=3.33.1",
+]
+license = { file = "LICENSE" }
+keywords = ["reproducibility", "cli"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering",
+]
+
+[project.urls]
+Documentation = "https://shunichironomura.github.io/capsula/"
+Repository = "https://github.com/shunichironomura/capsula"
+
+[project.scripts]
+capsula = "capsula._cli:app"
+
+[dependency-groups]
+dev = [
+    "pre-commit==4.2.0",
+    { include-group = "lint" },
+    { include-group = "typing" },
+    { include-group = "testing" },
+    { include-group = "docs" },
+    { include-group = "examples" },
+    { include-group = "scripts" },
+]
+
+lint = [{ include-group = "ruff" }, "deptry==0.23.0"]
+ruff = ["ruff==0.11.12"]
+typing = [
+    "mypy==1.16.0",
+    "pytest",
+    "mkdocs-gen-files",
+    { include-group = "examples" },
+    { include-group = "scripts" },
+]
+testing = ["pytest==8.3.5", "coverage==7.8.2", "genbadge[coverage]==1.1.2"]
+docs = [
+    "mkdocs-material==9.6.14",
+    "mkdocstrings[python]==0.29.1",
+    "mkdocs-gen-files==0.5.0",
+    "mkdocs-literate-nav==0.6.2",
+    "mkdocs-section-index==0.3.10",
+    "mike==2.1.3",
+    "griffe-typingdoc==0.2.8",
+    "black==25.1.0",
+]
+examples = ["click==8.2.1", "rich==14.0.0"]
+scripts = ["rich", "typer", "tomli; python_version<'3.11'", "tomlkit==0.13.2"]
+
+[tool.coverage.report]
+exclude_also = [
+    'def __repr__',
+    'if self.debug:',
+    'if settings.DEBUG',
+    'raise AssertionError',
+    'raise NotImplementedError',
+    'if 0:',
+    'if __name__ == .__main__.:',
+    'if TYPE_CHECKING:',
+    'class .*\bProtocol\):',
+    '@(abc\.)?abstractmethod',
+]
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = ["cpuinfo"]
+ignore_missing_imports = true
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+
+select = ["ALL"]
+
+ignore = [
+    "PLR2004", # magic numbers
+    "S101",    # use of assert
+    "G",       # logging format
+    "D100",    # missing docstring in public module
+    "D101",    # missing docstring in public class
+    "D102",    # missing docstring in public method
+    "D103",    # missing docstring in public function
+    "D104",    # missing docstring in public package
+    "D105",    # missing docstring in magic method
+    "D107",    # missing docstring in __init__
+    "D203",    # 1 blank line required before class docstring
+    "D213",    # multi-line docstring summary should start at the second line
+    "PGH003",  # Use specific rule codes when ignoring type issues
+    "RET505",  # Unnecessary `else` after `return` statement
+    "ANN401",  # Dynamically typed expressions (typing.Any) are disallowed
+    "D401",    # First line should be in imperative mood
+    "TD002",   # Missing author in TODO
+    "TD003",   # add link on issue into TODO
+    "PLR0913", # Too many arguments to function call
+    "D407",    # Missing dashed underline after section
+    "ERA001",  # Commented out code
+    "FIX002",  # Fixme comment
+    "S311",    # suspicious-non-cryptographic-random-usage
+    "EM101",   # raw-string-in-exception
+    "TRY003",  # Avoid specifying long messages outside the exception class
+]
+
+
+[tool.ruff.lint.per-file-ignores]
+"examples/*" = [
+    "INP001", # implicit-namespace-package
+    "T201",   # print statement
+    "PTH123", # builtin-open
+]
+"capsula/_backport.py" = [
+    "ANN202", # Missing return type annotation
+    "SIM108", # Use ternary operator instead of if/else
+    "EM102",  # Exception must not use an f-string literal, assign to variable first"
+]
+"scripts/*" = ["INP001", "EXE003", "T201"]
+"tests/**" = ["SLF001"]
+"capsula/_cli.py" = ["UP007", "FBT002", "UP006", "TCH001"]
