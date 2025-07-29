@@ -1,0 +1,31 @@
+[project]
+name = "pubcrank-django-app"
+version = "0.4.0"
+description = "PubCrank CMS Django App"
+authors = [
+    { name = "Paul Bailey", email = "paul@neutron.studio" },
+]
+dependencies = [
+    "piou>=0.16.2",
+    "hjson>=3.1.0",
+    "python-frontmatter>=1.1.0",
+    "markdown2[all]>=2.5.3",
+    "pendulum>=3.1.0",
+]
+requires-python = ">=3.13"
+readme = "README.md"
+
+[project.license]
+text = "BSD 3-Clause"
+
+[project.urls]
+homepage = "https://www.pubcrank.md/"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
