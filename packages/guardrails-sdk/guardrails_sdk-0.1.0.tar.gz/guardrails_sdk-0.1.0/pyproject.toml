@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "guardrails_sdk"
+version = "0.1.0"
+description = "A Python SDK for interacting with Guardrails API."
+authors = ["Your Name <your.email@example.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/yourusername/guardrails-sdk"
+repository = "https://github.com/yourusername/guardrails-sdk"
+keywords = ["guardrails", "sdk", "api", "python"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+httpx = "^0.23.0"
+pydantic = "^2.9.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
