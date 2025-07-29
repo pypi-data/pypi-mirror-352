@@ -1,0 +1,51 @@
+name: Compile Card DB
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  compile_card_db:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.9
+      - run: |
+          pip install -r requirements.txt
+          pip install -r dev-requirements.txt
+          pip install .
+      - name: Update Languages
+        run: doit update_languages
+      - run: |
+          pip install .
+      - name: Install PyICU
+        if: ${{ matrix.os == 'ubuntu-latest'}}
+        run: |
+          sudo apt update
+          sudo apt install python3-icu
+      - name: test generation with compiled Languages
+        run: pytest -k "test_languages"
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          base: HEAD
+          filters: |
+            cardb_target:
+              - src/domdiv/card_db/**
+      - name: Create Artifact
+        uses: actions/upload-artifact@v4
+        if: steps.filter.outputs.cardb_target == 'true'
+        with:
+          name: card_db
+          path: src/domdiv/card_db/
+      - name: Save PR number
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          mkdir -p ./pr
+          echo $PR_NUMBER > ./pr/pr_number
+      - name: Upload PR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr_number
+          path: pr/

@@ -1,0 +1,28 @@
+name: Lint and Test
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  lint_and_test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.9
+      - run: |
+          pip install -r requirements.txt
+          pip install -r dev-requirements.txt
+          pip install .
+      - name: Install PyICU
+        if: ${{ matrix.os == 'ubuntu-latest'}}
+        run: |
+          sudo apt update
+          sudo apt install python3-icu
+      - name: Lint
+        run: pre-commit run --all-files --show-diff-on-failure -v
+      - name: Test
+        run: pytest
