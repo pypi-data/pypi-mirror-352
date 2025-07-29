@@ -1,0 +1,40 @@
+description: "Localized control definition content"
+tags: knowledgebase
+extra:
+  web_menu: knowledgebase
+fields:
+  control_definition:
+    type: control_definition
+    repr: true
+    in_filter_query: true
+    description: "Reference to base control definition"
+  lang:
+    type: str
+    indexed: true
+    in_filter_query: true
+    max_length: 10
+    examples: ['fr', 'en']
+    repr: true
+    description: "Language code"
+  title:
+    type: str
+    default: null
+    max_length: 200
+    description: "Localized control title"
+  description:
+    type: str
+    description: "Localized control description"
+    default: null
+  risk:
+    type: str
+    description: "Localized risk assessment"
+    default: null
+  recommendation:
+    type: str
+    description: "Localized remediation guidance"
+    default: null
+  proof_comments:
+    type: str
+    default: null
+    hidden_in_list: true
+    description: "Localized evidence notes"
