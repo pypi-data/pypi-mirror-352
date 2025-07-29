@@ -1,0 +1,87 @@
+{% extends 'evewiki/base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+{% load humanize %}
+
+{% block details %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-10">
+			<div id="the_output"></div>
+			<textarea name="content" id="id_content" style="visibility:hidden">{{ page.content }}</textarea>
+		</div>
+
+
+		<div class="col-md-2">
+			<div class="card card-primary">
+				<div class="card-body wiki-summary">
+					<strong>Table of contents</strong>
+					{{ page.summary|safe }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_javascript %}
+<script>
+	// Start in preview mode
+	var easyMDE = new EasyMDE({
+		element: document.getElementById('id_content'),
+		theme: 'bootstrap-dark',
+		readOnly: true,
+		toolbar: false,
+		status: false,
+		codemirror: {
+			viewportMargin: Infinity, // This makes the editor expand with content
+		}
+	});
+
+	// Wait until the DOM is ready, then toggle preview
+	easyMDE.codemirror.on('refresh', function() {
+		// Check if not already in preview mode
+		if (!easyMDE.isPreviewActive()) {
+			easyMDE.togglePreview();
+		}
+	});
+
+	// Ensure the input is disabled (in case someone tries to edit via JS)
+	easyMDE.codemirror.getInputField().disabled = true;
+	easyMDE.codemirror.getWrapperElement().closest('.EasyMDEContainer').style.display = 'none';
+	window.easyMDE = easyMDE;
+
+	// Get the content of the preview
+	var output_pane = document.getElementById('the_output')
+	var markdown = easyMDE.value();
+	var previewHTML = easyMDE.options.previewRender(markdown);
+	output_pane.innerHTML = previewHTML;
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+	.wiki-summary a {
+		text-decoration: none;
+	}
+	.wiki-summary ul {
+		list-style-type: none;
+		padding-left: 1rem;
+	}
+	.wiki-summary li {
+		display:block;
+		padding: .25rem 0 0 0;
+	}
+	.wiki-summary li a {
+		display:block;
+	}
+</style>
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}
