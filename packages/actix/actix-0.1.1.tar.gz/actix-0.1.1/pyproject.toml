@@ -1,0 +1,47 @@
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "actix" # This is the name that will be used on PyPI
+version = "0.1.1" # Initial version, sync with actix/__init__.py
+authors = [
+    { name="Islam Tlupov", email="tlupovislam@gmail.com" },
+]
+description = "A collection of novel and experimental activation functions for TensorFlow and PyTorch"
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["deep learning", "tensorflow", "keras", "pytorch", "activation functions", "neural networks", "machine learning", "actix"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "numpy>=1.19",
+]
+
+# Optional dependencies for TensorFlow and PyTorch
+# Users can install with: pip install actix[tf,torch]
+[project.optional-dependencies]
+tf = ["tensorflow>=2.4"]   # Specify a suitable minimum version
+torch = ["torch>=1.8"]      # Specify a suitable minimum version
+all = ["actix[tf,torch]"] # Convenience to install both
+
+[project.urls]
+Homepage = "https://github.com/EmotionEngineer/actix"
+Repository = "https://github.com/EmotionEngineer/actix"
