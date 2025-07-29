@@ -1,0 +1,59 @@
+Metadata-Version: 2.4
+Name: pumpia
+Version: 0.5.11
+Summary: A simple to use framework for making user interfaces for image analysis.
+Project-URL: Homepage, https://principle-five.github.io/pumpia/index.html
+Project-URL: Source, https://github.com/Principle-Five/PumpIA
+Project-URL: Issues, https://github.com/Principle-Five/PumpIA/issues
+Author: Zack Ravetz et al.
+License-Expression: BSD-3-Clause
+License-File: LICENSE
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Image Processing
+Classifier: Topic :: Software Development
+Requires-Python: >=3.12
+Requires-Dist: matplotlib==3.*
+Requires-Dist: numpy==2.*
+Requires-Dist: pillow==11.*
+Requires-Dist: pydicom==3.*
+Requires-Dist: scipy==1.*
+Provides-Extra: docs
+Requires-Dist: sphinx; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme; extra == 'docs'
+Description-Content-Type: text/markdown
+
+Introduction
+------------
+
+PumpIA is a python framework designed to allow users to visualise the analysis of images through a user interface.
+It does not do any image analysis itself, but rather provides a platform for users to write their own analysis code and view the results.
+This means that the full power of python and its libraries are available to the user.
+
+See documentation at [PumpIA](https://principle-five.github.io/pumpia/).
+
+Please note there isn't a stable version (v1.0.0) yet, backwards compatibility breaks are instead denoted by the minor version.
+
+Requirements
+------------
+PumpIA has been designed to use the minimum number of dependencies, so the user interface relies on tkinter.
+PumpIA has the following dependencies:
+
+* numpy
+* scipy
+* pillow
+* pydicom
+* matplotlib
+
+Installation
+------------
+
+PumpIA requires python 3.12 or greater.
+To use PumpIA, install from [PyPI](https://pypi.org/project/pumpia/) it using pip:
+
+    pip install pumpia

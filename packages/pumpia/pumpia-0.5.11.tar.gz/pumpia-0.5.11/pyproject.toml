@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pumpia"
+version = "0.5.11"
+authors = [{ name = "Zack Ravetz et al." }]
+description = "A simple to use framework for making user interfaces for image analysis."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy == 2.*",
+    "scipy == 1.*",
+    "pillow == 11.*",
+    "pydicom == 3.*",
+    "matplotlib == 3.*",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    "Intended Audience :: Science/Research",
+    'License :: OSI Approved :: BSD License',
+    'Topic :: Software Development',
+    'Topic :: Scientific/Engineering',
+    'Topic :: Scientific/Engineering :: Image Processing',
+]
+
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+
+[project.optional-dependencies]
+docs = ["sphinx", "sphinx_rtd_theme"]
+
+[project.urls]
+Homepage = "https://principle-five.github.io/pumpia/index.html"
+Source = "https://github.com/Principle-Five/PumpIA"
+Issues = "https://github.com/Principle-Five/PumpIA/issues"
+
+[tool.hatch.build.targets.sdist]
+include = ["pumpia*"]
