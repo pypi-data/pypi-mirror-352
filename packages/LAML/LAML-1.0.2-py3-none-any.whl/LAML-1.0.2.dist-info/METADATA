@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: LAML
+Version: 1.0.2
+Summary: LAML: Lineage Analysis via Maximum Likelihood
+Author: ['Gillian Chu', 'Uyen Mai', 'Henri Schmidt', 'Ben Raphael']
+License: GNU General Public License, version 3
+Keywords: Phylogenetics Evolution Computational Maximum-likelihood Lineage Tracing
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+License-File: LICENSE
+Requires-Dist: scipy (>=1.3.1)
+Requires-Dist: cvxpy (>=1.4)
+Requires-Dist: treeswift (>=1.1.39)
+Requires-Dist: Mosek (>=10.1.16)
+Requires-Dist: Biopython (>=1.71)
+Requires-Dist: matplotlib (>=2.2.2)
+Requires-Dist: setuptools
+Requires-Dist: jax (<0.5,>=0.4.30)
+Requires-Dist: loguru (<1.0,>=0.7.3)
+Requires-Dist: networkx (<4.0,>=3.2.1)
+Requires-Dist: optax (<1.0,>=0.2.4)
+Requires-Dist: pandas (<3.0,>=2.2.3)
+Requires-Dist: numpy (>=1.21)
+Requires-Dist: numba (>=0.56)
+Requires-Dist: scikit-bio (>=0.5.8)
+
+LAML is a maximum likelihood algorithm under the Probabilistic Mixed-type Missing (PMM) model. Given a lineage tracing experiment character matrix with heterogeneous per-site alphabets and mutation probabilities, LAML finds a maximum likelihood tree topology and estimates parameters including time-resolved branch lengths, heritable silencing rate and non-heritable dropout probability.
