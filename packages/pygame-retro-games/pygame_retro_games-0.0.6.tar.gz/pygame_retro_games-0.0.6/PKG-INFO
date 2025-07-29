@@ -1,0 +1,77 @@
+Metadata-Version: 2.4
+Name: pygame-retro-games
+Version: 0.0.6
+Summary: PyGame Retro Games
+Author-email: David <c0d3@gpobox.net>
+Maintainer-email: David <c0d3@gpobox.net>
+License: Copyright © 2025 David <c0d3@gpobox.net>
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+        associated documentation files (the “Software”), to deal in the Software without restriction,
+        including without limitation the rights to use, copy, modify, merge, publish, distribute,
+        sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or
+        substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+        BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+        DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/bbc6502/pygames
+Project-URL: Bug Tracker, https://github.com/bbc6502/pygames/issues
+Keywords: games
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Natural Language :: English
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Topic :: Games/Entertainment
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: pygame<3.0,>=2.6
+Requires-Dist: numpy<3,>=2.2
+Dynamic: license-file
+
+# PyGame Retro Games
+
+## Installation
+
+    (Optional) Set up a virtual environment:
+    $ pip3 install --upgrade virtualenv
+    $ python3 -m virtualenv .venv
+    $ source .venv/bin/activate
+
+    Install pygames
+    $ pip install --upgrade pygame-retro-games
+
+## Games
+
+### Bounce
+
+    Let the snake bounce around the room.
+    Don't let it eat its own tail.
+    See how many segments you can accumulate.
+
+#### Run
+
+    $ python -m pygames bounce
+    or
+    $ bounce
+
+#### Keys
+
+    Left/Right/Up/Down Arrow Keys to change direction.
+
+    Escape to exit the game.
+
+#### Music
+
+    Background Music    - Music by Mykola Sosin from Pixabay
+    Tail Munch          - Sound Effect by freesound_community from Pixabay
+    Bloop               - Sound Effect by floraphonic from Pixabay

@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=60", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pygame-retro-games"
+version = "0.0.6"
+description = "PyGame Retro Games"
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+requires-python = ">=3.11"
+dependencies = [
+    "pygame>=2.6,<3.0",
+    "numpy>=2.2,<3"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Games/Entertainment"
+]
+authors = [
+  {name = "David", email = "c0d3@gpobox.net"},
+]
+maintainers = [
+  {name = "David", email = "c0d3@gpobox.net"}
+]
+keywords = ["games"]
+
+[project.urls]
+"Homepage" = "https://github.com/bbc6502/pygames"
+"Bug Tracker" = "https://github.com/bbc6502/pygames/issues"
+
+[project.scripts]
+bounce = "pygames.bounce.main:run"
+
+[tool.setuptools]
+packages = ["pygames"]
+
+[tool.setuptools.package-data]
+pygames = ["*.ogg"]
