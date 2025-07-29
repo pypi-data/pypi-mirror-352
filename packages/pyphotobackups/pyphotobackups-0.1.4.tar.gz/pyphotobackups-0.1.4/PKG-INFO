@@ -1,0 +1,50 @@
+Metadata-Version: 2.4
+Name: pyphotobackups
+Version: 0.1.4
+Summary: CLI tool to sync photos from your iPhone and organize them into YYYY-MM folders.
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: tqdm>=4.67.1
+Dynamic: license-file
+
+# pyphotobackups
+
+![screenshot1](https://raw.githubusercontent.com/hengtseChou/pyphotobackups/refs/heads/main/.github/assets/screenshot1.png)
+
+A very simple CLI tool to sync photos and videos from your iPhone to your drive, and organize by the time you took them.
+
+## Feature
+
+1. **Auto-Organize by Date:** Sorts photos and videos into YYYY-MM folders based on modification time.
+2. **Incremental Backup:** Syncs only new files, speeding up backups.
+
+## Installation
+
+### with uv
+
+```
+uv tool install pyphotobackups
+```
+
+### with pipx
+
+```
+pipx install pyphotobackups
+```
+
+## Dependency
+
+You will need to have `ifuse` installed on your system.
+
+## Usage
+
+```
+pyphotobackups <DESTINATION>
+```
+
+That's it!
+
+## License
+
+GPL-3.0
