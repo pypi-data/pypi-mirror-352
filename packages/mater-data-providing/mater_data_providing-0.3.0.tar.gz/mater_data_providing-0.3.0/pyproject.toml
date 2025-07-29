@@ -1,0 +1,37 @@
+[project]
+name = "mater-data-providing"
+version = "0.3.0"
+description = "Gives functions to help build a mater providing data script."
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    { name = "francois-verzier", email = "francois.verzier@univ-grenoble-alpes.fr" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "email-validator>=2.2.0",
+    "pandas>=2.2.3",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "ipython>=9.2.0",
+    "ruff>=0.11.11",
+]
+test = [
+    "pytest-cov>=6.1.1",
+    "pytest>=8.3.5",
+    "pytest-mock>=3.14.0",
+]
+docs = [
+    "pydata-sphinx-theme>=0.16.1",
+    "sphinx-copybutton>=0.5.2",
+    "sphinx>=8.2.3",
+    "sphinx-design>=0.6.1",
+    "setuptools>=80.9.0",
+    "myst-parser>=4.0.1",
+]
