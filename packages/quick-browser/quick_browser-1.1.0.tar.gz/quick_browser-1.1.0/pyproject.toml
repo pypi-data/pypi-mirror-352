@@ -1,0 +1,144 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quick-browser"
+version = "1.1.0"  # Fixed version - KEIN GIT BULLSHIT!
+dynamic = ["dependencies"]  # Nur dependencies, optional-dependencies ist statisch
+description = "Wiederverwendbares Browser Framework für Web-Automatisierung - 64-bit only"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "NoirPi", email = "noirpi@noircoding.de"}
+]
+maintainers = [
+    {name = "NoirPi", email = "noirpi@noircoding.de"}
+]
+keywords = ["selenium", "browser", "automation", "chromium", "webdriver"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP :: Browsers",
+    "Topic :: Software Development :: Testing",
+]
+requires-python = ">=3.8"
+
+[project.scripts]
+quick-browser-test = "browser_framework.cli:test_framework"
+
+[project.urls]
+Homepage = "https://gitea.noircoding.de/NoirPi/quick-browser"
+Repository = "https://gitea.noircoding.de/NoirPi/quick-browser.git"
+"Bug Tracker" = "https://gitea.noircoding.de/NoirPi/quick-browser/issues"
+Documentation = "https://gitea.noircoding.de/NoirPi/quick-browser/src/branch/master/README.md"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "ruff",
+    "mypy>=1.0.0",
+]
+build = [
+    "nuitka>=1.8.0",
+    "colorama>=0.4.6",
+    "build>=1.0.0",
+    "twine>=4.0.0",
+]
+
+[tool.setuptools.packages.find]
+exclude = ["tests*", "examples*", "build*", "dist*"]
+
+[tool.setuptools.package-data]
+browser_framework = ["py.typed"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+# Ruff - Ersetzt Black + Flake8 + isort + mehr!
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+
+# Dateien/Ordner ignorieren
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "build",
+    "dist",
+    "*.egg-info",
+    "__pycache__",
+]
+
+# Aktivierte Regeln (Ersetzt Flake8 + mehr)
+lint.select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+
+# Ignorierte Regeln
+lint.ignore = [
+    "E501",  # Line too long (wird von formatter gehandhabt)
+    "B008",  # Do not perform function calls in argument defaults
+    "C901",  # Too complex (manchmal nötig)
+    "B904",  # raise-without-from-inside-except
+]
+
+# Per-Datei Ignores
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # Unused imports in __init__.py sind OK
+"tests/*" = ["F811"]      # Redefined names in tests sind OK
+
+# Import Sortierung (ersetzt isort)
+[tool.ruff.lint.isort]
+known-first-party = ["browser_framework"]
+
+# MyPy bleibt (Ruff macht noch kein Type-Checking)
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "selenium.*",
+    "win32api",
+    "tqdm.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+]
