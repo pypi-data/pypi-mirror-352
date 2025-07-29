@@ -1,0 +1,24 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]  # ab setuptools >=61 kann man Metadaten hier pflegen
+name = "kantris"
+version = "0.1.1"
+description = "Kantris Framework"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+  {name="Teryces"},
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+dependencies = [
+  # "requests>=2.25.1",
+]
