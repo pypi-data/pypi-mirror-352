@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XQ Queue Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #f39c12;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+        }
+        
+        body {
+            padding-top: 2rem;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .header-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .page-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .page-title i {
+            margin-right: 0.75rem;
+            color: var(--accent-color);
+        }
+        
+        .queue-card {
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .queue-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .queue-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .queue-card .card-title {
+            color: var(--dark-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .queue-card .card-title:before {
+            content: '\f0ae';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        .create-queue-form {
+            background-color: white;
+            padding: 1.75rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .create-queue-form h3 {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .create-queue-form h3:before {
+            content: '\f067';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 0.75rem;
+        }
+        
+        .form-control {
+            border-radius: 6px;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-success {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            border-radius: 6px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+            border-color: #27ae60;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(46, 204, 113, 0.3);
+        }
+        
+        .section-title {
+            color: var(--dark-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+        }
+        
+        .alert {
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+        }
+        
+        #redis-alert-banner {
+            border-left: 4px solid #e74c3c;
+            display: flex;
+            align-items: center;
+        }
+        
+        #redis-alert-banner:before {
+            content: '\f071';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="redis-alert-banner" class="alert alert-danger" role="alert" style="{% if not redis_available %}display:block{% else %}display:none{% endif %}">
+            <strong>Redis server is not available!</strong> Queue management functionality is limited. Please check your Redis connection.
+        </div>
+        
+        <div class="header-container">
+            <h1 class="page-title mb-0"><i class="fas fa-layer-group"></i>XQ Queue Manager</h1>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <h2 class="section-title">Available Queues</h2>
+                <div class="row" id="queue-list">
+                    {% if queues %}
+                        {% for queue in queues %}
+                            <div class="col-md-6">
+                                <div class="card queue-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ queue }}</h5>
+                                        <a href="/queues/{{ queue }}" class="btn btn-primary">
+                                            <i class="fas fa-eye me-2"></i>View Messages
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>No queues available. Create one below.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="create-queue-form">
+                    <h3>Create New Queue</h3>
+                    <form id="create-queue-form">
+                        <div class="mb-3">
+                            <label for="queue-name" class="form-label">Queue Name</label>
+                            <input type="text" class="form-control" id="queue-name" placeholder="Enter queue name" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100" {% if not redis_available %}disabled{% endif %}>
+                            <i class="fas fa-plus me-2"></i>Create Queue
+                        </button>
+                        {% if not redis_available %}
+                        <div class="form-text text-danger mt-2">
+                            <i class="fas fa-exclamation-circle me-1"></i>Queue creation is disabled because Redis is not available
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // WebSocket connection for health status
+        let healthSocket;
+        
+        function connectHealthWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws/health`;
+            
+            healthSocket = new WebSocket(wsUrl);
+            
+            healthSocket.onopen = function(e) {
+                console.log('Health WebSocket connection established');
+            };
+            
+            healthSocket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                updateRedisStatusUI(data.redis_available);
+            };
+            
+            healthSocket.onclose = function(event) {
+                console.log('Health WebSocket connection closed');
+                // Try to reconnect after a delay
+                setTimeout(connectHealthWebSocket, 2000);
+            };
+            
+            healthSocket.onerror = function(error) {
+                console.error('Health WebSocket error:', error);
+                // Fallback to API if WebSocket fails
+                updateRedisStatusFromAPI();
+            };
+        }
+        
+        // Update UI based on Redis availability
+        function updateRedisStatusUI(available) {
+            const createBtn = document.querySelector('#create-queue-form button');
+            const formStatusMsg = document.querySelector('#redis-status-message');
+            const alertBanner = document.getElementById('redis-alert-banner');
+            
+            if (available) {
+                // Redis is available
+                createBtn.disabled = false;
+                
+                // Hide the form status message if it exists
+                if (formStatusMsg) {
+                    formStatusMsg.style.display = 'none';
+                }
+                
+                // Hide the alert banner
+                if (alertBanner) {
+                    alertBanner.style.display = 'none';
+                }
+            } else {
+                // Redis is not available
+                createBtn.disabled = true;
+                
+                // Show the form status message
+                if (!formStatusMsg) {
+                    const formEl = document.getElementById('create-queue-form');
+                    const msgEl = document.createElement('div');
+                    msgEl.id = 'redis-status-message';
+                    msgEl.className = 'form-text text-danger mt-2';
+                    msgEl.textContent = 'Queue creation is disabled because Redis is not available';
+                    formEl.appendChild(msgEl);
+                } else {
+                    formStatusMsg.style.display = 'block';
+                }
+                
+                // Show the alert banner
+                if (alertBanner) {
+                    alertBanner.style.display = 'block';
+                }
+            }
+        }
+        
+        // Fallback to API if WebSocket fails
+        function updateRedisStatusFromAPI() {
+            fetch('/api/health')
+                .then(response => response.json())
+                .then(data => updateRedisStatusUI(data.redis_available))
+                .catch(() => updateRedisStatusUI(false));
+        }
+        
+        // WebSocket connection for queue updates
+        let queueSocket;
+        
+        function connectQueueWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws/queues/home`;
+            
+            queueSocket = new WebSocket(wsUrl);
+            
+            queueSocket.onopen = function(e) {
+                console.log('Queue WebSocket connection established');
+            };
+            
+            queueSocket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                
+                if (data.action === 'new_queue') {
+                    // Refresh the page to show the new queue
+                    window.location.reload();
+                }
+            };
+            
+            queueSocket.onclose = function(event) {
+                console.log('Queue WebSocket connection closed');
+                // Try to reconnect after a delay
+                setTimeout(connectQueueWebSocket, 2000);
+            };
+            
+            queueSocket.onerror = function(error) {
+                console.error('Queue WebSocket error:', error);
+            };
+        }
+        
+        // Initialize connections when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Connect to WebSockets for real-time updates
+            connectHealthWebSocket();
+            connectQueueWebSocket();
+            
+            // Fallback to API for initial status
+            updateRedisStatusFromAPI();
+        });
+        
+        document.getElementById('create-queue-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const queueName = document.getElementById('queue-name').value;
+            
+            // Create a new queue by adding a message to it
+            fetch(`/api/queues/${queueName}/messages`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    body: 'Queue initialization',
+                    cron_expression: ''
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = `/queues/${queueName}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to create queue');
+            });
+        });
+    </script>
+</body>
+</html>
