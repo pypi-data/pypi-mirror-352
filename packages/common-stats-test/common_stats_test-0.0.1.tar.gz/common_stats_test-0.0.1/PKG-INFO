@@ -1,0 +1,52 @@
+Metadata-Version: 2.4
+Name: common_stats_test
+Version: 0.0.1
+Summary: A simple library for basic statistical calculations
+Author: Tommy Chang
+Author-email: techang1710@email.com
+License: MIT
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pytest
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Simple Stats
+
+A simple Python library for basic statistical calculations.
+
+## Features
+
+- Calculate mean
+- Calculate median
+- Calculate mode
+- Calculate standard deviation
+
+## Installation
+
+You can install the library using pip:
+
+```bash
+pip install .
+```
+
+## Example Code
+
+```python
+from common_stats import mean, median, mode, standard_deviation
+
+data = [1, 2, 3, 4, 5]
+
+print("Mean:", mean(data))
+print("Median:", median(data))
+print("Mode:", mode(data))
+print("Standard Deviation:", standard_deviation(data))
+```
