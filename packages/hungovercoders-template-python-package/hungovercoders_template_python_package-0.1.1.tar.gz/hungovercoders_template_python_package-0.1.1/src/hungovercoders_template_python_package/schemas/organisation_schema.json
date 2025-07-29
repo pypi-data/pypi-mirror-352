@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Organisation",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the organisation."
+    },
+    "founded": {
+      "type": "string",
+      "format": "date",
+      "description": "The founding date of the organisation."
+    },
+    "teams": {
+      "type": "array",
+      "description": "A list of teams in the organisation.",
+      "items": {
+        "$ref": "./teams_schema.json"
+      }
+    }
+  },
+  "required": ["name", "teams"]
+}

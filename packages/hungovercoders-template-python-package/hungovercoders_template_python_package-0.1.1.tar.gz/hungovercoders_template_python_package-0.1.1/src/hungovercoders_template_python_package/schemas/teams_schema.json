@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Teams",
+  "type": "object",
+  "properties": {
+    "team_name": {
+      "type": "string",
+      "description": "The name of the team.",
+      "enum": ["Beer", "Whiskey", "Cheese"]
+    }
+  },
+  "required": ["team_name"]
+}

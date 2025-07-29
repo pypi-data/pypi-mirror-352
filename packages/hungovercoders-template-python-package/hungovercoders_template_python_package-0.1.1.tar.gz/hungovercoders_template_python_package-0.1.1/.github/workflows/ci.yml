@@ -1,0 +1,114 @@
+name: continuous-integration
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - '.python-version'
+      - '.github/workflows/ci.yml'
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install dependencies (dev + extras)
+        run: uv sync --all-extras --dev
+
+      - name: Run linter
+        run: uvx ruff check
+
+      - name: Build distribution
+        run: uv build
+
+      - name: Check distribution with twine
+        run: uvx twine check dist/*
+
+      - name: Install package for testing
+        run: |
+          pip install -e .
+
+      - name: Run tests with coverage and JUnit output
+        run: |
+          pip install -r .devcontainer/requirements_dev.txt
+          pytest \
+            --junit-xml=pytest-results.xml \
+            --cov=src \
+            --cov-report=xml \
+            --cov-report=term \
+            > test_output.txt
+          status=$?
+          coverage_failed=0
+          test_failed=0
+          if [ $status -ne 0 ]; then
+            if grep -q 'FAIL Required test coverage of 100%' test_output.txt; then
+              echo '❌ Pipeline failed: Code coverage is below 100%.'
+              coverage_failed=1
+            fi
+            if grep -q 'FAILED' test_output.txt; then
+              echo '❌ Pipeline failed: One or more tests failed.'
+              test_failed=1
+            fi
+            cat test_output.txt
+          fi
+          exit $status
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-results
+          path: pytest-results.xml
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+
+      - name: Publish test results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: pytest-results.xml
+
+      - name: Write test summary to GitHub Actions UI
+        if: always()
+        run: |
+          echo "## 🧪 Test Results and Coverage" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          cat test_output.txt >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Write coverage summary to GitHub Actions UI
+        if: always()
+        run: |
+          echo "## 📊 Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          uvx coverage report --show-missing >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Publish to PyPI
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir: dist

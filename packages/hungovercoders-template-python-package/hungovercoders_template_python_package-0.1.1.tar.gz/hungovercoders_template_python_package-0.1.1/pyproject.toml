@@ -1,0 +1,43 @@
+[project]
+name = "hungovercoders_template_python_package"
+version = "0.1.1"
+description = "This is a template for a Python package created by Hungover Coders."
+license = { file = "LICENSE" }
+readme = "README.md"
+authors = [
+    { name = "dataGriff", email = "info@hungovercoders.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+hungovercoders-template-hello = "hungovercoders_template_python_package.greetings:hello_cli"
+hungovercoders-validate-organisation = "hungovercoders_template_python_package.organisation:main"
+
+# [tool.hatch.build]
+# include = [
+#     "src/hungovercoders_template_python_package/schemas/**/*.json"
+# ]
+
+# [tool.hatch.build.targets.wheel]
+# include = [
+#     "src/hungovercoders_template_python_package/schemas/**/*.json"
+# ]
+
+# [tool.hatch.build.targets.sdist]
+# include = [
+#     "src/hungovercoders_template_python_package/schemas/**/*.json"
+# ]
+
+# [tool.hatch.metadata]
+# allow-direct-references = true
+
+[tool.setuptools.package-data]
+hungovercoders_template_python_package = [
+    "schemas/*.json",
+    "schemas/**/*.json"
+]
