@@ -1,0 +1,103 @@
+Metadata-Version: 2.4
+Name: akrocansim
+Version: 0.6.5
+Dynamic: Summary
+Project-URL: Home, https://github.com/cfsok/akrocansim
+Author-email: pullthebox <socrates.vlassis@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2023 cfsok
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Keywords: CAN bus,J1939
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Embedded Systems
+Classifier: Topic :: Software Development :: Embedded Systems :: Controller Area Network (CAN)
+Classifier: Topic :: Software Development :: Embedded Systems :: Controller Area Network (CAN) :: J1939
+Requires-Python: >=3.13
+Requires-Dist: dearpygui==2.0.0
+Requires-Dist: openpyxl==3.1.5
+Requires-Dist: python-can==4.5.0
+Requires-Dist: semver==3.0.4
+Description-Content-Type: text/markdown
+
+# akrocansim
+A CAN bus J1939 controller simulator.
+
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akrocansim)](https://github.com/cfsok/akrocansim)
+[![PyPI - Version](https://img.shields.io/pypi/v/akrocansim?color=blue)](https://pypi.org/project/akrocansim/)
+![PyPI - License](https://img.shields.io/pypi/l/akrocansim)
+
+
+## Built with
+- [python-can](https://github.com/hardbyte/python-can)
+- [DearPyGUI](https://github.com/hoffstadt/DearPyGui)
+- [openpyxl](https://openpyxl.readthedocs.io/)
+
+## Features
+- Integrates with all hardware CAN interfaces supported by python-can.
+- Transmits configured J1939 PGNs to the CAN bus with the following methods:
+  - continuous tx of all PGNs
+  - all PGNs transmitted once on button press
+  - per PGN transmission, either continuous or on button press
+- GUI for setting SPN values:
+  - sliders for changing continuous values
+  - label selection for discrete values
+  - direct entry of raw decimal values
+  - direct entry of decoded decimal values
+
+![Akrocansim demo screenshot](https://raw.githubusercontent.com/cfsok/akrocansim/main/docs/images/demo_2_Akrocansim.png)
+
+![PCAN-View demo screenshot](https://raw.githubusercontent.com/cfsok/akrocansim/main/docs/images/demo_1_PCAN-View.png)
+
+## Installation
+1. Install uv, see https://docs.astral.sh/uv/getting-started/installation/#installing-uv
+2. `uv tool install akrocansim`
+
+## Execution
+```
+akrocansim
+```
+
+
+## Prerequisites
+- A hardware CAN interface supported by python-can,
+see https://python-can.readthedocs.io/en/v4.3.1/interfaces.html.
+- A version of J1939 Digital Annex (J1939DA) from SAE International, see https://www.sae.org/standards/?search=j1939DA.
+- A way to convert `.xls` to `.xlsx` if your copy of the J1939DA is in `.xls` format.
+
+
+Upon initial run, a folder named `akrocansim` is created in your home folder hosting a starting configuration file.
+
+Follow the instructions on the application and in the configuration file for next steps.
+
+Upon successful parsing of the J1939DA, a series of json files are created in the `J1939` sub-folder inside the main configuration folder.
+These can be inspected to evaluate parsing correctness.
+
+The J1939DA PGN and SPN definition format is very irregular and parsing errors still exist.
+You can raise a GitHub issue or a pull request if you think that an SPN has not been parsed correctly.
+
+## Issues
+[GitHub issue tracker](https://github.com/cfsok/akrocansim/issues)
+
+## Discussions
+[GitHub discussions](https://github.com/cfsok/akrocansim/discussions)
