@@ -1,0 +1,98 @@
+Metadata-Version: 2.4
+Name: faas-metric
+Version: 1.0.1
+Summary: Fairness Adjusted ASR Score Metric
+Author: Your Name
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+Requires-Dist: pandas
+
+# 🎯 FAAS-Metric
+
+**FAAS (Fairness Adjusted ASR Score)** is a fairness-aware evaluation metric for Automatic Speech Recognition (ASR) systems. It combines traditional ASR accuracy (like WER) with fairness evaluations across demographic groups to provide a holistic performance measure.
+
+---
+
+## 📦 Installation
+
+```bash
+pip install faas-metric
+```
+
+---
+
+## 🚀 Usage
+
+### ▶️ Python API
+
+```python
+from faas_metric import compute_faas
+
+# Example input
+wer_list = [12.5, 15.0, 9.0]
+speaker_metadata = [
+    {"gender": "male", "first_language": "Hindi"},
+    {"gender": "female", "first_language": "Tamil"},
+    {"gender": "male", "first_language": "Bengali"}
+]
+
+# Compute FAAS score
+faas = compute_faas(wer_list, speaker_metadata)
+print(f"FAAS Score: {faas}")
+```
+
+---
+
+### 🖥️ Command Line Interface (CLI)
+
+```bash
+faas --input path/to/data.csv --output path/to/result.json
+```
+
+#### 📄 Input CSV Format
+
+Your CSV should include:
+- A `wer` column (Word Error Rate)
+- Any number of fairness-related attributes like `gender`, `first_language`, `ethnicity`, etc.
+
+**Example:**
+
+```csv
+wer,gender,first_language
+12.5,male,Hindi
+15.0,female,Tamil
+9.0,male,Bengali
+```
+
+#### ✅ Output
+
+A JSON file (if `--output` is specified), or the FAAS score printed to the terminal:
+
+```json
+{
+  "faas_score": 88.0
+}
+```
+
+---
+
+## 📚 Citation
+
+If you use this work in your research, please cite:
+
+```
+@inproceedings{rai2025asrfairbench,
+  title={ASR-FAIRBENCH: Measuring and Benchmarking Equity Across Speech Recognition Systems},
+  author={Rai, Anand and Rahangdale, Satyam and Anand, Utkarsh and Mukherjee, Animesh},
+  booktitle={Proceedings of Interspeech},
+  year={2025}
+}
+```
+
+---
+
+
+## 📄 License
+
+This project is licensed under the MIT License.
