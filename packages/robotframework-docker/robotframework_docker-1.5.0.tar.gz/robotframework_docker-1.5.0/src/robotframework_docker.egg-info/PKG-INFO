@@ -1,0 +1,83 @@
+Metadata-Version: 2.4
+Name: robotframework-docker
+Version: 1.5.0
+Summary: A Robot Framework Docker Library
+Home-page: https://github.com/vogoltsov/robotframework-docker
+Author: Vitaly Ogoltsov
+Author-email: vitaly.ogoltsov@me.com
+License: Apache License 2.0
+Keywords: testing testautomation robotframework docker docker-compose
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Testing
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Framework :: Robot Framework :: Library
+License-File: LICENSE
+Requires-Dist: robotframework<8,>=4
+Requires-Dist: packaging
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: summary
+
+Short Description
+-----------------
+
+`Robot Framework`_ library for working with ``docker`` and
+``docker-compose``.
+
+Installation
+------------
+
+Installation using pip
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: bash
+
+   pip3 install robotframework-docker
+
+
+Installation from sources
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: bash
+
+   python3 setup.py install
+
+Example
+-------
+
+.. code:: robotframework
+
+   *** Settings ***
+   Documentation           DockerComposeLibrary tests.
+   Library                 DockerComposeLibrary
+   Library                 RequestsLibrary
+   Test Setup              Docker Compose Up
+   Test Teardown           Docker Compose Down
+
+
+   *** Test Cases ***
+   Start Apache Web Server
+       ${service} =        Get Exposed Service  httpd  80
+       Log To Console      http has started and is available at http://${service.host}:${service.port}
+
+License
+-------
+
+Apache License 2.0
+
+.. _Robot Framework: https://robotframework.org/
