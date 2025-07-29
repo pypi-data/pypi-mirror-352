@@ -1,0 +1,43 @@
+[project]
+name = "flowbyte"
+
+version = "0.4.9"
+
+authors = [
+  { name="Kevork Keheian", email="flowbyte@optiret.com" },
+]
+description = "ETL tool for data processing"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "pandas",
+  "msal",
+  "pydantic",
+  "pyodbc",
+  "sqlalchemy",
+  "numpy",
+  "pyarrow",
+  "logfire",
+  "logfire[sqlalchemy]",
+  "logfire[system-metrics]",
+  "ipython",
+  "adlfs",
+  "python-dotenv",
+  "Authlib",
+  "streamlit",
+  "duckdb"
+]
+
+[project.urls]
+Homepage = "https://github.com/flowbytedev/flowbyte"
+Issues = "https://github.com/flowbytedev/flowbyte/issues"
+
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
