@@ -1,0 +1,96 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "saefarer"
+version = "0.0.0"
+dependencies = [
+    "anywidget>=0.9.13,<0.10",
+    "numba",
+    "numpy",
+    "torch",
+    "transformers",
+    "datasets>=2.21.0",
+    "einops",
+    "umap-learn",
+    "scikit-learn",
+    "scipy"
+]
+readme = "README.md"
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "anywidget[dev]>=0.9.13",
+    "build",
+    "jupyterlab>=4.3.4",
+    "pytest",
+    "ruff>=0.9.3",
+    "sphinx",
+]
+tensorboard = ["tensorboard"]
+wandb = ["wandb"]
+examples = ["openpyxl"]
+
+[tool.hatch.build]
+only-packages = true
+artifacts = ["src/saefarer/static/*"]
+
+[tool.hatch.build.hooks.jupyter-builder]
+build-function = "hatch_jupyter_builder.npm_builder"
+ensured-targets = ["src/saefarer/static/widget.js"]
+skip-if-exists = ["src/saefarer/static/widget.js"]
+dependencies = ["hatch-jupyter-builder>=0.5.0"]
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+npm = "npm"
+build_cmd = "build"
+
+[tool.pixi.project]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+
+[tool.pixi.dependencies]
+python = "3.10.*"
+nodejs = ">=22.6.0"
+
+[tool.pixi.pypi-dependencies]
+saefarer = { path = ".", editable = true }
+
+[tool.pixi.environments]
+default = { features = [
+    "dev",
+    "tensorboard",
+    "wandb",
+    "examples",
+], solve-group = "default" }
+
+[tool.pixi.tasks]
+# linting and formatting
+lint-py = "ruff check"
+lint-js = "npm run lint"
+lint = { depends-on = ["lint-py", "lint-js"] }
+format-py = "ruff format"
+format-js = "npm run format"
+format = { depends-on = ["format-py", "format-js"] }
+style = { depends-on = ["lint", "format"] }
+
+# development
+jupyter = "jupyter-lab"
+dev = "npm run dev"
+
+# testing
+test-py = "pytest"
+
+# generating documentation
+docs = "cd docs && make html"
+
+# building
+# build the Python package and possibly the JS package
+# based on the `skip-if-exists` config above
+clean = "rm src/saefarer/static/*"
+build = "python -m build"
+
+[tool.ruff]
+extend-include = ["*.ipynb"]
