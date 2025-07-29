@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wirepy"
+version = "0.1.7"
+description = "Laravel-style project structure for FastAPI"
+authors = [{ name = "Pradipta Bhuin", email = "bhuinjohn@gmail.com" }]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.8"
+
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "sqlalchemy",
+    "pymysql",
+    "python-dotenv",
+    "alembic",
+    "click"
+]
+
+[project.scripts]
+wirepy = "wirepy.cli:cli"
+
+# ─────────────────────────────────────────────
+# Tell setuptools EXACTLY which package to ship
+# ─────────────────────────────────────────────
+[tool.setuptools]
+packages = ["wirepy", "wirepy.templates", "wirepy.templates.app", "wirepy.templates.app.core", "wirepy.templates.app.controllers","wirepy.templates.app.models", "wirepy.templates.app.routes", "wirepy.templates.app.schemas", "wirepy.templates.app.services", "wirepy.templates.app.database"]
+include-package-data = true   #  so templates get bundled too
+
+
+
+
+
+
+
+
