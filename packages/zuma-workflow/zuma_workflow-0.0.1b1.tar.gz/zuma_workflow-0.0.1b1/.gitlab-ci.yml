@@ -1,0 +1,19 @@
+before_script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - gem install dpl
+
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r web/* .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main

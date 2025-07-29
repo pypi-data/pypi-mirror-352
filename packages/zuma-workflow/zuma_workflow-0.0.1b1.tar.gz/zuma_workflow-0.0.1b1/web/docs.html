@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Zuma Documentation - Python Workflow Management Framework</title>
+    <meta name="description"
+        content="Comprehensive documentation for Zuma, the powerful and flexible Python workflow management framework. Learn about installation, core concepts, and advanced features.">
+    <meta name="keywords"
+        content="Zuma, Python workflow, workflow management, async workflow, pipeline management, Python framework">
+    <meta name="author" content="CodeJunction">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Zuma Documentation - Python Workflow Management Framework">
+    <meta property="og:description"
+        content="Learn how to build powerful workflow pipelines with Zuma, the lightweight and flexible Python workflow management framework.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zuma.codejunction.dev/docs">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Zuma Documentation">
+    <meta name="twitter:description" content="Comprehensive guide to building workflow pipelines with Zuma framework">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><style>:root{color-scheme:light dark}</style><path d="M50 5 L85 25 L85 75 L50 95 L15 75 L15 25 Z" stroke="%23f4b860" stroke-width="2" fill="none"/><path d="M30 50 Q 50 20, 70 50 Q 50 80, 30 50" stroke="%23f4b860" stroke-width="2" fill="none"/><circle cx="50" cy="20" r="3" fill="%23f4b860"/><circle cx="30" cy="50" r="3" fill="%23f4b860"/><circle cx="50" cy="80" r="3" fill="%23f4b860"/><circle cx="70" cy="50" r="3" fill="%23f4b860"/><circle cx="50" cy="50" r="5" fill="%23f4b860"/></svg>'>
+
+    <!-- Fonts -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css">
+
+    <!-- Bootstrap CSS and JS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/docs.css">
+
+    <!-- Mermaid.js for workflow diagrams -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.min.js"></script>
+
+    <!-- Gumshoe scrollspy -->
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/gumshoe/dist/gumshoe.polyfills.min.js"></script>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#doc-nav" data-bs-offset="74">
+    <div id="waves"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="logo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background hexagon -->
+                <path d="M50 5 L85 25 L85 75 L50 95 L15 75 L15 25 Z" stroke="url(#logoGradient)" stroke-width="2"
+                    fill="none" />
+
+                <!-- Central flow pattern -->
+                <path class="flow-line" d="M30 50 Q 50 20, 70 50 Q 50 80, 30 50" stroke="url(#logoGradient)"
+                    stroke-width="2" fill="none" />
+
+                <!-- Connection nodes -->
+                <circle cx="50" cy="20" r="3" fill="url(#logoGradient)" />
+                <circle cx="30" cy="50" r="3" fill="url(#logoGradient)" />
+                <circle cx="50" cy="80" r="3" fill="url(#logoGradient)" />
+                <circle cx="70" cy="50" r="3" fill="url(#logoGradient)" />
+
+                <!-- Central node -->
+                <circle cx="50" cy="50" r="5" fill="url(#logoGradient)" />
+
+                <!-- Inner connection lines -->
+                <path d="M50 20 L 50 35" stroke="url(#logoGradient)" stroke-width="2" />
+                <path d="M30 50 L 40 50" stroke="url(#logoGradient)" stroke-width="2" />
+                <path d="M60 50 L 70 50" stroke="url(#logoGradient)" stroke-width="2" />
+                <path d="M50 65 L 50 80" stroke="url(#logoGradient)" stroke-width="2" />
+
+                <!-- Gradient definition -->
+                <defs>
+                    <linearGradient id="logoGradient" x1="15" y1="5" x2="85" y2="95">
+                        <stop offset="0%" style="stop-color: #f4b860" />
+                        <stop offset="100%" style="stop-color: #6ee7b7" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Animation for continuous flow effect -->
+                <style>
+                    @keyframes flowAnimation {
+                        0% {
+                            stroke-dashoffset: 0;
+                        }
+
+                        100% {
+                            stroke-dashoffset: -20;
+                        }
+                    }
+
+                    .flow-line {
+                        stroke-dasharray: 5, 5;
+                        animation: flowAnimation 1s linear infinite;
+                    }
+                </style>
+            </svg>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="index.html#features" class="nav-link">Features</a>
+            <a href="index.html#examples" class="nav-link">Examples</a>
+            <a href="https://gitlab.com/codejunction/zuma" class="nav-link" target="_blank">GitLab</a>
+        </nav>
+    </header>
+
+    <!-- Documentation Navigation -->
+    <nav id="doc-nav" class="doc-nav">
+        <div class="section-title">Documentation</div>
+        <nav data-gumshoe>
+            <ul class="nav-list">
+                <li><a class="nav-link" href="#getting-started">Getting Started</a></li>
+                <li><a class="nav-link" href="#installation">Installation</a></li>
+                <li><a class="nav-link" href="#core-concepts">Core Concepts</a></li>
+                <li><a class="nav-link" href="#basic-usage">Basic Usage</a></li>
+                <li><a class="nav-link" href="#workflow-components">Workflow Components</a></li>
+                <li><a class="nav-link" href="#advanced-features">Advanced Features</a></li>
+                <li><a class="nav-link" href="#best-practices">Best Practices</a></li>
+                <li><a class="nav-link" href="#api-reference">API Reference</a></li>
+            </ul>
+        </nav>
+    </nav>
+
+    <!-- Documentation Content -->
+    <div class="doc-content">
+        <section id="getting-started" class="doc-section">
+            <h2>Getting Started</h2>
+            <p>
+                Welcome to Zuma! 👋 This guide will help you understand what Zuma is and how to use it in your Python
+                projects.
+            </p>
+            <p>
+                Zuma is a Python framework that helps you build and manage workflow pipelines. Think of it like a recipe
+                book -
+                you can define a series of steps (like a recipe's instructions), and Zuma will help you execute them in
+                the right order,
+                handle any errors, and make sure everything runs smoothly.
+            </p>
+            <h3>What is a Workflow?</h3>
+            <p>
+                A workflow in Zuma is like a set of instructions that need to be followed in a specific order. For
+                example, imagine you're
+                building a data processing application that needs to:
+            </p>
+            <ol>
+                <li>Download data from a server</li>
+                <li>Clean and format the data</li>
+                <li>Save the results to a database</li>
+            </ol>
+            <p>
+                Each of these tasks would be a "step" in your workflow, and Zuma helps you organize and run these steps
+                efficiently.
+            </p>
+        </section>
+
+        <section id="installation" class="doc-section">
+            <h2>Installation</h2>
+            <p>
+                You can install Zuma using your preferred Python package manager:
+            </p>
+
+            <div class="installation-methods">
+                <h3>Choose your package manager:</h3>
+                <pre><code class="language-bash"># Using pip
+pip install zuma-workflow
+
+# Using Poetry
+poetry add zuma-workflow
+
+# Using Pipenv
+pipenv install zuma-workflow
+
+# Using uv
+uv add zuma-workflow</code></pre>
+
+                <div class="installation-note">
+                    <h4>Note on Virtual Environments</h4>
+                    <p>
+                        It's recommended to always use virtual environments when working with Python projects. Each
+                        package manager handles virtual environments differently, but all of the above commands will
+                        work within a virtual environment.
+                    </p>
+                </div>
+            </div>
+
+            <h3>Verifying Installation</h3>
+            <p>
+                To verify that Zuma is installed correctly, open a Python shell and try importing it:
+            </p>
+            <pre><code class="language-python">from zuma import ZumaWorkflow
+print("Zuma is installed successfully!")</code></pre>
+
+            <style>
+                .installation-methods h3 {
+                    margin-top: 2rem;
+                    color: var(--primary);
+                }
+
+                .installation-methods pre {
+                    margin: 1rem 0;
+                }
+
+                .installation-note {
+                    margin-top: 2rem;
+                    padding: 1.5rem;
+                    background: rgba(244, 184, 96, 0.1);
+                    border-left: 4px solid var(--primary);
+                    border-radius: 4px;
+                }
+
+                .installation-note h4 {
+                    margin-top: 0;
+                    color: var(--primary);
+                }
+
+                .installation-note ul {
+                    margin-bottom: 0;
+                }
+
+                .installation-note li strong {
+                    color: var(--secondary);
+                }
+            </style>
+        </section>
+
+        <section id="core-concepts" class="doc-section">
+            <h2>Core Concepts</h2>
+            <p>
+                Let's understand the main building blocks of Zuma. Don't worry if it seems complex at first - we'll
+                break it down
+                with examples!
+            </p>
+
+            <h3>1. Workflow (ZumaWorkflow)</h3>
+            <p>
+                A workflow is the main container that holds all your steps. Think of it as a project manager that:
+            </p>
+            <ul>
+                <li>Keeps track of all the steps</li>
+                <li>Makes sure they run in the right order</li>
+                <li>Handles any problems that come up</li>
+                <li>Shares information between steps</li>
+            </ul>
+            <div class="code-diagram-container">
+                <pre><code class="language-python">from zuma import ZumaWorkflow
+
+# Create a simple workflow
+workflow = ZumaWorkflow(
+    name="My First Workflow",  # Give your workflow a descriptive name
+    steps=[
+        # We'll add steps here
+    ]
+)</code></pre>
+
+                <div class="workflow-diagram">
+                    <div class="mermaid">
+                        graph TD
+                        A((Start)) --> B[Step 1]
+                        B --> C[Step 2]
+                        C --> D[Step 3]
+                        D --> E((End))
+
+                        style A fill:#f4b860,stroke:#f4b860
+                        style B fill:transparent,stroke:#f4b860
+                        style C fill:transparent,stroke:#f4b860
+                        style D fill:transparent,stroke:#f4b860
+                        style E fill:#6ee7b7,stroke:#6ee7b7
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                The diagram above shows a simple linear workflow where steps execute one after another. Each step can:
+            </p>
+
+            <h3>2. Steps (ZumaActionStep)</h3>
+            <p>
+                Steps are the individual tasks in your workflow. Each step:
+            </p>
+            <ul>
+                <li>Has a specific job to do</li>
+                <li>Can access data from previous steps</li>
+                <li>Can pass data to next steps</li>
+                <li>Can handle errors if something goes wrong</li>
+            </ul>
+            <pre><code class="language-python">from zuma import ZumaActionStep
+
+class DownloadDataStep(ZumaActionStep):
+    """A step that downloads data from somewhere"""
+    
+    async def execute(self, context):
+        # This is where you put your step's logic
+        print(f"[{self.name}] Downloading data...")
+        
+        # Simulate downloading data
+        data = {"user": "john", "age": 30}
+        
+        # Return data for next steps to use
+        return {"downloaded_data": data}
+
+class ProcessDataStep(ZumaActionStep):
+    """A step that processes the downloaded data"""
+    
+    async def execute(self, context):
+        # Get data from previous step
+        data = context.get("downloaded_data")
+        
+        # Process the data
+        processed_data = {
+            "name": data["user"].upper(),
+            "age_in_months": data["age"] * 12
+        }
+        
+        return {"processed_data": processed_data}</code></pre>
+
+            <h3>3. Context</h3>
+            <p>
+                The context is like a shared notebook that all steps can read from and write to. It helps steps
+                communicate
+                with each other by passing data along.
+            </p>
+            <p>
+                For example, if Step A downloads some data and Step B needs to process it:
+            </p>
+            <pre><code class="language-python"># Step A puts data in the context
+async def execute(self, context):
+    data = download_something()
+    return {"my_data": data}  # This goes into the context
+
+# Step B reads data from the context
+async def execute(self, context):
+    data = context.get("my_data")  # Get data from Step A
+    result = process_data(data)
+    return {"processed": result}</code></pre>
+        </section>
+
+        <section id="basic-usage" class="doc-section">
+            <h2>Basic Usage</h2>
+            <p>
+                Let's put everything together and create your first complete workflow! We'll build a simple workflow
+                that processes
+                user data.
+            </p>
+
+            <h3>Step 1: Create Your Steps</h3>
+            <pre><code class="language-python">from zuma import ZumaWorkflow, ZumaActionStep, ZumaRunner
+import asyncio
+
+class FetchUserStep(ZumaActionStep):
+    """Gets user data (simulated)"""
+    async def execute(self, context):
+        # Simulate fetching user data
+        print("Fetching user data...")
+        await asyncio.sleep(1)  # Simulate network delay
+        
+        user_data = {
+            "name": "Alice",
+            "age": 25,
+            "city": "New York"
+        }
+        return {"user": user_data}
+
+class ValidateUserStep(ZumaActionStep):
+    """Validates the user data"""
+    async def execute(self, context):
+        user = context.get("user")
+        
+        # Simple validation
+        if not user.get("name"):
+            raise ValueError("User must have a name!")
+        
+        if not isinstance(user.get("age"), int):
+            raise ValueError("Age must be a number!")
+        
+        return {"validated": True}
+
+class ProcessUserStep(ZumaActionStep):
+    """Processes the validated user data"""
+    async def execute(self, context):
+        user = context.get("user")
+        
+        # Do some processing
+        processed_data = {
+            "full_name": user["name"].upper(),
+            "age_group": "adult" if user["age"] >= 18 else "minor",
+            "location": user["city"]
+        }
+        
+        return {"processed_user": processed_data}</code></pre>
+
+            <h3>Step 2: Create and Run the Workflow</h3>
+            <pre><code class="language-python"># Create the workflow
+workflow = ZumaWorkflow(
+    "User Processing Workflow",
+    steps=[
+        FetchUserStep("Fetch User"),
+        ValidateUserStep("Validate User"),
+        ProcessUserStep("Process User")
+    ]
+)
+
+# Create a runner
+runner = ZumaRunner()
+
+# Run the workflow
+async def main():
+    result = await runner.run_workflow(workflow)
+    print("\nWorkflow completed!")
+    print("Final result:", result)
+
+# Run it!
+if __name__ == "__main__":
+    asyncio.run(main())</code></pre>
+
+            <h3>Step 3: Understanding the Output</h3>
+            <p>
+                When you run this workflow, you'll see output like:
+            </p>
+            <pre><code class="language-bash">Fetching user data...
+[Fetch User] ✓ Completed
+[Validate User] ✓ Completed
+[Process User] ✓ Completed
+
+Workflow completed!
+Final result: {
+    'user': {'name': 'Alice', 'age': 25, 'city': 'New York'},
+    'validated': True,
+    'processed_user': {
+        'full_name': 'ALICE',
+        'age_group': 'adult',
+        'location': 'New York'
+    }
+}</code></pre>
+        </section>
+
+        <section id="workflow-components" class="doc-section">
+            <h2>Workflow Components</h2>
+            <p>
+                Zuma provides several special components to handle common workflow patterns. Let's look at each one:
+            </p>
+
+            <h3>1. Parallel Steps (ZumaParallelAction)</h3>
+            <p>
+                When you have multiple steps that can run at the same time (like processing different files), use
+                ZumaParallelAction:
+            </p>
+            <div class="code-diagram-container">
+                <pre><code class="language-python">from zuma import ZumaParallelAction
+
+# Define steps that can run in parallel
+parallel_steps = ZumaParallelAction(
+    "Process Files",
+    steps=[
+        ProcessCSVStep("Process CSV"),
+        ProcessJSONStep("Process JSON"),
+        ProcessXMLStep("Process XML")
+    ],
+    max_concurrency=2  # Run 2 steps at a time
+)</code></pre>
+
+                <div class="workflow-diagram">
+                    <div class="mermaid">
+                        flowchart TD
+                        S((Start)) --> A[Process CSV]
+                        S --> B[Process JSON]
+                        S --> C[Process XML]
+                        A --> E((End))
+                        B --> E
+                        C --> E
+
+                        style S fill:#f4b860,stroke:#f4b860
+                        style E fill:#6ee7b7,stroke:#6ee7b7
+                        style A fill:#000000,stroke:#f4b860,color:#ffffff
+                        style B fill:#000000,stroke:#f4b860,color:#ffffff
+                        style C fill:#000000,stroke:#f4b860,color:#ffffff
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                The diagram above shows how parallel steps work. The workflow:
+            </p>
+            <ul>
+                <li>Splits into multiple parallel paths</li>
+                <li>Executes steps concurrently (up to max_concurrency)</li>
+                <li>Waits for all steps to complete before continuing</li>
+            </ul>
+
+            <h3>2. Conditional Steps (ZumaConditionalStep)</h3>
+            <p>
+                Sometimes you need different steps based on certain conditions. Use ZumaConditionalStep for this:
+            </p>
+            <div class="code-diagram-container">
+                <pre><code class="language-python">def check_data_size(context):
+    """Decide which processing path to take"""
+    data_size = len(context.get("data", []))
+    return data_size > 1000
+
+# Create a conditional step
+processing_step = ZumaConditionalStep(
+    "Choose Processing Path",
+    condition=check_data_size,
+    true_component=BatchProcessStep("Batch Process"),  # For large data
+    false_component=SimpleProcessStep("Simple Process")  # For small data
+)</code></pre>
+
+                <div class="workflow-diagram">
+                    <div class="mermaid">
+                        flowchart TD
+                        S((Start)) --> D{Size > 1000?}
+                        D -->|Yes| B[Batch Process]
+                        D -->|No| P[Simple Process]
+                        B --> E((End))
+                        P --> E
+
+                        style S fill:#f4b860,stroke:#f4b860
+                        style E fill:#6ee7b7,stroke:#6ee7b7
+                        style D fill:#000000,stroke:#3b82f6,color:#ffffff
+                        style B fill:#000000,stroke:#f4b860,color:#ffffff
+                        style P fill:#000000,stroke:#f4b860,color:#ffffff
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                The diagram above illustrates conditional workflow branching:
+            </p>
+            <ul>
+                <li>A condition is evaluated (data size in this case)</li>
+                <li>Based on the result, one of two paths is taken</li>
+                <li>Both paths eventually merge back to continue the workflow</li>
+            </ul>
+
+            <h3>3. Error Handling</h3>
+            <p>
+                Zuma helps you handle errors gracefully. You can:
+            </p>
+            <ul>
+                <li>Retry failed steps</li>
+                <li>Provide fallback steps</li>
+                <li>Continue workflow even if some steps fail</li>
+            </ul>
+            <pre><code class="language-python">class RetryableStep(ZumaActionStep):
+    """A step that might fail but can retry"""
+    
+    def __init__(self, name):
+        super().__init__(
+            name=name,
+            retries=3,  # Try up to 3 times
+            retry_delay=1.0  # Wait 1 second between retries
+        )
+    
+    async def execute(self, context):
+        try:
+            result = await some_risky_operation()
+            return {"data": result}
+        except Exception as e:
+            raise ZumaExecutionError(f"Operation failed: {str(e)}")
+
+# Create workflow with error handling
+workflow = ZumaWorkflow(
+    "Fault Tolerant Workflow",
+    steps=[RetryableStep("Risky Step")],
+    continue_on_failure=True  # Continue even if steps fail
+)</pre>
+
+            <div class="workflow-diagram">
+                <div class="mermaid">
+                    graph TD
+                    Start((Start)) --> Attempt1[Attempt 1]
+                    Attempt1 -->|Success| Continue[Continue]
+                    Attempt1 -->|Fail| Attempt2[Attempt 2]
+                    Attempt2 -->|Success| Continue
+                    Attempt2 -->|Fail| Attempt3[Attempt 3]
+                    Attempt3 -->|Success| Continue
+                    Attempt3 -->|Fail| HandleError[Handle Error]
+                    HandleError --> Continue
+                    Continue --> End((End))
+
+                    style Start fill:#f4b860,stroke:#f4b860
+                    style End fill:#6ee7b7,stroke:#6ee7b7
+                    style HandleError fill:transparent,stroke:#ef4444
+                    style Attempt1 fill:transparent,stroke:#f4b860
+                    style Attempt2 fill:transparent,stroke:#f4b860
+                    style Attempt3 fill:transparent,stroke:#f4b860
+                    style Continue fill:transparent,stroke:#f4b860
+                </div>
+            </div>
+
+            <p>
+                The diagram above shows how error handling works:
+            </p>
+            <ul>
+                <li>Each step can be configured to retry on failure</li>
+                <li>After max retries, error handling logic is triggered</li>
+                <li>The workflow can continue even after failures if configured</li>
+            </ul>
+        </section>
+
+        <section id="advanced-features" class="doc-section">
+            <h2>Advanced Features</h2>
+
+            <h3>1. Step Dependencies</h3>
+            <p>
+                You can specify that certain steps depend on others:
+            </p>
+            <pre><code class="language-python">class DependentStep(ZumaActionStep):
+    """A step that needs data from specific previous steps"""
+    
+    def __init__(self, name):
+        super().__init__(
+            name=name,
+            required_contexts=["user_data", "preferences"]  # Names of required data
+        )
+    
+    async def execute(self, context):
+        # This will only run if both user_data and preferences exist in context
+        user = context.get("user_data")
+        prefs = context.get("preferences")
+        return {"result": process_user_with_prefs(user, prefs)}</code></pre>
+
+            <h3>2. Progress Tracking</h3>
+            <p>
+                Monitor your workflow's progress with built-in tracking:
+            </p>
+            <pre><code class="language-python">class TrackableStep(ZumaActionStep):
+    async def execute(self, context):
+        total_items = 100
+        
+        for i in range(total_items):
+            # Update progress
+            self.update_progress(
+                completed=i + 1,
+                total=total_items,
+                message=f"Processing item {i + 1}/{total_items}"
+            )
+            await process_item(i)
+        
+        return {"completed": True}</code></pre>
+
+            <h3>3. Custom Context Processors</h3>
+            <p>
+                Transform data between steps automatically:
+            </p>
+            <pre><code class="language-python">from zuma import ZumaContextProcessor
+
+class DataNormalizer(ZumaContextProcessor):
+    """Normalizes data between steps"""
+    
+    def process(self, context):
+        if "user_data" in context:
+            # Convert all string values to lowercase
+            data = context["user_data"]
+            normalized = {
+                k: v.lower() if isinstance(v, str) else v
+                for k, v in data.items()
+            }
+            context["user_data"] = normalized
+        return context
+
+# Use the processor in your workflow
+workflow = ZumaWorkflow(
+    "Normalized Workflow",
+    steps=[...],
+    context_processors=[DataNormalizer()]
+)</code></pre>
+        </section>
+
+        <section id="best-practices" class="doc-section">
+            <h2>Best Practices</h2>
+            <p>Here are comprehensive guidelines to help you write better Zuma workflows:</p>
+
+            <div class="numbered-section">
+                <div class="section-number">1.</div>
+                <div class="section-content">
+                    <h3 class="section-title">Step Design</h3>
+                    <ul>
+                        <li class="main-point"><strong>Single Responsibility:</strong> Keep steps focused on one
+                            specific task. This makes them easier to test, maintain, and reuse.</li>
+                        <li class="main-point"><strong>Descriptive Naming:</strong> Use clear, action-oriented names for
+                            steps and workflows (e.g., 'ValidateUserData', 'ProcessPayment').</li>
+                        <li class="main-point"><strong>Documentation:</strong> Add comprehensive docstrings that
+                            explain:
+                            <ul>
+                                <li>What the step does</li>
+                                <li>Required input context</li>
+                                <li>Expected output</li>
+                                <li>Possible errors</li>
+                            </ul>
+                        </li>
+                        <li class="main-point"><strong>Type Hints:</strong> Use Python type hints to make your code more
+                            maintainable and catch type-related errors early.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="numbered-section">
+                <div class="section-number">2.</div>
+                <div class="section-content">
+                    <h3 class="section-title">Error Handling</h3>
+                    <ul>
+                        <li>
+                            <span class="key-term">Anticipate Failures:</span>
+                            <span class="description">Always consider what can go wrong and handle edge cases
+                                appropriately.</span>
+                        </li>
+                        <li>
+                            <span class="key-term">Retry Strategy:</span>
+                            <span class="description">Configure retry settings based on the operation:</span>
+                            <ul>
+                                <li class="sub-point">Network operations: Multiple retries with exponential backoff</li>
+                                <li class="sub-point">Database operations: Short retry window with linear backoff</li>
+                                <li class="sub-point">CPU-bound operations: Minimal retries to avoid resource waste</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="key-term">Error Messages:</span>
+                            <span class="description">Provide detailed error messages that help diagnose issues</span>
+                        </li>
+                        <li>
+                            <span class="key-term">Resource Cleanup:</span>
+                            <span class="description">Implement proper cleanup in case of failures</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="numbered-section">
+                <div class="section-number">3.</div>
+                <div class="section-content">
+                    <h3 class="section-title">Performance</h3>
+                    <ul>
+                        <li class="main-point"><strong>Parallel Processing:</strong> Use ZumaParallelAction for
+                            independent operations</li>
+                        <li class="main-point"><strong>Resource Management:</strong>
+                            <ul>
+                                <li>Use connection pooling for databases</li>
+                                <li>Implement proper caching strategies</li>
+                                <li>Release resources promptly</li>
+                            </ul>
+                        </li>
+                        <li class="main-point"><strong>Batch Processing:</strong> Process large datasets in chunks to
+                            manage memory usage</li>
+                        <li class="main-point"><strong>Progress Tracking:</strong> Implement progress tracking for
+                            long-running operations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="numbered-section">
+                <div class="section-number">4.</div>
+                <div class="section-content">
+                    <h3 class="section-title">Testing</h3>
+                    <ul>
+                        <li><strong>Unit Tests:</strong> Write comprehensive tests for individual steps:
+                            <pre><code class="language-python">@pytest.mark.asyncio
+async def test_user_processor():
+    # Arrange
+    processor = UserProcessor("Test Processor")
+    context = {"user_data": {"name": "John", "age": 30}}
+    
+    # Act
+    result = await processor.execute(context)
+    
+    # Assert
+    assert "processed_user" in result
+    assert result["processed_user"]["name"] == "john"</code></pre>
+                        </li>
+                        <li><strong>Integration Tests:</strong> Test complete workflows with realistic data.</li>
+                        <li><strong>Mock External Services:</strong> Use mocking for external dependencies.</li>
+                        <li><strong>Error Scenarios:</strong> Test error handling and recovery mechanisms.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="numbered-section">
+                <div class="section-number">5.</div>
+                <div class="section-content">
+                    <h3 class="section-title">Monitoring and Logging</h3>
+                    <ul>
+                        <li><strong>Structured Logging:</strong> Use consistent log formats:
+                            <pre><code class="language-python">self.logger.info("Processing user data", extra={
+    "user_id": user.id,
+    "step": self.name,
+    "batch_size": self.batch_size
+})</code></pre>
+                        </li>
+                        <li><strong>Metrics Collection:</strong> Track important metrics:
+                            <ul>
+                                <li>Step execution time</li>
+                                <li>Success/failure rates</li>
+                                <li>Resource usage</li>
+                                <li>Throughput</li>
+                            </ul>
+                        </li>
+                        <li><strong>Alerting:</strong> Set up appropriate alerting for critical failures.</li>
+                        <li><strong>Debugging:</strong> Include sufficient context in logs for debugging.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="api-reference" class="doc-section">
+            <h2>API Reference</h2>
+
+            <!-- Core Components -->
+            <div class="api-section">
+                <h3 class="core-components">Core Components</h3>
+
+                <div class="api-method">
+                    <h4>ZumaWorkflow</h4>
+                    <p class="method-description">Main container for organizing workflow steps.</p>
+                    <pre><code class="language-python">class ZumaWorkflow:
+    def __init__(
+        self,
+        name: str,
+        steps: List[ZumaComponent],
+        continue_on_failure: bool = False,
+        context_processors: List[ZumaContextProcessor] = None,
+        description: str = None
+    ):
+        """Initialize a workflow.
+
+        Args:
+            name: Workflow name
+            steps: List of workflow steps
+            continue_on_failure: Whether to continue if a step fails
+            context_processors: List of context processors
+            description: Optional workflow description
+        """</code></pre>
+                    <div class="parameters">
+                        <h5>Attributes:</h5>
+                        <ul>
+                            <li><code>name</code><span class="param-desc">Unique identifier for the workflow</span></li>
+                            <li><code>steps</code><span class="param-desc">List of workflow components to execute</span>
+                            </li>
+                            <li><code>continue_on_failure</code><span class="param-desc">If True, continue executing
+                                    remaining steps when a step fails</span></li>
+                            <li><code>context_processors</code><span class="param-desc">Optional processors for
+                                    modifying context between steps</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="api-method">
+                    <h4>ZumaActionStep</h4>
+                    <p class="method-description">Base class for implementing workflow steps.</p>
+                    <pre><code class="language-python">class ZumaActionStep:
+    def __init__(
+        self,
+        name: str,
+        description: str = None,
+        retries: int = 0,
+        retry_delay: float = 1.0,
+        timeout: float = None,
+        required_contexts: List[str] = None
+    ):
+        """Initialize an action step.
+
+        Args:
+            name: Step name
+            description: Optional step description
+            retries: Number of retry attempts
+            retry_delay: Delay between retries in seconds
+            timeout: Maximum execution time in seconds
+            required_contexts: List of required context keys
+        """
+    
+    async def execute(
+        self, 
+        context: Dict[str, Any],
+        dependencies: Dict[str, Any],
+        **kwargs
+    ) -> Dict[str, Any]:
+        """Execute the step logic.
+        
+        Override this method in your custom steps.
+        """
+        raise NotImplementedError()</code></pre>
+                    <div class="parameters">
+                        <h5>Key Methods:</h5>
+                        <ul>
+                            <li>
+                                <code>execute(context, dependencies, **kwargs)</code>
+                                <span class="param-desc">Main execution method to override in custom steps</span>
+                            </li>
+                            <li>
+                                <code>update_progress(completed, total, message=None)</code>
+                                <span class="param-desc">Update step progress during execution</span>
+                            </li>
+                            <li>
+                                <code>on_retry(attempt: int, error: Exception)</code>
+                                <span class="param-desc">Called before each retry attempt</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="api-method">
+                    <h4>ZumaParallelAction</h4>
+                    <p class="method-description">Execute multiple steps concurrently.</p>
+                    <pre><code class="language-python">class ZumaParallelAction:
+    def __init__(
+        self,
+        name: str,
+        steps: List[ZumaComponent],
+        max_concurrency: int = None,
+        fail_fast: bool = True,
+        description: str = None
+    ):
+        """Initialize parallel execution.
+
+        Args:
+            name: Action name
+            steps: List of steps to execute in parallel
+            max_concurrency: Maximum concurrent executions
+            fail_fast: Stop all steps if one fails
+            description: Optional description
+        """</code></pre>
+                </div>
+
+                <div class="api-method">
+                    <h4>ZumaConditionalStep</h4>
+                    <p class="method-description">Conditional branching in workflows.</p>
+                    <pre><code class="language-python">class ZumaConditionalStep:
+    def __init__(
+        self,
+        name: str,
+        condition: Callable[[Dict[str, Any]], bool],
+        true_component: ZumaComponent,
+        false_component: ZumaComponent = None,
+        description: str = None
+    ):
+        """Initialize conditional step.
+
+        Args:
+            name: Step name
+            condition: Function that returns True/False
+            true_component: Component to execute if True
+            false_component: Optional component if False
+            description: Optional description
+        """</code></pre>
+                </div>
+
+                <div class="api-method">
+                    <h4>ZumaRunner</h4>
+                    <p class="method-description">Executes and manages workflows.</p>
+                    <pre><code class="language-python">class ZumaRunner:
+    async def run_workflow(
+        self,
+        workflow: ZumaWorkflow,
+        context: Dict[str, Any] = None,
+        generate_diagram: bool = False,
+        diagram_output: str = None
+    ) -> ZumaResult:
+        """Execute a workflow.
+
+        Args:
+            workflow: Workflow to execute
+            context: Initial context data
+            generate_diagram: Create visualization
+            diagram_output: Diagram output path
+        """</code></pre>
+                    <div class="parameters">
+                        <h5>Key Methods:</h5>
+                        <ul>
+                            <li>
+                                <code>run_workflow(workflow, context, **kwargs)</code>
+                                <span class="param-desc">Execute a workflow with optional visualization</span>
+                            </li>
+                            <li>
+                                <code>create_workflow_diagram(result, output_file)</code>
+                                <span class="param-desc">Generate workflow visualization</span>
+                            </li>
+                            <li>
+                                <code>print_execution_summary(result)</code>
+                                <span class="param-desc">Print workflow execution details</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extension Points -->
+            <div class="api-section">
+                <h3>Extension Points</h3>
+
+                <div class="api-method">
+                    <h4>ZumaContextProcessor</h4>
+                    <p class="method-description">Custom context modification between steps.</p>
+                    <pre><code class="language-python">class ZumaContextProcessor:
+    def process(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        """Process and modify the context.
+        
+        Override this method to implement custom processing.
+        
+        Args:
+            context: Current workflow context
+            
+        Returns:
+            Modified context dictionary
+        """
+        return context</code></pre>
+                </div>
+
+                <div class="api-method">
+                    <h4>ZumaExecutionError</h4>
+                    <p class="method-description">Custom error type for workflow execution failures.</p>
+                    <pre><code class="language-python">class ZumaExecutionError(Exception):
+    def __init__(
+        self,
+        message: str,
+        error_code: str = None,
+        details: Dict[str, Any] = None
+    ):
+        """Initialize execution error.
+
+        Args:
+            message: Error message
+            error_code: Optional error code
+            details: Additional error details
+        """</code></pre>
+                </div>
+            </div>
+
+            <!-- Results and Status -->
+            <div class="api-section">
+                <h3>Results and Status</h3>
+
+                <div class="api-method">
+                    <h4>ZumaResult</h4>
+                    <p class="method-description">Contains workflow execution results and metadata.</p>
+                    <div class="parameters">
+                        <h5>Attributes:</h5>
+                        <ul>
+                            <li><code>status</code><span class="param-desc">Current execution status (PENDING, RUNNING,
+                                    SUCCESS, FAILED)</span></li>
+                            <li><code>context</code><span class="param-desc">Final workflow context</span></li>
+                            <li><code>error</code><span class="param-desc">Error information if failed</span></li>
+                            <li><code>duration</code><span class="param-desc">Total execution time in seconds</span>
+                            </li>
+                            <li><code>metadata</code><span class="param-desc">Additional execution metadata</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="api-method">
+                    <h4>ZumaStatus</h4>
+                    <p class="method-description">Enumeration of possible execution states.</p>
+                    <pre><code class="language-python">class ZumaStatus(Enum):
+    PENDING = "PENDING"
+    RUNNING = "RUNNING"
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
+    SKIPPED = "SKIPPED"</code></pre>
+                </div>
+            </div>
+
+            <!-- Visualization -->
+            <div class="api-section">
+                <h3>Visualization</h3>
+
+                <div class="api-method">
+                    <h4>Diagram Generation</h4>
+                    <p class="method-description">Generate visual workflow representations.</p>
+                    <div class="parameters">
+                        <h5>Features:</h5>
+                        <ul>
+                            <li>Clear visualization of workflow steps and relationships</li>
+                            <li>
+                                Support for retry mechanisms visualization
+                                <ul>
+                                    <li>Main workflow path at top</li>
+                                    <li>Retry attempts branching below</li>
+                                    <li>Success paths rejoining main flow</li>
+                                    <li>Error handling visualization</li>
+                                </ul>
+                            </li>
+                            <li>Visual representation of parallel processing</li>
+                            <li>Dark theme support for better readability</li>
+                            <li>Automatic diagram generation during workflow execution</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                .api-section {
+                    background: var(--glass-bg);
+                    border: 1px solid var(--glass-border);
+                    border-radius: 8px;
+                    padding: 2rem;
+                    margin: 2rem 0;
+                }
+
+                .api-section>h3 {
+                    color: var(--primary);
+                    margin-bottom: 1.5rem;
+                }
+
+                .api-method {
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 1px solid var(--glass-border);
+                }
+
+                .api-method:last-child {
+                    border-bottom: none;
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                }
+
+                .api-method h4 {
+                    color: var(--secondary);
+                    margin-bottom: 0.5rem;
+                }
+
+                .method-description {
+                    color: var(--text-dim);
+                    margin: 0.5rem 0;
+                    font-size: 0.95rem;
+                }
+
+                .parameters {
+                    margin: 1rem 0;
+                    padding: 1rem;
+                    background: rgba(0, 0, 0, 0.2);
+                    border-radius: 4px;
+                }
+
+                .parameters h5 {
+                    margin: 0 0 0.5rem 0;
+                    color: var(--primary);
+                    font-size: 0.9rem;
+                }
+
+                .parameters ul {
+                    margin: 0;
+                    padding-left: 1.5rem;
+                    list-style-type: none;
+                }
+
+                .parameters li {
+                    margin: 0.5rem 0;
+                    display: flex;
+                    align-items: baseline;
+                    gap: 1rem;
+                }
+
+                .param-desc {
+                    color: var(--text-dim);
+                    font-size: 0.9rem;
+                }
+
+                code {
+                    background: rgba(0, 0, 0, 0.3);
+                    padding: 0.2rem 0.4rem;
+                    border-radius: 4px;
+                    font-family: "JetBrains Mono", monospace;
+                    font-size: 0.9rem;
+                }
+
+                pre code {
+                    padding: 1rem;
+                    display: block;
+                    overflow-x: auto;
+                }
+
+                pre {
+                    margin: 1rem 0;
+                    background: rgba(0, 0, 0, 0.3);
+                    border-radius: 4px;
+                    overflow: hidden;
+                }
+            </style>
+        </section>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/101/three.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const nav = document.querySelector('.doc-nav');
+            nav.classList.toggle('active');
+        }
+
+        // Scroll spy implementation
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.doc-section');
+            const navLinks = document.querySelectorAll('.doc-nav-link');
+            let isScrolling = false;
+            let targetSection = null;
+            let scrollEndTimer = null;
+
+            // Options for the Intersection Observer
+            const options = {
+                threshold: [0, 0.1],
+                rootMargin: '-74px 0px -80% 0px'
+            };
+
+            // Function to update active link
+            function updateActiveLink(sectionId, skipSmooth = false) {
+                // Remove active class from all links
+                navLinks.forEach(link => link.classList.remove('active'));
+
+                // Add active class to corresponding link
+                const activeLink = document.querySelector(`.doc-nav-link[href="#${sectionId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+
+                    // Smoothly scroll the nav item into view if needed
+                    if (!skipSmooth && activeLink.scrollIntoView) {
+                        activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }
+            }
+
+            // Function to find the most visible section
+            function findMostVisibleSection() {
+                let maxVisibleHeight = 0;
+                let mostVisibleSection = null;
+                const headerOffset = 74;
+
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    // Calculate how much of the section is visible in the viewport
+                    const visibleHeight = Math.min(rect.bottom, window.innerHeight) -
+                        Math.max(rect.top, headerOffset);
+
+                    if (visibleHeight > maxVisibleHeight) {
+                        maxVisibleHeight = visibleHeight;
+                        mostVisibleSection = section;
+                    }
+                });
+
+                return mostVisibleSection;
+            }
+
+            // Callback for Intersection Observer
+            const callback = (entries) => {
+                if (isScrolling) return;
+
+                const mostVisibleSection = findMostVisibleSection();
+                if (mostVisibleSection) {
+                    updateActiveLink(mostVisibleSection.id, true);
+                }
+            };
+
+            // Create observer
+            const observer = new IntersectionObserver(callback, options);
+
+            // Observe all sections
+            sections.forEach(section => observer.observe(section));
+
+            // Smooth scroll for documentation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    targetSection = document.querySelector(`#${targetId}`);
+
+                    if (targetSection) {
+                        // Clear any existing scroll end timer
+                        if (scrollEndTimer) {
+                            clearTimeout(scrollEndTimer);
+                        }
+
+                        // Update active state immediately
+                        updateActiveLink(targetId);
+
+                        // Set scrolling flag
+                        isScrolling = true;
+
+                        // Scroll to section
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+
+                        // Reset scrolling flag after animation completes
+                        scrollEndTimer = setTimeout(() => {
+                            isScrolling = false;
+                            // Final check for correct active section
+                            const finalVisibleSection = findMostVisibleSection();
+                            if (finalVisibleSection) {
+                                updateActiveLink(finalVisibleSection.id);
+                            }
+                        }, 1000);
+
+                        // Close mobile menu after clicking
+                        document.querySelector('.doc-nav').classList.remove('active');
+                    }
+                });
+            });
+
+            // Debounced scroll handler
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                // If we're in a programmatic scroll, don't do anything
+                if (isScrolling) return;
+
+                // Clear existing timeout
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+
+                // Set new timeout
+                scrollTimeout = setTimeout(() => {
+                    const visibleSection = findMostVisibleSection();
+                    if (visibleSection) {
+                        updateActiveLink(visibleSection.id);
+                    }
+                }, 150); // Increased debounce time for smoother updates
+            }, { passive: true }); // Add passive flag for better scroll performance
+        });
+
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Initialize Mermaid.js with font settings
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                fontFamily: 'Inter',
+                fontSize: '14px',
+                darkMode: true
+            },
+            flowchart: {
+                curve: 'basis',
+                padding: 20,
+                nodeSpacing: 50,
+                rankSpacing: 70,
+                htmlLabels: true
+            }
+        });
+
+        // Additional font enforcement after Mermaid renders
+        document.addEventListener('DOMContentLoaded', function () {
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.addedNodes.length) {
+                        const mermaidElements = document.querySelectorAll('.mermaid');
+                        mermaidElements.forEach(element => {
+                            // Set text styles
+                            element.querySelectorAll('text').forEach(text => {
+                                text.style.fontFamily = 'Inter, sans-serif';
+                                text.style.fontSize = '14px';
+                                text.style.fill = '#ffffff';
+                            });
+
+                            // Set edge styles
+                            element.querySelectorAll('.edgePath path').forEach(path => {
+                                path.style.stroke = '#f4b860';
+                                path.style.strokeWidth = '2px';
+                            });
+
+                            // Set node styles
+                            element.querySelectorAll('.node rect, .node circle').forEach(shape => {
+                                shape.style.stroke = '#f4b860';
+                                shape.style.fill = 'transparent';
+                            });
+
+                            // Set diamond (condition) styles
+                            element.querySelectorAll('.node.diamond rect').forEach(diamond => {
+                                diamond.style.stroke = '#3b82f6';
+                                diamond.style.fill = 'transparent';
+                            });
+                        });
+                    }
+                });
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+
+        // Initialize Bootstrap scrollspy
+        document.addEventListener('DOMContentLoaded', function () {
+            var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+                target: '#doc-nav',
+                offset: 74
+            });
+        });
+
+        // Initialize Gumshoe
+        var spy = new Gumshoe('[data-gumshoe] a', {
+            offset: 74, // Height of fixed header
+            activeClass: 'active',
+            nested: false,
+            nestedClass: 'active-parent',
+            reflow: true
+        });
+
+        // Smooth scroll behavior
+        document.querySelectorAll('[data-gumshoe] a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const headerOffset = 74;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

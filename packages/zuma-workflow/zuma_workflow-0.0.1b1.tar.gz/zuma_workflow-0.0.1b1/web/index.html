@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>Zuma - Python Workflow Management Framework</title>
+  <meta name="description"
+    content="Zuma is a powerful, lightweight and flexible workflow management framework for Python. Build and manage complex workflow pipelines with ease." />
+  <meta name="keywords"
+    content="Zuma, Python workflow, workflow management, async workflow, pipeline management, Python framework" />
+  <meta name="author" content="CodeJunction" />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Zuma - Python Workflow Management Framework" />
+  <meta property="og:description"
+    content="Build powerful workflow pipelines with Zuma, the lightweight and flexible Python workflow management framework." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://zuma.codejunction.dev" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Zuma Framework" />
+  <meta name="twitter:description" content="Build powerful workflow pipelines with Zuma" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml"
+    href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><style>:root{color-scheme:light dark}</style><path d="M50 5 L85 25 L85 75 L50 95 L15 75 L15 25 Z" stroke="%23f4b860" stroke-width="2" fill="none"/><path d="M30 50 Q 50 20, 70 50 Q 50 80, 30 50" stroke="%23f4b860" stroke-width="2" fill="none"/><circle cx="50" cy="20" r="3" fill="%23f4b860"/><circle cx="30" cy="50" r="3" fill="%23f4b860"/><circle cx="50" cy="80" r="3" fill="%23f4b860"/><circle cx="70" cy="50" r="3" fill="%23f4b860"/><circle cx="50" cy="50" r="5" fill="%23f4b860"/></svg>' />
+
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon"
+    href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><style>:root{color-scheme:light dark}</style><rect width="100" height="100" rx="20" fill="%23000"/><path d="M50 5 L85 25 L85 75 L50 95 L15 75 L15 25 Z" stroke="%23f4b860" stroke-width="2" fill="none"/><path d="M30 50 Q 50 20, 70 50 Q 50 80, 30 50" stroke="%23f4b860" stroke-width="2" fill="none"/><circle cx="50" cy="20" r="3" fill="%23f4b860"/><circle cx="30" cy="50" r="3" fill="%23f4b860"/><circle cx="50" cy="80" r="3" fill="%23f4b860"/><circle cx="70" cy="50" r="3" fill="%23f4b860"/><circle cx="50" cy="50" r="5" fill="%23f4b860"/></svg>' />
+
+  <!-- Theme Color for Mobile -->
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Fonts -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <!-- Highlight.js for code syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/night-owl.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+
+  <!-- Three.js for background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/101/three.min.js"></script>
+
+  <!-- AOS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+
+  <style>
+    :root {
+      --primary: #f4b860;
+      --secondary: #6ee7b7;
+      --accent: #3b82f6;
+      --bg-dark: #000000;
+      --bg-darker: rgba(0, 0, 0, 0.2);
+      --glass-bg: rgba(10, 10, 10, 0.3);
+      --glass-gradient: linear-gradient(to bottom,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.05));
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --text-light: #ffffff;
+      --text-dim: #9ca3af;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --code-bg: rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      line-height: 1.6;
+      color: var(--text-light);
+      background: var(--bg-dark);
+      min-height: 100vh;
+      padding-top: 74px;
+    }
+
+    #waves {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    #waves canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Header/Navigation */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      transform: translateZ(0);
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      margin: -1px;
+    }
+
+    /* Ensure proper stacking without jitter */
+    .header>* {
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 10px rgba(244, 184, 96, 0.3));
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+      position: relative;
+      padding: 0.5rem;
+      background: transparent;
+      border: none;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      background: var(--primary);
+      transition: all 0.3s ease-out;
+      transform: translateX(-50%);
+    }
+
+    .nav-link:hover {
+      color: var(--text-light);
+      background: transparent;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: calc(100vh - 74px);
+      display: flex;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-text {
+      z-index: 1;
+    }
+
+    .hero-text h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+    }
+
+    .hero-code {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .code-title {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    .copy-button {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-dim);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: "Inter", sans-serif;
+    }
+
+    .copy-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+    }
+
+    .copy-button.copied {
+      background: var(--primary);
+      color: var(--bg-dark);
+      border-color: var(--primary);
+    }
+
+    /* Buttons */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+    }
+
+    .button-primary {
+      background: var(--primary);
+      color: var(--bg-dark);
+      border: none;
+    }
+
+    .button-outline {
+      background: var(--glass-bg);
+      color: var(--text-light);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    /* Content Sections */
+    .content-wrapper {
+      background: transparent;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .section.aos-animate {
+      opacity: 1;
+    }
+
+    .section>* {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
+    }
+
+    .section.aos-animate>* {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(244, 184, 96, 0.2);
+    }
+
+    /* Features Grid */
+    .features-grid {
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      transform: translateZ(0);
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      background: rgba(20, 20, 20, 0.4);
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      margin: -1px;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: rotate(0deg) scale(1.2);
+    }
+
+    .feature-icon {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      width: 100px;
+      height: 100px;
+      opacity: 0.05;
+      transition: all 0.5s ease;
+      z-index: 1;
+      transform: rotate(-5deg);
+    }
+
+    .feature-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--primary);
+      stroke-width: 1;
+    }
+
+    .feature-card h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+      text-shadow: 0 0 20px rgba(244, 184, 96, 0.2);
+      position: relative;
+    }
+
+    .feature-card p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      position: relative;
+      margin-bottom: 0;
+    }
+
+    /* Code Examples */
+    .example-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      transform: translateZ(0);
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    .tab-button {
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      color: var(--text-dim);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .tab-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+    }
+
+    .tab-button.active {
+      background: var(--primary);
+      color: var(--bg-dark);
+      border-color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 1rem;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding-top: 2rem;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 2rem 1rem;
+      }
+
+      .section {
+        padding: 3rem 1rem;
+        opacity: 1 !important;
+      }
+
+      .section>* {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .feature-card {
+        min-height: auto;
+        padding: 1.5rem;
+      }
+
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        right: 0.75rem;
+        bottom: 0.75rem;
+      }
+
+      .button-group {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-text p {
+        font-size: 1.1rem;
+      }
+
+      .hero-code {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      pre {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      code {
+        white-space: pre;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      .example-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 0.5rem;
+        gap: 0.25rem;
+        margin: -0.5rem;
+        padding-bottom: 1rem;
+      }
+
+      .tab-button {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+      }
+
+      .hero-code {
+        font-size: 0.85rem;
+        padding: 1rem;
+      }
+
+      .code-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+      }
+
+      .copy-button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+
+      .hero-text p {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.1rem;
+      }
+
+      .feature-card p {
+        font-size: 0.9rem;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom code highlighting theme */
+    .hljs {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #e2e8f0;
+      padding: 1em;
+      border-radius: 8px;
+      font-family: "JetBrains Mono", monospace;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    .hljs-keyword {
+      color: #f4b860;
+      /* Primary color */
+    }
+
+    .hljs-string {
+      color: #6ee7b7;
+      /* Secondary color */
+    }
+
+    .hljs-number {
+      color: #3b82f6;
+      /* Accent color */
+    }
+
+    .hljs-function {
+      color: #f4b860;
+    }
+
+    .hljs-title {
+      color: #6ee7b7;
+    }
+
+    .hljs-params {
+      color: #e2e8f0;
+    }
+
+    .hljs-comment {
+      color: #64748b;
+      font-style: italic;
+    }
+
+    .hljs-decorator {
+      color: #3b82f6;
+    }
+
+    .hljs-class {
+      color: #f4b860;
+    }
+
+    .hljs-built_in {
+      color: #3b82f6;
+    }
+
+    /* Add these styles to fix the example section */
+    .example-section {
+      margin-top: 4rem;
+      padding: 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+    }
+
+    .example-section .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .example-section .section-description {
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+    }
+
+    .example-section .hero-code {
+      margin: 0;
+    }
+
+    /* Remove backdrop-filter from all elements */
+    .header,
+    .hero-code,
+    .example-tabs,
+    .feature-card,
+    .example-section {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="waves"></div>
+
+  <!-- Header -->
+  <header class="header" data-aos="fade-down" data-aos-duration="800">
+    <a href="#top" class="logo" onclick="scrollToTop(event)">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background hexagon -->
+        <path d="M50 5 L85 25 L85 75 L50 95 L15 75 L15 25 Z" stroke="url(#logoGradient)" stroke-width="2" fill="none" />
+
+        <!-- Central flow pattern -->
+        <path class="flow-line" d="M30 50 Q 50 20, 70 50 Q 50 80, 30 50" stroke="url(#logoGradient)" stroke-width="2"
+          fill="none" />
+
+        <!-- Connection nodes -->
+        <circle cx="50" cy="20" r="3" fill="url(#logoGradient)" />
+        <circle cx="30" cy="50" r="3" fill="url(#logoGradient)" />
+        <circle cx="50" cy="80" r="3" fill="url(#logoGradient)" />
+        <circle cx="70" cy="50" r="3" fill="url(#logoGradient)" />
+
+        <!-- Central node -->
+        <circle cx="50" cy="50" r="5" fill="url(#logoGradient)" />
+
+        <!-- Inner connection lines -->
+        <path d="M50 20 L 50 35" stroke="url(#logoGradient)" stroke-width="2" />
+        <path d="M30 50 L 40 50" stroke="url(#logoGradient)" stroke-width="2" />
+        <path d="M60 50 L 70 50" stroke="url(#logoGradient)" stroke-width="2" />
+        <path d="M50 65 L 50 80" stroke="url(#logoGradient)" stroke-width="2" />
+
+        <!-- Gradient definition -->
+        <defs>
+          <linearGradient id="logoGradient" x1="15" y1="5" x2="85" y2="95">
+            <stop offset="0%" style="stop-color: #f4b860" />
+            <stop offset="100%" style="stop-color: #6ee7b7" />
+          </linearGradient>
+        </defs>
+
+        <!-- Animation for continuous flow effect -->
+        <style>
+          @keyframes flowAnimation {
+            0% {
+              stroke-dashoffset: 0;
+            }
+
+            100% {
+              stroke-dashoffset: -20;
+            }
+          }
+
+          .flow-line {
+            stroke-dasharray: 5, 5;
+            animation: flowAnimation 1s linear infinite;
+          }
+        </style>
+      </svg>
+    </a>
+    <nav class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#examples" class="nav-link">Examples</a>
+      <a href="./docs.html" class="nav-link">Documentation</a>
+      <a href="https://gitlab.com/codejunction/zuma" class="nav-link" target="_blank">GitLab</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
+        <h1>Effortlessly build workflow pipelines</h1>
+        <p>
+          The powerful, lightweight and flexible workflow management framework
+          for Python
+        </p>
+        <div class="button-group">
+          <a href="./docs.html" class="button button-primary">Documentation</a>
+          <a href="https://gitlab.com/codejunction/zuma" class="button button-outline">View on GitLab</a>
+        </div>
+      </div>
+      <div class="hero-code" data-aos="fade-left" data-aos-duration="1000">
+        <div class="code-header">
+          <span class="code-title">simple_workflow.py</span>
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code class="language-python">import asyncio
+from zuma import ZumaWorkflow, ZumaActionStep, ZumaRunner
+
+
+class DataFetchStep(ZumaActionStep):
+    async def execute(self, context):
+        return {"data": "fetched_data"}
+
+
+class ProcessingStep(ZumaActionStep):
+    async def execute(self, context):
+        data = context.get("data")
+        return {"processed": f"processed_{data}"}
+
+
+if __name__ == "__main__":
+    asyncio.run(
+        ZumaRunner().run_workflow(
+            ZumaWorkflow(
+                "Simple Workflow",
+                steps=[
+                    DataFetchStep(),
+                    ProcessingStep(),
+                ],
+            )
+        )
+    )</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-wrapper">
+    <!-- Features Section -->
+    <section id="features" class="section" data-aos="fade">
+      <h2 class="section-title" data-aos="fade-up" data-aos-anchor="#features" data-aos-delay="100">
+        Features
+      </h2>
+      <div class="features-grid" data-aos="fade-up" data-aos-anchor="#features" data-aos-delay="100">
+        <div class="feature-card" data-aos="fade-up" data-aos-anchor="#features" data-aos-delay="200">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M12 3v18" />
+              <path d="M3 12h18" />
+              <path d="M5 9l3 3-3 3" />
+              <path d="M19 9l-3 3 3 3" />
+              <path d="M9 5l3 3 3-3" />
+              <path d="M9 19l3-3 3 3" />
+            </svg>
+          </div>
+          <h3>Async First</h3>
+          <p>Built with asyncio for maximum performance and concurrency</p>
+        </div>
+
+        <div class="feature-card" data-aos="fade-up" data-aos-anchor="#features" data-aos-delay="300">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+              <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z" />
+              <path d="M9 9h1" />
+              <path d="M9 13h6" />
+              <path d="M9 17h6" />
+            </svg>
+          </div>
+          <h3>Type Safe</h3>
+          <p>Full type hints support for better IDE integration</p>
+        </div>
+
+        <div class="feature-card" data-aos="fade-up" data-aos-anchor="#features" data-aos-delay="400">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M4 4v16" />
+              <path d="M20 4v16" />
+              <path d="M4 12h6" />
+              <path d="M14 12h6" />
+              <path d="M10 8v8" />
+              <path d="M14 8v8" />
+            </svg>
+          </div>
+          <h3>Parallel Execution</h3>
+          <p>Execute multiple steps concurrently with controlled concurrency</p>
+        </div>
+
+        <div class="feature-card" data-aos="fade-up" data-aos-anchor="#features" data-aos-delay="500">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <path d="M12 9v4" />
+              <path d="M12 17h.01" />
+            </svg>
+          </div>
+          <h3>Error Handling</h3>
+          <p>Comprehensive error handling with retries and failure strategies</p>
+        </div>
+
+        <div class="feature-card" data-aos="fade-up" data-aos-anchor="#features" data-aos-delay="600">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M12 3v18" />
+              <path d="M3 12h18" />
+              <path d="M5 9l3 3-3 3" />
+              <path d="M19 9l-3 3 3 3" />
+              <path d="M9 5l3 3 3-3" />
+              <path d="M9 19l3-3 3 3" />
+            </svg>
+          </div>
+          <h3>Conditional Flows</h3>
+          <p>Dynamic workflow paths based on runtime conditions</p>
+        </div>
+
+        <div class="feature-card" data-aos="fade-up" data-aos-anchor="#features" data-aos-delay="700">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M3 3v18h18" />
+              <path d="M18 17V9" />
+              <path d="M13 17V5" />
+              <path d="M8 17v-3" />
+            </svg>
+          </div>
+          <h3>Monitoring</h3>
+          <p>Detailed execution tracking and progress reporting</p>
+        </div>
+
+        <div class="feature-card" data-aos="fade-up" data-aos-anchor="#features" data-aos-delay="800">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M7 8h10" />
+              <path d="M7 12h10" />
+              <path d="M7 16h10" />
+              <path d="M17 3v18" />
+              <path d="M7 3v18" />
+            </svg>
+          </div>
+          <h3>Workflow Visualization</h3>
+          <p>Generate clear Mermaid diagrams to visualize workflow paths, retries, and error handling.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section id="examples" class="section" data-aos="fade">
+      <h2 class="section-title" data-aos="fade-up" data-aos-anchor="#examples" data-aos-delay="100">
+        Examples
+      </h2>
+      <div class="example-tabs" data-aos="fade-up" data-aos-anchor="#examples" data-aos-delay="400">
+        <button class="tab-button active" onclick="showExample('simple')">Simple</button>
+        <button class="tab-button" onclick="showExample('parallel')">Parallel</button>
+        <button class="tab-button" onclick="showExample('conditional')">Conditional</button>
+        <button class="tab-button" onclick="showExample('error')">Error Handling</button>
+        <button class="tab-button" onclick="showExample('retry')">Retry Mechanism</button>
+        <button class="tab-button" onclick="showExample('composition')">Composition</button>
+        <button class="tab-button" onclick="showExample('dynamic')">Dynamic</button>
+        <button class="tab-button" onclick="showExample('custom')">Custom Actions</button>
+        <button class="tab-button" onclick="showExample('visualization')">Visualization</button>
+      </div>
+
+      <div id="example-simple" class="hero-code" data-aos="fade-up" data-aos-anchor="#examples" data-aos-delay="600">
+        <div class="code-header">
+          <span class="code-title">simple_example.py</span>
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code class="language-python">"""Simple Sequential Workflow Example"""
+import asyncio
+from zuma import ZumaWorkflow, ZumaActionStep, ZumaRunner
+
+
+class DataFetchStep(ZumaActionStep):
+    async def execute(self, context):
+        return {"data": "fetched_data"}
+
+
+class ProcessingStep(ZumaActionStep):
+    async def execute(self, context):
+        data = context.get("data")
+        return {"processed": f"processed_{data}"}
+
+
+if __name__ == "__main__":
+    asyncio.run(
+        ZumaRunner().run_workflow(
+            ZumaWorkflow(
+                "Simple Workflow",
+                steps=[
+                    DataFetchStep(),
+                    ProcessingStep(),
+                ],
+            )
+        )
+    )</code></pre>
+      </div>
+
+      <div id="example-parallel" class="hero-code" style="display: none" data-aos="fade-up" data-aos-anchor="#examples"
+        data-aos-delay="600">
+        <div class="code-header">
+          <span class="code-title">parallel_example.py</span>
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code class="language-python">"""Parallel Processing Example"""
+from zuma import ZumaWorkflow, ZumaActionStep, ZumaParallelAction, ZumaRunner
+from typing import Dict, Any
+import asyncio
+
+class DataProcessStep(ZumaActionStep):
+    """Processes a single file"""
+    def __init__(self, name: str, file_type: str):
+        super().__init__(name)
+        self.file_type = file_type
+    
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        valid_files = context.get("valid_files", [])
+        our_files = [f for f in valid_files if f.endswith(self.file_type)]
+        
+        results = []
+        for file in our_files:
+            print(f"[{self.name}] Processing {file}...")
+            await asyncio.sleep(0.5)  # Simulate processing
+            results.append({
+                "file": file,
+                "processor": self.name
+            })
+        
+        return {"processed_files": len(results), "results": results}
+
+async def run_parallel_workflow():
+    # Define parallel data processing
+    parallel_processing = ZumaParallelAction(
+        "Parallel Processing",
+        steps=[
+            DataProcessStep("Process CSV", file_type=".csv"),
+            DataProcessStep("Process JSON", file_type=".json"),
+            DataProcessStep("Process XML", file_type=".xml")
+        ],
+        max_concurrency=2  # Process 2 file types at a time
+    )
+    
+    # Create workflow
+    workflow = ZumaWorkflow(
+        "Parallel Processing Workflow",
+        steps=[parallel_processing]
+    )
+    
+    # Run workflow
+    runner = ZumaRunner()
+    result = await runner.run_workflow(workflow)
+    runner.print_execution_summary(result)
+    return result
+
+if __name__ == "__main__":
+    asyncio.run(run_parallel_workflow())</code></pre>
+      </div>
+
+      <div id="example-conditional" class="hero-code" style="display: none" data-aos="fade-up"
+        data-aos-anchor="#examples" data-aos-delay="600">
+        <div class="code-header">
+          <span class="code-title">conditional_example.py</span>
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code class="language-python">"""Conditional Workflow Example"""
+from zuma import ZumaWorkflow, ZumaActionStep, ZumaConditionalStep, ZumaRunner
+from typing import Dict, Any
+import asyncio
+
+def check_data_size(context: Dict[str, Any]) -> bool:
+    """Determines processing path based on data size"""
+    return context.get("data_size", 0) > 1000
+
+class DataLoadStep(ZumaActionStep):
+    """Loads and measures the size of input data"""
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        data = context.get("input_data", list(range(2000)))
+        print(f"[{self.name}] Loading {len(data)} items...")
+        await asyncio.sleep(0.5)
+        return {"data": data, "data_size": len(data)}
+
+class BatchProcessingStep(ZumaActionStep):
+    """Handles large dataset processing in batches"""
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        data = context.get("data", [])
+        batch_size = 100
+        print(f"[{self.name}] Processing {len(data)} items in batches...")
+        processed = []
+        for i in range(0, len(data), batch_size):
+            batch = data[i : i + batch_size]
+            await asyncio.sleep(0.1)  # Simulate batch processing
+            processed.extend([f"processed_{item}" for item in batch])
+        return {
+            "processed_items": len(processed),
+            "processing_type": "batch",
+            "results": processed,
+        }
+
+class SimpleProcessingStep(ZumaActionStep):
+    """Handles small dataset processing"""
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        data = context.get("data", [])
+        print(f"[{self.name}] Processing {len(data)} items directly...")
+        await asyncio.sleep(0.5)  # Simulate processing
+        processed = [f"processed_{item}" for item in data]
+        return {
+            "processed_items": len(processed),
+            "processing_type": "simple",
+            "results": processed,
+        }
+
+async def run_conditional_workflow():
+    workflow = ZumaWorkflow(
+        "Conditional Processing Workflow",
+        steps=[
+            DataLoadStep("Load Data"),
+            ZumaConditionalStep(
+                "Processing Path Decision",
+                condition=check_data_size,
+                true_component=BatchProcessingStep("Batch Process"),
+                false_component=SimpleProcessingStep("Simple Process"),
+            ),
+        ],
+    )
+
+    # Run workflow with sample data
+    initial_context = {"input_data": list(range(2000))}  # Large dataset
+    runner = ZumaRunner()
+    result = await runner.run_workflow(workflow, context=initial_context)
+    runner.print_execution_summary(result)
+    return result
+
+if __name__ == "__main__":
+    asyncio.run(run_conditional_workflow())</code></pre>
+      </div>
+
+      <div id="example-error" class="hero-code" style="display: none" data-aos="fade-up" data-aos-anchor="#examples"
+        data-aos-delay="600">
+        <div class="code-header">
+          <span class="code-title">error_handling_example.py</span>
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code class="language-python">"""Error Handling Example"""
+from zuma import ZumaWorkflow, ZumaActionStep, ZumaRunner, ZumaExecutionError
+from typing import Dict, Any
+import asyncio
+
+class ValidatingStep(ZumaActionStep):
+    """Step that validates input data"""
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        data = context.get("data")
+        print(f"[{self.name}] Validating data: {data}")
+        
+        if not self.validate_data(data):
+            raise ZumaExecutionError("Data validation failed")
+        
+        return {"validated": True, "data": data}
+    
+    def validate_data(self, data):
+        return isinstance(data, str) and len(data) > 0
+
+async def run_error_workflow():
+    workflow = ZumaWorkflow(
+        "Error Handling Workflow",
+        steps=[
+            ValidatingStep(
+                "Validate Data",
+                description="Validates input data format",
+                retries=3
+            )
+        ],
+        continue_on_failure=True
+    )
+    
+    runner = ZumaRunner()
+    result = await runner.run_workflow(workflow)
+    runner.print_execution_summary(result)
+    return result
+
+if __name__ == "__main__":
+    asyncio.run(run_error_workflow())</code></pre>
+      </div>
+
+      <div id="example-retry" class="hero-code" style="display: none" data-aos="fade-up" data-aos-anchor="#examples"
+        data-aos-delay="600">
+        <div class="code-header">
+          <span class="code-title">retry_mechanism.py</span>
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code class="language-python">"""Retry Mechanism Example"""
+from zuma import ZumaWorkflow, ZumaActionStep, ZumaRunner, ZumaExecutionError
+from typing import Dict, Any
+import asyncio
+import random
+
+class UnreliableAPIStep(ZumaActionStep):
+    def __init__(self, name: str):
+        super().__init__(
+            name=name,
+            retries=3,  # Try up to 3 times
+            retry_delay=1.0  # Wait 1 second between retries
+        )
+
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        # Simulated API call that might fail
+        if random.random() < 0.7:  # 70% chance of failure
+            raise ZumaExecutionError("API request failed")
+        return {"api_response": "success"}
+
+async def run_retry_example():
+    workflow = ZumaWorkflow(
+        "Retry Mechanism Demo",
+        steps=[UnreliableAPIStep("API Call")]
+    )
+
+    runner = ZumaRunner()
+    result = await runner.run_workflow(
+        workflow,
+        generate_diagram=True,
+        diagram_output="retry_mechanism"
+    )
+    return result
+
+if __name__ == "__main__":
+    asyncio.run(run_retry_example())</code></pre>
+      </div>
+
+      <div id="example-composition" class="hero-code" style="display: none" data-aos="fade-up"
+        data-aos-anchor="#examples" data-aos-delay="600">
+        <div class="code-header">
+          <span class="code-title">workflow_composition.py</span>
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code class="language-python">"""Workflow Composition Example"""
+from zuma import ZumaWorkflow, ZumaActionStep, ZumaRunner
+from typing import Dict, Any
+import asyncio
+
+class DataFetchStep(ZumaActionStep):
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        print(f"[{self.name}] Fetching data...")
+        await asyncio.sleep(0.5)
+        return {"data": "raw_data"}
+
+class ValidationWorkflow(ZumaWorkflow):
+    def __init__(self):
+        super().__init__(
+            "Data Validation Workflow",
+            steps=[
+                DataValidationStep("Format Check"),
+                SchemaValidationStep("Schema Check")
+            ]
+        )
+
+class ProcessingWorkflow(ZumaWorkflow):
+    def __init__(self):
+        super().__init__(
+            "Data Processing Workflow",
+            steps=[
+                DataTransformStep("Transform"),
+                DataEnrichStep("Enrich")
+            ]
+        )
+
+async def run_composed_workflow():
+    # Create main workflow that combines other workflows
+    workflow = ZumaWorkflow(
+        "Main Workflow",
+        steps=[
+            DataFetchStep("Fetch Data"),
+            ValidationWorkflow(),
+            ProcessingWorkflow()
+        ]
+    )
+
+    runner = ZumaRunner()
+    result = await runner.run_workflow(workflow)
+    runner.print_execution_summary(result)
+    return result
+
+if __name__ == "__main__":
+    asyncio.run(run_composed_workflow())</code></pre>
+      </div>
+
+      <div id="example-dynamic" class="hero-code" style="display: none" data-aos="fade-up" data-aos-anchor="#examples"
+        data-aos-delay="600">
+        <div class="code-header">
+          <span class="code-title">dynamic_workflow.py</span>
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code class="language-python">"""Dynamic Workflow Example"""
+from zuma import ZumaWorkflow, ZumaActionStep, ZumaRunner
+from typing import Dict, Any, List
+import asyncio
+
+class DynamicStep(ZumaActionStep):
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        # Generate steps based on context
+        data_types = context.get("data_types", [])
+        steps = []
+        
+        for data_type in data_types:
+            steps.append(
+                ProcessingStep(f"Process {data_type}", data_type)
+            )
+        
+        # Create and run dynamic workflow
+        workflow = ZumaWorkflow(
+            "Dynamic Sub-Workflow",
+            steps=steps
+        )
+        
+        runner = ZumaRunner()
+        result = await runner.run_workflow(workflow, context)
+        return result.context
+
+async def run_dynamic_workflow():
+    workflow = ZumaWorkflow(
+        "Dynamic Workflow",
+        steps=[
+            DynamicStep("Generate Steps")
+        ]
+    )
+
+    # Run with different data types
+    context = {"data_types": ["CSV", "JSON", "XML"]}
+    
+    runner = ZumaRunner()
+    result = await runner.run_workflow(workflow, context)
+    runner.print_execution_summary(result)
+    return result
+
+if __name__ == "__main__":
+    asyncio.run(run_dynamic_workflow())</code></pre>
+      </div>
+
+      <div id="example-custom" class="hero-code" style="display: none" data-aos="fade-up" data-aos-anchor="#examples"
+        data-aos-delay="600">
+        <div class="code-header">
+          <span class="code-title">custom_actions.py</span>
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code class="language-python">"""Custom Actions Example"""
+from zuma import ZumaWorkflow, ZumaActionStep, ZumaRunner
+from typing import Dict, Any
+import asyncio
+
+class CustomRetryStep(ZumaActionStep):
+    def __init__(self, name: str, max_retries: int = 3):
+        super().__init__(
+            name=name,
+            retries=max_retries,
+            retry_delay=1.0
+        )
+        self.attempt = 0
+    
+    async def before_retry(self, error: Exception) -> None:
+        self.attempt += 1
+        print(f"Retry attempt {self.attempt} after error: {error}")
+    
+    async def after_retry(self, result: Dict[str, Any]) -> None:
+        print(f"Retry succeeded on attempt {self.attempt}")
+        
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        # Custom retry logic
+        if self.attempt < 2:  # Succeed on third try
+            raise Exception("Simulated failure")
+        return {"status": "success"}
+
+async def run_custom_workflow():
+    workflow = ZumaWorkflow(
+        "Custom Actions Workflow",
+        steps=[CustomRetryStep("Custom Retry")]
+    )
+
+    runner = ZumaRunner()
+    result = await runner.run_workflow(workflow)
+    runner.print_execution_summary(result)
+    return result
+
+if __name__ == "__main__":
+    asyncio.run(run_custom_workflow())</code></pre>
+      </div>
+
+      <div id="example-visualization" class="hero-code" style="display: none" data-aos="fade-up"
+        data-aos-anchor="#examples" data-aos-delay="600">
+        <div class="code-header">
+          <span class="code-title">workflow_visualization.py</span>
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code class="language-python">"""Workflow Visualization Example"""
+from zuma import ZumaWorkflow, ZumaActionStep, ZumaRunner, ZumaExecutionError
+from typing import Dict, Any
+import asyncio
+import random
+
+class UnreliableAPIStep(ZumaActionStep):
+    def __init__(self, name: str):
+        super().__init__(
+            name=name,
+            retries=3,  # Try up to 3 times
+            retry_delay=1.0  # Wait 1 second between retries
+        )
+
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        # Simulated API call that might fail
+        if random.random() < 0.7:  # 70% chance of failure
+            raise ZumaExecutionError("API request failed")
+        return {"api_response": "success"}
+
+class DataProcessingStep(ZumaActionStep):
+    async def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        api_response = context.get("api_response")
+        print(f"[{self.name}] Processing response: {api_response}")
+        await asyncio.sleep(0.5)  # Simulate processing
+        return {"processed_data": f"processed_{api_response}"}
+
+async def run_visualization_example():
+    # Create a workflow with multiple steps to demonstrate visualization
+    workflow = ZumaWorkflow(
+        "Visualization Demo",
+        steps=[
+            UnreliableAPIStep("API Call"),
+            DataProcessingStep("Process Data")
+        ]
+    )
+
+    runner = ZumaRunner()
+    # Generate visualization diagram
+    result = await runner.run_workflow(
+        workflow,
+        generate_diagram=True,
+        diagram_output="workflow_diagram"
+    )
+    
+    # The diagram will be generated as a Mermaid flowchart
+    # showing the workflow structure, retries, and error paths
+    return result
+
+if __name__ == "__main__":
+    asyncio.run(run_visualization_example())</code></pre>
+      </div>
+    </section>
+
+
+  </div>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    // Initialize AOS with updated settings
+    AOS.init({
+      duration: 600,
+      offset: 100,
+      once: true,
+      easing: "ease-out-cubic",
+      anchorPlacement: "top-bottom",
+      disable: function () {
+        return window.innerWidth < 768;  // Disable on mobile
+      }
+    });
+
+    // Scroll to top function
+    function scrollToTop(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+
+    // Copy code functionality
+    function copyCode(button) {
+      const codeBlock = button.closest(".hero-code").querySelector("code");
+      const text = codeBlock.textContent;
+
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          // Visual feedback
+          button.textContent = "Copied!";
+          button.classList.add("copied");
+
+          // Reset after 2 seconds
+          setTimeout(() => {
+            button.textContent = "Copy";
+            button.classList.remove("copied");
+          }, 2000);
+        })
+        .catch((err) => {
+          console.error("Failed to copy:", err);
+          button.textContent = "Failed to copy";
+          setTimeout(() => {
+            button.textContent = "Copy";
+          }, 2000);
+        });
+    }
+
+    // Example tabs with smooth reveal
+    function showExample(type) {
+      // Hide all examples
+      const examples = [
+        'simple',
+        'parallel',
+        'conditional',
+        'error',
+        'retry',
+        'composition',
+        'dynamic',
+        'custom',
+        'visualization'
+      ];
+
+      examples.forEach(example => {
+        const el = document.getElementById(`example-${example}`);
+        if (el) {
+          el.style.display = 'none';
+          el.setAttribute('data-aos-delay', '600');
+        }
+      });
+
+      // Show selected example
+      const selectedExample = document.getElementById(`example-${type}`);
+      if (selectedExample) {
+        selectedExample.style.display = 'block';
+      }
+
+      // Refresh AOS for the newly displayed element
+      setTimeout(() => {
+        AOS.refresh();
+      }, 10);
+
+      // Update active tab
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+    }
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      });
+    });
+
+    // Waves animation
+    let scene, camera, renderer, ribbon;
+    const container = document.querySelector("#waves");
+
+    const init = () => {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+      camera.position.z = 2;
+
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        canvas: container.querySelector('canvas') || document.createElement('canvas')
+      });
+
+      if (!container.querySelector('canvas')) {
+        container.appendChild(renderer.domElement);
+      }
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      ribbon = new THREE.Mesh(
+        new THREE.PlaneGeometry(1, 1, 128, 128),
+        new THREE.ShaderMaterial({
+          uniforms: {
+            time: { value: 1.0 },
+          },
+          vertexShader: `
+              varying vec3 vEC;
+              uniform float time;
+
+              float iqhash(float n) {
+                return fract(sin(n) * 43758.5453);
+              }
+
+              float noise(vec3 x) {
+                vec3 p = floor(x);
+                vec3 f = fract(x);
+                f = f * f * (3.0 - 2.0 * f);
+                float n = p.x + p.y * 57.0 + 113.0 * p.z;
+                return mix(mix(mix(iqhash(n), iqhash(n + 1.0), f.x),
+                           mix(iqhash(n + 57.0), iqhash(n + 58.0), f.x), f.y),
+                           mix(mix(iqhash(n + 113.0), iqhash(n + 114.0), f.x),
+                           mix(iqhash(n + 170.0), iqhash(n + 171.0), f.x), f.y), f.z);
+              }
+
+              float xmb_noise2(vec3 x) {
+                return cos(x.z * 4.0) * cos(x.z + time / 10.0 + x.x);
+              }
+
+              void main() {
+                vec4 pos = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                vec3 v = vec3(pos.x, 0.0, pos.y);
+                vec3 v2 = v;
+                vec3 v3 = v;
+
+                v.y = xmb_noise2(v2) / 8.0;
+
+                v3.x -= time / 5.0;
+                v3.x /= 4.0;
+
+                v3.z -= time / 10.0;
+                v3.y -= time / 100.0;
+
+                v.z -= noise(v3 * 7.0) / 15.0;
+                v.y -= noise(v3 * 7.0) / 15.0 + cos(v.x * 2.0 - time / 2.0) / 5.0 - 0.3;
+
+                vEC = v;
+                gl_Position = vec4(v, 1.0);
+              }
+            `,
+          fragmentShader: `
+              uniform float time;
+              varying vec3 vEC;
+
+              void main() {
+                const vec3 up = vec3(0.0, 0.0, 1.0);
+                vec3 x = dFdx(vEC);
+                vec3 y = dFdy(vEC);
+                vec3 normal = normalize(cross(x, y));
+                float c = 1.0 - dot(normal, up);
+                c = (1.0 - cos(c * c)) / 3.0;
+                gl_FragColor = vec4(1.0, 1.0, 1.0, c * 1.5);
+              }
+            `,
+          extensions: {
+            derivatives: true,
+            fragDepth: false,
+            drawBuffers: false,
+            shaderTextureLOD: false,
+          },
+          side: THREE.DoubleSide,
+          transparent: true,
+          depthTest: false,
+        })
+      );
+
+      scene.add(ribbon);
+      resize();
+      window.addEventListener("resize", resize);
+    };
+
+    const resize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+
+      ribbon.scale.set(camera.aspect * 1.55, 0.75, 1);
+    };
+
+    const animate = () => {
+      ribbon.material.uniforms.time.value += 0.015;  // Slightly faster animation
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    };
+
+    // Initialize waves only if Three.js is loaded
+    if (typeof THREE !== 'undefined') {
+      init();
+      animate();
+    } else {
+      console.warn('Three.js not loaded');
+    }
+
+    // Initialize syntax highlighting with custom options
+    hljs.configure({
+      languages: ["python"],
+      cssSelector: "pre code",
+    });
+    hljs.highlightAll();
+
+    // Add resize handler for AOS
+    window.addEventListener('resize', function () {
+      AOS.refresh();
+    });
+  </script>
+</body>
+
+</html>

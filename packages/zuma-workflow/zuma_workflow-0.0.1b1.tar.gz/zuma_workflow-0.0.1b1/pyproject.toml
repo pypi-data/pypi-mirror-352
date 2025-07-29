@@ -1,0 +1,96 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[project]
+authors = [{ name = "phoenixd", email = "elsecube@codejunction.dev" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = ["loguru>=0.7.3", "pydantic>=2.0.0", "typing-extensions>=4.8.0"]
+description = "A powerful, lightweight and flexible workflow management framework for Python"
+keywords = ["workflow", "pipeline", "async", "parallel", "task"]
+license = "GPL-3.0"
+name = "zuma-workflow"
+readme = "README.md"
+requires-python = ">=3.11"
+version = "0.0.1b1"
+
+[project.urls]
+Documentation = "https://gitlab.com/codejunction/zuma#readme"
+Homepage = "https://gitlab.com/codejunction/zuma"
+Issues = "https://gitlab.com/codejunction/zuma/issues"
+Repository = "https://gitlab.com/codejunction/zuma.git"
+
+[tool.hatch.build.targets.wheel]
+packages = ["zuma"]
+
+[tool.black]
+include = '\.pyi?$'
+line-length = 100
+target-version = ["py311"]
+
+[tool.isort]
+ensure_newline_before_comments = true
+force_grid_wrap = 0
+include_trailing_comma = true
+line_length = 100
+multi_line_output = 3
+profile = "black"
+use_parentheses = true
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_untyped_defs = true
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+
+[dependency-groups]
+dev = [
+  "black>=25.1.0",
+  "isort>=6.0.1",
+  "mypy>=1.16.0",
+  "pytest>=8.3.5",
+  "pytest-asyncio>=1.0.0",
+  "pytest-cov>=6.1.1",
+  "pytest-sugar>=1.0.0",
+  "taskipy>=1.14.1",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+  "-vv",
+  "-p",
+  "no:warnings",
+  "--verbose",
+  "--cov=zuma",
+  "--cov-report=term-missing",
+  "--cov-report=xml",
+  "--cov-report=html",
+  "--asyncio-mode=strict",
+  "--no-cov-on-fail",
+  "--durations=10",
+  "--showlocals",
+  "--tb=short",
+]
+asyncio_default_fixture_loop_scope = "function"
+asyncio_mode = "strict"
+log_cli = true
+log_cli_level = "INFO"
+markers = ["current: devonly"]
+python_files = ["test_*.py"]
+pythonpath = ["zuma"]
+testpaths = ["tests"]
+
+[tool.taskipy.tasks]
+coverage = { cmd = "pytest --cov=src --cov=src --cov-report=html --cov-report=xml", help = "run tests with coverage" }
+lint = { cmd = "pycln . && isort . && black .", help = "lint code" }
+test = { cmd = "pytest", help = "run tests" }
+test-current = { cmd = "pytest -m current", help = "run current marked tests" }
