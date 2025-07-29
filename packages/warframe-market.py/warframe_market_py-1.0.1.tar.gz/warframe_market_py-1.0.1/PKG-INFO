@@ -1,0 +1,44 @@
+Metadata-Version: 2.4
+Name: warframe-market.py
+Version: 1.0.1
+Summary: An asynchronous Python wrapper for Warframe.Market API
+Project-URL: Homepage, https://github.com/aldi-f/warframe-market.py
+Author: aldi-f
+License-File: LICENSE
+Requires-Python: >=3.9
+Requires-Dist: aiohttp==3.12.6
+Requires-Dist: msgspec==0.19.0
+Description-Content-Type: text/markdown
+
+# warframe-market.py
+> **Warning**: This project is still in development and is not yet ready for production use.
+
+Warframe Market API for Python
+
+# Installation
+```bash
+pip install warframe-market.py
+```
+
+# Usage
+```python
+import asyncio
+from warframe_market.client import WarframeMarketClient
+from warframe_market.api.item import Items, Item
+
+async def main():
+    async with WarframeMarketClient() as client:
+        # Get all items in English
+        items = await client.get(Items)
+        for item in items.data:
+            print(item.i18n["en"].name)
+        
+        # Get a single item 
+        item = await client.get(Item,"nova_prime_set")
+        print(item)
+
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.close()
+```
