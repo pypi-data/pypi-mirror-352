@@ -1,0 +1,38 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.kyhsgeekcode.minecraftenv.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AbstractBlockCollisionDetectorMixin",
+    "DisableRegionalComplianceMixin",
+    "EntityCollisionDetectorMixin",
+    "RenderMixin",
+    "SaveWorldMixin",
+    "ServerPlayNetworkHandlerDisableSpamChecker"
+  ],
+  "client": [
+    "ChatVisibleMessageAccessor",
+    "ClientCommonNetworkHandlerClientAccessor",
+    "ClientEntityRenderDispatcherAccessor",
+    "ClientIsWindowFocusedMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "ClientRenderInvoker",
+    "ClientWorldMixin",
+    "GameRendererDepthCaptureMixin",
+    "GammaMixin",
+    "InputUtilMixin",
+    "MouseXYAccessor",
+    "RenderLayerTrianglesMixin",
+    "RenderSystemPollEventsInvoker",
+    "RenderTickCounterAccessor",
+    "TickSpeedMixin",
+    "WindowOffScreenMixin",
+    "WindowSizeAccessor",
+    "WorldRendererCallEntityRenderMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
