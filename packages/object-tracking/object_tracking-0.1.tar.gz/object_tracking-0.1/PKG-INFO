@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: object_tracking
+Version: 0.1
+Summary: A simple tracking package for assigning unique IDs to detected objects.
+Home-page: https://www.linkedin.com/in/kuntalpal?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
+Author: Kuntal Pal
+Author-email: kuntal.pal7550@gmail.com
+License: MIT
+Description: 
+        ## Usage
+        
+        Import the package and start tracking objects dynamically.
+        
+        ```python
+        from tracking import ObjectTracker
+        
+        # Initialize tracker
+        tracker = ObjectTracker()
+        
+        # Register object classes
+        tracker.register_class("car")
+        tracker.register_class("bus")
+        
+        # Get unique IDs
+        print(tracker.get_unique_id("car"))  # Output: car_1
+        print(tracker.get_unique_id("bus"))  # Output: bus_1
+        print(tracker.get_unique_id("car"))  # Output: car_2
+        
+        # Reset tracking for a specific class
+        tracker.reset_class_counter("car")
+        
+        # Reset all tracking counters
+        tracker.reset_all_counters()
+        
+        # View current counters
+        print(tracker.get_all_counters())  # Output: {'car': 0, 'bus': 0}
+        
+Keywords: object tracking unique ID assignment
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Description-Content-Type: text/markdown
