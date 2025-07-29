@@ -1,0 +1,48 @@
+Metadata-Version: 2.4
+Name: membrain-stats
+Version: 0.0.2
+Summary: membrane protein localization for cryo-ET
+Project-URL: homepage, https://github.com/teamtomo/membrain-seg
+Project-URL: repository, https://github.com/teamtomo/membrain-seg
+Author-email: Lorenz Lamm <lorenz.lamm@helmholtz-munich.de>
+License: BSD 3-Clause License
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Typing :: Typed
+Requires-Python: >=3.8
+Requires-Dist: imageio
+Requires-Dist: potpourri3d
+Requires-Dist: scikit-image
+Requires-Dist: scikit-learn
+Requires-Dist: scipy
+Requires-Dist: typer[all]
+Provides-Extra: dev
+Requires-Dist: black; extra == 'dev'
+Requires-Dist: ipython; extra == 'dev'
+Requires-Dist: mkdocs-material; extra == 'dev'
+Requires-Dist: pdbpp; extra == 'dev'
+Requires-Dist: pre-commit; extra == 'dev'
+Requires-Dist: pytest; extra == 'dev'
+Requires-Dist: pytest-cov; extra == 'dev'
+Requires-Dist: rich; extra == 'dev'
+Requires-Dist: ruff; extra == 'dev'
+Provides-Extra: test
+Requires-Dist: pytest-cov; extra == 'test'
+Requires-Dist: pytest>=6.0; extra == 'test'
+Description-Content-Type: text/markdown
+
+# MemBrain-Stats
+
+Membrain-Stats<sup>1</sup> is a Python project developed by the [CellArchLab](https://www.cellarchlab.com/) for computing membrane protein statistics in 3D for cryo-electron tomography (cryo-ET). 
+
+## Publication: 
+Membrain-stats's functionalities will be described on more detail in our [preprint](https://www.biorxiv.org/content/10.1101/2024.01.05.574336v1).
+
+
+## Usage:
+For more details about how to use MemBrain-stats, refer to our [User Manual](insert_ljnk)
