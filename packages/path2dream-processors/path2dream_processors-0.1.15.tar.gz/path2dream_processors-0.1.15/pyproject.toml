@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=67.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "path2dream_processors"
+version = "0.1.15"
+description = "A template for a private Python package"
+authors = [
+    {name = "Dmitrii Rashchenko", email = "dimitree54@gmail.com"},
+]
+readme = "README.md"
+requires-python = ">=3.9,<4.0"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License", # Or your preferred license
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    # Add your package dependencies here
+    # e.g., "requests>=2.20"
+    "openai>=1.0.0",
+    "python-dotenv>=1.0.0",
+    "llama-parse>=0.4.0",
+    "nest-asyncio>=1.5.0",
+    "aiohttp>=3.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "setuptools>=67.8.0",
+    "bump2version>=1.0.1",
+    "ruff",
+    "twine",
+    "wheel",
+    "pytest>=7.4.0",
+    "pytest-xdist>=3.3.1",
+    "pytest-asyncio>=0.21.0",
+    "aioresponses>=0.7.0",
+    "build",
+]
+
+[project.urls]
+Homepage = "https://github.com/dimitree54/path2dream_processors"
+Repository = "https://github.com/dimitree54/path2dream_processors"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = {find = {where = ["src"]}}
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src", ".",
+]
+
+[tool.ruff]
+line-length = 120
+
+[dependency-groups]
+dev = [
+    "aioresponses>=0.7.8",
+    "pytest-asyncio>=1.0.0",
+    "ruff>=0.11.9",
+]
