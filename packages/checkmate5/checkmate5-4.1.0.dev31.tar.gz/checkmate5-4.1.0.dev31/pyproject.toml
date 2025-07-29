@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools", "setuptools_scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "checkmate5"
+authors = [
+    { name = "Andreas Dewes" }
+]
+description = "A meta-code checker written in Python."
+readme = "README.md"
+license = { text = "AGPL-3.0" }
+
+
+classifiers = [
+  "Intended Audience :: Developers",
+  "Programming Language :: Python",
+  "Topic :: Software Development :: Quality Assurance"
+]
+dependencies = [
+  "blitzdb5",
+  "pyyaml",
+  "sqlalchemy"
+]
+
+dynamic = ["version"]
+[tool.setuptools_scm]
+local_scheme = "no-local-version"  # Removes the local version part (e.g., +g748e57a)
+version_scheme = "release-branch-semver"  # Ensures only the clean version is used
+
+
+
+
+[project.scripts]
+checkmate = "checkmate.scripts.manage:main"
+
