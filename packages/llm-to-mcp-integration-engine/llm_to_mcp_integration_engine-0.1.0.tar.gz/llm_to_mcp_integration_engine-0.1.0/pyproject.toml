@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm_to_mcp_integration_engine"
+version = "0.1.0"
+description = "A robust integration engine that enhances communication between LLMs and MCP servers/functions with validation, retries, and safety."
+readme = {file = "README.md", content-type = "text/markdown"}
+authors = [
+  {name = "Michael Alamin", email = "michaelalamin9@gmail.com"}
+]
+maintainers = [
+  {name = "Michael Alamin", email = "michaelalamin9@gmail.com"}
+]
+license = {text = "Not open source"}
+dependencies = [
+  "typer>=0.9",
+  "rich>=13.0.0"
+]
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: Other/Proprietary License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: User Interfaces",
+  "Typing :: Typed"
+]
+
+[project.optional-dependencies]
+dev = [
+  "coverage",
+  "pytest",
+  "mypy",
+  "ruff",
+  "build",
+  "twine"
+]
+
+[project.urls]
+homepage = "https://github.com/Million19/llm_to_mcp_integration_engine"
+bugs = "https://github.com/Million19/llm_to_mcp_integration_engine/issues"
+changelog = "https://github.com/Million19/llm_to_mcp_integration_engine/blob/master/changelog.md"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"*" = ["*.*"]
+
+[tool.mypy]
+files = "."
+strict = true
+warn_unreachable = true
+warn_no_return = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+allow_untyped_defs = true
+disable_error_code = "attr-defined"
