@@ -1,0 +1,190 @@
+Metadata-Version: 2.4
+Name: synthera
+Version: 0.2.3
+Summary: Python client for Synthera AI API
+Author: Synthera AI
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: numpy>=1.26.4
+Requires-Dist: pandas>=2.1.2
+Requires-Dist: pyarrow>=15.0.2
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: tenacity>=9.0.0
+Description-Content-Type: text/markdown
+
+# Synthera AI SDK
+
+This provides a Python SDK for accessing the Synthera AI API.
+
+## Installation
+
+```bash
+pip install synthera
+```
+
+## API Key
+You are required to use an API key to access the Synthera AI API.
+
+For ease of use, set as an environment variable: `SYNTHERA_API_KEY`.
+
+For example:
+```
+export SYNTHERA_API_KEY=<api_key>
+```
+
+Or you can pass to the client.
+
+## Getting Started
+
+Import the Synthera client:
+```python
+from synthera import SyntheraClient
+```
+
+Create a client:
+```python
+client = SyntheraClient()
+```
+
+Check the connection works:
+```python
+client.healthy()
+
+`True`
+```
+
+For more advanced connection options, pass parameters to the client:
+```python
+SyntheraClient(api_key: str, host: str, port: int, timeout_secs: int)
+```
+
+## Fixed Income
+
+To run Fixed Income Yield Curve simulations.
+
+### View Available Models
+
+To view the model labels:
+
+```python
+client.fixed_income.model_labels()
+```
+
+Example outputs
+```
+['YieldGAN-v137-g3',
+ 'YieldGAN-v136-g3',
+ 'YieldGAN-v135-g10',
+ 'YieldGAN-v134-g3',
+ 'YieldGAN-v133-g3']
+```
+
+| Name | Description |
+|------|-------------|
+| YieldGAN | Model name |
+| v | Model version number (e.g., v135, v137) |
+| g | Data universe version (e.g., g3, g10) |
+
+### View Model Metadata
+
+To view the metadata for a model label:
+
+```python
+client.fixed_income.model_metadata(model_label=<model label>)
+```
+
+Example output
+```
+ModelMetadata(model_label='YieldGAN-v137-g3', universe='g3_par_curves', curve_labels=['USA', 'GBR', 'DEU'], start_date_training='2000-01-01', end_date_training='2025-01-01', simulation_steps=15, conditional_steps=15, tenors=[0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0, 25.0, 30.0])
+```
+
+| Name | Description |
+|------|-------------|
+| model_label | Unique identifier for the model version and universe |
+| universe | Data universe used for training (e.g., g3_par_curves) |
+| curve_labels | List of yield curve identifiers included in the model |
+| start_date_training | Start date of the training data period (YYYY-MM-DD) |
+| end_date_training | End date of the training data period (YYYY-MM-DD) |
+| simulation_steps | Number of forward simulation steps |
+| conditional_steps | Number of conditional simulation steps |
+| tenors | List of tenors (in years) for which yields are simulated |
+
+
+### Run Simulations
+
+Prepare input parameters.
+
+| Parameter | Type | Description | Values |
+|-----------|------|-------------|---------|
+| model_label | string | Version of the model to use | Valid model version (V) and universe (U): "YieldGAN-vV-U" |
+| curve_labels | list[string] | List of yield curves labels to simulate, using their unique identifiers | List of curve names (e.g., ["USA", "UK", "GER"]) |
+| no_of_days | integer | Number of days to simulate forward from the reference date | > 0 (e.g., 3, 30, 60, 120) |
+| no_of_samples | integer | Number of simulation paths to generate | > 0 (e.g., 100, 1024, 10000) |
+| reference_date | string | Reference date for the simulation (in the past) | YYYY-MM-DD format |
+| return_conditional | boolean | Whether to return conditional simulation results | Optional; defaults to false |
+
+For example:
+```python
+params = {
+    "model_label": "YieldGAN-v41-z0",
+    "curve_labels": [
+        "USA",
+        "UK",
+    ],
+    "no_of_days": 60,
+    "no_of_samples": 1024,
+    "reference_date": "2010-01-01",
+    "return_conditional": False
+}
+```
+
+To run simulations directly:
+
+```python
+results = client.fixed_income.simulation_past_date(params=params)
+```
+
+To view yield curves labels:
+```python
+results.names
+```
+
+To view yield curve dataframe column names:
+```python
+results.column_names
+```
+
+To view a specific yield curve dataframes, e.g. for `USA`:
+```python
+results.dataframes["USA"]
+```
+
+To view all yield curves in a single `numpy` ndarray (order is same as `names`):
+```python
+results.ndarray
+```
+
+To view simulation request metadata:
+```python
+results.metadata
+```
+
+Alternatively, import the fixed income class:
+```python
+from synthera import FixedIncome
+```
+
+Pass the client:
+```python
+fixed_income = FixedIncome(client)
+```
+
+Then to run simulations:
+```python
+results = fixed_income.simulation_past_date(params=params)
+```
