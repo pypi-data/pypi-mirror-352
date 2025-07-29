@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61", "setuptools-scm",'requests','pyyaml']
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "frostfire"
+description = "A small library of helper functions"
+readme = "README.md"
+requires-python = ">=3.7"
+dynamic = ["version"]  # 👈 this line tells setuptools to get version dynamically
+
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "no-local-version"
+
