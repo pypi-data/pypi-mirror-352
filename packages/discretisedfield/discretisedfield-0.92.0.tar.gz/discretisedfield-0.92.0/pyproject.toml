@@ -1,0 +1,143 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "discretisedfield"
+version = "0.92.0"
+description = "Python package for the analysis and visualisation of finite-difference fields."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+
+authors = [
+    {name = "Marijan Beg"},
+    {name = "Martin Lang"},
+    {name = "Samuel Holt"},
+    {name = "Swapneel Amit Pathak"},
+    {name = "Ryan A. Pepper"},
+    {name = "Hans Fangohr"}
+]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Education",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: Unix",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Visualization"
+]
+
+dependencies = [
+    "h5py>=3.1",
+    "holoviews",
+    "jinja2",
+    "k3d>=2.11",
+    "matplotlib>=3.3, !=3.7.2",
+    "pandas>=1.1",
+    "scipy>=1.6",
+    "sympy>=1.10.1",
+    "ubermagutil>=0.64.0",
+    "vtk>=9.1",
+    "xarray",
+    "pyvista[all]>=0.42.3"
+]
+
+[project.optional-dependencies]
+dev = [
+    "build",
+    "invoke",
+    "nbval",
+    "pre-commit",
+    "pytest-cov",
+    "twine",
+    "tomli; python_version < '3.11'",
+]
+
+[project.urls]
+homepage = "https://ubermag.github.io"
+documentation = "https://ubermag.github.io/documentation/discretisedfield"
+repository = "https://github.com/ubermag/discretisedfield"
+
+[project.scripts]
+ovf2vtk = "discretisedfield.io.ovf2vtk:ovf2vtk"
+
+
+[tool.coverage.run]
+omit = ["discretisedfield/tests/*"]
+
+[tool.ruff.lint]
+ignore-init-module-imports = true  # do not remove unused imports in __init__ and warn instead
+select = [
+    "B",   # flake8-bugbear
+    "E",   # pycodestyle
+    "F",   # Pyflakes
+    "I",   # isort
+    "SIM", # flake8-simplify
+    "UP",  # pyupgrade
+]
+ignore = [
+    # conflict with other rules
+    "D203",  # one-blank-line-before-class (conflicts with D204)
+    "D212",  # multi-line-summary-first-line (conflicts with D213)
+    # conflict with formatter
+    "D206",  # indent-with-spaces
+    "D300",  # triple-single-quotes
+    "E111",  # indentation-with-invalid-multiple
+    "E114",  # indentation-with-invalid-multiple-comment
+    "E117",  # over-indented
+    # conflict with Python 3.6 compatibility
+    "UP022", # replace-stdout-stderr
+]
+
+[tool.ruff.lint.isort]
+known-local-folder = ["discretisedfield"]
+
+[tool.ruff.lint.per-file-ignores]
+"*.ipynb" = [
+    "B018",  # "Found useless expression. Either assign it to a variable or remove it."; false positives when using implicit __repr__ in the notebook
+    "E501",  # line too long
+    "F811",  # 'redefined-while-unused'; many false positives in notebooks because ipywidgets decorated functions are not recognised
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
+    "ignore:((.|\n)*)Sentinel is not a public part of the traitlets API((.|\n)*)",  # dependency of k3d
+]
+markers = [
+    "pyvista",
+]
+
+[tool.setuptools.packages.find]
+include = ["discretisedfield*"]
+
+# to define additional information we use a custom table
+# see: https://www.python.org/dev/peps/pep-0518/#tool-table
+[tool.ubermag]
+doi = "10.5281/zenodo.3539461"
+copyright_holder = "Marijan Beg and Hans Fangohr"
+contributors = [
+    "Thomas Kluyver",
+    "Sergii Mamedov",
+    "Natalie Downing",
+    "Min RK",
+    "Rebecca Carey"
+]
+about = """
+- definition of finite-difference regions, meshes, lines, and fields,
+
+- analysis of finite-difference fields,
+
+- visualisation using `matplotlib` and `k3d`, and
+
+- manipulation of different file types (OVF, VTK, and HDF5).
+
+"""
