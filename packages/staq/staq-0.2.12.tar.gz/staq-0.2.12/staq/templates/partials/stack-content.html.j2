@@ -1,0 +1,37 @@
+<div class="stack">
+        {% for frame in stack.frames|reverse %}
+        <div class="{% if frame.function %}function-frame{% else %}null-frame{% endif %} {% if frame.color %}  {{frame.color}} {% endif %}" {% if frame.color %} style="border-color: {{ frame.color }};"{% endif %}>
+            {% if frame.name %}
+            <div class="frame-label">{{ frame.name }}</div>
+            {% endif %}
+            {% for cell in frame.cells|reverse %}
+            <div class="stack-cell {% if cell.color %}  {{frame.color}} {% endif %}" {% if cell.color %}  style="border-color: {{ cell.color }};" {% endif %}>
+                <div class="cell-label">{{ cell.label|e }} {%if cell.size > 1 %}[{{cell.size * (stack.bits //8)}}] {% endif %}</div>
+                <div class="stack-word-container">
+                    {% for word in cell.words %}
+                    <div class="stack-word {% if word.value == None %} null {% if not loop.first and loop.previtem.value == None and not loop.last %} hidden {% endif %}{% endif %}">
+                        
+                        {% if stack.pointer == word.address%} <div class=pointer>  &gt;&gt;&gt; </div>{% endif %}
+                        {% if showAddress %} <div class="address"> {{ '%0x' % word.address }}</div> {% endif %}
+                        {% if word.value != None %}
+                            <div class="value">{{ word.value|e }}</div>
+                        {% else %}
+                            <div class="value">&nbsp;</div>
+                        {% endif %}
+                        {% if word.address in stack.argMarks %} 
+                        <div class="arg-mark"> {{stack.argMarks[word.address]}} </div>
+                        {% endif %}
+                        {% if word.note %}<div class="word-note {{word.noteColor}}">{{word.note}}</div> {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% if showAddress %}
+        <div class="end-of-stack">
+            <div class="address">{{ '%0x' % stack.baseAddress}}</div>
+        </div>
+        {% endif %}
+    </div>
