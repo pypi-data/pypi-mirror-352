@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    assignees:
+      - pylakey
+    directory: "/"
+    target-branch: main
+    schedule:
+      interval: "daily"
+    labels:
+      - "pip"
+      - "dependencies"
