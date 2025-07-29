@@ -1,0 +1,9 @@
+include README.md
+include requirements.txt
+include main.py
+
+# Include only this model
+include galaxy_object_detection_core/models/yolov8s-world.pt
+
+# Exclude everything else
+global-exclude galaxy_object_detection_core/models/*.pt
