@@ -1,0 +1,91 @@
+Metadata-Version: 2.4
+Name: scenext-mcp
+Version: 1.1.3
+Summary: Scenext MCP Server - AI视频生成服务的MCP服务器
+Author-email: Scenext <support@lynkframe.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/typing233/scenext-mcp
+Project-URL: Repository, https://github.com/typing233/scenext-mcp
+Project-URL: Documentation, https://github.com/typing233/scenext-mcp
+Project-URL: Bug Reports, https://github.com/typing233/scenext-mcp/issues
+Keywords: mcp,model-context-protocol,ai,video,generation,scenext
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Internet :: WWW/HTTP :: HTTP Servers
+Classifier: Topic :: Multimedia :: Video
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: mcp[cli]>=1.9.2
+Requires-Dist: aiohttp>=3.12.6
+Requires-Dist: python-dotenv>=1.0.0
+Dynamic: license-file
+
+# Scenext MCP Server
+
+一个集成 Scenext AI 视频生成平台的 MCP 服务器，允许通过模型上下文协议生成教学视频。
+
+## 安装
+
+```bash
+pip install scenext-mcp
+```
+
+## 配置
+
+在 Claude Desktop 的配置文件中添加：
+
+```json
+{
+  "mcpServers": {
+    "scenext": {
+      "command": "uvx",
+      "args": ["scenext-mcp"],
+      "env": {
+        "SCENEXT_API_KEY": "your_api_key_here"
+      }
+    }
+  }
+}
+```
+
+## 功能
+
+- `gen_video` - 生成教学视频
+- `query_video_status` - 查询视频生成状态  
+
+## 开发
+
+```bash
+# 克隆仓库
+git clone https://github.com/your-username/scenext-mcp.git
+cd scenext-mcp
+
+# 安装依赖
+pip install -e .
+
+# 运行测试
+python tests/test_basic.py
+```
+
+## 发布新版本
+
+1. 编辑 `scenext_mcp/_version.py` 中的版本号
+2. 提交更改并创建标签：
+   ```bash
+   git add .
+   git commit -m "Release version x.x.x"
+   git tag vx.x.x
+   git push origin main
+   git push origin vx.x.x
+   ```
+3. GitHub Actions 会自动发布到 PyPI
+
+## 许可证
+
+MIT License
