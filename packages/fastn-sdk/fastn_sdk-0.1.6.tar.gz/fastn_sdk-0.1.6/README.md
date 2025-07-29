@@ -1,0 +1,237 @@
+# Fastn SDK for Python
+
+[![PyPI version](https://img.shields.io/pypi/v/fastn-sdk.svg)](https://pypi.org/project/fastn-sdk/)
+[![Python versions](https://img.shields.io/pypi/pyversions/fastn-sdk.svg)](https://pypi.org/project/fastn-sdk/)
+[![License](https://img.shields.io/pypi/l/fastn-sdk.svg)](https://github.com/fastnai/fastn-python-sdk/blob/main/LICENSE)
+
+The official Python SDK for the Fastn Automation Platform, providing a seamless interface for leveraging AI to automate tasks across various integrated services.
+
+## Installation
+
+```bash
+pip install fastn-sdk        # Latest version (0.1.6)
+pip install fastn-sdk==0.1.6  # Specific version
+```
+
+## Quick Start
+
+```python
+import os
+from fastn import FastnClient
+
+async def main():
+    # Initialize with your API credentials
+    client = FastnClient(
+        api_key=os.environ.get("FASTN_API_KEY"),
+        space_id=os.environ.get("FASTN_SPACE_ID")
+    )
+    
+    # Execute an action with a natural language prompt
+    try:
+        response = await client.execute_action(
+            prompt="Send a Slack message to #general saying Hello from Fastn SDK!",
+            session_id="user_session_123"  # Optional: For conversation context
+        )
+        print(f"Success: {response}")
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(main())
+```
+
+## Authentication Methods
+
+Fastn supports two authentication methods:
+
+### 1. Auth Token Authentication (For Multi-tenant Access)
+```python
+client = FastnClient(
+    api_key=None,  # Not required when using auth token
+    space_id="your_space_id",
+    tenant_id="your_tenant_id",  # Required when using auth token
+    auth_token="your_auth_token"  # JWT token for tenant authentication
+)
+```
+
+### 2. API Key Authentication (Standard)
+```python
+client = FastnClient(
+    api_key="your_api_key",
+    space_id="your_space_id"
+    # Note: tenant_id should NOT be used with API key authentication
+)
+```
+
+## Features
+
+- **Multiple Authentication Methods**: Support for both API key and Auth Token authentication
+- **Natural Language Interface**: Use plain English to describe your automation tasks
+- **Multiple Service Integration**: Access Slack, Google Calendar, Gmail, HubSpot, and more from a single API
+- **Session Management**: Maintain context across multiple API calls
+- **Comprehensive Error Handling**: Detailed error information and recovery guidance
+- **Debug Mode**: Enable detailed logging for development and troubleshooting
+
+## Authentication
+
+Obtain your API credentials (API key and space ID) from your Fastn account dashboard. For tenant-specific access, use the Auth Token method with a tenant ID. Store these securely and never commit them to version control.
+
+## Usage Examples
+
+### Multi-Tenant Example with Auth Token
+
+```python
+from fastn import FastnClient
+
+# For multi-tenant environments using Auth Token
+client = FastnClient(
+    api_key=None,  # Not needed with auth token
+    space_id="your_space_id",
+    tenant_id="your_tenant_id",  # Required with auth token
+    auth_token="your_auth_token"
+)
+
+async def send_message_multi_tenant():
+    response = await client.execute_action(
+        prompt="Send a Slack message to #general saying Hello from Fastn SDK!",
+        session_id="user_session_123"
+    )
+    return response
+```
+
+### Standard Example with API Key
+
+```python
+from fastn import FastnClient
+
+# Standard authentication with API Key
+client = FastnClient(
+    api_key="your_api_key", 
+    space_id="your_space_id"
+    # Do NOT include tenant_id with API key authentication
+)
+
+async def send_message_standard():
+    response = await client.execute_action(
+        prompt="Send a Slack message to #general saying Hello from Fastn SDK!",
+        session_id="user_session_456"
+    )
+    return response
+```
+
+### Get Available Tools
+
+```python
+from fastn import FastnClient
+
+client = FastnClient(
+    api_key="your_api_key", 
+    space_id="your_space_id"
+)
+
+async def list_tools():
+    # Fetch all available tools in your Fastn space
+    tools = await client.get_tools(debug=True)
+    
+    # Print tool information
+    for tool in tools:
+        print(f"Tool: {tool.get('function', {}).get('name')}")
+        print(f"Description: {tool.get('function', {}).get('description')}")
+        print("---")
+    
+    return tools
+```
+
+### Execute Tool Example
+
+```python
+from fastn import FastnClient
+
+client = FastnClient(
+    api_key="your_api_key", 
+    space_id="your_space_id"
+)
+
+async def send_slack_message():
+    # Execute a specific tool with required parameters
+    response = await client.execute_tool(
+        action_id="your_action_id",  # Use the action_id from get_tools() response
+        parameters={
+            "body": {
+                "text": "Hello everyone! Hope you're all having a great day! 😊",
+                "channel": "#general"
+            }
+        }
+    )
+    return response
+```
+
+## Error Handling
+
+The SDK includes a dedicated `FastnAPIError` exception with detailed information about API errors:
+
+```python
+from fastn import FastnClient
+from fastn.sdk import FastnAPIError
+
+client = FastnClient(
+    api_key="your_api_key",
+    space_id="your_space_id"
+)
+
+async def handle_errors():
+    try:
+        response = await client.execute_action(prompt="Your prompt here")
+        return response
+    except FastnAPIError as e:
+        print(f"Status code: {e.status_code}")
+        print(f"Error message: {e}")
+        print(f"Error details: {e.error_data}")
+        
+        # Handle specific error codes
+        if e.status_code == 401:
+            print("Check your API credentials")
+        elif e.status_code == 429:
+            print("Rate limited, try again later")
+```
+
+## Supported Actions
+
+The Fastn SDK supports operations across multiple services:
+
+### Slack
+- Send messages
+- Get channels
+- Get users in a channel
+
+### Google Calendar
+- Create meetings
+- Get events
+
+### Gmail
+- Send emails
+- Get messages
+
+### HubSpot
+- Create, update, and delete contacts
+- Create and manage deals
+- Create companies
+- Add notes and engagements
+
+And many more! The flexibility of natural language prompts means you can describe virtually any action supported by integrated services.
+
+## Common Troubleshooting
+
+- **401 Unauthorized**: Verify your API key and space ID
+- **429 Too Many Requests**: You've exceeded the rate limits, try again later
+- **400 Bad Request**: The prompt may be unclear or missing key information
+- **503 Service Unavailable**: The service is temporarily unavailable
+
+## License
+
+This SDK is distributed under the MIT license. See the LICENSE file for more information.
+
+## Support
+
+For assistance, visit our [documentation](https://docs.fastn.ai) or contact [support@fastn.ai](mailto:support@fastn.ai). 
