@@ -1,0 +1,233 @@
+Metadata-Version: 2.4
+Name: versus
+Version: 0.1.4
+Summary: Package version comparison made easy.
+Author-email: Artur Barseghyan <artur.barseghyan@gmail.com>
+Maintainer-email: Artur Barseghyan <artur.barseghyan@gmail.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/barseghyanartur/versus/
+Project-URL: Issues, https://github.com/barseghyanartur/versus/issues
+Project-URL: Documentation, https://versus.readthedocs.io/
+Project-URL: Repository, https://github.com/barseghyanartur/versus/
+Project-URL: Changelog, https://versus.readthedocs.io/en/latest/changelog.html
+Keywords: package,version,comparison
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.14
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: Software Development
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Provides-Extra: all
+Requires-Dist: versus[dev,docs,test]; extra == "all"
+Provides-Extra: dev
+Requires-Dist: build; extra == "dev"
+Requires-Dist: detect-secrets; extra == "dev"
+Requires-Dist: doc8; extra == "dev"
+Requires-Dist: ipython; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pkginfo; extra == "dev"
+Requires-Dist: pydoclint; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Requires-Dist: uv; extra == "dev"
+Requires-Dist: wheel; extra == "dev"
+Provides-Extra: test
+Requires-Dist: django; extra == "test"
+Requires-Dist: fake.py; extra == "test"
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+Requires-Dist: pytest-django; extra == "test"
+Requires-Dist: pytest-codeblock; extra == "test"
+Provides-Extra: docs
+Requires-Dist: sphinx<6.0; extra == "docs"
+Requires-Dist: sphinx-autobuild; extra == "docs"
+Requires-Dist: sphinx-rtd-theme>=1.3.0; extra == "docs"
+Requires-Dist: sphinx-no-pragma; extra == "docs"
+Dynamic: license-file
+
+======
+versus
+======
+.. External references
+
+.. _Django: https://www.djangoproject.com/
+.. _Pydantic: https://docs.pydantic.dev/
+.. _sphinx-autobuild: https://github.com/sphinx-doc/sphinx-autobuild
+
+.. Internal references
+
+.. _versus: https://github.com/barseghyanartur/versus/
+.. _Read the Docs: http://versus.readthedocs.io/
+.. _Contributor guidelines: https://versus.readthedocs.io/en/latest/contributor_guidelines.html
+.. _llms.txt: https://versus.readthedocs.io/en/latest/llms.txt
+.. _Tweak your test/coverage configuration: https://versus.readthedocs.io/en/latest/test_configuration_tweaks.html
+
+Package version comparison made easy.
+
+.. image:: https://img.shields.io/pypi/v/versus.svg
+   :target: https://pypi.python.org/pypi/versus
+   :alt: PyPI Version
+
+.. image:: https://img.shields.io/pypi/pyversions/versus.svg
+    :target: https://pypi.python.org/pypi/versus/
+    :alt: Supported Python versions
+
+.. image:: https://github.com/barseghyanartur/versus/actions/workflows/test.yml/badge.svg?branch=main
+   :target: https://github.com/barseghyanartur/versus/actions
+   :alt: Build Status
+
+.. image:: https://readthedocs.org/projects/versus/badge/?version=latest
+    :target: http://versus.readthedocs.io
+    :alt: Documentation Status
+
+.. image:: https://img.shields.io/badge/docs-llms.txt-blue
+    :target: https://versus.readthedocs.io/en/latest/llms.txt
+    :alt: llms.txt - documentation for LLMs
+
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+   :target: https://github.com/barseghyanartur/versus/#License
+   :alt: MIT
+
+.. image:: https://coveralls.io/repos/github/barseghyanartur/versus/badge.svg?branch=main&service=github
+    :target: https://coveralls.io/github/barseghyanartur/versus?branch=main
+    :alt: Coverage
+
+`versus`_ is a standalone, portable, dependency-free Python module for
+retrieving and comparing installed package versions. It supports variety of
+lookups, such as ``lte``, ``lt``, ``gte``, ``gt`` and ``eq``.
+
+Prerequisites
+=============
+Python 3.9+
+
+Installation
+============
+pip
+---
+
+.. code-block:: sh
+
+    pip install versus
+
+Download and copy
+-----------------
+``versus.py`` is the sole, self-contained module of the package. It includes
+tests too. If it's more convenient to you, you could simply download the
+``versus.py`` module and include it in your repository.
+
+Since tests are included, it won't have a negative impact on your test
+coverage (you might need to `tweak your test/coverage configuration`_).
+
+Documentation
+=============
+- Documentation is available on `Read the Docs`_.
+- For guidelines on contributing check the `Contributor guidelines`_.
+
+Usage
+=====
+Comparing `Django`_ versions.
+
+.. code-block:: python
+    :name: test_get_version
+
+    from versus import get_version
+
+    django_version = get_version("django")
+    print(django_version)  # 5.2.1
+
+    django_version.gte("4.2")  # True
+    django_version.gte("5.2")  # True
+    django_version.gte("5.2.1")  # True
+    django_version.gte("5.2.2")  # False
+
+Comparing `sphinx-autobuild`_ versions:
+
+.. continue: test_get_version
+.. code-block:: python
+    :name: test_get_version_sphinx_autobuild
+
+    sphinx_autobuild_version = get_version("sphinx-autobuild")
+    print(sphinx_autobuild_version)  # 2024.10.3
+
+    sphinx_autobuild_version.gte("1.0")  # True
+    sphinx_autobuild_version.gte("2024.09")  # True
+    sphinx_autobuild_version.gte("2024.11")  # False
+    sphinx_autobuild_version.lte("2024.11")  # True
+
+Non-existent/non-installed package lookup would return ``None``:
+
+.. continue: test_get_version
+.. code-block:: python
+    :name: test_get_version_nonexistent_package
+
+    nonexistent_package = get_version("nonexistent-package")
+    print(nonexistent_package)  # None
+
+Tests
+=====
+
+Run the tests with unittest:
+
+.. code-block:: sh
+
+    python -m unittest versus
+
+Or pytest:
+
+.. code-block:: sh
+
+    pytest
+
+Writing documentation
+=====================
+
+Keep the following hierarchy.
+
+.. code-block:: text
+
+    =====
+    title
+    =====
+
+    header
+    ======
+
+    sub-header
+    ----------
+
+    sub-sub-header
+    ~~~~~~~~~~~~~~
+
+    sub-sub-sub-header
+    ^^^^^^^^^^^^^^^^^^
+
+    sub-sub-sub-sub-header
+    ++++++++++++++++++++++
+
+    sub-sub-sub-sub-sub-header
+    **************************
+
+License
+=======
+
+MIT
+
+Support
+=======
+For security issues contact me at the e-mail given in the `Author`_ section.
+
+For overall issues, go to `GitHub <https://github.com/barseghyanartur/versus/issues>`_.
+
+Author
+======
+
+Artur Barseghyan <artur.barseghyan@gmail.com>
