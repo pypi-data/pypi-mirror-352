@@ -1,0 +1,16 @@
+[project]
+name = "podman-stack"
+version = "0.1.0"
+description = "Manage your podman-compose-based services."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "podman-compose>=1.4.0",
+    "typer>=0.16.0",
+]
+
+[project.scripts]
+podman-stack = "stack:app"
+
+[tool.uv]
+package = true
