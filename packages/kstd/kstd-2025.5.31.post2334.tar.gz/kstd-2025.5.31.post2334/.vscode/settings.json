@@ -1,0 +1,61 @@
+{
+    // General editor settings
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    // Python language support
+    //
+    // Pylance (ms-python.vscode-pylance extension, only works in VSCode)
+    "python.analysis.indexing": true,
+    "python.analysis.diagnosticsSource": "Pyright",
+    "python.analysis.pyrightVersion": "node_modules/pyright/dist/pyright-langserver.js",
+    // Pyright (ms-pyright.pyright extension, or bundled with ms-python.vscode-pylance)
+    "python.analysis.autoImportCompletions": false,
+    // Python (ms-python.python extension)
+    //
+    // We are not explicitly setting `python.languageServer` because we want the value to be `None`
+    // in forks of VSCode (where language servers like `codeium.windsurfpyright` work better). We
+    // can set `python.defaultInterpreterPath` to `None` in user-level settings of Windsurf/Cursor,
+    // and rely on the default value of `Default` in vanilla VSCode - which will prefer Pylance.
+    // Workspace-level settings are preferred over user-level settings, so any explicit language
+    // server configuration here would make that workaround impossible.
+    "python.defaultInterpreterPath": ".venv/bin/python",
+    "python.envFile": "",
+    "python.terminal.activateEnvironment": false,
+    "python.testing.pytestEnabled": true,
+    // Ruff (charliermarsh.ruff extension)
+    "ruff.importStrategy": "fromEnvironment",
+    "ruff.organizeImports": true,
+    "[python]": {
+      "editor.codeActionsOnSave": {
+        "source.fixAll": "always",
+      },
+      "editor.defaultFormatter": "charliermarsh.ruff",
+      "editor.rulers": [100]
+    },
+    // TOML (tamasfe.even-better-toml extension)
+    "evenBetterToml.formatter.alignComments": false,
+    "evenBetterToml.formatter.alignEntries": false,
+    "evenBetterToml.formatter.arrayAutoCollapse": false,
+    "evenBetterToml.formatter.compactInlineTables": true,
+    "evenBetterToml.formatter.indentString": "    ",
+    "evenBetterToml.formatter.reorderKeys": true,
+    "evenBetterToml.schema.enabled": false,
+    "[toml]": {
+      "editor.defaultFormatter": "tamasfe.even-better-toml",
+    },
+    // Spellcheck
+    "cSpell.language": "en-US",
+    "cSpell.words": [
+      "FURB",
+      "kkom's",
+      "Komorowski",
+      "kstd",
+      "poethepoet",
+      "pyright",
+      "pytest",
+      "tomlsort"
+    ],
+}
