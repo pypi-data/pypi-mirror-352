@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "docstring-composer"
+version = "0.1.2"
+description = "A package to convert schema-based docstrings to different language formats"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+    {name = "Suman Saurabh", email = "ss.sumansaurabh92@gmail.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Documentation",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pydantic>=1.8.0",
+    "click>=8.0.0",
+    "jinja2>=3.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/sumansaurabh/docstring-composer"
+Issues = "https://github.com/sumansaurabh/docstring-composer/issues"
+Documentation = "https://github.com/sumansaurabh/docstring-composer#readme"
+
+[project.scripts]
+docstring-composer = "docstring_composer.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0.0",
+    "black>=21.5b2",
+    "isort>=5.9.1",
+    "flake8>=3.9.2",
+    "mypy>=0.812",
+]
+test = [
+    "pytest>=6.0.0",
+]
+
+[tool.setuptools]
+packages = ["docstring_composer"]
+include-package-data = true
+package-data = {"docstring_composer" = ["py.typed", "docstring_schema.py"]}
+
+[tool.pytest.ini_options]
+testpaths = ["docstring_composer/tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+[tool.mypy]
+python_version = "3.7"
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+strict_optional = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[tool.black]
+line-length = 88
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
