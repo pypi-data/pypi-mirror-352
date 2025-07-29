@@ -1,0 +1,4031 @@
+{
+    "0000": {
+        "bloco": "0",
+        "descr": "Abertura do Arquivo Digital e Identificação do Empresário ou da Sociedade Empresária",
+        "nivel": "0",
+        "ocorr": "1",
+        "pai": "",
+        "num_campos": 20,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “0000”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“0000”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "LECD": {
+                "ordem": 2,
+                "descr": "Texto fixo contendo “LECD”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“LECD”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DT_INI": {
+                "ordem": 3,
+                "descr": "Data inicial das informações contidas no arquivo.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_INI_MAIOR][REGRA_INICIO_PERIODO]",
+                "tam_cond": "<="
+            },
+            "DT_FIN": {
+                "ordem": 4,
+                "descr": "Data final das informações contidas no arquivo.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_FIM_PERIODO]",
+                "tam_cond": "<="
+            },
+            "NOME": {
+                "ordem": 5,
+                "descr": "Nome empresarial da pessoa jurídica.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "CNPJ": {
+                "ordem": 6,
+                "descr": "Número de inscrição da pessoa jurídica no CNPJ.Observação: Esse CNPJ é sempre da Sócia Ostensiva, no caso do arquivo da SCP.",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_VALIDA_CNPJ]",
+                "tam_cond": "<="
+            },
+            "UF": {
+                "ordem": 7,
+                "descr": "Sigla da unidade da federação da pessoa jurídica.",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_UF]",
+                "tam_cond": "<="
+            },
+            "IE": {
+                "ordem": 8,
+                "descr": "Inscrição Estadual da pessoa jurídica.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CAMPO_CARACTERE_INVALIDO]",
+                "tam_cond": ""
+            },
+            "COD_MUN": {
+                "ordem": 9,
+                "descr": "Código do município do domicílio fiscal da pessoa jurídica, conforme tabela do IBGE – Instituto Brasileiro de Geografia e Estatística.",
+                "tipo": "numeric",
+                "tam": 7,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_TABELA_MUNICIPIO][REGRA_COD_MUN_INV_UF]",
+                "tam_cond": "<="
+            },
+            "IM": {
+                "ordem": 10,
+                "descr": "Inscrição Municipal da pessoa jurídica.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CAMPO_CARACTERE_INVALIDO]",
+                "tam_cond": ""
+            },
+            "IND_SIT_ESP": {
+                "ordem": 11,
+                "descr": "Indicador de situação especial (conforme tabela publicada pelo Sped).",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_TABELA_SITUACAO]",
+                "tam_cond": "<="
+            },
+            "IND_SIT_INI_PER": {
+                "ordem": 12,
+                "descr": "Indicador de situação no início do período (conforme tabela publicada pelo Sped).",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_SIT_INICIO_PER]",
+                "tam_cond": "<="
+            },
+            "IND_NIRE": {
+                "ordem": 13,
+                "descr": "Indicador de existência de NIRE:0 – Empresa não possui registro na Junta Comercial (não possui NIRE)1 – Empresa possui registro na Junta Comercial (possui NIRE)",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0,1]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_FIN_ESC": {
+                "ordem": 14,
+                "descr": "Indicador de finalidade da escrituração:0 - Original1 - Substituta",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0,1]",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": "<="
+            },
+            "COD_HASH_SUB": {
+                "ordem": 15,
+                "descr": "Hash da escrituração substituída.",
+                "tipo": "text",
+                "tam": 40,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_HASH_SUBSTITUIDA][REGRA_VALIDA_HEXADECIMAL]",
+                "tam_cond": "<="
+            },
+            "IND_GRANDE_PORTE": {
+                "ordem": 16,
+                "descr": "Indicador de entidade sujeita a auditoria independente: 0 – Empresa não é entidade sujeita a auditoria independente. 1 – Empresa é entidade sujeita a auditoria independente – Ativo Total superior a R$ 240.000.000,00 ou Receita Bruta Anual superior R$300.000.000,00.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0; 1]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "TIP_ECD": {
+                "ordem": 17,
+                "descr": "Indicador do tipo de ECD:0 – ECD de empresa não participante de SCP como sócio ostensivo.1 – ECD de empresa participante de SCP como sócio ostensivo.2 – ECD da SCP.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0; 1; 2]",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": "<="
+            },
+            "COD_SCP": {
+                "ordem": 18,
+                "descr": "CNPJ da SCP (Art. 4º, XVII, da Instrução Normativa RFB nº 1.634, de 6 de maio de 2016).Observação: Só deve ser preenchido pela própria SCP com o CNPJ da SCP (Não é preenchido pelo sócio ostensivo).",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "valores_validos": "",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_SCP_OBRIGATORIO][REGRA_SCP_NAO_PREENCHER][REGRA_CNPJ_DIFERENT_SCP][REGRA_VALIDA_CNPJ]",
+                "tam_cond": "<="
+            },
+            "IDENT_MF": {
+                "ordem": 19,
+                "descr": "Identificação de moeda funcional: Indica que a escrituração abrange valores com base na moeda funcional (art. 287 da Instrução Normativa RFB nº 1.700, de 14 de março de 2017).Observações: Nessa situação, deverá ser utilizado o registro I020 para informação de campos adicionais, conforme instruções do 1.25 do capítulo 1 deste manual.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[S; N]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_ESC_CONS": {
+                "ordem": 20,
+                "descr": "Escriturações Contábeis Consolidadas: (Deve ser preenchido pela empresa controladora obrigada a informar demonstrações contábeis consolidadas, nos termos da Lei nº 6.404/76 e do Pronunciamento Técnico CPC 36 – Demonstrações Consolidadas)S – SimN – Não",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[S; N]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "0001": {
+        "bloco": "0",
+        "descr": "Abertura do Bloco 0",
+        "nivel": "1",
+        "ocorr": "1",
+        "pai": "0000",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “0001”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“0001”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DAD": {
+                "ordem": 2,
+                "descr": "Indicador de movimento:0- Bloco com dados informados;1- Bloco sem dados informados.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0,1]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "0007": {
+        "bloco": "0",
+        "descr": "Outras Inscrições Cadastrais da pessoa jurídica",
+        "nivel": "2",
+        "ocorr": "0:N",
+        "pai": "0001",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “0007”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“0007”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_ENT _REF": {
+                "ordem": 2,
+                "descr": "Código da instituição responsável pela administração do cadastro (conforme tabela publicada pelo Sped).",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_INSTITUICOES_CADASTRO]",
+                "tam_cond": ""
+            },
+            "COD_INSCR": {
+                "ordem": 3,
+                "descr": "Código cadastral da pessoa jurídica na instituição identificada no campo 02.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_VALIDA_INSCRICAO]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "0020": {
+        "bloco": "0",
+        "descr": "Escrituração Contábil Descentralizada",
+        "nivel": "2",
+        "ocorr": "0:N",
+        "pai": "0001",
+        "num_campos": 8,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “0020”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"0020\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DEC": {
+                "ordem": 2,
+                "descr": "Indicador de descentralização:0 – Escrituração da matriz.1 – Escrituração da filial.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0,1]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "CNPJ": {
+                "ordem": 3,
+                "descr": "Número de inscrição da pessoa jurídica no CNPJ da matriz ou da filial.",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[][REGRA_VERIFICA_CNPJ_REG_0000_REG_0020]",
+                "tam_cond": "<="
+            },
+            "UF": {
+                "ordem": 4,
+                "descr": "Sigla da unidade da federação da matriz ou da filial.",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[]",
+                "tam_cond": "<="
+            },
+            "IE": {
+                "ordem": 5,
+                "descr": "Inscrição estadual da matriz ou da filial.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CAMPO_CARACTERE_INVALIDO]",
+                "tam_cond": ""
+            },
+            "COD_MUN": {
+                "ordem": 6,
+                "descr": "Código do município do domicílio da matriz ou da filial.",
+                "tipo": "numeric",
+                "tam": 7,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_TABELA_MUNICIPIO]",
+                "tam_cond": "<="
+            },
+            "IM": {
+                "ordem": 7,
+                "descr": "Número de Inscrição Municipal da matriz ou da filial.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CAMPO_CARACTERE_INVALIDO]",
+                "tam_cond": ""
+            },
+            "NIRE": {
+                "ordem": 8,
+                "descr": "Número de Identificação do Registro de Empresas da matriz ou da filial na Junta Comercial.",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "0035": {
+        "bloco": "0",
+        "descr": "Identificação das SCP",
+        "nivel": "2",
+        "ocorr": "0:N",
+        "pai": "0001",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “0035”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "[0035]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_SCP": {
+                "ordem": 2,
+                "descr": "CNPJ da SCP(Art. 4º, XVII, da Instrução Normativa RFB nº 1.634, de 6 de maio de 2016).",
+                "tipo": "text",
+                "tam": 14,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NOME_SCP": {
+                "ordem": 3,
+                "descr": "Nome da SCP",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "-",
+                "tam_cond": ""
+            }
+        }
+    },
+    "0150": {
+        "bloco": "0",
+        "descr": "Tabela de Cadastro do Participante",
+        "nivel": "2",
+        "ocorr": "0:N",
+        "pai": "0001",
+        "num_campos": 13,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “0150”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"0150\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_PART": {
+                "ordem": 2,
+                "descr": "Código de identificação do participante no arquivo criado pela própria pessoa jurídica.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_REGISTRO_DUPLICADO]",
+                "tam_cond": ""
+            },
+            "NOME": {
+                "ordem": 3,
+                "descr": "Nome pessoal ou empresarial do participante.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "COD_PAIS": {
+                "ordem": 4,
+                "descr": "Código do país do participante, conforme a tabela do Banco Central do Brasil.",
+                "tipo": "numeric",
+                "tam": 5,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_PAIS]",
+                "tam_cond": "<="
+            },
+            "CNPJ": {
+                "ordem": 5,
+                "descr": "CNPJ do participante.",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[]",
+                "tam_cond": "<="
+            },
+            "CPF": {
+                "ordem": 6,
+                "descr": "CPF do participante.",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[]",
+                "tam_cond": "<="
+            },
+            "NIT": {
+                "ordem": 7,
+                "descr": "Número de Identificação do Trabalhador, Pis, Pasep, SUS.",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "UF": {
+                "ordem": 8,
+                "descr": "Sigla da unidade da federação do participante.",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_TABELA_UF][REGRA_CAMPO_NAO_OBRIGATORIO_PAIS_BRASIL]",
+                "tam_cond": "<="
+            },
+            "IE": {
+                "ordem": 9,
+                "descr": "Inscrição Estadual do participante.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CAMPO_CARACTERE_INVALIDO]",
+                "tam_cond": ""
+            },
+            "IE_ST": {
+                "ordem": 10,
+                "descr": "Inscrição Estadual do participante na unidade da federação do destinatário, na condição de contribuinte substituto.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CAMPO_CARACTERE_INVALIDO]",
+                "tam_cond": ""
+            },
+            "COD_MUN": {
+                "ordem": 11,
+                "descr": "Código do município, conforme a tabela do IBGE.",
+                "tipo": "numeric",
+                "tam": 7,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_TABELA_MUNICIPIO][REGRA_CAMPO_NAO_OBRIGATORIO_PAIS_BRASIL]",
+                "tam_cond": "<="
+            },
+            "IM": {
+                "ordem": 12,
+                "descr": "Inscrição Municipal do participante.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CAMPO_CARACTERE_INVALIDO]",
+                "tam_cond": ""
+            },
+            "SUFRAMA": {
+                "ordem": 13,
+                "descr": "Número de inscrição do participante na Suframa.",
+                "tipo": "text",
+                "tam": 9,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CAMPO_CARACTERE_INVALIDO]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "0180": {
+        "bloco": "0",
+        "descr": "Identificação do Relacionamento com o Participante",
+        "nivel": "3",
+        "ocorr": "1:N",
+        "pai": "0150",
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “0180”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"0180\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_REL": {
+                "ordem": 2,
+                "descr": "Código do relacionamento conforme tabela publicada pelo Sped.",
+                "tipo": "numeric",
+                "tam": 2,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_RELACIONAMENTO]",
+                "tam_cond": "<="
+            },
+            "DT_INI_REL": {
+                "ordem": 3,
+                "descr": "Data do início do relacionamento.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DT_INI_MAIOR_DT_FIN_REL]",
+                "tam_cond": "<="
+            },
+            "DT_FIN_REL": {
+                "ordem": 4,
+                "descr": "Data do término do relacionamento.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "0990": {
+        "bloco": "0",
+        "descr": "Encerramento do Bloco 0",
+        "nivel": "1",
+        "ocorr": "1",
+        "pai": "0000",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “0990”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"0990\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "QTD_LIN_0": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do Bloco 0.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_QTD_LIN_BLOCO_0]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I001": {
+        "bloco": "I",
+        "descr": "Abertura do Bloco I",
+        "nivel": "1",
+        "ocorr": "1",
+        "pai": "0000",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I001”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“I001”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DAD": {
+                "ordem": 2,
+                "descr": "Indicador de movimento:0- Bloco com dados informados;1- Bloco sem dados informados.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0,1]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I010": {
+        "bloco": "I",
+        "descr": "Identificação da Escrituração Contábil",
+        "nivel": "2",
+        "ocorr": "1",
+        "pai": "I001",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I010”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I010\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_ESC": {
+                "ordem": 2,
+                "descr": "Indicador da forma de escrituração contábil:G - Livro Diário (Completo sem escrituração auxiliar).R - Livro Diário com Escrituração Resumida (com escrituração auxiliar).A - Livro Diário Auxiliar ao Diário com Escrituração Resumida.B - Livro Balancetes Diários e Balanços.Z – Razão Auxiliar (Livro Contábil Auxiliar conforme leiaute definido nos registros I500 a I555).",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“G”,”R”, ”A”,”B”,”Z”; “S”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_VER_LC": {
+                "ordem": 3,
+                "descr": "Código da Versão do Leiaute Contábil.(Preencher com 5.00)",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "[5.00]",
+                "obrig": "Sim",
+                "regra validacao": "[]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I012": {
+        "bloco": "I",
+        "descr": "Livros Auxiliares ao Diário",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "I010",
+        "num_campos": 5,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I012”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I012\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NUM_ORD": {
+                "ordem": 2,
+                "descr": "Número de ordem do instrumento associado.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_MAIOR_QUE_ZERO]",
+                "tam_cond": ""
+            },
+            "NAT_LIVR": {
+                "ordem": 3,
+                "descr": "Natureza do livro associado; finalidade a que se destina o instrumento.",
+                "tipo": "text",
+                "tam": 80,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "TIPO": {
+                "ordem": 4,
+                "descr": "Tipo de escrituração do livro associado:0 – digital (incluído no Sped).1 – outros.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0,1]",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_VALIDA_TIPO_LIVRO_AUXILIAR]",
+                "tam_cond": "<="
+            },
+            "COD_HASH_AUX": {
+                "ordem": 5,
+                "descr": "Código Hash do arquivo correspondente ao livro auxiliar utilizado na assinatura digital.",
+                "tipo": "text",
+                "tam": 40,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CAMPO_COD_HASH_AUX_OBRIGATORIO][REGRA_VALIDA_HEXADECIMAL]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I015": {
+        "bloco": "I",
+        "descr": "Identificação das contas da escrituração resumida a que se refere a escrituração auxiliar",
+        "nivel": "4",
+        "ocorr": "1:N",
+        "pai": "I012",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I015”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I015\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_CTA_RES": {
+                "ordem": 2,
+                "descr": "Código da(s) conta(s) analítica(s) do Livro Diário com Escrituração Resumida (R) que recebe os lançamentos globais.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_VALIDA_CONTA_RESUMIDO_AUXILIAR][REGRA_VALIDA_CONTA_AUXILIAR_RESUMIDO]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I020": {
+        "bloco": "I",
+        "descr": "Campos Adicionais",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "I010",
+        "num_campos": 6,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I020”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I020\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "REG_COD": {
+                "ordem": 2,
+                "descr": "Código do registro que recepciona o campo adicional.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "[do “I050” ao “I355”]",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_REG_COD_NUM_AD_DUPLICADO]",
+                "tam_cond": "<="
+            },
+            "NUM_AD": {
+                "ordem": 3,
+                "descr": "Número sequencial do campo adicional.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "CAMPO": {
+                "ordem": 4,
+                "descr": "Nome do campo adicional.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "DESCRIÇÃO": {
+                "ordem": 5,
+                "descr": "Descrição do campo adicional.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "TIPO": {
+                "ordem": 6,
+                "descr": "Indicação do tipo de dado (N: numérico; C: caractere).",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "[“N”,”C”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I030": {
+        "bloco": "I",
+        "descr": "Termo de Abertura",
+        "nivel": "3",
+        "ocorr": "1",
+        "pai": "I010",
+        "num_campos": 12,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I030”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“I030”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DNRC_ABERT": {
+                "ordem": 2,
+                "descr": "Texto fixo contendo “TERMO DE ABERTURA”.",
+                "tipo": "text",
+                "tam": 17,
+                "dec": "",
+                "valores_validos": "“TERMO DE ABERTURA”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NUM_ORD": {
+                "ordem": 3,
+                "descr": "Número de ordem do instrumento de escrituração.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_MAIOR_QUE_ZERO]",
+                "tam_cond": ""
+            },
+            "NAT_LIVR": {
+                "ordem": 4,
+                "descr": "Natureza do livro; finalidade a que se destina o instrumento.",
+                "tipo": "text",
+                "tam": 80,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_VALIDA_IDENT_MF_LIVRO_RAS]",
+                "tam_cond": "<="
+            },
+            "QTD_LIN": {
+                "ordem": 5,
+                "descr": "Quantidade total de linhas do arquivo digital.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_IGUAL_QTD_LIN_REG9999]",
+                "tam_cond": ""
+            },
+            "NOME": {
+                "ordem": 6,
+                "descr": "Nome empresarial.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_IGUAL_NOME_REG0000]",
+                "tam_cond": ""
+            },
+            "NIRE": {
+                "ordem": 7,
+                "descr": "Número de Identificação do Registro de Empresas da Junta Comercial.",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[][][REGRA_CAMPO_OBRIGATORIO_NIRE]",
+                "tam_cond": "<="
+            },
+            "CNPJ": {
+                "ordem": 8,
+                "descr": "Número de inscrição no CNPJ.",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_IGUAL_CNPJ_REG0000]",
+                "tam_cond": "<="
+            },
+            "DT_ARQ": {
+                "ordem": 9,
+                "descr": "Data do arquivamento dos atos constitutivos.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_DATA_INI_MAIOR_ADV]",
+                "tam_cond": "<="
+            },
+            "DT_ARQ_CONV": {
+                "ordem": 10,
+                "descr": "Data de arquivamento do ato de conversão de sociedade simples em sociedade empresária.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_DATA_INI_MAIOR][REGRA_PREENCHE_DATA_I030]",
+                "tam_cond": "<="
+            },
+            "DESC_MUN": {
+                "ordem": 11,
+                "descr": "Município.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "DT_EX_SOCIAL": {
+                "ordem": 12,
+                "descr": "Data de encerramento do exercício social.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_OBRIGATORIA_DT_EX_SOCIAL][REGRA_ENCERRAMENTO_EXERCICIO]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I050": {
+        "bloco": "I",
+        "descr": "Plano de Contas",
+        "nivel": "3",
+        "ocorr": "1:N",
+        "pai": "I010",
+        "num_campos": 8,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I050”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I050\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DT_ALT": {
+                "ordem": 2,
+                "descr": "Data da inclusão/alteração.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DT_ALT_DATA_MAIOR]",
+                "tam_cond": "<="
+            },
+            "COD_NAT": {
+                "ordem": 3,
+                "descr": "Código da natureza da conta/grupo de contas, conforme tabela publicada pelo Sped.",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "valores_validos": "",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_NATUREZA]",
+                "tam_cond": "<="
+            },
+            "IND_CTA": {
+                "ordem": 4,
+                "descr": "Indicador do tipo de conta:S - Sintética (grupo de contas)A - Analítica (conta)",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“S”,”A”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NIVEL": {
+                "ordem": 5,
+                "descr": "Nível da conta analítica/grupo de contas.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_MAIOR_QUE_UM][REGRA_VALIDA_NIVEL_CONTAS]",
+                "tam_cond": ""
+            },
+            "COD_CTA": {
+                "ordem": 6,
+                "descr": "Código da conta analítica/grupo de contas.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_COD_CTA_DT_ALT_DUPLICADO]",
+                "tam_cond": ""
+            },
+            "COD_CTA_SUP": {
+                "ordem": 7,
+                "descr": "Código da conta sintética /grupo de contas de nível imediatamente superior.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_COD_CTA_SUP_OBRIGATORIO][REGRA_CTA_DE_NIVEL_SUPERIOR_INVALIDA][REGRA_CONTA_SUPERIOR_NAO_SE_APLICA]",
+                "tam_cond": ""
+            },
+            "CTA": {
+                "ordem": 8,
+                "descr": "Nome da conta analítica/grupo de contas.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I051": {
+        "bloco": "I",
+        "descr": "Plano de Contas Referencial",
+        "nivel": "4",
+        "ocorr": "1:N",
+        "pai": "I050",
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I051”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“I051”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_PLAN_REF": {
+                "ordem": 2,
+                "descr": "Código da instituição responsável pela manutenção do plano de contas referencial,  conforme tabela publicada pelo Sped.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_ENTIDADES]",
+                "tam_cond": "<="
+            },
+            "COD_CCUS": {
+                "ordem": 3,
+                "descr": "Código do centro de custo.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CCUS_NO_CENTRO_CUSTOS_N3]",
+                "tam_cond": ""
+            },
+            "COD_CTA_REF": {
+                "ordem": 4,
+                "descr": "Código da conta de acordo com o plano de contas referencial, conforme tabela publicada pelos órgãos indicados no campo 02- COD_PLAN_REF.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_VALIDADE_COD_CTA_PAD][REGRA_NAO_EXISTE_COD_CTA_PAD]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I052": {
+        "bloco": "I",
+        "descr": "Indicação dos Códigos de Aglutinação",
+        "nivel": "4",
+        "ocorr": "1:N",
+        "pai": "I050",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I052”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“I052”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_CCUS": {
+                "ordem": 2,
+                "descr": "Código do centro de custo.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CCUS_NO_CENTRO_CUSTOS_N3]",
+                "tam_cond": ""
+            },
+            "COD_AGL": {
+                "ordem": 3,
+                "descr": "Código de aglutinação utilizado nas demonstrações contábeis do bloco J (Somente para as contas analíticas).",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I053": {
+        "bloco": "I",
+        "descr": "Subcontas Correlatas",
+        "nivel": "4",
+        "ocorr": "1:N",
+        "pai": "I050",
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I053”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“I053”",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": "<="
+            },
+            "COD_IDT": {
+                "ordem": 2,
+                "descr": "Código de identificação do grupo de conta-subconta(s)",
+                "tipo": "text",
+                "tam": 6,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_COD_IDT_UNICO_POR_CONTA]",
+                "tam_cond": "<="
+            },
+            "COD_CNT_CORR": {
+                "ordem": 3,
+                "descr": "Código da subconta correlata(deve estar no plano de contas e só pode estar relacionada a um único grupo)",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_SUBCONTA_NO_PLANO_CONTAS]",
+                "tam_cond": ""
+            },
+            "NAT_SUB_CNT": {
+                "ordem": 4,
+                "descr": "Natureza da subconta correlata(conforme tabela de natureza da subconta publicada no Sped )",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sm",
+                "regra validacao": "[REGRA_NAT_090_UNICA_POR_CONTA]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I075": {
+        "bloco": "I",
+        "descr": "Tabela de Histórico Padronizado",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "I010",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I075”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I075\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_HIST": {
+                "ordem": 2,
+                "descr": "Código do histórico padronizado.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_REGISTRO_DUPLICADO]",
+                "tam_cond": ""
+            },
+            "DESCR_HIST": {
+                "ordem": 3,
+                "descr": "Descrição do histórico padronizado.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I100": {
+        "bloco": "I",
+        "descr": "Centro de Custos",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "I010",
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I100”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I100\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DT_ALT": {
+                "ordem": 2,
+                "descr": "Data da inclusão/alteração.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DT_ALT_DATA_MAIOR]",
+                "tam_cond": "<="
+            },
+            "COD_CCUS": {
+                "ordem": 3,
+                "descr": "Código do centro de custos.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_COD_CCUS_DT_ALT_DUPLICADO]",
+                "tam_cond": ""
+            },
+            "CCUS": {
+                "ordem": 4,
+                "descr": "Nome do centro de custos.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I150": {
+        "bloco": "I",
+        "descr": "Saldos Periódicos – Identificação do Período",
+        "nivel": "3",
+        "ocorr": "1:12",
+        "pai": "I010",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I150”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I150\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DT_INI": {
+                "ordem": 2,
+                "descr": "Data de início do período.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_INTERVALO_DO_ARQUIVO][REGRA_DT_INI_MAIOR_DT_FIN]",
+                "tam_cond": "<="
+            },
+            "DT_FIN": {
+                "ordem": 3,
+                "descr": "Data de fim do período.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_INTERVALO_DO_ARQUIVO]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I151": {
+        "bloco": "I",
+        "descr": "Assinatura Digital dos arquivos que contém As fichas de lançamento Utilizadas no período",
+        "nivel": "4",
+        "ocorr": "0:N",
+        "pai": "I150",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I151”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I151\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "ASSIN_DIG": {
+                "ordem": 2,
+                "descr": "Hash das fichas de lançamento.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I155": {
+        "bloco": "I",
+        "descr": "Detalhes dos Saldos Periódicos",
+        "nivel": "4",
+        "ocorr": "1:N",
+        "pai": "I150",
+        "num_campos": 9,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I155”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I155\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_CTA": {
+                "ordem": 2,
+                "descr": "Código da conta analítica.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_CONTA_PARA_LANCAMENTO]",
+                "tam_cond": ""
+            },
+            "COD_CCUS": {
+                "ordem": 3,
+                "descr": "Código do centro de custos.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CCUS_NO_CENTRO_CUSTOS]",
+                "tam_cond": ""
+            },
+            "VL_SLD_INI": {
+                "ordem": 4,
+                "descr": "Valor do saldo inicial do período.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DC_INI": {
+                "ordem": 5,
+                "descr": "Indicador da situação do saldo inicial:D - Devedor;C - Credor.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”C”]",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_IND_DC_INI_OBRIGATORIO]",
+                "tam_cond": "<="
+            },
+            "VL_DEB": {
+                "ordem": 6,
+                "descr": "Valor total dos débitos do período.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "VL_CRED": {
+                "ordem": 7,
+                "descr": "Valor total dos créditos do período.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "VL_SLD_FIN": {
+                "ordem": 8,
+                "descr": "Valor do saldo final do período.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DC_FIN": {
+                "ordem": 9,
+                "descr": "Indicador da situação do saldo final:D - Devedor;C - Credor.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”C”]",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_IND_DC_FIN_OBRIGATORIO]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I157": {
+        "bloco": "I",
+        "descr": "Transferência de Saldos do Plano de Contas Anterior",
+        "nivel": "5",
+        "ocorr": "1:N",
+        "pai": "I155",
+        "num_campos": 5,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I157”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I157\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_CTA": {
+                "ordem": 2,
+                "descr": "Código da conta analítica do plano de contas anterior.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": ""
+            },
+            "COD_CCUS": {
+                "ordem": 3,
+                "descr": "Código do centro de custos do plano de contas anterior.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "",
+                "tam_cond": ""
+            },
+            "VL_SLD_INI": {
+                "ordem": 4,
+                "descr": "Valor do saldo inicial do período.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DC_INI": {
+                "ordem": 5,
+                "descr": "Indicador da situação do saldo inicial:D - Devedor;C - Credor.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”C”]",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_IND_DC_INI_OBRIGATORIO]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I200": {
+        "bloco": "I",
+        "descr": "Lançamento Contábil",
+        "nivel": "3",
+        "ocorr": "1:N",
+        "pai": "I010",
+        "num_campos": 5,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I200”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“I200”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NUM_LCTO": {
+                "ordem": 2,
+                "descr": "Número ou Código de identificação único do lançamento contábil.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_REGISTRO_DUPLICADO]",
+                "tam_cond": ""
+            },
+            "DT_LCTO": {
+                "ordem": 3,
+                "descr": "Data do lançamento.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_INTERVALO_DO_ARQUIVO]",
+                "tam_cond": "<="
+            },
+            "VL_LCTO": {
+                "ordem": 4,
+                "descr": "Valor do lançamento.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_VALIDACAO_VL_LCTO_DEB][REGRA_VALIDACAO_VL_LCTO_CRED][REGRA_VALIDACAO_VL_LCTO_ESC_AUXILIAR]",
+                "tam_cond": "<="
+            },
+            "IND_LCTO": {
+                "ordem": 5,
+                "descr": "Indicador do tipo de lançamento:N - Lançamento normal (todos os lançamentos, exceto os de encerramento das contas de resultado);E - Lançamento de encerramento de contas de resultado.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“N”, “E”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I250": {
+        "bloco": "I",
+        "descr": "Partidas do Lançamento contábil",
+        "nivel": "4",
+        "ocorr": "1:N",
+        "pai": "I200",
+        "num_campos": 9,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I250”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“I250”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_CTA": {
+                "ordem": 2,
+                "descr": "Código da conta analítica debitada/creditada.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_CONTA_PARA_LANCAMENTO]",
+                "tam_cond": ""
+            },
+            "COD_CCUS": {
+                "ordem": 3,
+                "descr": "Código do centro de custos.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CCUS_NO_CENTRO_CUSTOS]",
+                "tam_cond": ""
+            },
+            "VL_DC": {
+                "ordem": 4,
+                "descr": "Valor da partida.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DC": {
+                "ordem": 5,
+                "descr": "Indicador da natureza da partida:D - Débito;C - Crédito.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”C”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NUM_ARQ": {
+                "ordem": 6,
+                "descr": "Número, Código ou caminho de localização dos documentos arquivados.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "COD_HIST_PAD": {
+                "ordem": 7,
+                "descr": "Código do histórico padronizado, conforme tabela I075.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_COD_HIS_PAD_NO_HISTORICO_PADRAO]",
+                "tam_cond": ""
+            },
+            "HIST": {
+                "ordem": 8,
+                "descr": "Histórico completo da partida ou histórico complementar.",
+                "tipo": "text",
+                "tam": 65535,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_PART": {
+                "ordem": 9,
+                "descr": "Código de identificação do participante na partida conforme tabela 0150 (preencher somente quando identificado o tipo de participação no registro 0180).",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CODIGO_PARTICIPANTE]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I300": {
+        "bloco": "I",
+        "descr": "Balancetes Diários – Identificação da Data",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "I010",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I300”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I300\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DT_BCTE": {
+                "ordem": 2,
+                "descr": "Data do balancete.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_INTERVALO_DO_ARQUIVO]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I310": {
+        "bloco": "I",
+        "descr": "Detalhes do Balancete Diário",
+        "nivel": "4",
+        "ocorr": "1:N",
+        "pai": "I300",
+        "num_campos": 5,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I310”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I310\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_CTA": {
+                "ordem": 2,
+                "descr": "Código da conta analítica debitada/creditada.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_CONTA_PARA_LANCAMENTO]",
+                "tam_cond": ""
+            },
+            "COD_CCUS": {
+                "ordem": 3,
+                "descr": "Código do centro de custos.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CCUS_NO_CENTRO_CUSTOS]",
+                "tam_cond": ""
+            },
+            "VAL_DEBD": {
+                "ordem": 4,
+                "descr": "Total dos débitos do dia.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "VAL_CREDD": {
+                "ordem": 5,
+                "descr": "Total dos créditos do dia.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I350": {
+        "bloco": "I",
+        "descr": "Saldos das Contas de Resultado Antes do Encerramento – Identificação da Data",
+        "nivel": "3",
+        "ocorr": "1:12",
+        "pai": "I010",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I350”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I350\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DT_RES": {
+                "ordem": 2,
+                "descr": "Data da apuração do resultado.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_INTERVALO_DO_ARQUIVO]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I355": {
+        "bloco": "I",
+        "descr": "Detalhes dos saldos das contas de resultado antes do encerramento",
+        "nivel": "4",
+        "ocorr": "1:N",
+        "pai": "I350",
+        "num_campos": 5,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I355”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I355\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_CTA": {
+                "ordem": 2,
+                "descr": "Código da conta analítica de resultado.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_CONTA_RESULTADO][REGRA_CONTA_PARA_LANCAMENTO]",
+                "tam_cond": ""
+            },
+            "COD_CCUS": {
+                "ordem": 3,
+                "descr": "Código do centro de custos.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CCUS_NO_CENTRO_CUSTOS]",
+                "tam_cond": ""
+            },
+            "VL_CTA": {
+                "ordem": 4,
+                "descr": "Valor do saldo final antes do lançamento de encerramento.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_VALIDACAO_SALDO_CONTA]",
+                "tam_cond": "<="
+            },
+            "IND_DC": {
+                "ordem": 5,
+                "descr": "Indicador da situação do saldo final:D - Devedor;C - Credor.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”C”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I500": {
+        "bloco": "I",
+        "descr": "Parâmetros de Impressão/Visualização do Livro Razão Auxiliar com Leiaute Parametrizável",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "I010",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I500”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I500\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "TAM_FONTE": {
+                "ordem": 2,
+                "descr": "Tamanho da fonte.",
+                "tipo": "numeric",
+                "tam": 2,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I510": {
+        "bloco": "I",
+        "descr": "Definição dos Campos do Livro Razão Auxiliar com Leiaute Parametrizável",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "I010",
+        "num_campos": 7,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I510”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I510\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NM_CAMPO": {
+                "ordem": 2,
+                "descr": "Nome do campo, sem espaços em branco ou caractere especial.",
+                "tipo": "text",
+                "tam": 16,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DESC_CAMPO": {
+                "ordem": 3,
+                "descr": "Descrição do campo (utilizada na visualização do Livro Auxiliar)",
+                "tipo": "text",
+                "tam": 50,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "TIPO_CAMPO": {
+                "ordem": 4,
+                "descr": "Tipo do campo:“N” – Numérico;“C” – Caractere.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[N, C]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "TAM_CAMPO": {
+                "ordem": 5,
+                "descr": "Tamanho do campo.",
+                "tipo": "numeric",
+                "tam": 3,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DEC_CAMPO": {
+                "ordem": 6,
+                "descr": "Quantidade de casas decimais para campos tipo “N”.",
+                "tipo": "numeric",
+                "tam": 2,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COL_CAMPO": {
+                "ordem": 7,
+                "descr": "Largura da coluna no relatório (em quantidade de caracteres).",
+                "tipo": "numeric",
+                "tam": 3,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I550": {
+        "bloco": "I",
+        "descr": "Detalhes do Livro Razão Auxiliar com Leiaute Parametrizável",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "I010",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I550”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I550\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "RZ_CONT": {
+                "ordem": 2,
+                "descr": "Conteúdo dos campos mencionados no Registro I510.",
+                "tipo": "-",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_TIPO_CAMPO_RAZAO_AUXILIAR]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I555": {
+        "bloco": "I",
+        "descr": "Totais no Livro Razão Auxiliar com Leiaute Parametrizável",
+        "nivel": "4",
+        "ocorr": "0:N",
+        "pai": "I550",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I555”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I555\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "RZ_CONT_TOT": {
+                "ordem": 2,
+                "descr": "Conteúdo dos campos mencionados no Registro I510.",
+                "tipo": "-",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_TIPO_CAMPO_RAZAO_AUXILIAR]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I990": {
+        "bloco": "I",
+        "descr": "Encerramento do Bloco I",
+        "nivel": "1",
+        "ocorr": "1",
+        "pai": "0000",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “I990”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"I990\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "QTD_LIN_I": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do Bloco I.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[I]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "J001": {
+        "bloco": "J",
+        "descr": "Abertura do Bloco J",
+        "nivel": "1",
+        "ocorr": "1",
+        "pai": "0000",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J001”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“J001”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DAD": {
+                "ordem": 2,
+                "descr": "Indicador de movimento:0- Bloco com dados informados;1- Bloco sem dados informados.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0,1]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "J005": {
+        "bloco": "J",
+        "descr": "Demonstrações Contábeis",
+        "nivel": "2",
+        "ocorr": "1:12",
+        "pai": "J001",
+        "num_campos": 5,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J005”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“J005”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DT_INI": {
+                "ordem": 2,
+                "descr": "Data inicial das demonstrações contábeis.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_INI_MAIOR][REGRA_DT_INI_MAIOR_DT_FIN]",
+                "tam_cond": "<="
+            },
+            "DT_FIN": {
+                "ordem": 3,
+                "descr": "Data final das demonstrações contábeis.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_INI_MAIOR]",
+                "tam_cond": "<="
+            },
+            "ID_DEM": {
+                "ordem": 4,
+                "descr": "Identificação das demonstrações:1 – demonstrações contábeis da pessoa jurídica a que se refere a escrituração;2 – demonstrações consolidadas ou de outras pessoas jurídicas.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[1,2]",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": "<="
+            },
+            "CAB_DEM": {
+                "ordem": 5,
+                "descr": "Cabeçalho das demonstrações.",
+                "tipo": "text",
+                "tam": 65535,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_CAB_DEM_OBRIGATORIO]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "J100": {
+        "bloco": "J",
+        "descr": "Balanço Patrimonial",
+        "nivel": "3",
+        "ocorr": "1:N",
+        "pai": "J005",
+        "num_campos": 9,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J100”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“J100”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_AGL": {
+                "ordem": 2,
+                "descr": "Código de aglutinação das contas, atribuído pela pessoa jurídica.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_EXISTE_AGLUTINACAO]",
+                "tam_cond": ""
+            },
+            "NIVEL_AGL": {
+                "ordem": 3,
+                "descr": "Nível do Código de aglutinação (mesmo conceito do plano de contas – Registro I050).",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": ""
+            },
+            "IND_GRP_BAL": {
+                "ordem": 4,
+                "descr": "Indicador de grupo do balanço:1 – Ativo;2 – Passivo e Patrimônio Líquido;",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“1”,”2”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DESCR_COD_AGL": {
+                "ordem": 5,
+                "descr": "Descrição do Código de aglutinação.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "VL_CTA": {
+                "ordem": 6,
+                "descr": "Valor total do código de aglutinação no Balanço Patrimonial no exercício informado, ou de período definido em norma específica.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DC_BAL": {
+                "ordem": 7,
+                "descr": "Indicador da situação do saldo informado no campo anterior:D - Devedor;C – Credor.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”C”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "VL_CTA_INI": {
+                "ordem": 8,
+                "descr": "Valor inicial do código de aglutinação no Balanço Patrimonial no exercício informado, ou de período definido em norma específica.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DC_BAL_INI": {
+                "ordem": 9,
+                "descr": "Indicador da situação do saldo inicial informado no campo anterior:D - Devedor;C – Credor.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”C”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "J150": {
+        "bloco": "J",
+        "descr": "Demonstração dos Resultados",
+        "nivel": "3",
+        "ocorr": "1:N",
+        "pai": "J005",
+        "num_campos": 8,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J150”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“J150”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_AGL": {
+                "ordem": 2,
+                "descr": "Código de aglutinação das contas, atribuído pela pessoa jurídica.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_COD_AGL_OBRIGATORIO]",
+                "tam_cond": ""
+            },
+            "NIVEL_AGL": {
+                "ordem": 3,
+                "descr": "Nível do Código de aglutinação (mesmo conceito do plano de contas – Registro I050).",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "DESCR_COD_AGL": {
+                "ordem": 4,
+                "descr": "Descrição do Código de aglutinação.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "VL_CTA": {
+                "ordem": 5,
+                "descr": "Valor total do Código de aglutinação na Demonstração dos Resultados no período informado.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_VL": {
+                "ordem": 6,
+                "descr": "Indicador da situação do valor informado no campo anterior:D - Despesa ou valor que represente parcela redutora do lucro;R - Receita ou valor que represente incremento do lucro;P - Subtotal ou total positivo;N – Subtotal ou total negativo.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”R”,” P”,”N” ]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "VL_CTA_ULT_DRE": {
+                "ordem": 7,
+                "descr": "Valor do saldo final antes do encerramento constante na Demonstração dos Resultados do último período informado.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Não (*)(*) O campo não é obrigatório somente nos casos em que não há ECD do período anterior. Nos demais casos, o campo é obrigatório.",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_VL_ULT_DRE": {
+                "ordem": 8,
+                "descr": "Indicador da situação do valor informado no campo anterior:D - Despesa ou valor que represente parcela redutora do lucro;R - Receita ou valor que represente incremento do lucro;P - Subtotal ou total positivo;N – Subtotal ou total negativo.",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”R”,” P”,”N” ]",
+                "obrig": "Não (*)(*) O campo não é obrigatório somente nos casos em que não há ECD do período anterior. Nos demais casos, o campo é obrigatório.",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "J200": {
+        "bloco": "J",
+        "descr": "Tabela de Histórico de Fatos Contábeis que Modificam a conta lucros Acumulados ou a Conta Prejuízos Acumulados ou Todo o Patrimônio Líquido",
+        "nivel": "3",
+        "ocorr": "1:N",
+        "pai": "J005",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J200”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“J200”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_HIST_FAT": {
+                "ordem": 2,
+                "descr": "Código do histórico do fato contábil.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": ""
+            },
+            "DESC_FAT": {
+                "ordem": 3,
+                "descr": "Descrição do fato contábil.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "J210": {
+        "bloco": "J",
+        "descr": "Demonstração de Lucros ou Prejuízos Acumulados (DLPA)/Demonstração de Mutações do Patrimônio Líquido (DMPL)",
+        "nivel": "3",
+        "ocorr": "1:N",
+        "pai": "J005",
+        "num_campos": 8,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J210”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“J210”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_TIP": {
+                "ordem": 2,
+                "descr": "Indicador do tipo de demonstração:0 – DLPA – Demonstração de Lucro ou Prejuízos Acumulados1 – DMPL – Demonstração de Mutações do Patrimônio Líquido",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0,1]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_AGL": {
+                "ordem": 3,
+                "descr": "Código de aglutinação das contas do patrimônio líquido, atribuído pela empresa.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_EXISTE_AGLUTINACAO_J210]",
+                "tam_cond": ""
+            },
+            "DESCR_COD_AGL": {
+                "ordem": 4,
+                "descr": "Descrição do código de aglutinação",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "VL_CTA": {
+                "ordem": 5,
+                "descr": "Saldo final do código de aglutinação na demonstração do período informado.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_VALIDA_TOTAL_COD_AGLUTINCAO_J215]",
+                "tam_cond": "<="
+            },
+            "IND_DC_CTA": {
+                "ordem": 6,
+                "descr": "Indicador da situação do saldo final informado no campo anterior:D – DevedorC – Credor",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”C”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "VL_CTA_INI": {
+                "ordem": 7,
+                "descr": "Saldo inicial do código de aglutinação na demonstração do período informado.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DC_CTA_INI": {
+                "ordem": 8,
+                "descr": "Indicador da situação do saldo inicial informado no campo anterior:D – DevedorC – Credor",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”,”C”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "J215": {
+        "bloco": "J",
+        "descr": "Fato Contábil Que Altera a Conta Lucros Acumulados ou a Conta Prejuízos Acumulados ou o Patrimônio Líquido",
+        "nivel": "4",
+        "ocorr": "1:N",
+        "pai": "J210",
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J215”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“J215”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_HIST_FAT": {
+                "ordem": 2,
+                "descr": "Código do histórico do fato contábil.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_EXISTE_COD_HIST_FAT]",
+                "tam_cond": ""
+            },
+            "VL_FAT_CONT": {
+                "ordem": 3,
+                "descr": "Valor do fato contábil.",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": "<="
+            },
+            "IND_DC_FAT": {
+                "ordem": 4,
+                "descr": "Indicador de situação do saldo informado no campo anterior:D – DevedorC – CredorP – Subtotal ou total positivoN – Subtotal ou total negativo",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[“D”, “C”, “P”, “N”]",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "J800": {
+        "bloco": "J",
+        "descr": "Outras Informações",
+        "nivel": "3",
+        "ocorr": "1:N",
+        "pai": "J005",
+        "num_campos": 6,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J800”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"J800\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "TIPO_DOC": {
+                "ordem": 2,
+                "descr": "Tipo de documento:001: Demonstração do Resultado Abrangente do Período002: Demonstração dos Fluxos de Caixa003: Demonstração do Valor Adicionado010: Notas Explicativas011: Relatório da Administração012: Parecer dos Auditores099: Outros",
+                "tipo": "text",
+                "tam": 3,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DESC_RTF": {
+                "ordem": 3,
+                "descr": "Descrição do arquivo .rtf.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "HASH_RTF": {
+                "ordem": 4,
+                "descr": "Hash do arquivo .rtf incluído.Observação: O HASH é preenchido automaticamente pelo sistema (não é editável e não pode ser alterado).",
+                "tipo": "text",
+                "tam": 41,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_VALIDA_HASH_ARQUIVO]",
+                "tam_cond": "<="
+            },
+            "ARQ_RTF": {
+                "ordem": 5,
+                "descr": "Sequência de bytes que representem um único  arquivo no formato RTF (Rich Text Format).",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_FIM_RTF": {
+                "ordem": 6,
+                "descr": "Indicador de fim do arquivo RTF. Texto fixo contendo “J800FIM”.",
+                "tipo": "text",
+                "tam": 7,
+                "dec": "",
+                "valores_validos": "\"J800FIM\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "J801": {
+        "bloco": "J",
+        "descr": "Termo de verificação para fins de Substituição da ECD",
+        "nivel": "3",
+        "ocorr": "0:1",
+        "pai": "J005",
+        "num_campos": 6,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J801”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"J801\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "TIPO_DOC": {
+                "ordem": 2,
+                "descr": "Tipo de documento:001: Termo de Verificação para Fins Substituição da ECD",
+                "tipo": "text",
+                "tam": 3,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DESC_RTF": {
+                "ordem": 3,
+                "descr": "Descrição do arquivo .rtf.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "HASH_RTF": {
+                "ordem": 4,
+                "descr": "Hash do arquivo .rtf incluído.Observação: O HASH é preenchido automaticamente pelo sistema (não é editável e não pode ser alterado).",
+                "tipo": "text",
+                "tam": 41,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_VALIDA_HASH_ARQUIVO]",
+                "tam_cond": "<="
+            },
+            "ARQ_RTF": {
+                "ordem": 5,
+                "descr": "Sequência de bytes que representem um único arquivo no formato RTF (Rich Text Format).",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_FIM_RTF": {
+                "ordem": 6,
+                "descr": "Indicador de fim do arquivo RTF. Texto fixo contendo “J801FIM”.",
+                "tipo": "text",
+                "tam": 7,
+                "dec": "",
+                "valores_validos": "\"J801FIM\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "J900": {
+        "bloco": "J",
+        "descr": "Termo de Encerramento",
+        "nivel": "2",
+        "ocorr": "1",
+        "pai": "J001",
+        "num_campos": 8,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J900”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“J900”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DNRC_ENCER": {
+                "ordem": 2,
+                "descr": "Texto fixo contendo “TERMO DE ENCERRAMENTO”.",
+                "tipo": "text",
+                "tam": 21,
+                "dec": "",
+                "valores_validos": "“TERMO DE ENCERRAMENTO”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NUM_ORD": {
+                "ordem": 3,
+                "descr": "Número de ordem do instrumento de escrituração.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_IGUAL_NUM_ORD_REGI030]",
+                "tam_cond": ""
+            },
+            "NAT_LIVRO": {
+                "ordem": 4,
+                "descr": "Natureza do livro; finalidade a que se destinou o instrumento.",
+                "tipo": "text",
+                "tam": 80,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NOME": {
+                "ordem": 5,
+                "descr": "Nome empresarial.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_IGUAL_NOME_REG0000]",
+                "tam_cond": "=="
+            },
+            "QTD_LIN": {
+                "ordem": 6,
+                "descr": "Quantidade total de linhas do arquivo digital.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_IGUAL_QTD_LIN_REG9999]",
+                "tam_cond": ""
+            },
+            "DT_INI_ESCR": {
+                "ordem": 7,
+                "descr": "Data de início da escrituração.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_IGUAL_DT_INI_REG0000]",
+                "tam_cond": "<="
+            },
+            "DT_FIN_ESCR": {
+                "ordem": 8,
+                "descr": "Data de término da escrituração.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_IGUAL_DT_FIN_REG0000]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "J930": {
+        "bloco": "J",
+        "descr": "Identificação dos Signatários da Escrituração e do Termo de Verificação para fins de Substituição da ECD",
+        "nivel": "3",
+        "ocorr": "1:N",
+        "pai": "J900",
+        "num_campos": 12,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J930”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "[“J930”]",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": "<="
+            },
+            "IDENT_NOM": {
+                "ordem": 2,
+                "descr": "Nome do signatário.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": ""
+            },
+            "IDENT_CPF_CNPJ": {
+                "ordem": 3,
+                "descr": "CPF ou CNPJ",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_VALIDA_CPF][REGRA_VALIDA_CNPJ]",
+                "tam_cond": "<="
+            },
+            "IDENT_QUALIF": {
+                "ordem": 4,
+                "descr": "Qualificação do assinante, conforme tabela.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_ASSINANTE_DESC]",
+                "tam_cond": ""
+            },
+            "COD_ASSIN": {
+                "ordem": 5,
+                "descr": "Código de qualificação do assinante, conforme tabela.",
+                "tipo": "text",
+                "tam": 3,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_ASSINANTE][REGRA_QUALIF_INV_RESP_LEGAL][REGRA_QUALIF_VALIDA]",
+                "tam_cond": "<="
+            },
+            "IND_CRC": {
+                "ordem": 6,
+                "descr": "Número de inscrição do contabilista no Conselho Regional de Contabilidade.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_OBRIGATORIO_CONTADOR]",
+                "tam_cond": ""
+            },
+            "EMAIL": {
+                "ordem": 7,
+                "descr": "Email do signatário.",
+                "tipo": "text",
+                "tam": 60,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_OBRIGATORIO_CONTADOR]",
+                "tam_cond": "<="
+            },
+            "FONE": {
+                "ordem": 8,
+                "descr": "Telefone do signatário.",
+                "tipo": "text",
+                "tam": 14,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_OBRIGATORIO_CONTADOR]",
+                "tam_cond": "<="
+            },
+            "UF_CRC": {
+                "ordem": 9,
+                "descr": "Indicação da unidade da federação que expediu o CRC.",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_TABELA_UF]",
+                "tam_cond": "<="
+            },
+            "NUM_SEQ_CRC": {
+                "ordem": 10,
+                "descr": "Número sequencial no seguinte formato:UF/ano/número",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_VALIDA_FORMATO_SEQUENCIAL_CRC]",
+                "tam_cond": ""
+            },
+            "DT_CRC": {
+                "ordem": 11,
+                "descr": "Data de validade do CRC do contador.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "",
+                "tam_cond": "<="
+            },
+            "IND_RESP_LEGAL": {
+                "ordem": 12,
+                "descr": "Identificação do signatário que será validado como responsável pela assinatura da ECD, conforme atos societários:S – SimN – Não",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[S; N]",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "J935": {
+        "bloco": "J",
+        "descr": "Identificação dos Auditores Independentes",
+        "nivel": "3",
+        "ocorr": "1:N",
+        "pai": "J900",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J935”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "[“J935”]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NOME_AUDITOR": {
+                "ordem": 2,
+                "descr": "Nome do auditor independente.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            },
+            "COD_CVM_AUDITOR": {
+                "ordem": 3,
+                "descr": "Registro do auditor independente na CVM.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            }
+        }
+    },
+    "J990": {
+        "bloco": "J",
+        "descr": "Encerramento do Bloco J",
+        "nivel": "1",
+        "ocorr": "1",
+        "pai": "0000",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “J990”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"J990\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "QTD_LIN_J": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do Bloco J.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_QTD_LIN_BLOCOJ]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "K001": {
+        "bloco": "K",
+        "descr": "Abertura do bloco K",
+        "nivel": "1",
+        "ocorr": "1",
+        "pai": "0000",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K001”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“K001”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DAD": {
+                "ordem": 2,
+                "descr": "Indicador de movimento:0- Bloco com dados informados;1- Bloco sem dados informados.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0,1]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K030": {
+        "bloco": "K",
+        "descr": "Período da Escrituração Contábil Consolidada",
+        "nivel": "2",
+        "ocorr": "0:1",
+        "pai": "K001",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K030”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“K030”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DT_INI": {
+                "ordem": 2,
+                "descr": "Data inicial do período consolidado.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DT_FIN": {
+                "ordem": 3,
+                "descr": "Data final do período consolidado.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_MAIOR_INICIAL_CONS][REGRA_IGUAL_DT_FIN_REG0000]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K100": {
+        "bloco": "K",
+        "descr": "relação das empresas consolidadas",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "K030",
+        "num_campos": 10,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K100”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“K100”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_PAIS": {
+                "ordem": 2,
+                "descr": "Código do país da empresa, conforme tabela do Banco Central do Brasil.",
+                "tipo": "numeric",
+                "tam": 5,
+                "dec": "",
+                "valores_validos": "Tabela externa PAIS_SISCOMEX",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_PAISES]",
+                "tam_cond": "<="
+            },
+            "EMP_COD": {
+                "ordem": 3,
+                "descr": "Código de identificação da empresa participante.",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "CNPJ": {
+                "ordem": 4,
+                "descr": "CNPJ (somente os 8 primeiros dígitos).",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_OBRIGATORIO_CNPJ_BRASIL]",
+                "tam_cond": "<="
+            },
+            "NOME": {
+                "ordem": 5,
+                "descr": "Nome empresarial.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": ""
+            },
+            "PER_PART": {
+                "ordem": 6,
+                "descr": "Percentual de participação total do conglomerado na empresa no final do período consolidado: Informar a participação acionária.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": 4,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_PERC_MENOR_IGUAL_100][REGRA_MAIOR_QUE_ZERO]",
+                "tam_cond": "<="
+            },
+            "EVENTO": {
+                "ordem": 7,
+                "descr": "Evento societário ocorrido no período:S - SimN – Não",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[S;N]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "PER_CONS": {
+                "ordem": 8,
+                "descr": "Percentual de consolidação da empresa no final do período consolidado: Informar o percentual do resultado da empresa que foi para a consolidação.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": 4,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_PERC_MENOR_IGUAL_100][REGRA_MAIOR_QUE_ZERO]",
+                "tam_cond": "<="
+            },
+            "DATA_INI_EMP": {
+                "ordem": 9,
+                "descr": "Data inicial do período da escrituração contábil da empresa que foi consolidada.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_CONSOLIDADA_INICIO_DIFERENTE]",
+                "tam_cond": "<="
+            },
+            "DATA_FIN_EMP": {
+                "ordem": 10,
+                "descr": "Data final do período da escrituração contábil da empresa que foi consolidada",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_FIN_EMP_MAIOR][REGRA_CONSOLIDADA_FINAL_DIFERENTE]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K110": {
+        "bloco": "K",
+        "descr": "Relação dos Eventos Societários",
+        "nivel": "4",
+        "ocorr": "0:N",
+        "pai": "K100",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K110”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“K110”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "EVENTO": {
+                "ordem": 2,
+                "descr": "Evento societário ocorrido no período:1 – Aquisição2 – Alienação3 – Fusão4 – Cisão Parcial5 – Cisão Total6 – Incorporação7 – Extinção8 – Constituição",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[1;2;3;4;5;6;7;8]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "DT_EVENTO": {
+                "ordem": 3,
+                "descr": "Data do evento societário.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_DATA_PERIODO_K030]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K115": {
+        "bloco": "K",
+        "descr": "Empresas Participantes do evento Societário",
+        "nivel": "5",
+        "ocorr": "0:N",
+        "pai": "K110",
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K115”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“K115”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "EMP_COD_PART": {
+                "ordem": 2,
+                "descr": "Código da empresa envolvida na operação",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_EXISTE_EMP_COD_K100]",
+                "tam_cond": "<="
+            },
+            "COND_PART": {
+                "ordem": 3,
+                "descr": "Condição da empresa relacionada à operação:1 – Sucessora;2 – Adquirente;3 – Alienante.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[1;2;3]",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_CONDICAO_COMPATIVEL]",
+                "tam_cond": "<="
+            },
+            "PER_EVT": {
+                "ordem": 4,
+                "descr": "Percentual da empresa participante envolvida na operação",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": 4,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_PERC_MENOR_IGUAL_100]",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K200": {
+        "bloco": "K",
+        "descr": "Plano de Contas Consolidado",
+        "nivel": "2",
+        "ocorr": "1:N",
+        "pai": "K001",
+        "num_campos": 7,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K200”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“K200”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_NAT": {
+                "ordem": 2,
+                "descr": "Código da natureza da conta/grupo de contas, conforme tabela publicada pelo Sped.",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_TABELA_NATUREZA]",
+                "tam_cond": "<="
+            },
+            "IND_CTA": {
+                "ordem": 3,
+                "descr": "Indicador do tipo de conta:S - Sintética (grupo de contas);A - Analítica (conta).",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[S;A]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "NIVEL": {
+                "ordem": 4,
+                "descr": "Nível da conta",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_MAIOR_QUE_UM][REGRA_ANALITICA_NIVEL_2]",
+                "tam_cond": ""
+            },
+            "COD_CTA": {
+                "ordem": 5,
+                "descr": "Código da conta",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": ""
+            },
+            "COD_CTA_SUP": {
+                "ordem": 6,
+                "descr": "Código da conta superior",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Não",
+                "regra validacao": "[REGRA_COD_CTA_SUP_OBRIGATORIO][REGRA_CONTA_SUPERIOR_NAO_SE_APLICA][REGRA_CTA_CONSOLIDADA_DE_NIVEL_SUPERIOR_INVALIDA]",
+                "tam_cond": ""
+            },
+            "CTA": {
+                "ordem": 7,
+                "descr": "Nome da conta",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "K210": {
+        "bloco": "K",
+        "descr": "Mapeamento para o Plano de Contas das Empresas Consolidadas",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "K200",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K210”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“K210”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_EMP": {
+                "ordem": 2,
+                "descr": "Código de identificação da empresa participante",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_EXISTE_EMP_COD_K100]",
+                "tam_cond": "<="
+            },
+            "COD_CTA_EMP": {
+                "ordem": 3,
+                "descr": "Código da conta da empresa participante",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": ""
+            }
+        }
+    },
+    "K300": {
+        "bloco": "K",
+        "descr": "Saldos das Contas Consolidadas",
+        "nivel": "3",
+        "ocorr": "0:N",
+        "pai": "K200",
+        "num_campos": 8,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K300”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“K300”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "COD_CTA": {
+                "ordem": 2,
+                "descr": "Código da conta consolidada",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_EXISTE_K200_ANALITICA]",
+                "tam_cond": ""
+            },
+            "VAL_AG": {
+                "ordem": 3,
+                "descr": "Valor absoluto aglutinado",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_VAL_AG": {
+                "ordem": 4,
+                "descr": "Indicador da situação do valor aglutinado:D – DevedorC – Credor",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[D;C]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "VAL_EL": {
+                "ordem": 5,
+                "descr": "Valor absoluto das eliminações",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_SOMATORIO_VALOR_ELIMINACOES]",
+                "tam_cond": "<="
+            },
+            "IND_VAL_EL": {
+                "ordem": 6,
+                "descr": "Indicador da situação do valor eliminado:D – DevedorC – Credor",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[D;C]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "VAL_CS": {
+                "ordem": 7,
+                "descr": "Valor absoluto consolidado:VAL_CS = VAL_AG – VAL_EL",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_CALCULO_VALOR_CONSOLIDADO]",
+                "tam_cond": "<="
+            },
+            "IND_VAL_CS": {
+                "ordem": 8,
+                "descr": "Indicador da situação do valor consolidado:D – DevedorC – Credor",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[D;C]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K310": {
+        "bloco": "K",
+        "descr": "Empresas Detentoras das Parcelas do Valor Eliminado Total",
+        "nivel": "4",
+        "ocorr": "0:N",
+        "pai": "K300",
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K310”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“K310”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "EMP_COD_PARTE": {
+                "ordem": 2,
+                "descr": "Código da empresa detentora do valor aglutinado que foi eliminado",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_EXISTE_EMP_COD_K100]",
+                "tam_cond": "<="
+            },
+            "VALOR": {
+                "ordem": 3,
+                "descr": "Parcela do valor eliminado total",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "",
+                "tam_cond": "<="
+            },
+            "IND_VALOR": {
+                "ordem": 4,
+                "descr": "Indicador da situação do valor eliminado:D – DevedorC – Credor",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[D;C]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K315": {
+        "bloco": "K",
+        "descr": "Empresas Contrapartes das Parcelas do Valor Eliminado Total",
+        "nivel": "5",
+        "ocorr": "0:N",
+        "pai": "K310",
+        "num_campos": 5,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K315”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“K315”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "EMP_COD_CONTRA": {
+                "ordem": 2,
+                "descr": "Código da empresa da contrapartida",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_EXISTE_EMP_COD_K100][REGRA_EMP_COD_CONTRA_DIFERENTE_EMP_COD_PARTE]",
+                "tam_cond": "<="
+            },
+            "COD_CONTRA": {
+                "ordem": 3,
+                "descr": "Código da conta consolidada da contrapartida",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_COD_CTA_DIFERENTE_COD_CONTRA][REGRA_EXISTE_COD_CTA_K300]",
+                "tam_cond": ""
+            },
+            "VALOR": {
+                "ordem": 4,
+                "descr": "Parcela da contrapartida do valor eliminado total",
+                "tipo": "numeric",
+                "tam": 19,
+                "dec": 2,
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_MAIOR_QUE_ZERO][REGRA_SOMATORIO_VALOR_CONTRAPARTIDA]",
+                "tam_cond": "<="
+            },
+            "IND_VALOR": {
+                "ordem": 5,
+                "descr": "Indicador da situação do valor eliminado:D – DevedorC – Credor",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[D;C]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K990": {
+        "bloco": "K",
+        "descr": "Encerramento do bloco K",
+        "nivel": "1",
+        "ocorr": "1",
+        "pai": "0000",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “K990”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"K990\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "QTD_LIN_K": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do Bloco K.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_QRD_LIN_BLOCOK]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "9001": {
+        "bloco": "9",
+        "descr": "Abertura do Bloco 9",
+        "nivel": "1",
+        "ocorr": "1",
+        "pai": "0000",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “9001”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“9001”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "IND_DAD": {
+                "ordem": 2,
+                "descr": "Indicador de movimento:0- Bloco com dados informados;1- Bloco sem dados informados.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "valores_validos": "[0,1]",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "9900": {
+        "bloco": "9",
+        "descr": "Registros do Arquivo",
+        "nivel": "2",
+        "ocorr": "1:N",
+        "pai": "9001",
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “9900”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "“9900”",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "REG_BLC": {
+                "ordem": 2,
+                "descr": "Registro que será totalizado no próximo campo.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "Somente tipos de registro previstos para a escrituração contábil digital",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "QTD_REG_BLC": {
+                "ordem": 3,
+                "descr": "Total de registros do tipo informado no campo anterior.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_QTD_REG_BLC]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "9990": {
+        "bloco": "9",
+        "descr": "Encerramento do Bloco 9",
+        "nivel": "1",
+        "ocorr": "1",
+        "pai": "0000",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “9990”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"9990\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "QTD_LIN_9": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do Bloco 9.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_QRD_LIN_BLOCO9]",
+                "tam_cond": ""
+            }
+        }
+    },
+    "9999": {
+        "bloco": "9",
+        "descr": "Encerramento do Arquivo Digital",
+        "nivel": "0",
+        "ocorr": "1",
+        "pai": "",
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “9999”.",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "valores_validos": "\"9999\"",
+                "obrig": "Sim",
+                "regra validacao": "-",
+                "tam_cond": "<="
+            },
+            "QTD_LIN": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do arquivo digital.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "valores_validos": "-",
+                "obrig": "Sim",
+                "regra validacao": "[REGRA_QTD_LIN_ARQUIVO]",
+                "tam_cond": ""
+            }
+        }
+    }
+}
