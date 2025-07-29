@@ -1,0 +1,34 @@
+Metadata-Version: 2.3
+Name: songlink
+Version: 1a1.post1
+Summary: An unofficial lightweight, type hinted library that helps query the songlink api: https://odesli.co/
+License: MIT
+Author: Flinty
+Author-email: blobjo7@gmail.com
+Requires-Python: >=3.9
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Description-Content-Type: text/markdown
+
+# Songlink.py is an unofficial helper libray for querying the [Songlink](https://odesli.co/) API
+
+The library builds atop of the stdlib requests and json libraries with the `Client`, `Decoder` and, `QueryParamaters` classes. The`Client.search()` method gives a simple way to query the api. The library is modular so there is nothing stopping you from making the requests yourself and just using the JSON decoder for the structured data.
+
+## Example Request
+
+```python
+params = QueryParameters(songIfSingle=True)
+
+with Client(default_params=params) as songlink:
+    response = songlink.search(QueryParameters(url="https://music.apple.com/au/album/its-not-up-to-you/1726654492?i=1726654496"))
+
+    entity_id = response.entityUniqueId
+
+    print(response.entitiesByUniqueId[entity_id].thumbnailUrl)
+```
+
