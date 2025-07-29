@@ -1,0 +1,25 @@
+[tool.poetry]
+authors = ["Sparkplug Marcus <sparkplugmarcus@gmail.com>"]
+description = "Avatar package for Sparkplug apps"
+license = "MIT"
+name = "sparkplug-api-avatars"
+readme = "README.md"
+version = "1.0.8"
+
+packages = [{include = "sparkplug_avatars"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+Pillow = "~10.0.0"
+sorl-thumbnail = "~12.10.0"
+sparkplug-api-core = "~1.0.19"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+ruff = "~0.6.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
