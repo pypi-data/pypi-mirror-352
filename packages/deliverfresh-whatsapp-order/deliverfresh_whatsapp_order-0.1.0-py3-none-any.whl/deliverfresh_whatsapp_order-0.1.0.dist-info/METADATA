@@ -1,0 +1,65 @@
+Metadata-Version: 2.4
+Name: deliverfresh-whatsapp-order
+Version: 0.1.0
+Summary: Clean and normalize WhatsApp chat orders (.txt) into structured product lists
+Author-email: Raman Perumal <rperumal3000@gmail.com>
+License: MIT
+Project-URL: Homepage, https://github.com/rperumal3000/DeliverFreshWhatsAppOrder
+Project-URL: Documentation, https://rperumal3000.github.io/DeliverFreshWhatsAppOrder
+Project-URL: Issues, https://github.com/rperumal3000/DeliverFreshWhatsAppOrder/issues
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: mkdocs; extra == "dev"
+Requires-Dist: mkdocs-material; extra == "dev"
+Requires-Dist: mkdocs-static-i18n; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Dynamic: license-file
+
+# 📦 DeliverFreshWhatsAppOrder
+
+Clean and normalize WhatsApp chat orders (in `.txt` format) into structured product lists.
+
+## 🚀 Features
+
+- ✅ Clean WhatsApp chat exports
+- 🧹 Remove quantities, duplicates, punctuation
+- 📦 Standardize product names (e.g. "tomatoes" → "tomato")
+- 🧑‍💻 Built as a `pip`-installable Python package
+- 🟢 Works in Google Colab with only file path changes
+- 🌐 Documentation in English, Hindi, Tamil, Japanese
+
+## 📦 Installation
+
+```bash
+pip install deliverfresh-whatsapp-order
+```
+
+# 📄 Usage Example (in Google Colab)
+
+```bash
+from deliverfresh_whatsapp_order import clean_chat_file
+
+input_file = "/content/drive/MyDrive/DeliveryFresh/WhatsAppInput/sample.txt"
+output_file = "/content/drive/MyDrive/DeliveryFresh/WhatsAppOutput/sample_cleaned.txt"
+
+clean_chat_file(input_file, output_file)
+```
+
+# 📚 Documentation
+
+Full documentation is available at:
+
+🔗 https://rperumal3000.github.io/DeliverFreshWhatsAppOrder
+
+# 🛠 Contributing
+
+See https://github.com/rperumal3000/DeliverFreshWhatsAppOrder/blob/main/CONTRIBUTING.md for guidelines on how to contribute.
+
+# 🐛 Issues / Feedback
+
+Please open a GitHub Issue at https://github.com/rperumal3000/DeliverFreshWhatsAppOrder/issues
