@@ -1,0 +1,90 @@
+[build-system]
+requires = [ "poetry-core>=2.1.2",]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "wagtail-nav-menus"
+version = "3.13.2"
+description = "Wagtail Nav Menus is a app to provide highly customizable menus in wagtail by leveraging StreamFields."
+authors = ["thelab <thelabdev@thelab.co>"]
+readme = "README.rst"
+homepage = "https://gitlab.com/thelabnyc/wagtail-nav-menus"
+repository = "https://gitlab.com/thelabnyc/wagtail-nav-menus"
+license = "ISC"
+
+[[tool.poetry.packages]]
+include = "wagtail_nav_menus"
+from = "src"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+wagtail = ">=6.3"
+wagtail-modeladmin = "^2.1.0"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "==7.2.0"
+tox = "==4.26.0"
+ipdb = "0.13.13"
+mypy = "1.16.0"
+django-stubs = "5.2.0"
+djangorestframework-stubs = "3.16.0"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+annotated_tag = true
+gpg_sign = true
+tag_format = "v$version"
+update_changelog_on_bump = true
+changelog_merge_prerelease = true
+version_provider = "poetry"
+version_scheme = "pep440"
+version_files = [
+    "pyproject.toml:version",
+]
+pre_bump_hooks = [
+    "pre-commit run --all-files || true",
+]
+post_bump_hooks = [
+    "git push origin master $CZ_POST_CURRENT_TAG_VERSION"
+]
+
+[tool.mypy]
+python_version = "3.10"
+plugins = ["mypy_django_plugin.main"]
+
+# Strict mode, see mypy --help
+warn_unused_configs = true
+# disallow_subclassing_any = true
+disallow_any_generics = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+no_implicit_reexport = true
+show_error_codes = true
+# Not turned on by strict
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = "*.migrations.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "*.tests.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "wagtail.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "wagtail_modeladmin.*"
+follow_untyped_imports = true
+
+[tool.django-stubs]
+django_settings_module = "sandbox.sandbox.settings"
