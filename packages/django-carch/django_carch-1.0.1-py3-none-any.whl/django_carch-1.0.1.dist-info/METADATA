@@ -1,0 +1,88 @@
+Metadata-Version: 2.4
+Name: django-carch
+Version: 1.0.1
+Summary: Générateur automatique de projets Django modulaires en Clean Architecture
+Home-page: https://github.com/daniel10027/django-cleanarch-starter/
+Author: Jean Marie Daniel Vianney Guedegbe
+Author-email: Jean Marie Daniel Vianney Guedegbe <tonemail@example.com>
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# django-carch
+
+Un générateur Django avancé pour projets en Clean Architecture + DDD + Design Patterns + DevOps.
+
+## 🚀 Fonctionnalités
+
+- Génération de projet Django avec architecture propre
+- Structure hexagonale orientée Clean Architecture
+- Création automatique des apps avec DTOs, Use Cases, Repositories
+- Génération d’un README de documentation technique
+- Configuration Docker, Makefile, .env, GitHub Actions, etc.
+- Support Sentry, Celery, Swagger (drf-spectacular)
+
+## 📦 Installation
+
+```bash
+pip install django-carch
+```
+
+## 📂 Utilisation
+
+```bash
+django-carch
+```
+
+## 🧱 Structure générée
+
+| Dossier                          | Rôle métier et technique                            |
+|----------------------------------|-----------------------------------------------------|
+| core/use_cases/                  | Cas d’usage métier déclaratifs                     |
+| core/exceptions/                 | Exceptions spécifiques au domaine                  |
+| core/types/                      | Types ou constantes métiers                        |
+| dtos/                            | Objets de transfert de données (entrée/sortie)     |
+| models/                          | Entités Django (base de données)                   |
+| services/                        | Orchestration métier (via use cases & repos)       |
+| repositories/interfaces/         | Interfaces d’accès à la base                       |
+| repositories/implementations/    | Implémentations ORM ou appel API                   |
+| validators/                      | Règles de validation métier                        |
+| infrastructure/                  | Intégrations externes (API, Firebase, etc.)        |
+| api/v1/views/                    | Vues DRF exposant les services métier              |
+| api/v1/serializers/              | Mapping des données pour les APIs                  |
+| api/v1/urls/                     | Définition des endpoints REST                      |
+| api/v1/access_policy/            | Gestion des permissions DRF                        |
+| helpers/                         | Fonctions utilitaires communes                     |
+| signals/                         | Hooks et signaux Django                            |
+| tests/unit/                      | Tests unitaires des use cases et services          |
+| tests/integration/               | Tests de bout-en-bout                              |
+| admin/                           | Configuration avancée de l’admin Django            |
+
+## ⚙️ Fonctionnalités DevOps
+
+- 📦 Docker & Docker Compose
+- 🌿 GitHub Actions CI avec PostgreSQL
+- 🐍 Environnement virtuel et Makefile
+- 📄 Fichier `.env` généré automatiquement
+- 🌼 Flower pour Celery
+- 📈 Monitoring avec Sentry
+- 🧩 Swagger & Redoc via `drf-spectacular`
+
+## 📖 Documentation automatique
+
+À chaque génération de projet, un fichier `README.md` est créé avec toute la documentation, architecture, commandes et bonne pratiques à suivre.
+
+## 👨‍💻 Auteur
+
+Développé par **Jean Marie Daniel Vianney Guedegbe**  
+🔗 GitHub : [https://github.com/daniel10027](https://github.com/daniel10027)
+
+---
+
+Ce package est conçu pour générer des bases solides, maintenables et prêtes pour la production pour vos projets Django modernes.
+# django_carch
