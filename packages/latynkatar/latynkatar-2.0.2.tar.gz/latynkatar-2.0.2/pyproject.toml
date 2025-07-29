@@ -1,0 +1,36 @@
+[project]
+name = "latynkatar"
+version = "2.0.2"
+description = "EN: Simple and small package to convert belarussian cyrillic text to a modern (the one with ž, č, š and v) and classic (the one with ż, cz, sz and w) latin .\n\nBE: Просты і невялікі пакет для канвертацыі беларускай кірыліцы ў сучасную (з ž, č, š і v) і класічную (з ż, cz, sz і w) лацінку."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [ "Programming Language :: Python :: 3", "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)", "Operating System :: OS Independent",]
+[[project.authors]]
+name = "Andrej Zacharevicz"
+email = "zahar.by@gmail.com"
+
+[[project.authors]]
+name = "Łatynkatar group"
+email = "admin@latynkatar.org"
+
+[dependency-groups]
+dev = [ "nox>=2025.2.9", "toml>=0.10.2",]
+
+[project.urls]
+Homepage = "https://github.com/latynkatar/latynkatar"
+Issues = "https://github.com/latynkatar/latynkatar/issues"
+
+[tool.flake8]
+max-line-length = 120
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+line-length = 120
+
+[tool.pylint."MESSAGES CONTROL"]
+max-line-length = 120
+
+[tool.ruff.lint]
+select = [ "E", "F", "B",]
