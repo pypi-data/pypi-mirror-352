@@ -1,0 +1,15 @@
+{% load cms_tags i18n %}
+{% with i=instance.icon %}
+<i class="
+	{% if i.disabled %} disabled {% endif %}
+	{% if i.loading %} loading {% endif %}
+	{% if i.fitted %} fitted {% endif %}
+	{% if i.size %} {{ i.size }} {% endif %}
+	{% if i.link %} link {% endif %}
+	{% if i.flipped %} {{ i.flipped }} flipped {% endif %}
+	{% if i.rotated %} {{ i.rotated }} rotated {% endif %}
+	{% if i.circular %} circular {% endif %}
+	{% if i.colour %} {{ i.colour }} {% endif %}
+	{% if i.inverted %} inverted {% endif %}
+	{{ i.name }} icon"></i>
+{% endwith %}

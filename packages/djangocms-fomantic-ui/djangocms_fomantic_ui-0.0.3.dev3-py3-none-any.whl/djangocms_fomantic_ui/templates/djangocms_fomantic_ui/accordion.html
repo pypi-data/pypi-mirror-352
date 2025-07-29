@@ -1,0 +1,23 @@
+{% load cms_tags i18n sekizai_tags %}
+{% addtoblock "css" strip %}
+{% if instance.get_highlighted_background_colour %}
+<style>
+	#accordion-{{ instance.id }}.ui.styled.accordion .active.title,
+	#accordion-{{ instance.id }}.ui.styled.accordion .title:hover {
+    background: {{ instance.get_highlighted_background_colour }}
+</style>
+{% endif %}
+{% endaddtoblock %}
+<div id="accordion-{{ instance.id }}" class="{{ instance.get_classes }}">
+	{% for plugin in instance.child_plugin_instances %}
+		{% render_plugin plugin %}
+	{% endfor %}
+</div>
+
+{% addtoblock "js" strip %}
+<script>
+    $(function () {
+        $('.ui.accordion').accordion()
+    })
+</script>
+{% endaddtoblock %}

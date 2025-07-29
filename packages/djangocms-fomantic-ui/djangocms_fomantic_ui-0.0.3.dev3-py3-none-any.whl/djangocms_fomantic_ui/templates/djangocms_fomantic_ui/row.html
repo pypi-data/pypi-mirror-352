@@ -1,0 +1,6 @@
+{% load cms_tags i18n %}
+				<div class="{{ instance.get_classes }}"{# style="border: thin solid orange;" #}>
+					{% for plugin in instance.child_plugin_instances %}
+						{% render_plugin plugin %}
+					{% endfor %}
+				</div>

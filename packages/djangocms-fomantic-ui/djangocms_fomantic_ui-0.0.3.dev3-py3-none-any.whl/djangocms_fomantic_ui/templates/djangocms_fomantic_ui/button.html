@@ -1,0 +1,25 @@
+{% load cms_tags i18n %}
+			{% if instance.link %} {# FIXME: use link child plugin #}
+				<a class="{{ instance.get_classes }}" href="{{ instance.link }}"{% if instance.target %} target="{{ instance.target }}"{% endif %}>
+			{% else %}
+				<button class="{{ instance.get_classes }}" >
+			{% endif %}
+					{% for plugin in instance.child_plugin_instances %}
+						{% render_plugin plugin %}
+					{% endfor %}
+					{{ instance.text }}
+					{% if instance.visible_content %}
+						<div class="visible content">
+                            {{ instance.visible_content }}
+                        </div>
+					{% endif %}
+					{% if instance.hidden_content %}
+						<div class="hidden content">
+                            {{ instance.hidden_content }}
+                        </div>
+					{% endif %}
+			{% if instance.link %}
+				</a>
+			{% else %}
+				</button>
+			{% endif %}

@@ -1,0 +1,120 @@
+{% load cms_tags static sekizai_tags i18n %}
+
+{# strip in sekizai not working? #}
+{% comment %}
+TODO: Check functionality of sekizai, blocks are added twice in spite of strip,
+so SUI/FUI CSS would overwrite CSS of austria.html, like background gradient
+{# Semantic UI #}
+{% addtoblock "js" strip %}
+<script src="{% static 'webpack/index.bundle.js' %}"></script>
+{% endaddtoblock %}
+
+{% addtoblock "js" strip %}
+<script src="{% static 'semantic/semantic.min.js' %}"></script>
+{% endaddtoblock %}
+{% endcomment %}
+
+{% addtoblock "js" strip %}
+<script>
+$(function() {
+	$('.message .close').on('click', function() {
+			$(this).closest('.message').transition('fade');
+	});
+})
+</script>
+{% endaddtoblock %}
+
+{% addtoblock "js" strip %}
+<script>
+$(function() {
+	$('#embed-{{ instance.id }}').embed({
+		onDisplay: function() {
+			$('#embed-message-{{ instance.id }}').transition('fade out');
+		},
+		hash: '{{ instance.hash }}',
+	});
+})
+$.fn.embed.settings.sources = {
+	youtube: {
+      name   : 'youtube',
+      type   : 'video',
+      icon   : 'video play',
+      domain : 'youtube.com',
+      url    : '//www.youtube.com/embed/{id}',
+      parameters: function(settings) {
+        return {
+          autohide       : !settings.brandedUI,
+          autoplay       : settings.autoplay,
+          color          : settings.color || undefined,
+          hq             : settings.hd,
+          jsapi          : settings.api,
+          modestbranding : !settings.brandedUI
+        };
+      }
+    },
+    vimeo: {
+      name   : 'vimeo',
+      type   : 'video',
+      icon   : 'video play',
+      domain : 'vimeo.com',
+      url    : '//player.vimeo.com/video/{id}',
+      parameters: function(settings) {
+        return {
+          h        : settings.hash,
+          api      : settings.api,
+          autoplay : settings.autoplay,
+          byline   : settings.brandedUI,
+          color    : settings.color || undefined,
+          portrait : settings.brandedUI,
+          title    : settings.brandedUI,
+        };
+      }
+    }
+}
+
+</script>
+{% endaddtoblock %}
+
+{% comment %}
+{% addtoblock "css" strip %}
+<link rel="stylesheet" type="text/css" href="{% static 'semantic/semantic.min.css' %}">
+{% endaddtoblock %}
+{% endcomment %}
+
+{% addtoblock "css" strip %}
+<style>
+	.instance {
+		margin: 2rem 0;
+	}
+</style>
+{% endaddtoblock %}
+{% addtoblock "js" strip %}
+<script type="text/javascript">
+</script>
+{% endaddtoblock %}
+{% spaceless %}
+{% if instance.use_placeholder and not instance.video_file %}
+<div id="embed-message-{{ instance.id }}" class="ui privacy attached message" style="width: {{ instance.width }};">
+	<i class="close icon"></i>
+	<div class="content">
+		{% if instance.source == 'youtube' %}
+			{% trans "Click to view on Youtube (Google)." %}
+		{% elif instance.source == 'vimeo' %}
+			{% trans "Click to view on Vimeo." %}
+		{% else %}
+			{% trans "Click to view on an extenal server." %}
+		{% endif %}
+	</div>
+</div>
+{% endif %}
+
+<div id="embed-{{ instance.id }}" class="ui embed"
+     {% if instance.source %}data-source="{{ instance.source }}"{% endif %}
+     {% if instance.medium_id %}data-id="{{ instance.medium_id }}"{% endif %}
+     {% if instance.url %}data-url="{{ instance.url }}"{% endif %}
+     {% if instance.use_placeholder %}data-placeholder="{{ instance.get_placeholder_image_url }}"{% endif %}
+     {% if instance.icon %}data-icon="{{ instance.icon }}"{% endif %}
+     {% if instance.get_style %}style="{{ instance.get_style }}"{% endif %}
+>
+</div>
+{% endspaceless %}

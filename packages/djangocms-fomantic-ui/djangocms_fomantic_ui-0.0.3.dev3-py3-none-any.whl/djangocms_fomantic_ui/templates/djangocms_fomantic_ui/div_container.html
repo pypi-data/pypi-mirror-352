@@ -1,0 +1,8 @@
+{% load cms_tags i18n %}
+			<div style="background: {{ instance.background_colour }}; padding: 2rem 0;">
+				<div class="ui container">
+				{% for plugin in instance.child_plugin_instances %}
+					{% render_plugin plugin %}
+				{% endfor %}
+				</div>
+			</div>

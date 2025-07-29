@@ -1,0 +1,34 @@
+{% load cms_tags sekizai_tags %}
+<div class="{{ instance.get_classes }}">
+	{% if instance.dismissable %}
+		<i class="close icon"></i>
+	{% endif %}
+	{% if instance.icon_name %}
+		<i class="{{ instance.icon_name }} icon"></i>
+	{% endif %}
+
+	
+	
+	<div class="content">
+		<div class="header">
+			{{ instance.header }}
+		</div>
+		{% autoescape off %}
+		{{ instance.content }}
+		{% endautoescape off %}
+	</div>
+	
+	{% for plugin in instance.child_plugin_instances %}
+		{% render_plugin plugin %}
+	{% endfor %}
+</div>
+
+{% addtoblock "js" strip %}
+<script>
+$(function() {
+	$('.message .close').on('click', function() {
+			$(this).closest('.message').transition('fade');
+	});
+})
+</script>
+{% endaddtoblock %}

@@ -1,0 +1,27 @@
+{% load cms_tags i18n %}
+
+<div class="ui {{ instance.effect }} reveal">
+  <div class="visible content">
+    {% if instance.child_plugin_instances %}
+      {# First link, there should be not more than one: #}
+      <a target="{{ instance.target }}" href="{{ instance.child_plugin_instances.0.get_link }}">
+    {% endif %}
+        <img src="{{ instance.visible_image.url }}" class="ui {{ instance.image_size }} image">
+    {% if instance.child_plugin_instances %}
+      </a>
+    {% endif %}
+  </div>
+  <div class="hidden content">
+    {% if instance.child_plugin_instances %}
+      <a target="{{ instance.target }}" href="{{ instance.child_plugin_instances.0.get_link }}">
+    {% endif %}
+    <img src="{{ instance.hidden_image.url }}" class="ui {{ instance.image_size }} image">
+    {% if instance.child_plugin_instances %}
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+{% for plugin in instance.child_plugin_instances %}
+  <h1>{% render_plugin plugin %}</h1>
+{% endfor %}

@@ -1,0 +1,7 @@
+{% load cms_tags i18n %}
+{% with site_icon=instance.site_icon %}
+<link rel="icon" href="{{ site_icon.favicon.url }}" />
+{% if site_icon.touch_icon %}{% spaceless %}
+	<link rel="apple-touch-icon" href="{{ site_icon.touch_icon.url }}">
+{% endspaceless %}{% endif %}
+{% endwith %}

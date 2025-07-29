@@ -1,0 +1,11 @@
+{% load i18n %}
+{% with card=instance.card %}
+  <div class="card">
+    <h2>{{ card.name }}</h2>
+    <div>
+      {% autoescape off %}
+      {{ card.content }}
+      {% endautoescape %}
+    </div>
+  </div>
+{% endwith %}

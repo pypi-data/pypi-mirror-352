@@ -1,0 +1,57 @@
+Metadata-Version: 2.4
+Name: djangocms-fomantic-ui
+Version: 0.0.3.dev3
+Project-URL: Documentation, https://github.com/MacLake/djangocms-fomantic-ui#readme
+Project-URL: Issues, https://github.com/MacLake/djangocms-fomantic-ui/issues
+Project-URL: Source, https://github.com/MacLake/djangocms-fomantic-ui
+Author-email: Jens-Erik Weber <Jens-Erik.Weber@passiv.de>
+License-Expression: MIT
+License-File: LICENSE.txt
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Django CMS
+Classifier: Framework :: Django CMS :: 3.11
+Classifier: Framework :: Django CMS :: 4.1
+Classifier: Framework :: Django CMS :: 5.0
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.9
+Requires-Dist: django-cms
+Description-Content-Type: text/markdown
+
+# djangocms-fomantic-ui
+
+[![PyPI - Version](https://img.shields.io/pypi/v/djangocms-fomantic-ui.svg)](https://pypi.org/project/djangocms-fomantic-ui)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/djangocms-fomantic-ui.svg)](https://pypi.org/project/djangocms-fomantic-ui)
+
+-----
+
+**Table of Contents**
+
+- [Installation](#installation)
+- [License](#license)
+
+## Installation
+
+```console
+pip install djangocms-fomantic-ui
+```
+
+If you want to use the example template of this project, add it to `CMS_TEMPLATES`:
+
+```python
+CMS_TEMPLATES = [
+    # …
+    ("djangocms_fomantic_ui/fomantic-ui.html", "Fomantic UI"),
+]
+
+```
+
+## License
+
+`djangocms-fomantic-ui` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+Stellaris_Clapper-board.svg is in the public domain, taken from [clker.com](http://www.clker.com/clipart-10793.html).

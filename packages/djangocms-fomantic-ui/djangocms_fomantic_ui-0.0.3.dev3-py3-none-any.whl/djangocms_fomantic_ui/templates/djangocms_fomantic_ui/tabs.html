@@ -1,0 +1,26 @@
+{% load cms_tags i18n sekizai_tags %}
+
+<div class="{{ instance.get_classes }}">
+	{% if instance.label %}
+	<div style="padding: 1em 1em 1em 0;">
+		<strong>{{ instance.label }}</strong>
+	</div>
+	{% endif %}
+	{% for tab in instance.child_plugin_instances %}
+	<a class="{% if tab.active %}active {% endif %}item" data-tab="tab-{{ tab.id }}">
+		{{ tab.name }}
+	</a>
+	{% endfor %}
+</div>
+
+{# Tab segments #}
+{% for tab in instance.child_plugin_instances %}
+	{% render_plugin tab %}
+{% endfor %}
+{% addtoblock "js" strip %}
+<script>
+    $(function () {
+        $('.ui.tabular.menu .item').tab();
+    })
+</script>
+{% endaddtoblock %}

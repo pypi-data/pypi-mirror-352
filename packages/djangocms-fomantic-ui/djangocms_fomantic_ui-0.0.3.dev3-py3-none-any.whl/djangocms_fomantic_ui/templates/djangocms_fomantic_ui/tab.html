@@ -1,0 +1,9 @@
+{% load cms_tags i18n %}
+<div class="ui {% if instance.active %}active{% endif %} bottom attached tab segment" data-tab="tab-{{ instance.id }}" >
+    {% autoescape off %}
+    {{ instance.content }}
+    {% endautoescape %}
+	{% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+</div>

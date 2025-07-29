@@ -1,0 +1,33 @@
+{% load i18n sekizai_tags easy_thumbnails_tags %}
+<div class="ui six stackable cards">
+	{% for staff_member in staff_members %}
+	<div class="ui card" id="staff_member-{{ staff_member.id }}">
+		<div>
+			<img alt="{% trans 'Photo' %} {{ staff_member }}" class="ui circular image"
+			     src="{% thumbnail staff_member.picture 180x180 crop %}">
+		</div>
+		<div class="content">
+			<div>{{ staff_member.title }} {{ staff_member.first_name }} {{ staff_member.last_name }}</div>
+		</div>
+	</div>
+	<div class="ui popup">
+		{{ staff_member.info_text }}
+	</div>
+	{% endfor %}
+</div>
+
+{% addtoblock "js" strip %}
+<script>
+    $(function () {
+        $(".card").popup({
+            inline: true,
+            hoverable: true,
+            position: 'bottom left',
+            delay: {
+                show: 300,
+                hide: 800
+            }
+        })
+    })
+</script>
+{% endaddtoblock %}
