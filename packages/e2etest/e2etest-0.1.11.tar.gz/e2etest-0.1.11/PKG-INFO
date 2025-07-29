@@ -1,0 +1,43 @@
+Metadata-Version: 2.4
+Name: e2etest
+Version: 0.1.11
+Summary: e2etest: Simple End-to-End Test for Web
+Home-page: https://lapisai.com/query
+Download-URL: https://github.com/yuyalapis/e2etest/
+Author: Yuya Sato
+Author-email: yuya@lapisai.com
+Maintainer: Yuya Sato
+Maintainer-email: yuya@lapisai.com
+License: CREATIVE COMMONS
+Keywords: e2e test End-to-End
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: download-url
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: maintainer
+Dynamic: maintainer-email
+Dynamic: summary
+
+# e2etest
+Simple End-to-End Test for web
+
+## Usage
+```
+pip install e2etest
+```
+
+```python
+from e2etest import E2E
+url = "https://lapisai.com/query"
+e2e = E2E(url)
+e2e.render()
+assert e2e.exists("p") == True
+assert "This Title" in e2e.get_text("p")
+```
