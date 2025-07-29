@@ -1,0 +1,108 @@
+Metadata-Version: 2.4
+Name: bimcp-mcp
+Version: 1.0.0
+Summary: Connect Claude Desktop to BIMCP Cloud Service for Revit integration
+Project-URL: Homepage, https://bimcp.com
+Project-URL: Documentation, https://docs.bimcp.com/mcp
+Project-URL: API Keys, https://bimcp.com/api-keys
+Author-email: BIMCP <support@bimcp.com>
+License: MIT
+Keywords: ai,bim,claude,mcp,model-context-protocol,revit
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.8
+Requires-Dist: httpx>=0.25.0
+Requires-Dist: mcp>=0.5.0
+Description-Content-Type: text/markdown
+
+# BIMCP MCP Client
+
+Connect Claude Desktop to BIMCP Cloud Service for seamless Revit integration.
+
+## Installation
+
+Install using UV (recommended):
+
+```bash
+uvx bimcp-mcp
+```
+
+Or using pip:
+
+```bash
+pip install bimcp-mcp
+```
+
+## Getting Started
+
+1. **Get your API key** from [https://bimcp.com/api-keys](https://bimcp.com/api-keys)
+
+2. **Configure Claude Desktop**:
+   
+   Open Claude Desktop settings (Settings → Developer → Edit Config) and add:
+
+   ```json
+   {
+     "mcpServers": {
+       "bimcp": {
+         "command": "uvx",
+         "args": ["bimcp-mcp"],
+         "env": {
+           "BIMCP_API_KEY": "your-api-key-here"
+         }
+       }
+     }
+   }
+   ```
+
+3. **Restart Claude Desktop**
+
+## Configuration Options
+
+- `BIMCP_API_KEY` (required): Your BIMCP API key
+- `BIMCP_API_URL` (optional): Custom API endpoint (default: https://api.bimcp.com)
+
+## Features
+
+- Execute C# code directly in Revit
+- Access Revit model information
+- Query elements (walls, doors, windows, etc.)
+- Create and modify BIM elements
+- Run structural analysis
+- Generate schedules and reports
+
+## Example Usage
+
+Once configured, you can ask Claude:
+
+- "Get information about the current Revit model"
+- "Count all the walls in the project"
+- "Create a new wall at coordinates..."
+- "List all doors on Level 1"
+- "Generate a door schedule"
+
+## Troubleshooting
+
+If you encounter issues:
+
+1. Verify your API key is correct
+2. Check your internet connection
+3. Ensure Claude Desktop was restarted after configuration
+4. Check the logs: `~/.claude/logs/`
+
+## Support
+
+- Documentation: [https://docs.bimcp.com](https://docs.bimcp.com)
+- Support: support@bimcp.com
+- Issues: [https://github.com/BIMCP/bimcp-mcp/issues](https://github.com/BIMCP/bimcp-mcp/issues)
+
+## License
+
+MIT License - See LICENSE file for details.
