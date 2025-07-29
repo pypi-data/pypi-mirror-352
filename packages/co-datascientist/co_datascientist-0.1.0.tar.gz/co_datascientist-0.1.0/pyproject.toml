@@ -1,0 +1,34 @@
+[project]
+name = "co-datascientist"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "David Gedalevich", email = "davidgdalevich7@gmail.com" }
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.12"
+
+dependencies = [
+    "click>=8.1.8",
+    "fastmcp>=2.2.5",
+    "httpx>=0.28.1",
+    "keyring>=25.6.0",
+    "pydantic-settings>=2.9.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/TropiFloAI/co-datascientist"
+Issues = "https://github.com/TropiFloAI/co-datascientist/issues"
+
+[project.scripts]
+co-datascientist = "co_datascientist.cli:main"
+
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]

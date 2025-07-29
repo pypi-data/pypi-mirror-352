@@ -1,0 +1,81 @@
+Metadata-Version: 2.4
+Name: co-datascientist
+Version: 0.1.0
+Summary: Add your description here
+Project-URL: Homepage, https://github.com/TropiFloAI/co-datascientist
+Project-URL: Issues, https://github.com/TropiFloAI/co-datascientist/issues
+Author-email: David Gedalevich <davidgdalevich7@gmail.com>
+License: Copyright (c) 2018 The Python Packaging Authority
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Requires-Python: >=3.12
+Requires-Dist: click>=8.1.8
+Requires-Dist: fastmcp>=2.2.5
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: keyring>=25.6.0
+Requires-Dist: pydantic-settings>=2.9.1
+Description-Content-Type: text/markdown
+
+## Running instructions
+### 1. configure cursor
+go to cursor settings -> MCP tab -> add new
+copy paste this:
+```json
+{
+  "mcpServers": {
+    "CoDatascientist": {
+        "url": "http://localhost:8000/sse"
+    }
+  }
+}
+```
+
+### 2. optional (recommended): enable autorun mode 
+this way it doesn't ask for permission to run the tool each time. settings -> features -> enable auto-run 
+
+### 3. run co-datascientist-backend
+follow co-datascientist-backend instructions on how to run. 
+
+it will probably run on port 8001. make sure the CO_DATASCIENTIST_BACKEND_URL in settings (.env) is correct. 
+
+### 4. run the local mcp server
+
+`uv run .\main.py`
+
+it will ask you to enter your api key. generate the key using `scripts/generate_token.py` in the `co-datascientist-backend` repository.
+
+### 5. test it!
+open `test/test.py` in cursor, and ask the model help from co-datascientist in improving the code
+
+
+## problems
+- venv and env vars: the command often is "python file.py", and it works now only because i activated the venv. we need a more foolproof interpreter path
+- replacing the file with the temp: rn we just split the command by space and replace the .py part, but what if the path has spaces? what if it's not python?
+- coupling to python
+- relative paths accessed from the baseline
+- implications of running the baseline script locally: compute, token usage, other stateful changes.
+- multiple files with imports?
+
+
+## TODO
+- instead of temp files, create the files on a folder in the users project
+- make clear that the workflow uses a LOT of cpu by actually running the code on the users machine
+- make sure to reflect the progress
+- make it easier to find the absolute path! now its staggering
