@@ -1,0 +1,108 @@
+from pathlib import Path
+from unittest.mock import patch
+
+from airflow_config.ui.functions import get_configs_from_yaml, get_yaml_files
+from airflow_config.ui.standalone import build_app, main
+
+
+class TestAirflowPlugin:
+    def test_plugin(self):
+        from airflow_config.ui.viewer import AirflowConfigViewerPlugin, AirflowConfigViewerPluginView
+
+        AirflowConfigViewerPluginView()
+        AirflowConfigViewerPlugin()
+
+
+class TestPluginFunctions:
+    def test_plugin_functions_get_yamls(self):
+        root = Path(__file__).parent
+        assert sorted(get_yaml_files(root)) == sorted(
+            [
+                root / "setups/extensions/priority/config/test.yaml",
+                root / "setups/good/options/config/test.yaml",
+                root / "setups/good/complex/config/config.yaml",
+                root / "setups/good/dag-disable/config/test.yaml",
+                root / "setups/good/basic/config/test.yaml",
+                root / "setups/good/dag-factory/config/test.yaml",
+                root / "setups/good/dag-specialize/config/test.yaml",
+                root / "setups/good/dag-disable-perdag/config/test.yaml",
+                root / "setups/good/envs/config/dev.yaml",
+                root / "setups/good/envs/config/prod.yaml",
+            ]
+        )
+
+    def test_plugin_functions_get_configs(self):
+        root = Path(__file__).parent
+        assert (
+            get_configs_from_yaml(Path(root) / "setups/good/basic/config/test.yaml", [])
+            == """{
+  "default_task_args": {
+    "owner": "test",
+    "email": null,
+    "email_on_failure": null,
+    "email_on_retry": null,
+    "retries": null,
+    "retry_delay": null,
+    "retry_exponential_backoff": null,
+    "max_retry_delay": null,
+    "start_date": null,
+    "end_date": null,
+    "depends_on_past": null,
+    "queue": null,
+    "pool": null,
+    "pool_slots": null,
+    "execution_timeout": null,
+    "trigger_rule": null,
+    "max_active_tis_per_dag": null,
+    "max_active_tis_per_dagrun": null,
+    "do_xcom_push": null,
+    "multiple_outputs": null,
+    "task_display_name": null
+  },
+  "default_dag_args": {
+    "description": null,
+    "schedule": null,
+    "start_date": null,
+    "end_date": null,
+    "max_active_tasks": null,
+    "max_active_runs": null,
+    "default_view": null,
+    "orientation": null,
+    "catchup": null,
+    "is_paused_upon_creation": null,
+    "tags": null,
+    "dag_display_name": null,
+    "enabled": null
+  },
+  "dags": {},
+  "tasks": {},
+  "extensions": {},
+  "env": "",
+  "name": "",
+  "root": null,
+  "tags": {}
+}"""
+        )
+
+    def test_plugin_functions_get_configs_backtick_bug(self):
+        root = Path(__file__).parent
+        assert (
+            get_configs_from_yaml(Path(root) / "setups/good/dag-factory/config/test.yaml", [])
+            == '{\n  "default_task_args": {\n    "owner": "test",\n    "email": [\n      "myemail@myemail.com"\n    ],\n    "email_on_failure": false,\n    "email_on_retry": false,\n    "retries": 0,\n    "retry_delay": null,\n    "retry_exponential_backoff": null,\n    "max_retry_delay": null,\n    "start_date": null,\n    "end_date": null,\n    "depends_on_past": false,\n    "queue": null,\n    "pool": null,\n    "pool_slots": null,\n    "execution_timeout": null,\n    "trigger_rule": null,\n    "max_active_tis_per_dag": null,\n    "max_active_tis_per_dagrun": null,\n    "do_xcom_push": null,\n    "multiple_outputs": null,\n    "task_display_name": null\n  },\n  "default_dag_args": {\n    "description": null,\n    "schedule": "PT1H",\n    "start_date": "2024-01-01T00:00:00",\n    "end_date": null,\n    "max_active_tasks": null,\n    "max_active_runs": null,\n    "default_view": null,\n    "orientation": null,\n    "catchup": false,\n    "is_paused_upon_creation": null,\n    "tags": [\n      "utility",\n      "test"\n    ],\n    "dag_display_name": null,\n    "enabled": null\n  },\n  "dags": {\n    "example_dag": {\n      "description": "this is an example dag",\n      "schedule": "0 3 * * *",\n      "start_date": null,\n      "end_date": null,\n      "max_active_tasks": null,\n      "max_active_runs": null,\n      "default_view": null,\n      "orientation": null,\n      "catchup": null,\n      "is_paused_upon_creation": null,\n      "tags": null,\n      "dag_display_name": null,\n      "enabled": null,\n      "dag_id": null,\n      "default_args": {\n        "owner": "custom_owner",\n        "email": null,\n        "email_on_failure": null,\n        "email_on_retry": null,\n        "retries": null,\n        "retry_delay": null,\n        "retry_exponential_backoff": null,\n        "max_retry_delay": null,\n        "start_date": null,\n        "end_date": null,\n        "depends_on_past": null,\n        "queue": null,\n        "pool": null,\n        "pool_slots": null,\n        "execution_timeout": null,\n        "trigger_rule": null,\n        "max_active_tis_per_dag": null,\n        "max_active_tis_per_dagrun": null,\n        "do_xcom_push": null,\n        "multiple_outputs": null,\n        "task_display_name": null\n      },\n      "tasks": {\n        "task_1": {\n          "owner": null,\n          "email": null,\n          "email_on_failure": null,\n          "email_on_retry": null,\n          "retries": null,\n          "retry_delay": null,\n          "retry_exponential_backoff": null,\n          "max_retry_delay": null,\n          "start_date": null,\n          "end_date": null,\n          "depends_on_past": null,\n          "queue": null,\n          "pool": null,\n          "pool_slots": null,\n          "execution_timeout": null,\n          "trigger_rule": null,\n          "max_active_tis_per_dag": null,\n          "max_active_tis_per_dagrun": null,\n          "do_xcom_push": null,\n          "multiple_outputs": null,\n          "task_display_name": null,\n          "bash_command": "echo \'1\'",\n          "env": null,\n          "append_env": false,\n          "output_encoding": "utf-8",\n          "skip_exit_code": null,\n          "skip_on_exit_code": 99,\n          "cwd": null,\n          "output_processor": null,\n          "task_id": null,\n          "operator": "airflow.operators.bash.BashOperator",\n          "dependencies": null\n        },\n        "task_2": {\n          "owner": null,\n          "email": null,\n          "email_on_failure": null,\n          "email_on_retry": null,\n          "retries": null,\n          "retry_delay": null,\n          "retry_exponential_backoff": null,\n          "max_retry_delay": null,\n          "start_date": null,\n          "end_date": null,\n          "depends_on_past": null,\n          "queue": null,\n          "pool": null,\n          "pool_slots": null,\n          "execution_timeout": null,\n          "trigger_rule": null,\n          "max_active_tis_per_dag": null,\n          "max_active_tis_per_dagrun": null,\n          "do_xcom_push": null,\n          "multiple_outputs": null,\n          "task_display_name": null,\n          "bash_command": "echo `pwd`",\n          "env": null,\n          "append_env": false,\n          "output_encoding": "utf-8",\n          "skip_exit_code": null,\n          "skip_on_exit_code": 99,\n          "cwd": null,\n          "output_processor": null,\n          "task_id": null,\n          "operator": "airflow.operators.bash.BashOperator",\n          "dependencies": [\n            "task_1"\n          ]\n        },\n        "task_3": {\n          "owner": null,\n          "email": null,\n          "email_on_failure": null,\n          "email_on_retry": null,\n          "retries": null,\n          "retry_delay": null,\n          "retry_exponential_backoff": null,\n          "max_retry_delay": null,\n          "start_date": null,\n          "end_date": null,\n          "depends_on_past": null,\n          "queue": null,\n          "pool": null,\n          "pool_slots": null,\n          "execution_timeout": null,\n          "trigger_rule": null,\n          "max_active_tis_per_dag": null,\n          "max_active_tis_per_dagrun": null,\n          "do_xcom_push": null,\n          "multiple_outputs": null,\n          "task_display_name": null,\n          "python_callable": "airflow_config.tests.setups.good.utils.print_hello.print_hello",\n          "op_args": [],\n          "op_kwargs": {},\n          "templates_dict": {},\n          "templates_exts": null,\n          "show_return_value_in_logs": true,\n          "task_id": null,\n          "operator": "airflow.operators.python.PythonOperator",\n          "dependencies": [\n            "task_1"\n          ]\n        }\n      }\n    },\n    "example_dag2": {\n      "description": null,\n      "schedule": "0 4 * * *",\n      "start_date": null,\n      "end_date": null,\n      "max_active_tasks": null,\n      "max_active_runs": null,\n      "default_view": null,\n      "orientation": null,\n      "catchup": null,\n      "is_paused_upon_creation": null,\n      "tags": null,\n      "dag_display_name": null,\n      "enabled": null,\n      "dag_id": null,\n      "default_args": {\n        "owner": "custom_owner2",\n        "email": null,\n        "email_on_failure": null,\n        "email_on_retry": null,\n        "retries": null,\n        "retry_delay": null,\n        "retry_exponential_backoff": null,\n        "max_retry_delay": null,\n        "start_date": null,\n        "end_date": null,\n        "depends_on_past": null,\n        "queue": null,\n        "pool": null,\n        "pool_slots": null,\n        "execution_timeout": null,\n        "trigger_rule": null,\n        "max_active_tis_per_dag": null,\n        "max_active_tis_per_dagrun": null,\n        "do_xcom_push": null,\n        "multiple_outputs": null,\n        "task_display_name": null\n      },\n      "tasks": {\n        "task_1": {\n          "owner": null,\n          "email": null,\n          "email_on_failure": null,\n          "email_on_retry": null,\n          "retries": null,\n          "retry_delay": null,\n          "retry_exponential_backoff": null,\n          "max_retry_delay": null,\n          "start_date": null,\n          "end_date": null,\n          "depends_on_past": null,\n          "queue": null,\n          "pool": null,\n          "pool_slots": null,\n          "execution_timeout": null,\n          "trigger_rule": null,\n          "max_active_tis_per_dag": null,\n          "max_active_tis_per_dagrun": null,\n          "do_xcom_push": null,\n          "multiple_outputs": null,\n          "task_display_name": null,\n          "bash_command": "echo \\"1\\"",\n          "env": null,\n          "append_env": false,\n          "output_encoding": "utf-8",\n          "skip_exit_code": null,\n          "skip_on_exit_code": 99,\n          "cwd": null,\n          "output_processor": null,\n          "task_id": null,\n          "operator": "airflow.operators.bash.BashOperator",\n          "dependencies": null\n        },\n        "task_2": {\n          "owner": null,\n          "email": null,\n          "email_on_failure": null,\n          "email_on_retry": null,\n          "retries": null,\n          "retry_delay": null,\n          "retry_exponential_backoff": null,\n          "max_retry_delay": null,\n          "start_date": null,\n          "end_date": null,\n          "depends_on_past": null,\n          "queue": null,\n          "pool": null,\n          "pool_slots": null,\n          "execution_timeout": null,\n          "trigger_rule": null,\n          "max_active_tis_per_dag": null,\n          "max_active_tis_per_dagrun": null,\n          "do_xcom_push": null,\n          "multiple_outputs": null,\n          "task_display_name": null,\n          "bash_command": "echo 2",\n          "env": null,\n          "append_env": false,\n          "output_encoding": "utf-8",\n          "skip_exit_code": null,\n          "skip_on_exit_code": 99,\n          "cwd": null,\n          "output_processor": null,\n          "task_id": null,\n          "operator": "airflow.operators.bash.BashOperator",\n          "dependencies": [\n            "task_1"\n          ]\n        },\n        "task_3": {\n          "owner": null,\n          "email": null,\n          "email_on_failure": null,\n          "email_on_retry": null,\n          "retries": null,\n          "retry_delay": null,\n          "retry_exponential_backoff": null,\n          "max_retry_delay": null,\n          "start_date": null,\n          "end_date": null,\n          "depends_on_past": null,\n          "queue": null,\n          "pool": null,\n          "pool_slots": null,\n          "execution_timeout": null,\n          "trigger_rule": null,\n          "max_active_tis_per_dag": null,\n          "max_active_tis_per_dagrun": null,\n          "do_xcom_push": null,\n          "multiple_outputs": null,\n          "task_display_name": null,\n          "bash_command": "echo 3",\n          "env": null,\n          "append_env": false,\n          "output_encoding": "utf-8",\n          "skip_exit_code": null,\n          "skip_on_exit_code": 99,\n          "cwd": null,\n          "output_processor": null,\n          "task_id": null,\n          "operator": "airflow.operators.bash.BashOperator",\n          "dependencies": [\n            "task_1"\n          ]\n        }\n      }\n    }\n  },\n  "tasks": {},\n  "extensions": {},\n  "env": "",\n  "name": "",\n  "root": null,\n  "tags": {}\n}'
+        )
+
+
+class TestStandaloneUI:
+    def test_standalone_ui(self):
+        # Test the build_app function
+        app = build_app()
+        assert app is not None
+
+    def test_launch(self):
+        # Test the main function
+        with patch("airflow_config.ui.standalone.run") as mock_run:
+            main()
+            mock_run.assert_called_once()
+
+    def test_main(self):
+        import airflow_config.ui.standalone.__main__  # noqa: F401
