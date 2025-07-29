@@ -1,0 +1,20 @@
+[project]
+name = "fuckcode"
+version = "0.0.12"
+description = "FuckCode Compiler"
+authors = [
+    { name = "Gudupao", email = "official@gudupao.top" }
+]
+license = { text = "MIT License" }
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "typer"
+]
+
+[project.scripts]
+fuckcode = "fuckcode.__main__:main"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
