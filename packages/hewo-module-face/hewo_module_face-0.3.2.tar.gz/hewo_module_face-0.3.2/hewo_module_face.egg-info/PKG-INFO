@@ -1,0 +1,52 @@
+Metadata-Version: 2.4
+Name: hewo-module-face
+Version: 0.3.2
+Summary: A Pygame project for modular game elements with reusable objects.
+Author-email: Diego Delgado Chaves <diedelcha@gmail.com>
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: blinker>=1.9.0
+Requires-Dist: certifi>=2024.12.14
+Requires-Dist: charset-normalizer>=3.4.0
+Requires-Dist: click>=8.1.7
+Requires-Dist: Flask>=3.1.0
+Requires-Dist: idna>=3.10
+Requires-Dist: itsdangerous>=2.2.0
+Requires-Dist: Jinja2>=3.1.4
+Requires-Dist: MarkupSafe>=3.0.2
+Requires-Dist: numpy>=2.1.1
+Requires-Dist: pygame>=2.6.0
+Requires-Dist: PyYAML>=6.0.2
+Requires-Dist: requests>=2.32.3
+Requires-Dist: scipy>=1.14.1
+Requires-Dist: screeninfo>=0.8.1
+Requires-Dist: urllib3>=2.2.3
+Requires-Dist: Werkzeug>=3.1.3
+Requires-Dist: opencv-python>=4.11.0.86
+Dynamic: license-file
+
+# HeWo PyGame
+In the beginning, HeWo's face was a rudimentary prototype in pygame.
+I saw potential in how we can manipulate the surfaces using pygame,
+and I love algebra, so I began designing a geometric face for HeWo.
+
+`hewo_pygame` is a package that implements the logic for HeWo's window system,
+face, and multimedia displayer. It also contains the objects that can be controlled
+in the window.
+
+## Installation
+To install and run the package, you can use pip:
+```bash
+pip install hewo
+```
+Then you can run the package using the following command:
+```bash
+hewo_main
+```
+
+## Control Interface
+### Keyboard
+### API server
+Flask (Only receives POST requests)
