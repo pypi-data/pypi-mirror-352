@@ -1,0 +1,143 @@
+version: "3.7"
+
+services:
+    django:
+        build:
+            context: .
+            dockerfile: docker/django/Dockerfile
+        restart: "no"
+        hostname: django
+        ports:
+            - "8000:8000"
+        env_file: ./docker/common.env
+        links:
+            - postgres:postgres
+            - redis:redis
+        depends_on:
+            - postgres
+            - redis
+        volumes:
+            - ./docker/:/django/docker/:ro
+            - ./huey_monitor/:/django/huey_monitor/:ro
+            - ./huey_monitor_project/:/django/huey_monitor_project/:ro
+            #
+            - ./volumes/django/venv/:/django/.venv/:rw
+            - ./volumes/django/build/:/django/build/:rw
+            - ./volumes/django/static/:/static/:rw
+            - ./volumes/django/media/:/media/:rw
+            # e.g.: pip cache must be the same value as $XDG_CACHE_HOME !
+            - ./volumes/cache/:/pipcache/:rw
+        entrypoint: /django/docker/django/entrypoint.sh
+
+    huey1:
+        build:
+            context: .
+            dockerfile: docker/django/Dockerfile
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+        restart: "no"
+        hostname: huey1
+        env_file: ./docker/common.env
+        links:
+            - postgres:postgres
+            - redis:redis
+        depends_on:
+            - django
+        volumes:
+            - ./docker/:/django/docker/:ro
+            - ./huey_monitor/:/django/huey_monitor/:ro
+            - ./huey_monitor_project/:/django/huey_monitor_project/:ro
+            #
+            - ./volumes/django/venv/:/django/.venv/:rw
+            - ./volumes/django/build/:/django/build/:rw
+            - ./volumes/django/static/:/static/:rw
+            - ./volumes/django/media/:/media/:rw
+            # e.g.: pip cache must be the same value as $XDG_CACHE_HOME !
+            - ./volumes/cache/:/pipcache/:rw
+        entrypoint: /django/docker/huey/entrypoint.sh
+
+    huey2:
+        build:
+            context: .
+            dockerfile: docker/django/Dockerfile
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+        restart: "no"
+        hostname: huey2
+        env_file: ./docker/common.env
+        links:
+            - postgres:postgres
+            - redis:redis
+        depends_on:
+            - django
+        volumes:
+            - ./docker/:/django/docker/:ro
+            - ./huey_monitor/:/django/huey_monitor/:ro
+            - ./huey_monitor_project/:/django/huey_monitor_project/:ro
+            #
+            - ./volumes/django/venv/:/django/.venv/:rw
+            - ./volumes/django/build/:/django/build/:rw
+            - ./volumes/django/static/:/static/:rw
+            - ./volumes/django/media/:/media/:rw
+            # e.g.: pip cache must be the same value as $XDG_CACHE_HOME !
+            - ./volumes/cache/:/pipcache/:rw
+        entrypoint: /django/docker/huey/entrypoint.sh
+
+    huey3:
+        build:
+            context: .
+            dockerfile: docker/django/Dockerfile
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+        restart: "no"
+        hostname: huey3
+        env_file: ./docker/common.env
+        links:
+            - postgres:postgres
+            - redis:redis
+        depends_on:
+            - django
+        volumes:
+            - ./docker/:/django/docker/:ro
+            - ./huey_monitor/:/django/huey_monitor/:ro
+            - ./huey_monitor_project/:/django/huey_monitor_project/:ro
+            #
+            - ./volumes/django/venv/:/django/.venv/:rw
+            - ./volumes/django/build/:/django/build/:rw
+            - ./volumes/django/static/:/static/:rw
+            - ./volumes/django/media/:/media/:rw
+            # e.g.: pip cache must be the same value as $XDG_CACHE_HOME !
+            - ./volumes/cache/:/pipcache/:rw
+        entrypoint: /django/docker/huey/entrypoint.sh
+
+    postgres:
+        # https://hub.docker.com/_/postgres
+        image: postgres:alpine
+        restart: "no"
+        hostname: postgres
+        ports:
+            - "5432"
+        env_file: ./docker/common.env
+        environment:
+            - POSTGRES_HOST_AUTH_METHOD=trust
+        volumes:
+            - ./docker/postgres/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh:ro
+            - ./volumes/postgresql/data/:/var/lib/postgresql/data/:rw
+
+    redis:
+        # https://hub.docker.com/_/redis
+        image: redis:alpine
+        restart: "no"
+        hostname: redis
+        ports:
+            - "6379"
+        env_file: ./docker/common.env

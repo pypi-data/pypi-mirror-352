@@ -1,0 +1,28 @@
+.*
+*.egg-info
+__pycache__
+/dist/
+/build/
+/coverage.*
+*.orig
+
+!.github
+!.editorconfig
+!.flake8
+!.gitignore
+!.gitkeep
+
+
+# from test projects:
+/volumes/
+/static/
+/media/
+*.sqlite3
+*.json
+
+# Django
+secret.txt
+
+# Include all test snapshot files:
+!**/*.snapshot.*
+
