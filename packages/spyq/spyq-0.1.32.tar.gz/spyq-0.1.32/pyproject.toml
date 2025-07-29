@@ -1,0 +1,45 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "spyq"
+version = "0.1.32"
+description = "SPYQ - Shell Python Quality Guard"
+authors = ["Tom Sapletta <tom@sapletta.com>"]
+readme = "README.md"
+license = "Apache-2.0"
+packages = [{include = "spyq", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.8.1"
+click = "^8.1.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+black = "^23.7.0"
+isort = "^5.12.0"
+flake8 = "^6.1.0"
+mypy = "^1.5.0"
+
+[tool.poetry.scripts]
+spyq = "spyq.cli:main"
+python = "spyq.cli:main"  # This will intercept python command
+
+[tool.black]
+line-length = 88
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+line_length = 88
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-v --cov=spyq --cov-report=term-missing"
+
