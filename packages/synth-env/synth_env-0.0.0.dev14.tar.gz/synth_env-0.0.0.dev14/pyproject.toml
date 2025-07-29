@@ -1,0 +1,68 @@
+[project]
+name = "synth-env"
+version = "0.0.0.dev14"
+description = "Synth AI Environment Framework"
+authors = [{name = "Synth AI", email = "josh@usesynth.ai"}]
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = ["ai", "environment", "framework", "synth"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "pydantic",
+    "python-dotenv>=1.0.1",
+    "pytest>=8.3.3",
+    "pydantic-openapi-schema>=1.5.1",
+    "pytest-asyncio>=0.24.0",
+    "numpy>=2.2.3",
+    "networkx>=3.4.2",
+    "synth-ai==0.1.0.dev53",
+    "synth-sdk==0.3.1.dev21",
+    "crafter>=1.8.3",
+    "fastapi>=0.115.12",
+    "gym-sokoban>=0.0.6",
+    "gymnasium>=1.1.1",
+    "uvicorn>=0.34.2",
+    "ty>=0.0.1a5",
+    "ruff>=0.11.10",
+    "pyboy>=2.6.0",
+    "setuptools>=80.8.0",
+    "psutil>=7.0.0",
+    "imageio[ffmpeg]>=2.20.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/synth-laboratories/Environments"
+Repository = "https://github.com/synth-laboratories/Environments"
+Issues = "https://github.com/synth-laboratories/Environments/issues"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.uv.sources]
+
+[tool.hatch.envs.default.env]
+path = ".venv"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto" # Or "strict"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = [
+    "ignore:The configuration option \\\"asyncio_default_fixture_loop_scope\\\" is unset:pytest.PytestDeprecationWarning",
+    "ignore:pkg_resources is deprecated:DeprecationWarning:gym_sokoban.*",
+    "ignore:pkg_resources is deprecated:DeprecationWarning", # General pkg_resources
+    "ignore:Deprecated call to `pkg_resources.declare_namespace.*:DeprecationWarning",
+    "ignore:Starting with ImageIO v3.*:DeprecationWarning:gym_sokoban\\.envs\\.render_utils",
+]
+addopts = "-v" # Keep other options minimal for now
+
+[tool.setuptools.packages.find]
+where = ["src"]
+# include = ["*"] # Optional: often not needed if all dirs in src are packages
