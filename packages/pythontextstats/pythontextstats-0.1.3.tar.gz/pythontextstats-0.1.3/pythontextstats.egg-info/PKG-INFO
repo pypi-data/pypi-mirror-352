@@ -1,0 +1,57 @@
+Metadata-Version: 2.4
+Name: pythontextstats
+Version: 0.1.3
+Summary: A Python package for text analysis
+Home-page: https://github.com/Vigneshselvaraj1811/textstats
+Author: Vignesh Selvaraj
+Author-email: vigneshaasiga2020@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+Dynamic: summary
+
+# Python Text Stats
+
+A simple Python module to analyze text and provide various statistics such as word count, sentence count, average word length, estimated reading time, character count, syllable count, and readability scores.
+
+## Features
+
+- Count words
+- Count sentences
+- Average word length
+- Estimated reading time (default 200 WPM)
+- Character count (excluding spaces)
+- Estimate syllable count
+- Calculate Flesch Reading Ease score
+- Calculate Flesch-Kincaid Grade Level
+
+## Installation
+
+Simply download the `pip install pythontextstats` file into your project.
+
+## Usage
+
+```python
+import pythontextstats as pts
+
+text = "This is a simple example sentence. It has multiple words and sentences."
+
+print("Words:", pts.word_count(text))
+print("Sentences:", pts.sentence_count(text))
+print("Average Word Length:", pts.average_word_length(text))
+print("Reading Time (minutes):", pts.reading_time(text))
+print("Character Count:", pts.character_count(text))
+print("Syllable Count:", pts.syllable_count(text))
+print("Flesch Reading Ease:", pts.flesch_reading_ease(text))
+print("Flesch-Kincaid Grade Level:", pts.flesch_kincaid_grade(text))
