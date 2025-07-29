@@ -1,0 +1,241 @@
+Metadata-Version: 2.1
+Name: memepay
+Version: 0.1.0
+Summary: MemePay Python SDK
+Home-page: https://memepay.lol
+Author: MemePay
+Author-email: support@memepay.lol
+Project-URL: Documentation, https://memepay.lol/docs
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: pydantic
+
+# MemePay SDK для Python
+
+Официальный Python SDK для работы с платежной системой MemePay.
+
+[![PyPI version](https://img.shields.io/pypi/v/memepay.svg)](https://pypi.org/project/memepay/)
+[![Python versions](https://img.shields.io/pypi/pyversions/memepay.svg)](https://pypi.org/project/memepay/)
+[![License](https://img.shields.io/pypi/l/memepay.svg)](https://pypi.org/project/memepay/)
+
+## Установка
+
+```bash
+pip install memepay
+```
+
+## Возможности
+
+- Создание и управление платежами
+- Получение информации о пользователе и магазине
+- Поддержка синхронного и асинхронного API
+- Обработка вебхуков (с интеграцией FastAPI)
+- Полностью типизированный код (поддержка mypy)
+
+## Начало работы
+
+### Синхронный клиент
+
+```python
+from memepay import MemePay
+
+# Инициализация клиента
+client = MemePay(
+    api_key="ваш_api_ключ",
+    shop_id="идентификатор_магазина"
+)
+
+# Создание платежа
+payment = client.create_payment(
+    amount=100,  # сумма в рублях
+    method="lolz"  # метод оплаты (опционально)
+)
+
+print(f"Ссылка для оплаты: {payment.payment_url}")
+print(f"ID платежа: {payment.payment_id}")
+```
+
+### Асинхронный клиент
+
+```python
+import asyncio
+from memepay import AsyncMemePay
+
+async def main():
+    # Инициализация асинхронного клиента
+    client = AsyncMemePay(
+        api_key="ваш_api_ключ",
+        shop_id="идентификатор_магазина"
+    )
+    
+    try:
+        # Создание платежа
+        payment = await client.create_payment(
+            amount=100,
+            method="lolz"
+        )
+        
+        print(f"Ссылка для оплаты: {payment.payment_url}")
+        print(f"ID платежа: {payment.payment_id}")
+        
+        # Получение доступных методов оплаты
+        methods = await client.get_store_payment_methods()
+        print("Доступные методы оплаты:", methods)
+    
+    finally:
+        # Не забывайте закрывать клиент
+        await client.close()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+## Обработка вебхуков с FastAPI
+
+SDK предоставляет удобный способ обработки вебхуков с использованием FastAPI:
+
+```python
+import os
+from memepay import MemePay
+from memepay.webhook import MemePayWebhook, WebhookPayload
+
+# Получение API ключа, ID магазина и вебхук-секрета из переменных окружения
+API_KEY = "1"
+SHOP_ID = "1"
+WEBHOOK_SECRET = "mpub_54e25f2ad1a8a966010b"
+
+# Проверка наличия необходимых переменных окружения
+if not API_KEY or not SHOP_ID or not WEBHOOK_SECRET:
+    raise ValueError(
+        "Необходимо задать переменные окружения: "
+        "MEMEPAY_API_KEY, MEMEPAY_SHOP_ID, MEMEPAY_WEBHOOK_SECRET"
+    )
+
+# Инициализация клиента MemePay
+memepay_client = MemePay(
+    api_key=API_KEY,
+    shop_id=SHOP_ID
+)
+
+# Создание FastAPI приложения и обработчика вебхуков в одной строке
+app, memepay_webhook = MemePayWebhook.create_app(
+    webhook_secret=WEBHOOK_SECRET,
+    title="MemePay Webhook",
+    description="Пример использования MemePay вебхуков с FastAPI",
+    version="1.0.0"
+)
+
+# Определение функций-обработчиков вебхуков
+
+async def handle_payment_created(payload: WebhookPayload):
+    """
+    Обработчик события создания платежа
+    
+    Args:
+        payload: Данные платежа
+    """
+    print(f"🆕 Платеж создан: ID={payload.payment_id}, Сумма={payload.amount}")
+    
+    # Дополнительная логика...
+    # Например, сохранение в БД, отправка уведомлений и т.д.
+
+async def handle_payment_completed(payload: WebhookPayload):
+    """
+    Обработчик события успешного завершения платежа
+    
+    Args:
+        payload: Данные платежа
+    """
+    print(f"✅ Платеж завершен: ID={payload.payment_id}, Сумма={payload.amount}")
+    
+    try:
+        # Получение подробной информации о платеже через API
+        payment_info = memepay_client.get_payment_info(payload.payment_id)
+        print(f"Детали платежа: Метод={payment_info.method}, Время создания={payment_info.created_at}")
+        
+        # Здесь может быть логика для:
+        # - Обновления статуса заказа
+        # - Доставки цифрового товара
+        # - Отправки уведомления пользователю
+        # и т.д.
+    except Exception as e:
+        print(f"Ошибка при обработке платежа: {e}")
+
+async def handle_payment_failed(payload: WebhookPayload):
+    """
+    Обработчик события неудачного платежа
+    
+    Args:
+        payload: Данные платежа
+    """
+    print(f"❌ Платеж не удался: ID={payload.payment_id}, Статус={payload.status}")
+    
+    # Логика обработки неудачного платежа
+    # Например, обновление статуса заказа, уведомление пользователя
+
+async def handle_webhook_error(error: Exception):
+    """
+    Обработчик ошибок в вебхуках
+    
+    Args:
+        error: Объект исключения
+    """
+    print(f"🔥 Ошибка при обработке вебхука: {error}")
+    
+    # Логирование ошибки, отправка уведомлений администратору и т.д.
+
+# Регистрация обработчиков с помощью нового API
+memepay_webhook.register(handle_payment_created, event_type="payment_created")
+memepay_webhook.register(handle_payment_completed event_type="payment_completed")
+memepay_webhook.register(handle_payment_failed, event_type="payment_failed")
+memepay_webhook.register(handle_webhook_error, event_type="error")
+
+# Запуск сервера для тестирования
+if __name__ == "__main__":
+    # Запуск сервера через метод библиотеки
+    memepay_webhook.start_server_in_thread(app=app, host="127.0.0.1", port=8000)
+    
+    # Держим скрипт активным пока сервер работает
+    try:
+        import time
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("\nСервер остановлен")
+```
+
+## Дополнительные возможности
+
+### Получение информации о пользователе
+
+```python
+user_info = client.get_user_info()
+print(f"Баланс: {user_info.balance}")
+print(f"Email: {user_info.email}")
+```
+
+### Получение информации о платеже
+
+```python
+payment_info = client.get_payment_info("id_платежа")
+print(f"Статус: {payment_info.status}")
+print(f"Сумма: {payment_info.amount}")
+```
+
+## Требования
+
+- Python 3.7+
+- requests>=2.25.0 (для синхронного API)
+- httpx>=0.23.0 (для асинхронного API)
+
+## Документация
+
+Полная документация доступна по адресу: [https://memepay.lol/docs](https://memepay.lol/docs)
+
+## Лицензия
+
+MIT
