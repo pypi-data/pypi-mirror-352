@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "brasciichart"
+version = "0.1.0"
+authors = [{ name = "Cthulhu Fhtagn" }, ]
+description = "Console ASCII line charts with Braille characters"
+readme = "README.md"
+license = { text = 'MIT' }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = []
+scripts.brasciichart = "brasciichart:main"
+urls.Homepage = "https://codeberg.org/cthulhu/brasciichart"
+urls.Issues = "https://codeberg.org/cthulhu/brasciichart/issues"
+
+[tool.setuptools.package-data]
+brasciichart = ["brasciichart.py"]
