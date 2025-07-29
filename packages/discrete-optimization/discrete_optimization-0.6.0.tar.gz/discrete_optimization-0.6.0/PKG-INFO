@@ -1,0 +1,138 @@
+Metadata-Version: 2.4
+Name: discrete-optimization
+Version: 0.6.0
+Summary: Discrete optimization library
+Author-email: Airbus AI Research <scikit-decide@airbus.com>
+License: MIT
+Project-URL: documentation, https://airbus.github.io/discrete-optimization
+Project-URL: repository, https://github.com/airbus/discrete-optimization
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: Development Status :: 4 - Beta
+Classifier: Topic :: Software Development
+Classifier: Topic :: Scientific/Engineering
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: shapely>=1.7
+Requires-Dist: minizinc>=0.6.0
+Requires-Dist: deap>=1.3.1
+Requires-Dist: networkx>=2.5
+Requires-Dist: numba>=0.50
+Requires-Dist: matplotlib>=3.1
+Requires-Dist: seaborn>=0.10.1
+Requires-Dist: pymzn>=0.18.3
+Requires-Dist: ortools>=9.8
+Requires-Dist: tqdm>=4.62.3
+Requires-Dist: sortedcontainers>=2.4
+Requires-Dist: deprecation
+Requires-Dist: typing-extensions>=4.4
+Requires-Dist: cpmpy>=0.9.9
+Requires-Dist: scipy
+Requires-Dist: numpy>=1.21
+Requires-Dist: clingo>=5.6
+Requires-Dist: didppy>=0.8.0
+Requires-Dist: setuptools
+Requires-Dist: pandas>=2
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+Requires-Dist: scikit-learn>=1.0; extra == "test"
+Requires-Dist: optuna; extra == "test"
+Provides-Extra: quantum
+Requires-Dist: qiskit>=1.0.2; extra == "quantum"
+Requires-Dist: qiskit-algorithms>=0.3.0; extra == "quantum"
+Requires-Dist: qiskit-optimization>=0.6.1; extra == "quantum"
+Requires-Dist: qiskit-aer>=0.14.1; extra == "quantum"
+Requires-Dist: qiskit-ibm-runtime>=0.24; extra == "quantum"
+Provides-Extra: toulbar
+Requires-Dist: pytoulbar2>=0.0.0.4; extra == "toulbar"
+Provides-Extra: dashboard
+Requires-Dist: dash; extra == "dashboard"
+Requires-Dist: plotly; extra == "dashboard"
+Requires-Dist: dash_bootstrap_components; extra == "dashboard"
+Requires-Dist: pandas[hdf5]; extra == "dashboard"
+Dynamic: license-file
+
+# Discrete Optimization
+
+Discrete Optimization is a python library to ease the definition and re-use of discrete optimization problems and solvers.
+It has been initially developed in the frame of [scikit-decide](https://github.com/airbus/scikit-decide) for scheduling.
+The code base starting to be big, the repository has now been splitted in two separate ones.
+
+The library contains a range of existing solvers already implemented such as:
+* greedy methods
+* local search (Hill Climber, Simulated Annealing)
+* metaheuristics (Genetic Algorithms, NSGA)
+* linear programming
+* constraint programming
+* domain independent dynamic programming
+* hybrid methods (CP and LP based Large Neighborhood Search)
+
+The library also contains implementation of several classic discrete optimization problems:
+* Travelling Salesman Problem (TSP)
+* Knapsack Problem (KP)
+* Vehicle Routing Problem (VRP)
+* Facility Location Problem (FLP)
+* Resource Constrained Project Scheduling Problem (RCPSP) and its variants (MRCPSP, MSRCPSP)
+* Graph Colouring Problem (GCP)
+* Maximum independent set (MIS)
+* Job shop scheduling problem (JSP) and its flexible variant (FJSP)
+
+In addition, the library contains functionalities to enable robust optimization
+through different scenario handling mechanisms) and multi-objective optimization
+(aggregation of objectives, Pareto optimization, MO post-processing).
+
+We thank awesome optimization library or modeling language from different communities that are widely used through our library :
+
+notably [ortools](https://github.com/google/or-tools), [minizinc](https://www.minizinc.org/), [deap](https://deap.readthedocs.io/en/master/), [didp](https://didp.ai/), [gurobi](https://www.gurobi.com/)
+
+
+## Installation
+
+Quick version:
+```shell
+pip install discrete-optimization
+```
+For more details, see the [online documentation](https://airbus.github.io/discrete-optimization/master/install).
+
+## Documentation
+
+The latest documentation is available [online](https://airbus.github.io/discrete-optimization).
+
+## Examples
+
+Some educational notebooks are available in `notebooks/` folder.
+Links to launch them online with [binder](https://mybinder.org/) are provided in the
+[Notebooks section](https://airbus.github.io/discrete-optimization/master/notebooks) of the online documentation.
+
+More examples can be found as Python scripts in the `examples/` folder, using the different features of
+the library and showing how to instantiate different problem instances and solvers.
+
+## Contributing
+
+See more about how to contribute in the [online documentation](https://airbus.github.io/discrete-optimization/master/contribute).
+
+
+## License
+
+This software is under the MIT License that can be found in the [LICENSE](./LICENSE) file at the root of the repository.
+
+Some minzinc models have been adapted from files coming from
+- https://github.com/MiniZinc/minizinc-benchmarks under the same [license](https://github.com/MiniZinc/minizinc-benchmarks/blob/master/LICENSE),
+- https://github.com/youngkd/MSPSP-InstLib for which we have the written authorization of the author.

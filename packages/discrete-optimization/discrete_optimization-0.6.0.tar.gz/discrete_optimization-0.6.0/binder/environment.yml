@@ -1,0 +1,11 @@
+name: nb-do-py3.9
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+      - optuna
+      - optuna-dashboard
+      - jupyter-server-proxy
+      - ..  # discrete-optimization
