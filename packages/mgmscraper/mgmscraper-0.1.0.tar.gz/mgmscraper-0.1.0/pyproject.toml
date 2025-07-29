@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mgmscraper"
+version = "0.1.0"
+description = "Asynchronous Python library for accessing Turkish Meteorology General Directorate (MGM) data"
+keywords = [
+  "mgmscraper",
+  "turkey-meteorology",
+  "async-weather-api",
+  "meteorological-data",
+  "weather-scraping",
+  "aiohttp-scraper",
+  "climate-analytics",
+  "national-weather-service",
+  "data-extraction",
+  "turkish-meteorology"
+]
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name = "Muhammed Ali Subaşı", email = "mhmmdlsubasi@gmail.com" }
+]
+
+dependencies = [
+  "aiohttp>=3.8",
+  "beautifulsoup4>=4.9"
+]
+
+
+[project.urls]
+Homepage = "https://github.com/mhmmdlsubasi/mgmscraper"
+Documentation = "https://mhmmdlsubasi.github.io/mgmscraper"
+Repository = "https://github.com/mhmmdlsubasi/mgmscraper"
+Issues = "https://github.com/mhmmdlsubasi/mgmscraper/issues"
+
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
