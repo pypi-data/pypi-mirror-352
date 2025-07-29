@@ -1,0 +1,44 @@
+Metadata-Version: 2.3
+Name: pytest-dashboard
+Version: 2.0.0
+Summary: 
+License: BSD-3-Clause
+Author: kazuma.naito
+Author-email: kazuma.naito@murata.com
+Requires-Python: >=3.9,<4.0.0
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: fire (>=0.7.0)
+Requires-Dist: pytest (>=7.4.3,<8.0.0)
+Requires-Dist: pyyaml (>=6.0.1,<7.0.0)
+Project-URL: Repository, https://github.com/pyfemtet/pytest-dashboard
+Description-Content-Type: text/markdown
+
+# pytest-dashboard
+
+## example
+- Download project
+- Run some pytest with `--progress-path` option. The value should end with `-progress.yaml`.
+    - i.e.) `pytest <path_to_project>\sample-tests --progress-path=<path_to_project>\sample-tests\sample-progress.yaml`
+    - You will get a `sample-progress.yaml` file.
+- Run pytest dashboard
+    - i.e.) `tally-pytest <path_to_project>\sample-tests`
+    - You will get a `entire-progress.yaml` file in working folder.
+
+## usage
+`pytest`
+
+By this command, you get `[datetime]-progress.yaml` file on working directory as realtime pytest progress report.
+
+---
+
+`pytest --progress-path=[path/to/some-progress.yaml]`
+
+By this command, you get `path/to/some-progress.yaml` file.
+The value should end with `-progress.yaml`.
+
