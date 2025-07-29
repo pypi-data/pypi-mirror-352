@@ -1,0 +1,74 @@
+"""
+Python module for horizontal tail volume coefficient calculation, part of the horizontal tail
+geometry.
+"""
+#  This file is part of FAST-OAD_CS23 : A framework for rapid Overall Aircraft Design
+#  Copyright (C) 2025  ONERA & ISAE-SUPAERO
+#  FAST is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+import numpy as np
+import openmdao.api as om
+
+
+class ComputeHTVolumeCoefficient(om.ExplicitComponent):
+    """
+    Computation of the Volume coefficient for the horizontal tail, obtained from
+    :cite:`supaero:2014`. It is a result and not an input of the sizing of the HTP.
+    """
+
+    # pylint: disable=missing-function-docstring
+    # Overriding OpenMDAO setup
+    def setup(self):
+        self.add_input("data:geometry:wing:area", val=np.nan, units="m**2")
+        self.add_input("data:geometry:wing:MAC:length", val=np.nan, units="m")
+        self.add_input("data:geometry:horizontal_tail:area", val=np.nan, units="m**2")
+        self.add_input(
+            "data:geometry:horizontal_tail:MAC:at25percent:x:from_wingMAC25", val=np.nan, units="m"
+        )
+
+        self.add_output("data:geometry:horizontal_tail:volume_coefficient")
+
+        self.declare_partials(of="*", wrt="*", method="exact")
+
+    # pylint: disable=missing-function-docstring, unused-argument
+    # Overriding OpenMDAO compute, not all arguments are used
+    def compute(self, inputs, outputs, discrete_inputs=None, discrete_outputs=None):
+        l0_wing = inputs["data:geometry:wing:MAC:length"]
+        wing_area = inputs["data:geometry:wing:area"]
+        lp_ht = inputs["data:geometry:horizontal_tail:MAC:at25percent:x:from_wingMAC25"]
+        ht_area = inputs["data:geometry:horizontal_tail:area"]
+
+        outputs["data:geometry:horizontal_tail:volume_coefficient"] = (ht_area * lp_ht) / (
+            wing_area * l0_wing
+        )
+
+    # pylint: disable=missing-function-docstring, unused-argument
+    # Overriding OpenMDAO compute_partials, not all arguments are used
+    def compute_partials(self, inputs, partials, discrete_inputs=None):
+        l0_wing = inputs["data:geometry:wing:MAC:length"]
+        wing_area = inputs["data:geometry:wing:area"]
+        lp_ht = inputs["data:geometry:horizontal_tail:MAC:at25percent:x:from_wingMAC25"]
+        ht_area = inputs["data:geometry:horizontal_tail:area"]
+
+        partials[
+            "data:geometry:horizontal_tail:volume_coefficient", "data:geometry:wing:MAC:length"
+        ] = -(ht_area * lp_ht) / (wing_area * l0_wing**2.0)
+        partials["data:geometry:horizontal_tail:volume_coefficient", "data:geometry:wing:area"] = -(
+            ht_area * lp_ht
+        ) / (wing_area**2.0 * l0_wing)
+        partials[
+            "data:geometry:horizontal_tail:volume_coefficient",
+            "data:geometry:horizontal_tail:MAC:at25percent:x:from_wingMAC25",
+        ] = ht_area / (wing_area * l0_wing)
+        partials[
+            "data:geometry:horizontal_tail:volume_coefficient", "data:geometry:horizontal_tail:area"
+        ] = lp_ht / (wing_area * l0_wing)
