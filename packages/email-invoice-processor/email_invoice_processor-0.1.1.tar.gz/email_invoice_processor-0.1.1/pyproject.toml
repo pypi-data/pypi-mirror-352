@@ -1,0 +1,67 @@
+[tool.poetry]
+name = "email-invoice-processor"
+version = "0.1.1"
+description = "Email invoice processor with OCR capabilities"
+authors = ["Taskinity Team <team@taskinity.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "email_processor"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-dotenv = "^1.0.0"
+pytesseract = "^0.3.10"
+opencv-python-headless = "^4.8.0"
+pdf2image = "^1.16.3"
+Pillow = "^10.0.0"
+numpy = "^1.26.0"
+python-dateutil = "^2.8.2"
+email-validator = "^2.0.0"
+pyyaml = "^6.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+flake8 = "^6.1.0"
+black = "^24.3.0"
+isort = "^5.13.2"
+mypy = "^1.7.0"
+types-python-dateutil = "^2.8.19.14"
+types-Pillow = "^10.0.3"
+types-PyYAML = "^6.0.12.12"
+types-requests = "^2.31.0.1"
+
+[tool.poetry.scripts]
+email-processor = "email_processor.process_invoices:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py38']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+disallow_incomplete_defs = true
+no_implicit_optional = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "pytest.*"
+ignore_missing_imports = true
