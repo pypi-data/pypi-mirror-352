@@ -1,0 +1,51 @@
+[build-system]
+requires = [
+  "setuptools>=61.0.0",
+  "setuptools-scm>=8.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "metainfoyaml2py"
+dynamic = ["version"]
+description = "A program for converting NOMAD metainfo YAML schemas into Python class definitions"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+keywords = ["nomad"]
+authors = [
+  {name = "Hampus Näsström", email = "hampus.naesstroem@physik.hu-berlin.de"},
+]
+maintainers = [
+  {name = "Hampus Näsström", email = "hampus.naesstroem@physik.hu-berlin.de"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "License :: OSI Approved :: Apache Software License",
+]
+
+dependencies = [
+    "autopep8>=1.7.0",
+    "autoflake>=1.6.1",
+    "PyYAML>=6.0",
+    "toml>=0.10.2",
+]
+[project.optional-dependencies]
+dev = [
+    "nomad-lab>=1.2.0-pre",
+    "structlog",
+]
+
+[project.scripts]
+metainfo-yaml2py = "metainfoyaml2py.metainfoyaml2py:main"
+
+[project.urls]
+"Homepage" = "https://github.com/hampusnasstrom/metainfo-yaml2py"
+"Bug Tracker" = "https://github.com/hampusnasstrom/metainfo-yaml2py/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools_scm]

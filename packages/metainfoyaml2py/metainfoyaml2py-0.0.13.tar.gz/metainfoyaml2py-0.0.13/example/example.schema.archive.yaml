@@ -1,0 +1,27 @@
+definitions:
+  name: Example Schema
+  sections:
+    Activity:
+      base_section: nomad.datamodel.data.ArchiveSection
+      description: |
+        A base class for any activity in relation to an entity.
+        This docstring can span multiple lines.
+      quantities:
+        start_time:
+          description: |
+            The starting date and time of the activity.
+          type: Datetime
+          m_annotations:
+            eln:
+              component: DateTimeEditQuantity
+        end_time:
+          description: |
+            The ending date and time of the activity.
+          type: Datetime
+          m_annotations:
+            eln:
+              component: DateTimeEditQuantity
+    Entity:
+      base_section: nomad.datamodel.data.ArchiveSection
+      description: |
+        A base class for any entity which can be related to an activity.
