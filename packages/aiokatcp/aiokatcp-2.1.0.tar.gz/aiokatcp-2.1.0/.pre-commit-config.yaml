@@ -1,0 +1,46 @@
+default_language_version:
+  python: python3
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-executables-have-shebangs
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: trailing-whitespace
+  - repo: https://github.com/pycqa/isort
+    rev: 5.11.5
+    hooks:
+      - id: isort
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/flake8
+    rev: 5.0.4
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.14.1'
+    hooks:
+      - id: mypy
+        # Passing filenames to mypy can do odd things. See
+        # https://github.com/pre-commit/mirrors-mypy/issues/33.
+        # pyproject.toml determines the set of files that will actually be
+        # checked.
+        pass_filenames: false
+        # The pre-commit hook passes some options, but we set options in
+        # pyproject.toml.
+        args: []
+        additional_dependencies: [
+          'async-timeout==4.0.3',
+          'hypothesis==6.113.0',
+          'katcp-codec==0.1.0',
+          'pytest==8.1.1',
+          'types-decorator==5.1.1',
+          'typing-extensions==4.11.0',
+        ]

@@ -1,0 +1,45 @@
+name: Unit tests
+on: [push, pull_request]
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-latest]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        include:
+          - python-version: "3.10"
+            coverage: "yes"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -U pip setuptools wheel
+      - run: pip install -r requirements.txt
+      - run: pip install --no-deps -e .
+        if: ${{ matrix.coverage == 'yes' }}
+      - run: pip install --no-deps .
+        if: ${{ matrix.coverage != 'yes' }}
+      - run: pip check
+      - run: pytest -Werror --cov=aiokatcp --cov-branch
+      - run: pre-commit run --all-files
+      - uses: coverallsapp/github-action@v2.3.3
+        with:
+          parallel: true
+          flag-name: ${{ matrix.os }}
+        if: ${{ matrix.coverage == 'yes' }}
+  finish:
+    needs: test
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Finalise Coveralls
+        uses: coverallsapp/github-action@v2.3.3
+        with:
+          parallel-finished: true
