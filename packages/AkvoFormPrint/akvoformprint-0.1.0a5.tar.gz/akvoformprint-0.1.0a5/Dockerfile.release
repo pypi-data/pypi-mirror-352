@@ -1,0 +1,33 @@
+# syntax=docker/dockerfile:1
+FROM python:3.10-slim
+
+# Install system dependencies required by WeasyPrint and git
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libcairo2 \
+    libffi-dev \
+    libxml2 \
+    libxslt1.1 \
+    shared-mime-info \
+    fonts-liberation \
+    fonts-dejavu-core \
+    git \
+    curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && which curl  # Verify curl is installed
+
+# Set working directory
+WORKDIR /app
+
+# Copy the entire project
+COPY . .
+
+# Install all dependencies including development ones
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir tox build twine
+
+# Default command to run tests and build
+CMD ["./scripts/release.sh"]
