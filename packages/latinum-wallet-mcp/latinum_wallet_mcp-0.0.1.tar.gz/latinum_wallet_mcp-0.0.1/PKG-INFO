@@ -1,0 +1,56 @@
+Metadata-Version: 2.4
+Name: latinum-wallet-mcp
+Version: 0.0.1
+Summary: Latinum Wallet MCP Server
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: mcp
+Requires-Dist: solana
+Requires-Dist: solders
+Requires-Dist: base58
+Requires-Dist: python-dotenv
+Requires-Dist: resend
+Requires-Dist: supabase
+Requires-Dist: keyring
+Requires-Dist: pyinstaller
+
+
+# Local test
+```
+python3 -m venv .venv && source .venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt
+python3 server_stdio.py
+```
+
+
+
+# Compile
+```
+python3 -m venv .venv && source .venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt
+pyinstaller --onefile --name latinum_wallet_mcp server_stdio.py
+```
+
+# test:
+```
+./dist/latinum_wallet_mcp
+```
+
+
+# claude_desktop_config.json:
+
+/Users/dennj/Library/Application Support/Claude/claude_desktop_config.json
+
+```
+{
+    "mcpServers": {
+        "latinum_wallet_mcp": {
+            "command": "/Users/dennj/workspace/latinum_wallet_mcp/dist/latinum_wallet_mcp"
+        }
+    }
+}
+```
+
+
+
+
+
+python setup.py sdist bdist_wheel
