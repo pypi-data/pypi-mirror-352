@@ -1,0 +1,35 @@
+[project]
+name = "fsds-training"
+version = "0.5.0"
+description = "Add your description here"
+readme = "README.md"
+
+requires-python = ">=3.12"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn>=1.6.1",
+    "six>=1.17.0",
+]
+
+[project.optional-dependencies]
+formatter = [
+    "black",
+    "isort",
+    "flake8",
+]
+plot = [
+    "matplotlib",
+    "seaborn",
+]
+test = [
+    "pytest",
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["datasets", "fsds_training"]
