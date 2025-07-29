@@ -1,0 +1,126 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xtl"
+dynamic = ["version"]
+authors = [
+    {name = "Dimitris P. Triandafillidis", email = "64985525+dtriand@users.noreply.github.com"}
+]
+description = "A collection of tools for macromolecular crystallography"
+keywords = ["x-ray", "diffraction", "crystallography", "macromolecular", "structural", "biology",
+            "autoPROC", "PDB"]
+readme = {file = "README.md", content-type = "text/markdown"}
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1.8",
+    "defusedxml>=0.7.1",
+    "distro>=1.9.0",
+    "fabio>=2023.6.0",
+    "f90nml>=1.4.4",
+    "gemmi>=0.5.5",
+    "hdf5plugin>=4.2.0",
+    "matplotlib>=3.8.0",
+    "numpy>=1.26.0",
+    "pandas>=2.2.3",
+    "pint>=0.19.2",
+    "pydantic>=2.11.5",
+    "pyfai>=2023.9.0,<2024.10",
+    "pyxray>=1.7.0",
+    "requests>=2.31.0",
+    "rich>=13.6.0",
+    "tabulate>=0.8.10",
+    "toml>=0.10.2",
+    "typer>=0.15.1",
+    "xlsxwriter>=3.2.3"
+]
+
+[project.urls]
+homepage = "https://github.com/dtriand/xtl"
+
+[project.scripts]
+xtl = "xtl.cli.cli:cli_main"
+gsas2 = "xtl.cli.cli_gsas2:cli_gsas"
+pdbapi = "xtl.cli.cli_pdbapi:cli_pdbapi"
+diffplot = "xtl.cli.cli_diffplot:app"
+difftegrate = "xtl.cli.cli_difftegrate:app"
+h5peek = "xtl.cli.cli_h5peek:app"
+"xtl.autoproc" = "xtl.cli.autoproc:app"
+"xtl.diffraction" = "xtl.cli.diffraction:app"
+"xtl.math" = "xtl.cli.math:app"
+"xtl.config_generate" = "xtl.cli.settings:app"
+
+[project.optional-dependencies]
+dev = [
+    "autodoc_pydantic>=2.2.0",
+    "pytest>=7.2.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-mock>=3.10.0",
+    "sphinx>=8.1.3",
+    "sphinx-book-theme>=1.1.3",
+    "sphinx-favicon>=1.0.1"
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "xtl.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["*.egg-info"]
+
+[tool.tox]
+min_version = "4.0"
+env_list = ["py310", "py311", "py312", "py313"]
+
+[tool.tox.env.py310]
+description = "Python 3.10"
+python = "3.10"
+extras = ["dev"]
+change_dir = "tests"
+commands = [["pytest", "-xvs", "{posargs}"]]
+
+[tool.tox.env.py311]
+description = "Python 3.11"
+python = "3.11"
+extras = ["dev"]
+change_dir = "tests"
+commands = [["pytest", "-xvs", "{posargs}"]]
+
+[tool.tox.env.py312]
+description = "Python 3.12"
+python = "3.12"
+extras = ["dev"]
+change_dir = "tests"
+commands = [["pytest", "-xvs", "{posargs}"]]
+
+[tool.tox.env.py313]
+description = "Python 3.13"
+python = "3.13"
+extras = ["dev"]
+change_dir = "tests"
+commands = [["pytest", "-xvs", "{posargs}"]]
+
+[tool.pytest.ini_options]
+markers = [
+    "requires_network: Tests requiring a network connection",
+    "make_temp_files: Tests that create temporary files"
+]
+tmp_path_retention_policy = "failed"
+asyncio_default_fixture_loop_scope = "session"
