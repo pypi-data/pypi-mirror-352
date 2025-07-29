@@ -1,0 +1,38 @@
+{
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        ".scannerwork": true,
+        ".sonar": true,
+        ".tmp": true,
+        "*.egg-info": true,
+        "**/__pycache__": true,
+        "**/.tmp.entrypoint.*": true,
+        "**/*.pyc": true,
+        "build": true,
+        "coverage-reports": true,
+        "dist": true
+    },
+    "prettier.singleQuote": true,
+    "python.formatting.provider": "yapf",
+    "shellformat.flag": "-i 2 -bn -ci",
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "terminal.enableAppInsights": false,
+    "terminal.integrated.allowChords": false,
+    "vscode-coverage-highlighter.coveredColor": "rgba(20, 250, 20, 0.05)",
+    "vscode-coverage-highlighter.files": [
+        "coverage/coverage-final.json",
+        "coverage/lcov*.info",
+        "coverage-reports/coverage-common.xml"
+    ],
+    "vscode-coverage-highlighter.unCoveredColor": "rgba(255, 20, 20, 0.3)",
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "workbench.enableExperiments": false,
+    "yaml.format.singleQuote": true,
+    "[markdown]": {
+      "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "[yaml]": {
+      "editor.defaultFormatter": "redhat.vscode-yaml"
+    }
+}
