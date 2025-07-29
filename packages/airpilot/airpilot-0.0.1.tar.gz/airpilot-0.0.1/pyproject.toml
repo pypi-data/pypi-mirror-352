@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "airpilot"
+version = "0.0.1"
+description = "Universal AI Rules Pilot"
+readme = "README.md"
+license = {text = "Elastic-2.0"}
+authors = [
+    {name = "Shane Holloman", email = "shane@example.com"}
+]
+maintainers = [
+    {name = "Shane Holloman", email = "shane@example.com"}
+]
+keywords = [
+    "ai",
+    "assistant", 
+    "rules",
+    "management",
+    "vscode",
+    "cli",
+    "configuration"
+]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.8"
+dependencies = []
+
+[project.optional-dependencies]
+dev = []
+
+[project.urls]
+Homepage = "https://github.com/shaneholloman/airpilot"
+Repository = "https://github.com/shaneholloman/airpilot.git"
+Issues = "https://github.com/shaneholloman/airpilot/issues"
+
+[project.scripts]
+airpilot = "airpilot.cli:main"
+air = "airpilot.cli:main"
+
+[tool.hatch.build.targets.wheel]
+sources = ["src"]
