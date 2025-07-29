@@ -1,0 +1,354 @@
+Metadata-Version: 2.3
+Name: vijil-dome
+Version: 1.0.1
+Summary: 
+Author: Pradeep Das
+Author-email: pradeep@vijil.ai
+Requires-Python: >=3.11,<3.13
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Provides-Extra: embeddings
+Provides-Extra: google
+Provides-Extra: langchain
+Provides-Extra: opentelemetry
+Requires-Dist: Deprecated (==1.2.15)
+Requires-Dist: Jinja2 (==3.1.4)
+Requires-Dist: MarkupSafe (==3.0.2)
+Requires-Dist: PyJWT (==2.10.1)
+Requires-Dist: PyYAML (==6.0.2)
+Requires-Dist: Pygments (==2.18.0)
+Requires-Dist: SQLAlchemy (==2.0.32)
+Requires-Dist: aiobotocore (==2.15.2)
+Requires-Dist: aiohappyeyeballs (==2.3.4)
+Requires-Dist: aiohttp (==3.10.1)
+Requires-Dist: aioitertools (==0.12.0)
+Requires-Dist: aiosignal (==1.3.1)
+Requires-Dist: annotated-types (==0.7.0)
+Requires-Dist: annoy (==1.17.3) ; extra == "embeddings"
+Requires-Dist: anyio (==4.8.0)
+Requires-Dist: attrs (==24.1.0)
+Requires-Dist: azure-core (==1.32.0)
+Requires-Dist: bcrypt (==4.2.1)
+Requires-Dist: blis (==0.7.11)
+Requires-Dist: boto3 (==1.35.36)
+Requires-Dist: botocore (==1.35.36)
+Requires-Dist: cachetools (==5.5.0)
+Requires-Dist: catalogue (==2.0.10)
+Requires-Dist: cattrs (==24.1.2)
+Requires-Dist: certifi (==2024.7.4)
+Requires-Dist: charset-normalizer (==3.3.2)
+Requires-Dist: click (==8.1.8)
+Requires-Dist: cloudpathlib (==0.20.0)
+Requires-Dist: colorama (==0.4.6)
+Requires-Dist: confection (==0.1.5)
+Requires-Dist: constructs (==10.4.2)
+Requires-Dist: contourpy (==1.3.1)
+Requires-Dist: cramjam (==2.9.1)
+Requires-Dist: cycler (==0.12.1)
+Requires-Dist: cymem (==2.0.10)
+Requires-Dist: dataclasses-json (==0.6.7)
+Requires-Dist: datasets (==2.21.0)
+Requires-Dist: defusedxml (==0.7.1)
+Requires-Dist: detect-secrets (==1.5.0)
+Requires-Dist: dill (==0.3.8)
+Requires-Dist: distro (==1.9.0)
+Requires-Dist: faiss-cpu (==1.8.0.post1)
+Requires-Dist: fastapi (==0.115.6)
+Requires-Dist: fastparquet (==2024.11.0)
+Requires-Dist: filelock (==3.16.1)
+Requires-Dist: flashtext (==2.7)
+Requires-Dist: fonttools (==4.55.2)
+Requires-Dist: fpdf2 (==2.8.1)
+Requires-Dist: frozenlist (==1.4.1)
+Requires-Dist: fsspec (==2024.6.1)
+Requires-Dist: google-api-core (==2.23.0) ; extra == "google"
+Requires-Dist: google-api-python-client (==2.157.0) ; extra == "google"
+Requires-Dist: google-auth (==2.36.0) ; extra == "google"
+Requires-Dist: google-auth-httplib2 (==0.2.0) ; extra == "google"
+Requires-Dist: google-cloud-appengine-logging (==1.5.0) ; extra == "google"
+Requires-Dist: google-cloud-audit-log (==0.3.0) ; extra == "google"
+Requires-Dist: google-cloud-core (==2.4.1) ; extra == "google"
+Requires-Dist: google-cloud-logging (==3.11.3) ; extra == "google"
+Requires-Dist: google-cloud-monitoring (==2.23.1) ; extra == "google"
+Requires-Dist: google-cloud-trace (==1.14.1) ; extra == "google"
+Requires-Dist: googleapis-common-protos (==1.66.0) ; extra == "google"
+Requires-Dist: greenlet (==3.0.3)
+Requires-Dist: grpc-google-iam-v1 (==0.14.0)
+Requires-Dist: grpcio (==1.68.1)
+Requires-Dist: grpcio-status (==1.68.1)
+Requires-Dist: h11 (==0.14.0)
+Requires-Dist: httpcore (==1.0.5)
+Requires-Dist: httplib2 (==0.22.0)
+Requires-Dist: httpx (==0.28.1)
+Requires-Dist: huggingface-hub (==0.26.3)
+Requires-Dist: idna (==3.7)
+Requires-Dist: importlib_metadata (==8.5.0)
+Requires-Dist: importlib_resources (==6.5.2)
+Requires-Dist: iniconfig (==2.0.0)
+Requires-Dist: jiter (==0.8.2)
+Requires-Dist: jmespath (==1.0.1)
+Requires-Dist: joblib (==1.4.2)
+Requires-Dist: jsii (==1.106.0)
+Requires-Dist: jsonpatch (==1.33)
+Requires-Dist: jsonpointer (==3.0.0)
+Requires-Dist: jsonschema (==4.23.0)
+Requires-Dist: jsonschema-specifications (==2025.4.1)
+Requires-Dist: kiwisolver (==1.4.7)
+Requires-Dist: langchain (==0.2.12) ; extra == "langchain"
+Requires-Dist: langchain-community (==0.2.11) ; extra == "langchain"
+Requires-Dist: langchain-core (==0.2.43) ; extra == "langchain"
+Requires-Dist: langchain-openai (==0.1.20) ; extra == "langchain"
+Requires-Dist: langchain-text-splitters (==0.2.2) ; extra == "langchain"
+Requires-Dist: langcodes (==3.5.0)
+Requires-Dist: langsmith (==0.1.112) ; extra == "langchain"
+Requires-Dist: language_data (==1.3.0)
+Requires-Dist: litellm (==1.70.2)
+Requires-Dist: marisa-trie (==1.2.1)
+Requires-Dist: markdown-it-py (==3.0.0)
+Requires-Dist: marshmallow (==3.21.3)
+Requires-Dist: matplotlib (==3.9.3)
+Requires-Dist: mdurl (==0.1.2)
+Requires-Dist: mpmath (==1.3.0)
+Requires-Dist: multidict (==6.0.5)
+Requires-Dist: multiprocess (==0.70.16)
+Requires-Dist: murmurhash (==1.0.11)
+Requires-Dist: mypy (==1.13.0)
+Requires-Dist: mypy-extensions (==1.0.0)
+Requires-Dist: nest-asyncio (==1.6.0)
+Requires-Dist: networkx (==3.4.2)
+Requires-Dist: numpy (==1.26.0)
+Requires-Dist: openai (==1.75.0)
+Requires-Dist: opentelemetry-api (==1.28.1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-exporter-gcp-monitoring (==1.7.0a0) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-exporter-gcp-trace (==1.9.0) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-exporter-otlp (==1.28.1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-exporter-otlp-proto-common (==1.28.1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-exporter-otlp-proto-grpc (==1.28.1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-exporter-otlp-proto-http (==1.28.1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-instrumentation (==0.49b1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-instrumentation-asyncio (==0.49b1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-instrumentation-logging (==0.49b1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-instrumentation-threading (==0.49b1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-propagator-gcp (==1.7.0) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-proto (>=1.28.1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-resourcedetector-gcp (==1.7.0a0) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-sdk (==1.28.1) ; extra == "opentelemetry"
+Requires-Dist: opentelemetry-semantic-conventions (==0.49b1) ; extra == "opentelemetry"
+Requires-Dist: orjson (==3.10.6)
+Requires-Dist: packaging (==24.2.0)
+Requires-Dist: pandas (==2.2.3)
+Requires-Dist: phonenumbers (==8.13.51)
+Requires-Dist: pillow (==11.0.0)
+Requires-Dist: pluggy (==1.5.0)
+Requires-Dist: preshed (==3.0.9)
+Requires-Dist: presidio_analyzer (==2.2.355)
+Requires-Dist: presidio_anonymizer (==2.2.355)
+Requires-Dist: propcache (==0.2.1)
+Requires-Dist: proto-plus (==1.25.0)
+Requires-Dist: protobuf (==5.29.1)
+Requires-Dist: publication (==0.0.3)
+Requires-Dist: pyarrow (==18.1.0)
+Requires-Dist: pyasn1 (==0.6.1)
+Requires-Dist: pyasn1_modules (==0.4.1)
+Requires-Dist: pycryptodome (==3.21.0)
+Requires-Dist: pydantic (==2.8.2)
+Requires-Dist: pydantic_core (==2.20.1)
+Requires-Dist: pyparsing (==3.2.0)
+Requires-Dist: pytest (==8.3.4)
+Requires-Dist: pytest-asyncio (==0.24.0)
+Requires-Dist: python-dateutil (==2.9.0.post0)
+Requires-Dist: python-dotenv (==1.0.1)
+Requires-Dist: pytz (==2024.2)
+Requires-Dist: referencing (==0.36.2)
+Requires-Dist: regex (==2024.7.24)
+Requires-Dist: requests (==2.32.3)
+Requires-Dist: requests-aws4auth (==1.3.1)
+Requires-Dist: requests-file (==2.1.0)
+Requires-Dist: rich (==13.9.4)
+Requires-Dist: rpds-py (==0.25.1)
+Requires-Dist: rsa (==4.9)
+Requires-Dist: ruff (==0.4.10)
+Requires-Dist: s3transfer (==0.10.4)
+Requires-Dist: safetensors (==0.4.5)
+Requires-Dist: scikit-learn (==1.5.2)
+Requires-Dist: scipy (==1.14.1)
+Requires-Dist: seaborn (==0.13.2)
+Requires-Dist: sentence-transformers (==3.3.1)
+Requires-Dist: setuptools (==75.6.0)
+Requires-Dist: shellingham (==1.5.4)
+Requires-Dist: six (==1.17.0)
+Requires-Dist: smart-open (==7.0.5)
+Requires-Dist: sniffio (==1.3.1)
+Requires-Dist: spacy (==3.7.5)
+Requires-Dist: spacy-legacy (==3.0.12)
+Requires-Dist: spacy-loggers (==1.0.5)
+Requires-Dist: srsly (==2.4.8)
+Requires-Dist: starlette (==0.41.3)
+Requires-Dist: sympy (==1.13.1)
+Requires-Dist: tenacity (==8.5.0)
+Requires-Dist: thinc (==8.2.5)
+Requires-Dist: threadpoolctl (==3.5.0)
+Requires-Dist: tiktoken (==0.7.0)
+Requires-Dist: tldextract (==5.1.3)
+Requires-Dist: tokenizers (==0.21.1)
+Requires-Dist: toml (==0.10.2)
+Requires-Dist: torch (==2.6.0)
+Requires-Dist: tqdm (==4.66.5)
+Requires-Dist: transformers (==4.48.0)
+Requires-Dist: typeguard (==2.13.3)
+Requires-Dist: typer (==0.15.1)
+Requires-Dist: types-requests (==2.32.0.20241016)
+Requires-Dist: types-toml (==0.10.8.20240310)
+Requires-Dist: typing-inspect (==0.9.0)
+Requires-Dist: typing_extensions (==4.12.2)
+Requires-Dist: tzdata (==2024.2)
+Requires-Dist: uritemplate (==4.1.1)
+Requires-Dist: urllib3 (==2.2.2)
+Requires-Dist: uvicorn (==0.34.0)
+Requires-Dist: wasabi (==1.1.3)
+Requires-Dist: weasel (==0.4.1)
+Requires-Dist: wrapt (==1.17.0)
+Requires-Dist: xxhash (==3.5.0)
+Requires-Dist: yarl (==1.9.4)
+Requires-Dist: zipp (==3.21.0)
+Description-Content-Type: text/markdown
+
+# Vijil Dome
+
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![Python Version](https://img.shields.io/pypi/pyversions/vijil-dome)
+[![Downloads](https://static.pepy.tech/badge/vijil-dome)](https://pepy.tech/project/vijil-dome)
+[![Docs](https://img.shields.io/badge/Docs-blue?link=https%3A%2F%2Fdocs.vijil.ai%2Fdome%2Fintro.html)](https://docs.vijil.ai/dome/intro.html)
+
+**Vijil Dome** is a fast, lightweight, and highly configurable library for adding runtime guardrails to your AI agents. It combines top open-source LLM safety tools with proprietary Vijil models to detect and respond to unsafe content — with built-in support for observability, tracing, and popular agent frameworks.
+
+
+## 🚀 Installation
+
+Install the core library:
+
+```bash
+pip install vijil-dome
+```
+
+Optional extras for common integrations:
+
+* `opentelemetry` – OTel-compatible tracing/logging
+* `google` – GCP-native metrics and logging
+* `langchain` – Seamless integration with LangChain/LangGraph
+* `embeddings` – Fast similarity search using `annoy`
+
+> ⚠️ Note: `annoy` is not currently compatible with agents built using Google ADK + Cloud Run. Use in-memory embeddings in those cases.
+
+
+## 🔒 Guarding Agents in One Line
+
+```python
+from vijil_dome import Dome
+
+dome = Dome()
+
+query = "How can I rob a bank?"
+input_scan = dome.guard_input(query)
+print(input_scan.is_safe(), input_scan.guarded_response())
+
+# Get a response from your agent 
+
+response = "Here's how to rob a bank!"
+output_scan = dome.guard_output(response)
+print(output_scan.is_safe(), output_scan.guarded_response())
+```
+
+By default, Dome:
+
+* Scans inputs for prompt injections, jailbreaks, and toxicity
+* Scans outputs for toxicity and masks PII
+
+
+## ⚙️ Configuration Options
+
+You can configure Dome using a TOML file or a Python dictionary.
+
+### Example TOML
+
+```toml
+[guardrail]
+input-guards = ["prompt-injection", "input-toxicity"]
+output-guards = ["output-toxicity"]
+input-early-exit = false
+
+[prompt-injection]
+type = "security"
+early-exit = false
+methods = ["prompt-injection-deberta-v3-base", "security-llm"]
+
+[prompt-injection.security-llm]
+model_name = "gpt-4o"
+
+[input-toxicity]
+type = "moderation"
+methods = ["moderations-oai-api"]
+
+[output-toxicity]
+type = "moderation"
+methods = ["moderation-prompt-engineering"]
+```
+
+### Same Configuration in Python
+
+```python
+config = {
+    "input-guards": ["prompt-injection", "input-toxicity"],
+    "output-guards": ["output-toxicity"],
+    "input-early-exit": False,
+    "prompt-injection": {
+        "type": "security",
+        "early-exit": False,
+        "methods": ["prompt-injection-deberta-v3-base", "security-llm"],
+        "security-llm": {
+            "model_name": "gpt-4o"
+        }
+    },
+    "input_toxicity": {
+        "type": "moderation",
+        "methods": ["moderations-oai-api"]
+    },
+    "output_toxicity": {
+        "type": "moderation",
+        "methods": ["moderation-prompt-engineering"]
+    },
+}
+```
+
+Dome includes nearly 20 prebuilt guardrails and supports building your own!
+
+👉 For the full list of guardrail methods, advanced config options, and extensibility, check out the [Docs](https://docs.vijil.ai/dome/intro.html).
+
+## 🔌 Compatibility
+
+Dome works with **any agent framework or LLM** — it operates directly on strings, so there's no dependency on your stack!
+
+For popular frameworks, we provide dedicated wrappers and tutorials to make integration seamless:
+
+* [**Google ADK**](https://docs.vijil.ai/dome/tutorials/adk.html)
+* [**LangChain & LangGraph**](https://docs.vijil.ai/dome/tutorials/)
+
+### Observability Integrations:
+
+Dome is compatible with the following observability framworks out of the box
+
+* **OpenTelemetry**
+* **Weave** (Weights & Biases)
+* **AgentOps**
+* **Google Cloud Trace**
+
+See the [documentation](https://docs.vijil.ai/dome/tutorials/observability.html) for more details
+
+
+📚 Learn More
+---
+Get detailed guides, examples, and custom guardrail walkthroughs in the [official documentation →](https://docs.vijil.ai/dome/intro.html)
+
+Have more questions, or want us to include another guardrailing technique? Reach out to us at contact@vijil.ai!
+
