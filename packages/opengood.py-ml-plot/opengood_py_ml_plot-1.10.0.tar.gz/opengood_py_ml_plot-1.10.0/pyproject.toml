@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools >= 77.0.3", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opengood.py_ml_plot"
+version = "1.10.0"
+description = "Modules containing reusable functions for machine learning visualization plotting"
+authors = [
+    { name = "OpenGood", email = "ai@opengood.ai" }
+]
+requires-python = ">=3.13"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+
+dependencies = [
+    "matplotlib >= 3.10.3",
+    "numpy >= 2.3.0rc1",
+    "pandas >= 2.2.3",
+    "scikit-learn >= 1.7.0rc1",
+]
+
+[project.urls]
+Homepage = "https://github.com/opengood-aio/py-ml-plot"
+Documentation = "https://github.com/opengood-aio/py-ml-plot"
+
+[tool.pytest.ini_options]
+addopts = "tests/ -v --cov=src.opengood.py_ml_plot --cov-report=xml --cov-fail-under=70"
+python_files = "test_*.py"
+python_functions = "test_*"
+markers = [
+    "slow: mark tests as slow",
+    "smoke: mark tests as smoke tests",
+    "unit: mark tests as unit tests"
+]
+cov_report = "term-missing"
+cov_report_term = "term-missing:skip-covered"
+cov_report_xml = "coverage.xml"
+norecursedirs = [".git", ".tox", ".venv"]
+filterwarnings = "ignore::DeprecationWarning"
+log_cli = true
+log_cli_level = "INFO"
+
