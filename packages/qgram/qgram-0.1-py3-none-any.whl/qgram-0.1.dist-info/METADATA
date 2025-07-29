@@ -1,0 +1,107 @@
+Metadata-Version: 2.4
+Name: qgram
+Version: 0.1
+Summary: qgram is a lightweight Python library for building Telegram bots with a simple and intuitive interface. It provides decorator-based handlers for commands, text messages, and photos, along with convenient methods for sending and managing messages.
+Author-email: relyadev <relyadev@gmail.com>
+Keywords: telegram,bots,telegram-bots,chat,chatbot
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
+# qgram - Telegram Bot Library
+
+## Overview
+qgram is a lightweight Python library for building Telegram bots with a simple and intuitive interface. It provides decorator-based handlers for commands, text messages, and photos, along with convenient methods for sending and managing messages.
+
+## Features
+- Command handlers with `@bot.on_command` decorator
+- Text message handlers with `@bot.on_message` decorator
+- Photo handlers with `@bot.on_photo` decorator
+- Easy message sending (`send()`, `send_photo()`)
+- Message deletion functionality
+- File URL retrieval for photos and documents
+- Context-based message processing
+
+## Installation
+```bash
+pip install qgram
+```
+# Quick Start
+```python
+from qgram import Bot
+
+bot = Bot("YOUR_TELEGRAM_BOT_TOKEN")
+
+@bot.on_command("start")
+def start_command(ctx):
+    ctx.bot.send("Welcome to the bot!", ctx.message.chat['id'])
+
+@bot.on_message
+def echo_message(ctx):
+    ctx.bot.send(f"You said: {ctx.text}")
+
+bot.start_polling()
+```
+# Documentation
+## Bot Class
+____init____(api_key: str) - Initialize bot with Telegram API token
+
+__on_command__(command: str) - Decorator for command handlers
+
+__on_message__(func) - Decorator for text message handlers
+
+__on_photo__(func) - Decorator for photo handlers
+
+__send__(text: str, chat_id: Optional[int] = None) - Send text message
+
+__send_photo__(photo_url: str, caption: str = "", chat_id: Optional[int] = None) - Send photo
+
+__delete__(chat_id: Optional[int] = None, message_id: Optional[int] = None) - Delete message
+
+__get_file_url__(file_id: str) - Get download URL for file
+
+__tart_polling__(interval: int = 1, timeout: int = 30) - Start message polling
+
+__stop()__ - Stop the bot
+
+## Context Class
+Provides access to the current message and bot instance:
+
+__message__ - Original message dictionary
+
+__bot__ - Bot instance
+
+__text__ - Message text
+
+__caption__ - Photo caption
+
+__photo__ - List of photo sizes
+
+__best_photo__ - Highest resolution photo
+
+__photo_url__ - URL of largest photo
+
+__delete()__ - Delete bot's last message in chat
+
+# Examples
+### Handling Commands
+```python
+@bot.on_command("help")
+def help_command(ctx):
+    ctx.bot.send("Available commands: /start, /help")
+```
+### Sending Photos
+```python
+@bot.on_command("cat")
+def send_cat(ctx):
+    ctx.bot.send_photo("https://example.com/cat.jpg", "Here's a cat!")
+```
+### Processing Photos
+```python
+@bot.on_photo
+def handle_photo(ctx):
+    print(f"Received photo with caption: {ctx.caption}")
+    print(f"Photo URL: {ctx.photo_url}")
+```
