@@ -1,0 +1,31 @@
+Metadata-Version: 2.4
+Name: zx_agents
+Version: 0.1.1
+Summary: OpenAI agents customize package
+Author-email: MENG <meng@zxtech.info>
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.12.2
+Description-Content-Type: text/markdown
+
+# zx_agents
+
+这是 `zx_agents` 包的简介，介绍该包的功能和使用方法。
+
+## 安装
+```bash
+pip install zx_agentsfrom zx_agents import agent_stream_processor, provider_model, test_agent
+
+使用前置条件
+
+设置/etc/environment,设置
+ARK_API_KEY       #火山引擎
+QWEN_API_KEY      #阿里通义
+DEEPSEEK_API_KEY  #DeepSeek 
+
+## 使用示例
+
+from zx_agents import agent_stream_processor, provider_model, test_agent
+
+model_ark = provider_model.ModelArk().get_model()
