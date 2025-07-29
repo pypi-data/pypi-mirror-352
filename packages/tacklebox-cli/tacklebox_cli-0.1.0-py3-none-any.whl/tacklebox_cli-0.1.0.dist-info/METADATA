@@ -1,0 +1,46 @@
+Metadata-Version: 2.4
+Name: tacklebox-cli
+Version: 0.1.0
+Summary: A small colection of CLI utilities.
+Project-URL: Homepage, https://c.csw.im/cswimr/Tacklebox
+Project-URL: Issues, https://c.csw.im/cswimr/Tacklebox/issues
+Project-URL: source_archive, https://c.csw.im/cswimr/Tacklebox/archive/0149870cfcd91418709412936f4866ca195b88f2.tar.gz
+Author-email: cswimr <seaswimmerthefsh@gmail.com>
+License-File: LICENSE.md
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.12
+Requires-Dist: desktop-notifier==6.1.1
+Requires-Dist: platformdirs==4.3.8
+Requires-Dist: zipline-py[cli]==0.27.0
+Description-Content-Type: text/markdown
+
+# tacklebox-cli
+
+tacklebox-cli offers a suite of useful CLI tools.
+
+## Usage
+
+### tacklebox clip
+
+Cross-platform clipboard copying tool. Uses `wl-copy`, `xclip`, or `xsel` on Linux, `pbcopy` on MacOS, `clip` on Windows, and [OSC 52](https://www.reddit.com/r/vim/comments/k1ydpn/a_guide_on_how_to_copy_text_from_anywhere/) escape codes when operating over SSH or when no other tools are available.
+
+```bash
+echo "a" | tr -d '\n' | tacklebox clip
+```
+
+### tacklebox spectacle (Linux only)
+
+Uses the [zipline.py](https://pypi.org/project/zipline-py/) CLI alongside KDE's [Spectacle](https://invent.kde.org/plasma/spectacle) application to take a screenshot or screen recording and automatically upload it to a [Zipline](https://github.com/diced/zipline) instance. This automatically reads Spectacle's configuration files to determine file formats.
+
+```bash
+tacklebox spectacle | tr -d '\n' | tacklebox clip
+
+# or to record a video
+tacklebox spectacle --record | tr -d '\n' | tacklebox clip
+```
+
+### tacklebox zipline
+
+Wraps the [zipline.py](https://pypi.org/project/zipline-py/) CLI. See that project for documentation.
