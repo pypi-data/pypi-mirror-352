@@ -1,0 +1,66 @@
+Metadata-Version: 2.4
+Name: sagar_nueron_gpt2
+Version: 0.1.8
+Summary: A GPT-2 implementation for training and inference in pytorch
+Project-URL: Homepage, https://github.com/Gangasagarhl/SAGAR_NUERON/tree/main/GPT2
+Project-URL: Source, https://github.com/Gangasagarhl/SAGAR_NUERON
+Author-email: GANGASAGAR HL <hlgsagar.1@gmail.com>
+License-Expression: MIT
+Keywords: gpt2,machine learning,nlp
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Provides-Extra: ml
+Requires-Dist: tiktoken; extra == 'ml'
+Requires-Dist: torch; extra == 'ml'
+Description-Content-Type: text/markdown
+
+
+
+##  How to Run
+
+###  Language & Framework
+
+* **Language**: Python
+* **Framework**: PyTorch
+
+---
+
+###  Installation
+
+Make sure you have Python installed, then run the following commands to set up the environment:
+
+```bash
+pip install -i https://test.pypi.org/simple/ sagar-nueron-gpt2==0.1.7
+pip install torch
+pip install tiktoken
+```
+
+---
+
+###  Train the Model
+
+To train and save your GPT-2 model weights, run the following:
+
+```python
+from sagar_nueron_gpt2.TrainAndSaveGptWeights import Execute
+
+exe = Execute()
+exe.execute()
+```
+
+---
+
+###  Inference from Trained Model
+
+To run inference using the model you trained:
+
+```python
+from sagar_nueron_gpt2.inference_model import Inferencing
+
+exe = Inferencing()
+exe.inference()
+```
+
+---
