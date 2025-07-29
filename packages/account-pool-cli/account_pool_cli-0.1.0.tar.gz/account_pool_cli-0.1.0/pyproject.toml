@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "account-pool-cli"
+version = "0.1.0"
+authors = [
+  { name="Swain Zheng", email="swain.zheng@xxxx.com" },
+]
+description = "A CLI tool to interact with an account pool service."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT License"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "httpx>=0.20",
+    "fire>=0.4"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/yourusername/account-pool-cli" # Optional: Replace with your repo URL
+"Bug Tracker" = "https://github.com/yourusername/account-pool-cli/issues" # Optional
+
+[project.scripts]
+ap = "account_pool_cli.cli:main_cli_function"
+
+[tool.setuptools.packages.find]
+include = ["account_pool_cli*" ] # Include account_pool_cli and its submodules
+exclude = ["plists*" ] # Attempt to exclude plists directory 
