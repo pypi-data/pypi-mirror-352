@@ -1,0 +1,81 @@
+{% load i18n %}
+{% load render_bundle from webpack_loader %}
+{% load webpack_static from webpack_loader %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% trans "TeamVault" %} &middot; {% block title %}{% endblock %}</title>
+
+    <link href="{% url 'opensearch' %}" type="application/opensearchdescription+xml" title="TeamVault" rel="search">
+
+    {% render_bundle 'main' %}
+
+    {% block head %}{% endblock %}
+</head>
+
+<body data-bs-no-jquery data-bs-theme="{% if request.COOKIES.theme == 'dark' %}dark{% else %}light{% endif %}">
+<script>
+    const tooltipOptions = {container: 'body', html: true, trigger: 'hover'}
+
+    function refreshTooltips() {
+        let tooltipTriggerList = htmx.findAll('[data-bs-toggle="tooltip"]');
+        [...tooltipTriggerList].map(tooltipTriggerEl => bootstrap.Tooltip.getOrCreateInstance(tooltipTriggerEl, tooltipOptions));
+    }
+
+    document.addEventListener('htmx:load', () => {
+        refreshTooltips()
+    })
+</script>
+<script>
+    function triggerNotyf(type, message) {
+        window.notyf.open({
+            dismissible: true,
+            message: message,
+            type: type,
+        })
+    }
+
+    {% if messages %}
+        document.addEventListener('DOMContentLoaded', () => {
+            {% for message in messages %}
+                triggerNotyf("{{ message.level_tag }}", "{{ message }}");
+            {% endfor %}
+        })
+    {% endif %}
+
+    // listener for htmx message events
+    document.addEventListener('django.contrib.messages', event => {
+        // event.detail contains the message_list we defined in our htmx_message_middleware
+        for (const msg of event['detail']['message_list']) {
+            triggerNotyf(msg.level, msg.message)
+        }
+    });
+</script>
+
+<div class="background"></div>
+
+{% block navbar %}{% include 'base_nav.html' %}{% endblock %}
+
+{% block super_content %}
+    <div class="container-fluid mt-5">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <div class="container p-5">
+        <footer class="text-center text-muted">
+            TeamVault {{ version }} &nbsp; &middot; &nbsp; &copy; 2014-2025 Seibert Group
+        </footer>
+    </div>
+{% endblock %}
+
+{% block additionalJS %}
+{% endblock %}
+</body>
+</html>

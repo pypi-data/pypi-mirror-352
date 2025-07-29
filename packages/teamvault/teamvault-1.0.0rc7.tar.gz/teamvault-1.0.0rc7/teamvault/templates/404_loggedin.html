@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% trans "Page not found" %}{% endblock %}
+{% block nav_search %}active{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h1>{% trans "404 - Page Not Found" %}</h1>
+			<br>
+			<p>{% trans "Sorry, the page you requested couldn't be found." %}</p>
+			<p>{% trans "If you expected a secret here, you may need to ask someone to grant you access." %}</p>
+		</div>
+	</div>
+</div>
+{% endblock %}

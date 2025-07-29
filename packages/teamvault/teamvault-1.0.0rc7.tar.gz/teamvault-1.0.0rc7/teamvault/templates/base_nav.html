@@ -1,0 +1,159 @@
+{% load i18n %}
+<header class="mb-3 border-bottom bg-custom-dark sticky-lg-top">
+    <div class="container-fluid">
+        <div class="d-flex flex-wrap align-items-center mx-5">
+            <!-- Brand -->
+            <div class="col-12 col-lg-auto my-2 d-flex align-items-center justify-content-center justify-content-lg-start">
+                <a class="navbar-brand text-muted-bright" href="{% url 'dashboard' %}">
+                    <span class="h3 text-white">Team</span><span class="h3 text-accent">Vault</span>
+                </a>
+            </div>
+
+            <!-- Vertical divider -->
+            <div class="col-auto vr mx-3 my-3 d-none d-lg-block opacity-100 text-tertiary"></div>
+
+            <!-- Add btn-group -->
+            <div class="col-12 col-lg-auto my-2 d-flex align-items-center justify-content-center justify-content-lg-start">
+                <div class="btn-group btn-group-sm">
+                    <a href="{% url 'secrets.secret-add' content_type='password' %}"
+                       class="btn btn-accent text-nowrap">
+                        <i class="fa fa-plus-circle fa-fw"></i> {% trans "Add Password" %}
+                    </a>
+                    <button type="button" class="btn btn-accent dropdown-toggle dropdown-toggle-split"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end my-2" role="menu">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'secrets.secret-add' content_type='cc' %}">
+                                <i class="fa fa-credit-card fa-fw"></i> {% trans "Add Credit Card" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'secrets.secret-add' content_type='file' %}">
+                                <i class="fa fa-upload fa-fw"></i> {% trans "Upload File" %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Searchbar -->
+            <div class="col-6 col-lg-4 my-2 mx-auto d-flex justify-content-center">
+                <button id="searchbar-toggle" type="button"
+                        class="btn btn-tertiary d-flex w-100 justify-content-between" aria-label="Search"
+                        data-bs-toggle="modal"
+                        data-bs-target="#search-modal">
+                    <span><i class="fa fa-search fa-fw"></i> {% translate "Search" %}</span>
+                    <span>
+                        <kbd class="bg-transparent border border-secondary">
+                            {% translate "CTRL" %}<span class="mx-1">/</span>⌘
+                        </kbd>
+                        <kbd class="bg-transparent border border-secondary">K</kbd>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Administration -->
+            {% if request.user.is_superuser %}
+                <div class="col-12 col-lg-auto me-lg-4 my-2 d-flex justify-content-center justify-content-lg-end align-items-center">
+                    <div class="dropdown dropdown-center text-center text-lg-end">
+                        <button class="btn btn-accent btn-sm text-nowrap"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            <i class="fa fa-gear fa-fw"></i>
+                            {% translate "Administration" %}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end my-2" aria-labelledby="adminmenu"
+                            style="top: 7px">
+                            <li>
+                                <a class="dropdown-item align-items-center d-inline-flex gap-2"
+                                   href="{% url 'audit.log' %}">
+                                    <i class="fa fa-users-line fa-fw"></i> {% trans "Audit log" %}
+                                </a>
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item align-items-center d-inline-flex gap-2"
+                                   href="{% url 'accounts.user-list' %}">
+                                    <i class="fa fa-users fa-fw"></i> {% trans "Users" %}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Theme toggle -->
+            <div class="col-12 col-lg-auto my-2 me-lg-4 mb-lg-2 d-flex justify-content-center align-items-center">
+                <button class="btn btn-outline-primary bg-transparent btn-sm border-0 d-flex"
+                        role="button"
+                        onclick="toggleTheme()"
+                        aria-expanded="false">
+                    <i class="fa {% if request.COOKIES.theme == 'dark' %}fa-moon{% else %}fa-sun{% endif %} fa-fw fa-xl text-white lh-1"
+                       id="theme-icon"></i>
+                </button>
+            </div>
+
+            <!-- User actions -->
+            <div class="col-12 col-lg-auto my-2 mb-lg-2 d-flex justify-content-center justify-content-lg-end align-items-center">
+                <div class="dropdown-center">
+                    <a href="#" class="d-flex text-decoration-none"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        {% include "accounts/_avatar.html" with user=request.user classes="avatar-lg" %}
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-dark my-1">
+                        <li>
+                            <a class="dropdown-item align-items-center d-inline-flex gap-2"
+                               href="{% url 'accounts.user-settings' %}">
+                                <i class="fa fa-sliders fa-fw"></i> {% trans "Settings" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item align-items-center d-inline-flex gap-2"
+                               href="{% url 'secrets.secret-list' %}?created_by={{ request.user.pk }}">
+                                <i class="fa fa-user-lock fa-fw"></i> {% trans "My Secrets" %}
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <form method="post" action="{% url 'accounts.logout' %}">
+                                {% csrf_token %}
+                                <button class="dropdown-item align-items-center d-inline-flex gap-2" type="submit">
+                                    <i class="fa fa-arrow-right-from-bracket fa-fw"></i> {% trans "Sign out" %}
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    let theme = "{% if request.COOKIES.theme == 'dark' %}dark{% else %}light{% endif %}";  // directly using`request.COOKIES.theme` could lead to a code injection
+
+    function toggleTheme() {
+        // toggle theme
+        theme = theme === "light" ? "dark" : "light";
+        document.body.setAttribute("data-bs-theme", theme)
+
+        // change icon
+        const toggleButton = document.getElementById("theme-icon");
+        toggleButton.classList.remove("fa-sun", "fa-moon")
+        toggleButton.classList.add(theme === "dark" ? "fa-moon" : "fa-sun")
+
+        // update cookie
+        const d = new Date();
+        d.setTime(d.getTime() + 25_920_000_000);
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = `theme=${theme}; expires=${expires}; path=/`;
+    }
+</script>
+
+{% include 'secrets/secret_search.html' %}

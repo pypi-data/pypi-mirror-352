@@ -1,0 +1,109 @@
+Metadata-Version: 2.4
+Name: teamvault
+Version: 1.0.0rc7
+Summary: Keep your passwords behind the firewall
+Keywords: password,safe,manager,sharing
+Author: Seibert Group GmbH
+License-File: LICENSE
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Natural Language :: English
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Office/Business
+Classifier: Topic :: Security
+Requires-Dist: cryptography~=45.0.2
+Requires-Dist: django-auth-ldap~=5.2.0
+Requires-Dist: django-bootstrap5==25.1
+Requires-Dist: django-filter==25.1
+Requires-Dist: django-htmx~=1.23.0
+Requires-Dist: django-webpack-loader~=3.2.0
+Requires-Dist: django~=5.2.1
+Requires-Dist: djangorestframework~=3.16.0
+Requires-Dist: gunicorn~=23.0.0
+Requires-Dist: hashids~=1.3.1
+Requires-Dist: pyotp~=2.9
+Requires-Dist: huey~=2.5.3
+Requires-Dist: psycopg~=3.2.9
+Requires-Dist: pytz~=2025.2
+Requires-Dist: requests~=2.32
+Requires-Dist: social-auth-app-django~=5.4.3
+Requires-Dist: whitenoise[brotli]~=6.9.0
+Requires-Python: >=3.10
+Project-URL: Source, https://github.com/seibert-media/teamvault
+Description-Content-Type: text/markdown
+
+# TeamVault
+
+TeamVault is an open-source web-based shared password manager for behind-the-firewall installation. It requires Python 3.10+ and PostgreSQL (with the unaccent extension).
+
+## Installation
+
+	apt-get install libffi-dev libldap2-dev libpq-dev libsasl2-dev python3.X-dev postgresql-contrib
+	pip install teamvault
+	teamvault setup
+	vim /etc/teamvault.conf
+	# note that the teamvault database user will need SUPERUSER privileges
+	# during this step in order to activate the unaccent extension
+	teamvault upgrade
+	teamvault plumbing createsuperuser
+	teamvault run
+
+## Update
+
+	pip install --upgrade teamvault
+	teamvault upgrade
+
+## Development
+### Start a PostgreSQL database
+Create a database and superuser for TeamVault to use, for example by starting a Docker container:
+
+	docker run --rm --detach --publish=5432:5432 --name teamvault-postgres -e POSTGRES_USER=teamvault -e POSTGRES_PASSWORD=teamvault postgres:latest
+
+
+### Run Webpack to serve static files
+To compile all JS & SCSS files, you'll need to install all required packages via bun (or yarn/npm) with node >= v18.
+
+Use ```bun/yarn/npm run serve``` to start a dev server.
+
+**Note**:
+Some MacOS users have reported errors when running the dev server via bun. In this case feel free to switch to NPM.
+
+
+### Configure your Virtualenv via uv
+	uv sync
+
+### Setup TeamVault
+	export TEAMVAULT_CONFIG_FILE=teamvault.cfg
+	teamvault setup
+	vim teamvault.cfg  # base_url = http://localhost:8000
+	                   # session_cookie_secure = False
+	                   # database config as needed
+	teamvault upgrade
+	teamvault plumbing createsuperuser
+
+### Start the development server
+	teamvault run
+
+Now open http://localhost:8000
+
+## Scheduled background jobs
+
+We use [huey](https://huey.readthedocs.io/en/latest/) to run background jobs. This requires you to run a second process, in parallel to TeamVault itself. You can launch it via `manage.py`:
+
+    teamvault run_huey
+
+## Release process
+1. Bump the version in ```teamvault/__version__.py``` and ```pyproject.toml```
+2. Update CHANGELOG.md with the new version and current date
+3. Make a release commit with the changes made above
+4. Push the commit
+5. Run ```./build.sh``` to create a new package
+6. Sign and push the artifacts to PyPI via ```uv publish```
+7. Test that the package can be installed: ```uv run --isolated --no-cache --prerelease allow --with teamvault --no-project -- teamvault --version```
+8. Add a new GitHub release
