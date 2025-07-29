@@ -1,0 +1,35 @@
+Metadata-Version: 2.3
+Name: parq-tools
+Version: 0.1.0
+Summary: 
+Author: Greg
+Author-email: 11791585+elphick@users.noreply.github.com
+Requires-Python: >=3.10,<3.13
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Provides-Extra: profiling
+Provides-Extra: tqdm
+Requires-Dist: lark (>=1.2.2,<2.0.0)
+Requires-Dist: pyarrow (>=16.0)
+Requires-Dist: tqdm (>=4.67.1,<5.0.0) ; extra == "tqdm"
+Requires-Dist: ydata-profiling (>=4.16.1,<5.0.0) ; extra == "profiling"
+Description-Content-Type: text/markdown
+
+# parq-tools
+[![License](https://img.shields.io/github/license/Elphick/parq-tools.svg?logo=apache&logoColor=white)](https://pypi.org/project/parq-tools/)
+[![PyPI](https://img.shields.io/pypi/v/parq-tools.svg?logo=python&logoColor=white)](https://pypi.org/project/parq-tools/)
+[![Run Tests](https://github.com/Elphick/parq-tools/actions/workflows/poetry_build_and_test.yml/badge.svg?branch=main)](https://github.com/Elphick/parq-tools/actions/workflows/poetry_build_and_test.yml)
+[![Publish Docs](https://github.com/Elphick/parq-tools/actions/workflows/poetry_sphinx_docs_to_gh_pages.yml/badge.svg?branch=main)](https://github.com/Elphick/parq-tools/actions/workflows/poetry_sphinx_docs_to_gh_pages.yml)
+
+## Overview
+`parq-tools` is a collection of utilities for efficiently working with **large-scale Parquet datasets**. Designed for **scalability**, it supports **chunk-wise processing**, **metadata handling**, and **optimized workflows** for datasets too large to fit into memory.
+
+## Features
+- [x] **Filtering** → Efficiently filter large parquet files.
+- [x] **Concatenation** → Combines multiple Parquet files efficiently along rows (`axis=0`) or columns (`axis=1`).
+- [x] **Tokenized Filtering** → Converts **pandas-style expressions** into efficient PyArrow queries.
+- [ ] **Block Model Generation** → Creates **massive Parquet datasets** that exceed memory limits, useful for testing pipelines.
+- [ ] **Profiling Enhancements** → Improves `ydata-profiling` by profiling **specific columns incrementally**, merging results for large files.
+
