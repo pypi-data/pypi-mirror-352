@@ -1,0 +1,50 @@
+from datetime import datetime, timedelta
+from enum import Enum
+
+
+class UsageInterval(Enum):
+    FifteenMinutes = 3
+    ThirtyMinutes = 4
+    Hourly = 5
+    Daily = 6
+    Weekly = 8
+    Monthly = 9
+    # Billing = 7
+
+    @staticmethod
+    def durationInMinutes(interval: "UsageInterval") -> int:
+        if interval == UsageInterval.FifteenMinutes:
+            return 15
+        elif interval == UsageInterval.ThirtyMinutes:
+            return 30
+        elif interval == UsageInterval.Hourly:
+            return 60
+        elif interval == UsageInterval.Daily:
+            return 1440
+        elif interval == UsageInterval.Weekly:
+            return 10080
+        elif interval == UsageInterval.Monthly:
+            return 43200
+        else:
+            raise ValueError(f"Unknown usage interval: {interval}")
+
+
+class MyMeterUsageValue:
+    def __init__(
+        self, fromDate: datetime, interval: "UsageInterval", usage_direction: str, consumption: float
+    ):
+        self.fromDate = fromDate
+        self.interval = interval
+        self.usage_direction = usage_direction
+        self.consumption = consumption
+
+    def __str__(self):
+        return f"MyMeterUsageValue(read_date={self.read_date}, usage_direction={self.usage_direction}, consumption={self.consumption})"
+
+    def __repr__(self):
+        return f"MyMeterUsageValue({self.read_date}, {self.usage_direction}, {self.consumption})"
+    
+    @property
+    def toDate(self):
+        return self.fromDate + timedelta(minutes=UsageInterval.durationInMinutes(self.interval))
+
