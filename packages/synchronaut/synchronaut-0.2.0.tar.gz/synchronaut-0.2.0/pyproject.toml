@@ -1,0 +1,123 @@
+[project]
+name = "synchronaut"
+version = "0.2.0"
+description = "A “write-once, run‐anywhere” sync/async bridge that’s thread-safe, decorator-driven, and plays nicely in FastAPI (or other frameworks) & with DB connections."
+readme = "README.md"
+authors = [
+    { name = "cachetronaut", email = "abrahamacastro+code@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "anyio>=4.9.0",
+    "asyncio>=3.4.3",
+    "trio>=0.30.0",
+]
+
+keywords = [
+  "synchronaut",
+  "sync",
+  "async",
+  "synchronous",
+  "asynchronous",
+  "concurrency",
+  "concurrent",
+  "thread",
+  "threading",
+  "thread-safe",
+  "thread-pool",
+  "executor",
+  "offload",
+  "offloading",
+  "timeout",
+  "timeouts",
+  "call_any",
+  "call_map",
+  "decorator",
+  "decorators",
+  "fastapi",
+  "pydantic",
+  "web",
+  "web-services",
+  "api",
+  "io-bound",
+  "database",
+  "db",
+  "contextvar",
+  "context-vars",
+  "context-propagation",
+  "ContextVar",
+  "request-context",
+  "spawn-thread-with-ctx",
+  "utility",
+  "library",
+  "package",
+  "python",
+  "asyncio",
+  "uvloop",
+  "trio",
+  "anyio",
+  "event-loop",
+  "task-scheduling",
+  "cancellation",
+  "structured-concurrency",
+  "fastio",
+  "hybrid-sync-async",
+  "interop",
+  "interop-library"
+]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Internet",
+    "Environment :: Web Environment",
+    "Framework :: AsyncIO",
+    "Framework :: Trio",
+    "Framework :: AnyIO",
+    "Framework :: FastAPI",
+    "Framework :: Pytest",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+    "Natural Language :: English",
+]
+
+[project.scripts]
+synchronaut = "synchronaut:main"
+
+[project.urls]
+Homepage = "https://github.com/cachetronaut/synchronaut"
+Issues = "https://github.com/cachetronaut/synchronaut/issues"
+Documentation = "https://github.com/cachetronaut/synchronaut"
+Repository = "https://github.com/cachetronaut/synchronaut"
+
+[project.optional-dependencies]
+fast = [
+    "uvloop>=0.21.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "fastapi>=0.115.12",
+    "httpx>=0.28.1",
+    "pydantic>=2.11.5",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=1.0.0",
+    "pytest-trio>=0.8.0",
+    "uvicorn>=0.34.2",
+]
