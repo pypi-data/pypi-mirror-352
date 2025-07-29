@@ -1,0 +1,4 @@
+HOSTNAME = "192.168.1.42"
+PORT = 22
+USERNAME = "pi"
+PASSWORD = "tester"
