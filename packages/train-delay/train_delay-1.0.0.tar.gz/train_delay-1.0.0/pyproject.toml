@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "train_delay"
+version = "1.0.0"
+description = "TrainDelay is a Python package for tracking train delays at various stations using the Deutsche Bahn API. It collects real-time train data, processes delay information, and stores it in a MySQL database for further analysis"
+authors = [
+    { name = "Michael", email = "michael-development@outlook.de" }
+]
+readme = "README.md"
+license-files = ["LICENSE"]
+dependencies = ["deutsche_bahn_api==1.1.0", "mysql-connector==2.2.9"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["train_delay"]
+
+[tool.setuptools.package-data]
+"train_delay" = ["db/*.sql"]
