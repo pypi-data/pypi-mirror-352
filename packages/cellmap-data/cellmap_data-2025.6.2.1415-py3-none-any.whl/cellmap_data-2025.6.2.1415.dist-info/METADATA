@@ -1,0 +1,97 @@
+Metadata-Version: 2.4
+Name: cellmap-data
+Version: 2025.6.2.1415
+Summary: Utility for loading CellMap data for machine learning training, utilizing PyTorch, Xarray, TensorStore, and PyDantic.
+Project-URL: homepage, https://github.com/janelia-cellmap/cellmap-data
+Project-URL: repository, https://github.com/janelia-cellmap/cellmap-data
+Author-email: Jeff Rhoades <rhoadesj@hhmi.org>
+License: BSD 3-Clause License
+License-File: LICENSE
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Typing :: Typed
+Requires-Python: >=3.11
+Requires-Dist: cellpose
+Requires-Dist: fsspec[http,s3]
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: pydantic-ome-ngff
+Requires-Dist: tensorstore
+Requires-Dist: torch
+Requires-Dist: torchvision
+Requires-Dist: universal-pathlib>=0.2.0
+Requires-Dist: xarray-ome-ngff
+Requires-Dist: xarray-tensorstore>=0.1.5
+Provides-Extra: all
+Requires-Dist: black; extra == 'all'
+Requires-Dist: hatch; extra == 'all'
+Requires-Dist: ipython; extra == 'all'
+Requires-Dist: jupyter; extra == 'all'
+Requires-Dist: mypy; extra == 'all'
+Requires-Dist: pdbpp; extra == 'all'
+Requires-Dist: pre-commit; extra == 'all'
+Requires-Dist: pytest-cov; extra == 'all'
+Requires-Dist: pytest>=6.0; extra == 'all'
+Requires-Dist: python-semantic-release; extra == 'all'
+Requires-Dist: rich; extra == 'all'
+Requires-Dist: ruff; extra == 'all'
+Requires-Dist: snakeviz; extra == 'all'
+Requires-Dist: sphinx; extra == 'all'
+Requires-Dist: sphinx-book-theme; extra == 'all'
+Requires-Dist: twine; extra == 'all'
+Provides-Extra: dev
+Requires-Dist: black; extra == 'dev'
+Requires-Dist: hatch; extra == 'dev'
+Requires-Dist: ipython; extra == 'dev'
+Requires-Dist: jupyter; extra == 'dev'
+Requires-Dist: mypy; extra == 'dev'
+Requires-Dist: pdbpp; extra == 'dev'
+Requires-Dist: pre-commit; extra == 'dev'
+Requires-Dist: pytest-cov; extra == 'dev'
+Requires-Dist: pytest>=6.0; extra == 'dev'
+Requires-Dist: python-semantic-release; extra == 'dev'
+Requires-Dist: rich; extra == 'dev'
+Requires-Dist: ruff; extra == 'dev'
+Requires-Dist: snakeviz; extra == 'dev'
+Requires-Dist: sphinx; extra == 'dev'
+Requires-Dist: sphinx-book-theme; extra == 'dev'
+Requires-Dist: twine; extra == 'dev'
+Provides-Extra: test
+Requires-Dist: black; extra == 'test'
+Requires-Dist: mypy; extra == 'test'
+Requires-Dist: pytest-cov; extra == 'test'
+Requires-Dist: pytest>=6.0; extra == 'test'
+Description-Content-Type: text/markdown
+
+<img src="https://raw.githubusercontent.com/janelia-cellmap/dacapo/main/docs/source/_static/CellMapLogo.png" alt="CellMap logo" width="85%">
+
+# CellMap-Data
+
+[![PyPI](https://img.shields.io/pypi/v/cellmap-data.svg?color=green)](https://pypi.org/project/cellmap-data)
+[![Build Docs](https://github.com/janelia-cellmap/cellmap-data/actions/workflows/docs.yml/badge.svg?branch=main)](https://janelia-cellmap.github.io/cellmap-data/)
+![GitHub License](https://img.shields.io/github/license/janelia-cellmap/cellmap-data)
+![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fjanelia-cellmap%2Fcellmap-data%2Fmain%2Fpyproject.toml)
+[![tests](https://github.com/janelia-cellmap/cellmap-data/actions/workflows/tests.yml/badge.svg)](https://github.com/janelia-cellmap/cellmap-data/actions/workflows/tests.yml)
+[![black](https://github.com/janelia-cellmap/cellmap-data/actions/workflows/black.yml/badge.svg)](https://github.com/janelia-cellmap/cellmap-data/actions/workflows/black.yml)
+[![mypy](https://github.com/janelia-cellmap/cellmap-data/actions/workflows/mypy.yml/badge.svg)](https://github.com/janelia-cellmap/cellmap-data/actions/workflows/mypy.yml)
+[![codecov](https://codecov.io/gh/janelia-cellmap/cellmap-data/branch/main/graph/badge.svg)](https://codecov.io/gh/janelia-cellmap/cellmap-data)
+
+
+
+Utility for loading CellMap data for machine learning training, utilizing PyTorch, Xarray, TensorStore, and PyDantic.
+
+You can select classes to load to construct targets separately from the labels you want to predict. This allows you to train a model to predict a subset of labels, while still using all labels to construct the target from true negatives as well as true positives.
+
+## Installation
+
+```bash
+micromamba create -n cellmap -y -c conda-forge -c pytorch python=3.11
+micromamba activate cellmap
+git clone https://github.com/janelia-cellmap/cellmap-data.git
+cd cellmap-data
+pip install -e .
+```
