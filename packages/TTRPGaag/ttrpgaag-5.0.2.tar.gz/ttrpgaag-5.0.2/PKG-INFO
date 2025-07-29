@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: TTRPGaag
+Version: 5.0.2
+Summary: Pacote básico de Ferramentas de RPG em português
+Author: Alessandro Guarita
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# RPG
+Pacote Python com as minhas ferramentas de RPG
+
+## Índice
+- [Changelog](#changelog)
+- [Informações](#informações)
+
+## Informações
+- [Dado](read-me/dado.md)
+- [Baralho](read-me/baralho.md)
+- [ordena_iniciativa](read-me/ordena-iniciativa.md)
+- [Tabela Rolável](read-me/tabela-rolavel.md)
+- [Sistemas](read-me/sistemas.md)
+
+
+## Changelog
+- **5.0.2** - `rolar_dado_notacao()` agora aceita string com valor numérico e retornar esse valor, para que possa ser usado em interáveis que contenham tanto notação quanto números representados por string.
+- **5.0.1** - Acrescentado o método `.rolar()` para a classe Dado, para que a classes possa ser vinculado a algum atributo permitindo que sejam feitos vários rolamentos posteriores e mantendo o `.rerolar()` para quando houver a habilidade de realizar um rerolamento específico.
+- **5.0.0** - Alteração do método `.recuperar_cartas()` de `Baralho` que agora se chama `.recuperar_carta()` e retoma uma carta por vez ao invés de uma lista, para padronizar com o método `.descer_carta()`.
+  - Alteração do nome `Teste` para `Rolamento` em dnd
+  - `Rolamento` (antigo `Teste`) e `Ataque` removido temporariamente para reformulação futura
+  - Inclusão de um read-me mais detalhado.
+- **4.3.1** - Ajuste: acréscimo do RolamentoAtaque no init do dc20 para importação
+- **4.3.0** - DC20. Inclusão do rolamento para ataques
+- **4.2.0** - DC20. Classe para realizar rolamentos
+- **4.1.1** - Novas funcionalidades em Dado:
+  - Função de abertura privada no Dado (`_reiniciar`), para usos específicos como chamar a classe com número de dados ou faces variados (exemplo: o dado pode aumentar a face, a quantidade pode ser acrescida de um dado)
+  - Propriedade `rolamento` para exibir os dados rolados
+- **4.1.0** - Nova classe para tabelas roláveis `TabelaRolavelSimples` para tabelas que cada item tem a mesma chance de sair (como 20 itens e rolar d20)
+- **4.0.1** - Atualização das importações usando caminho relativo
+- **4.0.0** - Métodos de criação de tabelas da `TabelaRolavel` renomeados para o verbo no infinitivo. Inclusão de parâmetro para rolar a subtabela ou não
+- **3.0.3** - `TabelaRolavel` agora aceita e rola o resultado de outra tabela caso esse seja o resultado. Por exemplo: a tabela de tesouro pode fazer rolar na tabela de armas mágicas. Se cair esse resultado, já vai entregar o devido resultado
+- **3.0.2** - `rolar_tabela` agora usa prioritariamente dicionário
+- **3.0.1** - Otimização no embaralhamento de cartas, usando função nativa do módulo random
+- **3.0.0** - PF2
+  - Alteração do parâmetro `.defesa_base` para `.defesa_monstro_base` para deixar mais claro seu uso
+  - Alteração do import do módulo `calcula_proficiencia` para `proficiencia` pois ganhou outra função: `aumentar_proficiencia` 
+  - Lista de skills em Data
+  - Classe de PC para representar um personagem
+- **2.2.3** - Inclusão dos danos só de rolamento no PF2
+- **2.2.2** - Inclusão de valor do ataque do ataque atual como propriedade em PF2
+- **2.2.1** - Correção no cálculo de save do PF2
+- **2.2.0** - Inclusão do submódulo de PF2
+- **2.1.2** - Correção na representação de dado
+- **2.1.0** - Correção de bug
+- **2.0.0** - Alteração na classe Baralho
+- **1.0.0** - Lançamento
