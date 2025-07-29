@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "klaradvn"
+version = "0.1.0"
+description = ""
+authors = ["Tom Laumen <tom_laumen@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+ollama = "^0.4.8"
+typer = "^0.15.3"
+pytest = "^8.3.5"
+
+[tool.poetry.scripts]
+klara = "klaradvn.cli:app"
+
+[project.scripts]
+klara = "klaradvn.cli:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
