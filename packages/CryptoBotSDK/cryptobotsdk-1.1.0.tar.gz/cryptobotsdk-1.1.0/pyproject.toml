@@ -1,0 +1,21 @@
+[project]
+name = "CryptoBotSDK"
+version = "1.1.0"
+description = "CrytoBot (@send) telegram sdk"
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = [
+    "requests>=2.32.3"
+]
+
+[tool.uv.workspace]
+members = [
+    "examples/telegram-bot",
+]
+
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
