@@ -1,0 +1,2 @@
+class UnableToParseModelOutputError(Exception):
+    pass
