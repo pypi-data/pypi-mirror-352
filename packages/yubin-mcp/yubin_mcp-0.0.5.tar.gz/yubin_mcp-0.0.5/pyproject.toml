@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "yubin_mcp"
+version = "0.0.5"
+description = "MCP server that retrieves addresses and map links from Japanese postal codes and latitude/longitude coordinates"
+authors = ["masashimorita"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+setuptools = "^80.9.0"
+wheel = "^0.45.1"
+twine = "^6.1.0"
+posuto = "^2025.6.0"
+geopy = "^2.4.1"
+mcp = {extras = ["cli"], version = "^1.9.2"}
+
+
+[tool.poetry.group.dev.dependencies]
+build = "^1.2.2.post1"
+twine = "^6.1.0"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
