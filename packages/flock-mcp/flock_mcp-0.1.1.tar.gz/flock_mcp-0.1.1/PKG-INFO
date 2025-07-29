@@ -1,0 +1,49 @@
+Metadata-Version: 2.4
+Name: flock-mcp
+Version: 0.1.1
+Summary: Flock MCP Servers and Tools
+License-File: LICENSE
+Requires-Python: <3.13,>=3.10
+Provides-Extra: all
+Requires-Dist: azure-identity>=1.23.0; extra == 'all'
+Requires-Dist: azure-search-documents>=11.5.2; extra == 'all'
+Requires-Dist: azure-storage-blob>=12.25.1; extra == 'all'
+Requires-Dist: chromadb>=0.6.3; extra == 'all'
+Requires-Dist: datasets>=3.2.0; extra == 'all'
+Requires-Dist: docling>=2.34.0; extra == 'all'
+Requires-Dist: duckduckgo-search>=7.3.2; extra == 'all'
+Requires-Dist: markdownify>=0.14.1; extra == 'all'
+Requires-Dist: matplotlib>=3.10.0; extra == 'all'
+Requires-Dist: mem0ai[graph]>=0.1.101; extra == 'all'
+Requires-Dist: nltk>=3.9.1; extra == 'all'
+Requires-Dist: rouge-score>=0.1.2; extra == 'all'
+Requires-Dist: sentence-transformers>=3.4.1; extra == 'all'
+Requires-Dist: tavily-python>=0.5.0; extra == 'all'
+Requires-Dist: zep-python>=2.0.2; extra == 'all'
+Provides-Extra: all-tools
+Requires-Dist: azure-identity>=1.23.0; extra == 'all-tools'
+Requires-Dist: azure-search-documents>=11.5.2; extra == 'all-tools'
+Requires-Dist: azure-storage-blob>=12.25.1; extra == 'all-tools'
+Requires-Dist: docker>=7.1.0; extra == 'all-tools'
+Requires-Dist: docling>=2.34.0; extra == 'all-tools'
+Requires-Dist: duckduckgo-search>=7.3.2; extra == 'all-tools'
+Requires-Dist: markdownify>=0.14.1; extra == 'all-tools'
+Requires-Dist: nltk>=3.9.1; extra == 'all-tools'
+Requires-Dist: tavily-python>=0.5.0; extra == 'all-tools'
+Provides-Extra: azure-tools
+Requires-Dist: azure-identity>=1.23.0; extra == 'azure-tools'
+Requires-Dist: azure-search-documents>=11.5.2; extra == 'azure-tools'
+Requires-Dist: azure-storage-blob>=12.25.1; extra == 'azure-tools'
+Provides-Extra: basic-tools
+Requires-Dist: docling>=2.34.0; extra == 'basic-tools'
+Requires-Dist: duckduckgo-search>=7.3.2; extra == 'basic-tools'
+Requires-Dist: markdownify>=0.14.1; extra == 'basic-tools'
+Requires-Dist: tavily-python>=0.5.0; extra == 'basic-tools'
+Provides-Extra: code-tools
+Requires-Dist: docker>=7.1.0; extra == 'code-tools'
+Provides-Extra: llm-tools
+Requires-Dist: nltk>=3.9.1; extra == 'llm-tools'
+Description-Content-Type: text/markdown
+
+# flock-mcp
+Multiple MCP servers and tools for the agent framework Flock.
