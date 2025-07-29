@@ -1,0 +1,902 @@
+Metadata-Version: 2.1
+Name: zeuslab
+Version: 1.1.0
+Summary: ZeusLab core package — building blocks for agentic AI and intelligent systems.
+Home-page: https://github.com/zeuslabs-aizeuslab
+Author: Zeus Lab
+Author-email: gokulskrishnan74@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: autogen
+Requires-Dist: requests
+
+# ⚡ H.E.R.C.U.L.E.S. - Human-Emulated Recursive Collaborative Unit using Layered Enhanced Simulation
+
+<div align="center">
+
+![HERCULES Logo](https://img.shields.io/badge/HERCULES-AI%20Multi--Agent%20Framework-blue?style=for-the-badge)
+
+**"HERCULES: A League of Intelligent Agents"**
+
+[![PyPI version](https://badge.fury.io/py/hercules-ai.svg)](https://badge.fury.io/py/hercules-ai)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/release/python-380/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Documentation](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://github.com/zeuslabs-ai/hercules)
+
+</div>
+
+## 🏢 About Zeus Labs
+
+**Zeus Labs** is a forward-thinking AI research and development company founded by Gokulakrishnan. The company is dedicated to creating intelligent, human-emulated systems that push the boundaries of current AI capabilities. With a focus on innovation, collaboration, and simulation, Zeus Labs aims to redefine how humans and machines interact to solve complex tasks.
+
+## 🧠 What is H.E.R.C.U.L.E.S.?
+
+**H.E.R.C.U.L.E.S.** is an advanced AI system developed by Zeus Labs that simulates a **team of intelligent AI agents**—such as researchers, coders, analysts, and writers—working together in a shared virtual space. These agents emulate human collaboration to complete tasks effectively, communicating among themselves through a sophisticated multi-agent framework.
+
+### 🎯 Core Philosophy
+HERCULES transforms complex tasks into collaborative endeavors by automatically:
+- **Generating specialized agent roles** based on task requirements
+- **Creating domain-specific prompts** for each agent
+- **Facilitating intelligent communication** between agents
+- **Providing tool access** for enhanced capabilities
+- **Producing comprehensive summaries** of collaborative work
+
+## 🚀 Key Features
+
+- **🤖 Dynamic Agent Generation**: Automatically creates specialized AI agents based on task requirements
+- **🔧 Advanced Tool Integration**: Seamless integration with file operations, web search, calculations, and custom tools
+- **🎭 Role-Based Collaboration**: Agents assume specific roles (Researcher, Analyst, Writer, etc.) with tailored expertise
+- **🧠 Intelligent Orchestration**: Smart conversation management and speaker selection
+- **📊 Comprehensive Reporting**: Detailed summaries of agent contributions and outcomes
+- **🔄 Flexible Configuration**: Extensive customization options for different use cases
+- **💻 Code Execution Support**: Built-in code execution capabilities for technical tasks
+- **🌐 Multi-LLM Support**: Compatible with various language models (OpenAI, Azure, local models, etc.)
+
+## 📦 Installation
+
+### Prerequisites
+- Python 3.8 or higher
+- pip package manager
+
+### Install from PyPI
+
+```bash
+pip install zeuslab
+```
+
+
+## ⚡ Quick Start
+
+### Basic Usage
+
+```python
+from zeuslab.hercules import Hercules
+
+# Initialize HERCULES with default settings
+llm_config = {
+    "model": "gpt-4",
+    "api_key": "your-openai-api-key"
+}
+
+hercules = Hercules(llm_config=llm_config)
+
+# Run a collaborative task
+task = "Research the latest trends in renewable energy and create a comprehensive report"
+result = hercules.run(task)
+print(result)
+```
+
+### With Tools Enabled
+
+```python
+from zeuslab.hercules import Hercules
+from zeuslab.hercules.tools import DEFAULT_TOOLS
+
+# Initialize with tools
+hercules = Hercules(
+    llm_config=llm_config,
+    tools=True,
+    tools_config=DEFAULT_TOOLS
+)
+
+# Run a task that can utilize tools
+task = "Analyze the latest AI research papers and create a summary document"
+result = hercules.run(task)
+print(result)
+```
+
+## 🔧 Configuration Guide
+
+### 1. LLM Configuration
+
+HERCULES supports multiple LLM providers and configurations:
+
+#### OpenAI Configuration
+
+```python
+# Basic OpenAI setup
+llm_config = {
+    "model": "gpt-4",
+    "api_key": "your-openai-api-key",
+    "temperature": 0.7,
+    "max_tokens": 2000
+}
+
+# Advanced OpenAI configuration
+llm_config = {
+    "model": "gpt-4-1106-preview",
+    "api_key": "your-openai-api-key",
+    "temperature": 0.7,
+    "max_tokens": 4000,
+    "top_p": 0.9,
+    "frequency_penalty": 0.1,
+    "presence_penalty": 0.1,
+    "timeout": 60
+}
+```
+
+#### Azure OpenAI Configuration
+
+```python
+llm_config = {
+    "model": "gpt-4",
+    "api_type": "azure",
+    "api_base": "https://your-resource.openai.azure.com/",
+    "api_key": "your-azure-api-key",
+    "api_version": "2023-12-01-preview",
+    "deployment_name": "your-deployment-name"
+}
+```
+
+#### Local Model Configuration (Ollama)
+
+```python
+llm_config = {
+    "model": "llama2",
+    "api_base": "http://localhost:11434/v1",
+    "api_key": "dummy-key",
+    "api_type": "openai"  # Use OpenAI-compatible API
+}
+```
+
+#### Anthropic Claude Configuration
+
+```python
+llm_config = {
+    "model": "claude-3-opus-20240229",
+    "api_key": "your-anthropic-api-key",
+    "api_type": "anthropic",
+    "max_tokens": 4000
+}
+```
+
+#### Multiple Model Configuration
+
+```python
+# Different models for different agents
+llm_configs = {
+    "researcher": {
+        "model": "gpt-4",
+        "api_key": "your-openai-key",
+        "temperature": 0.3
+    },
+    "writer": {
+        "model": "gpt-3.5-turbo",
+        "api_key": "your-openai-key", 
+        "temperature": 0.8
+    }
+}
+```
+
+### 2. Advanced Initialization
+
+```python
+from zeuslab.hercules import Hercules
+from zeuslab.hercules.tools import DEFAULT_TOOLS
+
+hercules = Hercules(
+    llm_config=llm_config,
+    tools=True,
+    tools_config=DEFAULT_TOOLS,
+    max_rounds=15,
+    speaker_selection="auto",  # or "manual", "round_robin"
+    enable_code_execution=True,
+    custom_prompts={
+        "Researcher": "You are a senior research analyst with 10+ years of experience...",
+        "Writer": "You are a technical writer specializing in clear, engaging content..."
+    }
+)
+```
+
+## 🛠️ Tools System
+
+### Built-in Tools
+
+HERCULES comes with a comprehensive set of built-in tools:
+
+```python
+from zeuslab.hercules.tools import (
+    write_file,      # Write content to files
+    read_file,       # Read file contents
+    web_search,      # Web search capabilities
+    calculate,       # Mathematical calculations
+    list_files,      # Directory operations
+    FILE_TOOLS,      # Tools categories for easy selection
+    WEB_TOOLS,
+    DATABASE_TOOLS,
+    CODE_TOOLS,
+    COMMUNICATION_TOOLS,
+    DEFAULT_TOOLS    # All default tools
+)
+```
+
+### Using Built-in Tools
+
+```python
+# Use all default tools
+hercules = Hercules(
+    llm_config=llm_config,
+    tools=True,
+    tools_config=DEFAULT_TOOLS
+)
+
+# Use specific tools only
+hercules = Hercules(
+    llm_config=llm_config,
+    tools=True,
+    tools_config=[write_file, read_file, calculate]
+)
+```
+
+### Creating Custom Tools
+
+Tools must use proper type annotations with `Annotated` for AutoGen compatibility:
+
+```python
+from typing import Annotated
+
+def custom_api_call(
+    endpoint: Annotated[str, "API endpoint to call"],
+    method: Annotated[str, "HTTP method (GET, POST, etc.)"] = "GET"
+) -> str:
+    """Make an API call and return the response."""
+    import requests
+    try:
+        response = requests.request(method, endpoint)
+        return f"API Response: {response.text[:500]}..."
+    except Exception as e:
+        return f"Error calling API: {str(e)}"
+
+def data_analyzer(
+    data: Annotated[str, "Data to analyze (JSON, CSV, or text)"],
+    analysis_type: Annotated[str, "Type of analysis to perform"] = "summary"
+) -> str:
+    """Analyze data and provide insights."""
+    # Your analysis logic here
+    return f"Analysis of {analysis_type}: {data[:100]}..."
+
+# Add custom tools
+hercules.add_tool(custom_api_call)
+hercules.add_tool(data_analyzer)
+```
+
+### Tool Configuration Patterns
+
+```python
+# Dictionary-based tool configuration
+tools_config = {
+    "file_operations": write_file,
+    "calculations": calculate,
+    "web_search": web_search
+}
+
+# List-based configuration
+tools_config = [write_file, calculate, web_search]
+
+# Mixed configuration with custom tools
+def email_sender(to: Annotated[str, "Email recipient"], 
+                subject: Annotated[str, "Email subject"],
+                body: Annotated[str, "Email body"]) -> str:
+    """Send an email (mock implementation)."""
+    return f"Email sent to {to} with subject: {subject}"
+
+tools_config = DEFAULT_TOOLS + [email_sender]
+```
+
+## 👥 Agent System
+
+### How Agents Work
+
+HERCULES automatically generates specialized agents based on your task:
+
+1. **Role Generation**: Analyzes the task and creates 3-5 relevant roles
+2. **Prompt Creation**: Generates specialized system prompts for each role
+3. **Agent Creation**: Instantiates agents with specific capabilities
+4. **Collaboration**: Orchestrates communication between agents
+
+### Custom Role Generation
+
+```python
+def custom_role_generator(task: str) -> List[str]:
+    """Generate custom roles based on task analysis."""
+    if "machine learning" in task.lower():
+        return ["Data Scientist", "ML Engineer", "Model Validator", "Technical Writer"]
+    elif "web development" in task.lower():
+        return ["Frontend Developer", "Backend Developer", "DevOps Engineer", "QA Tester"]
+    else:
+        return ["Analyst", "Developer", "Reviewer"]
+
+hercules = Hercules(
+    llm_config=llm_config,
+    roles_generator=custom_role_generator
+)
+```
+
+### Custom Agent Factory
+
+```python
+def custom_agent_factory(role: str, config: dict, system_prompt: str):
+    """Create agents with custom configurations."""
+    from autogen import AssistantAgent
+    
+    # Customize configuration based on role
+    if role == "Researcher":
+        config["temperature"] = 0.3  # More focused
+    elif role == "Writer":
+        config["temperature"] = 0.8  # More creative
+    
+    return AssistantAgent(
+        name=role,
+        llm_config=config,
+        system_message=system_prompt
+    )
+
+hercules = Hercules(
+    llm_config=llm_config,
+    custom_agent_factory=custom_agent_factory
+)
+```
+
+### Custom Prompts
+
+```python
+custom_prompts = {
+    "Researcher": """
+    You are a world-class research analyst with expertise in data gathering, 
+    fact verification, and trend analysis. Your role is to:
+    - Conduct thorough research on assigned topics
+    - Verify information from multiple sources
+    - Identify key trends and insights
+    - Present findings in a structured format
+    """,
+    
+    "Technical Writer": """
+    You are a senior technical writer specializing in making complex 
+    information accessible. Your responsibilities include:
+    - Creating clear, concise documentation
+    - Structuring information logically
+    - Using appropriate technical terminology
+    - Ensuring content is audience-appropriate
+    """
+}
+
+hercules = Hercules(
+    llm_config=llm_config,
+    custom_prompts=custom_prompts
+)
+```
+
+## 🎛️ Advanced Configuration
+
+### Group Chat Settings
+
+```python
+hercules = Hercules(
+    llm_config=llm_config,
+    max_rounds=20,  # Maximum conversation rounds
+    speaker_selection="auto",  # How to select next speaker
+    enable_code_execution=True  # Enable code execution
+)
+```
+
+### Speaker Selection Methods
+
+- **"auto"**: LLM decides the next speaker intelligently
+- **"round_robin"**: Agents speak in turn
+- **"manual"**: Manual speaker selection (for interactive use)
+
+### Code Execution Configuration
+
+```python
+hercules = Hercules(
+    llm_config=llm_config,
+    enable_code_execution=True,
+    # Code execution happens in hercules_workspace directory
+    # Docker disabled by default for security
+)
+```
+
+### Custom User Proxy
+
+```python
+from autogen import UserProxyAgent
+
+custom_proxy = UserProxyAgent(
+    name="CustomUser",
+    human_input_mode="ALWAYS",  # Always ask for human input
+    max_consecutive_auto_reply=5,
+    code_execution_config={
+        "work_dir": "custom_workspace",
+        "use_docker": True
+    }
+)
+
+hercules = Hercules(
+    llm_config=llm_config,
+    custom_user_proxy=custom_proxy
+)
+```
+
+## 📊 Usage Examples
+
+### 1. Research and Analysis
+
+```python
+from zeuslab.hercules import Hercules
+from zeuslab.hercules.tools import DEFAULT_TOOLS
+
+hercules = Hercules(
+    llm_config={"model": "gpt-4", "api_key": "your-key"},
+    tools=True,
+    tools_config=DEFAULT_TOOLS
+)
+
+task = """
+Conduct a comprehensive analysis of the current state of quantum computing, 
+including key players, recent breakthroughs, challenges, and future prospects. 
+Create a detailed report with executive summary, technical analysis, and 
+market implications.
+"""
+
+result = hercules.run(task)
+print(result)
+```
+
+### 2. Software Development
+
+```python
+hercules = Hercules(
+    llm_config=llm_config,
+    tools=True,
+    tools_config=DEFAULT_TOOLS,
+    enable_code_execution=True
+)
+
+task = """
+Create a Python web scraper that can extract product information from 
+e-commerce websites. Include error handling, rate limiting, and data 
+export functionality. Provide comprehensive documentation and unit tests.
+"""
+
+result = hercules.run(task)
+```
+
+### 3. Content Creation
+
+```python
+custom_tools = [write_file, web_search]
+
+hercules = Hercules(
+    llm_config=llm_config,
+    tools=True,
+    tools_config=custom_tools,
+    custom_prompts={
+        "Content Strategist": "You specialize in content strategy and SEO optimization...",
+        "Copywriter": "You are an expert copywriter with a focus on engaging content...",
+        "Editor": "You are a meticulous editor ensuring quality and consistency..."
+    }
+)
+
+task = """
+Create a comprehensive content marketing strategy for a SaaS startup, 
+including blog post topics, social media content, email campaigns, 
+and SEO recommendations. Generate sample content for each channel.
+"""
+
+result = hercules.run(task)
+```
+
+### 4. Data Analysis
+
+```python
+# Custom data analysis tool
+def analyze_csv(
+    file_path: Annotated[str, "Path to CSV file"],
+    analysis_type: Annotated[str, "Type of analysis"] = "descriptive"
+) -> str:
+    """Analyze CSV data and return insights."""
+    import pandas as pd
+    try:
+        df = pd.read_csv(file_path)
+        if analysis_type == "descriptive":
+            return f"Data shape: {df.shape}\nColumns: {list(df.columns)}\nSummary:\n{df.describe()}"
+        # Add more analysis types as needed
+    except Exception as e:
+        return f"Error analyzing CSV: {str(e)}"
+
+hercules = Hercules(
+    llm_config=llm_config,
+    tools=True,
+    tools_config=DEFAULT_TOOLS + [analyze_csv]
+)
+
+task = """
+Analyze the sales data in 'sales_data.csv' and create a comprehensive 
+business intelligence report including trends, forecasts, and actionable 
+recommendations for the sales team.
+"""
+
+result = hercules.run(task)
+```
+
+### 5. Multi-Model Setup
+
+```python
+# Use different models for different capabilities
+researcher_config = {
+    "model": "gpt-4",
+    "api_key": "your-key",
+    "temperature": 0.3
+}
+
+writer_config = {
+    "model": "gpt-3.5-turbo", 
+    "api_key": "your-key",
+    "temperature": 0.8
+}
+
+def multi_model_factory(role: str, config: dict, system_prompt: str):
+    from autogen import AssistantAgent
+    
+    if role == "Researcher":
+        actual_config = researcher_config
+    elif role == "Writer":
+        actual_config = writer_config
+    else:
+        actual_config = config
+    
+    return AssistantAgent(
+        name=role,
+        llm_config=actual_config,
+        system_message=system_prompt
+    )
+
+hercules = Hercules(
+    llm_config=researcher_config,  # Default config
+    custom_agent_factory=multi_model_factory
+)
+```
+
+## 🔍 Monitoring and Debugging
+
+### Accessing Agent Information
+
+```python
+# Run a task
+result = hercules.run("Your task here")
+
+# Access created agents
+agents = hercules.get_agents()
+for agent in agents:
+    print(f"Agent: {agent.name}")
+
+# Access chat history
+groupchat = hercules.get_groupchat()
+if groupchat:
+    print(f"Total messages: {len(groupchat.messages)}")
+
+# Access user proxy and manager
+user_proxy = hercules.get_user_proxy()
+manager = hercules.get_manager()
+```
+
+### Tool Management
+
+```python
+# List current tools
+print("Available tools:", hercules.list_tools())
+
+# Add a new tool
+def new_tool(param: Annotated[str, "Description"]) -> str:
+    return f"Processed: {param}"
+
+hercules.add_tool(new_tool)
+
+# Remove a tool
+hercules.remove_tool("web_search")
+```
+
+### Error Handling
+
+```python
+try:
+    result = hercules.run(task)
+    print("Success:", result)
+except Exception as e:
+    print(f"Error occurred: {e}")
+    
+    # Access agents for debugging
+    if hercules.get_agents():
+        print("Agents were created successfully")
+    else:
+        print("No agents were created - check LLM configuration")
+```
+
+## 🚀 Production Deployment
+
+### Environment Variables
+
+```bash
+# Set up environment variables for production
+export OPENAI_API_KEY="your-openai-api-key"
+export AZURE_OPENAI_API_KEY="your-azure-key"
+export ANTHROPIC_API_KEY="your-anthropic-key"
+```
+
+### Production Configuration
+
+```python
+import os
+from zeuslab.hercules import Hercules
+
+# Production-ready configuration
+llm_config = {
+    "model": "gpt-4",
+    "api_key": os.getenv("OPENAI_API_KEY"),
+    "temperature": 0.7,
+    "timeout": 120,
+    "max_retries": 3
+}
+
+hercules = Hercules(
+    llm_config=llm_config,
+    tools=True,
+    tools_config=DEFAULT_TOOLS,
+    max_rounds=10,  # Limit rounds for cost control
+    enable_code_execution=False  # Disable for security
+)
+```
+
+### Docker Deployment
+
+```dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+
+CMD ["python", "your_hercules_app.py"]
+```
+
+## 🔒 Security Considerations
+
+### API Key Management
+
+- Use environment variables for API keys
+- Implement key rotation policies
+- Monitor API usage and costs
+
+### Code Execution Security
+
+```python
+# Disable code execution in production
+hercules = Hercules(
+    llm_config=llm_config,
+    enable_code_execution=False
+)
+
+# Or use Docker for isolation
+hercules = Hercules(
+    llm_config=llm_config,
+    enable_code_execution=True,
+    # Docker will be used automatically if available
+)
+```
+
+### Tool Safety
+
+```python
+# Implement safe tools with validation
+def safe_file_writer(
+    filename: Annotated[str, "Filename to write"],
+    content: Annotated[str, "Content to write"]
+) -> str:
+    """Write file with safety checks."""
+    # Validate filename
+    if ".." in filename or filename.startswith("/"):
+        return "Error: Invalid filename for security reasons"
+    
+    # Limit file size
+    if len(content) > 1000000:  # 1MB limit
+        return "Error: Content too large"
+    
+    # Proceed with safe write
+    try:
+        with open(f"safe_workspace/{filename}", "w") as f:
+            f.write(content)
+        return f"Safely wrote to {filename}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+```
+
+## 🐛 Troubleshooting
+
+### Common Issues and Solutions
+
+#### 1. API Key Issues
+```python
+# Verify API key is set correctly
+import os
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    print("API key not found in environment variables")
+```
+
+#### 2. Agent Creation Failures
+```python
+# Check if roles are generated correctly
+def debug_role_generator(task: str):
+    hercules = Hercules(llm_config=llm_config)
+    roles = hercules._generate_roles(task)
+    print("Generated roles:", roles)
+    return roles
+
+# Test role generation
+debug_role_generator("Your test task")
+```
+
+#### 3. Tool Registration Issues
+```python
+# Verify tool signatures
+from typing import get_type_hints
+
+def check_tool_signature(tool_func):
+    hints = get_type_hints(tool_func, include_extras=True)
+    print(f"Tool: {tool_func.__name__}")
+    print(f"Type hints: {hints}")
+    print(f"Docstring: {tool_func.__doc__}")
+
+# Check your custom tools
+check_tool_signature(your_custom_tool)
+```
+
+### Performance Optimization
+
+```python
+# Optimize for cost and speed
+llm_config = {
+    "model": "gpt-3.5-turbo",  # Faster, cheaper model
+    "temperature": 0.7,
+    "max_tokens": 1000,  # Limit response length
+    "timeout": 30
+}
+
+hercules = Hercules(
+    llm_config=llm_config,
+    max_rounds=8,  # Limit conversation rounds
+    speaker_selection="round_robin"  # Faster speaker selection
+)
+```
+
+## 📚 API Reference
+
+### Hercules Class
+
+```python
+class Hercules:
+    def __init__(
+        self,
+        llm_config: Optional[Dict[str, Any]] = None,
+        tools: bool = False,
+        tools_config: Optional[Union[List[Any], Dict[str, Any]]] = None,
+        roles_generator: Optional[Callable[[str], List[str]]] = None,
+        custom_user_proxy: Optional[UserProxyAgent] = None,
+        custom_agent_factory: Optional[Callable[[str, Dict[str, Any], str], Any]] = None,
+        custom_prompts: Optional[Dict[str, str]] = None,
+        max_rounds: int = 12,
+        speaker_selection: str = "auto",
+        enable_code_execution: bool = False,
+    )
+```
+
+### Key Methods
+
+- `run(task: str) -> str`: Execute a collaborative task
+- `add_tool(tool_func: Callable)`: Add a custom tool
+- `remove_tool(tool_name: str)`: Remove a tool by name
+- `list_tools() -> List[str]`: List all available tools
+- `get_agents() -> List[AssistantAgent]`: Get created agents
+- `get_groupchat() -> Optional[GroupChat]`: Get group chat instance
+
+## 🤝 Contributing
+
+We welcome contributions to HERCULES! Please follow these guidelines:
+
+### Development Setup
+
+```bash
+git clone https://github.com/zeuslabs-ai/hercules.git
+cd hercules
+pip install -e ".[dev]"
+```
+
+### Running Tests
+
+```bash
+pytest tests/
+```
+
+### Code Style
+
+```bash
+black hercules/
+flake8 hercules/
+```
+
+### Submitting PRs
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Support
+
+- **Documentation**: [https://github.com/zeuslabs-ai/hercules](https://github.com/zeuslabs-ai/hercules)
+- **Issues**: [GitHub Issues](https://github.com/zeuslabs-ai/hercules/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/zeuslabs-ai/hercules/discussions)
+- **Email**: support@zeuslabs.ai
+
+## 🙏 Acknowledgments
+
+- Built on top of [Microsoft AutoGen](https://github.com/microsoft/autogen)
+- Inspired by human collaborative intelligence
+- Special thanks to the open-source AI community
+
+## 📈 Roadmap
+
+- [ ] Support for more LLM providers
+- [ ] Enhanced tool ecosystem
+- [ ] Visual agent interaction interface
+- [ ] Advanced workflow templates
+- [ ] Integration with popular frameworks
+- [ ] Performance optimizations
+- [ ] Enhanced security features
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Zeus Labs**
+
+*Empowering AI to work together like humans*
+
+</div>
+
