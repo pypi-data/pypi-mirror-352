@@ -1,0 +1,156 @@
+Metadata-Version: 2.4
+Name: watcher-fs
+Version: 1.1.1
+Summary: A Python package for monitoring file system changes
+Author-email: Pavel Křupala <pavel.krupala@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2025 Pavel Křupala
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/pavelkrupala/watcher-fs
+Project-URL: Documentation, https://pavelkrupala.github.io/watcher-fs
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# Watcher
+
+A Python package for monitoring file system changes.
+
+## Installation
+```bash
+pip install watcher-fs
+```
+
+## Synchronous Usage
+
+```python
+from watcher_fs.watcher import Watcher, TriggerType
+from pathlib import Path 
+
+test_dir = Path("test_dir")
+
+def on_change_simple():
+    print(f"Something changed.")
+
+def on_change(change):
+    print(f"File {change}")
+
+watcher = Watcher()
+
+# register as glob pattern
+watcher.register("test_dir/**/*.txt", on_change_simple, TriggerType.PER_FILE)
+watcher.register("test_dir/**/*.py", on_change, TriggerType.ANY_FILE, callback_extra=True)
+
+# register as list of specified files
+watcher.register([
+    test_dir / "skin.styl",
+    test_dir / "styl/default.styl",
+    test_dir / "styl/utils.styl"
+], on_change, TriggerType.ANY_FILE, callback_extra=True)
+
+# Simulate a check
+watcher.check()
+
+# do something
+with open(test_dir / "aaa.txt", "w") as f:
+    f.write("Modified content")
+with open(test_dir / "bbb.txt", "w") as f:
+    f.write("Modified content")
+
+with open(test_dir / "skin.styl", "w") as f:
+    f.write("a = #0af")
+with open(test_dir / "styl/default.styl", "w") as f:
+    f.write("a = #f00")
+
+# check again
+watcher.check()
+
+```
+
+## Asynchronous Usage
+
+```python
+import asyncio
+from pathlib import Path 
+from watcher_fs.async_watcher import AsyncWatcher, TriggerType
+
+
+# Example usage:
+async def main():
+    test_dir = Path("test_dir")
+
+    async def on_change_simple():  # CHANGED: Async callback
+        print(f"Something changed.")
+
+    async def on_change(change):  # CHANGED: Async callback
+        print(f"File {change}")
+
+    def create_test_files(file_names):
+        """Helper to create test files (synchronous for simplicity)."""
+        for file_name in file_names:
+            file_path = test_dir / file_name
+            file_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(file_path, "w") as f:
+                if file_name.endswith(".txt"):
+                    f.write("Initial content")
+                else:  # .styl
+                    f.write("a = #fa0")
+
+    create_test_files(["aaa.txt", "bbb.txt", "ccc.txt"])
+    create_test_files(["skin.styl", "styl/default.styl", "styl/utils.styl"])
+
+    watcher = AsyncWatcher()
+    await watcher.register("test_dir/**/*.txt", on_change_simple, TriggerType.PER_FILE)
+    await watcher.register(
+        [test_dir / "skin.styl", test_dir / "styl/default.styl", test_dir / "styl/utils.styl"],
+        on_change, TriggerType.ANY_FILE, callback_extra=True
+    )
+
+    # Simulate a check
+    await watcher.check()
+
+    # Modify files (synchronous for simplicity)
+    with open(test_dir / "aaa.txt", "w") as f:
+        f.write("Modified content")
+    with open(test_dir / "bbb.txt", "w") as f:
+        f.write("Modified content")
+    with open(test_dir / "skin.styl", "w") as f:
+        f.write("a = #0af")
+    with open(test_dir / "styl/default.styl", "w") as f:
+        f.write("a = #f00")
+
+    # Check again
+    await watcher.check()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+```
+
+## Documentation
+
+See https://pavelkrupala.github.io/watcher-fs
