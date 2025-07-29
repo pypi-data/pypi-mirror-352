@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "pyrdms"
+version = "0.1.2"
+description = "Python remote domain model server for d0sl core"
+authors = ["Andrey Gumirov <andreyt45@gmail.com>"]
+readme = "public.README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+grpcio = "^1.62.1"
+protobuf = "^5.26.1"
+
+
+[tool.poetry.group.dev.dependencies]
+grpcio-tools = "^1.71.0"
+pytest = "^8.3.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
