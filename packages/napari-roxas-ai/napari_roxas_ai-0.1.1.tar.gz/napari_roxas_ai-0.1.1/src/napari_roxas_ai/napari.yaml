@@ -1,0 +1,138 @@
+name: napari-roxas-ai
+display_name: ROXAS AI
+# use 'hidden' to remove plugin from napari hub search results
+visibility: public
+# see https://napari.org/stable/plugins/technical_references/manifest.html#fields for valid categories
+categories: ["Annotation", "Segmentation", "Acquisition"]
+contributions:
+  commands:
+    # Sample data contributions
+    - id: napari-roxas-ai.load_sample_data
+      python_name: napari_roxas_ai:load_sample_data
+      title: Load Sample Data (Conifer)
+
+    # Widgets contributions
+    - id: napari-roxas-ai.open_project_directory_dialog
+      python_name: napari_roxas_ai:open_project_directory_dialog
+      title: Project directory setting widget
+
+    - id: napari-roxas-ai.make_preparation_widget
+      python_name: napari_roxas_ai:PreparationWidget
+      title: Sample preparation widget
+
+    - id: napari-roxas-ai.make_samples_loading_widget
+      python_name: napari_roxas_ai:SamplesLoadingWidget
+      title: Samples loading widget
+
+    - id: napari-roxas-ai.make_samples_saving_widget
+      python_name: napari_roxas_ai:SamplesSavingWidget
+      title: Samples saving widget
+
+    - id: napari-roxas-ai.make_single_sample_segmentation_widget
+      python_name: napari_roxas_ai:SingleSampleSegmentationWidget
+      title: Single sample segmentation widget
+
+    - id: napari-roxas-ai.make_batch_sample_segmentation_widget
+      python_name: napari_roxas_ai:BatchSampleSegmentationWidget
+      title: Batch sample segmentation widget
+
+    - id: napari-roxas-ai.make_cells_layer_editor_widget
+      python_name: napari_roxas_ai:CellsLayerEditorWidget
+      title: Cells layer editor widget
+
+    - id: napari-roxas-ai.make_rings_layer_editor_widget
+      python_name: napari_roxas_ai:RingsLayerEditorWidget
+      title: Rings layer editor widget
+
+    - id: napari-roxas-ai.make_cross_dating_plotter_widget
+      python_name: napari_roxas_ai:CrossDatingPlotterWidget
+      title: Cross dating plotter widget
+
+    - id: napari-roxas-ai.make_single_sample_measurements_widget
+      python_name: napari_roxas_ai:SingleSampleMeasurementsWidget
+      title: Single sample measurements widget
+
+    - id: napari-roxas-ai.make_batch_sample_measurements_widget
+      python_name: napari_roxas_ai:BatchSampleMeasurementsWidget
+      title: Batch sample measurements widget
+
+    - id: napari-roxas-ai.open_settings_file
+      python_name: napari_roxas_ai:open_settings_file
+      title: Settings
+
+    # Readers contributions
+    - id: napari-roxas-ai.napari_get_reader
+      python_name: napari_roxas_ai:napari_get_reader
+      title: ROXAS AI File Reader
+
+    # Writers contributions
+    - id: napari-roxas-ai.write_multiple_layers
+      python_name: napari_roxas_ai._writer:write_multiple_layers
+      title: Save multi-layer data with ROXAS AI
+
+    - id: napari-roxas-ai.write_single_layer
+      python_name: napari_roxas_ai._writer:write_single_layer
+      title: Save layer data with ROXAS AI
+
+  readers:
+    - command: napari-roxas-ai.napari_get_reader
+      accepts_directories: true
+      filename_patterns: ["*.cells*", "*.scan*", "*.rings*"] # Can't be read from the settings file, so hardcoded here
+
+  writers:
+    - command: napari-roxas-ai.write_single_layer
+      layer_types: ["image"]
+      filename_extensions: []
+      display_name: Save File with Basename
+
+    - command: napari-roxas-ai.write_single_layer
+      layer_types: ["labels"]
+      filename_extensions: []
+      display_name: Save File with Basename
+
+    - command: napari-roxas-ai.write_multiple_layers
+      layer_types: ["image*","labels*"]
+      filename_extensions: []
+      display_name: Save Multiple Files with Basename
+
+  sample_data:
+    - command: napari-roxas-ai.load_sample_data
+      display_name: ROXAS AI
+      key: unique_id.1
+
+  widgets:
+    - command: napari-roxas-ai.open_project_directory_dialog
+      display_name: Project directory setting
+
+    - command: napari-roxas-ai.make_preparation_widget
+      display_name: Prepare project directory
+
+    - command: napari-roxas-ai.make_samples_loading_widget
+      display_name: Load samples
+
+    - command: napari-roxas-ai.make_samples_saving_widget
+      display_name: Save samples
+
+    - command: napari-roxas-ai.make_single_sample_segmentation_widget
+      display_name: Segment individual sample (cells & rings)
+
+    - command: napari-roxas-ai.make_batch_sample_segmentation_widget
+      display_name: Batch segment samples (cells & rings)
+
+    - command: napari-roxas-ai.make_cells_layer_editor_widget
+      display_name: Edit cells layer
+
+    - command: napari-roxas-ai.make_rings_layer_editor_widget
+      display_name: Edit rings layer
+
+    - command: napari-roxas-ai.make_cross_dating_plotter_widget
+      display_name: Plot cross-dating
+
+    - command: napari-roxas-ai.make_single_sample_measurements_widget
+      display_name: Measure individual sample (cells & rings)
+
+    - command: napari-roxas-ai.make_batch_sample_measurements_widget
+      display_name: Batch measure samples (cells & rings)
+
+    - command: napari-roxas-ai.open_settings_file
+      display_name: Settings
