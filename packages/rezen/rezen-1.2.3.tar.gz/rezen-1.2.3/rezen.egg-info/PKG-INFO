@@ -1,0 +1,140 @@
+Metadata-Version: 2.4
+Name: rezen
+Version: 1.2.3
+Summary: Python wrapper for The Real Brokerage ReZEN API - Transaction Builder, Transactions, Teams, Agents, and Directory management
+Author-email: The Perry Group <dev@theperrygroup.com>
+Maintainer-email: The Perry Group <dev@theperrygroup.com>
+License: MIT License
+        
+        Copyright (c) 2025 The Perry Group
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/theperrygroup/rezen
+Project-URL: Documentation, https://theperrygroup.github.io/rezen/
+Project-URL: Repository, https://github.com/theperrygroup/rezen
+Project-URL: Bug Tracker, https://github.com/theperrygroup/rezen/issues
+Project-URL: Changelog, https://github.com/theperrygroup/rezen/releases
+Keywords: real-estate,api,transactions,realty,rezen,the-real-brokerage,real-estate-api,transaction-management
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Financial and Insurance Industry
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Office/Business :: Financial
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Typing :: Typed
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests>=2.31.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: pydantic>=2.5.0
+Requires-Dist: typing-extensions>=4.8.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.1.0; extra == "dev"
+Requires-Dist: pytest-mock>=3.12.0; extra == "dev"
+Requires-Dist: responses>=0.24.0; extra == "dev"
+Requires-Dist: black>=23.9.0; extra == "dev"
+Requires-Dist: flake8>=6.1.0; extra == "dev"
+Requires-Dist: mypy>=1.6.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: pylint>=3.0.0; extra == "dev"
+Requires-Dist: types-requests>=2.31.0; extra == "dev"
+Dynamic: license-file
+
+# ReZEN Python Client
+
+[![PyPI version](https://badge.fury.io/py/rezen.svg)](https://badge.fury.io/py/rezen)
+[![Python support](https://img.shields.io/pypi/pyversions/rezen.svg)](https://pypi.org/project/rezen/)
+[![License](https://img.shields.io/github/license/theperrygroup/rezen.svg)](https://github.com/theperrygroup/rezen/blob/main/LICENSE)
+[![Coverage](https://img.shields.io/codecov/c/github/theperrygroup/rezen.svg)](https://codecov.io/gh/theperrygroup/rezen)
+
+{!_includes/description.md!}
+
+## 🚀 Quick Start
+
+{!_includes/installation.md!}
+
+{!_includes/quick-start.md!}
+
+## ✨ Key Features
+
+{!_includes/features.md!}
+
+## 📊 API Coverage
+
+{!_includes/api-coverage.md!}
+
+## 📖 Documentation
+
+For comprehensive documentation, examples, and API reference:
+
+**[📚 Full Documentation →](https://theperrygroup.github.io/rezen/)**
+
+### Quick Links
+
+- **[🚀 Quick Start Guide](docs/quickstart.md)** - Get up and running in 5 minutes
+- **[📚 API Reference](docs/api-reference.md)** - Complete API documentation
+- **[💡 Examples](docs/examples.md)** - Real-world usage patterns
+- **[🔧 Troubleshooting](docs/troubleshooting.md)** - Common issues and solutions
+- **[🤝 Contributing](docs/contributing.md)** - Help improve the client
+
+## 🛠️ Development
+
+```bash
+# Clone and setup
+git clone <repository-url>
+cd rezen
+python -m venv venv
+source venv/bin/activate  # or `venv\Scripts\activate` on Windows
+pip install -r requirements-dev.txt
+
+# Run tests
+pytest
+
+# Run tests with coverage
+pytest --cov=rezen --cov-report=html
+
+# Format code
+black rezen tests
+isort rezen tests
+
+# Build docs
+mkdocs serve
+```
+
+## 🆘 Support
+
+- **📖 Documentation**: [Full Documentation](https://theperrygroup.github.io/rezen/)
+- **💬 Issues**: [GitHub Issues](../../issues)
+- **📧 Email**: [support@rezen.com](mailto:support@rezen.com)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 The Perry Group
