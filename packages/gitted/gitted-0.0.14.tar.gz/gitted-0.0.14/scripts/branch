@@ -1,0 +1,150 @@
+#!/bin/bash
+# SPDX-FileCopyrightText: Copyright (c) 2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+
+set -e -o pipefail
+
+# shellcheck disable=SC1091
+# Imported from commons.sh when releasing:
+#!/bin/bash
+# SPDX-FileCopyrightText: Copyright (c) 2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+
+set -e -o pipefail
+
+if [ -n "${GITTED_TESTING}" ]; then
+    set -x
+fi
+
+if [ -n "${GITTED_VERBOSE}" ]; then
+    set -x
+fi
+
+function title_it {
+    printf '\n👉 \e[1m%s\e[0m...\n' "$@"
+}
+
+function warn_it {
+    printf '\n⚠️ \e[38;5;160m%s\e[0m\n' "$@"
+}
+
+function bash_it {
+    printf '%q ' "$@" | /bin/bash -x
+}
+
+function plural {
+    printf "%s %s" "$1" "$2"
+    if [ "$1" != '1' ]; then
+        printf 's'
+    fi
+}
+
+base=$(dirname "$0")
+export base
+
+master=master
+export master
+
+if [ -z "${GIT_BIN}" ]; then
+    GIT_BIN=git
+    export GIT_BIN
+fi
+# Imported from sanity.sh when releasing:
+#!/bin/bash
+# SPDX-FileCopyrightText: Copyright (c) 2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+
+set -e -o pipefail
+
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    warn_it "Oops, this is not a Git repository"
+    exit 1
+fi
+# Imported from intro.sh when releasing:
+help_pull=$(cat << EOT
+Usage: pull
+
+We pull from the upstream branch and then also from the upstream repository.
+EOT
+)
+
+help_push=$(cat << EOT
+Usage: push [<message> | <branch>]
+
+You either provide a commit message or a name of the branch you push to. If the
+argument is a single integer, we treat it as a branch name. Everything else
+is treated as a plain message.
+EOT
+)
+
+help_branch=$(cat << EOT
+Usage: branch <name>
+
+You either provide a "message" or a name of the branch you push to. If the
+argument is a single integer, we treat it as a branch name. Everything else
+is treated as a plain message.
+EOT
+)
+
+help_commit=$(cat << EOT
+Usage: commit [<message> | <branch>]
+
+You either provide a commit message or a name of the branch you push to. If the
+argument is a single integer, we treat it as a branch name. Everything else
+is treated as a plain message.
+EOT
+)
+
+#!/bin/bash
+# SPDX-FileCopyrightText: Copyright (c) 2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+
+set -e -o pipefail
+
+if [ "$1" = '--help' ]; then
+    cmd=$(basename "$0")
+    var="help_${cmd}"
+    help=${!var}
+    if [ -z "${help}" ]; then
+        echo "Usage: ${cmd} --help"
+    else
+        echo "${help}"
+    fi
+    exit
+fi
+
+if [ -z "${GITTED_INTRODUCED}" ]; then
+    printf "\e[1mGitted\e[0m 0.0.14 (https://github.com/yegor256/gitted)\n"
+    GITTED_INTRODUCED=true
+    export GITTED_INTRODUCED
+fi
+name=$1
+if [ -z "${name}" ]; then
+    warn_it "Use it like this: 'branch 42', where 42 is the name of the branch and GitHub issue number"
+    exit 1
+fi
+
+# shellcheck disable=SC2154
+title_it "Checking out the origin/${master} branch"
+# shellcheck disable=SC2154
+bash_it "${GIT_BIN}" checkout "${master}"
+
+# shellcheck disable=SC2154
+"${base}/pull"
+
+title_it "Showing the current status"
+bash_it "${GIT_BIN}" status
+
+title_it "Checking out the origin/${name} branch"
+bash_it "${GIT_BIN}" checkout -b "${name}"
+
+while true; do
+    title_it "Pushing to the origin/${name} branch"
+    bash_it "${GIT_BIN}" push origin "${name}" && break
+    if [ -n "${GITTED_TESTING}" ]; then
+        exit 1
+    fi
+done
+
+title_it "Setting the upstream of the origin/${name} branch"
+bash_it "${GIT_BIN}" branch "--set-upstream-to=origin/${name}" "${name}"

@@ -1,0 +1,206 @@
+#!/bin/bash
+# SPDX-FileCopyrightText: Copyright (c) 2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+
+set -e -o pipefail
+
+# shellcheck disable=SC1091
+# Imported from commons.sh when releasing:
+#!/bin/bash
+# SPDX-FileCopyrightText: Copyright (c) 2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+
+set -e -o pipefail
+
+if [ -n "${GITTED_TESTING}" ]; then
+    set -x
+fi
+
+if [ -n "${GITTED_VERBOSE}" ]; then
+    set -x
+fi
+
+function title_it {
+    printf '\n👉 \e[1m%s\e[0m...\n' "$@"
+}
+
+function warn_it {
+    printf '\n⚠️ \e[38;5;160m%s\e[0m\n' "$@"
+}
+
+function bash_it {
+    printf '%q ' "$@" | /bin/bash -x
+}
+
+function plural {
+    printf "%s %s" "$1" "$2"
+    if [ "$1" != '1' ]; then
+        printf 's'
+    fi
+}
+
+base=$(dirname "$0")
+export base
+
+master=master
+export master
+
+if [ -z "${GIT_BIN}" ]; then
+    GIT_BIN=git
+    export GIT_BIN
+fi
+# Imported from sanity.sh when releasing:
+#!/bin/bash
+# SPDX-FileCopyrightText: Copyright (c) 2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+
+set -e -o pipefail
+
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    warn_it "Oops, this is not a Git repository"
+    exit 1
+fi
+# Imported from intro.sh when releasing:
+help_pull=$(cat << EOT
+Usage: pull
+
+We pull from the upstream branch and then also from the upstream repository.
+EOT
+)
+
+help_push=$(cat << EOT
+Usage: push [<message> | <branch>]
+
+You either provide a commit message or a name of the branch you push to. If the
+argument is a single integer, we treat it as a branch name. Everything else
+is treated as a plain message.
+EOT
+)
+
+help_branch=$(cat << EOT
+Usage: branch <name>
+
+You either provide a "message" or a name of the branch you push to. If the
+argument is a single integer, we treat it as a branch name. Everything else
+is treated as a plain message.
+EOT
+)
+
+help_commit=$(cat << EOT
+Usage: commit [<message> | <branch>]
+
+You either provide a commit message or a name of the branch you push to. If the
+argument is a single integer, we treat it as a branch name. Everything else
+is treated as a plain message.
+EOT
+)
+
+#!/bin/bash
+# SPDX-FileCopyrightText: Copyright (c) 2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+
+set -e -o pipefail
+
+if [ "$1" = '--help' ]; then
+    cmd=$(basename "$0")
+    var="help_${cmd}"
+    help=${!var}
+    if [ -z "${help}" ]; then
+        echo "Usage: ${cmd} --help"
+    else
+        echo "${help}"
+    fi
+    exit
+fi
+
+if [ -z "${GITTED_INTRODUCED}" ]; then
+    printf "\e[1mGitted\e[0m 0.0.14 (https://github.com/yegor256/gitted)\n"
+    GITTED_INTRODUCED=true
+    export GITTED_INTRODUCED
+fi
+if ! git status --porcelain | grep -q .; then
+    warn_it "There is nothing to commit"
+    exit 1
+fi
+
+title_it 'Showing status'
+bash_it "${GIT_BIN}" status
+
+inc=$(${GIT_BIN} status --porcelain | grep -c '^??' || true)
+if [ ! "${inc}" == '0' ]; then
+    title_it "Adding new ${inc} files..."
+    bash_it "${GIT_BIN}" add .
+fi
+
+title_it 'Generating commit message...'
+branch=$("${GIT_BIN}" symbolic-ref HEAD --short)
+msg="$*"
+# shellcheck disable=SC2154
+if [ "${branch}" == "${master}" ]; then
+    if [[ "${msg}" =~ ^[0-9]+$ ]]; then
+        prefix="#${msg}: "
+        msg=
+    else
+        prefix=
+    fi
+else
+    prefix="#${branch}: "
+fi
+if [ -n "${OPENAI_API_KEY}" ]; then
+    if "${GIT_BIN}" rev-parse --verify HEAD >/dev/null 2>&1; then
+        if "${GIT_BIN}" rev-parse HEAD >/dev/null 2>&1; then
+            diff=$("${GIT_BIN}" diff HEAD | head -2000)
+        else
+            diff=$("${GIT_BIN}" diff | head -2000)
+        fi
+    else
+        diff=$("${GIT_BIN}" diff --staged)
+    fi
+    if [ -n "${GITTED_TESTING}" ]; then
+        # shellcheck disable=SC2154
+        PYTHONPATH="${base}/../src:${PYTHONPATH}"
+        export PYTHONPATH
+    fi
+    if ! python3 -c 'import gitted' >/dev/null 2>&1; then
+        warn_it 'The "gitted" Python package is not installed, run "pip install gitted"'
+        exit 1
+    fi
+    if ! python3 -c 'import openai' >/dev/null 2>&1; then
+        warn_it 'Something is wrong with the installation of the "gitted" Python package, try "pip install gitted"'
+        exit 1
+    fi
+    py=$(cat << 'EOT'
+import sys
+from gitted.diff2msg import generate_commit_message
+diff = sys.stdin.read()
+msg = sys.argv[1] if len(sys.argv) > 1 else ''
+print(generate_commit_message(diff, msg))
+EOT
+    )
+    gpt=$(echo "${diff}" | python3 -c "${py}" "${msg}")
+    msg="${prefix}${gpt}"
+    printf "ChatGPT suggested: %s\n" "${gpt}"
+else
+    warn_it 'The OPENAI_API_KEY variable is not set'
+    if [ -z "${msg}" ]; then
+        msg="${prefix}no comments"
+    else
+        msg="${prefix}${msg}"
+    fi
+fi
+if [ -z "${GITTED_BATCH}" ]; then
+    printf "Message: \e[38;5;208m%s\e[0m\n" "${msg}"
+else
+    printf "Message: %s\n" "${msg}"
+fi
+
+title_it "Committing the changes..."
+opts=(--allow-empty --all)
+if [ -n "${GITTED_TESTING}" ]; then
+    opts+=(--no-verify)
+fi
+email=$("${GIT_BIN}" config user.email)
+if gpg --list-secret-keys --with-colons "${email}" 2>/dev/null | grep -q '^sec'; then
+    opts+=(-S)
+fi
+bash_it "${GIT_BIN}" commit "${opts[@]}" --message "${msg}"
