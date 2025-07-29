@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_request_document_list" model="ir.ui.view">
+        <field name="name">view.request.document.line.list</field>
+        <field name="model">request.document</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name" />
+                <field name="request_type" />
+                <field name="name_document" />
+                <field name="total_amount_document" sum="total_document" />
+                <field name="total_amount_request" readonly="1" sum="total_request" />
+                <field name="currency_id" column_invisible="1" />
+                <button
+                    name="open_request_document"
+                    icon="fa-file-text-o"
+                    string="Open Details"
+                    type="object"
+                />
+            </list>
+        </field>
+    </record>
+</odoo>
