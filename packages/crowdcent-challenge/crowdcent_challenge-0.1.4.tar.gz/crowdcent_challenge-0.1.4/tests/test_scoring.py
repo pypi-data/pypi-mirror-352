@@ -1,0 +1,99 @@
+import numpy as np
+import pytest
+
+from crowdcent_challenge.scoring import dcg_score, symmetric_ndcg_at_k
+
+
+# --- Tests for dcg_score -------------------------------
+
+
+def test_dcg_score_basic():
+    """Validate DCG against a hand-computed example."""
+    # For this test, we have relevance scores already in ranking order
+    relevance = np.array([3, 2, 3, 0, 1, 2])
+    k = 6
+    
+    # Create scores that will produce this ranking (highest to lowest)
+    n = len(relevance)
+    y_score = np.arange(n)[::-1].astype(float)  # [5, 4, 3, 2, 1, 0]
+    y_true = relevance  # The relevance values
+    
+    # Manually compute expected DCG using the definition
+    discounts = np.log2(np.arange(k) + 2)  # 1-indexed ranks => log2(rank+1)
+    expected = np.sum(relevance[:k] / discounts)
+
+    assert np.isclose(dcg_score(y_true, y_score, k=k), expected)
+
+
+def test_dcg_score_handles_k_greater_than_length():
+    """If k exceeds len(relevance) no error should occur and result is correct."""
+    relevance = np.array([1, 0, 2])
+    k = 10  # larger than len(relevance)
+    
+    # Create scores that will produce the given ranking order
+    n = len(relevance)
+    y_score = np.arange(n)[::-1].astype(float)  # [2, 1, 0]
+    y_true = relevance
+    
+    discounts = np.log2(np.arange(len(relevance)) + 2)
+    expected = np.sum(relevance / discounts)
+
+    assert np.isclose(dcg_score(y_true, y_score, k=k), expected)
+
+
+def test_dcg_score_k_zero():
+    """k==0 should handle gracefully."""
+    y_true = np.array([1, 2, 3])
+    y_score = np.array([0.1, 0.2, 0.3])
+    # When k=0, no items contribute to the sum, but dcg_score doesn't 
+    # explicitly handle k=0, so we expect 0.0 from the discount[k:] = 0 logic
+    result = dcg_score(y_true, y_score, k=0)
+    assert result == 0.0
+
+
+def test_dcg_score_with_ties():
+    """Test DCG with tied scores."""
+    y_true = np.array([3, 2, 1])
+    y_score = np.array([1, 1, 0])  # First two items tied
+    
+    # With ties, the average relevance of tied items is used
+    result = dcg_score(y_true, y_score, k=2, ignore_ties=False)
+    # Expected: average of (3,2) = 2.5 for both positions 1 and 2
+    # DCG = 2.5/log2(2) + 2.5/log2(3)
+    expected = 2.5/np.log2(2) + 2.5/np.log2(3)
+    assert np.isclose(result, expected)
+
+
+# --- Tests for symmetric_ndcg_at_k ------------------------------------------
+
+
+def test_symmetric_ndcg_perfect_ranking_returns_one():
+    """Perfect prediction should yield a score of exactly 1.0."""
+    y_true = np.array([10, 9, 8, 2, 0, -1, -5])
+    y_pred = y_true.copy()  # identical ranking
+    k = 3
+    assert np.isclose(symmetric_ndcg_at_k(y_true, y_pred, k), 1.0)
+
+
+def test_symmetric_ndcg_worst_ranking_near_zero():
+    """Completely reversed ranking should produce a score close to 0."""
+    y_true = np.array([3, 2, 1, 0, -1, -2, -3])
+    y_pred = -y_true  # reverse the order
+    k = 3
+    score = symmetric_ndcg_at_k(y_true, y_pred, k)
+    assert score < 0.1  # near zero (exact 0 might not happen due to ties/fp)
+
+
+def test_symmetric_ndcg_length_mismatch_raises():
+    """y_true and y_pred with unequal length should raise ValueError."""
+    y_true = np.array([1, 2, 3])
+    y_pred = np.array([1, 2])
+    with pytest.raises(ValueError):
+        symmetric_ndcg_at_k(y_true, y_pred, k=2)
+
+
+def test_symmetric_ndcg_empty_input_returns_zero():
+    """Empty inputs should return 0.0 as specified in docstring."""
+    y_true = np.array([])
+    y_pred = np.array([])
+    assert symmetric_ndcg_at_k(y_true, y_pred, k=1) == 0.0
