@@ -1,0 +1,65 @@
+Metadata-Version: 2.4
+Name: llm_model_cost
+Version: 0.1.3
+Summary: A package to calculate token costs for LLM models
+Home-page: https://github.com/yourusername/llm_model_cost
+Author: Your Name
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# LLM Model Cost Calculator
+
+A Python package to calculate token costs for various LLM models based on input and output tokens.
+
+## Installation
+
+```bash
+pip install llm_model_cost
+```
+
+## Usage
+
+```python
+from llm_model_cost import modelCost
+
+# Calculate cost for a model
+cost = modelCost(name="gpt-4", input_tokens=100, output_tokens=50)
+
+# Get cost details
+print(f"Input cost: ${cost['input_cost']:.6f}")
+print(f"Output cost: ${cost['output_cost']:.6f}")
+print(f"Total cost: ${cost['total_cost']:.6f}")
+
+# Get model information
+model_info = modelCost.get_model_info("gpt-4")
+print(f"Max tokens: {model_info['max_tokens']}")
+print(f"Provider: {model_info['litellm_provider']}")
+
+# List all available models
+models = modelCost.list_models()
+```
+
+## Features
+
+- Calculate token costs for various LLM models
+- Get model information including max tokens, costs, and provider details
+- List all available models and their capabilities
+- Automatic updates from the latest pricing data
+
+## License
+
+MIT License 
