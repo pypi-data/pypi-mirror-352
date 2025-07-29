@@ -1,0 +1,65 @@
+Metadata-Version: 2.4
+Name: pywarper
+Version: 0.1.6
+Summary: Conformal mapping-based warping of neuronal arbor morphologies.
+License-File: LICENSE
+Requires-Python: >=3.10.0
+Requires-Dist: alphashape>=1.3.1
+Requires-Dist: numpy>=2.0.2
+Requires-Dist: pandas>=2.2.3
+Requires-Dist: pygridfit>=0.1.4
+Requires-Dist: scipy>=1.13.1
+Requires-Dist: skeliner>=0.1.0
+Requires-Dist: watermark>=2.5.0
+Provides-Extra: dev
+Requires-Dist: ipykernel>=6.29.5; extra == 'dev'
+Requires-Dist: maturin; extra == 'dev'
+Requires-Dist: pytest; extra == 'dev'
+Requires-Dist: ruff; extra == 'dev'
+Requires-Dist: twine; extra == 'dev'
+Provides-Extra: scikit-sparse
+Requires-Dist: pygridfit[scikit-sparse]>=0.1.4; extra == 'scikit-sparse'
+Requires-Dist: scikit-sparse>=0.4.15; extra == 'scikit-sparse'
+Description-Content-Type: text/markdown
+
+# pywarper
+
+`pywarper` is a Python package for conformal mapping-based warping of neuronal arbor morphologies, based on the [MATLAB implementations](https://github.com/uygarsumbul/rgc) (Sümbül, et al. 2014). 
+
+![](.github/banner.png)
+
+
+## Installation
+
+To install the latest tagged version:
+
+```bash
+pip install pywarper
+```
+
+Or to install the development version, clone the repository and install it with `pip install -e`:
+
+```bash
+git clone https://github.com/berenslab/pywarper.git
+pip install -e pywarper
+```
+
+By default, `pywarper` uses `scipy.sparse.linalg.spsolve` to solve sparse matrices, which can be slow. For better performance, you can manually install the additional dependencies of [scikit-sparse](https://github.com/scikit-sparse/scikit-sparse) first:
+
+```bash
+# mac
+brew install suite-sparse
+
+# debian
+sudo apt-get install libsuitesparse-dev
+```
+
+then:
+
+```bash
+pip install pywarper[scikit-sparse]
+```
+
+## Usage
+
+See [example notebooks](https://github.com/berenslab/pywarper/blob/main/notebooks/) for usage. 
