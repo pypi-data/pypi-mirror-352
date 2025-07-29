@@ -1,0 +1,254 @@
+# 🕷️ crawl-sns
+
+SNS 플랫폼(Threads, LinkedIn, X, Reddit)에서 게시글을 크롤링하는 빠르고 강력한 도구입니다.
+
+## 🚀 주요 기능
+
+- **다중 플랫폼**: Threads, LinkedIn, X(Twitter), Reddit 지원
+- **자동 로그인**: 각 플랫폼별 자동 로그인 및 세션 관리
+- **세션 관리**: Storage State 기반 재로그인 방지
+- **디버그 모드**: 실시간 브라우저 확인 및 스크린샷 저장
+- **구글 시트 연동**: 크롤링 결과를 Google Sheets에 자동 저장
+- **CLI 인터페이스**: 직관적이고 사용하기 쉬운 명령줄 도구
+- **빠른 성능**: Playwright 기반 고성능 크롤링
+
+## 📦 설치
+
+### 🌟 uv로 설치 (권장)
+
+```bash
+# uv가 없다면 먼저 설치
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# 패키지 설치 및 실행
+uvx crawl-sns --help
+
+# 또는 설치 후 사용
+uv tool install crawl-sns
+crawl-sns --help
+```
+
+### 🐍 pip로 설치
+
+```bash
+pip install crawl-sns
+crawl-sns --help
+```
+
+### 🔧 개발자 설치
+
+```bash
+# 저장소 클론
+git clone https://github.com/yourusername/crawl-sns.git
+cd crawl-sns
+
+# uv로 개발 환경 설정
+uv sync
+
+# Playwright 브라우저 설치
+uv run playwright install
+
+# 실행
+uv run python main.py --help
+```
+
+## ⚙️ 환경 설정
+
+`.env` 파일을 생성하고 필요한 로그인 정보를 추가:
+
+```bash
+# Threads 로그인 정보
+THREADS_USERNAME=your_instagram_username
+THREADS_PASSWORD=your_instagram_password
+
+# LinkedIn 로그인 정보
+LINKEDIN_USERNAME=your_linkedin_email
+LINKEDIN_PASSWORD=your_linkedin_password
+
+# 구글 시트 연동 (선택사항)
+GOOGLE_WEBAPP_URL=https://script.google.com/macros/s/.../exec
+
+# 선택적 설정
+THREADS_USER_AGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+DEBUG_MODE=false
+DEBUG_SCREENSHOT_PATH=./data/debug_screenshots
+```
+
+## 🎯 사용법
+
+### 📱 Threads 크롤링
+
+```bash
+# 기본 5개 게시글 수집
+crawl-sns threads
+
+# 10개 게시글 수집
+crawl-sns threads --count 10
+
+# 구글 시트에 저장
+crawl-sns threads --count 5 --sheets
+
+# 디버그 모드로 실행
+crawl-sns threads --debug
+```
+
+### 💼 LinkedIn 크롤링
+
+```bash
+# LinkedIn 게시글 크롤링
+crawl-sns linkedin --count 5
+
+# 결과를 파일과 구글 시트에 모두 저장
+crawl-sns linkedin --count 10 --output linkedin_posts.json --sheets
+```
+
+### 🐦 X(Twitter) 크롤링
+
+```bash
+# X 게시글 크롤링
+crawl-sns x --count 10
+
+# 디버그 모드로 실행
+crawl-sns x --debug
+```
+
+### 🤖 Reddit 크롤링
+
+```bash
+# Reddit 게시글 크롤링
+crawl-sns reddit --count 15
+
+# 구글 시트에 저장
+crawl-sns reddit --count 10 --sheets
+```
+
+### 🔧 유틸리티 명령어
+
+```bash
+# 버전 확인
+crawl-sns version
+
+# 시스템 상태 확인
+crawl-sns status
+```
+
+## 🐛 디버그 모드
+
+로그인이 안 될 때나 문제를 진단할 때 사용:
+
+```bash
+# 디버그 모드로 실행 (모든 플랫폼 지원)
+crawl-sns threads --debug
+crawl-sns linkedin --debug
+crawl-sns x --debug
+crawl-sns reddit --debug
+```
+
+**디버그 모드 특징:**
+
+- 브라우저 창이 표시됨 (headless=false)
+- 개발자 도구 자동 열림
+- 각 단계별 스크린샷 자동 저장
+- 사용자 입력 대기 (수동 확인 가능)
+- 페이지의 모든 버튼 정보 출력
+- 상세한 오류 로그
+
+## 📊 출력 형식
+
+```json
+{
+  "metadata": {
+    "total_posts": 5,
+    "crawled_at": "2025-01-01T12:00:00",
+    "platform": "threads"
+  },
+  "posts": [
+    {
+      "platform": "threads",
+      "author": "username",
+      "content": "게시글 내용...",
+      "timestamp": "2시간",
+      "url": "https://threads.net/...",
+      "likes": 42,
+      "comments": 5,
+      "shares": 2
+    }
+  ]
+}
+```
+
+## 📈 구글 시트 연동
+
+1. [Google Apps Script](https://script.google.com/)에서 새 프로젝트 생성
+2. 웹 앱으로 배포하여 URL 획득
+3. `.env` 파일에 `GOOGLE_WEBAPP_URL` 설정
+4. `--sheets` 옵션으로 크롤링 결과 자동 업로드
+
+```bash
+# 구글 시트에 저장
+crawl-sns threads --count 10 --sheets
+```
+
+## 🛠️ 개발자 가이드
+
+### 패키지 빌드
+
+```bash
+# uv로 빌드
+uv build
+
+# 빌드 결과 확인
+ls dist/
+```
+
+### 테스트 실행
+
+```bash
+# 테스트 실행
+uv run pytest
+
+# 커버리지와 함께 실행
+uv run pytest --cov=src
+```
+
+### 코드 포매팅
+
+```bash
+# Black 포매팅
+uv run black src/
+
+# isort로 import 정렬
+uv run isort src/
+
+# Lint 검사
+uv run flake8 src/
+```
+
+## 🚨 주의사항
+
+- **개인정보 보호**: 로그인 정보는 안전하게 관리하세요
+- **이용약관 준수**: 과도한 크롤링은 플랫폼 이용약관에 위배될 수 있습니다
+- **디버그 모드**: 개발/테스트 용도로만 사용하세요
+- **API 제한**: 각 플랫폼의 API 사용 제한을 준수하세요
+
+## 📚 참고 자료
+
+- [uv 공식 문서](https://docs.astral.sh/uv/)
+- [Playwright 문서](https://playwright.dev/python/)
+- [PyPI 패키지 페이지](https://pypi.org/project/crawl-sns/)
+
+## 🤝 기여하기
+
+1. 저장소를 Fork합니다
+2. 기능 브랜치를 생성합니다 (`git checkout -b feature/amazing-feature`)
+3. 변경사항을 커밋합니다 (`git commit -m 'Add amazing feature'`)
+4. 브랜치에 Push합니다 (`git push origin feature/amazing-feature`)
+5. Pull Request를 생성합니다
+
+## 📄 라이선스
+
+이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
+
+---
+
+**⭐ 이 프로젝트가 유용하다면 별표를 눌러주세요!**
