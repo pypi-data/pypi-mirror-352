@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmicVerse Analytics Advanced Test with Geographic Simulation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+        .test-section h3 {
+            color: #2196F3;
+            margin-top: 0;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 10px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        button.simulate-btn {
+            background: #FF9800;
+        }
+        button.simulate-btn:hover {
+            background: #F57C00;
+        }
+        button.reset-btn {
+            background: #f44336;
+        }
+        button.reset-btn:hover {
+            background: #d32f2f;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .log {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            height: 300px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+        .data-display {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        @media (max-width: 768px) {
+            .grid, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+        .metric {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+            margin: 10px 0;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 14px;
+        }
+        .simulation-section {
+            background: #fff3e0;
+            border: 2px solid #FF9800;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .simulation-section h3 {
+            color: #FF9800;
+            border-bottom: 2px solid #FF9800;
+        }
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 5px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+        .country-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .country-card:hover {
+            background: #f5f5f5;
+            border-color: #4CAF50;
+        }
+        .country-card.selected {
+            background: #e8f5e8;
+            border-color: #4CAF50;
+            border-width: 2px;
+        }
+        .country-flag {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .country-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .country-details {
+            font-size: 12px;
+            color: #666;
+        }
+        .quick-select {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .quick-select button {
+            padding: 8px 16px;
+            font-size: 14px;
+            background: #2196F3;
+        }
+        .quick-select button:hover {
+            background: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧬 OmicVerse Analytics Advanced Test</h1>
+        <div class="status warning">
+            <strong>🌍 Geographic Simulation Mode Available!</strong> Test analytics from different countries and regions.
+        </div>
+        
+        <!-- 地理位置模拟部分 -->
+        <div class="simulation-section">
+            <h3>🌍 Geographic Location Simulation</h3>
+            
+            <div class="grid">
+                <div>
+                    <h4>Quick Country Selection</h4>
+                    <div class="quick-select">
+                        <button onclick="selectCountry('US')">🇺🇸 USA</button>
+                        <button onclick="selectCountry('CN')">🇨🇳 China</button>
+                        <button onclick="selectCountry('GB')">🇬🇧 UK</button>
+                        <button onclick="selectCountry('DE')">🇩🇪 Germany</button>
+                        <button onclick="selectCountry('JP')">🇯🇵 Japan</button>
+                        <button onclick="selectCountry('FR')">🇫🇷 France</button>
+                    </div>
+                    
+                    <h4>Advanced Selection</h4>
+                    <div>
+                        <select id="region-select" onchange="onRegionChange()">
+                            <option value="">Select Region</option>
+                            <option value="North America">🌎 North America</option>
+                            <option value="Europe">🌍 Europe</option>
+                            <option value="Asia">🌏 Asia</option>
+                            <option value="South America">🌎 South America</option>
+                            <option value="Africa">🌍 Africa</option>
+                            <option value="Oceania">🌏 Oceania</option>
+                        </select>
+                        
+                        <select id="country-select" onchange="onCountryChange()">
+                            <option value="">Select Country</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4>Current Simulation</h4>
+                    <div id="current-simulation" class="metric">
+                        <div class="metric-label">Simulated Location</div>
+                        <div class="metric-value" id="simulated-location">Real Location</div>
+                    </div>
+                    
+                    <button onclick="resetSimulation()" class="reset-btn">Reset to Real Location</button>
+                    <button onclick="randomCountry()" class="simulate-btn">Random Country</button>
+                </div>
+            </div>
+            
+            <div id="country-details" class="country-card" style="display: none;">
+                <div class="country-info">
+                    <span class="country-flag" id="country-flag"></span>
+                    <div>
+                        <strong id="country-name"></strong>
+                        <div class="country-details" id="country-details-text"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <!-- 基本信息显示 -->
+            <div class="test-section">
+                <h3>📊 Browser Information</h3>
+                <div class="metric">
+                    <div class="metric-label">Platform</div>
+                    <div class="metric-value" id="platform">-</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Language</div>
+                    <div class="metric-value" id="language">-</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Timezone</div>
+                    <div class="metric-value" id="timezone">-</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Country</div>
+                    <div class="metric-value" id="country">Detecting...</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Simulation Status</div>
+                    <div class="metric-value" id="simulation-status">Disabled</div>
+                </div>
+            </div>
+
+            <!-- 地理位置测试 -->
+            <div class="test-section">
+                <h3>🌍 Geolocation Test</h3>
+                <button onclick="testGeolocation()">Test Real Geolocation</button>
+                <button onclick="testMultipleGeoAPIs()">Test Multiple APIs</button>
+                <button onclick="testSimulatedLocation()" class="simulate-btn">Test Simulated Location</button>
+                <div id="geo-status" class="status info">
+                    Click button to test geolocation services
+                </div>
+                <div id="geo-data" class="data-display"></div>
+            </div>
+        </div>
+
+        <!-- Analytics测试 -->
+        <div class="test-section">
+            <h3>🎯 Analytics Tracking Test</h3>
+            <div class="grid">
+                <div>
+                    <button onclick="sendBasicTrack()">Send Basic Track</button>
+                    <button onclick="sendEnhancedTrack()">Send Enhanced Track</button>
+                    <button onclick="sendBatchTracks()">Send Batch (5x)</button>
+                    <button onclick="testDifferentEndpoints()">Test All Endpoints</button>
+                    <button onclick="simulateGlobalUsage()" class="simulate-btn">Simulate Global Usage</button>
+                </div>
+                <div>
+                    <div class="metric">
+                        <div class="metric-label">Requests Sent</div>
+                        <div class="metric-value" id="request-count">0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Success Rate</div>
+                        <div class="metric-value" id="success-rate">0%</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Simulated Countries</div>
+                        <div class="metric-value" id="simulated-countries">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 实时日志 -->
+        <div class="test-section">
+            <h3>📝 Real-time Log</h3>
+            <button onclick="clearLog()">Clear Log</button>
+            <button onclick="toggleAutoScroll()">Toggle Auto-scroll</button>
+            <div id="log" class="log"></div>
+        </div>
+
+        <!-- 数据预览 -->
+        <div class="test-section">
+            <h3>📋 Current Tracking Data</h3>
+            <div id="tracking-data" class="data-display"></div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let requestCount = 0;
+        let successCount = 0;
+        let autoScroll = true;
+        let currentTrackingData = {};
+        let simulationMode = false;
+        let simulatedCountries = 0;
+        let realLocationData = null;
+
+        // 国家和地区数据
+        const countryData = {
+            "North America": {
+                "US": { 
+                    name: "United States", 
+                    flag: "🇺🇸", 
+                    details: "United States of America, North America",
+                    coords: [39.8283, -98.5795],
+                    timezone: "America/New_York",
+                    language: "en-US",
+                    code: "US",
+                    cities: ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix"]
+                },
+                "CA": { 
+                    name: "Canada", 
+                    flag: "🇨🇦", 
+                    details: "Canada, North America",
+                    coords: [56.1304, -106.3468],
+                    timezone: "America/Toronto",
+                    language: "en-CA",
+                    code: "CA",
+                    cities: ["Toronto", "Vancouver", "Montreal", "Calgary", "Ottawa"]
+                },
+                "MX": { 
+                    name: "Mexico", 
+                    flag: "🇲🇽", 
+                    details: "Mexico, North America",
+                    coords: [23.6345, -102.5528],
+                    timezone: "America/Mexico_City",
+                    language: "es-MX",
+                    code: "MX",
+                    cities: ["Mexico City", "Guadalajara", "Monterrey", "Puebla", "Tijuana"]
+                }
+            },
+            "Europe": {
+                "GB": { 
+                    name: "United Kingdom", 
+                    flag: "🇬🇧", 
+                    details: "United Kingdom, Western Europe",
+                    coords: [55.3781, -3.4360],
+                    timezone: "Europe/London",
+                    language: "en-GB",
+                    code: "GB",
+                    cities: ["London", "Manchester", "Birmingham", "Leeds", "Glasgow"]
+                },
+                "DE": { 
+                    name: "Germany", 
+                    flag: "🇩🇪", 
+                    details: "Germany, Central Europe",
+                    coords: [51.1657, 10.4515],
+                    timezone: "Europe/Berlin",
+                    language: "de-DE",
+                    code: "DE",
+                    cities: ["Berlin", "Munich", "Hamburg", "Cologne", "Frankfurt"]
+                },
+                "FR": { 
+                    name: "France", 
+                    flag: "🇫🇷", 
+                    details: "France, Western Europe",
+                    coords: [46.6034, 1.8883],
+                    timezone: "Europe/Paris",
+                    language: "fr-FR",
+                    code: "FR",
+                    cities: ["Paris", "Marseille", "Lyon", "Toulouse", "Nice"]
+                },
+                "IT": { 
+                    name: "Italy", 
+                    flag: "🇮🇹", 
+                    details: "Italy, Southern Europe",
+                    coords: [41.8719, 12.5674],
+                    timezone: "Europe/Rome",
+                    language: "it-IT",
+                    code: "IT",
+                    cities: ["Rome", "Milan", "Naples", "Turin", "Palermo"]
+                },
+                "ES": { 
+                    name: "Spain", 
+                    flag: "🇪🇸", 
+                    details: "Spain, Southern Europe",
+                    coords: [40.4637, -3.7492],
+                    timezone: "Europe/Madrid",
+                    language: "es-ES",
+                    code: "ES",
+                    cities: ["Madrid", "Barcelona", "Valencia", "Seville", "Zaragoza"]
+                }
+            },
+            "Asia": {
+                "CN": { 
+                    name: "China", 
+                    flag: "🇨🇳", 
+                    details: "People's Republic of China, East Asia",
+                    coords: [35.8617, 104.1954],
+                    timezone: "Asia/Shanghai",
+                    language: "zh-CN",
+                    code: "CN",
+                    cities: ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Chengdu"]
+                },
+                "JP": { 
+                    name: "Japan", 
+                    flag: "🇯🇵", 
+                    details: "Japan, East Asia",
+                    coords: [36.2048, 138.2529],
+                    timezone: "Asia/Tokyo",
+                    language: "ja-JP",
+                    code: "JP",
+                    cities: ["Tokyo", "Osaka", "Yokohama", "Nagoya", "Sapporo"]
+                },
+                "KR": { 
+                    name: "South Korea", 
+                    flag: "🇰🇷", 
+                    details: "South Korea, East Asia",
+                    coords: [35.9078, 127.7669],
+                    timezone: "Asia/Seoul",
+                    language: "ko-KR",
+                    code: "KR",
+                    cities: ["Seoul", "Busan", "Incheon", "Daegu", "Daejeon"]
+                },
+                "IN": { 
+                    name: "India", 
+                    flag: "🇮🇳", 
+                    details: "India, South Asia",
+                    coords: [20.5937, 78.9629],
+                    timezone: "Asia/Kolkata",
+                    language: "hi-IN",
+                    code: "IN",
+                    cities: ["Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai"]
+                },
+                "SG": { 
+                    name: "Singapore", 
+                    flag: "🇸🇬", 
+                    details: "Singapore, Southeast Asia",
+                    coords: [1.3521, 103.8198],
+                    timezone: "Asia/Singapore",
+                    language: "en-SG",
+                    code: "SG",
+                    cities: ["Singapore"]
+                }
+            },
+            "South America": {
+                "BR": { 
+                    name: "Brazil", 
+                    flag: "🇧🇷", 
+                    details: "Brazil, South America",
+                    coords: [-14.2350, -51.9253],
+                    timezone: "America/Sao_Paulo",
+                    language: "pt-BR",
+                    code: "BR",
+                    cities: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador", "Fortaleza"]
+                },
+                "AR": { 
+                    name: "Argentina", 
+                    flag: "🇦🇷", 
+                    details: "Argentina, South America",
+                    coords: [-38.4161, -63.6167],
+                    timezone: "America/Argentina/Buenos_Aires",
+                    language: "es-AR",
+                    code: "AR",
+                    cities: ["Buenos Aires", "Córdoba", "Rosario", "Mendoza", "La Plata"]
+                }
+            },
+            "Africa": {
+                "ZA": { 
+                    name: "South Africa", 
+                    flag: "🇿🇦", 
+                    details: "South Africa, Southern Africa",
+                    coords: [-30.5595, 22.9375],
+                    timezone: "Africa/Johannesburg",
+                    language: "en-ZA",
+                    code: "ZA",
+                    cities: ["Johannesburg", "Cape Town", "Durban", "Pretoria", "Port Elizabeth"]
+                },
+                "NG": { 
+                    name: "Nigeria", 
+                    flag: "🇳🇬", 
+                    details: "Nigeria, West Africa",
+                    coords: [9.0820, 8.6753],
+                    timezone: "Africa/Lagos",
+                    language: "en-NG",
+                    code: "NG",
+                    cities: ["Lagos", "Kano", "Ibadan", "Abuja", "Port Harcourt"]
+                }
+            },
+            "Oceania": {
+                "AU": { 
+                    name: "Australia", 
+                    flag: "🇦🇺", 
+                    details: "Australia, Oceania",
+                    coords: [-25.2744, 133.7751],
+                    timezone: "Australia/Sydney",
+                    language: "en-AU",
+                    code: "AU",
+                    cities: ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"]
+                },
+                "NZ": { 
+                    name: "New Zealand", 
+                    flag: "🇳🇿", 
+                    details: "New Zealand, Oceania",
+                    coords: [-40.9006, 174.8860],
+                    timezone: "Pacific/Auckland",
+                    language: "en-NZ",
+                    code: "NZ",
+                    cities: ["Auckland", "Wellington", "Christchurch", "Hamilton", "Tauranga"]
+                }
+            }
+        };
+
+        // 日志函数
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${type.toUpperCase()}: ${message}\n`;
+            logDiv.textContent += logEntry;
+            
+            if (autoScroll) {
+                logDiv.scrollTop = logDiv.scrollHeight;
+            }
+        }
+
+        function clearLog() {
+            document.getElementById('log').textContent = '';
+        }
+
+        function toggleAutoScroll() {
+            autoScroll = !autoScroll;
+            log(`Auto-scroll ${autoScroll ? 'enabled' : 'disabled'}`);
+        }
+
+        // 更新统计
+        function updateStats() {
+            document.getElementById('request-count').textContent = requestCount;
+            const rate = requestCount > 0 ? Math.round((successCount / requestCount) * 100) : 0;
+            document.getElementById('success-rate').textContent = rate + '%';
+            document.getElementById('simulated-countries').textContent = simulatedCountries;
+        }
+
+        // 地理位置模拟功能
+        function onRegionChange() {
+            const regionSelect = document.getElementById('region-select');
+            const countrySelect = document.getElementById('country-select');
+            const selectedRegion = regionSelect.value;
+            
+            // 清空国家选择
+            countrySelect.innerHTML = '<option value="">Select Country</option>';
+            
+            if (selectedRegion && countryData[selectedRegion]) {
+                Object.keys(countryData[selectedRegion]).forEach(countryCode => {
+                    const country = countryData[selectedRegion][countryCode];
+                    const option = document.createElement('option');
+                    option.value = countryCode;
+                    option.textContent = `${country.flag} ${country.name}`;
+                    countrySelect.appendChild(option);
+                });
+            }
+        }
+
+        function onCountryChange() {
+            const countrySelect = document.getElementById('country-select');
+            const selectedCountry = countrySelect.value;
+            
+            if (selectedCountry) {
+                selectCountry(selectedCountry);
+            }
+        }
+
+        function selectCountry(countryCode) {
+            // 找到国家数据
+            let countryInfo = null;
+            let regionName = null;
+            
+            for (const [region, countries] of Object.entries(countryData)) {
+                if (countries[countryCode]) {
+                    countryInfo = countries[countryCode];
+                    regionName = region;
+                    break;
+                }
+            }
+            
+            if (!countryInfo) {
+                log(`Country ${countryCode} not found`, 'error');
+                return;
+            }
+            
+            // 启用模拟模式
+            simulationMode = true;
+            
+            // 更新界面显示
+            document.getElementById('simulated-location').textContent = `${countryInfo.flag} ${countryInfo.name}`;
+            document.getElementById('simulation-status').textContent = 'Enabled';
+            document.getElementById('country').textContent = countryInfo.name;
+            
+            // 显示国家详情
+            const detailsDiv = document.getElementById('country-details');
+            document.getElementById('country-flag').textContent = countryInfo.flag;
+            document.getElementById('country-name').textContent = countryInfo.name;
+            document.getElementById('country-details-text').textContent = 
+                `Region: ${regionName} | Timezone: ${countryInfo.timezone} | Language: ${countryInfo.language}`;
+            detailsDiv.style.display = 'block';
+            detailsDiv.classList.add('selected');
+            
+            // 更新追踪数据
+            const randomCity = countryInfo.cities[Math.floor(Math.random() * countryInfo.cities.length)];
+            currentTrackingData.country = countryInfo.name;
+            currentTrackingData.countryCode = countryInfo.code;
+            currentTrackingData.city = randomCity;
+            currentTrackingData.timezone = countryInfo.timezone;
+            currentTrackingData.language = countryInfo.language;
+            currentTrackingData.latitude = countryInfo.coords[0];
+            currentTrackingData.longitude = countryInfo.coords[1];
+            currentTrackingData.simulationMode = true;
+            
+            updateTrackingDataDisplay();
+            log(`🌍 Simulation enabled: ${countryInfo.flag} ${countryInfo.name} (${randomCity})`, 'success');
+        }
+
+        function resetSimulation() {
+            simulationMode = false;
+            
+            // 重置界面显示
+            document.getElementById('simulated-location').textContent = 'Real Location';
+            document.getElementById('simulation-status').textContent = 'Disabled';
+            document.getElementById('country-details').style.display = 'none';
+            
+            // 重置选择框
+            document.getElementById('region-select').value = '';
+            document.getElementById('country-select').innerHTML = '<option value="">Select Country</option>';
+            
+            // 恢复真实位置数据
+            if (realLocationData) {
+                currentTrackingData.country = realLocationData.country || 'Unknown';
+                currentTrackingData.countryCode = realLocationData.countryCode || '';
+                currentTrackingData.city = realLocationData.city || '';
+                currentTrackingData.timezone = realLocationData.timezone || currentTrackingData.timezone;
+                currentTrackingData.language = realLocationData.language || currentTrackingData.language;
+                currentTrackingData.latitude = realLocationData.lat || 0;
+                currentTrackingData.longitude = realLocationData.lon || 0;
+                document.getElementById('country').textContent = realLocationData.country || 'Unknown';
+            } else {
+                currentTrackingData.country = 'Unknown';
+                document.getElementById('country').textContent = 'Unknown';
+            }
+            
+            currentTrackingData.simulationMode = false;
+            updateTrackingDataDisplay();
+            log('🔄 Simulation reset to real location', 'info');
+        }
+
+        function randomCountry() {
+            const allCountries = [];
+            
+            // 收集所有国家
+            for (const [region, countries] of Object.entries(countryData)) {
+                for (const countryCode of Object.keys(countries)) {
+                    allCountries.push(countryCode);
+                }
+            }
+            
+            // 随机选择
+            const randomCountryCode = allCountries[Math.floor(Math.random() * allCountries.length)];
+            selectCountry(randomCountryCode);
+        }
+
+        function testSimulatedLocation() {
+            if (!simulationMode) {
+                log('❌ Simulation mode not enabled', 'error');
+                return;
+            }
+            
+            const statusDiv = document.getElementById('geo-status');
+            const dataDiv = document.getElementById('geo-data');
+            
+            statusDiv.className = 'status warning';
+            statusDiv.textContent = 'Using simulated location data...';
+            
+            // 创建模拟的地理位置数据
+            const simulatedData = {
+                status: 'success',
+                country: currentTrackingData.country,
+                countryCode: currentTrackingData.countryCode,
+                region: currentTrackingData.countryCode,
+                regionName: currentTrackingData.country,
+                city: currentTrackingData.city,
+                lat: currentTrackingData.latitude,
+                lon: currentTrackingData.longitude,
+                timezone: currentTrackingData.timezone,
+                isp: 'Simulated ISP',
+                org: 'Simulation Organization',
+                as: 'AS12345 Simulation Network',
+                query: '192.168.1.1',
+                simulation: true
+            };
+            
+            setTimeout(() => {
+                statusDiv.className = 'status success';
+                statusDiv.textContent = `Simulated location: ${simulatedData.city}, ${simulatedData.country}`;
+                dataDiv.textContent = JSON.stringify(simulatedData, null, 2);
+                log(`🎭 Simulated geolocation test completed: ${simulatedData.city}, ${simulatedData.country}`, 'success');
+            }, 1000);
+        }
+
+        function simulateGlobalUsage() {
+            log('🌐 Starting global usage simulation...', 'info');
+            
+            const allCountries = [];
+            for (const [region, countries] of Object.entries(countryData)) {
+                for (const countryCode of Object.keys(countries)) {
+                    allCountries.push(countryCode);
+                }
+            }
+            
+            // 模拟来自5个随机国家的使用
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const randomCountryCode = allCountries[Math.floor(Math.random() * allCountries.length)];
+                    selectCountry(randomCountryCode);
+                    
+                    setTimeout(() => {
+                        sendEnhancedTrack();
+                        simulatedCountries++;
+                        updateStats();
+                    }, 500);
+                }, i * 2000);
+            }
+            
+            // 最后重置到真实位置
+            setTimeout(() => {
+                resetSimulation();
+                log('🌐 Global usage simulation completed', 'success');
+            }, 12000);
+        }
+
+        // 初始化基本信息
+        function initBrowserInfo() {
+            document.getElementById('platform').textContent = navigator.platform || 'Unknown';
+            document.getElementById('language').textContent = navigator.language || 'Unknown';
+            
+            try {
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                document.getElementById('timezone').textContent = timezone || 'Unknown';
+            } catch(e) {
+                document.getElementById('timezone').textContent = 'Unknown';
+            }
+
+            // 初始化追踪数据
+            currentTrackingData = {
+                id: 'TEST-' + Math.random().toString(36).substr(2, 9),
+                user: 'test-user-' + Math.random().toString(36).substr(2, 6),
+                timestamp: new Date().toISOString(),
+                platform: navigator.platform || 'unknown',
+                userAgent: (navigator.userAgent || 'unknown').substring(0, 100),
+                language: navigator.language || 'unknown',
+                timezone: 'unknown',
+                referrer: document.referrer || '',
+                url: window.location.href || '',
+                country: 'Unknown',
+                simulationMode: false
+            };
+
+            try {
+                currentTrackingData.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown';
+            } catch(e) {
+                currentTrackingData.timezone = 'unknown';
+            }
+
+            updateTrackingDataDisplay();
+        }
+
+        function updateTrackingDataDisplay() {
+            document.getElementById('tracking-data').textContent = JSON.stringify(currentTrackingData, null, 2);
+        }
+
+        // 地理位置测试
+        function testGeolocation() {
+            log('Testing real IP geolocation...');
+            const statusDiv = document.getElementById('geo-status');
+            const dataDiv = document.getElementById('geo-data');
+            
+            statusDiv.className = 'status info';
+            statusDiv.textContent = 'Fetching real geolocation data...';
+
+            fetch('https://ip-api.com/json/')
+                .then(response => {
+                    log(`Geolocation API responded: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    log('Real geolocation data received successfully');
+                    statusDiv.className = 'status success';
+                    statusDiv.textContent = `Real country detected: ${data.country || 'Unknown'}`;
+                    dataDiv.textContent = JSON.stringify(data, null, 2);
+                    
+                    // 保存真实位置数据
+                    realLocationData = data;
+                    
+                    // 如果没有开启模拟模式，更新当前数据
+                    if (!simulationMode && data.country) {
+                        currentTrackingData.country = data.country;
+                        currentTrackingData.countryCode = data.countryCode;
+                        currentTrackingData.city = data.city;
+                        currentTrackingData.latitude = data.lat;
+                        currentTrackingData.longitude = data.lon;
+                        document.getElementById('country').textContent = data.country;
+                        updateTrackingDataDisplay();
+                    }
+                })
+                .catch(error => {
+                    log(`Geolocation failed: ${error.message}`, 'error');
+                    statusDiv.className = 'status error';
+                    statusDiv.textContent = `Error: ${error.message}`;
+                });
+        }
+
+        function testMultipleGeoAPIs() {
+            const apis = [
+                { name: 'IP-API', url: 'https://ip-api.com/json/' },
+                { name: 'IPApi.co', url: 'https://ipapi.co/json/' },
+                { name: 'IPInfo', url: 'https://ipinfo.io/json' }
+            ];
+
+            log('Testing multiple geolocation APIs...');
+            
+            apis.forEach((api, index) => {
+                setTimeout(() => {
+                    log(`Testing ${api.name}...`);
+                    fetch(api.url)
+                        .then(response => response.json())
+                        .then(data => {
+                            log(`${api.name} success: ${data.country || data.country_name || 'No country'}`);
+                        })
+                        .catch(error => {
+                            log(`${api.name} failed: ${error.message}`, 'error');
+                        });
+                }, index * 1000);
+            });
+        }
+
+        // Analytics追踪测试
+        function sendTrackingRequest(endpoint, data, method = 'GET') {
+            requestCount++;
+            log(`Sending ${method} request to ${endpoint} ${simulationMode ? '(SIMULATED)' : '(REAL)'}`);
+            
+            return new Promise((resolve, reject) => {
+                if (method === 'GET') {
+                    const img = new Image();
+                    const params = Object.keys(data).map(key => 
+                        `${key}=${encodeURIComponent(data[key])}`
+                    ).join('&');
+                    
+                    img.onload = () => {
+                        successCount++;
+                        log(`✓ GET request successful ${simulationMode ? '(Simulated: ' + data.country + ')' : ''}`, 'success');
+                        updateStats();
+                        resolve();
+                    };
+                    
+                    img.onerror = () => {
+                        log(`✗ GET request failed`, 'error');
+                        updateStats();
+                        reject(new Error('Image load failed'));
+                    };
+                    
+                    img.src = `${endpoint}?${params}&_t=${Date.now()}`;
+                    
+                } else if (method === 'POST') {
+                    fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(data),
+                        mode: 'cors'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            successCount++;
+                            log(`✓ POST request successful (${response.status}) ${simulationMode ? '(Simulated: ' + data.country + ')' : ''}`, 'success');
+                        } else {
+                            log(`✗ POST request failed (${response.status})`, 'error');
+                        }
+                        updateStats();
+                        resolve();
+                    })
+                    .catch(error => {
+                        log(`✗ POST request failed: ${error.message}`, 'error');
+                        updateStats();
+                        reject(error);
+                    });
+                }
+            });
+        }
+
+        function sendBasicTrack() {
+            const data = {
+                id: currentTrackingData.id,
+                user: currentTrackingData.user,
+                ts: new Date().toISOString(),
+                country: currentTrackingData.country
+            };
+            
+            sendTrackingRequest('http://8.130.139.217/track.gif', data);
+        }
+
+        function sendEnhancedTrack() {
+            // 创建服务器端期望的参数格式
+            const data = {
+                id: currentTrackingData.id,
+                user: currentTrackingData.user,
+                ts: new Date().toISOString(),
+                platform: currentTrackingData.platform,
+                ua: currentTrackingData.userAgent,
+                lang: currentTrackingData.language,
+                tz: currentTrackingData.timezone,
+                country: currentTrackingData.country,
+                ref: currentTrackingData.referrer
+            };
+            
+            // 如果是模拟模式，添加额外的模拟数据
+            if (simulationMode) {
+                data.countryCode = currentTrackingData.countryCode;
+                data.city = currentTrackingData.city;
+                data.lat = currentTrackingData.latitude;
+                data.lon = currentTrackingData.longitude;
+                data.simulation = true;
+            }
+            
+            log(`Enhanced tracking data: ${JSON.stringify(data)}`);
+            sendTrackingRequest('http://8.130.139.217/track.gif', data);
+        }
+
+        function sendBatchTracks() {
+            log('Sending batch requests...');
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const data = {
+                        id: currentTrackingData.id,
+                        user: currentTrackingData.user,
+                        ts: new Date().toISOString(),
+                        platform: currentTrackingData.platform,
+                        ua: currentTrackingData.userAgent,
+                        lang: currentTrackingData.language,
+                        tz: currentTrackingData.timezone,
+                        country: currentTrackingData.country,
+                        ref: currentTrackingData.referrer,
+                        batch_id: i + 1
+                    };
+                    
+                    if (simulationMode) {
+                        data.simulation = true;
+                        data.city = currentTrackingData.city;
+                    }
+                    
+                    sendTrackingRequest('http://8.130.139.217/track.gif', data);
+                }, i * 500);
+            }
+        }
+
+        function testDifferentEndpoints() {
+            const endpoints = [
+                'http://8.130.139.217/track.gif',
+                'http://8.130.139.217:5000/track',
+                'http://localhost/track.gif',
+                'http://localhost:5000/track'
+            ];
+            
+            log('Testing different endpoints...');
+            
+            endpoints.forEach((endpoint, index) => {
+                setTimeout(() => {
+                    const data = {
+                        id: currentTrackingData.id,
+                        user: currentTrackingData.user,
+                        ts: new Date().toISOString(),
+                        platform: currentTrackingData.platform,
+                        ua: currentTrackingData.userAgent,
+                        lang: currentTrackingData.language,
+                        tz: currentTrackingData.timezone,
+                        country: currentTrackingData.country,
+                        ref: currentTrackingData.referrer,
+                        endpoint_test: index + 1
+                    };
+                    
+                    if (simulationMode) {
+                        data.simulation = true;
+                        data.city = currentTrackingData.city;
+                    }
+                    
+                    if (endpoint.includes(':5000')) {
+                        sendTrackingRequest(endpoint, data, 'POST');
+                    } else {
+                        sendTrackingRequest(endpoint, data, 'GET');
+                    }
+                }, index * 1000);
+            });
+        }
+
+        // 自动初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🧬 OmicVerse Analytics Test Page with Geographic Simulation Loaded');
+            initBrowserInfo();
+            
+            // 自动获取真实地理位置
+            setTimeout(testGeolocation, 1000);
+            
+            // 自动发送一次追踪
+            setTimeout(sendBasicTrack, 2000);
+        });
+
+        // 页面卸载时发送最后的追踪
+        window.addEventListener('beforeunload', function() {
+            const data = {
+                id: currentTrackingData.id,
+                user: currentTrackingData.user,
+                ts: new Date().toISOString(),
+                platform: currentTrackingData.platform,
+                ua: currentTrackingData.userAgent,
+                lang: currentTrackingData.language,
+                tz: currentTrackingData.timezone,
+                country: currentTrackingData.country,
+                ref: currentTrackingData.referrer,
+                event_type: 'page_unload'
+            };
+            
+            if (simulationMode) {
+                data.simulation = true;
+                data.city = currentTrackingData.city;
+            }
+            
+            navigator.sendBeacon('http://8.130.139.217/track.gif?' + 
+                Object.keys(data).map(key => `${key}=${encodeURIComponent(data[key])}`).join('&')
+            );
+        });
+    </script>
+</body>
+</html> 
