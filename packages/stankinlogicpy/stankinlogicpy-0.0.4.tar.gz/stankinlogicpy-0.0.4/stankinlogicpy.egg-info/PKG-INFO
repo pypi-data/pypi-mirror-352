@@ -1,0 +1,94 @@
+Metadata-Version: 2.1
+Name: stankinlogicpy
+Version: 0.0.4
+Summary: This is the simplest module for quick work with files.
+Home-page: https://github.com/MosesAliev/prologpy
+Author: mosesal
+Author-email: aliev.musa.yo@gmail.com
+Project-URL: GitHub, https://github.com/MosesAliev/prologpy
+Keywords: files speedfiles
+Classifier: Programming Language :: Python :: 3.11
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.25.1
+
+# Р‘РёР±Р»РёРѕС‚РµРєР° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РїСЂРµРґРёРєР°С‚РЅРѕР№ Р»РѕРіРёРєРѕР№ РїРµСЂРІРѕРіРѕ РїРѕСЂСЏРґРєР°
+
+[![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
+
+Р‘РёР±Р»РёРѕС‚РµРєР° РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РёРЅСЃС‚СЂСѓРјРµРЅС‚С‹ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РїСЂРµРґРёРєР°С‚РЅРѕР№ Р»РѕРіРёРєРѕР№ РїРµСЂРІРѕРіРѕ РїРѕСЂСЏРґРєР°, РІРєР»СЋС‡Р°СЏ СЃРёРЅС‚Р°РєСЃРёС‡РµСЃРєРёР№ Р°РЅР°Р»РёР·, РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ Рё РїСЂРѕРІРµСЂРєСѓ РІС‹РїРѕР»РЅРёРјРѕСЃС‚Рё Р»РѕРіРёС‡РµСЃРєРёС… С„РѕСЂРјСѓР». РўР°РєР¶Рµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ СЃРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС† РёСЃС‚РёРЅРЅРѕСЃС‚Рё РґР»СЏ РїСЂРѕРїРѕР·РёС†РёРѕРЅР°Р»СЊРЅРѕР№ Р»РѕРіРёРєРё.
+
+---
+
+## РЈСЃС‚Р°РЅРѕРІРєР°
+
+Р”Р»СЏ СѓСЃС‚Р°РЅРѕРІРєРё Р±РёР±Р»РёРѕС‚РµРєРё РёСЃРїРѕР»СЊР·СѓР№С‚Рµ `pip`:
+
+```bash
+pip install predicate_logic
+```
+
+## РћСЃРЅРѕРІРЅС‹Рµ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё
+
+- **РЎРёРЅС‚Р°РєСЃРёС‡РµСЃРєРёР№ Р°РЅР°Р»РёР· Р»РѕРіРёС‡РµСЃРєРёС… С„РѕСЂРјСѓР»**:
+  - РџРѕРґРґРµСЂР¶РєР° Р°С‚РѕРјР°СЂРЅС‹С… С„РѕСЂРјСѓР», РєРІР°РЅС‚РѕСЂРѕРІ, Р»РѕРіРёС‡РµСЃРєРёС… СЃРІСЏР·РѕРє.
+
+- **РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С„РѕСЂРјСѓР»**:
+  - РџСЂРёРІРµРґРµРЅРёРµ Рє РЅРѕСЂРјР°Р»СЊРЅС‹Рј С„РѕСЂРјР°Рј (РЅР°РїСЂРёРјРµСЂ, РїСЂРµРґРІР°СЂРµРЅРЅР°СЏ РЅРѕСЂРјР°Р»СЊРЅР°СЏ С„РѕСЂРјР°).
+
+- **РџСЂРѕРІРµСЂРєР° РІС‹РїРѕР»РЅРёРјРѕСЃС‚Рё**:
+  - РћС†РµРЅРєР° С„РѕСЂРјСѓР» РЅР° Р·Р°РґР°РЅРЅС‹С… РёРЅС‚РµСЂРїСЂРµС‚Р°С†РёСЏС….
+
+- **РўР°Р±Р»РёС†С‹ РёСЃС‚РёРЅРЅРѕСЃС‚Рё**:
+  - Р“РµРЅРµСЂР°С†РёСЏ С‚Р°Р±Р»РёС† РёСЃС‚РёРЅРЅРѕСЃС‚Рё РґР»СЏ РїСЂРѕРїРѕР·РёС†РёРѕРЅР°Р»СЊРЅС‹С… С„РѕСЂРјСѓР».
+
+## Р‘С‹СЃС‚СЂС‹Р№ СЃС‚Р°СЂС‚
+
+### 1. РЎРѕР·РґР°РЅРёРµ Рё РѕС†РµРЅРєР° С„РѕСЂРјСѓР»
+
+```python
+from predicate_logic.core.parser import AtomicFormula, Predicate, Constant, Conjunction
+from predicate_logic.core.evaluator import evaluate
+
+# РЎРѕР·РґР°РµРј Р°С‚РѕРјР°СЂРЅС‹Рµ С„РѕСЂРјСѓР»С‹
+P_a = AtomicFormula(Predicate('P', [Constant('a')]))
+Q_a_b = AtomicFormula(Predicate('Q', [Constant('a'), Constant('b')]))
+
+# РЎРѕР·РґР°РµРј С„РѕСЂРјСѓР»Сѓ: P(a) в€§ Q(a, b)
+formula = Conjunction(P_a, Q_a_b)
+
+# РџСЂРёРјРµСЂ РёРЅС‚РµСЂРїСЂРµС‚Р°С†РёРё
+interpretation = {
+    'P': lambda x: x == 'a',  # РџСЂРµРґРёРєР°С‚ P(x) РёСЃС‚РёРЅРµРЅ, РµСЃР»Рё x == 'a'
+    'Q': lambda x, y: x == y,  # РџСЂРµРґРёРєР°С‚ Q(x, y) РёСЃС‚РёРЅРµРЅ, РµСЃР»Рё x == y
+    'constants': {'a': 'a', 'b': 'b'}  # РљРѕРЅСЃС‚Р°РЅС‚С‹
+}
+
+# РћС†РµРЅРєР° С„РѕСЂРјСѓР»С‹
+result = evaluate(formula, interpretation)
+print("Р РµР·СѓР»СЊС‚Р°С‚ РѕС†РµРЅРєРё С„РѕСЂРјСѓР»С‹:", result)
+```
+### 2. РўР°Р±Р»РёС†С‹ РёСЃС‚РёРЅРЅРѕСЃС‚Рё РґР»СЏ РїСЂРѕРїРѕР·РёС†РёРѕРЅР°Р»СЊРЅРѕР№ Р»РѕРіРёРєРё
+
+```python
+from predicate_logic.truth_tables import TruthTable
+
+# РџСЂРёРјРµСЂ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ
+variables = ['A', 'B']
+expression = "(A and B) or (not C)"
+truth_table = TruthTable.create(variables, expression)
+print(truth_table)
+```
+
+## РђРІС‚РѕСЂС‹
+
+- [РњСѓСЃР°](https://github.com/MosesAliev)
+
+---
+
+## РћР±СЂР°С‚РЅР°СЏ СЃРІСЏР·СЊ
+
+Р•СЃР»Рё Сѓ РІР°СЃ РµСЃС‚СЊ РІРѕРїСЂРѕСЃС‹ РёР»Рё РїСЂРµРґР»РѕР¶РµРЅРёСЏ, РїРѕР¶Р°Р»СѓР№СЃС‚Р°, СЃРѕР·РґР°Р№С‚Рµ СЃРІСЏР¶РёС‚РµСЃСЊ СЃРѕ РјРЅРѕР№ РїРѕ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚Рµ: [aliev.musa.yol@gmail.com](mailto:aliev.musa.yo@gmail.com).
