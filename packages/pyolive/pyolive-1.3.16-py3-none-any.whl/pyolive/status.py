@@ -1,0 +1,3 @@
+APP_OK = 0
+APP_ERROR = -1
+APP_FIN = 1
