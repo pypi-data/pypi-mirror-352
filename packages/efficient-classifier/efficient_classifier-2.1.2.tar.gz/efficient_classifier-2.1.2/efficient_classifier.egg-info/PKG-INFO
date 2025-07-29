@@ -1,0 +1,575 @@
+Metadata-Version: 2.4
+Name: efficient-classifier
+Version: 2.1.2
+Summary: Dataset-agnostic ML classification library. Visualization tools, Slack integration, support for multiple-pipelines.
+Home-page: https://github.com/javidsegura/efficient-classifier
+Author: Javier D. Segura
+Author-email: jdominguez.ieu2023@student.ie.edu
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: absl-py==2.2.2
+Requires-Dist: appnope==0.1.4
+Requires-Dist: asttokens==3.0.0
+Requires-Dist: astunparse==1.6.3
+Requires-Dist: backports.tarfile==1.2.0
+Requires-Dist: Boruta==0.4.3
+Requires-Dist: catboost==1.2.8
+Requires-Dist: certifi==2025.4.26
+Requires-Dist: charset-normalizer==3.4.1
+Requires-Dist: comm==0.2.2
+Requires-Dist: contourpy==1.3.0
+Requires-Dist: cycler==0.12.1
+Requires-Dist: debugpy==1.8.13
+Requires-Dist: decorator==5.2.1
+Requires-Dist: docutils==0.21.2
+Requires-Dist: dotenv==0.9.9
+Requires-Dist: exceptiongroup==1.2.2
+Requires-Dist: executing==2.2.0
+Requires-Dist: filelock==3.18.0
+Requires-Dist: flatbuffers==25.2.10
+Requires-Dist: fonttools==4.56.0
+Requires-Dist: fsspec==2025.3.2
+Requires-Dist: gast==0.6.0
+Requires-Dist: google-pasta==0.2.0
+Requires-Dist: graphviz==0.20.3
+Requires-Dist: grpcio==1.71.0
+Requires-Dist: h5py==3.13.0
+Requires-Dist: id==1.5.0
+Requires-Dist: idna==3.10
+Requires-Dist: imageio==2.37.0
+Requires-Dist: imbalanced-learn==0.12.4
+Requires-Dist: imblearn==0.0
+Requires-Dist: importlib_metadata==8.6.1
+Requires-Dist: importlib_resources==6.5.2
+Requires-Dist: ipykernel==6.29.5
+Requires-Dist: ipython==8.18.1
+Requires-Dist: jaraco.classes==3.4.0
+Requires-Dist: jaraco.context==6.0.1
+Requires-Dist: jaraco.functools==4.1.0
+Requires-Dist: jedi==0.19.2
+Requires-Dist: Jinja2==3.1.6
+Requires-Dist: joblib==1.4.2
+Requires-Dist: jupyter_client==8.6.3
+Requires-Dist: jupyter_core==5.7.2
+Requires-Dist: keras==3.9.2
+Requires-Dist: keras-tuner==1.4.7
+Requires-Dist: keyring==25.6.0
+Requires-Dist: kiwisolver==1.4.7
+Requires-Dist: kt-legacy==1.0.5
+Requires-Dist: lazy_loader==0.4
+Requires-Dist: libclang==18.1.1
+Requires-Dist: lightgbm==4.6.0
+Requires-Dist: lime==0.2.0.1
+Requires-Dist: Markdown==3.8
+Requires-Dist: markdown-it-py==3.0.0
+Requires-Dist: MarkupSafe==3.0.2
+Requires-Dist: matplotlib==3.9.4
+Requires-Dist: matplotlib-inline==0.1.7
+Requires-Dist: mdurl==0.1.2
+Requires-Dist: ml_dtypes==0.5.1
+Requires-Dist: more-itertools==10.7.0
+Requires-Dist: mpmath==1.3.0
+Requires-Dist: namex==0.0.9
+Requires-Dist: narwhals==1.41.0
+Requires-Dist: nest-asyncio==1.6.0
+Requires-Dist: networkx==3.4.2
+Requires-Dist: nh3==0.2.21
+Requires-Dist: numpy==2.0.2
+Requires-Dist: opt_einsum==3.4.0
+Requires-Dist: optree==0.15.0
+Requires-Dist: packaging==24.2
+Requires-Dist: pandas==2.2.3
+Requires-Dist: parso==0.8.4
+Requires-Dist: patsy==1.0.1
+Requires-Dist: pexpect==4.9.0
+Requires-Dist: pillow==11.1.0
+Requires-Dist: platformdirs==4.3.7
+Requires-Dist: plotly==6.1.2
+Requires-Dist: prompt_toolkit==3.0.50
+Requires-Dist: protobuf==5.29.4
+Requires-Dist: psutil==7.0.0
+Requires-Dist: ptyprocess==0.7.0
+Requires-Dist: pure_eval==0.2.3
+Requires-Dist: pyaml==25.1.0
+Requires-Dist: Pygments==2.19.1
+Requires-Dist: pyparsing==3.2.3
+Requires-Dist: python-dateutil==2.9.0.post0
+Requires-Dist: python-dotenv==1.1.0
+Requires-Dist: pytz==2025.2
+Requires-Dist: PyYAML==6.0.2
+Requires-Dist: pyzmq==26.3.0
+Requires-Dist: readme_renderer==44.0
+Requires-Dist: requests==2.32.3
+Requires-Dist: requests-toolbelt==1.0.0
+Requires-Dist: rfc3986==2.0.0
+Requires-Dist: rich==14.0.0
+Requires-Dist: scikit-image==0.25.2
+Requires-Dist: scikit-learn==1.6.1
+Requires-Dist: scikit-optimize==0.10.2
+Requires-Dist: scipy==1.13.1
+Requires-Dist: seaborn==0.13.2
+Requires-Dist: six==1.17.0
+Requires-Dist: slack_bolt==1.23.0
+Requires-Dist: slack_sdk==3.35.0
+Requires-Dist: stack-data==0.6.3
+Requires-Dist: statsmodels==0.14.4
+Requires-Dist: sympy==1.13.3
+Requires-Dist: tensorboard==2.19.0
+Requires-Dist: tensorboard-data-server==0.7.2
+Requires-Dist: tensorflow==2.19.0
+Requires-Dist: tensorflow-io-gcs-filesystem==0.37.1
+Requires-Dist: termcolor==3.0.1
+Requires-Dist: threadpoolctl==3.6.0
+Requires-Dist: tifffile==2025.5.26
+Requires-Dist: torch==2.7.0
+Requires-Dist: tornado==6.4.2
+Requires-Dist: tqdm==4.67.1
+Requires-Dist: traitlets==5.14.3
+Requires-Dist: twine==6.1.0
+Requires-Dist: typeguard==2.13.3
+Requires-Dist: typing_extensions==4.13.0
+Requires-Dist: tzdata==2025.2
+Requires-Dist: urllib3==2.4.0
+Requires-Dist: wcwidth==0.2.13
+Requires-Dist: Werkzeug==3.1.3
+Requires-Dist: wrapt==1.17.2
+Requires-Dist: xgboost==3.0.2
+Requires-Dist: xlrd==2.0.1
+Requires-Dist: zipp==3.21.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Efficient Classifier
+
+[![PyPI version](https://badge.fury.io/py/efficient-classifier.svg)](https://pypi.org/project/efficient-classifier/)
+[![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+A comprehensive, dataset-agnostic machine learning framework for rapid development and deployment of classification pipelines on tabular data. Advanced DevOps tools.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Architecture](#architecture)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Supported Models & Metrics](#supported-models--metrics)
+- [Use Cases](#use-cases)
+- [Performance](#performance)
+- [Contributing](#contributing)
+- [Documentation](#documentation)
+- [License](#license)
+
+## Overview
+
+Efficient Classifier is an enterprise-grade machine learning framework designed to accelerate the development lifecycle from data preprocessing to model deployment. Built with scalability and reproducibility in mind, it provides a unified interface for experimenting with multiple classification pipelines while maintaining rigorous tracking of experiments and results.
+
+The framework supports both binary and multiclass classification tasks and has been extensively validated on real-world datasets, including the CCCS-CIC-AndMal-2020 cybersecurity dataset where it achieved 92% F1-score performance.
+
+### Research & Validation
+
+Our framework has been applied to cutting-edge cybersecurity research:
+
+- **[Research Paper](https://drive.google.com/drive/folders/1GksAEhtbiqzj-pGVJixrn35E6DRu44gK?usp=drive_link)** - CCCS-CIC-AndMal-2020 Analysis
+- **[Complete Results](https://drive.google.com/drive/folders/1Ui2EmIr-5rrXPkab1lGquHp_cQ7w14yA?usp=sharing)** - Plots, logs, and execution history
+- **[Technical Report](https://docs.google.com/document/d/1yH9gvnJVSH9GLv9ATQ5JQWA2z8Jy4umxxRfMF-y2fiU/edit?usp=drive_link)** - Methodology and findings
+- **[EDA Notebook](https://drive.google.com/file/d/1NbvUQKDtAbgVKoTZ2rG1YcpiZOrNB8Gq/view?usp=sharing)** - Exploratory data analysis
+- **[Presentation](https://www.canva.com/design/DAGnoUCnQmQ/VgZLdpPD2IpRFxJj_7TuLg/edit?utm_content=DAGnoUCnQmQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)** - Project overview
+
+## Key Features
+
+### 🚀 **Rapid Pipeline Development**
+- Multi-pipeline orchestration with customizable architectures
+- Zero-boilerplate configuration through YAML
+- Automated hyperparameter optimization (Grid, Random, Bayesian)
+- One-command execution from data to deployment
+
+### 🔬 **Advanced Analytics & Visualization**
+- Comprehensive residual analysis and confusion matrices
+- LIME-based feature importance with permutation testing
+- Model calibration with reliability diagrams
+- Cross-validation with stratified sampling
+- Real-time training progress monitoring
+
+### 🛠 **Production-Ready DevOps**
+- Slack bot integration for real-time notifications
+- Automated DAG visualization of pipeline architectures
+- Model serialization with joblib/pickle support
+- Comprehensive logging and experiment tracking
+- Built-in testing framework integration
+
+### ⚡ **High-Performance Computing**
+- Multithreaded processing where parallelization is beneficial
+- Memory-efficient data handling for large datasets
+- Optimized feature selection algorithms (Boruta, L1 regularization)
+- Smart caching mechanisms for repeated operations
+
+## Architecture
+
+The framework follows a modular, stage-based architecture:
+
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Data Loading  │ -> │  Preprocessing   │ -> │ Feature Analysis│
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+                                 |
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│     DevOps      │ <- │    Modeling      │ <- │   Evaluation    │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+```
+
+### Stage-Specific Capabilities
+
+| Stage | Capability | Description |
+|-------|------------|-------------|
+| **Data Management** | Smart Splitting | Adaptive train/validation/test splits with distribution analysis |
+| | Distribution Validation | Statistical tests ensuring consistent feature distributions across splits |
+| **Preprocessing** | Advanced Encoding | One-hot encoding with automatic categorical detection |
+| | Intelligent Imputation | Multiple strategies for handling missing values |
+| | Outlier Detection | IQR and percentile-based detection with configurable treatment |
+| | Robust Scaling | StandardScaler, RobustScaler, and MinMaxScaler support |
+| | Class Balancing | SMOTE and ADASYN implementations for imbalanced datasets |
+| **Feature Engineering** | Automated Selection | Mutual information, variance filtering, and multicollinearity detection |
+| | Advanced Techniques | Boruta feature selection and L1 regularization |
+| | Custom Engineering | Dataset-specific feature creation hooks |
+| **Modeling** | Ensemble Methods | Stacked generalization with configurable base learners |
+| | Neural Networks | Feed-forward architectures with epoch-wise monitoring |
+| | Model Comparison | Cross-model evaluation with statistical significance testing |
+| **DevOps** | Real-time Monitoring | Slack integration for training progress and alerts |
+| | Experiment Tracking | Comprehensive CSV logging with metadata |
+| | Visualization | Automated DAG generation for pipeline architecture |
+
+## Installation
+
+### PyPI Installation (Recommended)
+
+```bash
+pip install efficient-classifier
+```
+
+### Development Installation
+
+```bash
+git clone https://github.com/javidsegura/efficient-classifier.git
+cd efficient-classifier
+pip install -r requirements.txt
+```
+
+### Environment Setup
+
+For Slack bot integration, create a `.env` file:
+
+```bash
+SLACK_BOT_TOKEN=your_bot_token
+SLACK_SIGNING_SECRET=your_signing_secret
+SLACK_APP_TOKEN=your_app_token
+```
+
+## Quick Start
+
+### Basic Usage
+
+```python
+from efficient_classifier import PipelineManager
+
+# Initialize with configuration
+manager = PipelineManager('configurations.yaml')
+
+# Execute complete pipeline
+results = manager.run_all_pipelines()
+
+# Access best model
+best_model = results.get_best_model()
+predictions = best_model.predict(X_test)
+```
+
+### Custom Dataset Integration
+
+1. **Configure dataset-specific cleaning** in `pipeline_runner.py`:
+```python
+def _clean_dataset_set_up_dataset_specific(self, df):
+    # Your custom preprocessing logic
+    return cleaned_df
+```
+
+2. **Implement feature engineering** in `featureAnalysis_runner.py`:
+```python
+def _run_feature_engineering_dataset_specific(self, df):
+    # Your custom feature engineering
+    return engineered_df
+```
+
+3. **Update boundary conditions** in `bound_config.py` for data validation.
+
+## Configuration
+
+The framework uses a comprehensive YAML configuration system. Key configuration sections:
+
+### Pipeline Definition
+```yaml
+general:
+  pipelines_names: ["baseline", "advanced", "ensemble"]
+  max_plots_per_function: 10  # Control visualization output
+```
+
+### Data Processing
+```yaml
+phase_runners:
+  dataset_runners:
+    split_df:
+      p: [0.7, 0.8, 0.9]  # Split ratios to evaluate
+      step: 0.05          # Granularity of split analysis
+    encoding:
+      y_column: "target"  # Target variable name
+```
+
+### Model Configuration
+```yaml
+modelling_runner:
+  class_weights:
+    weights: {0: 1.0, 1: 2.0}  # Handle class imbalance
+  models_to_include:
+    baseline: ["Random Forest", "Logistic Regression"]
+    advanced: ["XGBoost", "Neural Network"]
+  optimization:
+    method: "bayesian"  # grid, random, or bayesian
+    cv_folds: 5
+```
+
+For complete configuration options, see the [detailed documentation](documentation/library_detailed.md).
+
+## Supported Models & Metrics
+
+### Machine Learning Models
+
+**Tree-Based Algorithms:**
+- Random Forest, Decision Trees, Gradient Boosting
+- XGBoost, LightGBM, CatBoost
+- AdaBoost with configurable base estimators
+
+**Linear Models:**
+- Logistic Regression, Ridge Classifier
+- Linear/Non-linear SVM, SGD Classifier
+- Elastic Net with L1/L2 regularization
+
+**Advanced Methods:**
+- Feed-Forward Neural Networks
+- Ensemble Stacking (meta-learning)
+- K-Nearest Neighbors, Gaussian Naive Bayes
+
+**Baseline Models:**
+- Majority Class Classifier for benchmarking
+
+### Evaluation Metrics
+
+- **Classification Accuracy** - Overall correctness
+- **Precision, Recall, F1-Score** - Class-specific performance
+- **Cohen's Kappa** - Inter-rater reliability
+- **Weighted Accuracy** - Class-imbalance adjusted accuracy
+- **ROC-AUC** - Area under receiver operating characteristic
+- **Calibration Metrics** - Reliability diagrams and Brier score
+
+### Adding Custom Models
+
+Extend model support by modifying `modelling_runner.py`:
+
+```python
+def _model_initializers(self):
+    models = {
+        # Existing models...
+        "Custom Model": YourCustomClassifier(
+            param1=self.config['custom_param']
+        )
+    }
+    return models
+```
+
+## Use Cases
+
+### MANTIS: Cybersecurity Threat Detection
+
+Our flagship application demonstrates the framework's capabilities in cybersecurity:
+
+**Dataset:** CCCS-CIC-AndMal-2020 (Android malware detection)
+**Performance:** 92% F1-score with Random Forest + Stacking ensemble
+**Scale:** 200,000+ samples with 464 features
+**Deployment:** Production-ready model with 15ms inference time
+
+**Key Results:**
+- Outperformed baseline approaches by 23%
+- Identified 847 critical features through automated selection
+- Achieved 99.1% precision for malware detection
+
+### Benchmark Datasets
+
+**Titanic Survival Prediction:** [View Results](https://drive.google.com/drive/folders/1ALECwX7EgQa3XgQLHtkjvAcKo2_XFIA7?usp=sharing)
+- 89.3% accuracy with ensemble methods
+- Comprehensive feature engineering pipeline
+
+**Iris Classification:** [View Results](https://drive.google.com/drive/folders/1zzUIgnC4K44kmkDQ3j3zV9qeyJgybqPr?usp=drive_link)
+- 97.8% accuracy across all pipeline configurations
+- Validation of multi-class capabilities
+
+## Performance
+
+### Benchmarks
+
+| Dataset | Samples | Features | Best Model | F1-Score | Training Time |
+|---------|---------|----------|------------|----------|---------------|
+| CCCS-CIC-AndMal-2020 | 200K+ | 464 | Random Forest | 92.0% | 45 min |
+| Titanic | 891 | 12 | Stacking Ensemble | 89.3% | 2 min |
+| Iris | 150 | 4 | Neural Network | 97.8% | 30 sec |
+
+### Optimization Features
+
+- **Memory Management:** Efficient handling of datasets up to 1M+ rows
+- **Parallel Processing:** Multi-core utilization for independent operations
+- **Early Stopping:** Automatic convergence detection for iterative algorithms
+- **Caching:** Intelligent result caching for repeated experiments
+
+## Model Deployment
+
+### Serialization & Inference
+
+```python
+# Save trained pipeline
+manager.serialize_model(best_pipeline, 'production_model.pkl')
+
+# Load for inference
+loaded_model = manager.load_model('production_model.pkl')
+
+# Production predictions
+predictions = loaded_model.model_sklearn.predict(X_new)
+probabilities = loaded_model.model_sklearn.predict_proba(X_new)
+```
+
+### Production Integration
+
+The serialized models contain:
+- Trained sklearn estimator objects
+- Complete preprocessing pipelines
+- Feature engineering transformations
+- Model metadata and performance metrics
+
+## Monitoring & Visualization
+
+### Real-Time Notifications
+
+![SlackBot Integration](https://github.com/user-attachments/assets/19045a75-32dc-4777-8cfb-e6e39ec4f073)
+
+*Slack bot provides real-time updates on training progress, model performance, and system alerts.*
+
+### Pipeline Visualization
+
+![DAG Pipeline Visualizer](https://github.com/user-attachments/assets/b06781c6-b703-4695-a5c3-ea720809884d)
+
+*Automatically generated DAG visualization showing pipeline architecture, data flow, and performance metrics.*
+
+## Roadmap & Known Limitations
+
+### Upcoming Features
+
+- **Multi-label Classification Support**
+- **Cyclical Feature Encoding** for temporal data
+- **Cloud Deployment Integration** (AWS, GCP, Azure)
+- **Docker Containerization** for production deployment
+- **Advanced AutoML Capabilities** with neural architecture search
+
+### Current Limitations
+
+- **Missing Value Handling:** Assumes preprocessed data (manual handling required)
+- **Grid Search Configuration:** Complex setup process for new parameter spaces
+- **Stacking Visualization:** Not included in DAG visualization
+- **Per-Pipeline Feature Selection:** Currently uses unified feature selection
+
+### Performance Considerations
+
+Operations marked as 'MAJOR IMPACT IN PERFORMANCE' in configuration:
+- Bayesian optimization with large parameter spaces
+- Neural network training with extensive architectures
+- Cross-validation with high fold counts
+- Feature selection on high-dimensional datasets
+
+## Contributing
+
+We welcome contributions from the community! Please follow these guidelines:
+
+### Development Process
+
+1. **Fork** the repository
+2. **Create** a feature branch: `git checkout -b feature/amazing-feature`
+3. **Commit** changes: `git commit -m 'Add amazing feature'`
+4. **Push** to branch: `git push origin feature/amazing-feature`
+5. **Open** a Pull Request
+
+### Code Standards
+
+- Follow PEP 8 style guidelines
+- Include comprehensive docstrings
+- Add unit tests for new features
+- Update documentation for API changes
+
+### Pull Request Template
+
+Please include:
+- **Description** of changes and motivation
+- **Testing** performed and results
+- **Breaking Changes** if applicable
+- **Documentation** updates
+
+## Documentation
+
+### Comprehensive Guides
+
+- **[Library Architecture](documentation/library_detailed.md)** - Design decisions and implementation details
+- **[API Reference](documentation/api_reference.md)** - Complete function and class documentation
+- **[Configuration Guide](documentation/configuration.md)** - YAML parameter explanations
+- **[Troubleshooting](documentation/troubleshooting.md)** - Common issues and solutions
+
+### Research Publications
+
+Access our peer-reviewed research and detailed technical reports through the links provided in the [Research & Validation](#research--validation) section.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Citation
+
+If you use this framework in your research, please cite:
+
+```bibtex
+@software{efficient_classifier_2024,
+  title={Efficient Classifier: A Dataset-Agnostic ML Framework},
+  author={[Javier D., Caterina B, Juan A., Federica C., Irina I., Juliette J.]},
+  year={2025},
+  url={https://github.com/javidsegura/efficient-classifier}
+}
+```
+
+## Acknowledgments
+
+- Built with scikit-learn, XGBoost, and other open-source ML libraries
+- Validated on datasets from the Canadian Centre for Cyber Security
+- Community contributors and beta testers
+
+---
+
+**Ready to accelerate your ML workflow?** Install via `pip install efficient-classifier` and check out our [Quick Start Guide](#quick-start).
