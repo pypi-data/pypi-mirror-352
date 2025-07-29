@@ -1,0 +1,328 @@
+{
+    "lists":{
+        "subject_sex": [
+            "Male",
+            "Female",
+            "Not Available"
+        ],
+        "user_types": [
+            "admin",
+            "supervisor",
+            "scorer",
+            "annotator",
+            "user",
+            "guest"
+        ],
+        "user_limits": {
+            "admin" : {"number":1000,"size":10000000000,"interval":1},
+            "supervisor" : {"number":1000,"size":10000000000,"interval":1},
+            "scorer" : {"number":0,"size":1000000000,"interval":3000},
+            "annotator": {"number":0,"size":1000000000,"interval":3000},
+            "user": {"number":6,"size":1000000000,"interval":300},
+            "guest":{"number":6,"size":0,"interval":3000}
+        },
+        "institutions":[
+            "uncns",
+            "mcgill",
+            "uncns-mwilliams",
+            "cruk",
+            "AstraZeneca",
+            "GSK",
+            "Harvard-Woolf",
+            "Harvard-Levy",
+            "Harvard-Harriott",
+            "Stanford",
+            "Maryland",
+            "Rutgers",
+            "Alberta",
+            "Wash U",
+            "Duke",
+            "Columbia"
+        ],
+        "subject_types": [
+            "c57bl/6",
+            "crl:cd1(icr)",
+            "129/SvEv",
+            "NSG",
+            "rat"
+        ],
+        "study_types":[
+            "pain-mgs",
+            "pain-binary"
+        ],
+        "annotation_types":{
+            "box" :{
+                "description" : "rectangular bounding box, [x1,y1,x2,y2] for the coordinates"
+            },
+            "circle" : {
+                "description" : "TBI : circle [x,y,r] for the coordinates"
+            },
+            "poligon" : {
+                "description" :  "TBI : polygon [[x1,y1],[x2,y2],[x3,y3],...]  for the coordinates"
+            },
+            "points" : {
+                "description" :  "TBI : set of points [[x1,y1],[x2,y2],[x3,y3],...]  for the coordinates"
+            },
+            "directed-line" :{
+                "description" : "TBI : directed line from one point to the other. [[x0,y0],[x1,y1]] for vector coordinate stemming from [x0,y0]"
+            },
+            "lines":{
+                "description" : "TBI : set of lines. [[x1,y1,x2,y2], [x3,y3,x4,y4] , ... ] for the coordinates"
+            },
+            "skeleton" : {
+                "description" : "TBI : skeleton points [[x1,y1],[x2,y2],[x3,y4], ... ] for the points of the skeleton"
+            }
+        },
+        "score_types":{
+            "integer-set" :{
+                "description" : "Set of integers for labels such as [1,2,3]"
+            },
+            "integer-ranges" :{
+                "description" : "Set of ranges for values such as [ [1,3] , [9,12] ] meaning the union of two integer ranges equivalent to [1,2,3,9,10,11,12]"
+            },
+            "float-set" :{
+                "description" : "Set of floating numbers for classes such as [0.4,1.5,3.4]"
+            },
+            "float-ranges":{
+                "description" : "Set of ranges of the floating numbers such as [ [1.0,2.5], [4.2,5.8] ] implying a number in the union of those two intervals"
+            }
+        }
+    },
+
+    "subject_templates":{
+        "general":{
+                    "pain-mgs":{
+                                "description" : "General mouse - estimation of MGS score",
+                                "type" : "vector",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"},
+                                    {"class" : "cheek", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "orbital", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "nose", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "ears", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "whiskers", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "cheek", "type" :"integer-set", "value" : [-1,0,1,2]}
+                                ]
+                            },
+                    "pain-binary":{
+                                "description" : "CRL:CD1(ICR) white coated mouse - binary classification for spontaneous pain",
+                                "type" : "binary",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"},
+                                    {"class" : "cheek", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "pain", "type" :"integer-set", "value" : [-1,0,1]},
+                                    {"class" : "confidence", "type" :"float-ranges", "value" : [[0.0,1.0]]}
+                                ]
+                            }
+        },
+        "c57bl/6":{
+                    "pain-mgs":{
+                                "description" : "C57BL6 black coated mouse - estimation of MGS score",
+                                "type" : "vector",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "orbital", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "nose", "type" :"integer-set", "value" : [-1,0,2]},
+                                    {"class" : "ears", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "whiskers", "type" :"integer-set", "value" : [-1,0,1,2]}
+                                ]
+                            },
+                    "pain-binary":{
+                                "description" : "C57BL6 black coated mouse - binary classification for spontaneous pain",
+                                "type" : "binary",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "pain", "type" :"integer-set", "value" : [-1,0,1]},
+                                    {"class" : "confidence", "type" :"float-ranges", "value" : [[0.0,1.0]]}
+                                ]
+                            }
+           
+        },
+        "129/svev":{
+                    "pain-mgs":{
+                                "description" : "129/SvEv agouti mouse - estimation of MGS score",
+                                "type" : "vector",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"},
+                                    {"class" : "cheek", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "orbital", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "nose", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "ears", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "whiskers", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "cheek", "type" :"integer-set", "value" : [-1,0,1,2]}
+                                ]
+                            },
+                    "pain-binary":{
+                                "description" : "129/SvEv agouti mouse  - binary classification for spontaneous pain",
+                                "type" : "binary",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"},
+                                    {"class" : "cheek", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "pain", "type" :"integer-set", "value" : [-1,0,1]},
+                                    {"class" : "confidence", "type" :"float-ranges", "value" : [[0.0,1.0]]}
+                                ]
+                            }
+           
+        },
+        "crl:cd1(icr)":{
+                    "pain-mgs":{
+                                "description" : "CRL:CD1(ICR) white coated mouse - estimation of MGS score",
+                                "type" : "vector",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"},
+                                    {"class" : "cheek", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "orbital", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "nose", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "ears", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "whiskers", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "cheek", "type" :"integer-set", "value" : [-1,0,1,2]}
+                                ]
+                            },
+                    "pain-binary":{
+                                "description" : "CRL:CD1(ICR) white coated mouse - binary classification for spontaneous pain",
+                                "type" : "binary",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"},
+                                    {"class" : "cheek", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "pain", "type" :"integer-set", "value" : [-1,0,1]},
+                                    {"class" : "confidence", "type" :"float-ranges", "value" : [[0.0,1.0]]}
+                                ]
+                            }
+        },
+        "NSG":{
+                    "pain-mgs":{
+                                "description" : "NSG white coated mouse - estimation of MGS score",
+                                "type" : "vector",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"},
+                                    {"class" : "cheek", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "orbital", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "nose", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "ears", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "whiskers", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "cheek", "type" :"integer-set", "value" : [-1,0,1,2]}
+                                ]
+                            },
+                    "pain-binary":{
+                                "description" : "NSG white coated mouse - binary classification for spontaneous pain",
+                                "type" : "binary",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"},
+                                    {"class" : "cheek", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "pain", "type" :"integer-set", "value" : [-1,0,1]},
+                                    {"class" : "confidence", "type" :"float-ranges", "value" : [[0.0,1.0]]}
+                                ]
+                            }
+        },
+        "rat":{
+                    "pain-mgs":{
+                                "description" : "Rat",
+                                "type" : "vector",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"},
+                                    {"class" : "cheek", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "orbital", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "nose", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "ears", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "whiskers", "type" :"integer-set", "value" : [-1,0,1,2]},
+                                    {"class" : "cheek", "type" :"integer-set", "value" : [-1,0,1,2]}
+                                ]
+                            },
+                    "pain-binary":{
+                                "description" : "Rat",
+                                "type" : "binary",
+                                "annotations":[
+                                    {"class" : "body", "type" : "box"},
+                                    {"class" : "face", "type" : "box"},
+                                    {"class" : "orbital", "type" : "box"},
+                                    {"class" : "nose", "type" : "box"},
+                                    {"class" : "ears", "type" : "box"},
+                                    {"class" : "whiskers", "type" : "box"},
+                                    {"class" : "cheek", "type" : "box"}
+                                ],
+                                "scores":[
+                                    {"class" : "pain", "type" :"integer-set", "value" : [-1,0,1]},
+                                    {"class" : "confidence", "type" :"float-ranges", "value" : [[0.0,1.0]]}
+                                ]
+                            }
+
+        }
+    }
+}
