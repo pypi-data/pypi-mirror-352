@@ -1,0 +1,15 @@
+[project]
+name = "signalkit"
+version = "2.5.0"
+description = "Structured, UUID-based signal orchestration utilities for Python using Blinker"
+authors = [{ name = "KMRH47", email = "kmrh47@pm.me" }]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = ["blinker"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
