@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "code-printer"
+version = "1.0.2"
+description = "A global Python package to print predefined code snippets"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+    {name = "Shriyans", email = "shriyans.work2325@gmail.com"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+]
+
+[project.scripts]
+code-printer = "code_printer.cli:main"
+codeprint = "code_printer.cli:main"
+
+[project.urls]
+Repository = "https://github.com/MrPhantom2325/code-printer.git"
