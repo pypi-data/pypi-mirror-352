@@ -1,0 +1,30 @@
+Metadata-Version: 2.4
+Name: brodata
+Version: 0.1.0
+Summary: A Python-package to download and process subsurface data from DINO and BRO
+Author-email: Ruben Calje <r.calje@artesia-water.nl>
+Project-URL: homepage, https://github.com/ArtesiaWater/brodata
+Project-URL: issues, https://github.com/ArtesiaWater/brodata/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas
+Requires-Dist: geopandas
+Requires-Dist: owslib
+Requires-Dist: requests
+Requires-Dist: lxml
+Requires-Dist: pyproj
+Requires-Dist: tqdm
+Requires-Dist: matplotlib
+Provides-Extra: ci
+Requires-Dist: pytest; extra == "ci"
+Requires-Dist: pytest-sugar; extra == "ci"
+Requires-Dist: ipython; extra == "ci"
+Requires-Dist: lasio; extra == "ci"
+Dynamic: license-file
+
+# brodata
+A Python-package to download and process subsurface data from DINO and BRO
