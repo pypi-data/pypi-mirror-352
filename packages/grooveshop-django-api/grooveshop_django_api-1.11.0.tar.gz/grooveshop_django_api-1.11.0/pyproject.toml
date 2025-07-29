@@ -1,0 +1,306 @@
+[project]
+version = "1.11.0"
+name = "grooveshop-django-api"
+authors = [
+  { name = "Vasilis Totskas", email = "vassilistotskas@msn.com" }
+]
+description = "GrooveShop Django Backend"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+classifiers = [
+    "Framework :: Django",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+  "asgiref==3.8.1",
+  "boto3==1.38.27",
+  "charset_normalizer==3.4.2",
+  "channels[daphne]==4.2.2",
+  "channels-redis==4.2.1",
+  "cryptography==45.0.3",
+  "django==5.2.1",
+  "django-admin-thumbnails==0.2.9",
+  "django-allauth==65.8.1",
+  "django-csp==4.0",
+  "django-dbbackup==4.3.0",
+  "django-extra-settings==0.14.0",
+  "django-celery-beat==2.8.1",
+  "django-celery-results==2.6.0",
+  "django-cors-headers==4.7.0",
+  "django-simple-history==3.8.0",
+  "django-filter==25.1",
+  "django-unfold==0.59.0",
+  "django-money==3.5.4",
+  "django-mptt==0.17.0",
+  "django-parler==2.3.0",
+  "django-parler-rest==2.2.0",
+  "django-phonenumber-field==8.1.0",
+  "django-rosetta==0.10.2",
+  "django-rest-knox==5.0.2",
+  "django-storages==1.14.6",
+  "django-tinymce==4.1.0",
+  "djangorestframework==3.16.0",
+  "djangorestframework-camel-case==1.4.2",
+  "drf-spectacular==0.28.0",
+  "fido2==2.0.0",
+  "flower==2.0.1",
+  "gunicorn==23.0.0",
+  "importlib-resources==6.5.2",
+  "measurement==3.2.2",
+  "meilisearch==0.34.1",
+  "phonenumbers==9.0.6",
+  "pillow==11.2.1",
+  "psycopg[binary,pool] == 3.2.9",
+  "python-dotenv==1.1.0",
+  "qrcode==8.2",
+  "urllib3==2.4.0",
+  "uvicorn==0.34.3",
+  "celery[redis] >=5.5.3,<6.0.0",
+  "build>=1.2.2.post1",
+]
+
+[project.urls]
+repository = "https://github.com/vasilistotskas/grooveshop-django-api"
+
+# ─────────────────────────────────────────────────────────
+# Dev (and other) dependency groups
+# ─────────────────────────────────────────────────────────
+[dependency-groups]
+dev = [
+    "coverage==7.8.2",
+    "djangorestframework-stubs==3.16.0",
+    "django-debug-toolbar==5.2.0",
+    "django-stubs==5.2.0",
+    "Faker==37.1.0",
+    "factory-boy==3.3.3",
+    "gitpython==3.1.44",
+    "types-setuptools==80.9.0.20250529",
+    "pre-commit==4.2.0",
+    "pip-upgrader==1.4.15",
+    "pylint==3.3.7",
+    "pyjwt==2.10.1",
+    "pytest==8.3.5",
+    "pytest-asyncio==1.0.0",
+    "pytest-django==4.11.1",
+    "pytest-xdist==3.7.0",
+    "pytest-timeout==2.4.0",
+    "python-semantic-release==10.0.2",
+    "ruff==0.11.12"
+]
+
+# ─────────────────────────────────────────────────────────
+# Setuptools configuration
+# ─────────────────────────────────────────────────────────
+[tool.setuptools.packages]
+find = {}
+
+# ─────────────────────────────────────────────────────────
+# Coverage configuration
+# ─────────────────────────────────────────────────────────
+[tool.coverage.paths]
+source = ["*"]
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "*/tests/*",
+    "*/migrations/*",
+    "*/management/*",
+    "*/manage.py",
+    "*/setup.py",
+    "asgi/gunicorn_worker.py",
+    "core/storages.py",
+    "*/wsgi/*",
+]
+source = ["*"]
+relative_files = true
+
+[tool.coverage.report]
+precision = 2
+skip_covered = true
+fail_under = 50
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "return NotImplemented",
+    "if TYPE_CHECKING:",
+    "if getattr(self, 'swagger_fake_view', False):",
+]
+
+# ─────────────────────────────────────────────────────────
+# Semantic release configuration
+# ─────────────────────────────────────────────────────────
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+version_variables = ["setup.py:__version__"]
+branch = "main"
+upload_to_pypi = false
+upload_to_release = true
+build_command = "pip install uv && uv build"
+commit_message = "chore(release): release version {version} [skip ci]"
+
+[tool.semantic_release.commit_parser_options]
+allowed_tags = [
+    "build",
+    "chore",
+    "ci",
+    "docs",
+    "feat",
+    "fix",
+    "perf",
+    "style",
+    "refactor",
+    "test",
+]
+minor_tags = ["feat"]
+patch_tags = ["fix", "perf"]
+
+[tool.semantic_release.branches.main]
+match = "(main|master)"
+prerelease_token = "rc"
+prerelease = false
+
+[tool.semantic_release.publish]
+dist_glob_patterns = ["dist/*", "dist_build/*"]
+
+[tool.semantic_release.changelog]
+template_dir = "templates"
+changelog_file = "CHANGELOG.md"
+
+# ─────────────────────────────────────────────────────────
+# Pytest configuration
+# ─────────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "settings"
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+env = [
+    "MEILI_OFFLINE=True",
+]
+testpaths = ["tests"]
+timeout = 300
+addopts = "-xvs -n auto"
+
+# ─────────────────────────────────────────────────────────
+# Mypy configuration
+# ─────────────────────────────────────────────────────────
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+python_version = 3.13
+warn_unused_configs = true
+check_untyped_defs = true
+exclude = ["venv", ".venv", "tests"]
+
+[[tool.mypy.overrides]]
+module = "allauth.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "parler.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tinymce.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "celery.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "django_filters.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "phonenumber_field.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "knox.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "parler_rest.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "admin_thumbnails.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "measurement.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "simple_history.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "mptt.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "simple_history.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "debug_toolbar.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "storages.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "channels.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "kombu.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "djangorestframework_camel_case.*"
+ignore_missing_imports = true
+
+[tool.django-stubs]
+django_settings_module = "settings"
+
+# ─────────────────────────────────────────────────────────
+# Ruff configuration
+# ─────────────────────────────────────────────────────────
+[tool.ruff]
+line-length = 80
+exclude = ["**/migrations/**"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle
+    "F",    # pyflakes
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "I",    # isort
+    "RUF",  # ruff specific
+    "TC",   # type checking
+    "PL",   # pylint
+    "DJ",   # django
+    "DTZ",  # datetime
+    "SIM",  # simplify lint
+]
+ignore = [
+    "UP007",  # optional
+    "UP032",  # prefer f-string over .format
+    "RUF012", # optional
+    "E501",   # line length
+    "E731",   # lambda usage
+    "TC003",  # move type imports under TYPE_CHECKING
+    "PLR0912", # too many branches
+    "PLR2004" # magic value
+]
+
+[tool.ruff.lint.pylint]
+max-args = 6
