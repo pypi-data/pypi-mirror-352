@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "krcg"
+version = "4.8"
+license = "MIT"
+authors = [
+    { name = "Lionel Panhaleux", email = "lionel.panhaleux+krcg@gmail.com" },
+]
+description = "Library for VTES cards and TWDA."
+keywords = ["vtes", "Vampire: The Eternal Struggle", "CCG", "TWD", "TWDA"]
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "arrow",
+    "pyyaml",
+    "numpy",
+    "requests",
+    "setuptools",
+    "unidecode",
+]
+
+[project.optional-dependencies]
+dev = [
+    "certifi",
+    "coverage",
+    "codacy-coverage",
+    "black",
+    "ipython",
+    "pytest",
+    "ruff",
+    "zest.releaser[recommended]",
+]
+
+[project.urls]
+Repository = "https://github.com/lionel-panhaleux/krcg"
+
+[tool.setuptools.packages.find]
+include = ["krcg*", "cards*"]
+
+[tool.zest-releaser]
+create-wheel = true
