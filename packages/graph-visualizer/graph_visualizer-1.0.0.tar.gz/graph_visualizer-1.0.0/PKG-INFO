@@ -1,0 +1,62 @@
+Metadata-Version: 2.4
+Name: graph_visualizer
+Version: 1.0.0
+Summary: Interactive EDA graph visualizer for univariate, bivariate, multivariate, and datetime data.
+Author: Ankit Kataria
+Author-email: ankitsinghkataria5@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: plotly
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# ðŸ“Š GraphVisualizer
+
+**GraphVisualizer** is a beginner-friendly Python library for interactive and guided exploratory data analysis (EDA). It supports multiple backends like Seaborn, Matplotlib, and Plotly.
+
+## âœ¨ Features
+
+- Univariate, Bivariate, Multivariate, and Datetime visualizations
+- Supports Seaborn, Matplotlib, and Plotly
+- Guided menus for user-friendly graph selection
+- Save plots and build dashboards
+- Great for students and educators
+
+## ðŸš€ Quick Start
+
+```python
+from graph_visualizer import GraphVisualizer
+import seaborn as sns
+
+df = sns.load_dataset("taxis")  # or your own DataFrame
+gv = GraphVisualizer(df)
+gv.run()
+```
+
+## ðŸ”§ Installation
+
+```bash
+git clone https://github.com/yourusername/graph-visualizer.git
+cd graph-visualizer
+pip install -r requirements.txt
+```
+
+## ðŸ“„ License
+
+This project is licensed under the MIT License.
