@@ -1,0 +1,34 @@
+$ORIGIN .
+bra-nsc.demo.example.com     3600    IN      A       192.168.70.52
+demo.example.com     3600    IN      NS      dns01.demo.example.com.
+demo.example.com     3600    IN      SOA     dns01.demo.example.com hostmaster.demo.example.com 1748111933 10800 3600 604800 3600
+dhcp-mgmt.demo.example.com   3600    IN      A       10.0.0.15
+dns01.demo.example.com       3600    IN      A       192.168.70.25
+fre-bgr-01a.demo.example.com 3600    IN      A       10.0.0.3
+fre-bgr-01b.demo.example.com 3600    IN      A       10.0.0.4
+frenas01.demo.example.com    3600    IN      A       192.168.70.10
+grafana.demo.example.com     3600    IN      CNAME   mon-03.demo.example.com.
+ind-ngm02.demo.example.com   3600    IN      A       192.168.70.57
+ind-nsr.demo.example.com     3600    IN      A       192.168.70.50
+influx.demo.example.com      3600    IN      A       10.0.0.76
+irl-bsr.demo.example.com     3600    IN      A       192.168.70.55
+mon-03.demo.example.com      3600    IN      A       10.0.0.74
+nappy.demo.example.com       3600    IN      A       10.0.0.152
+netbox.demo.example.com      3600    IN      A       192.168.70.4
+ng-tester-01.demo.example.com        3600    IN      A       10.0.0.200
+prometheus.demo.example.com  3600    IN      CNAME   mon-03.demo.example.com.
+proxmox.demo.example.com     3600    IN      A       10.0.0.100
+proxmox.demo.example.com     3600    IN      A       10.0.0.100
+proxmox.demo.example.com     3600    IN      A       10.0.0.107
+pve-01.demo.example.com      3600    IN      A       10.0.0.101
+pve-02.demo.example.com      3600    IN      A       10.0.0.102
+pve-03.demo.example.com      3600    IN      A       10.0.0.103
+pve-04.demo.example.com      3600    IN      A       10.0.0.104
+pve-05.demo.example.com      3600    IN      A       10.0.0.105
+radius.demo.example.com      3600    IN      A       192.168.70.5
+se-app-01.demo.example.com   3600    IN      A       10.0.0.78
+show-01.demo.example.com     3600    IN      A       192.168.74.210
+sw-fre-01.demo.example.com   3600    IN      A       10.0.0.254
+us-ngm01.demo.example.com    3600    IN      A       192.168.70.53
+us-nsc.demo.example.com      3600    IN      A       192.168.70.51
+wiki.demo.example.com        3600    IN      A       10.0.0.78

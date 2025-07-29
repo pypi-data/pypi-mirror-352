@@ -1,0 +1,49 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "pdns-zone-search"
+authors = [
+    {name = "Captain Wulfstar", email = "9593988-wulf-star@users.noreply.gitlab.com"},
+]
+description = "CLI tool for searching PowerDNS zone listings"
+readme = "README.md"
+requires-python = ">=3.6"
+license = {file = "LICENSE"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["version"]
+
+[project.urls]
+"Home Page" = "https://gitlab.com/wulfstar-com/pdns-zone-search"
+"Source Code" = "https://gitlab.com/wulfstar-com/pdns-zone-search"
+"Bug Tracker" = "https://gitlab.com/wulfstar-com/pdns-zone-search/-/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.12.0",
+    "bumpver",
+]
+
+
+[project.scripts]
+pdns-zone-search = "pdns_zone_search.main:main"
+
+[tool.flit.module]
+name = "pdns_zone_search"
+
+[tool.bumpver]
+current_version = "1.0.25"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit = false
+tag = false
+
+[tool.bumpver.file_patterns]
+"pdns_zone_search/__init__.py" = [
+    '__version__ = "{version}"',
+]
