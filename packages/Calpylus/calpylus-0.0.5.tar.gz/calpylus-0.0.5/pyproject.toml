@@ -1,0 +1,26 @@
+[build-system]
+requires = [ "setuptools>=80.8.0", "wheel",]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Calpylus"
+version = "0.0.5"
+description = "Calpylus is a powerful calculus toolkit built in Python."
+readme = "README.md"
+dependencies = [ "setuptools>=80.8.0", "twine>=4.0.2", "matplotlib", "sympy",]
+requires-python = ">=3.9"
+classifiers = [ "Programming Language :: Python :: 3", "Operating System :: OS Independent",]
+[[project.authors]]
+name = "Mohammad Mahfuz Rahman"
+email = "mahfuzrahman0712@gmail.com"
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+Homepage = "https://github.com/mahfuz0712/Calpylus"
+
+[tool.ppb.commands]
+test = "python test.py"
+build = "python setup.py sdist bdist_wheel"
+publish = "twine upload dist/Calpylus-0.0.5*"
