@@ -1,0 +1,24 @@
+# For more configuration details:
+# https://docs.codecov.io/docs/codecov-yaml
+
+# Check if this file is valid by running in bash:
+# curl -X POST --data-binary @.codecov.yml https://codecov.io/validate
+
+coverage:
+  status:
+    project:
+      default:
+        threshold: 10%
+    patch:
+      default:
+        threshold: 10%
+
+comment:
+  require_changes: true
+  layout: "condensed_header, condensed_files, condensed_footer"
+  hide_project_coverage: TRUE
+
+# which folders/files to ignore
+ignore:
+  - "tests/.*"
+  - "*/_version.py"
