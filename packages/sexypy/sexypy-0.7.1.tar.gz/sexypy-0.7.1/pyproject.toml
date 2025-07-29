@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "sexypy"
+version = "0.7.1"
+description = "Python with S-expression Grammar"
+authors = ["Jethack"]
+readme = "README.md"
+packages = [
+    {include = "sxpy", from = "src"}
+]
+
+[tool.poetry.dependencies]
+python = "~3.11"
+
+[tool.poetry.scripts]
+spy = "sxpy:run"
+s2py = "sxpy:s2py"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.6.0"
+black = "^23.12.1"
+isort = "^5.13.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
