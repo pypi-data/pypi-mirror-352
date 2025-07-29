@@ -1,0 +1,82 @@
+Metadata-Version: 2.3
+Name: opttech
+Version: 1.3.2
+Summary: Biblioteca desenvolvida e mantida pela OptTech.
+License: MIT
+Keywords: OptTech
+Author: Eduardo Anacleto
+Author-email: contato@opttech.com.br
+Requires-Python: >=3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: asn1crypto (>=1.5.1,<2.0.0)
+Requires-Dist: charset-normalizer (>=3.4.2,<4.0.0)
+Requires-Dist: openpyxl (>=3.1.5,<4.0.0)
+Requires-Dist: polars (>=1.30.0,<2.0.0)
+Requires-Dist: py7zr (>=0.22.0,<0.23.0)
+Requires-Dist: pyarrow (>=20.0.0,<21.0.0)
+Requires-Dist: rarfile (>=4.2,<5.0)
+Requires-Dist: tqdm (>=4.67.1,<5.0.0)
+Requires-Dist: unidecode (>=1.4.0,<2.0.0)
+Requires-Dist: xlsxwriter (>=3.2.3,<4.0.0)
+Description-Content-Type: text/markdown
+
+# OptTech Utilities
+
+[![PyPI version](https://badge.fury.io/py/opttech.svg)](https://pypi.org/project/opttech/)
+
+
+Biblioteca Python desenvolvida e mantida pela **OptTech**.
+
+---
+
+## ⚙️ Instalação
+
+Você pode instalar diretamente via pip:
+
+```bash
+# install from PyPI
+pip install opttech
+```
+
+---
+
+## 🧪 Exemplo de Uso
+
+A seguir, alguns exemplos básicos das principais funções da biblioteca:
+
+### 🔍 map_files — Mapeamento Recursivo de Arquivos
+
+Lista todos os arquivos de uma pasta (incluindo subpastas).
+
+```python
+import opttech
+
+file_list = opttech.map_files(folder_path)
+```
+
+
+### 📦 compressor — Compactar Arquivos para ZIP
+Compacta um conjunto de arquivos em um único arquivo .zip.
+
+```python
+import opttech
+
+opttech.compressor(folder_to_compress)
+```
+
+### 🗃️ decompressor — Descompactar Arquivos (zip, rar, 7z, tgz, tar.gz)
+Descompacta arquivos comprimidos de uma pasta para uma pasta de destino.
+
+```python
+import opttech
+
+opttech.decompressor(folder_path)
+```
+
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

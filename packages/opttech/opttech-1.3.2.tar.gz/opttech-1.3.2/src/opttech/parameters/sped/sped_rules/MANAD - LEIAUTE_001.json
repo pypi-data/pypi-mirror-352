@@ -1,0 +1,2641 @@
+{
+    "0000": {
+        "num_campos": 17,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"0000\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NOME": {
+                "ordem": 2,
+                "descr": "Nome empresarial do contribuinte",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CNPJ": {
+                "ordem": 3,
+                "descr": "Número de inscrição do contribuinte no CNPJ",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CPF": {
+                "ordem": 4,
+                "descr": "Número de inscrição do contribuinte no CPF",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CEI": {
+                "ordem": 5,
+                "descr": "Número de inscrição no Cadastro Específico do INSS",
+                "tipo": "numeric",
+                "tam": 12,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NIT": {
+                "ordem": 6,
+                "descr": "Número\tde\tinscrição\tno\tcadastro correspondente (PIS/PASEP/CI/SUS)",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "UF": {
+                "ordem": 7,
+                "descr": "Sigla\tda\tunidade\tda\tfederação\tdo contribuinte",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IE": {
+                "ordem": 8,
+                "descr": "Número\tde\tInscrição\tEstadual\tdo contribuinte",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_MUN": {
+                "ordem": 9,
+                "descr": "Código do município do domicílio fiscal do contribuinte, conforme a tabela do IBGE",
+                "tipo": "numeric",
+                "tam": 7,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IM": {
+                "ordem": 10,
+                "descr": "Número\tde\tInscrição\tMunicipal\tdo contribuinte",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "SUFRAMA": {
+                "ordem": 11,
+                "descr": "Número de inscrição do contribuinte na SUFRAMA",
+                "tipo": "text",
+                "tam": 9,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_CENTR": {
+                "ordem": 12,
+                "descr": "Indicador de centralização de escrituração: 0-\tEstabelecimento sem centralização deescrituração; Estabelecimento centralizador de escrituração;Estabelecimento com escrituração centralizada.Só é admitida, num mesmo arquivo, a existência de um único estabelecimento centralizador (código 1).Na eventual existência de estabelecimentos descentralizados, devem ser gerados arquivos distintos para os mesmos.Na eventual existência de centralizadores regionais, devem ser gerados arquivos distintos,  um  para  cada  centralizador,incluindo os respectivos estabelecimentos centralizados.",
+                "tipo": "",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_INI": {
+                "ordem": 13,
+                "descr": "Data inicial das informações contidas no arquivo",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_FIN": {
+                "ordem": 14,
+                "descr": "Data\tfinal\tdas\tinformações\tcontidas\tno arquivo",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_VER": {
+                "ordem": 15,
+                "descr": "Código da versão do leiaute conforme item 4.1, Tabela 4",
+                "tipo": "numeric",
+                "tam": 3,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_FIN": {
+                "ordem": 16,
+                "descr": "Código da finalidade do arquivo conforme item 4.1, Tabela 5",
+                "tipo": "numeric",
+                "tam": 2,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_ED": {
+                "ordem": 17,
+                "descr": "Indicador de tipo de entrada de dados:Digitação de dados;Importação de arquivo texto (arquivo construído a partir da manipulação de dados extraídos dos sistemas);Validação de arquivo texto (arquivo gerado   diretamente   por   sistemainformatizado, já no leiaute requerido)",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "0001": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"0001\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_MOV": {
+                "ordem": 2,
+                "descr": "Indicador de movimento:Bloco com dados informados;Bloco sem dados informados",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "0050": {
+        "num_campos": 18,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"0050\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NOME": {
+                "ordem": 2,
+                "descr": "Nome do contabilista/escritório de contabilidade",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CNPJ": {
+                "ordem": 3,
+                "descr": "Número de inscrição do escritório de contabilidade no CNPJ",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CPF": {
+                "ordem": 4,
+                "descr": "Número de inscrição do contabilista no CPF",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CRC": {
+                "ordem": 5,
+                "descr": "Número de inscrição do contabilistano\tConselho\tRegional\tde Contabilidade",
+                "tipo": "text",
+                "tam": 11,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_INI": {
+                "ordem": 6,
+                "descr": "Data\tde\tinício\tda\tprestação\tdo serviço de contabilidade",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_FIN": {
+                "ordem": 7,
+                "descr": "Data de término da prestação do serviço de contabilidade",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "END": {
+                "ordem": 8,
+                "descr": "Endereço do imóvel",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NUM": {
+                "ordem": 9,
+                "descr": "Número do imóvel",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COMPL": {
+                "ordem": 10,
+                "descr": "Dados complementares do endereço",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "BAIRRO": {
+                "ordem": 11,
+                "descr": "Bairro em que o imóvel está situado",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CEP": {
+                "ordem": 12,
+                "descr": "Código de Endereçamento Postal",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "UF": {
+                "ordem": 13,
+                "descr": "Sigla da unidade da federação docontabilista/escritório\tde contabilidade",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CP": {
+                "ordem": 14,
+                "descr": "Caixa postal",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CEP_CP": {
+                "ordem": 15,
+                "descr": "Código de Endereçamento Postal da caixa postal",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "FONE": {
+                "ordem": 16,
+                "descr": "Número do telefone",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "FAX": {
+                "ordem": 17,
+                "descr": "Número do fax",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "EMAIL": {
+                "ordem": 18,
+                "descr": "Endereço do correio eletrônico",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "0100": {
+        "num_campos": 10,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"0100\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EMP_TEC": {
+                "ordem": 2,
+                "descr": "Nome\tda\tempresa/técnico responsável pela geração do arquivo",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CARGO": {
+                "ordem": 3,
+                "descr": "Cargo do responsável na empresa",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DT_INI_SERV_INF": {
+                "ordem": 4,
+                "descr": "Data de início da prestação do serviço de\tinformática\t(fornecimento\tdosistema\tde\tgeração\tdos\tarquivos digitais)",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_FIM_SERV_INF": {
+                "ordem": 5,
+                "descr": "Data de término da prestação do serviço de informática",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CNPJ": {
+                "ordem": 6,
+                "descr": "Número de inscrição da empresa responsável pela geração do arquivo no CNPJ",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CPF": {
+                "ordem": 7,
+                "descr": "Número de inscrição do técnico responsável pela geração do arquivo no CPF",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "FONE": {
+                "ordem": 8,
+                "descr": "Número do telefone",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "FAX": {
+                "ordem": 9,
+                "descr": "Número do fax",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "EMAIL": {
+                "ordem": 10,
+                "descr": "Endereço do correio eletrônico",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "0990": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"0990\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "QTD_LIN_0": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do Bloco 0",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I001": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"I001\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_MOV": {
+                "ordem": 2,
+                "descr": "Indicador de movimento:Bloco com dados informados;Bloco sem dados informados.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I005": {
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"I005\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_ESC": {
+                "ordem": 2,
+                "descr": "Indicador\tdo\ttipo\tde\tescrituração contábil:G- Diário Geral;A- Diário Auxiliar/Razão Auxiliar (inclusive Livro Caixa)",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_CTA": {
+                "ordem": 3,
+                "descr": "Código da conta analítica do Diário Geralque recebe os lançamentos globais (se IND_ESC = A)",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I050": {
+        "num_campos": 8,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"I050\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_INC_ALT": {
+                "ordem": 2,
+                "descr": "Data da inclusão ou alteração da conta no sistema contábil daempresa, conforme item 3.1.10",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_NAT": {
+                "ordem": 3,
+                "descr": "Indicador da natureza: Contas Patrimoniais:- Ativo– Passivo- Patrimônio LíquidoContas de Resultado:– Despesa ou Custo– Receita9 - 0utros",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_GRP_CTA": {
+                "ordem": 4,
+                "descr": "Indicador do tipo de grupo: S - Sintético;A - Analítico",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NÍVEL": {
+                "ordem": 5,
+                "descr": "Nível da conta/grupo de contas",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_GRP_CTA": {
+                "ordem": 6,
+                "descr": "Código da conta/grupo de contas",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_GRP_CTA_SUP": {
+                "ordem": 7,
+                "descr": "Código da conta/grupo de contas de nível imediatamente superior",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NOME_GRP_CTA": {
+                "ordem": 8,
+                "descr": "Nome da conta/grupo de contas",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I100": {
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"I100\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_INC_ALT": {
+                "ordem": 2,
+                "descr": "Data da inclusão ou alteração do centro de custo, se houver, conformeitem 3.1.10",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_CCUS": {
+                "ordem": 3,
+                "descr": "Código do centro de custos",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CCUS": {
+                "ordem": 4,
+                "descr": "Nome do centro de custos",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "I150": {
+        "num_campos": 9,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"I150\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_CTA": {
+                "ordem": 2,
+                "descr": "Código da conta analítica",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COMP_SALDO": {
+                "ordem": 3,
+                "descr": "Mês e ano a que se referem os saldos inicial e final, conforme item3.1.6",
+                "tipo": "numeric",
+                "tam": 6,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "VL_SLD_INI": {
+                "ordem": 4,
+                "descr": "Valor do saldo inicial.\tNo caso de saldo inicial nulo, preencher com 0(zero).",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "IND_SLD_INI": {
+                "ordem": 5,
+                "descr": "Indicador da situação do saldo inicial:D- Devedor; C- Credor",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "VL_DEB": {
+                "ordem": 6,
+                "descr": "Valor total dos débitos no mês. No caso de não ter havido débitos, preencher com 0 (zero).",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_CRED": {
+                "ordem": 7,
+                "descr": "Valor total dos créditos no mês. Nocaso de não ter havido créditos, preencher com 0 (zero)",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_SLD_FIN": {
+                "ordem": 8,
+                "descr": "Valor do saldo final. No caso de saldo final igual nulo, preencher com 0 (zero).",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "IND_SLD_FIN": {
+                "ordem": 9,
+                "descr": "Indicador da situação do saldo final: D- Devedor;C- Credor",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I200": {
+        "num_campos": 11,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"I200\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_LCTO": {
+                "ordem": 2,
+                "descr": "Data do lançamento",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_CTA": {
+                "ordem": 3,
+                "descr": "Código\tda\tconta\tanalítica debitada/creditada",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_CCUS": {
+                "ordem": 4,
+                "descr": "Código do centro de custos",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_CP": {
+                "ordem": 5,
+                "descr": "Código da conta de contrapartida analítica debitada/creditada",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "VL_DEB_CRED": {
+                "ordem": 6,
+                "descr": "Valor total debitado/creditado",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "IND_DEB_CRED": {
+                "ordem": 7,
+                "descr": "Indicador da natureza do lançamento:D- Débito; C- Crédito",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NUM_ARQ": {
+                "ordem": 8,
+                "descr": "Número\tou\tcódigo\tde arquivamento dos documentos",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NUM_LCTO": {
+                "ordem": 9,
+                "descr": "Número ou código do lançamento contábil",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "IND_LCTO": {
+                "ordem": 10,
+                "descr": "Indicador do tipo de lançamento: N- Lançamento normal;E- Lançamento de encerramento",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "HIST_LCTO": {
+                "ordem": 11,
+                "descr": "Histórico do lançamento",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I250": {
+        "num_campos": 5,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"I250\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_RES": {
+                "ordem": 2,
+                "descr": "Data da apuração do resultado",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_GRP_CTA": {
+                "ordem": 3,
+                "descr": "Código\tda\tconta\tanalítica\tde resultado",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "VL_GRP_CTA": {
+                "ordem": 4,
+                "descr": "Saldo final antes do lançamento de encerramento",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "SLD_FIN": {
+                "ordem": 5,
+                "descr": "Indicador da situação do saldo final: D- Devedor;C- Credor",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "I990": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"I990\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "QTD_LIN_I": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do Bloco I",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "K001": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"K001\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_MOV": {
+                "ordem": 2,
+                "descr": "Indicador de movimento:Bloco com dados informados;Bloco sem dados informados",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K050": {
+        "num_campos": 15,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"K050\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CNPJ/CEI": {
+                "ordem": 2,
+                "descr": "Número de inscrição do contribuinte no CNPJ ou no Cadastro Específico do INSS",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_INC_ALT": {
+                "ordem": 3,
+                "descr": "Representa a data de inclusão ou alteração do cadastro, se houver, conforme item 3.1.10",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_REG_TRAB": {
+                "ordem": 4,
+                "descr": "Código que identifica o trabalhador na empresa e/ou estabelecimento.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CPF": {
+                "ordem": 5,
+                "descr": "CPF do trabalhador",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NIT": {
+                "ordem": 6,
+                "descr": "Número\tde\tIdentificação\tdo Trabalhador, Pis, Pasep, SUS.",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_CATEG": {
+                "ordem": 7,
+                "descr": "Categoria do trabalhador conforme tabela constante do Manual da GFIP.Para estagiário, informar código 00",
+                "tipo": "numeric",
+                "tam": 2,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NOME_TRAB": {
+                "ordem": 8,
+                "descr": "Nome completo do trabalhador",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DT_NASC": {
+                "ordem": 9,
+                "descr": "Data\tde\tnascimento\tdo trabalhador, conforme item 3.1.5",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_ADMISSAO": {
+                "ordem": 10,
+                "descr": "Data de admissão do trabalhador, conforme item 3.1.5.Contribuintes individuais (trabalhadores autônomos): deixar campo vazio.-Contribuintes individuais (empresários): data do início da vinculação à empresaServidores Públicos: data do início do exercício",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_DEMISSAO": {
+                "ordem": 11,
+                "descr": "Data de demissão do trabalhador, conforme item 3.1.5-Contribuintes individuais (trabalhadores autônomos): deixar campo vazio-Contribuintes individuais (empresários): data do término da vinculação à empresa-Servidores Públicos: data do término do exercício",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_VINC": {
+                "ordem": 12,
+                "descr": "Indicador do tipo de vínculo do trabalhador:– vínculo normal– vínculo temporário com redução de contribuições/obrigação– Servidor público Efetivo Estatutário– Servidor público Efetivo CLT– Servidor público Comissionado– Servidor público Cedido– Agentes Políticos– Contribuinte Individual– Outros vínculos Apenas para órgãos públicos. Direito Privado informar campo vazio.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "TIPO_ATO_NOM": {
+                "ordem": 13,
+                "descr": "Indicativo do tipo de nomeação:1 – Lei2 – Decreto3 – Portaria4 – Contrato9 – OutrosApenas para órgãos públicos.Direito Privado informar campo vazio.",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NM_ATO_NOM": {
+                "ordem": 14,
+                "descr": "Número do Ato de Nomeação Apenas para órgãos públicos. Direito Privado informar campovazio.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DT_ATO_NOM": {
+                "ordem": 15,
+                "descr": "Data do ato de nomeação, conforme item 3.1.5.Apenas para órgãos públicos.Direito Privado informar campo vazio.",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K100": {
+        "num_campos": 6,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"K100\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_INC_ALT": {
+                "ordem": 2,
+                "descr": "Representa a data de inclusão ou alteração da lotação no sistemade folha da empresa, conforme item 3.1.10",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_LTC": {
+                "ordem": 3,
+                "descr": "Código\tda\tLotação\tconforme tabela\t\tde\t\tLotações\tde responsabilidade do contribuinte A codificação de lotações devepermitir a informação da folha de pagamento por departamentos.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CNPJ/CEI": {
+                "ordem": 4,
+                "descr": "Número\tde\tinscrição\tdo contribuinte no CNPJ/CEI.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DESC_LTC": {
+                "ordem": 5,
+                "descr": "Descrição da Lotação",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CNPJ/CEI_TOM": {
+                "ordem": 6,
+                "descr": "Preencher apenas no caso de prestadoras de serviço com o número de inscrição no CNPJ/CEIdo tomador (*).",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K150": {
+        "num_campos": 5,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"K150\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CNPJ/CEI": {
+                "ordem": 2,
+                "descr": "Número de inscrição do contribuinte no CNPJ ou no Cadastro Específico do INSS",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_INC_ALT": {
+                "ordem": 3,
+                "descr": "Representa a data de inclusão ou alteração da rubrica no sistema de folha da empresa, se houver,conforme item 3.1.10",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_RUBRICA": {
+                "ordem": 4,
+                "descr": "Código da Rubrica",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DESC_RUBRICA": {
+                "ordem": 5,
+                "descr": "Descrição da Rubrica",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "K200": {
+        "num_campos": 7,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"K200\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_INC_ALT": {
+                "ordem": 2,
+                "descr": "Representa a data de inclusão ou alteração da forma de contabilização,  conforme  item3.1.10",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CNPJ/CEI": {
+                "ordem": 3,
+                "descr": "Número de inscrição do contribuinte no CNPJ ou no Cadastro Específico do INSS",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_RUBRICA": {
+                "ordem": 4,
+                "descr": "Código da Rubrica",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_LTC": {
+                "ordem": 5,
+                "descr": "Código da Lotação conforme tabela de Lotações de responsabilidade do contribuinte",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_CCUS": {
+                "ordem": 6,
+                "descr": "Código do centro de custos",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_CTA": {
+                "ordem": 7,
+                "descr": "Código\tda\tconta\tanalítica debitada/creditada",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "K250": {
+        "num_campos": 14,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"K250\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CNPJ/CEI": {
+                "ordem": 2,
+                "descr": "Número de inscrição do contribuinte no CNPJ ou no Cadastro Específico do INSS",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_FL": {
+                "ordem": 3,
+                "descr": "Indicador do tipo de Folha:- folha normal– folha de 13º salário– folha de férias – folha complementar à normal– folha complementar ao 13ºem diante – outras folhas",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_LTC": {
+                "ordem": 4,
+                "descr": "Código\tda\tLotação\tconformetabela\tde\tLotações\tde responsabilidade do contribuinte.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_REG_TRAB": {
+                "ordem": 5,
+                "descr": "Código do registro do trabalhadorconstante da tabela Cadastro de Trabalhadores",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DT_COMP": {
+                "ordem": 6,
+                "descr": "Campo\tde\tPeríodo\tconforme descrito no item 3.1.6",
+                "tipo": "numeric",
+                "tam": 6,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DT_PGTO": {
+                "ordem": 7,
+                "descr": "Campo referente à data da realização do pagamento. Conforme item 3.1.5",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_CBO": {
+                "ordem": 8,
+                "descr": "Código Brasileiro de Ocupação.",
+                "tipo": "numeric",
+                "tam": 6,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_OCORR": {
+                "ordem": 9,
+                "descr": "Código da ocorrência conforme tabela existente no  Manual  daGFIP.",
+                "tipo": "numeric",
+                "tam": 2,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DESC_CARGO": {
+                "ordem": 10,
+                "descr": "Descrição do cargo do trabalhador",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "QTD_DEP_IR": {
+                "ordem": 11,
+                "descr": "Quantidade de dependentes para fins\tde\tImposto\tde\tRenda\t–Pessoa Física",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "QTD_DEP_SF": {
+                "ordem": 12,
+                "descr": "Quantidade de dependentes para fins de Salário Família",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "VL_BASE_IRRF": {
+                "ordem": 13,
+                "descr": "Base de Cálculo para o Imposto de Renda – Pessoas Física",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_BASE_PS": {
+                "ordem": 14,
+                "descr": "Base\tde\tCálculo\tpara\ta Previdência Social",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            }
+        }
+    },
+    "K300": {
+        "num_campos": 11,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"K300\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CNPJ/CEI": {
+                "ordem": 2,
+                "descr": "Número de inscrição do contribuinte no CNPJ ou no Cadastro Específico do INSS",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_FL": {
+                "ordem": 3,
+                "descr": "Indicador do tipo de Folha:- folha normal– folha de 13º salário– folha de férias– folha complementar à normal– folha complementar ao 13ºem diante – outras folhas",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_LTC": {
+                "ordem": 4,
+                "descr": "Código da Lotação conforme tabela de Lotações de responsabilidade docontribuinte.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_REG_TRAB": {
+                "ordem": 5,
+                "descr": "Código do registro do trabalhador constante da tabela Cadastro detrabalhadores",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DT_COMP": {
+                "ordem": 6,
+                "descr": "Campo\tde\tPeríodo\tconforme descrito no item 3.1.6",
+                "tipo": "numeric",
+                "tam": 6,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_RUBR": {
+                "ordem": 7,
+                "descr": "Código da Rubrica conforme tabela de Rubricas (reg.tipo K150)",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "VLR_RUBR": {
+                "ordem": 8,
+                "descr": "Valor da Rubrica",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "IND_RUBR": {
+                "ordem": 9,
+                "descr": "Indicação\tde\tProvento\tou Desconto:D – DescontoP – Provento ou Vantagem O – Outros",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_BASE_IRRF": {
+                "ordem": 10,
+                "descr": "Indicador de Base de Cálculo para o Imposto de Renda – Pessoas Física:– base de cálculo salário mensal– base de cálculo 13º Salário– não é base de cálculo 9 – outras bases de cálculo",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_BASE_PS": {
+                "ordem": 11,
+                "descr": "Indicador de Base de Cálculo para a Previdência Social:– base de calculo do Salário de Contribuição mensal– base de cálculo do 13º salário– refere-se a valor descontado do segurado– refere-se a valor pago de Salário Família– base de cálculo do Salário- Maternidade– base de cálculo exclusiva FGTS– reduções da base de cálculo – não é base de cálculo– outras bases de cálculo",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "K990": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"K990\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "QTD_LIN_K": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do Bloco K",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "L001": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L001\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_MOV": {
+                "ordem": 2,
+                "descr": "Indicador de movimento:Bloco com dados informados;Bloco sem dados informados",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "L050": {
+        "num_campos": 17,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L050\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_ORG": {
+                "ordem": 2,
+                "descr": "Código do órgão.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_UN_ORC": {
+                "ordem": 3,
+                "descr": "Código\tda\tUnidade Orçamentária",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_FUN": {
+                "ordem": 4,
+                "descr": "Código da Função ConformeLei\t4.320/64\te\tPortaria 42/MPOG",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_SUBFUN": {
+                "ordem": 5,
+                "descr": "Código\tda\tSubfunção conforme Portaria 42/MPOG",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_PROGR": {
+                "ordem": 6,
+                "descr": "Código do Programa conforme Lei 4.320/64",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_SUBPROGR": {
+                "ordem": 7,
+                "descr": "Código do Subprograma Lei 4.320/64",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_PROJ_ATIV_OE": {
+                "ordem": 8,
+                "descr": "Código do Projetos, Atividadese\tOperações\tEspeciais. Codificação própria",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_CTA_DESP": {
+                "ordem": 9,
+                "descr": "Código de Rubrica da Despesa",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_REC_VINC": {
+                "ordem": 10,
+                "descr": "Código do Recurso Vinculado",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_CONT_REC": {
+                "ordem": 11,
+                "descr": "Código de Contrapartida do Recurso",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NM_EMP": {
+                "ordem": 12,
+                "descr": "Número do Empenho",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DT_EMP": {
+                "ordem": 13,
+                "descr": "Data do Empenho",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "VL_EMP": {
+                "ordem": 14,
+                "descr": "Valor do Empenho (R$)",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "IND_DEB_CRED": {
+                "ordem": 15,
+                "descr": "Indicativo de débito ou crédito do valor conforme:D\t-\tempenho\toriginário\te crédito adicionalC - anulação, cancelamento",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_CREDOR": {
+                "ordem": 16,
+                "descr": "Código do Credor",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "HIST_EMP": {
+                "ordem": 17,
+                "descr": "Histórico do Empenho",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "L100": {
+        "num_campos": 7,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L100\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NM_EMP": {
+                "ordem": 2,
+                "descr": "Número do Empenho",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NM_LIQUID": {
+                "ordem": 3,
+                "descr": "Número da Liquidação",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DT_LIQUID": {
+                "ordem": 4,
+                "descr": "Data da Liquidação",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "VL_LIQUID": {
+                "ordem": 5,
+                "descr": "Valor da Liquidação (R$)",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "IND_DEB_CRED": {
+                "ordem": 6,
+                "descr": "Indicativo de débito ou crédito do valor conforme:D - liquidação originária e parcialC – anulação, cancelamento",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "HIST_LIQUID": {
+                "ordem": 7,
+                "descr": "Histórico da Liquidação",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "L150": {
+        "num_campos": 11,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L150\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NM_EMP": {
+                "ordem": 2,
+                "descr": "Número do Empenho",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NM_PGTO": {
+                "ordem": 3,
+                "descr": "Número do Pagamento",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DT_PGTO": {
+                "ordem": 4,
+                "descr": "Data do Pagamento",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "VL_PGTO": {
+                "ordem": 5,
+                "descr": "Valor do Pagamento (R$)",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "IND_DEB_CRED": {
+                "ordem": 6,
+                "descr": "Indicativo de débito ou crédito do valor conforme:D - pagamento originário e parcialC - anulação, cancelamento",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "HIST_PGTO": {
+                "ordem": 7,
+                "descr": "Histórico do Pagamento",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CTA_DEBITO": {
+                "ordem": 8,
+                "descr": "Código da Conta do balancete de verificação lançado a débito",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_ORG_UN_DEB": {
+                "ordem": 9,
+                "descr": "Código do órgão + unidade orçamentária do lançamento adébito",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CTA_CREDITO": {
+                "ordem": 10,
+                "descr": "Código da Conta do balancete de\tverificação\tlançado\tacrédito",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_ORG_UN_CRE": {
+                "ordem": 11,
+                "descr": "Código do órgão + unidade orçamentária do lançamento acrédito",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "L200": {
+        "num_campos": 10,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L200\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERC": {
+                "ordem": 2,
+                "descr": "Exercício a que se refere a receita",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_CTA_RECEITA": {
+                "ordem": 3,
+                "descr": "Código da Conta de Receita",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_ORG_UN_ORC": {
+                "ordem": 4,
+                "descr": "Órgão + Unidade Orçamentária",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "VL_REC_ORCADA": {
+                "ordem": 5,
+                "descr": "Receita Orçada no Exercício",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_REC_REALIZADA": {
+                "ordem": 6,
+                "descr": "Receita Realizada no Período",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "COD_REC_VINC": {
+                "ordem": 7,
+                "descr": "Código do Recurso Vinculado",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DESC_RECEITA": {
+                "ordem": 8,
+                "descr": "Especificação\tda\tConta\tde Receita",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "IND_TIPO_CONTA": {
+                "ordem": 9,
+                "descr": "Tipo do Nível da Conta: S=SintéticaA=Analítica",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NM_NIVEL_CONTA": {
+                "ordem": 10,
+                "descr": "Número do nível da Conta",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "L250": {
+        "num_campos": 24,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L250\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERC": {
+                "ordem": 2,
+                "descr": "Exercício a que se refere a despesa",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_ORG": {
+                "ordem": 3,
+                "descr": "Código do órgão.",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_UN_ORC": {
+                "ordem": 4,
+                "descr": "Código\tda\tUnidade Orçamentária",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_FUN": {
+                "ordem": 5,
+                "descr": "Código da Função Conforme Lei 4.320/64 e Portaria 42/MPOG",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_SUBFUN": {
+                "ordem": 6,
+                "descr": "Código da Subfunção conforme Portaria 42/MPOG",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_PROG": {
+                "ordem": 7,
+                "descr": "Código do Programa conforme Lei 4.320/64",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_SUBPROG": {
+                "ordem": 8,
+                "descr": "Código\tdo\tSubprograma previsto na Lei 4.320/64",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_PROJ_ATIV_OE": {
+                "ordem": 9,
+                "descr": "Código do Projetos, Atividadese\tOperações\tEspeciais. Codificação própria",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_SUBELEMENTO": {
+                "ordem": 10,
+                "descr": "Código\tdo\tSubelemento previsto na Lei 4.320/64",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_CTA_DESP": {
+                "ordem": 11,
+                "descr": "Código de Rubrica da Despesa",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_REC_VINC": {
+                "ordem": 12,
+                "descr": "Código do Recurso Vinculado",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "VL_DOTACAO_INICIAL": {
+                "ordem": 13,
+                "descr": "Valor\tda\tDotação\tInicial\t– Fixada",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_AT_MONETARIA": {
+                "ordem": 14,
+                "descr": "Valor da Atualização Monetária",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_CRED_SUP": {
+                "ordem": 15,
+                "descr": "Valor\tde\tCréditos Suplementares",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_CRED_ESP": {
+                "ordem": 16,
+                "descr": "Valor de Créditos Especiais",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_CRED_EXT": {
+                "ordem": 17,
+                "descr": "Valor\tde\tCréditos Extraordinários",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_RED_DOTACAO": {
+                "ordem": 18,
+                "descr": "Valor da redução das dotações",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_SUP_REC_VINC": {
+                "ordem": 19,
+                "descr": "Valor da Suplementação por recurso vinculado",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_RED_REC_VINC": {
+                "ordem": 20,
+                "descr": "Valor de Redução por recurso vinculado",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_EMPENHADO": {
+                "ordem": 21,
+                "descr": "Valor Empenhado",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_LIQUIDADO": {
+                "ordem": 22,
+                "descr": "Valor Liquidado",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_PAGO": {
+                "ordem": 23,
+                "descr": "Valor Pago",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_LMTDO_LRF": {
+                "ordem": 24,
+                "descr": "Valor\tLimitado\tpela\tLei\tde Responsabilidade Fiscal",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            }
+        }
+    },
+    "L300": {
+        "num_campos": 7,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L300\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NM_LEI_DECRETO": {
+                "ordem": 2,
+                "descr": "Número da Lei ou Decreto",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "DT_LEI_DECRETO": {
+                "ordem": 3,
+                "descr": "Data da Lei ou Decreto",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "VL_CRED_ADICIONAL": {
+                "ordem": 4,
+                "descr": "Valor do Crédito Adicional",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "VL_RED_DOTACOES": {
+                "ordem": 5,
+                "descr": "Valor da Redução de Dotações",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": 2,
+                "tam_cond": ""
+            },
+            "TIP_CRED_ADICIONAL": {
+                "ordem": 6,
+                "descr": "Tipo do Crédito Adicional 1-Suplementar2-Especial3-Extraordinário",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "TIP_ORIG_RECURSO": {
+                "ordem": 7,
+                "descr": "Origem dos Recursos 1-Superávit Financeiro2-Excesso de Arrecadação 3-Operações de Crédito4-Auxílios e Convênios5-Reduções Orçamentárias",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "L350": {
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L350\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERCICIO": {
+                "ordem": 2,
+                "descr": "Exercício\tfinanceiro\te orçamentário",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_ORG": {
+                "ordem": 3,
+                "descr": "Código do Órgão",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NOME_ORG": {
+                "ordem": 4,
+                "descr": "Nome do órgão",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "L400": {
+        "num_campos": 7,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L400\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERCICIO": {
+                "ordem": 2,
+                "descr": "Exercício\tfinanceiro\te orçamentário",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_ORG": {
+                "ordem": 3,
+                "descr": "Código do Órgão",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_UN_ORC": {
+                "ordem": 4,
+                "descr": "Código\tda\tUnidade Orçamentária",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NOM_UN_ORC": {
+                "ordem": 5,
+                "descr": "Nome\tda\tUnidade Orçamentária",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "TIP_UN_ORC": {
+                "ordem": 6,
+                "descr": "Tipo de Unidade Orçamentária: 01-Prefeitura Municipal 02-Câmara Municipal03-Secretaria de Educação 04-Secretaria de Saúde05-RPPS (exceto Autarquia) 06-Autarquia (exceto RPPS) 07-Autarquia (RPPS)08-Fundação09-Empresa Estatal DependenteEmpresa Estatal não DependenteConsórcio 12-Outras",
+                "tipo": "numeric",
+                "tam": 2,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CNPJ": {
+                "ordem": 7,
+                "descr": "Número\tdo\tCadastro\tda Unidade Orçamentária no Cad.Nacional de Pessoas Jurídicas",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "L450": {
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L450\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERCICIO": {
+                "ordem": 2,
+                "descr": "Exercício\tfinanceiro\te orçamentário",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_FUN": {
+                "ordem": 3,
+                "descr": "Código da Função Conforme Lei 4.320/64 e Portaria 42/MPOG",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NOM_FUN": {
+                "ordem": 4,
+                "descr": "Descrição do nome da função",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "L500": {
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L500\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERCICIO": {
+                "ordem": 2,
+                "descr": "Exercício\tfinanceiro\te orçamentário",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_SUBFUN": {
+                "ordem": 3,
+                "descr": "Código da SubFunção ConformeLei\t4.320/64\te\tPortaria 42/MPOG",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NOM_SUBFUN": {
+                "ordem": 4,
+                "descr": "Descrição\tdo\tnome\tda SubFunção",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "L550": {
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L550\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERCICIO": {
+                "ordem": 2,
+                "descr": "Exercício\tfinanceiro\te orçamentário",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_PROGR": {
+                "ordem": 3,
+                "descr": "Código do Programa conforme Lei 4.320/64",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NOM_PROGR": {
+                "ordem": 4,
+                "descr": "Descrição\tdo\tnome\tdo Programa",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "L600": {
+        "num_campos": 4,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L600\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERCICIO": {
+                "ordem": 2,
+                "descr": "Exercício\tfinanceiro\te orçamentário",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_SUBPROGR": {
+                "ordem": 3,
+                "descr": "Código\tdo\tSubprograma previsto na Lei 4.320/64",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NOM_SUBPROGR": {
+                "ordem": 4,
+                "descr": "Descrição\tdo\tnome\tdo SubPrograma",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "L650": {
+        "num_campos": 5,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L650\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERCICIO": {
+                "ordem": 2,
+                "descr": "Exercício\tfinanceiro\te orçamentário",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_PROJ_ATIV_OE": {
+                "ordem": 3,
+                "descr": "Código dos Projetos, Atividadese\tOperações\tEspeciais. Codificação própria",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NOM_PROJ_ATIV_OE": {
+                "ordem": 4,
+                "descr": "Descrição do nome do Projeto,Atividade\tou\tOperações Especiais",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "TIP_PROJ_ATIV_OE": {
+                "ordem": 5,
+                "descr": "Tipificação do Projeto, Atividade, Operações Especiais: 01-RPPS02-Demais Proj/Ativ/Operações Especiais",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "L700": {
+        "num_campos": 6,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L700\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERCICIO": {
+                "ordem": 2,
+                "descr": "Exercício\tfinanceiro\te orçamentário",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_CTA_DESP": {
+                "ordem": 3,
+                "descr": "Código de Rubrica da Despesa",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NOM_DESPESA": {
+                "ordem": 4,
+                "descr": "Especificação\tda\tRubrica\tde Despesa-SG",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "IND_TIPO_CONTA": {
+                "ordem": 5,
+                "descr": "Tipo do Nível da Conta: S=SintéticaA=Analítica",
+                "tipo": "text",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NM_NIVEL_CONTA": {
+                "ordem": 6,
+                "descr": "Número do nível da Conta",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "L750": {
+        "num_campos": 13,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L750\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERCICIO": {
+                "ordem": 2,
+                "descr": "Exercício\tfinanceiro\te orçamentário",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_FORNECEDOR": {
+                "ordem": 3,
+                "descr": "Código do Fornecedor",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NOM_FORNECEDOR": {
+                "ordem": 4,
+                "descr": "Nome do Fornecedor",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "TIP_FORNECEDOR": {
+                "ordem": 5,
+                "descr": "Tipificação dos Fornecedores:– Pessoa Física– Pessoa Jurídica",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CNPJ_FORNECEDOR": {
+                "ordem": 6,
+                "descr": "Número\tdo\tCNPJ\tdos Fornecedores, se houver.Obrigatório para as Pessoas Jurídicas.",
+                "tipo": "numeric",
+                "tam": 14,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CPF_FORNECEDOR": {
+                "ordem": 7,
+                "descr": "Número do CPF do fornecedor, se houver.Obrigatório para as pessoas Físicas",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "NIT_FORNECEDOR": {
+                "ordem": 8,
+                "descr": "Número do Trabalhador junto ao INSS (PIS/PASEP/SUS/CI).Obrigatório\tpara\tos Contribuintes Individuais.",
+                "tipo": "numeric",
+                "tam": 11,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "END_FORNECEDOR": {
+                "ordem": 9,
+                "descr": "Endereço do FORNECEDOR",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "CID_FORNECEDOR": {
+                "ordem": 10,
+                "descr": "Cidade do FORNECEDOR",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "UF_FORNECEDOR": {
+                "ordem": 11,
+                "descr": "Unidade da Federação",
+                "tipo": "text",
+                "tam": 2,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CEP_FORNECEDOR": {
+                "ordem": 12,
+                "descr": "Número\tdo\tCEP\tconforme cadastro dos Correios",
+                "tipo": "numeric",
+                "tam": 8,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DESC_TIP_FORN": {
+                "ordem": 13,
+                "descr": "Descrição\tdo\ttipo\tdefornecimento\tprestado\tpelo FORNECEDOR",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "L800": {
+        "num_campos": 8,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L800\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "EXERCICIO": {
+                "ordem": 2,
+                "descr": "Exercício\tfinanceiro\te orçamentário",
+                "tipo": "numeric",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "COD_CTA_DESP": {
+                "ordem": 3,
+                "descr": "Código de Rubrica da Despesa",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "COD_FORNECEDOR": {
+                "ordem": 4,
+                "descr": "Código do FORNECEDOR",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "NM_EMP": {
+                "ordem": 5,
+                "descr": "Número do Empenho",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            },
+            "TIP_OBRA_SERVICO": {
+                "ordem": 6,
+                "descr": "Tipo de serviço ou obra conforme consta na IN/INSS/DC nº 100/2003:– Serviços diversos sujeitos à retenção– transporte de passageiros realizados por Pessoa Física– Limpeza Hospitalar 04 – Demais Limpezas05 – Pavimentação Asfáltica 06 – Terraplanagem, Aterro Sanitário e Dragagem– Obras de Arte (pontes, viadutos, bueiros, captação de águas pluviais)– Drenagem– demais serviços de construção civil realizados com a utilização de equipamentos, exceto manuais10 – Edificações em geral",
+                "tipo": "numeric",
+                "tam": 2,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "CEI": {
+                "ordem": 7,
+                "descr": "Número da matrícula da obra no INSS.",
+                "tipo": "numeric",
+                "tam": 12,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "DESC_SERV_OBRA": {
+                "ordem": 8,
+                "descr": "Descrição da obra ou serviço realizado.",
+                "tipo": "text",
+                "tam": "",
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "L990": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo “L990\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "QTD_LIN_L": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do Bloco L",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "9001": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"9001\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "IND_MOV": {
+                "ordem": 2,
+                "descr": "Indicador de movimento:0- Bloco com dados informados;1- Bloco sem dados informados",
+                "tipo": "numeric",
+                "tam": 1,
+                "dec": "",
+                "tam_cond": "<="
+            }
+        }
+    },
+    "9900": {
+        "num_campos": 3,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"9900\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "TIP_REG": {
+                "ordem": 2,
+                "descr": "Tipo de registro que será totalizado no próximo campo",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "QTD_REG": {
+                "ordem": 3,
+                "descr": "Total de registros do tipo informado no campo anterior",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "9990": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"9990\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "QTD_LIN_9": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do Bloco 9",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    },
+    "9999": {
+        "num_campos": 2,
+        "campos": {
+            "REG": {
+                "ordem": 1,
+                "descr": "Texto fixo contendo \"9999\"",
+                "tipo": "text",
+                "tam": 4,
+                "dec": "",
+                "tam_cond": "<="
+            },
+            "QTD_LIN": {
+                "ordem": 2,
+                "descr": "Quantidade total de linhas do arquivo digital",
+                "tipo": "numeric",
+                "tam": "",
+                "dec": "",
+                "tam_cond": ""
+            }
+        }
+    }
+}

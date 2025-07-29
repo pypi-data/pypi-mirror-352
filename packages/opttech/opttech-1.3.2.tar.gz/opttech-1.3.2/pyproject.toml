@@ -1,0 +1,41 @@
+[project]
+name = "opttech"
+version = "1.3.2"
+description = "Biblioteca desenvolvida e mantida pela OptTech."
+authors = [
+    {name = "Eduardo Anacleto", email = "contato@opttech.com.br"}
+]
+
+keywords = ["OptTech"]
+
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "py7zr (>=0.22.0,<0.23.0)",
+    "rarfile (>=4.2,<5.0)",
+    "asn1crypto (>=1.5.1,<2.0.0)",
+    "charset-normalizer (>=3.4.2,<4.0.0)",
+    "openpyxl (>=3.1.5,<4.0.0)",
+    "polars (>=1.30.0,<2.0.0)",
+    "pyarrow (>=20.0.0,<21.0.0)",
+    "tqdm (>=4.67.1,<5.0.0)",
+    "unidecode (>=1.4.0,<2.0.0)",
+    "xlsxwriter (>=3.2.3,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry]
+packages = [
+    { include = "opttech", from = "src" }
+]
+
+exclude = [
+    "tests/*",
+    "tests",
+]
