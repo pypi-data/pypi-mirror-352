@@ -1,0 +1,42 @@
+Metadata-Version: 2.4
+Name: icx
+Version: 0.0.1
+Summary: Individual Consistency eXplorer is a Python package that launches an interactive Streamlit dashboard for exploring the individual fairness for individual classifications.
+Project-URL: Homepage, https://github.com/pypa/sampleproject
+Project-URL: Issues, https://github.com/pypa/sampleproject/issues
+Author-email: Madeleine Waller <madeleine.waller@kcl.ac.uk>
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.0
+Requires-Dist: gower
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scikit-learn
+Requires-Dist: streamlit
+Requires-Dist: streamlit-aggrid
+Requires-Dist: streamlit-sortables
+Description-Content-Type: text/markdown
+
+**Individual Consistency Explorer** is a Python package that launches an interactive Streamlit dashboard for exploring the individual fairness for individual classifications.
+
+This package implements the functionality described in a submission to ECAI Demo Track 2025.
+
+# 📦 Installation
+
+pip install ice_py_dash
+
+# Basic Usage
+
+from ice_py_dash import dashboard
+
+## Run with default settings (uses built-in 'adult.csv' dataset)
+dashboard.run()
+
+## Or provide custom parameters
+dashboard.run(
+    filepath="path/to/your/data.csv",  # Path to your CSV file
+    y="target_column_name",            # Name of the target column (default: "y")
+    positive="positive_label"          # Value considered the 'positive' class (default: 1)
+)
