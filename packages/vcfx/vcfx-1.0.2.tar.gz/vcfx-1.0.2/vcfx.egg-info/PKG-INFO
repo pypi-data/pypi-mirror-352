@@ -1,0 +1,72 @@
+Metadata-Version: 2.4
+Name: vcfx
+Version: 1.0.2
+Summary: Python bindings for the VCFX toolkit - comprehensive VCF manipulation and analysis
+Author: Jorge Miguel Silva, José Luis Oliveira
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/ieeta-pt/VCFX
+Project-URL: Documentation, https://ieeta-pt.github.io/VCFX/
+Project-URL: Repository, https://github.com/ieeta-pt/VCFX.git
+Project-URL: Bug Tracker, https://github.com/ieeta-pt/VCFX/issues
+Keywords: vcf,bioinformatics,genomics,variant-analysis,python-bindings
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: C++
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX :: Linux
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
+# VCFX Python Package
+
+Python bindings for the VCFX toolkit - a comprehensive VCF manipulation toolkit.
+
+## Installation
+
+```bash
+pip install vcfx
+```
+
+## Quick Start
+
+```python
+import vcfx
+
+# Use helper functions
+text = vcfx.trim("  hello  ")  # Returns "hello"
+parts = vcfx.split("A,B,C", ",")  # Returns ["A", "B", "C"]
+
+# Get version
+version = vcfx.get_version()
+print(f"VCFX version: {version}")
+
+# Use tool wrappers (requires VCFX tools in PATH)
+count = vcfx.variant_counter("input.vcf")
+freqs = vcfx.allele_freq_calc("input.vcf")
+```
+
+## Features
+
+- **Native C++ bindings** for high-performance operations
+- **Tool wrappers** for all VCFX command-line tools
+- **Convenience functions** for common VCF analysis tasks
+- **Type hints** for better development experience
+- **Cross-platform support** (Linux, macOS)
+
+## Requirements
+
+- Python 3.10+
+- For tool wrappers: VCFX command-line tools must be installed and available in PATH
+
+## Documentation
+
+For comprehensive documentation, visit: https://vcfx.readthedocs.io
+
+## License
+
+MIT License - see LICENSE file for details. 
