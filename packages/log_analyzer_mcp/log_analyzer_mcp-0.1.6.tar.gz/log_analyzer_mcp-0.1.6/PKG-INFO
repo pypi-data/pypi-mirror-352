@@ -1,0 +1,178 @@
+Metadata-Version: 2.4
+Name: log_analyzer_mcp
+Version: 0.1.6
+Summary: MCP server and tools for analyzing test and runtime logs.
+Project-URL: Homepage, https://github.com/nold-ai/log_analyzer_mcp
+Project-URL: Repository, https://github.com/nold-ai/log_analyzer_mcp.git
+Project-URL: Documentation, https://github.com/nold-ai/log_analyzer_mcp#readme
+Author-email: "Dominikus Nold (Nold Coaching & Consulting)" <info@noldcoaching.de>
+License: # MIT License
+        
+        Copyright (c) 2025 Nold Coaching & Consulting, Dominikus Nold
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+        "Commons Clause" License Condition v1.0
+        
+        The Software is provided to you by the Licensor under the License (defined below), subject to the following condition:
+        
+        Without limiting other conditions in the License, the grant of rights under the License will not include, and the License does not grant to you, the right to Sell the Software.
+        
+        For purposes of the foregoing, "Sell" means practicing any or all of the rights granted to you under the License to provide the Software to third parties, for a fee or other consideration (including without limitation fees for hosting or consulting/support services related to the Software), as part of a product or service whose value derives, entirely or substantially, from the functionality of the Software. Any license notice or attribution required by the License must also include this Commons Clause License Condition notice.
+        
+        Software: All Log Analyzer MCP associated files (including all files in the GitHub repository "log_analyzer_mcp" and in the npm package "log-analyzer-mcp").
+        
+        License: MIT
+        
+        Licensor: Nold Coaching & Consulting, Dominikus Nold
+License-File: LICENSE.md
+Keywords: coverage,development-tools,log-analysis,mcp,runtime-errors,testing
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: System :: Logging
+Requires-Python: >=3.10
+Requires-Dist: click>=8.2.1
+Requires-Dist: jsonschema>=4.24.0
+Requires-Dist: loguru>=0.7.3
+Requires-Dist: mcp>=1.9.1
+Requires-Dist: pydantic-core>=2.33.2
+Requires-Dist: pydantic>=2.11.5
+Requires-Dist: python-dateutil>=2.9.0.post0
+Requires-Dist: python-dotenv>=1.1.0
+Requires-Dist: pytz>=2025.2
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: requests>=2.32.3
+Requires-Dist: rich>=14.0.0
+Requires-Dist: tenacity>=9.1.2
+Requires-Dist: toml>=0.10.2
+Requires-Dist: types-pyyaml>=6.0.12.20250516
+Requires-Dist: typing-extensions>=4.13.2
+Provides-Extra: dev
+Requires-Dist: black>=25.1.0; extra == 'dev'
+Requires-Dist: chroma-mcp-server[client,devtools]>=0.2.28; extra == 'dev'
+Requires-Dist: isort>=6.0.1; extra == 'dev'
+Requires-Dist: mypy>=1.15.0; extra == 'dev'
+Requires-Dist: pylint>=3.3.7; extra == 'dev'
+Requires-Dist: pytest-cov>=6.1.1; extra == 'dev'
+Requires-Dist: pytest-mock>=3.14.1; extra == 'dev'
+Requires-Dist: pytest>=8.3.5; extra == 'dev'
+Requires-Dist: types-pyyaml>=6.0.12.20250516; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# Log Analyzer MCP
+
+[![CI](https://github.com/djm81/log_analyzer_mcp/actions/workflows/tests.yml/badge.svg)](https://github.com/djm81/log_analyzer_mcp/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/djm81/log_analyzer_mcp/branch/main/graph/badge.svg)](https://codecov.io/gh/djm81/log_analyzer_mcp)
+[![PyPI - Version](https://img.shields.io/pypi/v/log-analyzer-mcp?color=blue)](https://pypi.org/project/log-analyzer-mcp)
+
+## Overview: Analyze Logs with Ease
+
+**Log Analyzer MCP** is a powerful Python-based toolkit designed to streamline the way you interact with log files. Whether you're debugging complex applications, monitoring test runs, or simply trying to make sense of verbose log outputs, this tool provides both a Command-Line Interface (CLI) and a Model-Context-Protocol (MCP) server to help you find the insights you need, quickly and efficiently.
+
+**Why use Log Analyzer MCP?**
+
+- **Simplify Log Analysis:** Cut through the noise with flexible parsing, advanced filtering (time-based, content, positional), and configurable context display.
+- **Integrate with Your Workflow:** Use it as a standalone `loganalyzer` CLI tool for scripting and direct analysis, or integrate the MCP server with compatible clients like Cursor for an AI-assisted experience.
+- **Extensible and Configurable:** Define custom log sources, patterns, and search scopes to tailor the analysis to your specific needs.
+
+## Key Features
+
+- **Core Log Analysis Engine:** Robust backend for parsing and searching various log formats.
+- **`loganalyzer` CLI:** Intuitive command-line tool for direct log interaction.
+- **MCP Server:** Exposes log analysis capabilities to MCP clients, enabling features like:
+  - Test log summarization (`analyze_tests`).
+  - Execution of test runs with varying verbosity.
+  - Targeted unit test execution (`run_unit_test`).
+  - On-demand code coverage report generation (`create_coverage_report`).
+  - Advanced log searching: all records, time-based, first/last N records.
+- **Hatch Integration:** For easy development, testing, and dependency management.
+
+## Getting Started: Using Log Analyzer MCP
+
+There are two primary ways to use Log Analyzer MCP:
+
+1. **As a Command-Line Tool (`loganalyzer`):**
+    - Ideal for direct analysis, scripting, or quick checks.
+    - Requires Python 3.9+.
+    - For installation and usage, please see the [Getting Started Guide](./docs/getting_started.md).
+
+2. **As an MCP Server (e.g., with Cursor):**
+    - Integrates log analysis capabilities directly into your AI-assisted development environment.
+    - To install and configure the MCP server for use in a client like Cursor, follow the instructions below.
+
+### Installing the MCP Server for Client Integration
+
+To integrate the Log Analyzer MCP server with a client application (like Cursor), you'll typically configure the client to launch the `log-analyzer-mcp` package, which is available on PyPI.
+
+**Example Client Configuration (e.g., in `.cursor/mcp.json`):**
+
+```jsonc
+{
+  "mcpServers": {
+    "log_analyzer_mcp_server_prod": {
+      "command": "uvx", // uvx is a tool to run python executables from venvs
+      "args": [
+        "log-analyzer-mcp" // Fetches and runs the latest version from PyPI
+        // Or, for a specific version: "log-analyzer-mcp==0.2.0"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1",
+        "PYTHONIOENCODING": "utf-8",
+        "MCP_LOG_LEVEL": "INFO", // Recommended for production
+        // "MCP_LOG_FILE": "/path/to/your/logs/mcp/log_analyzer_mcp_server.log", // Optional
+        // --- Configure Log Analyzer specific settings via environment variables ---
+        // Example: "LOG_DIRECTORIES": "[\"/path/to/your/app/logs\"]",
+        // Example: "LOG_PATTERNS_ERROR": "[\"Exception:.*\"]"
+        // (Refer to docs/configuration.md (once created) for all options)
+      }
+    }
+    // You can add other MCP servers here
+  }
+}
+```
+
+**Notes:**
+
+- Replace placeholder paths and consult the [Getting Started Guide](./docs/getting_started.md) and [Developer Guide](./docs/developer_guide.md) for more on configuration options and environment variables.
+- The actual package name on PyPI is `log-analyzer-mcp`.
+
+## Documentation
+
+- **[API Reference](./docs/api_reference.md):** Detailed reference for MCP server tools and CLI commands.
+- **[Getting Started Guide](./docs/getting_started.md):** For users and integrators.
+- **[Developer Guide](./docs/developer_guide.md):** For contributors and those building from source.
+- **[Refactoring Plan](./docs/refactoring/log_analyzer_refactoring_v2.md):** Technical details on the ongoing evolution of the project.
+- **(Upcoming) Configuration Guide:** Detailed explanation of all `.env` and environment variable settings.
+- **(Upcoming) CLI Usage Guide:** Comprehensive guide to all `loganalyzer` commands and options.
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) and the [Developer Guide](./docs/developer_guide.md) for guidelines on how to set up your environment, test, and contribute.
+
+## License
+
+Log Analyzer MCP is licensed under the MIT License with Commons Clause. See [LICENSE.md](./LICENSE.md) for details.
