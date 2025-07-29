@@ -1,0 +1,45 @@
+Metadata-Version: 2.4
+Name: rsapi
+Version: 0.0.42
+Summary: Python library for accessing Runescape APIs
+Home-page: https://github.com/ostracker-xyz/pyrsapi
+Author: ostracker.xyz
+Author-email: admin@ostracker.xyz
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: attrs==25.3.0
+Requires-Dist: beautifulsoup4==4.13.4
+Requires-Dist: certifi==2025.4.26
+Requires-Dist: charset-normalizer==3.4.2
+Requires-Dist: exceptiongroup==1.3.0
+Requires-Dist: idna==3.10
+Requires-Dist: iniconfig==2.1.0
+Requires-Dist: packaging==25.0
+Requires-Dist: pluggy==1.6.0
+Requires-Dist: pyparsing==3.2.3
+Requires-Dist: pytest==8.3.5
+Requires-Dist: PyYAML==6.0.2
+Requires-Dist: requests==2.32.3
+Requires-Dist: responses==0.25.7
+Requires-Dist: six==1.17.0
+Requires-Dist: soupsieve==2.7
+Requires-Dist: toml==0.10.2
+Requires-Dist: tomli==2.2.1
+Requires-Dist: types-requests==2.32.0.20250515
+Requires-Dist: types-urllib3==1.26.25.14
+Requires-Dist: typing_extensions==4.13.2
+Requires-Dist: urllib3==2.4.0
+Provides-Extra: dev
+Requires-Dist: pytest==6.2.2; extra == "dev"
+Requires-Dist: responses==0.13.1; extra == "dev"
+Provides-Extra: tests
+Requires-Dist: pytest==6.2.2; extra == "tests"
+Requires-Dist: responses==0.13.1; extra == "tests"
+Dynamic: author
+Dynamic: author-email
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
