@@ -1,0 +1,93 @@
+﻿name: Actions
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "*"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: docker
+    container: catthehacker/ubuntu:act-latest@sha256:932a29dd9f17cceda5a85597b9c6d4705fd8da13e488e800be81feb98e505594
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Setup uv
+        uses: actions/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb # v6
+        with:
+          version: "latest"
+          python-version: "3.12"
+          activate-environment: true
+          enable-cache: true
+          prune-cache: false
+          github-token: ${{ secrets.GITHUBTOKEN }}
+
+      - name: Install dependencies
+        run: uv sync --no-dev
+
+      - name: Build the package
+        run: uv build
+
+      - name: Upload the package
+        uses: actions/upload-artifact@16871d9e8cfcf27ff31822cac382bbb5450f1e1e # v4
+        with:
+          name: tacklebox-cli
+          path: ./dist/*
+
+      - name: Publish to CoastalCommits
+        if: startsWith(github.ref, 'refs/tags/')
+        run: uv publish
+        env:
+          UV_PUBLISH_USERNAME: ${{ github.repository_owner }}
+          UV_PUBLISH_PASSWORD: ${{ secrets.COASTALCOMMITSTOKEN }}
+          UV_PUBLISH_URL: https://c.csw.im/api/packages/${{ github.repository_owner }}/pypi
+
+      # - name: Publish to CoastalCommits
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   uses: actions/pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4
+      #   with:
+      #     username: ${{ github.repository_owner }}
+      #     password: ${{ secrets.COASTALCOMMITSTOKEN }}
+      #     repository_url: https://c.csw.im/api/packages/${{ github.repository_owner }}/pypi
+
+      # - name: Publish to PyPi
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   uses: actions/pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4
+      #   with:
+      #     password: ${{ secrets.PYPI_API_TOKEN }}
+
+  lint:
+    name: Lint
+    runs-on: docker
+    container: catthehacker/ubuntu:act-latest@sha256:932a29dd9f17cceda5a85597b9c6d4705fd8da13e488e800be81feb98e505594
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup uv
+        uses: actions/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb # v6
+        with:
+          version: "latest"
+          enable-cache: true
+          prune-cache: false
+          github-token: ${{ secrets.GITHUBTOKEN }}
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Analysing code with Ruff
+        run: uv run ruff check $(git ls-files '*.py')
+
+      - name: Analysing code with BasedPyright
+        if: ${{ success() }} || ${{ failure() }}
+        run: CI=false uv run basedpyright $(git ls-files '*.py')

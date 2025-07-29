@@ -1,0 +1,48 @@
+[project]
+name = "tacklebox-cli"
+description = "A small colection of CLI utilities."
+authors = [{ name = "cswimr", email = "seaswimmerthefsh@gmail.com" }]
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "desktop-notifier==6.1.1",
+    "platformdirs==4.3.8",
+    "zipline.py[cli]==0.27.0",
+]
+dynamic = ["version", "urls"]
+
+[dependency-groups]
+dev = ["basedpyright==1.29.2", "ruff==0.11.12"]
+
+[project.scripts]
+tacklebox = "tacklebox.entrypoint:app"
+
+[tool.ruff]
+line-length = 160
+
+[tool.pyright]
+typeCheckingMode = "strict"
+reportMissingTypeStubs = false
+
+[tool.typos]
+files.extend-exclude = [".direnv/**", ".venv/**"]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "tacklebox/version.py"
+
+[tool.hatch.metadata.hooks.vcs.urls]
+Homepage = "https://c.csw.im/cswimr/Tacklebox"
+Issues = "https://c.csw.im/cswimr/Tacklebox/issues"
+source_archive = "https://c.csw.im/cswimr/Tacklebox/archive/{commit_hash}.tar.gz"
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
