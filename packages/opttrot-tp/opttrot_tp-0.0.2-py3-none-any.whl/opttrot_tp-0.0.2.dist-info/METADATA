@@ -1,0 +1,35 @@
+Metadata-Version: 2.4
+Name: opttrot-tp
+Version: 0.0.2
+Summary: A simple Hamiltonian matrix decompose and compose routines based on tensorized method.
+Author-email: Hyunseong Kim <Hyunseong.Kim@rice.edu>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/OptTrot/Tensorized-Pauli-Composer
+Project-URL: Issues, https://github.com/OptTrot/Tensorized-Pauli-Composer/issues
+Keywords: Pauli,Matrix,Hamiltonian,Decomposition,Composition
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: License
+Requires-Dist: numpy>=1.20.0
+Requires-Dist: scipy
+Dynamic: license-file
+
+# Tensorized Pauli Composer
+
+This repository is an implementation of Pauli composition routine, Tensorized Pauli Composer,
+to construct a Hamiltonian matrix defined by weighted Pauli polynomial.
+The method is a combination of canonical matrix construction method based on symplectic representation of Pauli element,
+and inversed Tensorized Pauli Decomposition([TPD](https://iopscience.iop.org/article/10.1088/1402-4896/ad6499)) method.
+
+- `tpc`: Compact implementation and utils.
+- `data`: Benchmark data and source codes, initial implementation of OptTrot library.
+- `preprint`: Tech document and theory.
+
+To cite the software, please refer [Zenodo](https://zenodo.org/records/14245728) 
+preprint.
+
+```
+Kim, H. (2024). TENSORIZED PAULI COMPOSER. Quantum Thread 2024, Seoul. Zenodo. https://doi.org/10.5281/zenodo.14245728
+```
