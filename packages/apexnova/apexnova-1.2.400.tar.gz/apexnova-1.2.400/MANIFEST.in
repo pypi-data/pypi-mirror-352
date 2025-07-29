@@ -1,0 +1,7 @@
+# Include all generated Python files in the package
+recursive-include generated *.py *.pyi py.typed
+# Include Python source utilities
+recursive-include src *.py
+include examples/*.py
+include tests/*.py
+include requirements-dev.txt
