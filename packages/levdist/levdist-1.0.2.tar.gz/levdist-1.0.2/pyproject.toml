@@ -1,0 +1,119 @@
+[project]
+name = "levdist"
+dynamic = []
+description = "Package to calculate the Levenstein distance"
+authors = [
+    { name = "Dmitry Erlikh", email = "derlih@gmail.com" },
+]
+dependencies = []
+requires-python = ">=3.9"
+readme = "README.md"
+keywords = [
+    "levenstein",
+    "edit distance",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
+    "Typing :: Typed",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+version = "1.0.2"
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+Homepage = "https://github.com/derlih/levdist"
+Issues = "https://github.com/derlih/levdist/issues"
+
+[build-system]
+requires = [
+    "pdm-backend",
+    "setuptools<72.2.0",
+]
+build-backend = "pdm.backend"
+
+[tool.mypy]
+strict = true
+exclude = [
+    "tests",
+]
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "tests",
+    "__init__.py",
+]
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.build]
+run-setuptools = true
+
+[tool.pdm.version]
+source = "scm"
+
+[tool.pdm.scripts]
+test = "pytest"
+lint = "pre-commit run --all-files"
+mypy = "mypy src"
+benchmark = "python benchmark.py"
+
+[tool.pdm.scripts.test-cov]
+composite = [
+    "pytest --cov src",
+    "python -m coverage xml",
+]
+
+[tool.cibuildwheel]
+test-groups = [
+    "test",
+]
+test-command = "pytest {project}/tests"
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+target-version = "py39"
+extend-exclude = [
+    "pdm_build.py",
+]
+
+[tool.ruff.lint]
+select = [
+    "ALL",
+]
+fixable = [
+    "ALL",
+]
+
+[dependency-groups]
+benchmark = [
+    "pylev>=1.4.0",
+    "Levenshtein>=0.27.1",
+    "python-Levenshtein>=0.27.1",
+    "leven>=1.0.4; python_version <= \"3.10\" and platform_python_implementation == \"CPython\"",
+    "editdistance>=0.8.1",
+    "typer>=0.16.0",
+    "humanize>=4.12.3",
+    "rich>=14.0.0",
+]
+test = [
+    "pytest>=8.3.5",
+    "coverage>=7.8.2",
+    "pytest-cov>=6.1.1",
+    "psutil>=7.0.0",
+]
+lint = [
+    "pre-commit>=4.2.0",
+    "mypy>=1.16.0",
+]
