@@ -1,0 +1,45 @@
+Metadata-Version: 2.4
+Name: fleur
+Version: 0.0.2
+Summary: Description
+Author-email: Joseph Barbier <joseph.barbierdarnal@gmail.com>
+License-Expression: MIT
+Project-URL: Homepage, https://y-sunflower.github.io/fleur/
+Project-URL: Issues, https://github.com/y-sunflower/fleur/issues
+Project-URL: Documentation, https://y-sunflower.github.io/fleur/
+Project-URL: Repository, https://github.com/y-sunflower/fleur
+Keywords: stats,visualization
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: matplotlib>=3.10
+Requires-Dist: narwhals>=1.41.0
+Requires-Dist: scipy>=1.13.1
+Dynamic: license-file
+
+
+
+<!-- Automatically generated, uses README.qmd to modify README.md -->
+
+# `fleur`: stats and plots holding hands
+
+`fleur` provides a set of tools to combine data visualization with
+statistics.
+
+<br><br>
+
+## Miscellaneous
+
+- requires python 3.10
+
+<br><br>
+
+## State
+
+| Functions | Description | Parametric | Non-parametric | Robust | Bayesian |
+|----|----|----|----|----|----|
+| BetweenStats() | Between group/condition comparisons | ✅ | ❌ | ❌ | ❌ |
+| ScatterStats() | Correlation between two variables | ✅ | ❌ | ❌ | ❌ |
