@@ -1,0 +1,248 @@
+# coding: utf-8
+
+"""
+    T3 API
+
+    ## WHAT IS THIS?  This API is part of the [Track & Trace Tools](https://trackandtrace.tools) platform. The API allows you to programmatically access all your Metrc data that is available on metrc.com  It is not related to the Metrc 3rd party API, does not use Metrc API keys, and is not affiliated with Metrc.  If you're looking for where to get started, check out the [T3 Wiki API Getting Started guide](https://github.com/classvsoftware/t3-wiki/wiki/T3-API-:-Getting-Started).  The T3 API is subject to the [Track & Trace Tools Terms of Use](https://www.trackandtrace.tools/terms-of-use).   ## FREE API ACCESS (LIMITED)  The T3 API features a limited number of free endpoints available to anyone with a Metrc login.  These can be found in the [Free](#/Free) section.  ## FULL API ACCESS  There are two ways to get premium access to the T3 API:  - **Subscribe to [T3+](https://trackandtrace.tools/plus)**  *OR*  - **Use a provided T3 API key (consulting clients only. [Reach out](mailto:matt@trackandtrace.tools) for more information.)**  ## AUTHENTICATION  The T3 API uses JSON Web Tokens (JWT) for request authentication. To obtain a JWT, use one of the following:  - **metrc.com login credentials:**   - **hostname**: (The website you use to login to metrc: `ca.metrc.com`, `or.metrc.com`, etc.)   - **username**: Your Metrc username   - **password**: Your Metrc password   - **otp**: A one-time password used for 2-factor authentication (Only applies to Michigan users)  *OR*  - **T3 API key**  Refer to the **Authentication** endpoints below for more information.  ## SECRET KEYS  Some endpoints support the use of secret key authentication. This allows you to use simple URLs to access your Metrc data.  ### Usage  Pass the `secretKey` returned from the request in the query string:  `?secretKey=<yourSecretKeyGoesHere>`  ### Generating Secret Keys  Refer to the [/v2/auth/secretkey](#/Authentication/post_v2_auth_secretkey) endpoint for information on generating secret keys.  [Secret Key Generation Tool](/v2/pages/secret-key)  [Sync Link Creation Tool](/v2/pages/sync-link)  ## SECURITY  The T3 API interacts with Metrc in a similar manner to the [Track & Trace Tools](https://chromewebstore.google.com/detail/track-trace-tools/dfljickgkbfaoiifheibjpejloipegcb) Chrome extension. The API login process is designed with a strong emphasis on security. Your Metrc login details are never stored, and the API backend employs robust encryption methods to protect your temporary Metrc session.  ### Key Security Measures:  - **Single-Use Login Credentials:**    - The T3 API uses your login credentials only once to authenticate with Metrc.   - After the Metrc login process is complete, your login credentials are immediately deleted from the system.   - You are required to enter your login credentials each time you access the T3 API, ensuring that your credentials are never stored.    - **Secure Temporary Session Storage:**    - The T3 API securely encrypts your logged-in Metrc session data. This data is only used when you make requests through the T3 API.   - The encrypted session data is automatically deleted after 24 hours, ensuring that your session information is not retained longer than necessary.  For any questions or concerns, please contact [matt@trackandtrace.tools](mailto:matt@trackandtrace.tools).  ## PRIVACY  The T3 API privacy model follows the same principles as the [Track & Trace Tools](https://chromewebstore.google.com/detail/track-trace-tools/dfljickgkbfaoiifheibjpejloipegcb) Chrome extension. The T3 API functions solely as a connector between you and Metrc, ensuring your privacy is protected.  - **No Data Collection:**    - The T3 API does not record, save, harvest, inspect, or analyze any of your data.   - All data interactions are ephemeral and occur in real-time, without permanent storage.  - **Secure and Private Access:**    - Your data is never shared with third parties. Unauthorized access to your login information or data is strictly prohibited.   - T3 employs industry-standard encryption protocols to safeguard all communications between the T3 API and Metrc.    - **User-Controlled Sessions:**    - Your Metrc login credentials and session are used exclusively by you. The T3 API will never initiate Metrc traffic without your explicit authorization.  - **Compliance and Best Practices:**   - T3's privacy practices are aligned with applicable data protection regulations, including GDPR and CCPA, ensuring that your data rights are respected.  The T3 API is subject to the [Track & Trace Tools Privacy Policy](https://trackandtrace.tools/privacy-policy). For any privacy-related inquiries, please contact [matt@trackandtrace.tools](mailto:matt@trackandtrace.tools).  ## PERMISSIONS  Each Metrc account has different permissions based on several factors:  - Permissions granted by your Metrc admin - Class of license (manufacturing, cultivation, etc) - US state the license operates in  Use the Permissions endpoints to determine which actions are available to you.  ## LICENSES  View a list of all licenses available to the current user:  `GET https://api.trackandtrace.tools/v2/licenses`  Only one license can be queried per request. Specify the target license with the required `licenseNumber` query parameter:  `GET https://api.trackandtrace.tools/v2/items?licenseNumber=LIC-00001`  ## RATE LIMITING  The API has a global default request rate limit of 600 requests/minute/user. Some routes have lower rate limits.  ## COLLECTIONS  All data is queried as collections. There are no individual object endpoints.  For example, you cannot find an individual object using an endpoint like `/plants/{plantId}`, individual objects must be queried by filtering the collection endpoint `/plants` for the exact `plantId`.   Collections are paginated, and can be filtered and sorted by individual object fields.  The JSON response object includes the following properties: - `data`: An array of objects, or any empty array - `page`: The requested page index - `pageSize`: The requested page size - `total`: The total number of items in this collection. Use this to determine how many pages are required to return the entire collection.  ### COLLECTION PAGINATION  Metrc data collections are queried as pages. Use the `page` and `pageSize` query parameters to indicate which page should be returned.  By default, `page=1` and `pageSize=100`.  Example: Return page 3 with a page size of 500:  `GET https://api.trackandtrace.tools/v2/items?licenseNumber=LIC-00001&page=3&pageSize=500`  ### COLLECTION SORTING  Metrc data collections can be sorted. Use the `sort` query parameter to indicate how the collection should be sorted.  Example: Sort items by `name` descending:  `GET https://api.trackandtrace.tools/v2/items?licenseNumber=LIC-00001&sort=name:desc`  ### COLLECTION FILTERING  Metrc data collections can be filtered. Use one or more `filter` query parameters to indicate how filters should be applied.  Example: Filter items that contain \"flower\" in the `name` field:  `GET https://api.trackandtrace.tools/v2/items?licenseNumber=LIC-00001&filter:name__contains=flower`  Multiple filters can be applied, and you can specify the logical operator (defaulting to \"and\"):  Example: Filter items that contain \"flower\" in the `name` field OR \"kush\" in the `name` field:  `GET https://api.trackandtrace.tools/v2/items?licenseNumber=LIC-00001&filter=name__contains:flower&filter=name__contains:kush&filterLogic=or`  #### FILTERING STRINGS  String fields support the following filter operators:  - `contains` - `doesnotcontain` - `eq` - `neq` - `startswith` - `endswith`  Example `?filter=name__contains:flower`  **Note: all string filters are case-insensitive**  #### FILTERING DATETIMES  Datetime fields support the following filter operators:  - `lt` - `lte` - `eq` - `neq` - `gt` - `gte`  Example: `?filter=harvestedDate__gte:2024-07-17T20:26:07.117Z`  **Note: all datetime filters use ISO8601 datetimes**  #### FILTERING BOOLEANS  Boolean fields support the following filter operators:  - `eq`  Example: `?filter=finished__eq:true`  ### LOADING FULL COLLECTIONS `pageSize` is limited to 500 in most cases, so you may need to load multiple pages if a license has a large number of packages.  Refer to [this example](https://github.com/classvsoftware/t3-api/blob/master/load_all_active_packages.py) for how to load a full collection in a python script.  ## USING THE API  The API can be used in any way you like, but writing simple scripts to accomplish common tasks is an excellent way to take advantage of it.  The full OpenAPI spec, which can be imported into Postman, can be found here: [/v2/spec/openapi.json](/v2/spec/openapi.json)  [**Lots** of example scripts that show how the use the T3 API can be found here](https://github.com/classvsoftware/t3-api)  ## CONTACT  - **Responsible Organization:** Class V LLC - **Responsible Developer:** Matt Frisbie - **Email:** [matt@trackandtrace.tools](mailto:matt@trackandtrace.tools) - **URL:** [https://trackandtrace.tools](https://trackandtrace.tools) - **Terms of Use:** [https://www.trackandtrace.tools/terms-of-use](https://www.trackandtrace.tools/terms-of-use) 
+
+    The version of the OpenAPI document: v2
+    Generated by OpenAPI Generator (https://openapi-generator.tech)
+
+    Do not edit the class manually.
+"""  # noqa: E501
+
+
+import unittest
+
+from t3api.models.metrc_package import MetrcPackage
+
+class TestMetrcPackage(unittest.TestCase):
+    """MetrcPackage unit test stubs"""
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def make_instance(self, include_optional) -> MetrcPackage:
+        """Test MetrcPackage
+            include_optional is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # uncomment below to create an instance of `MetrcPackage`
+        """
+        model = MetrcPackage()
+        if include_optional:
+            return MetrcPackage(
+                id = 1234567,
+                hostname = 'ca.metrc.com',
+                data_model = 'MetrcPackage',
+                retrieved_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                license_number = '',
+                index = 'ACTIVE_PACKAGE',
+                archived_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                contains_remediated_product = False,
+                donation_facility_license_number = '',
+                donation_facility_name = '',
+                facility_license_number = '',
+                facility_name = '',
+                finished_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                initial_lab_testing_state = 'NotRequired',
+                is_archived = False,
+                is_donation = False,
+                is_donation_persistent = False,
+                is_finished = False,
+                is_in_transit = False,
+                is_on_hold = False,
+                is_process_validation_testing_sample = False,
+                is_production_batch = False,
+                is_testing_sample = False,
+                is_trade_sample = False,
+                is_trade_sample_persistent = False,
+                item = t3api.models.metrc_item.MetrcItem(
+                    id = 12345, 
+                    hostname = 'ca.metrc.com', 
+                    data_model = 'MetrcPackage', 
+                    retrieved_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    license_number = '', 
+                    index = 'ACTIVE_ITEM', 
+                    facility_license_number = '123-456789', 
+                    facility_name = 'Green Growers', 
+                    name = 'Wedding Cake flower', 
+                    product_category_id = 401, 
+                    product_category_name = 'Bud/Flower (Final Packaging)', 
+                    product_category_type_name = 'Cannabis', 
+                    expiration_date_configuration = 'Off', 
+                    expiration_configuration_state = 'Off', 
+                    expiration_date_days_in_advance = 1.337, 
+                    sell_by_date_configuration = 'Off', 
+                    sell_by_configuration_state = 'Off', 
+                    sell_by_date_days_in_advance = 1.337, 
+                    use_by_date_configuration = 'Off', 
+                    use_by_configuration_state = 'Off', 
+                    use_by_date_days_in_advance = 1.337, 
+                    quantity_type_name = 'WeightBased', 
+                    default_lab_testing_state_name = 'NotSubmitted', 
+                    unit_of_measure_id = 4, 
+                    unit_of_measure_name = 'Grams', 
+                    approval_status_name = 'Approved', 
+                    approval_status_date_time = '2023-08-17T22:20:30Z', 
+                    strain_name = '2090 Shit', 
+                    item_brand_id = 0, 
+                    item_brand_name = 'BrandName', 
+                    administration_method = 'N/A', 
+                    unit_cbd_percent = 1.337, 
+                    unit_cbd_content_dose = 1.337, 
+                    unit_cbd_content_dose_unit_of_measure_abbreviation = '', 
+                    unit_thc_percent = 1.337, 
+                    unit_thc_content_unit_of_measure_id = 1.337, 
+                    unit_thc_content_dose_unit_of_measure_abbreviation = '', 
+                    unit_weight = 1.337, 
+                    serving_size = '1g', 
+                    number_of_doses = 28, 
+                    unit_quantity = 1.337, 
+                    unit_quantity_unit_of_measure_abbreviation = '', 
+                    public_ingredients = 'Cannabis Flower', 
+                    description = '', 
+                    allergens = '', 
+                    product_images = [
+                        ''
+                        ], 
+                    product_photo_description = '', 
+                    label_images = [
+                        ''
+                        ], 
+                    label_photo_description = '', 
+                    packaging_images = [
+                        ''
+                        ], 
+                    packaging_photo_description = '', 
+                    product_pdf_documents = [
+                        ''
+                        ], 
+                    is_used = False, 
+                    is_archived = False, 
+                    last_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    processing_job_category_id = 1.337, 
+                    processing_job_category_name = '', 
+                    supply_duration_days = 1.337, 
+                    unit_cbd_percent_override = 1.337, 
+                    unit_cbd_content = 1.337, 
+                    unit_cbd_content_override = 1.337, 
+                    unit_cbd_content_dose_uo_mid = 1.337, 
+                    unit_cbd_content_unit_of_measure_abbreviation = '', 
+                    unit_cbd_content_unit_of_measure_id = 1.337, 
+                    unit_cbd_content_uo_mid = 1.337, 
+                    unit_thc_content = 1.337, 
+                    unit_thc_content_override = 1.337, 
+                    unit_thc_content_dose = 1.337, 
+                    unit_thc_content_dose_unit_of_measure_id = 1.337, 
+                    unit_thc_content_dose_uo_mid = 1.337, 
+                    unit_thc_content_unit_of_measure_abbreviation = '', 
+                    unit_thc_content_uo_mid = 1.337, 
+                    unit_weight_unit_of_measure_abbreviation = '', 
+                    unit_weight_unit_of_measure_id = 1.337, 
+                    unit_weight_uo_mid = 1.337, 
+                    unit_volume = 1.337, 
+                    unit_volume_unit_of_measure_abbreviation = '', 
+                    unit_volume_unit_of_measure_id = 1.337, 
+                    unit_volume_uo_mid = 1.337, 
+                    public_ingredients_override = '', 
+                    allergens_override = '', 
+                    description_override = '', 
+                    global_product_name = '', 
+                    product_brand_name = '', 
+                    administration_method_override = '', 
+                    unit_cbd_content_dose_unit_of_measure_id = 1.337, 
+                    strain_id = 1234567, 
+                    product_category_requires_approval = False, 
+                    packaging_photo_description_override = '', 
+                    packaging_photo_override = '', 
+                    label_photo_description_override = '', 
+                    product_photo_description_override = '', 
+                    brand_name = '', 
+                    product_photo_override = '', 
+                    global_product_id = 1.337, 
+                    label_photo_override = '', 
+                    processing_job_type_id = '', 
+                    processing_job_type_name = '', 
+                    unit_thc_percent_override = 1.337, ),
+                item_from_facility_license_number = 'LIC-00001',
+                item_from_facility_name = 'Dank Dispensary LLC',
+                lab_testing_state_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                lab_testing_state_name = 'TestPassed',
+                lab_testing_recorded_date = '2024-07-24T19:00Z',
+                lab_testing_performed_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                lab_test_stage_id = 56,
+                lab_test_result_expiration_date_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                label = '1A4000000000000000020198',
+                last_modified = '2024-07-24T19:00Z',
+                location_name = 'Packaging Room',
+                location_type_name = 'Default Location Type',
+                multi_harvest = False,
+                multi_package = False,
+                multi_production_batch = False,
+                note = '',
+                package_type = 'Product',
+                packaged_by_facility_license_number = 'LIC-00001',
+                packaged_by_facility_name = 'Dank Dispensary LLC',
+                packaged_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                patient_license_number = '',
+                product_requires_remediation = False,
+                production_batch_number = 'PB00001',
+                quantity = 1130.7,
+                received_date_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                received_from_facility_license_number = '',
+                received_from_facility_name = '',
+                received_from_manifest_number = '',
+                remediation_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                source_harvest_names = 'WCAKE0001',
+                source_package_is_donation = False,
+                source_package_is_trade_sample = False,
+                source_package_labels = '1A4000000000000000025000',
+                source_production_batch_numbers = 'WCAKE00003',
+                trade_sample_facility_name = '',
+                trade_sample_facility_license_number = '',
+                transfer_manifest_number = '',
+                unit_of_measure_abbreviation = 'g',
+                unit_of_measure_id = 4,
+                unit_of_measure_quantity_type = 'WeightBased',
+                source_harvest_count = 1,
+                source_package_count = 1,
+                source_processing_job_count = 0,
+                source_processing_job_numbers = '',
+                source_processing_job_names = '',
+                multi_processing_job = False,
+                expiration_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                sell_by_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                use_by_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                lab_test_result_document_file_id = 1.337,
+                is_on_trip = False,
+                is_on_retailer_delivery = False,
+                package_for_product_destruction = True,
+                trip = '',
+                has_partial = False,
+                is_partial = False,
+                in_transit_status = 'None',
+                processing_job_type_id = 56,
+                is_on_recall = False,
+                decontamination_date = '',
+                contains_decontaminated_product = False,
+                product_requires_decontamination = False,
+                product_label = '',
+                lab_test_stage = '',
+                external_id = 1.337
+            )
+        else:
+            return MetrcPackage(
+        )
+        """
+
+    def testMetrcPackage(self):
+        """Test MetrcPackage"""
+        # inst_req_only = self.make_instance(include_optional=False)
+        # inst_req_and_optional = self.make_instance(include_optional=True)
+
+if __name__ == '__main__':
+    unittest.main()
