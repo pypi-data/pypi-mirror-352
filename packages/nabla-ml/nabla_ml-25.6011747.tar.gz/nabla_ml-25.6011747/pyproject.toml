@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=70.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nabla_ml"
+version = "25.06011747"
+authors = [
+    { name = "TilliFe", email = "tillmann.fehrenbach@gmail.com" },
+]
+description = "Dynamic neural networks and function transformations in Python + Mojo"
+readme = "readme.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["deep learning", "machine learning", "jax", "autodiff", "nabla", "mojo", "max", "gpu", "vmap", "grad"]
+
+dependencies = [
+    "numpy>=1.22.0",
+    "modular>=25.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/nabla-ml/nabla"
+Repository = "https://github.com/nabla-ml/nabla"
+"Bug Tracker" = "https://github.com/nabla-ml/nabla/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff",
+    "black",
+    "mypy",
+    "build",
+    "twine",
+    "pre-commit",
+    # "maxsdk-dev" # Placeholder
+    # "mojo-sdk-dev" # Placeholder
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "N", "B", "C4", "A", "SIM", "PTH"]
+ignore = ["E501", "UP007"]  # UP007: Use Union instead of | for Python 3.9 compatibility
+
+[tool.ruff.lint.per-file-ignores]
+"nabla/__init__.py" = ["A004"]  # Allow sum shadowing in public API
+"nabla/ops/__init__.py" = ["A004"]  # Allow sum shadowing in public API
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+# files = "src/nabla, tests"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --color=yes"
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+markers = [
+    "benchmark: marks tests as performance benchmarks (deselect with '-m \"not benchmark\"')",
+]
