@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sdypy-view"
+version = "0.0.1"
+authors = [{name = "Klemen Zaletelj et al.", email = "klemen.zaletelj@fs.uni-lj.si"}]
+maintainers = [{name = "Klemen Zaletelj et al.", email = "klemen.zaletelj@fs.uni-lj.si"}]
+license = "MIT"
+description = "Visualization of SDyPy models and results"
+readme = "README.rst"
+keywords = ["Visualization", "2D", "3D", "FEM"]
+requires-python = ">=3.10"
+dependencies = [
+    "tqdm>=4.23.4",
+    "numpy>=1.14.3",
+    "scipy>=1.1.0",
+    "pylump",
+    "pyvista",
+    "pyvistaqt",
+    "pyqt5",
+    "meshio",
+    "imageio",
+    "pyperclip",
+]
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'Topic :: Scientific/Engineering',
+    'Programming Language :: Python :: 3.10',
+    "License :: OSI Approved :: MIT License",
+]
+
+[tool.hatch.build.targets.wheel]
+include = ["sdypy"]
+
+[project.optional-dependencies]
+dev = [
+    "sphinx",
+    "twine",
+    "wheel",
+    "pytest",
+    "build",
+    "sphinx-rtd-theme",
+    "sphinx-copybutton>=0.5.2",
+]
+
+[project.urls]
+homepage = "https://github.com/sdypy/sdypy-view"
+documentation = "https://github.com/sdypy/sdypy-view"
+source = "https://github.com/sdypy/sdypy-view"
