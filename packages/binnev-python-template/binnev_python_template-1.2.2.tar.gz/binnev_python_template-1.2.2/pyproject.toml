@@ -1,0 +1,77 @@
+[project]
+urls = { Homepage = "https://github.com/binnev/python-template" }
+
+name = "binnev-python-template"
+version = "1.2.2"
+authors = [{ name = "Robin Neville", email = "robin.m.neville@gmail.com" }]
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+dependencies = [
+    "fastapi>=0.115.12",
+    "httpx>=0.28.1",
+    "typer>=0.15.4",
+    "uvicorn>=0.34.2",
+]
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-asyncio>=1.0.0",
+    "pytest-dotenv>=0.5.2",
+    "pytest-watcher>=0.4.3",
+    "pytest-cov>=6.1.1",
+    "pytest-xdist>=3.6.1",
+    "pytest-sugar>=1.0.0",
+    "pytest-better-parametrize>=0.2.0",
+    "coverage>=7.8.0",
+    "ruff>=0.11.10",
+    "mypy>=1.15.0",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.14",
+    "mkdocstrings[python]>=0.29.1",
+    "mkdocs-mermaid2-plugin>=1.2.1",
+    "mike>=2.1.3",
+    "commitizen>=4.7.2",
+    "pre-commit>=4.2.0",
+    "build>=1.2.2.post1",
+    "twine>=6.1.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+addopts = ["-p no:cacheprovider"]
+testpaths = ["tests"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 70
+exclude_lines = [
+    "if __name__ == .__main__.:",
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+]
+
+[tool.pytest-watcher]
+now = true           # run tests immediately; don't wait for the first file edit
+clear = true         # clear the terminal before each test run
+delay = 0.2
+runner = "pytest"
+runner_args = []
+patterns = ["*.py"]
+ignore_patterns = []
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "semver2"
+version_provider = "pep621"
+update_changelog_on_bump = false
+version_files = ["pyproject.toml:version", "src/core/__init__.py:__version__"]
+
+[tool.ruff]
+line-length = 80
+select = ["E", "F", "W", "C90", "B", "I", "N"]
