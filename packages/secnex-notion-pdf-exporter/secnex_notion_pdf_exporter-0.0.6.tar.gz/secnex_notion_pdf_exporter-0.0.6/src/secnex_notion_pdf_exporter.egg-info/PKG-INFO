@@ -1,0 +1,44 @@
+Metadata-Version: 2.4
+Name: secnex_notion_pdf_exporter
+Version: 0.0.6
+Summary: A package to export Notion pages to PDF
+Author-email: Björn Benouarets <bjoern@secnex.io>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/secnex/notion-pdf-exporter
+Project-URL: Issues, https://github.com/secnex/notion-pdf-exporter/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: secnex-notion-api>=0.0.6
+Requires-Dist: weasyprint>=65.0
+
+# Notion PDF Exporter
+
+## Description
+
+This is a simple tool to export Notion pages to PDF.
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+## Configuration
+
+```bash
+cp .env.example .env
+```
+
+## Environment Variables
+
+```bash
+NOTION_API_KEY=your_notion_api_key
+```
+
+## Usage
+
+```bash
+python index.py
+```

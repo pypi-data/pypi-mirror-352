@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "secnex_notion_pdf_exporter"
+version = "0.0.6"
+authors = [
+  { name="Björn Benouarets", email="bjoern@secnex.io" },
+]
+description = "A package to export Notion pages to PDF"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "secnex-notion-api>=0.0.6",
+    "weasyprint>=65.0",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.scripts]
+notionconverter = "notion_pdf_exporter.converter:main"
+
+[project.urls]
+Homepage = "https://github.com/secnex/notion-pdf-exporter"
+Issues = "https://github.com/secnex/notion-pdf-exporter/issues"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
