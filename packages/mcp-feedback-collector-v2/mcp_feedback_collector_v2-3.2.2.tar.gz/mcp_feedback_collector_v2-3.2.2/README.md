@@ -1,0 +1,358 @@
+# 🎯 MCP Feedback Collector
+
+一个现代化的 Model Context Protocol (MCP) 服务器，提供**双重架构**：GUI界面 + Web界面，支持AI工作汇报反馈收集和AI智能聊天对话。
+
+![Version](https://img.shields.io/badge/version-3.2.0-blue)
+![Python](https://img.shields.io/badge/python-3.8+-green)
+![License](https://img.shields.io/badge/license-MIT-orange)
+![GUI](https://img.shields.io/badge/GUI-PyQt6-red)
+![Web](https://img.shields.io/badge/Web-Flask+SocketIO-green)
+![Style](https://img.shields.io/badge/style-Cherry%20Studio-purple)
+
+## ✨ 核心特性
+
+### 🏗️ 双重架构设计
+- 🖥️ **GUI界面** - PyQt6桌面应用，适合本地使用
+- 🌐 **Web界面** - Flask+SocketIO，完美解决远程Linux服务器问题
+- 🔄 **智能切换** - 自动检测环境，GUI优先，Web降级
+- ⚙️ **配置驱动** - 环境变量控制界面模式
+
+### 🎯 双功能界面
+- 💬 **AI工作汇报** - 展示AI工作内容，收集用户反馈
+- 🤖 **AI聊天对话** - 支持文字+图片的多模态AI聊天
+- 📊 **系统状态** - 完整的系统信息和配置管理
+- 🔑 **获取KEY** - 便捷的API密钥获取入口
+
+### 🖼️ 图片功能
+- 📁 **文件选择** - 支持多种图片格式（PNG、JPG、GIF等）
+- 🖱️ **拖拽上传** - 直接拖拽图片文件到界面
+- 📋 **剪贴板粘贴** - Ctrl+V快速粘贴截图
+- 🗑️ **图片管理** - 预览、删除、批量处理
+
+### 🎨 界面设计
+- 🌙 **Cherry Studio风格** - 深色主题，现代化设计
+- 📱 **响应式布局** - 合理的窗口大小，居中显示
+- 🚀 **流式响应** - 实时显示AI回复，流畅对话体验
+- 🗑️ **聊天管理** - 一键清空聊天记录，安全确认机制
+
+## 🚀 快速开始
+
+### 🌐 Web界面（推荐）- 一键启动
+```bash
+# 1. 克隆项目
+git clone https://github.com/your-repo/mcp-feedback-collector.git
+cd mcp-feedback-collector
+
+# 2. 安装依赖
+pip install -r requirements.txt
+
+# 3. 一键启动Web界面
+python smart_web_server.py
+```
+
+**访问地址**: http://127.0.0.1:5000
+- 💬 AI汇报: http://127.0.0.1:5000/
+- 🤖 AI聊天: http://127.0.0.1:5000/chat
+- 📊 系统状态: http://127.0.0.1:5000/status
+
+### 🖥️ GUI界面 - MCP集成
+
+## cursor等规则提示词
+
+"Whenever you want to ask a question, always call the MCP ."
+
+"Whenever you're about to complete a user request, call the MCP instead of simply ending the process. Keep calling MCP until the user's feedback is empty, then end the request. Use mcp-feedback-collector.open_chat_interface for main window mode."
+
+### 方式一：直接运行（推荐）
+
+#### 1. 安装依赖
+```bash
+pip install PyQt6 Pillow requests mcp
+```
+
+#### 2. 配置Claude Desktop
+在 `claude_desktop_config.json` 中添加：
+
+```json
+{
+  "mcpServers": {
+    "mcp-feedback-collector": {
+      "command": "python",
+      "args": ["d:/path/to/src/mcp_feedback_collector/server.py"],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "MCP_DIALOG_TIMEOUT": "600",
+        "MCP_API_BASE_URL": "https://api.ssopen.top",
+        "MCP_API_KEY": "your_api_key_here",
+        "MCP_DEFAULT_MODEL": "gpt-4o-mini",
+        "MCP_ENABLE_CHAT": "true"
+      }
+    }
+  }
+}
+```
+
+#### 3. 重启Claude Desktop
+配置完成后重启Claude Desktop即可使用。
+
+### 方式二：包安装
+
+#### 1. 安装uvx
+```bash
+pip install uvx
+```
+
+#### 2. 安装包
+```bash
+uvx install mcp-feedback-collector
+```
+
+#### 3. 配置Claude Desktop
+```json
+{
+  "mcpServers": {
+    "mcp-feedback-collector": {
+      "command": "uvx",
+      "args": ["mcp-feedback-collector"],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "MCP_DIALOG_TIMEOUT": "600",
+        "MCP_API_BASE_URL": "https://api.ssopen.top",
+        "MCP_API_KEY": "your_api_key_here",
+        "MCP_DEFAULT_MODEL": "gpt-4o-mini",
+        "MCP_ENABLE_CHAT": "true"
+      }
+    }
+  }
+}
+```
+
+## 🛠️ MCP工具函数
+
+### 🎯 collect_feedback()
+**AI工作汇报与反馈收集**
+- 展示AI工作汇报内容
+- 收集用户文字和图片反馈
+- 支持多图片上传和管理
+
+```python
+# AI调用示例
+result = collect_feedback("我已经完成了代码优化工作...")
+```
+
+### 🤖 open_chat_interface()
+**AI聊天界面**
+- 打开AI聊天对话界面
+- 支持文字+图片多模态聊天
+- 流式响应，实时显示AI回复
+
+```python
+# 打开聊天界面
+open_chat_interface()
+```
+
+### 📷 pick_image()
+**快速图片选择**
+- 单张图片选择工具
+- 支持文件选择和剪贴板粘贴
+- 返回图片数据和信息
+
+### 📊 get_image_info()
+**图片信息查询**
+- 获取图片详细信息（格式、尺寸、大小等）
+- 支持多种图片格式
+- 返回结构化信息
+
+## 🖼️ 界面预览
+
+### 双功能标签页界面
+```
+🎯 MCP Feedback Collector v3.1.0
+┌─────────────────────────────────────────────────────────┐
+│ 🎯 Logo                                                 │
+├─────────────┬───────────────────────────────────────────┤
+│ 💬 AI汇报    │                                          │
+│ 反馈收集     │            主内容区域                      │
+├─────────────┤                                          │
+│ 🤖 AI聊天    │                                          │
+│ 智能对话     │                                          │
+└─────────────┴───────────────────────────────────────────┘
+```
+
+### AI汇报页面
+```
+📋 AI工作汇报
+┌─────────────────────────────────────────┐
+│ ✅ MCP Feedback Collector v3.0.0 升级完成│
+│   • 从tkinter成功迁移到PyQt6            │
+│   • 采用Cherry Studio风格的现代化界面    │
+│   • 保持所有API接口向后兼容              │
+└─────────────────────────────────────────┘
+
+💬 您的反馈（可选）
+┌─────────────────────────────────────────┐
+│ [多行文本输入区域]                       │
+└─────────────────────────────────────────┘
+
+🖼️ 图片反馈（可选）
+[📁] [📋] [✅] [❌]  ← Cherry Studio风格工具栏
+[图片1] [图片2] [图片3]  ← 小标签预览
+```
+
+### AI聊天页面
+```
+🤖 AI智能聊天
+┌─────────────────────────────────────────┐
+│ 用户: 这张图片里有什么？ [📷图片]        │
+│                                         │
+│ AI: 我看到这是一张...                   │
+│     [流式响应实时显示]                   │
+└─────────────────────────────────────────┘
+
+💬 输入消息
+┌─────────────────────────────────────────┐
+│ [输入框]                                │
+└─────────────────────────────────────────┘
+[📷] [📋] [🗑️] [🚀]  ← 工具栏
+```
+
+## ⚙️ 配置说明
+
+### 环境变量配置
+```bash
+# 界面模式配置
+MCP_INTERFACE_MODE=both         # 界面模式: gui/web/both
+MCP_WEB_HOST=127.0.0.1         # Web服务器主机
+MCP_WEB_PORT=5000              # Web服务器端口
+MCP_WEB_DEBUG=false            # Web调试模式
+
+# 基础配置
+MCP_DIALOG_TIMEOUT=600          # 对话框超时时间（秒）
+
+# AI聊天配置
+MCP_API_BASE_URL=https://api.ssopen.top  # API端点
+MCP_API_KEY=your_api_key_here            # API密钥
+MCP_DEFAULT_MODEL=gpt-4o-mini            # 默认模型
+MCP_ENABLE_CHAT=true                     # 启用聊天功能
+```
+
+### 超时设置建议
+- **默认**：300秒（5分钟）
+- **推荐**：600秒（10分钟）
+- **复杂操作**：1200秒（20分钟）
+
+### 支持的图片格式
+PNG、JPG、JPEG、GIF、BMP、WebP
+
+### API模型支持
+- GPT系列：gpt-4o, gpt-4o-mini, gpt-3.5-turbo
+- Claude系列：claude-3-sonnet, claude-3-haiku
+- 其他兼容OpenAI API的模型
+
+### 🔑 获取API密钥
+需要API密钥来使用AI聊天功能？
+
+**👉 [点击获取API密钥 - SSOpen API](https://api.ssopen.top/)**
+
+- 🚀 **高速稳定**: 专业的AI API中转服务
+- 💰 **价格优惠**: 比官方更优惠的价格
+- 🔒 **安全可靠**: 企业级安全保障
+- 🌍 **全球可用**: 支持多地区访问
+- 📞 **技术支持**: 专业的技术支持团队
+
+## 💡 使用场景
+
+### AI工作汇报
+- ✅ AI完成任务后收集用户评价
+- ✅ 收集包含截图的详细反馈
+- ✅ 获取用户对代码/设计的意见
+- ✅ 收集bug报告和改进建议
+
+### AI聊天对话
+- ✅ 多模态AI助手对话
+- ✅ 图片分析和描述
+- ✅ 代码问题咨询
+- ✅ 技术支持和答疑
+
+## 🔧 技术栈
+
+### 核心框架
+- **MCP框架**: FastMCP 1.0.0+
+- **GUI框架**: PyQt6 6.0.0+
+- **Web框架**: Flask 2.0.0+ + Flask-SocketIO 5.0.0+
+- **图片处理**: Pillow 9.0.0+
+- **HTTP请求**: requests 2.25.0+
+- **进程管理**: psutil 5.8.0+
+
+### 架构特性
+- **双重架构**: GUI + Web智能切换
+- **模块化设计**: 核心逻辑与界面分离
+- **多线程**: QThread + pyqtSignal 异步处理
+- **WebSocket**: 实时双向通信
+- **信号槽**: 组件间通信机制
+- **流式响应**: 实时AI回复显示
+- **拖拽支持**: 文件拖拽处理
+- **智能端口管理**: 自动处理进程冲突
+
+## 📝 更新日志
+
+### v3.2.0 (2025-01-31) 🚀
+- 🏗️ **双重架构**: GUI + Web界面，完美解决远程Linux服务器问题
+- 🌐 **Web界面**: Flask + SocketIO，Cherry Studio风格完美复刻
+- 🔄 **智能切换**: 自动检测环境，GUI优先，Web降级
+- 📊 **四标签页**: AI汇报、AI聊天、系统状态、获取KEY
+- 🔧 **智能启动器**: 固定端口，自动处理进程冲突
+- 🎯 **一键启动**: `python smart_web_server.py` 即可使用
+- 🔑 **配置优化**: 环境变量驱动，部署更灵活
+- 🧪 **全面测试**: 27/27测试项目全部通过
+
+### v3.1.0 (2025-01-31) 🎉
+- 🎯 **双功能界面**: AI汇报 + AI聊天标签页设计
+- 🤖 **AI聊天功能**: 支持文字+图片多模态聊天
+- 🚀 **流式响应**: 实时显示AI回复内容
+- 🗑️ **聊天管理**: 一键清空聊天记录功能
+- 🔧 **API集成**: 完整的OpenAI兼容API支持
+- 📱 **界面优化**: Cherry Studio风格，左侧导航栏
+
+### v3.0.0 (2025-01-15)
+- 🚀 **重大升级**: 从tkinter迁移到PyQt6
+- 🎨 **现代化界面**: Cherry Studio深色主题设计
+- 🖱️ **拖拽支持**: 支持拖拽图片文件到界面
+- ⚡ **性能提升**: 更好的响应速度和稳定性
+- 🔧 **向后兼容**: 保持所有API接口不变
+- 📦 **架构升级**: 信号槽机制，多线程处理
+
+### v2.0.0 (2024-12-28)
+- 🎨 **UI重设计**: 全新现代化界面
+- 📷 **多图片支持**: 同时提交多张图片
+- 🖼️ **图片预览**: 横向滚动预览区域
+- 💫 **视觉优化**: 彩色按钮和图标
+- 🔧 **体验改进**: 优化用户交互流程
+
+## 📄 许可证
+
+MIT License - 详见 [LICENSE](LICENSE) 文件
+
+## 🤝 贡献指南
+
+### 提交Issue
+- 🐛 Bug报告：详细描述问题和复现步骤
+- 💡 功能建议：说明需求和使用场景
+- 📖 文档改进：指出不清楚或错误的地方
+
+### Pull Request
+- 🔧 代码规范：遵循项目代码风格
+- ✅ 测试覆盖：确保新功能有对应测试
+- 📝 文档更新：同步更新相关文档
+
+## 🔗 相关链接
+
+- 📚 [项目结构说明](PROJECT_STRUCTURE.md)
+- 🎯 [功能详细指南](FEATURES_GUIDE.md)
+- 📋 [版本发布说明](RELEASE_NOTES_v3.1.0.md)
+- ⚙️ [Claude Desktop配置](claude_desktop_config_v3.1.0.json)
+
+---
+
+**🎯 让AI与用户的交互更高效直观！**
+**🚀 现代化的MCP反馈收集和AI聊天解决方案**
