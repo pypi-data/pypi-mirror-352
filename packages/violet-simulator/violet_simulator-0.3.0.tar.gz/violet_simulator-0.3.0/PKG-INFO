@@ -1,0 +1,60 @@
+Metadata-Version: 2.4
+Name: violet-simulator
+Version: 0.3.0
+Summary: A smol simulator framework built on top of PyGame
+Author: Storm Timmermans
+Author-email: Storm Timmermans <stormtimmermans@icloud.com>
+License-Expression: MIT
+Requires-Dist: pygame~=2.6
+Requires-Dist: polars~=1.2
+Requires-Python: >=3.13
+Project-URL: documentation, https://api.violet.m-rots.com/vi
+Project-URL: homepage, https://violet.m-rots.com
+Project-URL: repository, https://github.com/m-rots/violet
+Description-Content-Type: text/markdown
+
+# Violet
+
+A smol simulator framework built on top of [PyGame](https://www.pygame.org/docs/).
+
+- Automatic agent wandering behaviour
+- Fully deterministic simulations with PRNG seeds
+- Install Violet with a simple `pip install` 😎
+- Matrix-powered multi-threaded configuration testing
+- [Polars](https://github.com/pola-rs/polars/)-powered simulation analytics
+- Replay-able simulations with a ✨ time machine ✨
+- Type-safe configuration system (with TOML support)
+
+Want to get started right away?
+Check out the [Violet Starter Kit](https://github.com/m-rots/violet-starter-kit)!
+
+## Installation
+
+Install the latest version of Violet with:
+
+```sh
+pip3 install -U violet-simulator
+```
+
+Or with [uv](https://docs.astral.sh/uv/):
+
+```sh
+uv add violet-simulator
+```
+
+## Example
+
+```python
+from vi import Agent, Config, Simulation
+
+(
+    # Step 1: Create a new simulation.
+    Simulation(Config())
+    # Step 2: Add 100 agents to the simulation.
+    .batch_spawn_agents(100, Agent, images=["examples/images/white.png"])
+    # Step 3: Profit! 🎉
+    .run()
+)
+```
+
+For more information you can check the [documentation](https://api.violet.m-rots.com), [examples](https://github.com/m-rots/violet/tree/main/examples) and the [User Guide](https://violet.m-rots.com).
