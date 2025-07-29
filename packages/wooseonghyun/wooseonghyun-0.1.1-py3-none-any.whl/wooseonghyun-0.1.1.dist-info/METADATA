@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: wooseonghyun
+Version: 0.1.1
+Summary: A simple text cleaner and keyword detector package.
+Author: 우성현
+Author-email: your@email.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# wooseonghyun
+
+A simple Python package for:
+
+- Cleaning text (remove leading/trailing spaces and lowercase)
+- Detecting whether a keyword exists in a sentence
+
+This package is structured using the modern `src/` layout and supports testing with `pytest`.
+
+---
+
+## 📦 Installation
+
+Install via pip (after uploading to PyPI or TestPyPI):
+
+```bash
+pip install wooseonghyun
+```
+
+---
+
+## 🛠 Usage
+
+```python
+from mypkg import clean_text, contains_keyword
+
+text = "   Hello, Wooseonghyun!   "
+cleaned = clean_text(text)
+print(cleaned)  # "hello, wooseonghyun!"
+
+print(contains_keyword(cleaned, "hyun"))  # True
+```
+
+---
+
+## 🧪 Running Tests
+
+```bash
+PYTHONPATH=src pytest tests/
+```
+
+---
+
+## 🔖 Author
+
+- 우성현 (Wooseonghyun)
