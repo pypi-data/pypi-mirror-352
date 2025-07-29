@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "xcodeproj"
+version = "2.1.5"
+description = "A utility for interacting with Xcode's xcodeproj bundle format."
+
+license = "MIT"
+
+authors = ["Dale Myers <dalemy@microsoft.com>"]
+
+readme = 'README.md'
+
+repository = "https://github.com/Microsoft/xcodeproj"
+homepage = "https://github.com/Microsoft/xcodeproj"
+
+keywords = ['xcode', 'xcodeproj', 'pbxproj', 'apple']
+
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Topic :: Software Development',
+    'Topic :: Utilities',
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+appdirs = "^1.4.4"
+deserialize = "^2.0.1"
+
+[tool.poetry.dev-dependencies]
+black = "^23.7.0"
+mypy = "^1.4.1"
+pylint = "^2.17.5"
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+requests = "^2.31.0"
+types-requests = "^2.31.0.2"
+
+[[tool.mypy.overrides]]
+module = ["deserialize"]
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
