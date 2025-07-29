@@ -1,0 +1,43 @@
+# syntax=docker/dockerfile:1
+FROM python:3.10-slim
+
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libcairo2 \
+    libffi-dev \
+    libxml2 \
+    libxslt1.1 \
+    shared-mime-info \
+    fonts-liberation \
+    fonts-dejavu-core \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Set working directory
+WORKDIR /app
+
+# Copy the entire project
+COPY . .
+
+# Debug directory contents and ensure script permissions
+RUN echo "Current directory:" && \
+    pwd && \
+    echo "\nListing current directory:" && \
+    ls -la && \
+    echo "\nListing scripts directory:" && \
+    ls -la scripts/ && \
+    echo "\nEnsuring script has correct permissions:" && \
+    chmod +x scripts/release.sh
+
+# Install all dependencies including development ones
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir tox build twine
+
+# Default command to run tests and build
+CMD ["bash", "/app/scripts/release.sh"]
