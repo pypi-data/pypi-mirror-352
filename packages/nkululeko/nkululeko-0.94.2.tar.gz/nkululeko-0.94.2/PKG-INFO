@@ -1,0 +1,76 @@
+Metadata-Version: 2.4
+Name: nkululeko
+Version: 0.94.2
+Summary: Machine learning audio prediction experiments based on templates
+Home-page: https://github.com/felixbur/nkululeko
+Author: Felix Burkhardt
+Author-email: fxburk@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.9
+License-File: LICENSE
+Requires-Dist: audeer>=1.0.0
+Requires-Dist: audformat>=1.3.1
+Requires-Dist: audinterface>=1.0.0
+Requires-Dist: audiofile>=1.0.0
+Requires-Dist: audiomentations==0.31.0
+Requires-Dist: audmetric>=1.0.0
+Requires-Dist: audonnx>=0.7.0
+Requires-Dist: confidence-intervals>=0.0.2
+Requires-Dist: datasets>=2.0.0
+Requires-Dist: imageio>=2.0.0
+Requires-Dist: matplotlib>=3.0.0
+Requires-Dist: numpy>=1.20.0
+Requires-Dist: opensmile>=2.0.0
+Requires-Dist: pandas>=1.0.0
+Requires-Dist: praat-parselmouth>=0.4.0
+Requires-Dist: scikit_learn>=1.0.0
+Requires-Dist: scipy>=1.0.0
+Requires-Dist: seaborn>=0.11.0
+Requires-Dist: sounddevice>=0.4.0
+Requires-Dist: transformers>=4.0.0
+Requires-Dist: umap-learn>=0.5.0
+Requires-Dist: xgboost>=1.0.0
+Requires-Dist: pylatex>=1.0.0
+Provides-Extra: torch
+Requires-Dist: torch>=1.0.0; extra == "torch"
+Requires-Dist: torchvision>=0.10.0; extra == "torch"
+Requires-Dist: torchaudio>=0.10.0; extra == "torch"
+Provides-Extra: torch-cpu
+Requires-Dist: torch>=1.0.0; extra == "torch-cpu"
+Requires-Dist: torchvision>=0.10.0; extra == "torch-cpu"
+Requires-Dist: torchaudio>=0.10.0; extra == "torch-cpu"
+Provides-Extra: torch-nightly
+Requires-Dist: torch; extra == "torch-nightly"
+Requires-Dist: torchvision; extra == "torch-nightly"
+Requires-Dist: torchaudio; extra == "torch-nightly"
+Provides-Extra: spotlight
+Requires-Dist: renumics-spotlight>=1.6.13; extra == "spotlight"
+Requires-Dist: sliceguard>=0.0.35; extra == "spotlight"
+Provides-Extra: tensorflow
+Requires-Dist: tensorflow>=2.0.0; extra == "tensorflow"
+Requires-Dist: tensorflow_hub>=0.12.0; extra == "tensorflow"
+Provides-Extra: all
+Requires-Dist: torch>=1.0.0; extra == "all"
+Requires-Dist: torchvision>=0.10.0; extra == "all"
+Requires-Dist: torchaudio>=0.10.0; extra == "all"
+Requires-Dist: renumics-spotlight>=0.1.0; extra == "all"
+Requires-Dist: sliceguard>=0.1.0; extra == "all"
+Requires-Dist: tensorflow>=2.0.0; extra == "all"
+Requires-Dist: tensorflow_hub>=0.12.0; extra == "all"
+Requires-Dist: shap>=0.40.0; extra == "all"
+Requires-Dist: imblearn>=0.0.0; extra == "all"
+Requires-Dist: cylimiter>=0.0.1; extra == "all"
+Requires-Dist: audtorch>=0.0.1; extra == "all"
+Requires-Dist: splitutils>=0.0.1; extra == "all"
+Dynamic: author
+Dynamic: author-email
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
