@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "vscode-command-client"
+version = "1.0.0"
+description = "Python client for VSCode Command Server extension"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Sisung Kim", email = "sisung.kim1@gmail.com"}
+]
+keywords = ["vscode", "command", "server", "automation", "api", "client"]
+requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.25.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/crimson206/run-extension"
+Repository = "https://github.com/crimson206/run-extension"
+Documentation = "https://github.com/crimson206/run-extension#readme"
+"Bug Tracker" = "https://github.com/crimson206/run-extension/issues"
+
+[project.scripts]
+vscode-client = "vscode_command_client.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["vscode_command_client"] 
