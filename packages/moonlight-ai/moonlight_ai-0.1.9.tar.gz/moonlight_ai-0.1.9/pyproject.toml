@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "moonlight_ai"
+version = "0.1.9"
+description = "🌙 Advanced Multi-Agent AI Orchestration Framework"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [
+    {name = "ecstra", email = "themythbustertmb@gmail.com"}
+]
+keywords = [
+    "ai", "agents", "workflow", "automation", "multi-agent",
+    "artificial-intelligence", "llm", "gpt", "claude", "deepseek",
+    "orchestration", "hive", "orchestra", "deepsearch", "mcp", "openai"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "openai>=1.61.1",
+    "cloudpickle>=3.1.1",
+    "playwright>=1.50.0",
+    "rich>=13.9.4",
+    "sympy>=1.13.3",
+    "python-dotenv>=1.0.1",
+    "python-docx>=1.1.2",
+    "PyPDF2>=3.0.1",
+    "urllib3>=2.3.0",
+    "beautifulsoup4>=4.13.3",
+    "requests>=2.32.3",
+    "pandas>=2.2.3",
+    "numpy>=2.2.2",
+    "pillow>=10.4.0",
+    "einops>=0.8.1",
+    "html2text>=2024.2.26",
+    "markdown>=3.7",
+    "python-pptx>=1.0.2",
+    "crawl4ai>=0.4.248",
+    "xvfbwrapper>=0.2.9",
+    "mcp>=1.9.1",
+    "transformers>=4.45.2",
+    "websockets==15.0.1"
+]
+
+[project.urls]
+Homepage = "https://github.com/ecstra/moonlight"
+Repository = "https://github.com/ecstra/moonlight"
+Documentation = "https://github.com/ecstra/moonlight#readme"
+"Bug Tracker" = "https://github.com/ecstra/moonlight/issues"
+
+[tool.setuptools]
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["moonlight_ai*"]
+exclude = ["tests*", "*.egg-info*", "build*", "dist*"]
+
+[tool.setuptools.package-data]
+"moonlight_ai.core.mcp" = ["*.db"]
+"moonlight_ai.mcp_servers" = ["*.json"]
+moonlight_ai = ["*.json"]

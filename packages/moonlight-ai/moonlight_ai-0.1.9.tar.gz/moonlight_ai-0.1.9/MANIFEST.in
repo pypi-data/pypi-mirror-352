@@ -1,0 +1,10 @@
+include README.md
+include requirements.txt
+include LICENSE
+recursive-include moonlight *.json
+recursive-include moonlight *.py
+recursive-exclude moonlight *.pyc
+recursive-exclude moonlight __pycache__
+include moonlight_ai/core/mcp/moonlight_db.db
+include moonlight_ai/mcp_servers/mcp_registry_storage.json
+recursive-include moonlight_ai/core/mcp *.db
