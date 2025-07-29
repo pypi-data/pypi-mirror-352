@@ -1,0 +1,36 @@
+# Task
+Please draft a rating manual for the following topic and criteria. This manual will guide evaluators in applying consistent standards.
+
+Topic: {{ topic }}
+Criteria: {{ criteria }}
+
+Return the rating manual as a JSON object within a codeblock where the keys are the criteria and the values are the detailed descriptions for each criterion.
+
+# Example:
+
+Topic: Nice icecream
+Criteria: ["nice outlook","good taste","good texture"]
+----- Start of response example -----
+```json
+{
+"nice outlook": "Appearance of the icecream, how it looks. High score for an ice cream with a beautiful appearance such as vibrant color combinations and topped with fresh fruits or chocolate pieces; low score for an ice cream that looks unappealing, possibly showing signs of melting or covered in ice crystals.",
+"good taste": "How the icecream tastes. High score for delicious ice cream with rich and authentic flavors, like vanilla with natural vanilla bean aroma and moderate sweetness; low score for bland or overly sweet ice cream with noticeable artificial flavoring or not matching its claimed flavor.",
+"good texture": "How the icecream feels. High score for smooth texture without icy bits, melts smoothly in the mouth providing a creamy experience; low score for rough texture containing many ice crystals, feeling like it has been frozen for too long lacking softness."
+}
+```
+----- End of response example -----
+
+## Aspect Introduction
+For each criterion in your manual:
+- Provide a clear definition of what the criterion measures
+- Include specific examples of high-quality and low-quality manifestations
+- Define observable characteristics evaluators should look for
+- Use domain-appropriate terminology
+- Ensure the description enables consistent application across different instances
+
+# Warning
+- Please ensure that the rating manual is clear and concise, and that the criteria for each criterion are well-defined.
+- The response SHALL be returned as a JSON object within the codeblock.
+- No additional explanation is needed.
+- All keys in the json must include all {{ criteria }}, do not modify the string of each!
+- You should use `{{getlang topic}}` to write the rating manual, which is the language of the topic.
