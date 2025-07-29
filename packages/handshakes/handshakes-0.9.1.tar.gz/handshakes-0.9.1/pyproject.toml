@@ -1,0 +1,57 @@
+[project]
+name = "handshakes"
+version = "0.9.1"
+description = "A service that's keen to process your test results"
+authors = [
+    {name = "Rahul",email = "saihanumarahul66@gmail.com"}
+]
+maintainers = [
+    {name = "Rahul",email = "saihanumarahul66@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Database :: Front-Ends",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Framework :: Pytest"
+]
+dependencies = [
+    "sanic (>=24.12.0,<25.0.0)",
+    "click (>=8.1.8,<9.0.0)",
+    "pydantic (>=2.10.4,<3.0.0)",
+    "tortoise-orm (>=0.23.0,<0.24.0)",
+    "loguru (>=0.7.3,<0.8.0)",
+    "httpx (>=0.28.1,<0.29.0)",
+    "ansitohtml (>=0.1.2,<0.2.0)",
+    "aiofiles (>=24.1.0,<25.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "handshake"}]
+exclude=[ 'handshake/.env', 'handshake/prod.env', 'handshake/test.env']
+
+[project.scripts]
+handshake = "handshake.services.CommandLine.center:handle_cli"
+
+[project.optional-dependencies]
+excel-export = ["openpyxl (>=3.1.5,<4.0.0)"]
+print-tables = ["tabulate (>=0.9.0,<0.10.0)"]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+sanic-testing = "^24.6.0"
+pytest-asyncio = "^0.25.1"
+
+[project.urls]
+"Homepage" = "https://github.com/RahulARanger/handshake"
+"Bug Reports" = "https://github.com/RahulARanger/handshake/issues"
+"Source" = "https://github.com/RahulARanger/handshake"
+
+[tool.poetry.plugins."pytest11"]
+"handshakes" = "handshake.reporters.pytest_hooks"
