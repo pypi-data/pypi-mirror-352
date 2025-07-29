@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: bittencert
+Version: 0.0.2
+Summary: Generate and verify TLS certs via bittensor keypairs
+Author-email: Jon Durbin <jon@jondurbin.com>
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: substrate-interface>=1.7.11
+Requires-Dist: aiohttp>=3.10.0
+Requires-Dist: cryptography>=44.0.0
+Requires-Dist: async-lru>=2.0.0
+Requires-Dist: typer>=0.12.5
+Provides-Extra: test
+Requires-Dist: fastapi>=0.115.5; extra == "test"
+Requires-Dist: uvicorn>=0.32.0; extra == "test"
+Requires-Dist: pytest>=8.2.0; extra == "test"
+Requires-Dist: pytest-asyncio>=1.0.0; extra == "test"
+
+## BittenCert - todo: add a real readme
