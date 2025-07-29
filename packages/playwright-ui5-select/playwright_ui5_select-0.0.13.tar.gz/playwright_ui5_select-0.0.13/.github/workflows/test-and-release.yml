@@ -1,0 +1,47 @@
+name: Test and Release
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  CI:
+    name: Test and Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    strategy:
+      matrix:
+        python-version:
+          - "3.9"
+          - "3.13"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+      - uses: extractions/setup-just@v3
+      - name: Init and Test
+        run: |
+          sudo apt-get install jq
+          just init --only-shell
+          just precheck
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.python-version }}
+          path: test-results
+      - name: Build and publish
+        if: ${{matrix.python-version == '3.9'}}
+        run: |
+          just publish
+          just smoke
+      - name: Release
+        if: ${{matrix.python-version == '3.9'}}
+        uses: softprops/action-gh-release@v2
