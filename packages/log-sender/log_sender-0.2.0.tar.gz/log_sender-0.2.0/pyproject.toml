@@ -1,0 +1,21 @@
+[project]
+name = "log-sender"
+version = "0.2.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Betzabeth Maestre", email = "betzabeth.maestre@micasino.com" },
+    { name = "Jesus Bandez", email = "jesus.bandez@mcgroupvenezuela.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.2.0",
+    "niquests>=3.14.0",
+]
+
+[project.scripts]
+send_with = "log_sender:cli.send_with"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
