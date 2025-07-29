@@ -1,0 +1,451 @@
+"""
+
+Step 1 : Ingestion
+    Source ---> Loader's ---> Split the data (Chunk ) ---> Apply the Embedded (Embedded Model ) ---> Convert Embedded text vectors (dimessions) --->
+    Store into Vector DB (FAISS or OpenSearch ,Milvus or Pinecone,LanunceDB, AstraDB(Cassandra), ElasticSearch or MongoDB)
+
+FAISS : Facebook AI Similarity Search)
+
+
+Step 2 : Query
+
+
+
+Step1 : Source data
+
+Step 2:  Data Loader
+Step3:
+"""
+from tempfile import mkdtemp
+
+from pathlib import Path
+
+# agentsapi/utils/utils.py
+from agentsapi.utils.utils import init
+
+init()
+
+from opensearchpy import OpenSearch, exceptions
+
+
+def create_index_if_not_exists(
+        opensearch_url,
+        index_name,
+        http_auth,
+        vector_field="embedding",
+        dimension=384,  # Or 1536, depending on your embeddings model
+        verify_certs=False
+):
+    # Step 1: Connect
+    client = OpenSearch(
+        hosts=[opensearch_url],
+        http_auth=http_auth,
+        verify_certs=verify_certs,
+        use_ssl=opensearch_url.startswith("https")
+    )
+
+    # Step 2: Check if index exists
+    if client.indices.exists(index=index_name):
+        print(f"✅ Index '{index_name}' already exists.")
+        return
+
+    # Step 3: Create index with correct mappings
+    print(f"🚀 Creating index '{index_name}' with knn_vector field '{vector_field}'...")
+    mapping = {
+        "settings": {
+            "index": {
+                "knn": True
+            }
+        },
+        "mappings": {
+            "properties": {
+                vector_field: {
+                    "type": "knn_vector",
+                    "dimension": dimension
+                },
+                "content": {
+                    "type": "text"
+                },
+                "metadata": {
+                    "type": "object"  # optional if you store extra metadata
+                }
+            }
+        }
+    }
+
+    client.indices.create(index=index_name, body=mapping)
+    print(f"✅ Created index '{index_name}' successfully.")
+
+
+# === Model Loaders ===
+
+def load_llm(model_name: str = "gpt-4o"):
+    if model_name == "gpt-4o":
+        from langchain_openai import ChatOpenAI
+        return ChatOpenAI()
+    else:
+        raise ValueError(f"Unsupported model: {model_name}")
+
+
+def load_embeddings(model_name: str = "openai"):
+    if model_name == "openai":
+        from langchain_openai import OpenAIEmbeddings
+        return OpenAIEmbeddings()
+    elif model_name == "sentence-transformers/all-MiniLM-L6-v2":
+        import os
+        os.environ["TOKENIZERS_PARALLELISM"] = "false"
+        from langchain_huggingface.embeddings import HuggingFaceEmbeddings
+        return HuggingFaceEmbeddings(model_name=model_name)
+    else:
+        raise ValueError(f"Unsupported embedding model: {model_name}")
+
+
+# === Loader ===
+
+def load_data(source_url: str):
+    from langchain_community.document_loaders import WebBaseLoader
+    loader = WebBaseLoader(source_url)
+    return loader.load()
+
+
+# === Splitter ===
+
+def split_documents(documents, splitter_type: str = "recursive", chunk_size: int = 1000, chunk_overlap: int = 200):
+    if splitter_type == "recursive":
+        from langchain_text_splitters import RecursiveCharacterTextSplitter
+        splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+        return splitter.split_documents(documents)
+    else:
+        raise ValueError(f"Unsupported splitter type: {splitter_type}")
+
+
+# === Vector Store ===
+
+def create_vector_store(documents, embeddings, vector_type: str = "FAISS"):
+    if vector_type == "FAISS":
+        from langchain_community.vectorstores import FAISS
+        return FAISS.from_documents(documents, embeddings)
+    if vector_type == "milvus":
+        milvus_uri = str(Path(mkdtemp()) / "docling.db")  # temporary dir path
+        print(f" milvus_uri ={milvus_uri}")
+        from langchain_milvus import Milvus
+        vectorstore = Milvus.from_documents(
+            documents=documents,
+            embedding=embeddings,
+            collection_name="docling_demo",
+            connection_args={"uri": milvus_uri},
+            index_params={"index_type": "FLAT"},
+            drop_old=True,
+        )
+        return vectorstore
+    if vector_type == "LANCEDB":
+        from langchain_community.vectorstores import LanceDB
+        import lancedb
+        # Create or open a LanceDB database (this will create a folder locally)
+        db = lancedb.connect("/tmp/lancedb_demo")  # or any path you like
+        # Create the vectorstore
+        vectorstore = LanceDB.from_documents(
+            documents=documents,
+            embedding=embeddings,
+            connection=db,
+            table_name="docling_demo",
+        )
+        return vectorstore
+    if vector_type == "OPENSEARCH":
+        from langchain_community.vectorstores.opensearch_vector_search import OpenSearchVectorSearch
+        # 1. Ensure index exists first
+        index_name = "rag_openai_dev"
+        create_index_if_not_exists(
+            opensearch_url="https://localhost:9200",
+            index_name=index_name,
+            http_auth=("admin", "admin"),
+            vector_field="embedding",
+            dimension=1536,
+            verify_certs=False
+        )
+        return OpenSearchVectorSearch.from_documents(
+            documents=documents,
+            embedding=embeddings,
+            opensearch_url="https://localhost:9200",
+            index_name=index_name,
+            http_auth=("admin", "admin"),
+            verify_certs=False,
+            vector_field="embedding",  # <- your dense vector field
+            text_field="content",  # <- your text field
+            bulk_size=100,  # <- (optional) to control batch size
+            timeout=30  # <- (optional) for slow networks
+        )
+
+    if vector_type == "POSTGRES":
+        from langchain_community.vectorstores import PGVector
+        from langchain_huggingface.embeddings import HuggingFaceEmbeddings
+        from langchain.vectorstores.pgvector import DistanceStrategy
+        # Define your PostgreSQL connection string
+        connection_string = "postgresql+psycopg2://postgres:postgres@localhost:5432/postgres"
+        # Create a vector store in PostgreSQL using PGVector
+        return PGVector.from_documents(
+            documents=documents,  # Your document chunks
+            embedding=embeddings,
+            connection_string=connection_string,  # Pass the connection string here
+            collection_name="generic_rag_pgvector",  # Table where vectors will be stored
+            distance_strategy=DistanceStrategy.COSINE
+            # embedding_column="embedding",  # The column in the table where the vectors will be stored
+            # metadatas=[doc.metadata for doc in documents],  # You can add metadata if needed
+        )
+        # # Create a vector store in PostgreSQL using PGVector
+        # return PGVector.from_documents(
+        #     documents=documents,  # Your document chunks
+        #     embedding=embeddings,
+        #     connection=conn,  # Pass the connection to the PostgreSQL instance
+        #     table_name="documents_pg",  # Table where vectors will be stored
+        #     embedding_column="embedding",  # The column in the table where the vectors will be stored
+        #     metadatas=None,  # You can add metadata if needed
+        # )
+
+    # After this, documents and their embeddings will be stored in your PostgreSQL table.
+
+    if vector_type == "QDRANT":
+        from langchain_qdrant import Qdrant
+        from qdrant_client import QdrantClient
+        return Qdrant.from_documents(
+            documents=documents,
+            embedding=embeddings,
+            url="http://localhost:6333",
+            collection_name="docling_demo",
+            prefer_grpc=False,  # optional
+            timeout=30,  # optional
+            # No need to pass client manually!
+        )
+        # client = QdrantClient(
+        #     url="http://localhost:6333",  # If running locally; change to your cloud URL if needed
+        #     check_compatibility=False,
+        # )
+        # return Qdrant.from_documents(
+        #     documents,
+        #     embeddings,
+        #     client=client,
+        #     collection_name="docling_demo",
+        # )
+    else:
+        raise ValueError(f"Unsupported vector store: {vector_type}")
+
+
+# === Prompt ===
+
+def create_prompt():
+    from langchain_core.prompts import ChatPromptTemplate
+    # return ChatPromptTemplate.from_template(
+    #     """
+    #     Answer the following question based only on the provided context:
+    #     <context>
+    #     {context}
+    #     </context>
+    #     """
+    # )
+    return ChatPromptTemplate.from_template("""
+You are a news summarization assistant. Based on the following retrieved news articles, list the top  latest headlines with brief summaries.
+
+{context}
+
+Headlines:
+""")
+
+
+
+# === Pipeline ===
+
+def rag_pipeline(
+        source_url: str,
+        query: str,
+        llm_name: str = "gpt-4o",
+        embedding_model_name: str = "openai",
+        vector_store_type: str = "FAISS",
+        splitter_type: str = "recursive",
+        chunk_size: int = 1000,
+        chunk_overlap: int = 200
+, create_retrieval_chain=None):
+    # Step 1: Load data
+    documents = load_data(source_url)
+    print(f"Loaded {len(documents)} documents")
+
+    # Step 2: Split documents
+    splitted_docs = split_documents(documents, splitter_type, chunk_size, chunk_overlap)
+    print(f"Split into {len(splitted_docs)} chunks")
+
+    # Step 3: Embedding model
+    embeddings = load_embeddings(embedding_model_name)
+
+    # Step 4: Vector Store
+    vector_db = create_vector_store(splitted_docs, embeddings, vector_store_type)
+    print(f"Vector store {vector_store_type} created")
+
+    # Step 5: Similarity Search
+    # retrieved_docs = vector_db.similarity_search(query)
+    if vector_store_type == "OPENSEARCH":
+        retrieved_docs = vector_db.as_retriever(
+            search_type="similarity",
+            search_kwargs={
+                "k": 3,
+                "vector_field": "embedding",  # tell it which vector field to use
+                "text_field": "content"  # tell it which text field to read
+            }
+        )
+    else:
+        retrieved_docs = vector_db.similarity_search(query)
+    # docs = retrieved_docs.invoke("What is the document about?")
+    # for doc in docs:
+    #     print(doc.page_content)
+
+    # Step 6: Create Prompt
+    prompt = create_prompt()
+
+    # Step 7: LLM
+    llm = load_llm(llm_name)
+    if vector_store_type == "OPENSEARCH":
+        from langchain.chains import create_retrieval_chain
+        from langchain.chains.combine_documents import create_stuff_documents_chain
+        # Step 8: Chain
+        from langchain.chains.combine_documents import create_stuff_documents_chain
+        chain = create_stuff_documents_chain(llm, prompt)
+
+        print(f"chain ={chain}")
+
+        retrieval_chain = create_retrieval_chain(
+            retriever=vector_db.as_retriever(
+                search_type="similarity",
+                search_kwargs={
+                    "k": 3,
+                    "vector_field": "embedding",  # tell it which vector field to use
+                    "text_field": "content"  # tell it which text field to read
+                }
+            ),
+            combine_docs_chain=chain
+        )
+        response = retrieval_chain.invoke({"input": query})
+        print(f"Final Opensearch Response ={response.get('answer')}")
+    elif vector_store_type == "POSTGRES":
+        similar_docs = vector_db.similarity_search_with_score(query, k=2)
+        # Extract the page content from documents
+        context = "\n\n".join([doc[0].page_content for doc in similar_docs])
+
+
+
+        # Step 4: Format the prompt with actual inputs
+        messages = prompt.format_messages(context=context, question=query)
+
+        # Step 5: Invoke the LLM with the structured messages
+        response = llm(messages)
+        print(response.content)
+        # from langchain.chains import create_retrieval_chain
+        # # Step 8: Chain
+        # from langchain.chains.combine_documents import create_stuff_documents_chain
+        # # Step 2: Create combine_documents_chain using your prompt
+        # combine_docs_chain = create_stuff_documents_chain(llm, prompt)
+        # similar = vector_db.similarity_search_with_score(query, k=2)
+        #
+        # # Step 4: Create retrieval chain
+        # retrieval_chain = create_retrieval_chain(
+        #     retriever=similar,
+        #     combine_docs_chain=combine_docs_chain
+        # )
+        #
+        # # Step 5: Invoke chain with your query
+        # response = retrieval_chain.invoke({"input": query})
+    else:
+            # Step 8: Chain
+            from langchain.chains.combine_documents import create_stuff_documents_chain
+            document_chain = create_stuff_documents_chain(llm, prompt)
+
+            # Step 9: Invoke Chain
+            response = document_chain.invoke({"context": retrieved_docs})
+
+    return response
+
+
+# === Run ===
+
+if __name__ == "__main__":
+    # FAISS DB
+    # response = rag_pipeline(
+    #
+    #     source_url="https://python.langchain.com/docs/tutorials/llm_chain/",
+    #     query="what is LANGSMITH_PROJECT? ",
+    #     llm_name="gpt-4o",
+    #     embedding_model_name="openai",
+    #     vector_store_type="FAISS",
+    #     splitter_type="recursive",
+    #     chunk_size=1000,
+    #     chunk_overlap=200
+    # )
+    # Milvus DB
+    # response = rag_pipeline(
+    #     source_url="https://python.langchain.com/docs/tutorials/llm_chain/",
+    #     query="what is LANGSMITH_PROJECT? ",
+    #     llm_name="gpt-4o",
+    #     embedding_model_name="openai",
+    #     vector_store_type="milvus",
+    #     splitter_type="recursive",
+    #     chunk_size=1000,
+    #     chunk_overlap=200
+    # )
+    # print(f"Final Response: {response}")
+    # Milvus DB with HuggingFace emedding DB
+    # response = rag_pipeline(
+    #     source_url="https://www.ndtv.com/",
+    #     query="what is Latest news today?",
+    #     llm_name="gpt-4o",
+    #     embedding_model_name="sentence-transformers/all-MiniLM-L6-v2",
+    #     vector_store_type="milvus",
+    #     splitter_type="recursive",
+    #     chunk_size=1000,
+    #     chunk_overlap=200
+    # )
+    # print(f"Final Response: {response}")
+    # QDRANT as Vector DB
+    # response = rag_pipeline(
+    #     source_url="https://www.ndtv.com/",
+    #     query="what is Latest news today?",
+    #     llm_name="gpt-4o",
+    #     embedding_model_name="sentence-transformers/all-MiniLM-L6-v2",
+    #     vector_store_type="QDRANT",
+    #     splitter_type="recursive",
+    #     chunk_size=1000,
+    #     chunk_overlap=200
+    # )
+    # print(f"Final Response: {response}")
+    # LANCEDB as Vector DB
+    # response = rag_pipeline(
+    #     source_url="https://www.ndtv.com/",
+    #     query="what is Latest news today?",
+    #     llm_name="gpt-4o",
+    #     embedding_model_name="sentence-transformers/all-MiniLM-L6-v2",
+    #     vector_store_type="LANCEDB",
+    #     splitter_type="recursive",
+    #     chunk_size=1000,
+    #     chunk_overlap=200
+    # )
+    # print(f"Final Response: {response}")
+    # OPENSEARCH Vector DB
+    # response = rag_pipeline(
+    #     source_url="https://www.ndtv.com/",
+    #     query="what is Latest news today?",
+    #     llm_name="gpt-4o",
+    #     embedding_model_name="openai",
+    #     vector_store_type="OPENSEARCH",
+    #     splitter_type="recursive",
+    #     chunk_size=1000,
+    #     chunk_overlap=200
+    # )
+    # print(f"Final Response: {response}")
+    # POSTGRES Vector DB
+    response = rag_pipeline(
+        source_url="https://www.ndtv.com/",
+        query="what is Latest news today?",
+        llm_name="gpt-4o",
+        embedding_model_name="openai",
+        vector_store_type="POSTGRES",
+        splitter_type="recursive",
+        chunk_size=1000,
+        chunk_overlap=200
+    )
+    print(f"Final Response: {response}")

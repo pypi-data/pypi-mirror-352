@@ -1,0 +1,33 @@
+Selector Group Chat
+SelectorGroupChat implements a team where participants take turns broadcasting messages to all other members. A generative model (e.g., an LLM) selects the next speaker based on the shared context, enabling dynamic, context-aware collaboration.
+
+Key features include:
+
+Model-based speaker selection
+
+Configurable participant roles and descriptions
+
+Prevention of consecutive turns by the same speaker (optional)
+
+Customizable selection prompting
+
+Customizable selection function to override the default model-based selection
+
+Note
+
+SelectorGroupChat is a high-level API. For more control and customization, refer to the Group Chat Pattern in the Core API documentation to implement your own group chat logic.
+
+How Does it Work?
+SelectorGroupChat is a group chat similar to RoundRobinGroupChat, but with a model-based next speaker selection mechanism. When the team receives a task through run() or run_stream(), the following steps are executed:
+
+The team analyzes the current conversation context, including the conversation history and participants’ name and description attributes, to determine the next speaker using a model. By default, the team will not select the same speak consecutively unless it is the only agent available. This can be changed by setting allow_repeated_speaker=True. You can also override the model by providing a custom selection function.
+
+The team prompts the selected speaker agent to provide a response, which is then broadcasted to all other participants.
+
+The termination condition is checked to determine if the conversation should end, if not, the process repeats from step 1.
+
+When the conversation ends, the team returns the TaskResult containing the conversation history from this task.
+
+Once the team finishes the task, the conversation context is kept within the team and all participants, so the next task can continue from the previous conversation context. You can reset the conversation context by calling reset().
+
+In this section, we will demonstrate how to use SelectorGroupChat with a simple example for a web search and data analysis task.
