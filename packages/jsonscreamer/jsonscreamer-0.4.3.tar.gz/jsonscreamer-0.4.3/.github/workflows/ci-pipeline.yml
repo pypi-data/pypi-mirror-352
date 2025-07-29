@@ -1,0 +1,66 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches:
+      - main
+      - '*'
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12", "3.13", "pypy3.10", "pypy3.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dev requirements
+        run: |
+          pip install .[dev]
+
+      - name: Lint with ruff
+        run: |
+          ruff check .
+
+      - name: Check format with ruff
+        run: |
+          ruff format --check .
+
+      - name: Type check with pyright
+        run: |
+          pyright .
+
+  test:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12", "3.13", "pypy3.10", "pypy3.11"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dev requirements
+        run: |
+          pip install .[dev]
+
+      - name: Test with pytest
+        run: |
+          pytest -v
+
+      - name: Test with doctest
+        run: |
+          python -m doctest README.md
