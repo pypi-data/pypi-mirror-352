@@ -1,0 +1,55 @@
+kind: pipeline
+type: docker
+name: django-api-engine
+
+trigger:
+  branch:
+    - dev
+    - prod
+    - main
+  event:
+    - push
+    - promote
+
+steps:
+  - name: build-prod
+    image: sharedway/python_ci_cd_flutter:latest
+    commands:
+      - curl -X POST -d "content=PROD Django API Engine  atualizado" https://discord.com/api/webhooks/1341251634528784505/MX0v61GzZGrXrrljP2Vz5FB1_1ugdxqs1U3cou_DdEIWNhtGx1B-b0Ms1HIBGiPfGN05
+    when:
+      branch:
+        - prod
+      event:
+        - push
+
+  - name: discord-notification-prod
+    image: sharedway/python_ci_cd_flutter:latest
+    commands:
+      - curl -X POST -d "content=PROD Django API Engine  atualizado" https://discord.com/api/webhooks/1341251634528784505/MX0v61GzZGrXrrljP2Vz5FB1_1ugdxqs1U3cou_DdEIWNhtGx1B-b0Ms1HIBGiPfGN05
+    when:
+      branch:
+        - prod
+      status: [ success ]
+      event:
+        - push
+
+  - name: build-dev
+    image: sharedway/python_ci_cd_flutter:latest
+    commands:
+      - curl -X POST -d "content=DEV Django API  Engine atualizado" https://discord.com/api/webhooks/1341251634528784505/MX0v61GzZGrXrrljP2Vz5FB1_1ugdxqs1U3cou_DdEIWNhtGx1B-b0Ms1HIBGiPfGN05
+    when:
+      branch:
+        - dev
+      event:
+        - push
+
+  - name: discord-notification-dev
+    image: sharedway/python_ci_cd_flutter:latest
+    commands:
+      - curl -X POST -d "content=DEV Django API Engine atualizado" https://discord.com/api/webhooks/1341251634528784505/MX0v61GzZGrXrrljP2Vz5FB1_1ugdxqs1U3cou_DdEIWNhtGx1B-b0Ms1HIBGiPfGN05
+    when:
+      branch:
+        - dev
+      status: [ success ]
+      event:
+        - push

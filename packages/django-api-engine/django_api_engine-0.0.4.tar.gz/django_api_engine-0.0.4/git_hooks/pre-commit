@@ -1,0 +1,33 @@
+#/bin/bash
+python manage.py makemigrations --noinput
+python manage.py migrate
+python -m black ./
+
+todos=$(git grep -l TODO "*.py" | wc -l)
+fixmes=$(git grep -l FIXME "*.py" | wc -l)
+changelogs=$(git diff --cached -U0 -- "*.py" | grep  --color=never -E '^\+[^+].*COMMIT_ENTRY' | sed 's/^+//' | grep COMMIT_ENTRY | sed 's/COMMIT_ENTRY://' | awk '{print "\n",$0,"\n"}' | sed 's/^[[:space:]]*//' | wc -l)
+
+
+if [ "$changelogs" -gt 0 ]
+then
+echo > latest_commit_msg.txt
+git diff --cached -U0 -- "*.py" | grep  --color=never -E '^\+[^+].*COMMIT_ENTRY' | sed 's/^+//' | grep COMMIT_ENTRY | sed 's/COMMIT_ENTRY://' | awk '{print "\n",$0,"\n"}' | sed 's/^[[:space:]]*//' | sort -u > latest_commit_msg.txt
+fi
+
+
+if [ "$todos" -gt 0 ]
+then
+echo > TODOS.md
+git grep -l TODO "*.py"  | xargs -n1 git blame -f -n -w  | grep "$(git config user.name)" | grep TODO | awk '{print "##TODO:",$0,"\n"}' >> TODOS.md
+fi
+
+if [ "$fixmes" -gt 0 ];
+then
+echo > FIXMES.md
+git grep -l FIXME "*.py"  | xargs -n1 git blame -f -n -w  | grep "$(git config user.name)" | grep FIXME | awk '{print "##TODO:",$0,"\n"}'  >> FIXMES.md
+fi
+
+git add .
+
+
+exit 0
