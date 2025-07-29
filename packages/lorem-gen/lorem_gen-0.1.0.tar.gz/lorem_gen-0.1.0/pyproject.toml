@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "build"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lorem_gen"
+version = "0.1.0"
+description = "Generate Lorem Ipsum placeholder text via CLI or Python API"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name = "devvyyxyz", email = "devvyyxyz@devvyy.xyz" }
+]
+# Move urls into its own table, instead of using a quoted inline table:
+#   [project.urls]
+#   Homepage = "…"
+#   Repository = "…"
+#   Documentation = "…"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+lorem_gen = "lorem_gen.generator:main"
+lorem-gen = "lorem_gen.generator:main"
+
+
+[project.urls]
+Homepage      = "https://github.com/devvyyxyz/lorem_gen"
+Repository    = "https://github.com/devvyyxyz/lorem_gen"
+Documentation = "https://github.com/devvyyxyz/lorem_gen"
