@@ -1,0 +1,24 @@
+[tool.poetry]
+authors = ["Sparkplug Marcus <sparkplugmarcus@gmail.com>"]
+description = "Notifications package for Sparkplug apps"
+license = "MIT"
+name = "sparkplug-api-notifications"
+readme = "README.md"
+version = "1.0.12"
+
+packages = [{include = "sparkplug_notifications"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+django-postgres-extra = "~2.0.8"
+sparkplug-api-core = "~1.0.19"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+ruff = "~0.6.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
