@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zipline.py"
+description = "An async wrapper for the Zipline api."
+readme = "README.md"
+authors = [{ name = "fretgfr", email = "fretgfr@sudomail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Framework :: AsyncIO",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+    "Development Status :: 4 - Beta",
+]
+keywords = ["zipline", "api wrapper"]
+dependencies = ["aiohttp>=3.7.4,<4"]
+requires-python = ">=3.8"
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = ["black", "isort", "typing_extensions"]
+docs = ["sphinx", "sphinx-rtd-theme"]
+cli = ["typer>=0.15.4"]
+
+[project.urls]
+Homepage = "https://github.com/fretgfr/zipline.py/"
+Documentation = "https://ziplinepy.readthedocs.io/en/latest/"
+Issues = "https://github.com/fretgfr/zipline.py/issues"
+
+[project.scripts]
+ziplinepy = "zipline.cli.entrypoint:app"
+
+[tool.setuptools]
+packages = ["zipline", "zipline.cli", "zipline.cli.commands"]
+
+[tool.setuptools.dynamic]
+version = { attr = "zipline.meta.__version__" }
+
+[tool.black]
+line-length = 125
+
+[tool.isort]
+profile = "black"
+combine_as_imports = true
+combine_star = true
+line_length = 125
+
+[tool.pyright]
+typeCheckingMode = "standard"

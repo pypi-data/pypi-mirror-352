@@ -1,0 +1,79 @@
+Metadata-Version: 2.4
+Name: zipline.py
+Version: 0.27.0
+Summary: An async wrapper for the Zipline api.
+Author-email: fretgfr <fretgfr@sudomail.com>
+License: Copyright 2023-present fretgfr
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+Project-URL: Homepage, https://github.com/fretgfr/zipline.py/
+Project-URL: Documentation, https://ziplinepy.readthedocs.io/en/latest/
+Project-URL: Issues, https://github.com/fretgfr/zipline.py/issues
+Keywords: zipline,api wrapper
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Framework :: AsyncIO
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Typing :: Typed
+Classifier: Development Status :: 4 - Beta
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiohttp<4,>=3.7.4
+Provides-Extra: dev
+Requires-Dist: black; extra == "dev"
+Requires-Dist: isort; extra == "dev"
+Requires-Dist: typing_extensions; extra == "dev"
+Provides-Extra: docs
+Requires-Dist: sphinx; extra == "docs"
+Requires-Dist: sphinx-rtd-theme; extra == "docs"
+Provides-Extra: cli
+Requires-Dist: typer>=0.15.4; extra == "cli"
+Dynamic: license-file
+
+An asynchronous wrapper and optional CLI for the [Zipline](https://zipline.diced.sh/) v4 API.
+
+# Quickstart
+
+```py
+import asyncio
+
+import zipline
+
+
+async def main():
+    async with zipline.Client("your_zipline_site.com", "your_zipline_token") as client:
+        resp = await client.get_files()
+
+        for file in resp.page:
+            print(file.name)
+
+
+asyncio.run(main())
+```
+
+Additional examples available [HERE](https://github.com/fretgfr/zipline.py/tree/master/examples)
+
+Documentation available [HERE](https://ziplinepy.readthedocs.io/en/latest/)
+
+CLI Documentation available [HERE](https://ziplinepy.readthedocs.io/en/latest/cli.html)
+
+For Zipline v3 support, please use version `0.20.0`. This version will not be maintained in the future.
