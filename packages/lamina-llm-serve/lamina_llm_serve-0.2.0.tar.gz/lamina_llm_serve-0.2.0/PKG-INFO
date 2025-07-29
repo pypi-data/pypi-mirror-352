@@ -1,0 +1,202 @@
+Metadata-Version: 2.4
+Name: lamina-llm-serve
+Version: 0.2.0
+Summary: Centralized model caching and serving layer for Lamina OS
+Project-URL: Homepage, https://github.com/benaskins/lamina-os
+Project-URL: Documentation, https://github.com/benaskins/lamina-os/blob/main/docs/
+Project-URL: Repository, https://github.com/benaskins/lamina-os
+Project-URL: Issues, https://github.com/benaskins/lamina-os/issues
+Author-email: Ben Askins <human@getlamina.ai>, Lamina High Council <council@getlamina.ai>
+License: MPL-2.0
+Keywords: ai-backends,caching,lamina,llm,model-serving
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.11
+Requires-Dist: click>=8.1.7
+Requires-Dist: flask>=3.1.0
+Requires-Dist: huggingface-hub>=0.32.0
+Requires-Dist: pydantic>=2.10.0
+Requires-Dist: python-dotenv>=1.0.1
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: requests>=2.32.0
+Requires-Dist: rich>=13.9.0
+Requires-Dist: tqdm>=4.67.0
+Requires-Dist: transformers>=4.47.0
+Provides-Extra: all
+Requires-Dist: bandit>=1.8.0; extra == 'all'
+Requires-Dist: black>=24.10.0; extra == 'all'
+Requires-Dist: httpx>=0.28.0; extra == 'all'
+Requires-Dist: ipython>=8.30.0; extra == 'all'
+Requires-Dist: isort>=5.13.0; extra == 'all'
+Requires-Dist: jupyter>=1.1.1; extra == 'all'
+Requires-Dist: mypy>=1.13.0; extra == 'all'
+Requires-Dist: pre-commit>=4.0.0; extra == 'all'
+Requires-Dist: pytest-cov>=6.0.0; extra == 'all'
+Requires-Dist: pytest-mock>=3.14.0; extra == 'all'
+Requires-Dist: pytest>=8.3.0; extra == 'all'
+Requires-Dist: ruff>=0.8.0; extra == 'all'
+Provides-Extra: backends
+Provides-Extra: dev
+Requires-Dist: bandit>=1.8.0; extra == 'dev'
+Requires-Dist: black>=24.10.0; extra == 'dev'
+Requires-Dist: httpx>=0.28.0; extra == 'dev'
+Requires-Dist: ipython>=8.30.0; extra == 'dev'
+Requires-Dist: isort>=5.13.0; extra == 'dev'
+Requires-Dist: jupyter>=1.1.1; extra == 'dev'
+Requires-Dist: mypy>=1.13.0; extra == 'dev'
+Requires-Dist: pre-commit>=4.0.0; extra == 'dev'
+Requires-Dist: pytest-cov>=6.0.0; extra == 'dev'
+Requires-Dist: pytest-mock>=3.14.0; extra == 'dev'
+Requires-Dist: pytest>=8.3.0; extra == 'dev'
+Requires-Dist: ruff>=0.8.0; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# 🧱 Lamina LLM Serve
+
+**Lamina LLM Serve** is a local-first, centralized model-serving layer for Lamina OS. It manages downloads and runs models so agents share consistent, persistent access—ensuring efficiency and symbolic alignment across the sanctuary.
+
+---
+
+## 🌱 Purpose
+
+`lamina-llm-serve` solves common issues in multi-agent AI environments:
+
+* Prevents redundant downloads of large models
+* Offers a unified directory and manifest for all system models
+* Supports multiple backends (e.g., `llama.cpp`, `mlc`, `vllm`)
+* Keeps model configuration cleanly decoupled from agent implementation
+
+It serves as the **source of truth** for all LLM usage across `lamina-core`.
+
+---
+
+## 🤩 Directory Structure
+
+```
+lamina-llm-serve/
+├── lamina_llm_serve/
+│   ├── __init__.py
+│   ├── model_manager.py    # Model discovery and validation
+│   ├── backends.py         # Backend abstraction layer
+│   ├── downloader.py       # Multi-source model downloads
+│   └── server.py          # HTTP REST API server
+├── models/                 # Downloaded models (gitignored)
+├── scripts/
+│   └── model-manager.py   # CLI tool for model operations
+├── models.yaml            # Model manifest
+└── README.md
+```
+
+---
+
+## 🎞️ Model Manifest (`models.yaml`)
+
+Each model is described with its local path and associated runtime backend:
+
+```yaml
+models:
+  llama3-70b-q4_k_m:
+    path: /models/llama3-70b-q4_k_m/model.gguf
+    backend: llama.cpp
+  yi-34b-awq:
+    path: /models/yi-34b-awq/
+    backend: mlc
+  llama3-70b-q5_k_m:
+    path: /models/llama3-70b-q5_k_m/
+    backend: llama.cpp
+  mistral-7b-instruct:
+    path: /models/mistral-7b-instruct/
+    backend: llama.cpp
+```
+
+---
+
+## 💠 Usage Within Lamina OS
+
+In `lamina-core`, agents reference models through this service:
+
+* Model-to-agent mapping occurs **within Lamina OS**
+* `lamina-llm-serve` is **model aware**, acting as a unified server rather than a simple cache
+* Ensures consistent, centralized loading and version control
+
+Example usage:
+
+```python
+from lamina_llm_serve import ModelManager
+
+manager = ModelManager()
+models = manager.list_models()
+print(f"Available models: {models}")
+```
+
+---
+
+## 🔧 Backends Supported
+
+| Backend     | Format         | Usage                              |
+| ----------- | -------------- | ---------------------------------- |
+| `llama.cpp` | `.gguf`        | Local CPU or quantized models      |
+| `mlc-serve` | AWQ compiled   | Metal-accelerated on Apple Silicon |
+| `vllm`      | `.safetensors` | Batch eval, future extensions      |
+
+---
+
+## 🧪 REST API
+
+The included HTTP server provides:
+
+* `GET /models` – List all available models
+* `GET /models/<name>` – Get specific model info
+* `GET /backends` – List available backends
+* `POST /download` – Download a model
+* `GET /health` – Server health check
+
+Start the server:
+```bash
+python -m lamina_llm_serve.server --port 8000
+```
+
+---
+
+## 🥐 Setup Instructions
+
+1. Install the package:
+
+   ```bash
+   pip install lamina-llm-serve
+   ```
+
+2. Download models using the CLI:
+
+   ```bash
+   # List available models for download
+   python scripts/model-manager.py list-downloadable
+   
+   # Download a specific model
+   python scripts/model-manager.py download llama3.2-1b-q4_k_m --source huggingface
+   ```
+
+3. Validate your setup:
+
+   ```bash
+   python scripts/model-manager.py validate
+   ```
+
+---
+
+## 🛡️ Philosophy
+
+Models are not interchangeable engines—they are **vessels** for vow-bound symbolic presence. This serving layer anchors those vessels with intention, clarity, and breath.
+
+---
+
+## 📜 License
+
+Mozilla Public License 2.0 - see [LICENSE](../../LICENSE) for details.
