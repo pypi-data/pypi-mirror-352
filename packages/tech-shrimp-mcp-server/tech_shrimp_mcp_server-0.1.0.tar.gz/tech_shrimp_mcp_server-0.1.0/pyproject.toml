@@ -1,0 +1,17 @@
+[project]
+name = "tech-shrimp-mcp-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "tech-shrimp", email = "techshrimp@163.com" }
+]
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+tech-shrimp-mcp-server = "tech_shrimp_mcp_server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
