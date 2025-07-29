@@ -1,0 +1,92 @@
+Metadata-Version: 2.4
+Name: scenext-mcp
+Version: 1.2.1
+Summary: Scenext MCP Server - AI视频生成服务的MCP服务器
+Author-email: Scenext <support@lynkframe.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/typing233/scenext-mcp
+Project-URL: Repository, https://github.com/typing233/scenext-mcp
+Project-URL: Documentation, https://github.com/typing233/scenext-mcp
+Project-URL: Bug Reports, https://github.com/typing233/scenext-mcp/issues
+Keywords: mcp,model-context-protocol,ai,video,generation,scenext
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Internet :: WWW/HTTP :: HTTP Servers
+Classifier: Topic :: Multimedia :: Video
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: mcp[cli]>=1.9.2
+Requires-Dist: aiohttp>=3.12.6
+Requires-Dist: python-dotenv>=1.0.0
+Dynamic: license-file
+
+# Scenext MCP Server
+
+[English](README.en.md) | [中文](README.zh.md)
+
+---
+
+An MCP server that integrates with [Scenext](https://scenext.cn) AI video generation platform to create educational explanation videos based on topics.
+
+一个集成 [Scenext](https://scenext.cn) AI 视频生成平台的 MCP 服务器，可以根据题目生成教学讲解视频。
+
+## Quick Start / 快速开始
+
+本地接入（uvx模式）：
+
+```json
+{
+  "mcpServers": {
+    "scenext": {
+      "command": "uvx", 
+      "args": ["scenext-mcp"],
+      "env": {
+        "SCENEXT_API_KEY": "your_actual_api_key_here"
+      }
+    }
+  }
+}
+```
+
+远程接入（SSE）：
+
+```json
+{
+  "mcpServers": {
+    "scenext": {
+      "type":"sse",
+      "url":"https://mcp.scenext.cn/sse?api_key=your_actual_api_key_here"
+    }
+  }
+}
+```
+
+或者：
+
+```json
+{
+  "mcpServers": {
+    "scenext": {
+      "type": "sse",
+      "url": "https://mcp.scenext.cn/sse",
+      "headers": {
+        "Authorization": "Bearer your_actual_api_key_here"
+      }
+    }
+  }
+}
+```
+
+For detailed documentation:
+- [English Documentation](README.en.md)
+- [中文文档](README.zh.md)
+
+## License / 许可证
+
+MIT License
