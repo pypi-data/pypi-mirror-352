@@ -1,0 +1,23 @@
+#compdef lb-set-platform
+
+# Copyright (C) 2019  CERN for the benefit of the LHCb collaboration
+#
+# This software is distributed under the terms of the GNU General Public
+# Licence version 3 (GPL Version 3), copied verbatim in the file "LICENSE".
+
+# In applying this licence, CERN does not waive the privileges and immunities
+# granted to it by virtue of its status as an Intergovernmental Organization
+# or submit itself to any jurisdiction.
+
+# TODO: speed up / enable cache
+__lb-platforms() {
+    local -a compatible_platforms
+    compatible_platforms=($(lb-completion-helper list_compatible_platforms 2>/dev/null))
+    _values 'possible platform specifications' "${compatible_platforms[@]}"
+}
+
+local -a arguments
+arguments=(
+    '1: :__lb-platforms'
+)
+_arguments -n $arguments

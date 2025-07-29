@@ -1,0 +1,94 @@
+# -*- shell-script -*-
+###############################################################################
+# (c) Copyright 2018 CERN                                                     #
+#                                                                             #
+# This software is distributed under the terms of the GNU General Public      #
+# Licence version 3 (GPL Version 3), copied verbatim in the file "LICENSE".   #
+#                                                                             #
+# In applying this licence, CERN does not waive the privileges and immunities #
+# granted to it by virtue of its status as an Intergovernmental Organization  #
+# or submit itself to any jurisdiction.                                       #
+###############################################################################
+_lb-run()
+{
+  COMPREPLY=()
+  _get_comp_words_by_ref cur prev
+
+  case $prev in
+    --help|-h|--version) return 0 ;;
+    --nightly)
+      __lb_compute_nightly_slots
+      COMPREPLY=($(compgen -W "$__lb_nightly_slots" -- $cur))
+      return 0
+      ;;
+    --platform|-c)
+      if [[ "${COMP_WORDS[*]}" == *--force-platform* ]] ; then
+        __lb_compute_platforms
+        COMPREPLY=($(compgen -W "best $__lb_platforms" -- $cur))
+      else
+        __lb_compute_compatible_platforms
+        COMPREPLY=($(compgen -W "best $__lb_compatible_platforms" -- $cur))
+      fi
+      return 0
+      ;;
+    --nightly-base|--dev-dir|--user-area|--siteroot|-r)
+      _filedir d
+      return 0
+      ;;
+    --grid-override-map)
+      _filedir
+      return 0
+      ;;
+  esac
+
+  case $cur in
+    -*)
+      COMPREPLY=($(compgen -W "
+          --help
+          --ignore-environment
+          --sh
+          --csh
+          --py
+          --all
+          --verbose
+          --debug
+          --quiet
+          --version
+          --platform
+          --use
+          --ext
+          --force-platform
+          --dev
+          --dev-dir
+          --nightly-base
+          --nightly
+          --help-nightly-local
+          --user-area
+          --no-user-area
+          --siteroot
+          --list
+          --list-platforms
+          --runtime-project
+          --overriding-project
+          --no-auto-override
+          --grid-override
+          --no-grid-override
+          --grid-override-map
+          --use-sp
+          --no-sp
+          --profile
+          --path-to-project
+      " -- $cur))
+      ;;
+
+    *)
+      if [[ "${COMP_WORDS[*]}" = *--path-to-project* ]] ; then
+        _filedir d
+      else
+        __lb_compute_projects
+        COMPREPLY=($(compgen -W "$__lb_projects" -- $cur))
+      fi
+  esac
+
+}
+complete -F _lb-run lb-run

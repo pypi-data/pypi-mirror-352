@@ -1,0 +1,90 @@
+# -*- shell-script -*-
+###############################################################################
+# (c) Copyright 2018 CERN                                                     #
+#                                                                             #
+# This software is distributed under the terms of the GNU General Public      #
+# Licence version 3 (GPL Version 3), copied verbatim in the file "LICENSE".   #
+#                                                                             #
+# In applying this licence, CERN does not waive the privileges and immunities #
+# granted to it by virtue of its status as an Intergovernmental Organization  #
+# or submit itself to any jurisdiction.                                       #
+###############################################################################
+# Inspiration for loading mechanism taken from
+# https://github.com/zdharma/zplugin
+# upon suggestion here
+# http://www.zsh.org/mla/users/2018/msg00380.html
+#
+# The entire exercise should be:
+#  - add the directory where we deploy zsh completions to $fpath
+#  - except: this should be done before the user's shell startup calls
+#    `compinit`
+#  - but our env setup runs at "user time"
+#  - so we could just detect if `compinit` ran and rerun
+#  - but instead we add completions manually to avoid interference with the
+#    user setup (compdump, insecure loading, ...)
+
+# exposes the variable
+#  - LHCB_COMPDIRS: array of completions directories
+# manipulates the variable
+#  - fpath
+#  - _comps
+# calls autoload
+
+local THISFILE
+local comp_dir
+local comp_file
+local HEADER
+
+THISFILE=${(%):-%N}
+LHCB_COMPDIRS=($(cd $(dirname $THISFILE) > /dev/null && pwd)/completions)
+
+# add LHCB_COMPDIRS to the $fpath, but give preference to the existing functions
+fpath=($fpath $LHCB_COMPDIRS)
+
+for comp_dir in $LHCB_COMPDIRS ; do
+
+  # get array of all relevant files
+  # http://stackoverflow.com/a/10981499
+  # http://unix.stackexchange.com/a/26825
+  # parentheses after * steer zsh's globbing
+  #  . means "only regular files"
+  #  -. means "regular files and symlinks pointing to regular files"
+  #  N means "empty list in case of no matches"
+  for comp_file in $comp_dir/*(-.N); do
+    # skip functions that are defined already
+    (( $+functions[$(basename $comp_file)] )) && continue
+
+    HEADER=($(head -1 $comp_file))
+    case $HEADER[1] in
+      # compinit loads files with #compdef and #autoload header
+      (#compdef)
+        autoload -Uz $(basename $comp_file)
+        # check if compinit has been run, otherwise we don't enforce completion on the user
+        if (( ${+_comps} )) ; then
+          # the header can be
+          # #compdef name ... [ -{p|P} pattern ... [ -N name ... ] ]
+          # #compdef -k style key-sequence ...
+          # #compdef -K widget-name style key-sequence [ name style seq ... ]
+          #
+          # with some special contexts like -parameter- or cmd=service
+          #
+          # We ignore any special of the specialities (-*-, *=*, -{p,P} *)
+          for name in ${(@)HEADER[2,-1]}; do
+            [[ $name == -p || $name == -P || $name == -k || $name == -K ]] && break
+            [[ $name == -* || $name == *=* ]] && continue
+            _comps[$name]=$(basename $comp_file)
+          done
+        fi
+        ;;
+      (#autoload)
+        # the header can be
+        # #autoload <some options>
+        # which would instruct compinit to call autoload on the function
+        # (with -Uz as default)
+        #
+        # (@)...[2,-1] the second until the last element of an array
+        autoload -Uz ${(@)HEADER[2,-1]} $(basename $comp_file)
+        ;;
+    esac
+  done # loop over files
+done # loop over directories

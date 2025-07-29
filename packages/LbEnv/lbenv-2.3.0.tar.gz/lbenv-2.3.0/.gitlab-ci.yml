@@ -1,0 +1,60 @@
+stages:
+  - pre-commit-hooks
+  - test
+  - package
+  - deploy
+
+pre-commit-hooks:
+  stage: pre-commit-hooks
+  image: registry.cern.ch/docker.io/library/python:latest
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    - pip install pre-commit
+    - pre-commit run --from-ref FETCH_HEAD --to-ref HEAD
+
+.test_template: &test_definition
+  image: gitlab-registry.cern.ch/lhcb-docker/os-base/alma9-devel
+  before_script:
+    - curl -L https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+    - eval "$(./bin/micromamba shell hook -s posix)"
+    - micromamba create -c conda-forge --yes --name lbenv-test pip python=${TEST_LBENV_PYTHON_VERSION} apptainer
+    - micromamba activate lbenv-test
+  script:
+    - .ci/run_tests.sh
+  tags:
+    - cvmfs
+  artifacts:
+    paths:
+      - python/cover
+      - public
+    when: always
+    expire_in: 1 week
+
+python:
+  <<: *test_definition
+  parallel:
+    matrix:
+      - TEST_LBENV_PYTHON_VERSION: ["3.10", "3.11", "3.12", "3.13"]
+
+python-apptainer:  # TODO remove if we can
+  <<: *test_definition
+  script:
+    - .ci/run_tests.sh PATCH_COVERAGE
+  parallel:
+    matrix:
+      - TEST_LBENV_PYTHON_VERSION: ["3.10", "3.11", "3.12", "3.13"]
+        CONTAINER_IMPLEMENTATION: apptainer
+
+# Packaging step
+deploy-packages:
+  stage: deploy
+  only:
+    - tags@lhcb-core/LbEnv
+  image: registry.cern.ch/docker.io/library/python:latest
+  before_script:
+    - pip install build twine
+  script:
+    - python -m build
+    - if [ -z "$TWINE_PASSWORD" ] ; then echo "Set TWINE_PASSWORD in CI variables" ; exit 1 ; fi
+    - twine upload -u __token__ dist/*

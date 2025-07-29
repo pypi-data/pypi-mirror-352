@@ -1,0 +1,37 @@
+# -*- shell-script -*-
+###############################################################################
+# (c) Copyright 2018 CERN                                                     #
+#                                                                             #
+# This software is distributed under the terms of the GNU General Public      #
+# Licence version 3 (GPL Version 3), copied verbatim in the file "LICENSE".   #
+#                                                                             #
+# In applying this licence, CERN does not waive the privileges and immunities #
+# granted to it by virtue of its status as an Intergovernmental Organization  #
+# or submit itself to any jurisdiction.                                       #
+###############################################################################
+# Inspiration and chunks of code taken from
+# https://github.com/scop/bash-completion/blob/master/bash_completion
+
+if [[ $BASH_SOURCE = */* ]]; then
+    comp_dir="${BASH_SOURCE%/*}/completions"
+else
+    comp_dir=./completions
+fi
+
+if [ -z "$_backup_glob" ] ; then
+    _backup_glob='@(#*#|*@(~|.@(bak|orig|rej|swp|dpkg*|rpm@(orig|new|save))))'
+fi
+
+if declare -f __load_completion > /dev/null ; then
+  # _$cmd files are automatically loaded if __load_completion is defined
+  _blacklist_glob='@(_*)'
+else
+  _blacklist_glob='@()'
+fi
+
+for i in $(LC_ALL=C command ls "$comp_dir"); do
+    i=$comp_dir/$i
+    [[ ${i##*/} != @($_backup_glob|Makefile*|$_blacklist_glob) \
+        && -f $i && -r $i ]] && . "$i"
+done
+unset comp_dir i _blacklist_glob

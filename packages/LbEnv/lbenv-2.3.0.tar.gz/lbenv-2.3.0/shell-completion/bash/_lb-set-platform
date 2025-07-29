@@ -1,0 +1,22 @@
+# -*- shell-script -*-
+###############################################################################
+# (c) Copyright 2018 CERN                                                     #
+#                                                                             #
+# This software is distributed under the terms of the GNU General Public      #
+# Licence version 3 (GPL Version 3), copied verbatim in the file "LICENSE".   #
+#                                                                             #
+# In applying this licence, CERN does not waive the privileges and immunities #
+# granted to it by virtue of its status as an Intergovernmental Organization  #
+# or submit itself to any jurisdiction.                                       #
+###############################################################################
+_lb-set-platform()
+{
+  COMPREPLY=()
+  _get_comp_words_by_ref cur prev
+
+  if [[ "$prev" = *lb-set-platform ]] ; then
+    __lb_compute_compatible_platforms
+    COMPREPLY=($(compgen -W "$__lb_compatible_platforms" -- $cur))
+  fi
+}
+complete -F _lb-set-platform lb-set-platform
