@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: fastapi-exception-responses
+Version: 0.1.3
+Summary: fastapi-responses generates HTTPExceptions and OpenAPI description for status codes
+Author-email: max31ru12 <maxevg72@gmail.com>
+License: MIT
+Project-URL: Repository, https://github.com/max31ru12/fastapi-responses
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: starlette<0.47.0,>=0.46.2
+Dynamic: license-file
+
+# fastapi-responses
+
+FastAPI Responses generates documentation for OpenAPI and Endpoints **starlette**
+`HTTPExceptions` based on class attributes
+defined as tuples of status code and detail
+
+## Usage
+
+### Configuration
+
+```python
+from fastapi import APIRouter
+
+()
+from fastapi_exception_responses import Responses
+
+router = APIRouter()
+
+
+class DemoResponses(Responses):
+    NOT_VALID_EMAIL = 422, "Provided email is not valid."
+    NOT_VALID_USERNAME = 422, "Provided username is already in use."
+    WRONG_CREDENTIAL = 401, "Invalid username or password."
+
+
+@router.get("/", responses=DemoResponses.get_responses())
+async def get_demo():
+    if condition_one:
+        raise DemoResponses.NOT_VALID_USERNAME
+    elif condition_two:
+        raise DemoResponses.NOT_VALID_EMAIL
+    else:
+        raise DemoResponses.WRONG_CREDENTIAL
+```
+
+### Result
+
+https://github.com/max31ru12/fastapi-responses/blob/main/img.png
