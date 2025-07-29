@@ -1,0 +1,78 @@
+{
+  "name": "advanced_control_flow",
+  "version": "1.0.0",
+  "initial_session": {
+    "items": [
+      {"type": "number", "value": 10},
+      {"type": "number", "value": 25},
+      {"type": "text", "value": "hello"},
+      {"type": "text", "value": "world"},
+      {"type": "list", "value": [1, 2, 3, 4, 5]}
+    ]
+  },
+  "modules": [
+    {
+      "name": "process_items",
+      "class_name": "flexify.core.LoopModule",
+      "params": {
+        "item_name": "current_item",
+        "workflow": {
+          "modules": [
+            {
+              "name": "extract_type",
+              "class_name": "math_modules.CalculatorModule",
+              "params": {"operation": "add", "a": 0, "b": 0},
+              "outputs": {"result": "dummy"}
+            },
+            {
+              "name": "process_by_type",
+              "class_name": "flexify.core.CaseModule",
+              "params": {
+                "cases": {
+                  "number": {
+                    "modules": [
+                      {
+                        "name": "square_number",
+                        "class_name": "math_modules.CalculatorModule",
+                        "params": {"operation": "multiply"},
+                        "inputs": {
+                          "a": "current_value",
+                          "b": "current_value"
+                        }
+                      }
+                    ]
+                  },
+                  "text": {
+                    "modules": [
+                      {
+                        "name": "transform_text",
+                        "class_name": "text_modules.TextTransformModule",
+                        "params": {"operation": "upper"},
+                        "inputs": {"text": "current_value"}
+                      }
+                    ]
+                  },
+                  "list": {
+                    "modules": [
+                      {
+                        "name": "calc_stats",
+                        "class_name": "math_modules.StatisticsModule",
+                        "inputs": {"numbers": "current_value"}
+                      }
+                    ]
+                  }
+                }
+              },
+              "inputs": {
+                "value": "current_type"
+              }
+            }
+          ]
+        }
+      },
+      "inputs": {
+        "array": "items"
+      }
+    }
+  ]
+}

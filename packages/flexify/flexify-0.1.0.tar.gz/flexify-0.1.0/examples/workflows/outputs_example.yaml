@@ -1,0 +1,51 @@
+name: outputs_example
+version: 1.0.0
+description: Demonstrates how to use outputs to map module results to specific session keys
+
+initial_session:
+  base_number: 10
+
+modules:
+  # Step 1: Calculate square - save result as 'squared_value'
+  - name: calculate_square
+    class_name: math_modules.CalculatorModule
+    params:
+      operation: multiply
+    inputs:
+      a: base_number
+      b: base_number
+    outputs:
+      result: squared_value  # Map 'result' to 'squared_value' in session
+
+  # Step 2: Calculate cube - save result as 'cubed_value'
+  - name: calculate_cube
+    class_name: math_modules.CalculatorModule
+    params:
+      operation: multiply
+    inputs:
+      a: squared_value  # Use the squared_value from previous step
+      b: base_number
+    outputs:
+      result: cubed_value   # Map 'result' to 'cubed_value' in session
+
+  # Step 3: Add square and cube - save as 'final_sum'
+  - name: add_square_and_cube
+    class_name: math_modules.CalculatorModule
+    params:
+      operation: add
+    inputs:
+      a: squared_value
+      b: cubed_value
+    outputs:
+      result: final_sum     # Map 'result' to 'final_sum' in session
+
+  # Step 4: Calculate statistics of the three values
+  - name: calculate_stats
+    class_name: math_modules.StatisticsModule
+    params:
+      numbers: [10, 100, 1000]  # We could also map these dynamically
+    outputs:
+      mean: average_of_values
+      max: maximum_value
+      min: minimum_value
+      count: total_count

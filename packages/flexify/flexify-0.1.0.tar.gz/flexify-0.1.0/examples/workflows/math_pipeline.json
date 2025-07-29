@@ -1,0 +1,54 @@
+{
+  "name": "math_pipeline",
+  "version": "1.0.0",
+  "description": "Mathematical operations pipeline demonstrating module chaining",
+  
+  "initial_session": {
+    "numbers": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  },
+  
+  "modules": [
+    {
+      "name": "calculate_statistics",
+      "class_name": "math_modules.StatisticsModule",
+      "inputs": {
+        "numbers": "numbers"
+      }
+    },
+    {
+      "name": "calculate_sum_squared",
+      "class_name": "math_modules.CalculatorModule",
+      "inputs": {
+        "a": "sum",
+        "b": "sum"
+      },
+      "params": {
+        "operation": "multiply"
+      },
+      "outputs": {
+        "result": "sum_squared"
+      }
+    },
+    {
+      "name": "calculate_mean_plus_stddev",
+      "class_name": "math_modules.CalculatorModule",
+      "inputs": {
+        "a": "mean",
+        "b": "std_dev"
+      },
+      "params": {
+        "operation": "add"
+      },
+      "outputs": {
+        "result": "mean_plus_stddev"
+      }
+    },
+    {
+      "name": "generate_fibonacci",
+      "class_name": "math_modules.FibonacciModule",
+      "inputs": {
+        "n": "count"
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+name: loop_example
+version: 1.0.0
+
+# Example workflow demonstrating LoopModule
+# Process a list of files and transform their contents
+
+initial_session:
+  files:
+    - "file1.txt"
+    - "file2.txt"
+    - "file3.txt"
+
+modules:
+  - name: process_files
+    class_name: flexify.core.LoopModule
+    params:
+      item_name: "filename"
+      index_name: "file_index"
+      workflow:
+        modules:
+          - name: read_file
+            class_name: text_modules.TextReaderModule
+            inputs:
+              file_path: filename
+          
+          - name: transform_text
+            class_name: text_modules.TextTransformModule
+            params:
+              operation: upper
+            inputs:
+              text: content
+          
+          - name: count_words
+            class_name: text_modules.WordCountModule
+            inputs:
+              text: transformed_text
+    inputs:
+      array: files

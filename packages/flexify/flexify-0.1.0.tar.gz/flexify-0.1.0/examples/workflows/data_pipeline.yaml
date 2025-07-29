@@ -1,0 +1,64 @@
+name: data_pipeline
+version: 1.0.0
+description: Complex data pipeline showing how outputs create a processing chain
+
+initial_session:
+  raw_data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+modules:
+  # Stage 1: Calculate basic statistics
+  - name: raw_statistics
+    class_name: math_modules.StatisticsModule
+    inputs:
+      numbers: raw_data
+    outputs:
+      mean: raw_mean
+      std_dev: raw_std_dev
+      count: data_count
+      sum: total_sum
+      max: max_value
+      min: min_value
+
+  # Stage 2: Calculate normalized threshold (mean + 1 std dev)
+  - name: calculate_threshold
+    class_name: math_modules.CalculatorModule
+    params:
+      operation: add
+    inputs:
+      a: raw_mean
+      b: raw_std_dev
+    outputs:
+      result: threshold_value
+
+  # Stage 3: Create squared version of the data
+  - name: square_total
+    class_name: math_modules.CalculatorModule
+    params:
+      operation: multiply
+    inputs:
+      a: total_sum
+      b: total_sum
+    outputs:
+      result: squared_total
+
+  # Stage 4: Calculate efficiency ratio (max/min)
+  - name: efficiency_ratio
+    class_name: math_modules.CalculatorModule
+    params:
+      operation: divide
+    inputs:
+      a: max_value
+      b: min_value
+    outputs:
+      result: efficiency_score
+
+  # Stage 5: Final summary calculation
+  - name: final_score
+    class_name: math_modules.CalculatorModule
+    params:
+      operation: multiply
+    inputs:
+      a: efficiency_score
+      b: data_count
+    outputs:
+      result: performance_score

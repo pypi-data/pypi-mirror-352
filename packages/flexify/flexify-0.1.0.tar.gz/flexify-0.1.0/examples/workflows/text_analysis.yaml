@@ -1,0 +1,40 @@
+name: text_analysis_workflow
+version: 1.0.0
+description: Workflow that reads a text file and performs various analyses
+
+# Initial session data - you can override these when running
+initial_session:
+  file_path: "examples/data/sample.txt"
+  encoding: "utf-8"
+
+modules:
+  # Step 1: Read the text file
+  - name: read_file
+    class_name: text_modules.TextReaderModule
+    outputs:
+      content: text_content  # Save content as 'text_content' in session
+
+  # Step 2: Transform text to uppercase
+  - name: uppercase_transform
+    class_name: text_modules.TextTransformModule
+    inputs:
+      text: text_content  # Use 'text_content' from previous step
+    params:
+      operation: upper
+    outputs:
+      transformed_text: uppercase_text
+
+  # Step 3: Count words in original text
+  - name: word_count
+    class_name: text_modules.WordCountModule
+    inputs:
+      text: text_content  # Use original text
+
+  # Step 4: Count words in uppercase text (should be same)
+  - name: word_count_upper
+    class_name: text_modules.WordCountModule
+    inputs:
+      text: uppercase_text
+    outputs:
+      word_count: word_count_uppercase
+      unique_word_count: unique_word_count_uppercase

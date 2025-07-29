@@ -1,0 +1,36 @@
+name: simple_calculator
+version: 1.0.0
+description: Simple calculator workflow demonstrating parameter usage
+
+modules:
+  # Calculate (a + b) * c
+  # First: a + b
+  - name: add_step
+    class_name: math_modules.CalculatorModule
+    params:
+      operation: add
+      a: 10
+      b: 5
+    outputs:
+      result: sum_result
+
+  # Then: result * c
+  - name: multiply_step
+    class_name: math_modules.CalculatorModule
+    inputs:
+      a: sum_result
+    params:
+      operation: multiply
+      b: 3
+    outputs:
+      result: final_result
+
+  # Calculate square root of the final result
+  - name: sqrt_step
+    class_name: math_modules.CalculatorModule
+    inputs:
+      a: final_result
+    params:
+      operation: sqrt
+    outputs:
+      result: sqrt_result

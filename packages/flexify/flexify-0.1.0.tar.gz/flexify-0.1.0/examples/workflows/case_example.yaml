@@ -1,0 +1,61 @@
+name: case_example
+version: 1.0.0
+
+# Example workflow demonstrating CaseModule
+# Process different data types with different operations
+
+initial_session:
+  data_type: "numeric"  # Can be "numeric", "text", or "list"
+  input_data: 42
+
+modules:
+  - name: process_by_type
+    class_name: flexify.core.CaseModule
+    params:
+      value: data_type
+      cases:
+        numeric:
+          modules:
+            - name: calc_square
+              class_name: math_modules.CalculatorModule
+              params:
+                operation: multiply
+              inputs:
+                a: input_data
+                b: input_data
+            
+            - name: calc_sqrt
+              class_name: math_modules.CalculatorModule
+              params:
+                operation: sqrt
+              inputs:
+                a: result
+        
+        text:
+          modules:
+            - name: transform_upper
+              class_name: text_modules.TextTransformModule
+              params:
+                operation: upper
+                text: "hello world"
+            
+            - name: count_chars
+              class_name: text_modules.WordCountModule
+              inputs:
+                text: transformed_text
+        
+        list:
+          modules:
+            - name: calc_stats
+              class_name: math_modules.StatisticsModule
+              params:
+                numbers: [1, 2, 3, 4, 5]
+      
+      default:
+        modules:
+          - name: default_calc
+            class_name: math_modules.CalculatorModule
+            params:
+              operation: add
+              a: 0
+              b: 0
