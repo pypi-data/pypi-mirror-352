@@ -1,0 +1,16 @@
+composite_search-css:
+  filter: cssrewrite
+  output: ckanext-composite_search/%(version)s-composite_search.css
+  contents:
+    - bundle.css
+
+composite_search:
+  filter: rjsmin
+  output: ckanext-composite_search/%(version)s-composite_search.js
+  contents:
+    - bundle.js
+    - composite_search-module.js
+  extra:
+    preload:
+      - base/main
+      - composite_search/composite_search-css
