@@ -1,0 +1,31 @@
+[project]
+name = "deliverfresh-whatsapp-order"
+version = "0.1.1"
+description = "Clean and normalize WhatsApp chat orders (.txt) into structured product lists"
+authors = [
+  { name="Raman Perumal", email="rperumal3000@gmail.com" }
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/rperumal3000/DeliverFreshWhatsAppOrder"
+Documentation = "https://rperumal3000.github.io/DeliverFreshWhatsAppOrder"
+Issues = "https://github.com/rperumal3000/DeliverFreshWhatsAppOrder/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "mkdocs",
+  "mkdocs-material",
+  "mkdocs-static-i18n",
+  "twine",
+  "build"
+]
