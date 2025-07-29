@@ -1,0 +1,38 @@
+name: Base Python Setup
+description: Set up Python environment
+
+inputs:
+  environment:
+    description: Environment to set up
+    required: true
+    default: dev
+  shell:
+    description: os shell
+    required: true
+    default: bash
+  uv_version:
+    description: uv version
+    required: true
+    default: "0.5.9"
+
+runs:
+  using: composite
+  steps:
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: ${{inputs.uv_version}}
+
+    - name: Setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: ".python-version"
+
+    - name: Install dependencies
+      shell: ${{inputs.shell}}
+      run: |
+        if [ "${{ inputs.environment }}" == "dev" ]; then
+          uv sync --frozen --dev --no-install-project
+        else
+          uv sync --frozen --no-dev --no-install-project
+        fi

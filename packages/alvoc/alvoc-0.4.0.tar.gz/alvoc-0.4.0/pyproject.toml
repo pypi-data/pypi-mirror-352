@@ -1,0 +1,52 @@
+[project]
+name = "alvoc"
+version = "0.4.0"
+description = ""
+readme = "README.md"
+authors = [
+    {name = "mshunjan", email = "manjothunjan@gmail.com"},
+]
+requires-python = "<3.13,>=3.11"
+dependencies = [
+    "typer<1.0.0,>=0.12.3",
+    "matplotlib<4.0.0,>=3.9.0",
+    "seaborn<1.0.0,>=0.13.2",
+    "numpy<3.0.0,>=2.0.0",
+    "pysam<1.0.0,>=0.22.1",
+    "scikit-learn<2.0.0,>=1.5.1",
+    "ortools<10.0.0,>=9.10.4067",
+    "biopython<2.0,>=1.84",
+    "requests>=2.32.3",
+]
+
+[project.scripts]
+alvoc = "alvoc.main:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest<9.0.0,>=8.2.2",
+    "pytest-cov<6.0.0,>=5.0.0",
+    "black<25.0.0,>=24.4.2",
+    "ruff<1.0.0,>=0.5.0",
+    "isort<6.0.0,>=5.13.2",
+    "commitizen<4.0.0,>=3.27.0",
+    "pyinstaller<7.0.0,>=6.9.0",
+    "mkdocs-material<10.0.0,>=9.5.29",
+    "mkdocstrings[python]<1.0.0,>=0.25.1",
+    "pymdown-extensions<11.0.0,>=10.8.1",
+    "termynal<1.0.0,>=0.12.1",
+    "mkdocs-click>=0.8.1",
+    "mkdocs-open-in-new-tab>=1.0.8",
+]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "semver"
+version_provider = "pep621"
+update_changelog_on_bump = true
+major_version_zero = true

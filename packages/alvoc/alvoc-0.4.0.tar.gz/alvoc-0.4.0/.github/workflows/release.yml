@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+permissions:
+  contents: write
+      
+jobs:
+  pypi-publish:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/alvoc
+      
+    permissions:
+      id-token: write 
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        fetch-tags: true
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+  
+    - name: Base Setup
+      uses: ./.github/workflows/actions/setup-base
+      with:
+        environment: prod
+        shell: bash
+
+    - name: Build the package
+      shell: bash
+      run: |
+        uv build
+
+    - name: Publish the package
+      shell: bash
+      run: |
+          uv publish
+
+  publish-docker:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+      
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      - name: Build and Publish Docker Image
+        uses: ./.github/workflows/actions/package-image
+        with:
+          image_name: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
