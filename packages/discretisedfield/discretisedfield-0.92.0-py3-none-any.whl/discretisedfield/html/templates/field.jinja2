@@ -1,0 +1,18 @@
+<strong>Field</strong>
+<ul>
+  {% set mesh = field.mesh %}
+  <li>{% include 'mesh.jinja2' %}</li>
+  <li>nvdim = {{ field.nvdim }}</li>
+  {% if field.vdims is iterable -%}
+    <li>vdims:
+      <ul>
+        {%- for vdim in field.vdims -%}
+          <li>{{ vdim }}</li>
+        {% endfor -%}
+      </ul>
+    </li>
+  {% endif -%}
+  {% if field.unit is not none -%}
+    <li>unit = {{ field.unit }}</li>
+  {% endif -%}
+</ul>
