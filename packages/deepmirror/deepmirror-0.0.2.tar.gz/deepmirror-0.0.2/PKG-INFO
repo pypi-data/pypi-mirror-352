@@ -1,0 +1,152 @@
+Metadata-Version: 2.4
+Name: deepmirror
+Version: 0.0.2
+Summary: Command line interface for the deepmirror public API
+Author-email: Ryan Greenhalgh <ryan@deepmirror.ai>
+Maintainer-email: Ryan Greenhalgh <ryan@deepmirror.ai>
+Project-URL: Homepage, https://www.deepmirror.ai/
+Project-URL: Repository, https://github.com/deepmirror/deepmirror-client
+Project-URL: Documentation, https://github.com/deepmirror/deepmirror-client
+Project-URL: Issues, https://github.com/deepmirror/deepmirror-client/issues
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click>=8.1.8
+Requires-Dist: requests>=2.31.0
+Requires-Dist: pandas>=2.2.2
+Requires-Dist: pydantic>=2.11.5
+Requires-Dist: pydantic-settings>=2.9.1
+Requires-Dist: scikit-learn>=1.6.1
+Requires-Dist: matplotlib>=3.10.3
+Requires-Dist: tqdm>=4.67.1
+Requires-Dist: ipykernel>=6.29.5
+Requires-Dist: types-requests==2.32.0.20250515
+Requires-Dist: nglview>=3.1.4
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0.0; extra == "dev"
+Requires-Dist: pre-commit>=3.6.0; extra == "dev"
+Requires-Dist: pylint>=3.3.6; extra == "dev"
+Requires-Dist: ruff>=0.11.0; extra == "dev"
+Requires-Dist: mypy==1.15.0; extra == "dev"
+Dynamic: license-file
+
+# deepmirror
+
+`deepmirror` is a command-line interface for interacting with the [deepmirror API](https://api.app.deepmirror.ai/public/docs). It allows you to train models, run predictions, and submit structure prediction jobs directly from your terminal.
+
+---
+
+## 🚀 Installation
+
+```bash
+pip install deepmirror
+```
+
+---
+
+## 🔐 Authentication
+
+Before using most commands, you need to log in to get your API token:
+
+```bash
+dm login EMAIL
+```
+
+This saves your token and host in `~/.config/deepmirror/` for reuse.
+
+---
+
+## 🧠 Model Commands
+
+### 📋 List Available Models
+
+```bash
+dm model list
+```
+
+### 📄 View Model Metadata
+
+```bash
+dm model metadata MODEL_ID
+```
+
+### 🔎 Get Full Model Info
+
+```bash
+dm model info MODEL_ID
+```
+
+---
+
+## 🏋️ Train a Custom Model
+
+```bash
+dm train --model-name mymodel \
+  --csv-file path/to/data.csv \
+  --smiles-column smiles \
+  --value-column target \
+  [--classification]
+```
+
+- `--classification` enables classification mode.
+- Default SMILES column is `smiles`, target column is `target`.
+
+---
+
+## 🔮 Run Inference
+
+You can run inference using either a CSV file or direct SMILES input:
+
+```bash
+# From a CSV or TXT file
+dm predict --model-name mymodel --csv-file inputs.csv
+
+# Direct SMILES
+dm predict --model-name mymodel --smiles "CCO"
+```
+
+---
+
+## 🧬 Structure Prediction
+
+### 🧠 Predict Protein-Ligand Structure
+
+```bash
+dm structure predict protein.pdb ligand.sdf --model chai
+```
+
+- Default model is `chai`.
+- Protein and ligand must be valid file paths.
+
+### 📦 Download Prediction Result
+
+```bash
+dm structure download TASK_ID result.zip
+```
+
+### 📃 List Submitted Jobs
+
+```bash
+dm structure list
+```
+
+---
+
+## ⚙️ Configuration
+
+- API host and token are saved under `~/.config/deepmirror/`.
+- You can override the API host:
+
+  - via `--host` option on any command
+  - or by setting `DEEPMIRROR_API_ENV=local`
+
+---
+
+## 💡 Tips
+
+- If a token is missing or expired, commands will prompt you to log in again.
+- Use `--help` on any command for more details, e.g.:
+
+  ```bash
+  dm train --help
+  ```
