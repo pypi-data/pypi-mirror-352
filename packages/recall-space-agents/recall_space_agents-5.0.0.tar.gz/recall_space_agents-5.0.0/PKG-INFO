@@ -1,0 +1,64 @@
+Metadata-Version: 2.2
+Name: recall-space-agents
+Version: 5.0.0
+Summary: Agents of recall space.
+Author: Recall Space
+Author-email: info@recall.space
+License: Open source
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: langgraph==0.3.34
+Requires-Dist: langgraph-sdk<1.0.0
+Requires-Dist: langsmith<1.0.0
+Requires-Dist: langchain-community<1.0.0
+Requires-Dist: langchain-core<1.0.0
+Requires-Dist: langchain-openai<1.0.0
+Requires-Dist: langgraph-cli<1.0.0
+Requires-Dist: PyPDF2<4.0.0
+Requires-Dist: python-docx<2.0.0
+Requires-Dist: openpyxl<4.0.0
+Requires-Dist: beautifulsoup4<5.0.0
+Requires-Dist: pytz==2024.2
+Requires-Dist: pandas<3.0.0
+Requires-Dist: tabulate<1.0.0
+Requires-Dist: agent-builder<1.0.0
+Requires-Dist: azure-storage-blob
+Provides-Extra: postgresql
+Requires-Dist: psycopg[binary,pool]; extra == "postgresql"
+Requires-Dist: langgraph-checkpoint-postgres; extra == "postgresql"
+Requires-Dist: azure-storage-queue; extra == "postgresql"
+Provides-Extra: microsoft-graph
+Requires-Dist: msgraph-sdk; extra == "microsoft-graph"
+Requires-Dist: azure-identity; extra == "microsoft-graph"
+Requires-Dist: azure-keyvault-secrets; extra == "microsoft-graph"
+Provides-Extra: nlp
+Requires-Dist: nltk; extra == "nlp"
+Provides-Extra: google-calendar
+Requires-Dist: google-api-python-client; extra == "google-calendar"
+Requires-Dist: google-auth; extra == "google-calendar"
+Requires-Dist: google-auth-httplib2; extra == "google-calendar"
+Requires-Dist: google-auth-oauthlib; extra == "google-calendar"
+Provides-Extra: microsoft-doc-intelligence
+Requires-Dist: azure-ai-documentintelligence; extra == "microsoft-doc-intelligence"
+Provides-Extra: all
+Requires-Dist: psycopg[binary,pool]; extra == "all"
+Requires-Dist: langgraph-checkpoint-postgres; extra == "all"
+Requires-Dist: azure-storage-queue; extra == "all"
+Requires-Dist: msgraph-sdk; extra == "all"
+Requires-Dist: nltk; extra == "all"
+Requires-Dist: google-api-python-client; extra == "all"
+Requires-Dist: google-auth; extra == "all"
+Requires-Dist: google-auth-httplib2; extra == "all"
+Requires-Dist: google-auth-oauthlib; extra == "all"
+Requires-Dist: azure-identity; extra == "all"
+Requires-Dist: azure-keyvault-secrets; extra == "all"
+Requires-Dist: azure-ai-documentintelligence; extra == "all"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: license
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: summary
