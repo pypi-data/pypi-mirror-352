@@ -1,0 +1,1 @@
+from evergreenlib.encoding_utils import normalize_file_encoding
