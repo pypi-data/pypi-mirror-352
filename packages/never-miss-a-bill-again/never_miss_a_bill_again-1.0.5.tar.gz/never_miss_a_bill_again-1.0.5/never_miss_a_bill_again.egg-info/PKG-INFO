@@ -1,0 +1,58 @@
+Metadata-Version: 2.4
+Name: never-miss-a-bill-again
+Version: 1.0.5
+Summary: Never miss a bill again
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: sqlalchemy
+Requires-Dist: alembic
+Requires-Dist: apprise
+Requires-Dist: pydantic
+Requires-Dist: structlog
+Requires-Dist: typer
+Requires-Dist: rich
+Requires-Dist: click
+Provides-Extra: dev
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: python-semantic-release; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Dynamic: license-file
+
+# Never Miss a Bill Again
+
+Never Miss a Bill Again (NMBA) is a command-line tool to help you never miss a bill again.
+
+## Features
+
+- Add bills with name, recipient, due day, amount, and paid status
+- List all bills in a table
+- Mark bills as paid or unpaid
+- Import bills from a CSV file
+- Export bills to a CSV file
+- Notify via Apprise when bills are due
+
+## Installation
+
+```bash
+pip install never-miss-a-bill-again
+```
+
+## Usage
+
+```bash
+nmba --help
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a pull request
+
+## License
+
+MIT
