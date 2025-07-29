@@ -1,0 +1,1 @@
+# Bo‘sh qoldiring yoki modul sifatida belgilang
