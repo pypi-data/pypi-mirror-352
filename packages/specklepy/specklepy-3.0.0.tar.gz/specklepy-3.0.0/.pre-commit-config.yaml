@@ -1,0 +1,31 @@
+repos:
+  - repo: local
+    hooks:
+      # Run the linter.
+      - id: ruff
+        name: ruff lint
+        entry: uv run ruff check --force-exclude
+        language: system
+        types_or: [python, pyi]
+      # Run the formatter.
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format --force-exclude
+        language: system
+        types_or: [python, pyi]
+
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    hooks:
+      - id: commitizen
+      - id: commitizen-branch
+        stages:
+          - pre-push
+    rev: v3.13.0
+
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
