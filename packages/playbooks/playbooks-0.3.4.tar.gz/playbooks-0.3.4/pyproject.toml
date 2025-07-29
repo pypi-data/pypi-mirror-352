@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "playbooks"
+version = "0.3.4"
+description = "A framework for creating AI applications and agents using natural language programming"
+authors = ["Amol Kelkar <kelkar.amol@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "playbooks", from = "src"}]
+
+[tool.poetry.scripts]
+playbooks = "playbooks.cli:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+rich = "^14.0.0"
+dotenv = "^0.9.9"
+litellm = "^1.65.0"
+diskcache = "^5.6.3"
+langfuse = "^2.60.2"
+redis = "^5.2.1"
+markdown-it-py = "^3.0.0"
+python-frontmatter = "^1.1.0"
+pytest-asyncio = "^0.26.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+pytest-asyncio = "^0.26.0"
+coverage = "^7.8.0"
+pytest-cov = "^6.1.1"
+ruff = "^0.11.8"
+black = "^25.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
