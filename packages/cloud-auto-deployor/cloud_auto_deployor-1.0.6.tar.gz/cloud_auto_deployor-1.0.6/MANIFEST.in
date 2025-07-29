@@ -1,0 +1,14 @@
+include README.md
+include LICENSE
+include config.json
+
+recursive-include cloud_auto_deployor *.py
+recursive-include cloud_auto_deployor *.json
+recursive-include cloud_auto_deployor *.sh
+
+Explanation:
+	•	README.md → Shown on PyPI project page.
+	•	LICENSE → Required for open-source compliance.
+	•	config.json → If your deployor uses this config, include it.
+	•	recursive-include cloud_auto_deployor *.py → Include all your Python files inside the main package folder.
+	•	*.json or *.sh → Include any helper files/scripts in the package if applicable.
