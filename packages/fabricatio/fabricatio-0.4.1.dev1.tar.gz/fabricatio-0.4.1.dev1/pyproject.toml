@@ -1,0 +1,198 @@
+[project]
+name = "fabricatio"
+version = "0.4.1-dev1"
+description = "A LLM multi-agent framework."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Whth", email = "zettainspector@foxmail.com" }
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Framework :: AsyncIO",
+    "Framework :: Pydantic :: 2",
+    "Typing :: Typed",
+]
+keywords = [
+    "ai",
+    "agents",
+    "multi-agent",
+    "llm",
+    "pyo3"
+]
+
+
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "fabricatio-core",
+]
+
+[project.urls]
+Homepage = "https://github.com/Whth/fabricatio"
+Repository = "https://github.com/Whth/fabricatio"
+Issues = "https://github.com/Whth/fabricatio/issues"
+
+
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[tool.maturin]
+python-source = "python"
+module-name = "fabricatio.rust"
+data = "extra"
+[dependency-groups]
+dev = [
+    "maturin>=1.8.2",
+    "maturin-import-hook>=0.2.0",
+    "ruff>=0.9.4",
+    "uv>=0.5.29",
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.3",
+    "pytest-cov>=6.0.0",
+    "pytest-env>=1.1.5",
+    "pytest-flake8>=1.3.0",
+    "pytest-mock>=3.14.0",
+    "pytest-rerunfailures>=15.0",
+    "pytest-xdist>=3.6.1",
+    "viztracer>=1.0.2",
+]
+
+[project.optional-dependencies]
+full = [
+    "fabricatio[ftd,qa,rag,cli,typst,rule,judge,capabilities,actions]",
+]
+rag = [
+    "fabricatio-rag",
+]
+
+judge = [
+    "fabricatio-judge",
+]
+
+
+rule = [
+    "fabricatio-rule",
+]
+
+qa = [
+    "questionary>=2.1.0",
+]
+ftd = [
+    "magika>=0.6.1",
+]
+cli = [
+    "typer-slim[standard]>=0.15.2",
+]
+
+
+typst = [
+    "fabricatio-typst"
+]
+
+improve = [
+    "fabricatio-improve"
+
+]
+
+capabilities = [
+    "fabricatio-capabilities",
+]
+
+actions = [
+    "fabricatio-actions"
+]
+
+[tool.ruff]
+include = ["pyproject.toml", "python/fabricatio/*.py", "python/fabricatio/*.pyi", "examples/*.py", "packages/*.py"]
+line-length = 120
+target-version = "py312"
+[tool.ruff.format]
+quote-style = "double" # Like Black, use double quotes for strings.
+
+[tool.ruff.lint]
+select = [
+    "F", # Pyflakes
+    "I", # isort
+    "N", # pep8-naming
+    "D", # pydocstyle
+    "W", # warnings
+    "ANN", # flake8-annotations
+    "ASYNC", # flake8-async
+    "S", # flake8-bandit
+    "BLE", # flake8-blind-except
+    "C90", # flake8-complexity
+    "B", # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "T10", # flake8-debugger
+    "T20", # flake8-print
+    "PYI", # flake8-pyi
+    "PT", # flake8-pytest-style
+    "RET", # flake8-return
+    "SIM", # flake8-simplify
+    "TC", # flake8-type-checking
+    "PTH", # flake8-use-pathlib
+    "PLC", # convention
+    "PLE", # error
+    "PLR", # refactoring
+    "PLW", # warning
+    "RUF", # Ruff-specific rules
+]
+ignore = [
+    "ANN401",
+    "ANN003",
+    "PYI063",
+    "PYI021",
+    "ASYNC109",
+    "RUF001",
+    "PYI019"
+]
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+ignore-decorators = ["typing.overload"]
+[tool.ruff.lint.pylint]
+max-args = 8
+
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.uv.sources]
+fabricatio = { workspace = true }
+fabricatio-core = { workspace = true }
+fabricatio-capabilities = { workspace = true }
+fabricatio-actions = { workspace = true }
+fabricatio-typst = { workspace = true }
+fabricatio-rag = { workspace = true }
+fabricatio-rule = { workspace = true }
+fabricatio-judge = { workspace = true }
+fabricatio-improve = { workspace = true }
+
+
+
+[[tool.uv.index]]
+url = "https://mirrors.bfsu.edu.cn/pypi/web/simple"
+default = true
+
+[[tool.uv.index]]
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
+
+[[tool.uv.index]]
+url = "https://mirrors.huaweicloud.com/repository/pypi/simple"
+
+[[tool.uv.index]]
+url = "https://mirrors.aliyun.com/pypi/simple/"
+
+[tool.uv.workspace]
+members = [
+    "packages/*",
+]
+
