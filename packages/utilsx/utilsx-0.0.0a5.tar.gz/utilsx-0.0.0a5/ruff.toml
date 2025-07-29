@@ -1,0 +1,62 @@
+target-version = "py312"
+line-length = 100
+
+[lint]
+select = [
+    "F",
+    "E",
+    "W",
+    "I",
+    "N",
+    "UP",
+    "S",
+    "PL",
+    "BLE",
+    "B",
+    "A",
+    "C4",
+    "ICN",
+    "SLF",
+    "SIM",
+    "ERA",
+    "RUF",
+    "T10",
+    "T20",
+    "PT",
+    "ANN",
+    "ISC",
+    "G",
+    "PIE",
+    "ARG",
+    "NPY",
+    "PERF",
+    "FURB",
+    "C90",
+    "D",
+]
+
+[lint.per-file-ignores]
+"*__init__.py" = [
+    "F401", # Allow unused imports in init files
+    "F403", # Allow wildcard imports in init files
+]
+"tests/*" = [
+    "S101", # Allow assertions in tests
+    "D100", # Allow test files without file-level docstring
+    "D101", # Allow test classes without docstrings
+    "D102", # Allow methods of test classes without docstrings
+    "D103", # Allow tests without docstrings
+    "PLR2004", # Allow magic values in comparisons
+]
+"scripts/*" = [
+    "G004" # Allow using f-strings in logging messages
+]
+
+[lint.isort]
+known-first-party = ["utilsx"]
+
+[lint.flake8-pytest-style]
+parametrize-values-type = "tuple"
+
+[lint.pydocstyle]
+convention = "google"
