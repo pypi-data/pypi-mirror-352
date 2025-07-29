@@ -1,0 +1,20 @@
+Metadata-Version: 2.4
+Name: jaxctx
+Version: 1.0.1
+Summary: Lightwieght JAX context for managing collections of parameters and RNG sequences.
+Author-email: "Joshua G. Albert" <albert@strw.leidenuniv.nl>
+License: GNU General Public License v3 (GPLv3)
+Project-URL: Homepage, https://github.com/joshuaalbert/jaxctx
+Keywords: jax
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# jaxctx
+JAX Context for memoizationg collections of parameters, and handling sequences of random keys.
+Based loosely on things like haiku, and flax, but not deep learning specific. No support for lifting things like 
+scan, etc. You must build these things on top of this if you want them.
