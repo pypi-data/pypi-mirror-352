@@ -1,0 +1,45 @@
+#
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#writing-pyproject-toml
+# https://stackoverflow.com/questions/75570780/pip-show-does-not-show-summary-home-page-author-and-license
+#
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/cubicequation/version.py"
+
+[project]
+name = "cubicequation"
+dynamic = ['version']
+dependencies = [
+  'symexpress3 >= 0.0.12'
+]
+authors = [
+  { name ="Gien van den Enden"},
+  { email="swvandenenden@gmail.com" },
+]
+maintainers = [
+  {name = "Gien van den Enden", email="swvandenenden@gmail.com"}
+]
+description = "A Python module for the exact solutions of a cubic equation"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "Intended Audience :: Developers"
+
+]
+license = {text = "GNU General Public License v3 or later (GPLv3+)"}
+keywords = ["math", "symbolic", "cubic equation"]
+
+[project.urls]
+Homepage = "https://github.com/SWVandenEnden/"
+Repository = "https://github.com/SWVandenEnden/cubicequation"
+
