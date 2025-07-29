@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "minecraftenv",
+  "version": "${version}",
+  "name": "minecraftenv",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/yhs0602/craftground"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/minecraftenv/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.kyhsgeekcode.minecraftenv.client.Minecraft_envClient"
+    ],
+    "main": [
+      "com.kyhsgeekcode.minecraftenv.MinecraftEnv"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "mixins": [
+    "com.kyhsgeekcode.minecraftenv.mixin.json"
+  ],
+  "custom": {
+    "loom:injected_interfaces": {
+      "net/minecraft/class_761": [
+        "com/kyhsgeekcode/minecraftenv/AddListenerInterface"
+      ]
+    }
+  },
+  "accessWidener": "minecraftenv.accesswidener"
+}
