@@ -1,0 +1,25 @@
+Metadata-Version: 2.4
+Name: fastdataframe
+Version: 0.0.3
+Summary: A fast dataframe implementation with Pydantic integration
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.12
+Requires-Dist: annotated-types>=0.5.0
+Requires-Dist: pydantic<3.0,>=2.0
+Provides-Extra: iceberg
+Requires-Dist: pyiceberg>=0.9; extra == 'iceberg'
+Provides-Extra: polars
+Requires-Dist: polars>=1.26.0; extra == 'polars'
+Description-Content-Type: text/markdown
+
+# fastdataframe
+Manage and validate your dataframe using pydantic
