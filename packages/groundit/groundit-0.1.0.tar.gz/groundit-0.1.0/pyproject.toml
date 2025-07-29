@@ -1,0 +1,26 @@
+[project]
+name = "groundit"
+version = "0.1.0"
+description = "Groundit adds source references and confidence scores to ensure your AI outputs are verifiable and trustworthy."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+license = "MIT"
+authors = [
+    { name="Sam Rodriguez" }
+]
+keywords = ["llm", "extraction", "confidence", "references", "audit"]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+# Console scripts entry points
+[project.scripts]
+groundit = "groundit:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
