@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mgplot"
+version = "0.1.4"
+description = "mgplot is a time-series/PeriodIndex frontend for matplotlib"
+readme = "README.md"
+requires-python = ">=3.12"
+
+dependencies = [
+    # - system
+    "typing",
+    "pathlib",
+
+    # - data science 
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "tabulate",
+
+    # - development environment
+    "black",
+    "mypy",
+    "pdoc",
+    "pylint",
+    "ruff",
+
+    # - typing
+    "pandas-stubs",
+    "numpy-typing",
+    "types-tabulate",
+]
+
+[project.urls]
+Repository = "https://github.com/bpalmer4/mgplot.git"
+Homepage = "https://github.com/bpalmer4/mgplot.git"
+
