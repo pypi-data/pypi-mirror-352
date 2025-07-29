@@ -1,0 +1,176 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llama-api-bench"
+version = "0.0.10"
+description = "Llama API Benchmark"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Xi Yan", email = "yanxi970830@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    "pydantic",
+    "llama-api-client",
+    "openai",
+    "rich",
+    "pandas",
+    "tabulate",
+    "typer",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "mypy",
+    "pre-commit",
+    "ipykernel",
+]
+
+[project.urls]
+Documentation = "https://github.com/yanxi0830/llama-api-bench#readme"
+Issues = "https://github.com/yanxi0830/llama-api-bench/issues"
+Source = "https://github.com/yanxi0830/llama-api-bench"
+
+# CLI Entry Point
+[project.scripts]
+llama-api-bench = "llama_api_bench.cli.cli:app"
+
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/llama_api_bench tests}"
+
+[tool.hatch.version]
+path = "src/llama_api_bench/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "pyproject.toml",
+    "README.md",
+    "LICENSE",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/llama_api_bench"]
+
+# HATCH ENVIRONMENTS
+[tool.hatch.envs.default]
+description = "Default development environment"
+dependencies = [
+    "mypy",
+    "pytest",
+    "pytest-cov", # For test coverage
+    "ruff",       # For linting and formatting
+]
+# Install the current package in editable mode
+skip-install = false
+dev-mode = true
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=src/llama_api_bench --cov=tests {args:tests}"
+cov-html = "pytest --cov-report=html --cov-config=pyproject.toml --cov=src/llama_api_bench --cov=tests {args:tests} && open htmlcov/index.html" # Opens HTML report
+lint = "ruff check src tests"
+format = "ruff format src tests"
+check = [
+  "format --check", # Check formatting without applying
+  "lint",
+]
+build = "hatch build"
+
+# LINT AND FORMATTING
+[tool.ruff]
+line-length = 120
+include = ["examples/**/*.py", "src/**/*.py", "tests/**/*.py", "tests-integ/**/*.py"]
+
+[tool.ruff.lint]
+select = [
+  "B", # flake8-bugbear
+  # "D", # pydocstyle
+  "E", # pycodestyle
+  "F", # pyflakes
+  "I", # isort
+]
+
+[tool.ruff.lint.per-file-ignores]
+"!src/**/*.py" = ["D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+# PYTEST CONFIGURATION
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers" # Recommended options
+testpaths = [
+    "tests",
+]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+# COVERAGE CONFIGUREATION (used by pytest-cov)
+[tool.coverage.run]
+source = ["src/llama_api_bench"]
+source_pkgs = ["llama_api_bench", "tests"]
+branch = true
+parallel = true
+concurrency = ["thread", "multiprocessing"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.coverage.html]
+directory = "build/coverage/html"
+
+# COMMITZEN
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+bump_message = "chore(release): bump version $current_version -> $new_version"
+version_files = [
+    "pyproject.toml:version",
+]
+update_changelog_on_bump = true
+style = [
+    ["qmark", "fg:#ff9d00 bold"],
+    ["question", "bold"],
+    ["answer", "fg:#ff9d00 bold"],
+    ["pointer", "fg:#ff9d00 bold"],
+    ["highlighted", "fg:#ff9d00 bold"],
+    ["selected", "fg:#cc5454"],
+    ["separator", "fg:#cc5454"],
+    ["instruction", ""],
+    ["text", ""],
+    ["disabled", "fg:#858585 italic"]
+]
