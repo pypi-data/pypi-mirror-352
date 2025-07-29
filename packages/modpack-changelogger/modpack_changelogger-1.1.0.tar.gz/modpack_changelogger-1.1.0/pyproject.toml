@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modpack_changelogger"
+dynamic = ["version"] # Version is read from modpack_changelogger/version.py
+description = "A powerful and customizable Python tool to generate a changelog between two Minecraft modpacks in modrinth.mrpack or curseforge.zip format."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT License" }
+authors = [{ name = "TheBossMagnus", email = "thebossmagnus@proton.me" }]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = ["aiohttp", "click"]
+
+[project.urls]
+Homepage = "https://github.com/TheBossMagnus/modpack-changelogger"
+Repository = "https://github.com/TheBossMagnus/modpack-changelogger"
+
+[project.scripts]
+modpack-changelogger = "modpack_changelogger.cli_wrapper:cli"
+
+[tool.setuptools.dynamic]
+version = { attr = "modpack_changelogger.version.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["."] # searches in the current directory
+
+[tool.ruff]
+target-version = "py313"
+exclude = ["test/", ".venv/", "__pycache__/"]
+lint.select = [
+    "ASYNC",  # flake8-async
+    "B",      # flake8-bugbear
+    "C90",    # mccabe
+    "COM",    # flake8-commas
+    "DTZ",    # flake8-datetimez
+    "E",      # pycodestyle errors
+    "EXE",    # flake8-executable
+    "F",      # Pyflakes
+    "FA",     # flake8-future-annotations
+    "FLY",    # flynt
+    "G",      # flake8-logging-format
+    "I",      # isort
+    "ICN",    # flake8-import-conventions
+    "ISC",    # flake8-implicit-str-concat
+    "LOG",    # flake8-logging
+    "PGH",    # pygrep-hooks
+    "PIE",    # flake8-pie
+    "PLC",    # Pylint conventions
+    "PLE",    # Pylint errors
+    "PLW",    # Pylint warnings
+    "PYI",    # flake8-pyi
+    "RSE",    # flake8-raise
+    "RUF",    # Ruff-specific rules
+    "SLOT",   # flake8-slot
+    "T10",    # flake8-debugger
+    "UP",     # pyupgrade
+    "W",      # pycodestyle warnings
+    "YTT",    # flake8-2020
+]
+lint.ignore = [
+    "E501",  # line too long
+    "COM812",   # missing-trailing-comma
+]
+fix = true
+
+
