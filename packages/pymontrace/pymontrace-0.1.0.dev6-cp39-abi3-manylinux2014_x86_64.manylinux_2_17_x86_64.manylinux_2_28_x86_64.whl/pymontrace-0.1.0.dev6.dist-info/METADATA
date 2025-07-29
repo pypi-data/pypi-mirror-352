@@ -1,0 +1,69 @@
+Metadata-Version: 2.4
+Name: pymontrace
+Version: 0.1.0.dev6
+Summary: dynamic python tracing
+Author: Daniel Golding
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/cakemanny/pymontrace
+Project-URL: Repository, https://github.com/cakemanny/pymontrace.git
+Keywords: tracing
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Topic :: Software Development :: Debuggers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.9
+Description-Content-Type: text/plain
+License-File: LICENSE.txt
+Provides-Extra: test
+Requires-Dist: pytest~=8.0; extra == "test"
+Requires-Dist: flake8~=7.0; extra == "test"
+Provides-Extra: dev
+Requires-Dist: black~=25.0; extra == "dev"
+Requires-Dist: isort~=6.0; extra == "dev"
+Requires-Dist: pyright~=1.0; extra == "dev"
+Dynamic: license-file
+
+First Terminal
+
+    python3 examples/script_to_debug.py
+
+Second terminal
+
+    pymontrace -p "$(pgrep '[Pp]ython')" -e 'line:*/script_to_debug.py:13 {{ print("a", ctx.a, "b", ctx.b) }}'
+    Waiting for process to reach safepoint...
+    Probes installed. Hit CTRL-C to end...
+    a 4 b 3
+    a 3 b 7
+    a 7 b 1
+    a 1 b 8
+    a 8 b 0
+    ^CRemoving probes...
+    Waiting for process to reach safepoint...
+    .
+
+
+WARNING:
+
+  - This is under early development and is in no way safe to use against
+    production workloads.
+
+  - The interface will change wildly without warning. There are no versioning
+    guarantees at this point.
+
+
+CAVEATS:
+
+  - Use on macOS requires root. Use `sudo`.
+
+  - Probes will only fire if the function is entered after the probe has
+    been installed. This means that top level statements cannot be traced and
+    that the statements inside an outermost forever-loop cannot be traced.
