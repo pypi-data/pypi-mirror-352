@@ -1,0 +1,168 @@
+Metadata-Version: 2.4
+Name: pgstudio
+Version: 0.4.0
+Summary: A GUI builder for pygame (using pygame_gui).
+Home-page: https://github.com/TaireruLLC/pgstudio
+Author: Taireru LLC
+Author-email: tairerullc@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: pygame_gui>=0.6.0
+Requires-Dist: Pillow>=9.0.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+
+# PgStudio 0.4.0
+## **NOTICE:** PgStudio is currently in early beta and far from complete. Please do not expect a bug-free experience or a “perfect” product at this stage. Updates will be rolled out periodically as the project continues to evolve and expand. We welcome feature suggestions and bug reports—feel free to share them with us on our Discord server at [Taireru LLC ™ // PgStudio // #bugs-and-stuff](https://discord.gg/36xVkTcuz5). 
+
+a GUI editor for **pygame** using **pygame_gui**.
+
+## features (new in 0.4.0)
+
+- **Error dialogs**: any time something goes wrong (save, export, rename, drawing, etc.), you get a `UIMessageWindow` explaining what happened.  
+- **Theming**: includes `themes/pgstudio_theme.json`. if present, PgStudio will load that and skin all UI elements (buttons, panels, labels, etc.).  
+- **Undo/Redo**: any add/delete/rename/property change is recorded. toolbar has “Undo” and “Redo” buttons.  
+- **Custom event hookups**: for **Buttons**, you can now pick **on_click**—choose a Script from your `/scripts/` folder. on export (main.py), those scripts get imported and called when the button is pressed.  
+
+## License Agreement 
+
+When you launch PgStudio, you will be presented with a **Software User Agreement** dialog. You must accept this license agreement before using the software. Key points include:
+
+- By agreeing, you confirm your legal acceptance of the terms governing PgStudio’s use.
+- You **may not** copy, modify, redistribute, or create derivative works from PgStudio’s source code.
+- You **may** view the source code for informational purposes only.
+- Generated content you create with PgStudio belongs to you, but the original software remains proprietary.
+- Declining the agreement or closing the prompt will automatically attempt to uninstall PgStudio.
+- The agreement disclaims liability and prohibits unauthorized monetization.
+- Legal jurisdiction is the State of Arkansas, USA.
+
+If you do not agree, you cannot use PgStudio.
+
+## install
+
+```bash
+pip install pgstudio
+````
+
+## quickstart
+
+```python
+import pgstudio
+
+pgstudio.configure(core="path/to/my_project_folder")
+pgstudio.launch()
+```
+
+* this creates:
+
+  * `my_project_folder/objects.json`
+  * `my_project_folder/scripts/`
+  * `my_project_folder/images/`
+  * (optional) `my_project_folder/themes/pgstudio_theme.json` if you want theming
+
+## UI overview
+
+1. **Toolbar (top)**:
+
+   * **Undo**: undo last change
+   * **Redo**: redo last undone change
+   * **Save**: force‐save `objects.json` now
+   * **Export**: generate `main.py` with event hookups
+   * **New Prjct**: wipes all objects, scripts, images (with confirmation)
+
+2. **Explorer (left)**:
+
+   * shows a collapsible tree of all objects.
+   * right‐click on blank → add root objects
+   * right‐click on object → add child / rename / delete
+   * arrow icon (▶/▼) toggles expand/collapse
+
+3. **Canvas (center)**:
+
+   * drag objects around (nested transforms respected)
+   * resize using bottom‐right corner
+   * draw order by `z_order` (higher drawn on top)
+   * click to select; selected object has yellow outline
+
+4. **Properties (right)**:
+
+   * shows/edit properties for selected object:
+
+     * **abs\_x**, **abs\_y** (auto-convert to relative under the hood)
+     * **w**, **h**, **visible**, **z\_order**, **name**
+     * **type-specific**:
+
+       * Rectangle: color picker
+       * Button: text, font\_size, color, on\_click (choose from scripts)
+       * Label: text, font\_size, color
+       * Image: file picker (choose image from filesystem)
+       * TextInput: placeholder, text\_color, bg\_color
+       * Script: “Edit Script” button (opens in default editor)
+   * always has a **Delete Object** button
+
+5. **Error Handling**:
+
+   * if anything breaks (e.g. invalid number in property, file‐I/O fails, draw error), a `UIMessageWindow` pops up explaining it.
+
+6. **Theming**:
+
+   * if you place a `themes/pgstudio_theme.json` in the package (or modify it), PgStudio will load it and skin all UI.
+   * sample theme changes button colors, panel BG, label text color, text entry style.
+
+## undo/redo details
+
+* every time you call any method that mutates (add, delete, rename, update), PgStudio first snapshots the entire `nodes` dict as JSON.
+* Undo pops the last snapshot, pushes the current snapshot onto the redo stack, and restores the old one.
+* Redo does the reverse.
+* Undo/Redo works for: add\_object, delete\_object, rename\_object, update\_properties, move\_node.
+
+## custom event hookups
+
+* only Buttons have event hookups currently. in the Properties panel for a Button, you see an **on\_click** dropdown that lists “None” + every Script in `/scripts/`.
+* if you choose a script (say `MyScript`), PgStudio stores `node.events["on_click"] = "MyScript"`.
+* on **Export**, `main.py` is generated so that:
+
+  ```py
+    import scripts.MyScript as script_<button_id>
+    ...
+    if e.type == pygame_gui.UI_BUTTON_PRESSED and e.ui_element == elements['<button_id>']:
+        script_<button_id>.run(elements['<button_id>'], event=e)
+  ```
+* thus, in your `scripts/MyScript.py`, just define a `run(obj, event=None)` function and do whatever you want.
+
+## theming
+
+* the included `themes/pgstudio_theme.json` is a minimal example. you can customize fonts, colors, etc.
+* if you remove or rename it, PgStudio falls back to the default pygame\_gui theme.
+
+## error dialogs
+
+* uses `UIMessageWindow` for anything from drawing errors, file I/O, invalid user input, etc.
+* you’ll see a pop-up with a title and message.
+
+## how to develop locally
+
+1. open your local terminal
+2. run `pip install pgstudio`
+3. open your local ide
+4. make a new script and run:
+
+   ```py
+   import pgstudio
+   pgstudio.configure("my_test_project")
+   pgstudio.launch()
+   ```
+
+enjoy building UIs without writing all the boilerplate—just drag, drop, click, export! 🚀🎨
