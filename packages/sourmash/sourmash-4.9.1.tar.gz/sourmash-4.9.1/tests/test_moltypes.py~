@@ -1,0 +1,10 @@
+import pytest
+import sourmash_tst_utils as utils
+
+@pytest.fixture(vals=['dna'])
+def moltype(request):
+    return request.vals
+
+
+def test_sketch_file(runtmp, moltype):
+    runtmp.sourmash('sketch', moltype, '-o', f'xxx.moltype.sig.zip')
