@@ -1,0 +1,84 @@
+[project]
+name = "xmltree"
+version = "0.1.0"
+description = "Full file(content) tree → XML"
+authors = [{name = "Adrian Galilea", email = "adriangalilea@gmail.com"}]
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["xml", "tree", "directory", "converter", "serialization", "filesystem"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Text Processing :: Markup :: XML",
+    "Topic :: System :: Filesystems",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+]
+
+requires-python = ">=3.12"
+dependencies = [
+    "rich>=13.0",
+    "pydantic-settings>=2.0",
+    "typer>=0.16.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/adriangalilea/xmltree"
+Repository = "https://github.com/adriangalilea/xmltree"
+Issues = "https://github.com/adriangalilea/xmltree/issues"
+
+[project.scripts]
+xmltree = "xmltree.cli:app"
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["xmltree"]
+
+[tool.uv]
+dev-dependencies = ["ruff>=0.11.0"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["F", "E", "W", "I", "N", "B", "A", "C4", "SIM"]
+ignore = ["B008"]  # Typer uses function calls in defaults by design
+
+# Type checking (optional - not everyone needs it):
+# 
+# Option 1: mypy (current standard)
+# [tool.mypy]
+# python_version = "3.12"
+# strict = true
+# 
+# Option 2: ty (future - Astral's Rust-based checker, same team as Ruff)
+# [tool.ty]
+# # Not released yet - check https://github.com/astral-sh/ty
+# 
+# Then add to dev-dependencies:
+# dev-dependencies = ["ruff>=0.11.0", "mypy>=1.0"]  # or "ty" when available
+
+# When you need tests (manifesto says most code doesn't):
+# 
+# [tool.pytest.ini_options]
+# python_files = ["*_test.py"]  # Co-located test files
+# testpaths = ["."]             # Look in current directory, not separate tests/
+# 
+# Then add to dev-dependencies above:
+# dev-dependencies = ["ruff>=0.11.0", "pytest>=8.3.0"]
+# 
+# Remember: 
+# - Tests complement assertions, they don't replace them
+# - Only test complex algorithms with edge cases
+# - No test directories - keep *_test.py next to code
+# - Most files don't need tests - assertions ARE the tests
