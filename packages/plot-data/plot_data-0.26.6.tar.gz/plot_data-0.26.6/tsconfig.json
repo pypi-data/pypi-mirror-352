@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "esnext",
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true,
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "lib": ["DOM", "es2019"],
+    "types": ["cypress", "cypress-visual-regression", "node", "cypress-real-events"]
+  },
+  "include": ["src", "cypress"],
+  "exclude": ["node_modules", "**/__tests__/*"]
+}
