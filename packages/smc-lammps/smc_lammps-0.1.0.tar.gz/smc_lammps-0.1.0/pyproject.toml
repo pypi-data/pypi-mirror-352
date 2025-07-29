@@ -1,0 +1,39 @@
+[project]
+name = "smc-lammps"
+version = "0.1.0"
+description = "Simulate DNA loop extrusion by SMCs using LAMMPS"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.13"
+keywords = [
+  "simulation",
+  "Molecular Dynamics",
+  "coarse-grained",
+  "LAMMPS",
+  "DNA",
+  "loop extrusion",
+  "Structural Maintance of Chromosomes",
+]
+authors = [
+  { name = "Stefanos Nomidis" },
+  { name = "Lucas Dooms", email = "lucas.dooms@kuleuven.be" },
+]
+maintainers = [
+  { name = "Lucas Dooms", email = "lucas.dooms@kuleuven.be" },
+]
+classifiers = [ "Programming Language :: Python :: 3 :: Only", "Programming Language :: Python :: 3.13" ]
+dependencies = [
+  "argcomplete>=3.6.2",
+  "matplotlib>=3.10.1",
+  "numpy>=2.2.4",
+  "rich>=14.0.0",
+  "scipy>=1.15.2",
+]
+urls.Repository = "https://github.com/LucasDooms/SMC_LAMMPS.git"
+
+[project.scripts]
+smc-lammps = "smc_lammps:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
