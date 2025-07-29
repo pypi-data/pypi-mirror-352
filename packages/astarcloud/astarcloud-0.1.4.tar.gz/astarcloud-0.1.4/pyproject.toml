@@ -1,0 +1,33 @@
+[project]
+name = "astarcloud"
+version = "0.1.4"
+description = "Official Python SDK for the AstarCloud API"
+readme = "README.md"
+authors = [
+    { name = "Erik", email = "erik@astarconsulting.no" },
+]
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "httpx>=0.27.0",
+    "pydantic>=2.0",
+]
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+Documentation = "https://docs.astarcloud.ai"
+Source = "https://github.com/ASTAR-CLOUD/astarcloud-sdk"
+
+[build-system]
+requires = [
+    "pdm-backend>=2.0",
+]
+build-backend = "pdm.backend"
+
+[tool]
