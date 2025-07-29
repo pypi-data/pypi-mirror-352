@@ -1,0 +1,29 @@
+[project]
+name = "sourmash_plugin_betterplot"
+description = "sourmash plugin for improved plotting/viz and cluster examination."
+readme = "README.md"
+requires-python = ">=3.10"
+version = "0.5.0"
+
+dependencies = ["sourmash>=4.8.8,<5", "sourmash_utils>=0.2",
+                "matplotlib", "numpy", "scipy", "scikit-learn",
+                "seaborn", "upsetplot", "matplotlib_venn", "pandas", "plotly", "biopython", "ete3"]
+
+[metadata]
+license = { text = "BSD 3-Clause License" }
+
+[project.entry-points."sourmash.cli_script"]
+plot2_command = "sourmash_plugin_betterplot:Command_Plot2"
+plot3_command = "sourmash_plugin_betterplot:Command_Plot3"
+mds_command = "sourmash_plugin_betterplot:Command_MDS"
+mds2_command = "sourmash_plugin_betterplot:Command_MDS2"
+pairwise_to_matrix = "sourmash_plugin_betterplot:Command_PairwiseToMatrix"
+clustermap1_command = "sourmash_plugin_betterplot:Command_Clustermap1"
+upset_command = "sourmash_plugin_betterplot:Command_Upset"
+cluster_to_categories_command = "sourmash_plugin_betterplot:Command_ClusterToCategories"
+tsne_command = "sourmash_plugin_betterplot:Command_TSNE"
+tsne2_command = "sourmash_plugin_betterplot:Command_TSNE2"
+venn = "sourmash_plugin_betterplot:Command_Venn"
+presence_filter = "sourmash_plugin_betterplot:Command_PresenceFilter"
+sankey = "sourmash_plugin_betterplot:Command_Sankey"
+tree = "sourmash_plugin_betterplot:Command_DistTree"
