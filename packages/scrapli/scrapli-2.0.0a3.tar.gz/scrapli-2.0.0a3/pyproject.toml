@@ -1,0 +1,112 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools", "wheel", "ziglang==0.14.1"]
+
+[project]
+name = "scrapli"
+description = "Fast, flexible, sync/async, Python 3.10+ screen scraping client specifically for network devices"
+readme = "README.md"
+keywords = ["netconf", "network", "ssh", "telnet", "async"]
+license = "MIT"
+authors = [{ name = "Carl Montanari", email = "carl.r.montanari@gmail.com" }]
+requires-python = ">=3.10"
+classifiers = [
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dynamic = ["dependencies", "optional-dependencies", "version"]
+[project.urls]
+Changelog = "https://carlmontanari.github.io/scrapli/changelog"
+Docs = "https://carlmontanari.github.io/scrapli/"
+Homepage = "https://github.com/carlmontanari/scrapli"
+
+[tool.setuptools]
+packages = ["scrapli", "scrapli.definitions", "scrapli.lib"]
+
+[tool.setuptools.dynamic]
+version = { attr = "scrapli.__version__" }
+dependencies = { file = "requirements.txt" }
+optional-dependencies.dev = { file = [
+    "requirements-dev.txt",
+    "requirements-genie.txt",
+    "requirements-textfsm.txt",
+] }
+optional-dependencies.full = { file = [
+    "requirements-textfsm.txt",
+    "requirements-genie.txt",
+] }
+optional-dependencies.textfsm = { file = "requirements-textfsm.txt" }
+optional-dependencies.genie = { file = "requirements-genie.txt" }
+
+[tool.setuptools.package-data]
+scrapli = [
+    "py.typed",
+    "scrapli/definitions/*.yaml",
+    "scrapli/lib/*.so.*",
+    "scrapli/lib/*.dylib",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py313"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+include_trailing_comma = true
+
+[tool.mypy]
+python_version = "3.13"
+pretty = true
+ignore_missing_imports = true
+warn_redundant_casts = true
+warn_unused_configs = true
+strict_optional = true
+
+[tool.ruff]
+include = ["setup.py", "scrapli/**.py", "tests/**.py"]
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "FIX",
+    "D",
+    "PL",
+    "ERA",
+    "C90",
+    "N",
+    "PERF",
+    "E",
+    "W",
+    "D",
+    "F",
+    "UP",
+    "FURB",
+    "RUF",
+]
+ignore = [
+    "D105",  # Missing docstring in magic method
+    "D107",  # Missing docstring in `__init__`
+    "D212",  # Multi-line docstring summary should start at the first line
+    "D415",  # First line should end with a period, question mark, or exclamation point
+    "N818",  # Exception name `foo` should be named with an Error suffix
+    "UP015", # Unnecessary mode argument
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"scrapli/ffi_mapping_*.py" = ["PLR0913"]
+"tests/**.py" = ["D", "E501", "PLR0913"]
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "function"
