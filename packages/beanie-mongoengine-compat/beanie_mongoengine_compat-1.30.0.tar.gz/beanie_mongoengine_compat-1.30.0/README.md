@@ -1,0 +1,167 @@
+# Beanie MongoEngine Compatibility Fork
+
+[![shields badge](https://shields.io/badge/-docs-blue)](https://beanie-odm.dev)
+[![pypi](https://img.shields.io/pypi/v/beanie-mongoengine-compat.svg)](https://pypi.python.org/pypi/beanie-mongoengine-compat)
+
+## 🔗 MongoEngine Compatibility Changes
+
+This is a fork of the original [Beanie ODM](https://github.com/roman-right/beanie) with modifications to make Links compatible with MongoEngine. 
+
+### Key Changes:
+- **Link values changed from DBRef to ObjectId**: Links now store `ObjectId('XXX')` instead of `DBRef('RefCollectionName', ObjectId('XXX'))`
+- **Improved mongoengine compatibility**: Easier migration from mongoengine projects
+- **Same API**: All other Beanie functionality remains unchanged
+
+### Migration from Original Beanie:
+If you're migrating from the original Beanie, your existing data will continue to work. The change only affects how new Link references are stored.
+
+### Migration from MongoEngine:
+This fork makes it easier to migrate from MongoEngine projects since the Link storage format is now compatible.
+
+---
+
+## 📢 About the Original Project
+
+This fork is based on [Beanie](https://github.com/roman-right/beanie) by Roman Right. The original project is transitioning from solo development to a team-based approach.
+
+### Join the Original Community
+If you want to contribute to the original project or stay updated:
+[Join the Discord](https://discord.gg/AwwTrbCASP)
+
+## Overview
+
+[Beanie](https://github.com/roman-right/beanie) - is an asynchronous Python object-document mapper (ODM) for MongoDB. Data models are based on [Pydantic](https://pydantic-docs.helpmanual.io/).
+
+When using Beanie each database collection has a corresponding `Document` that
+is used to interact with that collection. In addition to retrieving data,
+Beanie allows you to add, update, or delete documents from the collection as
+well.
+
+Beanie saves you time by removing boilerplate code, and it helps you focus on
+the parts of your app that actually matter.
+
+Data and schema migrations are supported by Beanie out of the box.
+
+There is a synchronous version of Beanie ODM - [Bunnet](https://github.com/roman-right/bunnet)
+
+## Installation
+
+### PIP
+
+```shell
+pip install beanie-mongoengine-compat
+```
+
+### UV
+
+```shell
+uv add beanie-mongoengine-compat
+```
+
+### Poetry
+
+```shell
+poetry add beanie-mongoengine-compat
+```
+
+For more installation options (eg: `aws`, `gcp`, `srv` ...) you can look in the [getting started](./docs/getting-started.md#optional-dependencies)
+
+## Example
+
+```python
+import asyncio
+from typing import Optional
+
+from motor.motor_asyncio import AsyncIOMotorClient
+from pydantic import BaseModel
+
+from beanie import Document, Indexed, init_beanie
+
+
+class Category(BaseModel):
+    name: str
+    description: str
+
+
+class Product(Document):
+    name: str                          # You can use normal types just like in pydantic
+    description: Optional[str] = None
+    price: Indexed(float)              # You can also specify that a field should correspond to an index
+    category: Category                 # You can include pydantic models as well
+
+
+# This is an asynchronous example, so we will access it from an async function
+async def example():
+    # Beanie uses Motor async client under the hood 
+    client = AsyncIOMotorClient("mongodb://user:pass@host:27017")
+
+    # Initialize beanie with the Product document class
+    await init_beanie(database=client.db_name, document_models=[Product])
+
+    chocolate = Category(name="Chocolate", description="A preparation of roasted and ground cacao seeds.")
+    # Beanie documents work just like pydantic models
+    tonybar = Product(name="Tony's", price=5.95, category=chocolate)
+    # And can be inserted into the database
+    await tonybar.insert() 
+    
+    # You can find documents with pythonic syntax
+    product = await Product.find_one(Product.price < 10)
+    
+    # And update them
+    await product.set({Product.name:"Gold bar"})
+
+
+if __name__ == "__main__":
+    asyncio.run(example())
+```
+
+## Links
+
+### Documentation
+
+- **[Original Doc](https://beanie-odm.dev/)** - Tutorial, API documentation, and development guidelines.
+- **[This Fork](https://github.com/your-username/beanie-mongoengine-compat)** - MongoEngine compatibility fork
+
+### Original Project
+
+- **[GitHub](https://github.com/roman-right/beanie)** - Original Beanie project
+- **[Changelog](https://beanie-odm.dev/changelog)** - Original project changelog
+- **[Discord](https://discord.gg/AwwTrbCASP)** - Original project community
+
+### Example Projects
+
+- **[fastapi-cosmos-beanie](https://github.com/tonybaloney/ants-azure-demos/tree/master/fastapi-cosmos-beanie)** - FastAPI + Beanie ODM + Azure Cosmos Demo Application by [Anthony Shaw](https://github.com/tonybaloney)
+- **[fastapi-beanie-jwt](https://github.com/flyinactor91/fastapi-beanie-jwt)** - 
+  Sample FastAPI server with JWT auth and Beanie ODM by [Michael duPont](https://github.com/flyinactor91)
+- **[Shortify](https://github.com/IHosseini083/Shortify)** - URL shortener RESTful API (FastAPI + Beanie ODM + JWT & OAuth2) by [
+Iliya Hosseini](https://github.com/IHosseini083)
+- **[LCCN Predictor](https://github.com/baoliay2008/lccn_predictor)** - Leetcode contest rating predictor (FastAPI + Beanie ODM + React) by [L. Bao](https://github.com/baoliay2008)
+
+### Articles
+
+- **[Announcing Beanie - MongoDB ODM](https://dev.to/romanright/announcing-beanie-mongodb-odm-56e)**
+- **[Build a Cocktail API with Beanie and MongoDB](https://developer.mongodb.com/article/beanie-odm-fastapi-cocktails/)**
+- **[MongoDB indexes with Beanie](https://dev.to/romanright/mongodb-indexes-with-beanie-43e8)**
+- **[Beanie Projections. Reducing network and database load.](https://dev.to/romanright/beanie-projections-reducing-network-and-database-load-3bih)**
+- **[Beanie 1.0 - Query Builder](https://dev.to/romanright/announcing-beanie-1-0-mongodb-odm-with-query-builder-4mbl)**
+- **[Beanie 1.8 - Relations, Cache, Actions and more!](https://dev.to/romanright/announcing-beanie-odm-18-relations-cache-actions-and-more-24ef)**
+
+### Resources
+
+- **[GitHub](https://github.com/roman-right/beanie)** - GitHub page of the
+  project
+- **[Changelog](https://beanie-odm.dev/changelog)** - list of all
+  the valuable changes
+- **[Discord](https://discord.gg/AwwTrbCASP)** - ask your questions, share
+  ideas or just say `Hello!!`
+
+### Acknowledgments
+
+This project is based on the original [Beanie](https://github.com/roman-right/beanie) project by Roman Right.
+
+This repo is actually a fork of [07pepa's fork](https://github.com/07pepa/beanie) of the original [Beanie](https://github.com/roman-right/beanie) project. Thanks for the `use-uv` work!
+
+----
+Supported by [JetBrains](https://jb.gg/OpenSource)
+
+[![JetBrains](https://raw.githubusercontent.com/roman-right/beanie/main/assets/logo/jetbrains.svg)](https://jb.gg/OpenSource)
