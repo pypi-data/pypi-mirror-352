@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=80.9.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bitssh"
+version = "3.1.0"
+description = "A New and Modern SSH connector written in Python."
+readme = "README.md"
+authors = [
+    { name = "Kanishk Pachauri", email = "itskanishkp.py@gmail.com" },
+]
+license = {text = "MIT"}
+classifiers = [ # List of https://pypi.org/classifiers/
+  "Intended Audience :: Developers",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.10",
+]
+keywords = ["bitssh", "sshmanager", "commandline"]
+dependencies = [
+    "rich>=14.0.0",
+    "pre-commit>=3.6.0",
+    "path>=16.9.0",
+    "InquirerPy>=0.3.4",
+]
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+dev = ["black", "bumpver", "isort", "pip-tools", "pytest"]
+
+[project.urls]
+Homepage = "https://github.com/Mr-Sunglasses/bitssh"
+Docs = "https://github.com/Mr-Sunglasses/bitssh/blob/master/docs/docs.md"
+
+[project.scripts]
+bitssh = "bitssh.__main__:main"
+
+[tool.bumpver]
+current_version = "3.1.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message  = "Bump version {old_version} -> {new_version}"
+commit          = true
+tag             = true
+push            = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
+"src/bitssh/__init__.py" = ["{version}"]
+
+
+[tool.pdm]
+distribution = true
+[tool.pdm.dev-dependencies]
+dev = [
+    "pre-commit",
+    "ruff",
+]
+
+[tool.pdm.scripts]
+lint = "pre-commit run --all-files"
