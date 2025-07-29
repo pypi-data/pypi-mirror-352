@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "automl_ai" # Must be unique on PyPI
+version = "0.1.4" # Start with 0.1.0 and increase for updates
+authors = [
+  { name="Your Name", email="your.email@example.com" },
+]
+description = "A short and sweet description of your package."
+readme = "README.md"
+requires-python = ">=3.7" # The Python versions your package supports
+classifiers = [ # Helps people find your package on PyPI
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [ # Other packages your code needs to run
+    "numpy",
+    "pandas",
+    "seaborn",
+    "matplotlib",
+    "scikit-learn",
+    "imblearn",
+    "ucimlrepo"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Mikkel-AI0700/ML-Machine-Learning-scripts.git"
