@@ -1,0 +1,53 @@
+[project]
+name = "taskflows"
+version = "0.13.1"
+description = "Python task management, scheduling, alerts."
+authors = [{ name = "Dan Kelleher", email = "kelleherjdan@gmail.com" }]
+license = { text = "MIT" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+readme = "README.md"
+
+dependencies = [
+    "sqlalchemy>=2.0.0",
+    "pydantic>=2.0.0",
+    "pydantic_settings>=2.0.0",
+    "tqdm",
+    "click",
+    "rich",
+    "docker",
+    "textdistance",
+    "dynamic-imports>=1.0.0",
+    "alert-msgs>=0.7.2",
+    "quicklogs>=2.0.0",
+    "func-timeout>=4.0.0",
+    "cloudpickle",
+    "python-dotenv",
+    "docker",
+    "dbus-python",
+    "aiohttp",
+    "xxhash",
+    "slack-bolt>=1.16.0",
+    "slack-sdk>=3.19.0"
+]
+
+[tool.setuptools]
+# TODO don't install entire tests package
+packages = ["taskflows", "tests"]
+
+[project.optional-dependencies]
+dev = ["black", "pytest", "pytest-asyncio", "psycopg[binary]"]
+
+[build-system]
+requires = ["setuptools>=43.0.0", "setuptools-scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+tf = 'taskflows.admin:cli'
+tf-slack = 'taskflows.slack.cli:main'
+_run_docker_service = 'taskflows.service.exec:_run_docker_service'
+_deserialize_and_call = 'taskflows.service.exec:_deserialize_and_call'
+_run_function = 'taskflows.service.exec:_run_function'
