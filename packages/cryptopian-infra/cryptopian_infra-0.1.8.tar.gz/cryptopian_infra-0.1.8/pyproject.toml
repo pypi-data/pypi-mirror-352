@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cryptopian_infra"
+version = "0.1.8"
+authors = [
+    { name = "Han Wu", email = "xjohnwu@gmail.com" },
+]
+dependencies = [
+    "influxdb",
+    "influxdb_client",
+    "jsmin",
+    "onepasswordconnectsdk==1.3.0",
+    "pandas",
+    "pymongo",
+    "python-dotenv",
+    "requests",
+]
+description = "Cryptopian Infrastructure Library"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Source = "https://github.com/Cryptopian001/cryptopian_infrastructure_python"
+Homepage = "https://github.com/Cryptopian001/cryptopian_infrastructure_python"
+Issues = "https://github.com/Cryptopian001/cryptopian_infrastructure_python/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.3",
+    "pip-tools"
+]
