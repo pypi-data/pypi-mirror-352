@@ -1,0 +1,123 @@
+Metadata-Version: 2.4
+Name: AnomalousLib
+Version: 0.2.2
+Summary: AnomalousLib is a Python library designed for the study of anomalous diffusion. It enables dataset generation, statistical analysis, model inference, and integrated result visualization.
+Author-email: Joan Massallé Richart <jmassalle@gmail.com>
+License: MIT
+Project-URL: Homepage, https://github.com/tu_usuario/mi_libreria
+Requires-Python: >=3.12.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=2.2.6
+Requires-Dist: scipy>=1.15.3
+Requires-Dist: fbm>=0.3.0
+Requires-Dist: pandas>=2.2.3
+Requires-Dist: scikit-learn>=1.6.1
+Requires-Dist: torch>=2.7.0
+Requires-Dist: dill>=0.4.0
+Requires-Dist: matplotlib>=3.10.3
+Dynamic: license-file
+
+# AnomalousLib
+
+**AnomalousLib** is a Python library designed for the study of anomalous diffusion.
+
+It supports **dataset generation**, **statistical analysis**, **model inference**, and **integrated result visualization**.
+
+The library is published on [PyPI](https://pypi.org/) under the name [AnomalousLib](https://pypi.org/project/AnomalousLib/) and uses **Python** version 3.12.10 or later.
+
+## Repository Structure
+The following diagram shows the structure of the repository:
+```nginx
+AnomalousLib
+│   # Package builds
+├───dist
+│   # Source code
+├───src
+│   └───anomalouslib
+│       │   # Analytical tools and metrics
+│       ├───analysis
+│       │   # Dataset handling and generation
+│       ├───data
+│       │   # Model definitions and inference
+│       ├───models
+│       │   # Output handling and reporting
+│       ├───results
+│       │   # Utility functions and helpers
+│       └───utils
+│   # QA and testing
+└───tests
+```
+
+## Development Setup
+To test the library locally, follow these steps. All commands should be run from the root of the project, where the ```pyproject.toml``` file is located.
+
+### 1. Set Up the Virtual Environment
+First, create a virtual environment:
+```bash
+python -m venv venv
+```
+Then activate it:
+- On **Linux/macOS**:
+    ```bash
+    source venv/bin/activate
+    ```
+- On **Windows**:
+    ```powershell
+    .\venv\Scripts\Activate.ps1
+    ```
+> **💡 Note:** To deactivate the environment at any time (on both Linux and Windows), use:
+> ```bash
+> deactivate
+> ```
+
+### 2. Install Dependencies
+Install the required libraries listed in ```requirements.txt```:
+```bash
+pip install -r requirements.txt
+```
+To verify the installation, you can regenerate the ```requirements.txt``` and check for any differences:
+- On **Linux/macOS**:
+    ```bash
+    pip freeze | grep -vE "^-e |@ file://" > requirements.txt
+    ```
+- On **Windows**:
+    ```powershell
+    pip freeze | Select-String -NotMatch '^-e |@ file://' > requirements.txt
+    ```
+> **💡 Note:** This filtering step avoids including the local installation of the library itself.
+
+If no changes appear in the file, the setup is correct.
+
+## Local Build & Installation
+### 1. Build the Library
+Generate the distribution packages:
+```bash
+python -m build
+```
+### 2. Install the Library Locally
+- **First-time installation** (or to force reinstall):
+    ```bash
+    pip install ./dist/anomalouslib-{lib_version}-py3-none-any.whl --force-reinstall
+    ```
+- **Subsequent updates** (faster and applies only changes):
+    ```bash
+    pip install --upgrade ./dist/anomalouslib-{lib_version}-py3-none-any.whl
+    ```
+> **💡 Note:** Replace  ```{lib_version}``` with the actual library version, e.g.: ```pip install --upgrade ./dist/anomalouslib-0.1.0-py3-none-any.whl```
+
+## Publishing to PyPI
+To publish the package to [PyPI](https://pypi.org/project/AnomalousLib/), run:
+```bash
+twine upload ./dist/*
+```
+
+> **⚠️ Important:** Make sure no version in the ```./dist/``` folder has already been uploaded to PyPI.
+
+
+As stated on the [PyPI page](https://pypi.org/project/AnomalousLib/), to install ```AnomalousLib``` on other environments:
+```bash
+pip install anomalouslib
+```
+
+> 💡 It is **strongly recommended** not to install the public PyPI version in the same local environment to avoid confusion with the local development version.

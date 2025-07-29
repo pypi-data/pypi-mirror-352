@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "AnomalousLib"
+version = "0.2.2"
+description = "AnomalousLib is a Python library designed for the study of anomalous diffusion. It enables dataset generation, statistical analysis, model inference, and integrated result visualization."
+readme = "README.md"
+requires-python = ">=3.12.10"
+license = {text = "MIT"}
+authors = [
+  {name = "Joan Massallé Richart", email = "jmassalle@gmail.com"},
+]
+dependencies = [
+  "numpy>=2.2.6",
+  "scipy>=1.15.3",
+  "fbm>=0.3.0",
+  "pandas>=2.2.3",
+  "scikit-learn>=1.6.1",
+  "torch>=2.7.0",
+  "dill>=0.4.0",
+  "matplotlib>=3.10.3"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/tu_usuario/mi_libreria"
+
+[tool.setuptools.packages.find]
+where = ["src"]
