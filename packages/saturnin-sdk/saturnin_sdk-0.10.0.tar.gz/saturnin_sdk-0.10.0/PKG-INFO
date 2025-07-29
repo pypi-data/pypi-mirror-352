@@ -1,0 +1,103 @@
+Metadata-Version: 2.4
+Name: saturnin-sdk
+Version: 0.10.0
+Summary: SDK for Saturnin (A Firebird Butler Development Platform for Python)
+Project-URL: Home, https://github.com/FirebirdSQL/saturnin-sdk
+Project-URL: Documentation, https://saturnin-sdk.rtfd.io
+Project-URL: Issues, https://github.com/FirebirdSQL/saturnin-sdk/issues
+Project-URL: Funding, https://github.com/sponsors/pcisar
+Project-URL: Source, https://github.com/FirebirdSQL/saturnin-sdk
+Author-email: Pavel Cisar <pcisar@users.sourceforge.net>
+License: MIT License
+        
+        Copyright (c) 2018 Firebird Project (www.firebirdsql.org)
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Keywords: Butler,Firebird,SDK,Saturnin,Services,ZeroMQ
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Object Brokering
+Requires-Python: >=3.11
+Requires-Dist: saturnin==0.10.0
+Description-Content-Type: text/markdown
+
+# saturnin-sdk
+
+[![PyPI - Version](https://img.shields.io/pypi/v/saturnin-sdk.svg)](https://pypi.org/project/saturnin-sdk)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/saturnin-sdk.svg)](https://pypi.org/project/saturnin-sdk)
+[![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
+
+This repository contains SDK for Saturnin, and example services and applications.
+
+-----
+
+**Table of Contents**
+
+- [License](#license)
+- [Installation](#installation)
+- [Documentation](#documentation)
+
+## License
+
+`saturnin` and `saturnin-sdk` are distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+
+## Installation
+
+The `saturnin-sdk` package (released on PyPI) contains the SDK itself, without examples.
+
+To work with the SDK, it's necessary to install and properly initialize the `saturnin`
+(see [Saturnin](https://saturnin.rtfd.io/) documentation for details).
+
+Examples are not distributed via PyPI. You can either download the ZIP package from
+[gihub releases](https://github.com/FirebirdSQL/saturnin-sdk/releases) and unpack it into
+directory of your choice, or checkout the "examples" directory directly.
+
+You may also checkout the whole `saturnin-sdk` repository, and install the SDK into your
+Saturnin site directly using:
+
+```console
+saturnin install package -e .
+```
+
+To register (example and your own) services and application for use with Saturnin in
+"development" mode, use `saturnin install package -e .` from root directory of service
+package. For example to register `TextIO` sample service:
+
+1. CD to `examples/textio`
+2. Run `saturnin install package -e .`
+
+## Documentation
+
+Documentation related to Saturnin:
+
+- [Firebird Butler](https://firebird-butler.rtfd.io/)
+- [Saturnin](https://saturnin.rtfd.io/)
+- [Saturnin CORE](https://saturnin-core.rtfd.io/) services
+- [Saturnin SDK](https://saturnin-sdk.rtfd.io/)
