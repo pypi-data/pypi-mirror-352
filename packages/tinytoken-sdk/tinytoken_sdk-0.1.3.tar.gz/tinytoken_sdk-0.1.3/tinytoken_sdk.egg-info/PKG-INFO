@@ -1,0 +1,60 @@
+Metadata-Version: 2.4
+Name: tinytoken-sdk
+Version: 0.1.3
+Summary: Python SDK for TinyToken API
+Home-page: https://github.com/elliot-evno/tinytoken-python-sdk
+Author: TinyToken
+Author-email: elliot@norrevik.se
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.20.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# TinyToken SDK
+
+Text compression API client.
+
+## Install
+
+```bash
+pip install tinytoken-sdk
+```
+
+## Usage
+
+You need an API key to use TinyToken. Get one at [https://tinytoken.org](https://tinytoken.org).
+
+```python
+import tinytoken
+
+# Compress text using the function directly
+result = tinytoken.compress("Your text here", "your-api-key")
+print(result)
+
+# Or use the class (recommended)
+client = tinytoken.TinyToken("your-api-key")
+result = client.compress("Your text here")
+print(result)
+
+# With optional quality parameter
+result = client.compress("Your text here", quality=0.8)
+print(result)
+```
+
