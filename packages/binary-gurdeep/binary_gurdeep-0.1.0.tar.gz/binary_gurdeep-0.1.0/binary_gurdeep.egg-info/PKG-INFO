@@ -1,0 +1,84 @@
+Metadata-Version: 2.1
+Name: binary-gurdeep
+Version: 0.1.0
+Summary: A simple binary arithmetic library using 2's complement
+Home-page: https://github.com/gurdeep/binary_gurdeep
+Author: Gurdeep
+Author-email: gurdeep@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# binary_gurdeep
+
+A simple Python library for binary arithmetic operations using 2's complement representation.
+
+## Features
+
+- Binary addition and subtraction using 2's complement (without decimal conversion)
+- Binary to decimal conversion
+- Decimal to binary conversion
+- 2's complement calculation
+
+## Installation
+
+```bash
+pip install binary_gurdeep
+```
+
+Or install from the source:
+
+```bash
+git clone https://github.com/gurdeep/binary_gurdeep.git
+cd binary_gurdeep
+pip install -e .
+```
+
+## Usage
+
+```python
+from binary_gurdeep import binary_addition, binary_subtraction, decimal_to_binary, binary_to_decimal
+
+# Convert decimal to binary
+binary_8 = decimal_to_binary(8, 5)  # '01000'
+binary_neg_8 = decimal_to_binary(-8, 5)  # '11000'
+
+# Convert binary to decimal
+decimal_8 = binary_to_decimal('01000')  # 8
+decimal_neg_8 = binary_to_decimal('11000')  # -8
+
+# Binary addition
+result_add = binary_addition('01010', '00011', 5)  # '01101' (10 + 3 = 13)
+
+# Binary subtraction
+result_sub = binary_subtraction('01010', '00011', 5)  # '00111' (10 - 3 = 7)
+```
+
+## Examples
+
+### Working with Binary Numbers
+
+```python
+from binary_gurdeep import binary_addition, binary_subtraction
+
+# Add two binary numbers (7 + 5)
+result = binary_addition('00111', '00101', 5)  # '01100' (12 in decimal)
+
+# Subtract binary numbers (7 - 5)
+result = binary_subtraction('00111', '00101', 5)  # '00010' (2 in decimal)
+
+# Handling negative numbers
+neg_five = decimal_to_binary(-5, 5)  # '11011'
+result = binary_addition('00111', neg_five, 5)  # '00010' (7 + (-5) = 2)
+```
+
+## License
+
+MIT
+
+## Author
+
+Gurdeep Singh Virdee
