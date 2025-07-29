@@ -1,0 +1,2 @@
+function: "filter"
+expression: '("synonymous_variant" in ANN["Annotation"] and REF == "A") or (REF == "C" and "MODERATE" in ANN["Annotation_Impact"])'
