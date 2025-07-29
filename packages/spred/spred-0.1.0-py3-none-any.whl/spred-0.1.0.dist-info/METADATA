@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: spred
+Version: 0.1.0
+Summary: Splicing-regulatory Driver Genes Identification Tool
+Author-email: Chenqing Zheng <your.email@example.com>
+License: MIT
+Project-URL: Homepage, https://github.com/yourusername/asge-demo
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: statsmodels
+Requires-Dist: pydeseq2 ==0.4.4
+Requires-Dist: gseapy ==1.0.6
+Requires-Dist: seaborn ==0.13.2
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: click ; extra == 'test'
+
+# SpReD-GIT 
+Splicing-regulatory Driver Genes Identification Tool
+
+This project describes a tool to identify the splicing-regulatory driver genes based on isoform-level expressions quanlification such as XAEM, RSEM
+
+## Prerequisites
+```
+Python (recommended version >= 3.7)
+```
+
+## Installation
+
+### 
+```
+conda create -n SpReD python==3.8
+conda activate SpReD
+```
+
+#### Step 1: Setup tools
+```
+git clone https://github.com/ZhengCQ/SpReD.git
+cd SpReD
+pip install -e ./
+```
+
+## Input files
+### matrix
+
+### group
+
+
+## Quick start
+```
+spred run-all -m matrix.count.input.tsv -e group.tsv -g Group_name -c1 Case_name -c2 Control_name -o outdir_name --species human
+```
+
