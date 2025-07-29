@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pyguiEZ"
+version = "0.1.0"
+description = "A lightweight GUI framework inspired by tkinter."
+authors = ["Kk Chen <kkyian@icloud.com>"]
+license = "MIT"
+readme = "README.rst"
+packages = [{ include = "pyguiEZ", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pygame = "^2.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
