@@ -1,0 +1,35 @@
+Metadata-Version: 2.4
+Name: employee-analytics-mcp
+Version: 0.1.5
+Summary: An MCP server for employee analytics
+Author-email: Nancy Madan <nanacymadan.6@gmail.com>
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: psycopg2
+Requires-Dist: httpx
+Requires-Dist: python-dotenv
+Dynamic: license-file
+
+# Employee Analytics MCP
+
+An MCP server for employee analytics, providing tools to analyze employee performance, compare employees, and search by skill. And added deep web search to compare their work in real world.
+
+## Usage
+
+To run the MCP server:
+
+```bash
+python -m employee_analytics.main
+```
+
+## Features
+
+- Analyze an employee's performance and project relevance
+- Compare multiple employees
+- Search for employees by skill
+- Compare employee data with what's going on in the industry
+
+## MCP Protocol
+
+This package implements the MCP server protocol for integration with Cursor and other MCP-compatible tools.
