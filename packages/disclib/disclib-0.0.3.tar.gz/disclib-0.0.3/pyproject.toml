@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "disclib"
+version = "0.0.3"
+authors = [
+  { name="swagshot", email="swag@epic.com" }
+]
+description = "simplify discord webhook stuff"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+license = "MIT"
+
+[tool.hatch.build.targets.wheel]
+packages = ["disclib"]
