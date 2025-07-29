@@ -1,0 +1,22 @@
+# if poetry update takes forever
+# export PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring
+
+[tool.poetry]
+name = "brutefeedparser"
+version = "0.10.5"
+description = "Brute Feed Parser"
+authors = ["Iwan Grozny <renegat@renegat0x0.ddns.net>"]
+license = "GPL3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+lxml = "^5.3.0"
+beautifulsoup4 = "^4.13.3"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
