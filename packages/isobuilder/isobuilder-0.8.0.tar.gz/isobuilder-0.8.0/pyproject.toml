@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "isobuilder"
+description = "This is a tool for building custom ISO images used for IMRS"
+readme = { file = "README.md", content-type = "text/markdown" }
+version = "0.8.0"
+authors = [
+  { name="John Bond", email="john.bond@icann.org" },
+]
+dependencies = [
+  "dataclasses",  # not required after python3.7
+  "passlib",
+  "PyYAML",
+]
+requires-python = ">= 3.6"
+
+[project.scripts]
+isobuilder = "isobuilder.cli:main"
+
