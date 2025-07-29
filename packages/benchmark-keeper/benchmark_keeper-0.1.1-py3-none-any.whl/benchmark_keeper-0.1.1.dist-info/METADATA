@@ -1,0 +1,55 @@
+Metadata-Version: 2.3
+Name: benchmark-keeper
+Version: 0.1.1
+Summary: Simple tracking of benchmark results across git commits
+License: MIT
+Author: Leandro Conte
+Author-email: me@lcjconte.com
+Requires-Python: >=3.10
+Classifier: Development Status :: 1 - Planning
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: pydantic (>=2.11.5,<3.0.0)
+Requires-Dist: pyyaml (>=6.0.2,<7.0.0)
+Requires-Dist: rich (>=10.14.0,<11.0.0)
+Requires-Dist: typer[all] (>=0.15.3,<0.16.0)
+Project-URL: Repository, https://github.com/lcjconte/benchmark-keeper.git
+Description-Content-Type: text/markdown
+
+# Simple tracking of benchmark results across git commits
+
+## Commands
+
+### init
+
+Initializes configuration files in the local git repository.
+
+There are two config giles:
+
+| path   | Tracked by git | Contents |
+| -------- | ------- | --- |
+| *.benchk/repo_config.yml*  | yes | How to build and run benchmarks       |
+| *.benchk/local_config.yml* | no  | Local machine config and state of app |
+
+---
+
+### benchmark
+
+Run benchmarks (and build/test) and generate a report in *.benchk/report.yml*
+
+---
+
+### list
+
+Create a ranking of past runs by reading reports and aggregating benchmark results
+
+Example output:
+```
+Comparing results for machine: MyMachine
+
+000000023.55 [unit], 5f04eb7838, Slower
+000000023.54 [unit], 7bccefda5f, First commit
+000000023.53 [unit], 57b7571e64, Better (best) (current)
+```
