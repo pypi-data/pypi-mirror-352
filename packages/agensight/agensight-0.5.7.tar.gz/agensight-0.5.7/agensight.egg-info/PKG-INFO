@@ -1,0 +1,141 @@
+Metadata-Version: 2.4
+Name: agensight
+Version: 0.5.7
+Summary: A Python SDK for logging and visualizing OpenAI agent interactions
+Author-email: Pype <deepesh@pypeai.com>
+License: MIT
+Project-URL: Homepage, https://github.com/pype-ai/agensight
+Project-URL: Issues, https://github.com/pype-ai/agensight/issues
+Project-URL: Documentation, https://pype-db52d533.mintlify.app/introduction
+Project-URL: Source Code, https://github.com/pype-ai/agensight
+Keywords: openai,ai,agents,logging,visualization,sdk,cli,dashboard
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: openai
+Requires-Dist: requests
+Requires-Dist: flask
+Requires-Dist: nest_asyncio
+Requires-Dist: flask_cors
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: ragas
+Requires-Dist: sqlalchemy
+Requires-Dist: pydantic
+Requires-Dist: starlette
+Requires-Dist: typing-extensions
+Requires-Dist: python-multipart
+Requires-Dist: werkzeug
+Requires-Dist: jinja2
+Requires-Dist: aiofiles
+Requires-Dist: click
+Requires-Dist: opentelemetry-sdk
+Requires-Dist: opentelemetry-api
+Requires-Dist: opentelemetry-instrumentation
+Requires-Dist: opentelemetry-instrumentation-openai
+Requires-Dist: anthropic
+Requires-Dist: scikit-learn>=1.0.0
+Requires-Dist: pandas>=1.3.0
+Requires-Dist: numpy>=1.20.0
+Requires-Dist: google-generativeai
+Requires-Dist: retry
+Requires-Dist: rich
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Provides-Extra: test
+Requires-Dist: pytest>=7.0.0; extra == "test"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "test"
+Requires-Dist: pytest-mock>=3.10.0; extra == "test"
+
+# Agensight SDK
+
+A simple SDK for tracing and evaluating AI agent workflows.
+
+## Installation
+
+```bash
+pip install --upgrade agensight
+```
+
+## Quick Start
+
+```python
+from agensight import init, trace, span
+
+# Initialize Agensight
+init(name="my-agent")
+
+# Add tracing to your functions
+@trace("my_workflow")
+def my_function():
+    @span()
+    def my_subtask():
+        # Your code here
+        pass
+    return my_subtask()
+```
+
+## Key Features
+
+### 1. Tracing
+- Auto-instrumented tracing of LLM calls
+- Function execution tracking
+- Agent interaction monitoring
+- Performance metrics and token usage analytics
+
+### 2. Evaluation
+```python
+from agensight.eval.metrics import GEvalEvaluator
+
+# Create custom evaluator
+accuracy = GEvalEvaluator(
+    name="Accuracy",
+    criteria="Evaluate response accuracy",
+    threshold=0.7
+)
+
+# Use in your code
+@span(metrics=[accuracy])
+def my_function():
+    # Your code here
+    pass
+```
+
+### 3. Local Storage
+- All data stored locally in `.agensight`
+- No external data uploads
+- Complete privacy and control
+
+## Dashboard
+
+Start the dashboard to view traces and metrics:
+```bash
+agensight view
+```
+Visit http://localhost:5001 in your browser
+
+## Documentation
+
+For detailed documentation, visit our [docs](https://pype-db52d533.mintlify.app/introduction).
+
+## Support
+
+Join our [GitHub Discussions](https://github.com/pype-ai/agensight/discussions) for support and feature requests.
+
+## License
+
+MIT License • © 2025 agensight contributors 
