@@ -1,0 +1,55 @@
+Metadata-Version: 2.4
+Name: scintiPulses
+Version: 1.13
+Summary: scintiPulses
+Home-page: https://pypi.org/project/scintiPulses/
+Author: RomainCoulon (Romain Coulon)
+Author-email: <romain.coulon@bipm.org>
+Project-URL: Documentation, https://github.com/RomainCoulon/scintiPulses/
+Keywords: Python,scintillation,quantum illumination function,particle physics,signal,simulation
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Natural Language :: French
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Topic :: Scientific/Engineering :: Physics
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENCE.md
+Requires-Dist: numpy
+Requires-Dist: scipy
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license-file
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# ScintiPulses
+
+**ScintiPulses** is a Python package for simulating signals from scintillation detectors. This tool allows for the simulation of photoelectric pulses, quantum shot noise, after-pulses, thermoionic noise, and various signal processing effects including digitization, pre-amplification, and fast amplification.
+
+## Features
+
+- Simulates light pulses emitted by scintillation detectors based on the energy of detected particles.
+- Incorporates various noise sources like electronic noise, dark noise, and after-pulses.
+- Models signal processing elements such as pre-amplifiers and amplifiers.
+- Includes an option for signal digitization and anti-aliasing filtering.
+- Allows customization of various physical parameters to simulate specific detector behavior.
+
+## Installation
+
+You can install **ScintiPulses** using `pip`. Run the following command:
+
+```bash
+pip install scintiPulses
