@@ -1,0 +1,64 @@
+name: Update datawarehouse datasets
+on:
+  schedule:
+  - cron: "42 0 * * *"
+  workflow_dispatch:
+jobs:
+  update_dw:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install dao-scripts
+      run: pip install dao-scripts
+    - name: Get cached datawarehouse
+      uses: dawidd6/action-download-artifact@v3
+      with:
+        workflow: update-datasets.yml
+        name: datawarehouse
+        path: ./datawarehouse/
+        if_no_artifact_found: warn
+    - name: Obtain datawarehouse
+      run: dao-scripts --skip-token-balances
+      env:
+        DAOA_THE_GRAPH_API_KEY: ${{ secrets.DAOA_THE_GRAPH_API_KEY }}
+        DAOA_CC_API_KEY: ${{ secrets.DAOA_CC_API_KEY }}
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: datawarehouse
+        path: ./datawarehouse/
+  upload_dw:
+    runs-on: ubuntu-latest
+    environment: daviddavo
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: ["zenodo","kaggle"]
+    needs: [update_dw]
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: datawarehouse
+        path: ./datawarehouse/
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install dao-scripts
+      run: pip install 'dao-scripts[upload]>=1.5.2'
+    - name: Patch Zenodo client (provisional)
+      run: |
+        FILE="$(python -c "from zenodo_client import api; print(api.__file__)")"
+        echo "Modyfing file $FILE"
+        sed -i 's/_prepare_new_version(new_deposition_data\["metadata"\]\["version"\])/_prepare_new_version(new_deposition_data["metadata"].get("version", ""))/g' "$FILE"
+        sed -i 's/json=new_deposition_data/json={"metadata": new_deposition_data\["metadata"\]}/g' "$FILE"
+    - name: Upload dataset
+      run: dao-utils-upload-dw ${{matrix.repo}}
+      env:
+        DAOA_DEBUG: ${{ runner.debug }}
+        KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+        KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+        ZENODO_DEPOSITION_ID: ${{ secrets.ZENODO_DEPOSITION_ID }}
+        ZENODO_API_TOKEN: ${{ secrets.ZENODO_API_TOKEN }}
