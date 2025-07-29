@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=77.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name        = "pymontrace"
+description = "dynamic python tracing"
+version     = "0.1.0-dev6"
+requires-python = ">=3.9"
+authors     = [
+  {name = "Daniel Golding"}
+]
+readme = {file = "README", content-type = "text/plain" }
+keywords      = ["tracing"]
+license       = "MIT"
+license-files = ["LICENSE.txt"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Software Development :: Debuggers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = []
+
+[project.urls]
+Homepage  = "https://github.com/cakemanny/pymontrace"
+Repository  = "https://github.com/cakemanny/pymontrace.git"
+
+[project.optional-dependencies]
+test = [
+  "pytest       ~= 8.0",
+  "flake8       ~= 7.0",
+]
+dev = [
+  "black        ~= 25.0",
+  "isort        ~= 6.0",
+  "pyright      ~= 1.0",
+#  "maturin",
+]
+
+[project.scripts]
+pymontrace = "pymontrace.__main__:cli_main"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [
+  "tests",
+]
+# print stacktraces if a test takes longer than 10s
+faulthandler_timeout = 10
+
+#[tool.maturin]
+#python-source = "src"
+
+[tool.isort]
+#profile = "black"
+multi_line_output = 5
