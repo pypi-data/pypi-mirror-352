@@ -1,0 +1,23 @@
+name: 'Debug Model'
+entry_points:
+  train:
+    parameters:
+      model: 'str'
+      data: 'str'
+    command: 'echo "Hello World"'
+  predict:
+    parameters:
+      model: 'str'
+      data: 'str'
+    command: 'echo "Hello World"'
+
+required_covariates:
+  - 'population'
+
+allow_free_additional_continuous_covariates: true
+
+user_options:
+  n_lag_periods:
+    title: 'n_lag_periods'
+    type: 'integer'
+    default: 3

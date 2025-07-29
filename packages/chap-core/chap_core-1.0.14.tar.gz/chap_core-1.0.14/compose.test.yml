@@ -1,0 +1,20 @@
+services:
+  chap:
+    build:
+        context: .
+        dockerfile: Dockerfile.test
+
+    # multine command
+    depends_on:
+        -  worker
+    container_name: chap_test
+    environment:
+      - GOOGLE_SERVICE_ACCOUNT_EMAIL=${GOOGLE_SERVICE_ACCOUNT_EMAIL}
+      - GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY=${GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY}
+      - HAS_WORKER=1
+    command: /app/.venv/bin/pytest /app/tests
+
+  #chap_with_r_inla:
+  #  # multine command
+  #  command: >
+  #      echo "hello"

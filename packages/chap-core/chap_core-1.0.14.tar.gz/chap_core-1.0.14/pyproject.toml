@@ -1,0 +1,116 @@
+[project]
+name = "chap_core"
+version = "1.0.14"
+description = "Climate Health Analysis Platform (CHAP)"
+readme = "README.md"
+requires-python = ">=3.11"
+
+authors = [{ name = "Sandvelab", email = "knutdrand@gmail.com" }]
+license = { text = "AGPLv3 license" }
+keywords = ["chap_core"]
+
+dependencies = [
+    "annotated_types",
+    "bionumpy",
+    "cyclopts",
+    "diskcache",
+    "docker",
+    "earthengine-api==1.4.6",
+    "fastapi",
+    "sqlmodel",
+    "psycopg2-binary",
+    "geopandas",
+    "geopy",
+    "gitpython",
+    "gluonts",
+    "httpx",
+    "libpysal",
+    "matplotlib",
+    "meteostat",
+    "mlflow-skinny",
+    "numpy",
+    "pandas",
+    "plotly",
+    "pooch",
+    "pycountry",
+    "pydantic-geojson<2",
+    "pydantic>=2.0",
+    "python-dateutil",
+    "python-dotenv",
+    "python-multipart",
+    "pyyaml",
+    "requests",
+    "rq",
+    "scikit-learn",
+    "scipy",
+    "topojson",
+    "unidecode",
+    "uvicorn",
+    "virtualenv",
+    "xarray",
+    "orjson>=3.10.7",
+    "celery[pytest]",
+    "packaging",
+    "jsonschema",
+]
+
+[project.urls]
+Homepage = "https://github.com/dhis2/chap-core"
+
+[project.scripts]
+chap = "chap_core.cli:main"
+chap-cli = "chap_core.chap_cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "build",
+    "bump2version",
+    "coverage>=7.6.2",
+    "earthengine-api==1.4.6",
+    "furo>=2024.8.6",
+    "myst-parser>=4.0.0",
+    "pre-commit>=4.0.1",
+    "pytest<8",
+    "pytest-cov>=5.0.0",
+    "pytest-mock>=3.14.0",
+    "ruff>=0.6.9",
+    "sphinx>=8.1.0",
+    "virtualenv",
+    "wheel>=0.44.0",
+    "typer~=0.9.0",
+]
+
+[tool.ruff]
+target-version = "py312"
+# select = ["E", "F", "I"]
+lint.fixable = ["ALL"]
+# exclude = [".git", ".mypy_cache", ".ruff_cache"]
+include = ["chap_core/**/*.py"]
+line-length = 120
+
+# disable complaining about unused imports in __init__.py
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_level = "DEBUG"
+norecursedirs = [
+    "tests/data_wrangling",
+    "tests/spatio_temporal_data",
+    "tests/",
+    ".mypy_cache",
+]
+ignore = ['tests/test_meteostat_wrapper']
+
