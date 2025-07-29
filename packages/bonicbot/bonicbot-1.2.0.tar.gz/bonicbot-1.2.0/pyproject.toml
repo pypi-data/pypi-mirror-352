@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bonicbot"
+description = "Python library for controlling BonicBot humanoid robot via serial communication and WebSocket"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Shahir Abdulla", email = "shahir@autobonics.com"}
+]
+maintainers = [
+    {name = "Shahir Abdulla", email = "shahir@autobonics.com"}
+]
+keywords = [
+    "robot", "robotics", "servo", "control", "serial", "communication",
+    "humanoid", "bonicbot", "hardware", "automation", "websocket", "remote"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education", 
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Human Machine Interfaces",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Hardware :: Hardware Drivers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.7"
+dependencies = [
+    "pyserial>=3.4",
+    "websocket-client>=1.0.0",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+gui = []
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "flake8", 
+    "mypy",
+]
+
+[project.urls]
+Homepage = "https://github.com/Autobonics/bonicbot"
+Documentation = "https://github.com/Autobonics/bonicbot/docs"
+Repository = "https://github.com/Autobonics/bonicbot.git"
+"Bug Tracker" = "https://github.com/Autobonics/bonicbot/issues"
+
+[project.scripts]
+bonicbot-gui = "bonicbot.gui:run_servo_controller"
+
+[tool.setuptools]
+packages = ["bonicbot"]
+
+[tool.setuptools.dynamic]
+version = {attr = "bonicbot.__version__"}
+
+[tool.black]
+line-length = 88
+target-version = ['py37']
+include = '\.pyi?$'
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+[tool.mypy]
+python_version = "3.7"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
