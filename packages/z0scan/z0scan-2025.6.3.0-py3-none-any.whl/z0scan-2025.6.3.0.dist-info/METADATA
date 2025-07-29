@@ -1,0 +1,235 @@
+Metadata-Version: 2.2
+Name: z0scan
+Version: 2025.6.3.0
+Summary: An auxiliary active and passive scanning tool with Web and Full-Version Service vulnerability detection as the core. | 一款以Web与全版本服务漏洞检测为核心的辅助性主、被动扫描工具.
+Home-page: https://github.com/JiuZero/z0scan
+Author: JiuZero
+Author-email: jiuzer0@qq.com
+Keywords: z0scan,security,scanner,web,python3
+Platform: any
+Classifier: Topic :: Security
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Requires-Python: >=3.0
+Description-Content-Type: text/markdown
+Requires-Dist: asn1crypto>=0.24.0
+Requires-Dist: certifi>=2019.6.16
+Requires-Dist: cffi>=1.15.0
+Requires-Dist: chardet>=3.0.4
+Requires-Dist: colorama
+Requires-Dist: cryptography>=37.0.2
+Requires-Dist: cssselect>=1.1.0
+Requires-Dist: idna>=2.8
+Requires-Dist: lxml>=4.9.0
+Requires-Dist: pycparser>=2.19
+Requires-Dist: pyjsparser>=2.7.1
+Requires-Dist: pyOpenSSL>=18.0.0
+Requires-Dist: PySocks>=1.7.1
+Requires-Dist: requests>=2.28.0
+Requires-Dist: requests-toolbelt>=0.9.1
+Requires-Dist: six>=1.12.0
+Requires-Dist: tld>=0.9.3
+Requires-Dist: urllib3>=1.26.5
+Requires-Dist: future
+Requires-Dist: bs4
+Requires-Dist: dnspython
+Requires-Dist: fake_useragent>=2.2.0
+Requires-Dist: tldextract
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: platform
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+![z0scan](https://socialify.git.ci/JiuZero/z0scan/image?description=1&font=Source+Code+Pro&name=1&owner=1&pattern=Solid&theme=Auto)
+
+<h4 align="center" dir="auto">
+  中文 | <a href="https://github.com/JiuZero/z0scan/blob/master/README.MD">English</a>
+</p>
+
+<p align="center">
+  <a href="https://www.python.org/">
+      <img src="https://img.shields.io/badge/Language-Python3-yellow.svg">
+  <a href="https://github.com/JiuZero/z0scan">
+      <img src="https://img.shields.io/pypi/v/z0scan">
+  <a href="https://www.gnu.org/licenses/gpl-2.0.en.html">
+      <img src="https://img.shields.io/badge/License-GPL2-_red.svg">
+      <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/jiuzero/z0scan">
+  </a>
+</p>
+
+## ⚠️ Disclaimer
+
+> If you engage in any illegal activities while using this project or its included tools, you shall bear the corresponding consequences. We assume no legal or joint liability.
+
+> By using this project or implicitly/explicitly accepting this agreement, you are deemed to have read and agreed to the terms of this agreement.
+
+## 🌟 Advantages
+
+1. Integration of WAF detection, fingerprinting, and plugin scanning  
+2. Capable of parsing potential parameters in pseudo-static, XML, and other complex formats (Beta)
+3. Provides SQLite3 support for storing scan records and other data  
+4. Open-source based on Python3 with cross-platform support  
+5. Supports IPv6 domain resolution (Beta)
+
+## 🔧 Installation
+
+Install via **Pypi**  
+```bash
+pip install z0scan
+z0
+```
+
+Install via **GitHub**  
+```bash
+git clone https://github.com/JiuZero/z0scan
+cd z0scan
+pip install -r requirements.txt
+python3 z0.py
+```
+
+## 🚀 Usage
+
+```
+usage: z0 [command options] [arguments...] scan [-h] [-s SERVER_ADDR] [-u URL]
+                                                [-f URL_FILE] [-p PROXY]
+                                                [--timeout TIMEOUT]
+                                                [--retry RETRY]
+                                                [--random-agent] [--html]
+                                                [--json JSON] [-t THREADS]
+                                                [-l {0,1,2,3}] [-r RISK] [-c]
+                                                [-iw] [-sf] [-sc]
+                                                [--disable DISABLE]
+                                                [--able ABLE]
+                                                [--debug {1,2,3}]
+
+options:
+  -h, --help            show this help message and exit
+
+Proxy:
+  Passive Agent Mode Options
+
+  -s SERVER_ADDR, --server-addr SERVER_ADDR
+                        Server addr format:(ip:port)
+
+Target:
+  Options has to be provided to define the target(s)
+
+  -u URL, --url URL     Target URL (e.g. "http://www.site.com/vuln.php?id=1")
+  -f URL_FILE, --file URL_FILE
+                        Scan multiple targets given in a textual file
+
+Request:
+  Network request options
+
+  -p PROXY, --proxy PROXY
+                        Use a proxy to connect to the target URL,Support
+                        http,https,socks5,socks4 eg:http@127.0.0.1:8080 or
+                        socks5@127.0.0.1:1080
+  --timeout TIMEOUT     Seconds to wait before timeout connection (Default 6)
+  --retry RETRY         Time out retrials times (Default 2)
+  --random-agent        Use randomly selected HTTP User-Agent header value
+
+Output:
+  Output options
+
+  --html                When selected, the output will be output to the output
+                        directory by default, or you can specify
+  --json JSON           The json file is generated by default in the output
+                        directory, you can change the path
+
+Optimization:
+  Optimization options
+
+  -t THREADS, --threads THREADS
+                        Max number of concurrent network requests (Default 31)
+  -l {0,1,2,3}, --level {0,1,2,3}
+                        Different level use different payloads: 0-3 (Default
+                        2)
+  -r RISK, --risk RISK  Different risk use different kind of scanners: [0, 1,
+                        2, 3] (Default [0, 1, 2, 3])
+  -c, --concise         Concise output like w13scan
+  -iw, --ignore-waf     Ignore the WAF during detection
+  -sf, --skip-fingerprint
+                        Skip the scan to fingerprints
+  -sc, --scan-cookie    Scan cookie during detection
+  --disable DISABLE     Disable some scanners.
+  --able ABLE           Only enable scanners
+  --debug {1,2,3}       Show programs's exception: 1-3
+```
+
+## ✨ Plugin List
+
+- PerFile
+
+| Plugin Name | Description | Risk |
+|:---:|:----:|:----:|
+| sqli-bool | SQL Boolean-based Blind Injection | 2 |
+| sqli-time | SQL Time-based Blind Injection | 2 |
+| sqli-error | SQL Error-based Injection | 2 |
+| codei-asp | ASP Code Execution | 3 |
+| codei-php | PHP Code Execution | 3 |
+| cmdi | Command Execution | 3 |
+| other-objectdese | Deserialization Parameter Analysis | 3 |
+| sensi-js | JS Sensitive Information Leak | 1 |
+| sensi-jsonp | JSONP Sensitive Information Leak | 1 |
+| sensi-php-realpath | PHP Real Path Discovery | 0 |
+| redirect | Redirect | 1 |
+| sensi-webpack | Webpack Source Code Leak | 1 |
+| other-webdav-passive | WebDAV Passive Discovery | 1 |
+| xpathi-error | Error-based XPATH Injection | 2 |
+| trave-path | Path Traversal | 2 |
+| sensi-backup | Backup File Detection | 1 |
+| sensi-viewstate | Unencrypted VIEWSTATE Discovery | 0 |
+| xss | JS Semantic-based XSS Scanning | 1 |
+| crlf | CRLF Injection | 2 |
+| cors-passive | CORS Vulnerability Detection (Passive) | 2 |
+| unauth | Unauthorized Access | 2 |
+
+- PerFolder
+
+| Plugin Name | Description | Risk |
+|:---:|:----:|:----:|
+| sensi-backup | Backup File Scanning in Directories | 1 |
+| trave-list | Directory Listing | 2 |
+| sensi-repository | Repository Source Code Leak | 1 |
+| sensi-php-phpinfo | PHPInfo File Discovery | 0 |
+
+- PerServer
+
+| Plugin Name | Description | Risk |
+|:---:|:----:|:----:|
+| sensi-errorpage | Error Page Sensitive Information Leak | 0 |
+| xss-net | .NET Universal XSS | 1 |
+| other-dns-zonetransfer | DNS Zone Transfer Vulnerability | 1 |
+| xss-flash | Flash Universal XSS | 1 |
+| other-idea-parse | Idea Directory Parsing | 1 |
+| other-xst | XST Vulnerability Detection | -1 |
+| other-webdav-active | WebDAV Active Discovery | 1 |
+| upload-put | PUT-based Arbitrary File Upload | 3 |
+| sensi-backup | Domain-based Backup File Detection | 1 |
+| cors-active | CORS Vulnerability Detection (Active) | 2 |
+| crlf | CRLF Line Injection | 2 |
+
+- Plugin Development Guide:  
+[DEV.MD](https://github.com/JiuZero/z0scan/blob/master/doc/DEV.MD)
+
+## 🔆 Changelog & License
+
+- Changelog: [CHANGELOG](https://github.com/JiuZero/z0scan/blob/master/doc/CHANGELOG.MD)  
+
+- GPL-2.0 License: [LICENSE](https://github.com/JiuZero/z0scan/blob/master/LICENSE)  
+
+## ❤️ Contact
+
+| Platform | Contact |
+|:---:|:----:|
+| WeiXin | JiuZer1 |
+| QQ | 1703417187 |
+| Email | jiuzer0@qq.com |
