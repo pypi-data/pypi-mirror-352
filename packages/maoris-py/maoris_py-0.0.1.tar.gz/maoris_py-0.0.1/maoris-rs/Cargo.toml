@@ -1,0 +1,23 @@
+[package]
+name = "maoris-rs"
+version = "0.1.0"
+edition = "2021"
+readme = "README.md"
+
+[dependencies]
+clap = { version = "4.5.27", features = ["derive"] }
+image = "0.25.0"
+imageproc = "0.25.0"
+itertools = "0.14.0"
+parking_lot = "0.12.3"
+petgraph = "0.7.1"
+rayon = "1.10.0"
+
+
+[lib]
+name = "maoris_rs"
+path = "src/lib.rs"
+
+[[bin]]
+name = "maoris"
+path = "src/main.rs"
