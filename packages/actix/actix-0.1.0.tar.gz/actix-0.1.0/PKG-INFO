@@ -1,0 +1,33 @@
+Metadata-Version: 2.4
+Name: actix
+Version: 0.1.0
+Summary: A collection of novel and experimental activation functions for TensorFlow and PyTorch.
+Author-email: Islam Tlupov <tlupovislam@gmail.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/EmotionEngineer/actix
+Project-URL: Repository, https://github.com/EmotionEngineer/actix
+Keywords: deep learning,tensorflow,keras,pytorch,activation functions,neural networks,machine learning,actix
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.19
+Provides-Extra: tf
+Requires-Dist: tensorflow>=2.4; extra == "tf"
+Provides-Extra: torch
+Requires-Dist: torch>=1.8; extra == "torch"
+Provides-Extra: all
+Requires-Dist: actix[tf,torch]; extra == "all"
+Dynamic: license-file
