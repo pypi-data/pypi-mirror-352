@@ -1,0 +1,62 @@
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "scorep-db"
+version = "0.2.0"
+description = "Minimal tooling to keep track of Score-P Profiles + Traces."
+authors = [
+    { name = "Maximilian Sander", email = "maximilian.sander1@tu-dresden.de" },
+    { name = "Vincent Weinrich", email = "vincent.weinrich@mailbox.tu-dresden.de" },
+]
+readme = "README.md"
+requires-python = ">=3.10,<4"
+
+dependencies = [
+    "setuptools~=75.8.0",
+    "rdflib~=7.1.2",
+    "rdflib-sqlalchemy~=0.5.4",
+    "python-dotenv~=1.0.1",
+    "minio~=7.2.14",
+    "psycopg2-binary~=2.9.10",
+    "sparqlwrapper~=2.0.0",
+]
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+black = {version = "^24.4.2", extras = ["d"]}
+isort = "^5.13.2"
+ruff = "^0.6.0"
+pytest = "^8.2.2"
+pytest-cov = "^5.0.0"
+pytest-mock = "^3.14.0"
+docker = "^7.1.0"
+
+[project.scripts]
+scorep-db = "scorep_db.__main__:main"
+
+[project.urls]
+Homepage = "https://gitlab.hrz.tu-chemnitz.de/s0872522--tu-dresden.de/scorep-db"
+Repository = "https://gitlab.hrz.tu-chemnitz.de/s0872522--tu-dresden.de/scorep-db"
+
+[tool.poetry]
+requires-poetry = ">=2.0"
+
+[tool.black]
+target-version = ['py310']
+
+[tool.isort]
+py_version = 310
+line_length = 80
+profile = "black"
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+]
+pythonpath = ["scorep_db"]
+
+
