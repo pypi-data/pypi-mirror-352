@@ -1,0 +1,337 @@
+Metadata-Version: 2.4
+Name: pybest
+Version: 2.1.0
+Summary: PyBEST: Pythonic Black-box Electronic Structure Tool.
+Home-page: http://www.fizyka.umk.pl/~pybest
+Author: Somayeh Ahmadkhani <so.ahmadkhani@gmail.com>, Katharina Boguslawski <k.boguslawski@fizyka.umk.pl>, Iulia Brumboiu <iubr@umk.pl>, Marta Gałyńska <marta.galynska@gmail.com>, Dariusz Kędziera <teodar@chem.umk.pl>, Maximilian Kriebel <maximilian.kriebel@web.de>, Paweł Tecmer <ptecmer@fizyka.umk.pl>, Piotr Żuchowski <pzuch@fizyka.umk.pl>, Saman Behjou <s.behjoo@gmail.com>, Filip Brzęk <filip.brzek@gmail.com>, Rahul Chakraborty <rahuldev.chakraborty91@gmail.com>, Kacper Cieślak <kacperfonex@gmail.com>, Antonina Dobrowolska <antosiadob@gmail.com>, Seyedehdelaram Jahani <aramehjahani11@gmail.com>, Zahra Karimi <karimizahra369@gmail.com>, Michał Kopczyński <michal.kopczynski3.14@gmail.com>, Aleksandra Leszczyk <aleksandra.leszczyk@gmail.com>, Artur Nowak <nowak.art90@gmail.com>, Ram Dhari Pandey <pandey123iitian@gmail.com>, Julia Szczuczko <303191@stud.umk.pl>, Lena Szczuczko <503699@doktorant.umk.pl>, Emil Sujkowski <e.sujkowski@gmail.com>, Julian Świerczyński <icytwv@gmail.com>
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: C++
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Chemistry
+Requires-Python: >=3.9,<4.0
+Description-Content-Type: text/markdown
+License-File: COPYING
+Requires-Dist: h5py<4.0.0,>=3.11.0
+Requires-Dist: numpy<3.0.0,>=2.0.0
+Requires-Dist: pylatexenc<3.0.0,>=2.8.0
+Requires-Dist: pytest<8.0.0,>=6.2.4
+Requires-Dist: pytest-durations~=1.2.0
+Requires-Dist: pytest-xdist[psutil]~=2.5.0
+Requires-Dist: scipy<2.0.0,>=1.13.0
+Provides-Extra: scripts
+Requires-Dist: matplotlib; extra == "scripts"
+Provides-Extra: einsum
+Requires-Dist: opt_einsum~=3.3.0; extra == "einsum"
+Provides-Extra: all
+Requires-Dist: matplotlib; extra == "all"
+Requires-Dist: opt_einsum~=3.3.0; extra == "all"
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+PyBEST is a *Py*thonic *B*lack-box *E*lectronic *S*tructure *T*ool,
+written primarily in the [Python programming language](https://www.python.org/)
+with additional parts written in C++ (interfaced using [nanobind](https://nanobind.readthedocs.io/en/latest/why.html).
+
+PyBEST is a fully-fledged modern electronic-structure software package, developed at
+[NCU in Torun](https://www.umk.pl/en/), released under the GNU General Public License.
+The package provides an efficient and reliable platform for electronic structure
+calculations at the interface of chemistry and physics using unique electronic structure
+methods. PyBEST is easy to use and easy to code in.
+
+For more information, see our official [homepage](https://www.fizyka.umk.pl/~pybest).
+You will also find there various versions of PyBEST to download and install including
+the most recent version of this documentation.
+
+
+Graphical User Interface
+========================
+
+A graphical user interface (GUI) is available to simplify the creation of PyBEST input files.
+The GUI is designed for intuitive interaction and facilitates setting up calculations
+without requiring manual file editing.
+
+The GUI is publicly available on [Zenodo](https://zenodo.org/doi/10.5281/zenodo.14884287).
+
+
+Main Features
+=============
+
+**Compatibility**
+
+* Integrating the [LibInt2](https://github.com/evaleev/libint) library.
+
+* Adapting a modular structure to easily combine PyBEST with custom developments.
+
+* GPU-accelerated computing using the Cupy library
+
+**Electronic Structure Methods**
+
+* Hamiltonians (various one- and two-electron integrals)
+
+    * The electronic Schrödinger Hamiltonian in atom-centered Gaussian basis sets
+
+        * One- and two-electron integrals computed with
+          [LibInt2](https://github.com/evaleev/libint)
+
+            * overlap, kinetic energy, nuclear, multipole, electron repulsion integrals (ERI)
+
+        * pVp integrals
+
+        * Cholesky-decomposed ERI
+
+        * Douglas-Kroll-Hess Hamiltonian (DKH2)
+
+        * eXact 2-Component (X2C) scalar relativistic Hamiltonian
+
+        * Point-charge integrals
+
+        * Static embedding potential integrals
+
+    * Model Hamiltonians
+
+        * 1-dimensional Hubbard model Hamiltonian (with and without periodic boundary
+          conditions)
+
+        * 1-dimensional contact interactions in an arbitrary external potential
+
+        * Huckel and TB Hamiltonian
+
+        * PPP Hamiltonian
+
+    * User-provided Hamiltonians
+
+        * Molpro's FCIDUMP format
+
+* Hartree-Fock theory:
+
+    * Restricted and unrestricted orbitals
+
+    * Various DIIS algorithms
+
+* Configuration Interaction methods
+
+    * Configuration Interaction Singles (CIS)
+
+    * Configuration Interaction Doubles (CID)
+
+    * Configuration Interaction Singles and Doubles (CISD)
+
+* Coupled Cluster-type methods
+
+    * pair-Coupled Cluster Doubles (pCCD), also known as the Antisymmetry Product of 1 reference-orbital Geminals (AP1roG)
+
+    * Linearized Coupled Cluster Doubles (LCCD)
+
+    * Linearized Coupled Cluster Singles and Doubles (LCCSD)
+
+    * pCCD-LCCD (pCCD with an LCCD correction on top of it)
+
+    * pCCD-LCCSD (pCCD with an LCCSD correction on top of it)
+
+    * pCCD-CCS (pCCD with a Coupled Cluster Singles correction on top of it)
+
+    * Coupled Cluster Doubles (CCD) in any restricted orbital basis
+
+    * Coupled Cluster Singles and Doubles (CCSD) in any restricted orbital basis
+
+    * Frozen-pair Coupled Cluster and Doubles (fpCCD)
+
+    * Frozen-pair Coupled Cluster Singles and Doubles (fpCCSD)
+
+    * Tailored Couples Cluster Singles Doubles (tCCSD)
+
+* Perturbation theory
+
+    * Moller-Plesset Perturbation Theory of second order (MP2)
+
+    * Symmetry Adapted Perturbation Theory (SAPT)
+
+        * the SAPT0 un-coupled flavour for spin-restricted HF orbitals
+
+    * Various Perturbation Theory models of second order with an pCCD reference function
+
+        * PT2SDd (diagonal zero-order Hamiltonian, single determinant as dual state) with
+          Doubles and Singles and Doubles
+
+        * PT2MDd (diagonal zero-order Hamiltonian, pCCD as dual state) with Doubles and
+          Singles and Doubles
+
+        * PT2SDo (off-diagonal zero-order Hamiltonian, single determinant as dual state)
+          with Doubles and Singles and Doubles
+
+        * PT2MDo (off-diagonal zero-order Hamiltonian, pCCD as dual state) with Doubles
+          and Singles and Doubles
+
+        * PT2b (off-diagonal zero-order Hamiltonian, pCCD as dual state, full Hamiltonian
+          as perturbation operator) with Doubles and Singles and Doubles including/excluding
+          electron pairs
+
+* Equation of Motion Coupled Cluster methods
+
+    * Equation of Motion CCS (EOM-CCS equivalent to CIS)
+
+    * EOM-pCCD
+
+    * EOM-pCCD+S (single excitation are included in the EOM ansatz only, while the CC ansatz is restricted to pCCD)
+
+    * EOM-pCCD-CCS
+
+    * EOM-LCCD
+
+    * EOM-LCCSD
+
+    * EOM-pCCD-LCCD
+
+    * EOM-pCCD-LCCSD
+
+    * EOM-CCD
+
+    * EOM-CCSD
+
+* Ionization Potential Equation of Motion Coupled Cluster methods
+
+    * IP-pCCD with 1 hole and 2 hole 1 particle operators ($`S_z = 0.5, 1.5`$)
+
+    * IP-CCD with 1 hole and 2 hole 1 particle operators ($`S_z = 0.5, 1.5`$)
+
+    * IP-CCSD with 1 hole and 2 hole 1 particle operators ($`S_z = 0.5, 1.5`$)
+
+    * IP-LCCD with 1 hole and 2 hole 1 particle operators ($`S_z = 0.5, 1.5`$)
+
+    * IP-LCCSD with 1 hole and 2 hole 1 particle operators ($`S_z = 0.5, 1.5`$)
+
+    * IP-fpCCD with 1 hole and 2 hole 1 particle operators ($`S_z = 0.5, 1.5`$)
+
+    * IP-fpCCSD with 1 hole and 2 hole 1 particle operators ($`S_z = 0.5, 1.5`$)
+
+    * IP-pCCD-LCCD with 1 hole and 2 hole 1 particle operators ($`S_z = 0.5, 1.5`$)
+
+    * IP-pCCD-LCCSD with 1 hole and 2 hole 1 particle operators ($`S_z = 0.5, 1.5`$)
+
+    * DIP-pCCD with 2 hole and 3 hole 1 particle operators ($`S_z = 0.0, 1.0, 2.0`$)
+
+    * DIP-CCD with 2 hole and 3 hole 1 particle operators ($`S_z = 0.0`$)
+
+    * DIP-CCSD with 2 hole and 3 hole 1 particle operators ($`S_z = 0.0`$)
+
+    * DIP-LCCD with 2 hole and 3 hole 1 particle operators ($`S_z = 0.0`$)
+
+    * DIP-LCCSD with 2 hole and 3 hole 1 particle operators ($`S_z = 0.0`$)
+
+    * DIP-fpCCD with 2 hole and 3 hole 1 particle operators ($`S_z = 0.0`$)
+
+    * DIP-fpCCSD with 2 hole and 3 hole 1 particle operators ($`S_z = 0.0`$)
+
+    * DIP-fpLCCD with 2 hole and 3 hole 1 particle operators ($`S_z = 0.0`$)
+
+    * DIP-fpLCCSD with 2 hole and 3 hole 1 particle operators ($`S_z = 0.0`$)
+
+* Electron Attachment Equation of Motion Coupled Cluster methods
+
+    * EA-pCCD with 1 particle and 2 particle 1 hole operators (:$`S_z = 0.5, 1.5`$)
+
+    * EA-CCD with 1 particle and 2 particle 1 hole operators ($`S_z = 0.5`$)
+
+    * EA-CCSD with 1 particle and 2 particle 1 hole operators ($`S_z = 0.5`$)
+
+    * EA-fpCCD with 1 particle and 2 particle 1 hole operators ($`S_z = 0.5`$)
+
+    * EA-fpCCSD with 1 particle and 2 particle 1 hole operators ($`S_z = 0.5`$)
+
+    * EA-LCCD with 1 particle and 2 particle 1 hole operators ($`S_z = 0.5`$)
+
+    * EA-LCCSD with 1 particle and 2 particle 1 hole operators ($`S_z = 0.5`$)
+
+    * EA-fpLCCD with 1 particle and 2 particle 1 hole operators ($`S_z = 0.5`$)
+
+    * EA-fpLCCSD with 1 particle and 2 particle 1 hole operators ($`S_z = 0.5`$)
+
+    * DEA-pCCD with 2 particle and 3 particle 1 hole operators ($`S_z = 0.0, 1.0, 2.0`$)
+
+* Reversed Spin Flip Equation of Motion Coupled Cluster methods
+
+    * RSF-CCD creating four unpaired electrons ($`S_z = 2`$)
+
+    * RSF-CCSD creating four unpaired electrons ($`S_z = 2`$)
+
+    * RSF-LCCD creating four unpaired electrons ($`S_z = 2`$)
+
+    * RSF-LCCSD creating four unpaired electrons ($`S_z = 2`$)
+
+    * RSF-fpCCD creating four unpaired electrons ($`S_z = 2`$)
+
+    * RSF-fpCCSD creating four unpaired electrons ($`S_z = 2`$)
+
+    * RSF-fpLCCD creating four unpaired electrons ($`S_z = 2`$)
+
+    * RSF-fpLCCSD creating four unpaired electrons ($`S_z = 2`$)
+
+
+**Post-Processing**
+
+* Orbital entanglement and correlation analysis
+
+    * for a pCCD reference function
+
+    * for a pCCD-LCC reference function
+
+* Orbital localization
+
+    * Pipek-Mezey orbital localization
+
+* Property calculations
+
+    * Dipole moment with HF, pCCD, pCCD-LCC wavefunctions
+
+    * Quadrupole moment with HF, pCCD, pCCD-LCC wavefunctions
+
+
+Citing PyBEST
+==============
+
+Please, refer to PyBEST as follows:
+
+> Saman Behjou, Filip Brzęk, Rahul Chakraborty, Kacper Cieślak, Antonina Dobrowolska, Seyedehdelaram Jahani,
+> Zahra Karimi, Michał Kopczyński, Aleksandra Leszczyk, Artur Nowak, Ram Dhari Pandey, Emil Sujkowski, Julian Świerczyński,
+> Julia Szczuczko, Lena Szczuczko, Somayeh Ahmadkhani, Katharina Boguslawski, Iulia Brumboiu, Marta Gałyńska, Dariusz Kędziera, Maximilian H. Kriebel,
+> Paweł Tecmer, Piotr Szymon Żuchowski, PyBEST 2.1.0, **2025**
+
+
+If you use PyBEST, please cite the following:
+
+> Katharina Boguslawski, Filip Brzęk, Rahul Chakraborty, Kacper Cieślak,
+> Seyedehdelaram Jahani, Aleksandra Leszczyk, Artur Nowak, Emil Sujkowski,
+> Julian Świerczyński, Somayeh Ahmadkhani, Dariusz Kędziera,
+> Maximilian H. Kriebel, Piotr Szymon Żuchowski, Paweł Tecmer,
+> "PyBEST: Improved functionality and enhanced performance",
+> *Computer Physics Communications*, **297**, 2024, https://doi.org/10.1016/j.cpc.2023.109049.
+
+
+> Katharina Boguslawski, Aleksandra Leszczyk, Artur Nowak, Filip Brzęk, Piotr Szymon Żuchowski,
+> Dariusz Kędziera, Paweł Tecmer, "Pythonic Black-box Electronic Structure Tool (PyBEST).
+> An open-source Python platform for electronic structure calculations at the interface between chemistry and physics",
+> *Computer Physics Communications*, **264**, 2021, https://doi.org/10.1016/j.cpc.2021.107933.
+
+
+Contact Information
+===================
+
+If you have questions, please send them to our developer e-mail address
+**pybest@umk.pl**
+
+Alternatively, you may directly contact the authors of a specific part of
+PyBEST.
