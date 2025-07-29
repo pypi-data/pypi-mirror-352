@@ -1,0 +1,63 @@
+defaults:
+    application: DaVinci/v45r5
+    output: DPA_TESTING.ROOT
+    automatically_configure: yes 
+    wg: DPA
+    inform:
+        - christopher.burr@cern.ch
+
+############
+### MC   ###
+############
+
+{%- set channels = [
+    ('Lb2Lee',      'Sim09h', '15124102'),
+    ('Lb2Lmm',      'Sim09h', '15114102'),
+    ('Lb2Lem',      'Sim09h', '15114113'),
+    ('Lb2JpsiL_ee', 'Sim09h', '15154105'),
+    ('Lb2JpsiL_mm', 'Sim09h', '15144103'),
+    ('Lb2PsiL_ee',  'Sim09h', '15154115'),
+    ('Lb2PsiL_mm',  'Sim09h', '15144111'),
+]%}
+
+{%- set year_trig = [
+    (2011, '3500','Nu2'       , 'Trig0x40760037','Reco14c', 'v39r1p6' ,'21r1',''),
+    (2012, '4000','Nu2.5'     , 'Trig0x409f0045','Reco14c', 'v39r1p6' ,'21'  ,''),
+    (2015, '6500','Nu1.6-25ns', 'Trig0x411400a2','Reco15a', 'v44r10p5','24r1','Turbo02/'),
+    (2016, '6500','Nu1.6-25ns', 'Trig0x6139160F','Reco16' , 'v44r10p5','28r1','Turbo03a/'),
+    (2017, '6500','Nu1.6-25ns', 'Trig0x62661709','Reco17' , 'v42r9p2' ,'29r2','Turbo04a-WithTurcal/'),
+    (2018, '6500','Nu1.6-25ns', 'Trig0x617d18a4','Reco18' , 'v44r10p2','34'  ,'Turbo05-WithTurcal/'),
+]%}
+
+{#
+{%- set channels = channels[0:1] %}
+{%- set year_trig = year_trig[0:1] %}
+#}
+
+{%- for channel, sim_version, event_type in channels %}
+    {%- for year, energy, nu, trig, reco, davinci_version, strip_version, turbo_version in year_trig %}
+        {%- for polarity in ['MagDown', 'MagUp'] %}
+
+MC_{{year}}_{{polarity}}_{{channel}}_strip:
+    application: DaVinci/{{ davinci_version }}
+    output: ALLSTREAMS.RD_LBTOL0LL.DST
+    input: 
+        bk_query: /MC/{{year}}/Beam{{energy}}GeV-{{year}}-{{polarity}}-{{nu}}-Pythia8/{{sim_version}}/{{trig}}/{{reco}}/{{turbo_version}}Stripping{{strip_version}}NoPrescalingFlagged/{{event_type}}/ALLSTREAMS.DST
+    options: 
+        - stripping_seq.py
+
+
+
+MC_{{year}}_{{polarity}}_{{channel}}_tuple:
+    input: 
+        job_name: MC_{{year}}_{{polarity}}_{{channel}}_strip
+    options: 
+        - mc_samples/MC_{{channel}}.py
+        - sequence_setup.py
+        - helpers/MC_tuple_maker.py 
+
+
+      {%- endfor %}
+  {%- endfor %}
+{%- endfor %}
+

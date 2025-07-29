@@ -1,0 +1,504 @@
+defaults:
+    wg: B2CC
+    automatically_configure: yes
+    inform:
+        - alex.pearce@cern.ch
+        - ekaterina.govorkova@cern.ch
+        - valeriia.lukashenko@cern.ch
+
+###############################################################################
+# Real data
+###############################################################################
+
+{%- set channels = [
+  (2015, '15a', '24r1'),
+  (2016, '16', '28r1'),
+  (2017, '17', '29r2'),
+  (2018, '18', '34'),
+]%}
+
+{%- for year, v_reco, v_strip in channels %}
+    {%- for polarity in ['MagDown', 'MagUp'] %}
+{#
+{{ year }}_{{ polarity }}_BHADRONCOMPLETEEVENT:
+    application: Castelao/v3r1
+    input:
+        bk_query: /LHCb/Collision{{ year - 2000 }}/Beam6500GeV-VeloClosed-{{ polarity }}/Real Data/Reco{{ v_reco }}/Stripping{{ v_strip }}/90000000/BHADRONCOMPLETEEVENT.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2DsPi.py
+
+{{ year }}_{{ polarity }}_DIMUON:
+    application: Castelao/v3r1
+    input:
+        bk_query: /LHCb/Collision{{ year - 2000 }}/Beam6500GeV-VeloClosed-{{ polarity }}/Real Data/Reco{{ v_reco }}/Stripping{{ v_strip }}/90000000/DIMUON.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+        - Bd2JpsiKstar.py
+        - Bu2JpsiKplus.py
+#}
+{{ year }}_{{ polarity }}_LEPTONIC:
+    application: Castelao/v3r1
+    input:
+        bk_query: /LHCb/Collision{{ year - 2000 }}/Beam6500GeV-VeloClosed-{{ polarity }}/Real Data/Reco{{ v_reco }}/Stripping{{ v_strip }}/90000000/LEPTONIC.MDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi_Prompt.py
+        - Bs2JpsiPhi_Prompt_PVMixer.py
+        
+        {%- endfor %}
+{%- endfor %}
+
+
+###############################################################################
+# Something with stripping the processing MC????
+###############################################################################
+{#
+{%- set channels = [
+    ('Bd2JpsiKstar', 'no_str_g', 'Sim09g', '11144001'),
+    ('Bu2JpsiKplus', 'no_str_g', 'Sim09g', '12143001'),
+]%}
+
+{%- set year_trig = [
+    (2017, 'Trig0x62661709', 'v42r7p2'),
+    (2018, 'Trig0x617d18a4', 'v44r4'),
+]%}
+
+{%- for channel, suffix, sim_version, event_type in channels %}
+    {%- for year, trig, davinci_version in year_trig %}
+        {%- for polarity in ['MagDown', 'MagUp'] %}
+
+MC_{{ year }}_{{ polarity }}_{{ channel }}_{{ suffix }}_{{ sim_version }}_strip:
+    application: DaVinci/{{ davinci_version }}
+    input:
+        bk_query: /MC/{{ year }}/Beam6500GeV-{{ year }}-{{ polarity }}-Nu1.6-25ns-Pythia8/{{ sim_version }}/{{ trig }}/Reco{{ year-2000 }}/{{ event_type }}/LDST
+    output: ALLSTREAMS.ANAPROD_BSTOJPSIPHI.LDST
+    options:
+        - {{ channel }}_stripping.py
+
+MC_{{ year }}_{{ polarity }}_{{ channel }}_{{ suffix }}_{{ sim_version }}_tuple:
+    application: Castelao/v3r1
+    input:
+        job_name: MC_{{ year }}_{{ polarity }}_{{ channel }}_{{ suffix }}_{{ sim_version }}_strip
+    output: ANAPROD_BSTOJPSIPHI.ROOT
+    options:
+        - sequence_setup.py
+        - {{ channel }}.py
+
+        {%- endfor %}
+    {%- endfor %}
+{%- endfor %}
+
+#}
+###############################################################################
+# Other MC
+###############################################################################
+
+{%- for polarity in ['MagDown', 'MagUp'] %}
+
+{#
+MC_2017_{{ polarity }}_Bspi2JpsiPhi_sim09f_29r2_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-BcVegPyPythia8/Sim09f/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2NoPrescalingFlagged/14135000/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bc2Bspi2JpsiPhi.py
+
+MC_2016_{{ polarity }}_DsPi_sim09b_s26_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x6138160F/Reco16/Turbo03/Stripping26NoPrescalingFlagged/13264021/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2DsPi.py
+
+MC_2016_{{ polarity }}_DsPi_sim09e_s28r1_ldst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09e/Trig0x6139160F/Reco16/Turbo03/Stripping28r1NoPrescalingFlagged/13264021/ALLSTREAMS.LDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2DsPi.py
+
+MC_2017_{{ polarity }}_DsPi_sim09g_s29r2_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09g/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2NoPrescalingFlagged/13264021/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2DsPi.py
+
+MC_2018_{{ polarity }}_DsPi_sim09g_s34_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2018/Beam6500GeV-2018-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09g/Trig0x617d18a4/Reco18/Turbo05-WithTurcal/Stripping34NoPrescalingFlagged/13264021/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2DsPi.py
+#}
+MC_2015_{{ polarity }}_InclJpsi_sim09b_s24_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x411400a2/Reco15a/Turbo02/Stripping24NoPrescalingFlagged/24142001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi_Prompt.py
+        - Bs2JpsiPhi_Prompt_PVMixer.py      
+
+MC_2016_{{ polarity }}_InclJpsi_sim09b_s26_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x6138160F/Reco16/Turbo03/Stripping26NoPrescalingFlagged/24142001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi_Prompt.py
+        - Bs2JpsiPhi_Prompt_PVMixer.py      
+
+MC_2017_{{ polarity }}_InclJpsi_sim09g_29r2_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09g/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2NoPrescalingFlagged/24142001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi_Prompt.py
+        - Bs2JpsiPhi_Prompt_PVMixer.py
+
+MC_2018_{{ polarity }}_InclJpsi_sim09g_s34_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2018/Beam6500GeV-2018-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09g/Trig0x617d18a4/Reco18/Turbo05-WithTurcal/Stripping34NoPrescalingFlagged/24142001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi_Prompt.py
+        - Bs2JpsiPhi_Prompt_PVMixer.py
+{#
+MC_2016_{{ polarity }}_JpsiKplus_sim09b_s26_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x6138160F/Reco16/Turbo03/Stripping26NoPrescalingFlagged/12143001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bu2JpsiKplus.py
+
+MC_2015_{{ polarity }}_JpsiKplus_sim09b_s24_ldst_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x411400a2/Reco15a/Turbo02/Stripping24NoPrescalingFlagged/12143001/ALLSTREAMS.LDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bu2JpsiKplus.py
+
+MC_2016_{{ polarity }}_JpsiKplus_sim09b_s26_ldst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x6138160F/Reco16/Turbo03/Stripping26NoPrescalingFlagged/12143001/ALLSTREAMS.LDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bu2JpsiKplus.py
+
+MC_2015_{{ polarity }}_JpsiKplus_sim09b_s24_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x411400a2/Reco15a/Turbo02/Stripping24NoPrescalingFlagged/12143001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bu2JpsiKplus.py
+
+MC_2015_{{ polarity }}_JpsiKplus_sim09c_s24r1_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09c/Trig0x411400a2/Reco15a/Turbo02/Stripping24r1NoPrescalingFlagged/12143001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bu2JpsiKplus.py
+
+MC_2016_{{ polarity }}_JpsiKplus_sim09e_s28r1_ldst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09e/Trig0x6139160F/Reco16/Turbo03/Stripping28r1NoPrescalingFlagged/12143001/ALLSTREAMS.LDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bu2JpsiKplus.py
+
+MC_2017_{{ polarity }}_JpsiKstar_sim09f_s29r2_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09f/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2NoPrescalingFlagged/11144001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bd2JpsiKstar.py
+
+MC_2018_{{ polarity }}_JpsiKstar_sim09f_s34_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2018/Beam6500GeV-2018-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09f/Trig0x617d18a4/Reco18/Turbo05-WithTurcal/Stripping34NoPrescalingFlagged/11144001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bd2JpsiKstar.py
+
+MC_2015_{{ polarity }}_JpsiKstar_sim09c_s24r1_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09c/Trig0x411400a2/Reco15a/Turbo02/Stripping24r1NoPrescalingFlagged/11144001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bd2JpsiKstar.py
+
+MC_2016_{{ polarity }}_JpsiKstar_sim09b_s26_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x6138160F/Reco16/Turbo03/Stripping26NoPrescalingFlagged/11144001/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bd2JpsiKstar.py
+
+MC_2015_{{ polarity }}_JpsiKstar_sim09b_s24_ldst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x411400a2/Reco15a/Turbo02/Stripping24NoPrescalingFlagged/11144001/ALLSTREAMS.LDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bd2JpsiKstar.py
+
+MC_2016_{{ polarity }}_JpsiKstar_sim09b_s26_ldst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x6138160F/Reco16/Turbo03/Stripping26NoPrescalingFlagged/11144001/ALLSTREAMS.LDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bd2JpsiKstar.py
+
+MC_2015_{{ polarity }}_JpsiKstar_sim09c_s24r1_mdst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09c/Trig0x411400a2/Reco15a/Turbo02/Stripping24r1NoPrescalingFlagged/11144001/ALLSTREAMS.MDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bd2JpsiKstar.py
+
+MC_2016_{{ polarity }}_JpsiKstar_sim09c_s28r1_mdst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09c/Trig0x6138160F/Reco16/Turbo03/Stripping28r1NoPrescalingFlagged/11144001/ALLSTREAMS.MDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bd2JpsiKstar.py
+
+MC_2015_{{ polarity }}_JpsiPhi_sim09b_s24_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x411400a2/Reco15a/Turbo02/Stripping24NoPrescalingFlagged/13144011/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2017_{{ polarity }}_JpsiPhi_sim09f_s29r2_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09f/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2NoPrescalingFlagged/13144011/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2017_{{ polarity }}_JpsiPhi_sim09g_s29r2_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09g/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2NoPrescalingFlagged/13144011/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2018_{{ polarity }}_JpsiPhi_sim09f_s34_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2018/Beam6500GeV-2018-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09f/Trig0x617d18a4/Reco18/Turbo05-WithTurcal/Stripping34NoPrescalingFlagged/13144011/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2018_{{ polarity }}_JpsiPhi_sim09g_s34_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2018/Beam6500GeV-2018-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09g/Trig0x617d18a4/Reco18/Turbo05-WithTurcal/Stripping34NoPrescalingFlagged/13144011/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2015_{{ polarity }}_JpsiPhi_dg0_sim09b_s24_mdst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x411400a2/Reco15a/Turbo02/Stripping24NoPrescalingFlagged/13144004/ALLSTREAMS.MDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2016_{{ polarity }}_JpsiPhi_dg0_sim09b_s26_mdst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x6138160F/Reco16/Turbo03/Stripping26NoPrescalingFlagged/13144004/ALLSTREAMS.MDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2017_{{ polarity }}_JpsiPhi_dg0_sim09h_s29r2_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09h/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2NoPrescalingFlagged/13144010/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2018_{{ polarity }}_JpsiPhi_dg0_sim09h_s34_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2018/Beam6500GeV-2018-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09h/Trig0x617d18a4/Reco18/Turbo05-WithTurcal/Stripping34NoPrescalingFlagged/13144010/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2017_{{ polarity }}_JpsiPhi_largeLifetime_sim09f_s29r2_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09f/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2NoPrescalingFlagged/13144016/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2016_{{ polarity }}_JpsiPhi_sim09b_s26_mdst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x6138160F/Reco16/Turbo03/Stripping26NoPrescalingFlagged/13144011/ALLSTREAMS.MDST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2016_{{ polarity }}_JpsiPhi_sim09b_s28_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09b/Trig0x6138160F/Reco16/Turbo03/Stripping28NoPrescalingFlagged/13144011/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2016_{{ polarity }}_JpsiPhi_sim09c_s28_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09c/Trig0x6138160F/Reco16/Turbo03/Stripping28NoPrescalingFlagged/13144011/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi.py
+
+MC_2015_{{ polarity }}_LbJpsipK_sim09h_s24r1_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09h/Trig0x411400a2/Reco15a/Turbo02/Stripping24r1NoPrescalingFlagged/15144059/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - LbJpsipK.py
+
+MC_2016_{{ polarity }}_LbJpsipK_sim09g_s28r1_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09g/Trig0x6139160F/Reco16/Turbo03/Stripping28r1NoPrescalingFlagged/15144059/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - LbJpsipK.py
+
+MC_2017_{{ polarity }}_LbJpsipK_sim09g_s29r2_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09g/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2NoPrescalingFlagged/15144059/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - LbJpsipK.py
+
+MC_2018_{{ polarity }}_LbJpsipK_sim09g_s34_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2018/Beam6500GeV-2018-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09g/Trig0x617d18a4/Reco18/Turbo05-WithTurcal/Stripping34NoPrescalingFlagged/15144059/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - LbJpsipK.py
+
+MC_2015_{{ polarity }}_JpsiPhi_swave_sim09h_s24r1_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2015/Beam6500GeV-2015-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09h/Trig0x411400a2/Reco15a/Turbo02/Stripping24r1NoPrescalingFlagged/13114010/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi_Swave.py
+
+MC_2016_{{ polarity }}_JpsiPhi_swave_sim09h_s28r1_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09h/Trig0x6139160F/Reco16/Turbo03/Stripping28r1NoPrescalingFlagged/13114010/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi_Swave.py
+
+MC_2017_{{ polarity }}_JpsiPhi_swave_sim09h_s29r2_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09h/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2NoPrescalingFlagged/13114010/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi_Swave.py
+
+MC_2018_{{ polarity }}_JpsiPhi_swave_sim09h_s34_dst:
+    application: Castelao/v3r1
+    input:
+        bk_query: /MC/2018/Beam6500GeV-2018-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09h/Trig0x617d18a4/Reco18/Turbo05-WithTurcal/Stripping34NoPrescalingFlagged/13114010/ALLSTREAMS.DST
+    output: B2CC_BSTOJPSIPHI_DVNTUPLE.ROOT
+    options:
+        - sequence_setup.py
+        - Bs2JpsiPhi_Swave.py
+#}
+{%- endfor %}

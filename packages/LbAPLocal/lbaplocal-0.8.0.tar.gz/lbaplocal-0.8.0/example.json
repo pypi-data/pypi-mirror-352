@@ -1,0 +1,13 @@
+{
+    "git_repo": "https://gitlab.cern.ch/cburr/analysisproductions.git",
+    "revision": "fead42103afb6bdcbb89db2be46eef8ac01a3f37",
+    "dynamic_options": {
+        "dynamic/BsToJpsiPhi/MC_2016_MagUp_JpsiPhi_swave_sim09h_s28r1_dst_autoconf.py": "from Configurables import DaVinci\n\nDaVinci().InputType = 'DST'\nDaVinci().DataType = '2016'\nDaVinci().Simulation = True\nDaVinci().Lumi = False\nDaVinci().DDDBtag = 'dddb-20170721-3'\nDaVinci().CondDBtag = 'sim-20170721-2-vc-mu100'"
+    },
+    "download_files": {
+        "pool_xml_catalog.xml": "https://s3.cern.ch/lb-analysis-productions/1650535/BsToJpsiPhi/MC_2016_MagUp_JpsiPhi_swave_sim09h_s28r1_dst/1/pool_xml_catalog.xml?AWSAccessKeyId=FIGDI4HK1EE9CV74J27P&Expires=1590498334&Signature=kWaKefNfEsNWDuN20UgmFInM4SA%3D",
+        "prodConf_Castelao_00012345_00006789_1.py": "https://s3.cern.ch/lb-analysis-productions/1650535/BsToJpsiPhi/MC_2016_MagUp_JpsiPhi_swave_sim09h_s28r1_dst/1/prodConf_Castelao_00012345_00006789_1.py?AWSAccessKeyId=FIGDI4HK1EE9CV74J27P&Expires=1590498334&Signature=557KoCer1pvByWKy6Cexs1iXiDQ%3D"
+    },
+    "env-command": "lb-run '--unset' 'LD_LIBRARY_PATH' '--unset' 'PYTHONPATH' '--unset' 'XrdSecPROTOCOL' '--siteroot=/cvmfs/lhcb.cern.ch/lib/' '--allow-containers' '-c' 'best' '--use=ProdConf' 'Castelao/v3r1'",
+    "command": "gaudirun.py '-T' '$ANALYSIS_PRODUCTIONS_DYNAMIC/BsToJpsiPhi/MC_2016_MagUp_JpsiPhi_swave_sim09h_s28r1_dst_autoconf.py' '$ANALYSIS_PRODUCTIONS_BASE/BsToJpsiPhi/sequence_setup.py' '$ANALYSIS_PRODUCTIONS_BASE/BsToJpsiPhi/Bs2JpsiPhi.py' 'prodConf_Castelao_00012345_00006789_1.py'"
+}

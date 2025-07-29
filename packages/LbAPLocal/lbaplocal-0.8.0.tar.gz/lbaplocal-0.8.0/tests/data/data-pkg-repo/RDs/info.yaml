@@ -1,0 +1,55 @@
+defaults:
+    wg: SL
+    automatically_configure: yes
+    inform:
+        - ben.couturier@cern.ch
+
+
+###############################################################################
+# MC
+###############################################################################
+
+{%- for polarity in ['MagDown', 'MagUp'] %}
+
+# MC_13266069_2018_{{ polarity }}:
+#     application: DaVinci/v45r3
+#     input:
+#         bk_query: /MC/2018/Beam6500GeV-2018-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09h/Trig0x617d18a4/Reco18/Turbo05-WithTurcal/Stripping34Filtered/13266069/RXCHAD.STRIP.DST
+#     output: Bsntuple_MC.root
+#     options:
+#         - Run2_Signal.py
+
+# MC_13266069_2017_{{ polarity }}:
+#     application: DaVinci/v45r3
+#     input:
+#         bk_query: /MC/2017/Beam6500GeV-2017-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09h/Trig0x62661709/Reco17/Turbo04a-WithTurcal/Stripping29r2Filtered/13266069/RXCHAD.STRIP.DST
+#     output: Bsntuple_MC.root
+#     options:
+#         - Run2_Signal.py
+
+# MC_13266069_2016_{{ polarity }}:
+#     application: DaVinci/v45r3
+#     input:
+#         bk_query: /MC/2016/Beam6500GeV-2016-{{ polarity }}-Nu1.6-25ns-Pythia8/Sim09h/Trig0x6139160F/Reco16/Turbo03a/Stripping28r2Filtered/13266069/RXCHAD.STRIP.DST
+#     output: Bsntuple_MC.root
+#     options:
+#         - Run2_Signal.py
+        
+MC_13266069_2012_{{ polarity }}:
+    application: DaVinci/v45r3
+    input:
+        bk_query: /MC/2012/Beam4000GeV-2012-{{ polarity }}-Nu2.5-Pythia8/Sim09h/Trig0x409f0045/Reco14c/Stripping21Filtered/13266069/RXCHAD.STRIP.DST
+    output: Bsntuple_MC.foobar
+    options:
+        - Run1_Signal.py
+
+MC_13266069_2011_{{ polarity }}:
+    application: DaVinci/v45r3
+    input:
+        bk_query: /MC/2011/Beam3500GeV-2011-{{ polarity }}-Nu2-Pythia8/Sim09h/Trig0x40760037/Reco14c/Stripping21r1Filtered/13266069/RXCHAD.STRIP.DST
+    output: Bsntuple_MC.root
+    options:
+        - Run1_Signal.py
+        
+
+{%- endfor %}

@@ -1,0 +1,108 @@
+
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "LbAPLocal"
+description = "Tool to locally run tests for AnalysisProductions"
+keywords = ["LHCb AnalysisProductions DIRAC"]
+readme = "README.md"
+authors = [
+    {name = "LHCb"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.12"
+dependencies = [
+    "LbAPCommon>=0.13.5",
+    "LbDiracWrappers",
+    "LbEnv",
+    "LbProdRun~=1.3",
+    "apd>=0.6.0",
+    "click",
+    "consolemd",
+    "mplhep",
+    "requests",
+    "setuptools",
+]
+dynamic = ["version"]
+
+[tool.setuptools_scm]
+
+[project.urls]
+Homepage = "https://gitlab.cern.ch/lhcb-dpa/analysis-productions/lbaplocal"
+"Bug Reports" = "https://gitlab.cern.ch/lhcb-dpa/analysis-productions/lbaplocal/-/issues"
+Source = "https://gitlab.cern.ch/lhcb-dpa/analysis-productions/lbaplocal"
+
+[project.optional-dependencies]
+testing = [
+    "pytest",
+    "pytest-cov",
+    "pytest-mock",
+    "pytest-recording",
+    "pytest-timeout",
+]
+
+[project.scripts]
+lb-ap = "LbAPLocal.cli:main"
+
+
+[tool.black]
+exclude = '''
+
+(
+  /(
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | tests/data/data-pkg-repo/
+)
+'''
+
+
+[tool.ruff]
+line-length = 120
+src = ["src", "tests"]
+exclude = ["tests/data/data-pkg-repo/"]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "PLE"]
+ignore = ["B905", "B008", "B006", "B904"]
+
+[tool.pytest.ini_options]
+addopts = "-v --cov=LbAPLocal --cov-report=term-missing --record-mode=none"
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+src_paths = ["src", "tests"]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.dependencies]
+python = ">=3.12,<3.13"
+
+[tool.pixi.pypi-dependencies]
+LbAPLocal = { path = ".", editable = true }
+
+[tool.pixi.feature.testing.tasks.pytest]
+cmd = "pytest"
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+testing = { features = ["testing"], solve-group = "default" }

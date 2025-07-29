@@ -1,0 +1,51 @@
+###############################################################################
+# (c) Copyright 2021 CERN for the benefit of the LHCb Collaboration           #
+#                                                                             #
+# This software is distributed under the terms of the GNU General Public      #
+# Licence version 3 (GPL Version 3), copied verbatim in the file "COPYING".   #
+#                                                                             #
+# In applying this licence, CERN does not waive the privileges and immunities #
+# granted to it by virtue of its status as an Intergovernmental Organization  #
+# or submit itself to any jurisdiction.                                       #
+###############################################################################
+stages:
+  - test
+  - deploy
+
+pixi:
+  parallel:
+    matrix:
+      - task: pre-commit run --all-files
+      - task: pytest --runslow
+  rules:
+    - when: always
+  image: gitlab-registry.cern.ch/lhcb-docker/os-base/alma9-devel:latest
+  tags:
+    - cvmfs
+  before_script:
+    - source /cvmfs/lhcb.cern.ch/lib/LbEnv
+    - curl -fsSL https://pixi.sh/install.sh | sh
+    - source ~/.bashrc || true
+  script:
+    - pixi run $task
+
+test-build:
+  stage: test
+  image: registry.cern.ch/docker.io/library/python:3.12
+  before_script:
+    - pip install build
+  script:
+    - python -m build
+
+# Packaging step
+deploy-packages:
+  stage: deploy
+  only:
+    - tags@lhcb-dpa/analysis-productions/lbaplocal
+  image: registry.cern.ch/docker.io/library/python:3.12
+  before_script:
+    - pip install build twine
+  script:
+    - python -m build
+    - if [ -z "$TWINE_PASSWORD" ] ; then echo "Set TWINE_PASSWORD in CI variables" ; exit 1 ; fi
+    - twine upload -u __token__ dist/*

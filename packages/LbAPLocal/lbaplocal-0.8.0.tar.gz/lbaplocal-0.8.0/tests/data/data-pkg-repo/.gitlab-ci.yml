@@ -1,0 +1,33 @@
+stages:
+  - check-env       # Ensures the CI environment is valid
+  - test            # Runs tests
+  - deploy_datapkg  # Installs the data package on CVMFS
+
+check-env:
+  stage: check-env
+  except:
+    - /.*/@lhcb-datapkg/AnalysisProductions
+    - merge_requests
+  script:
+    - |
+      echo "The Analysis Production CI depends on custom GitLab runners and"
+      echo "therefore tests running on forks will fail. Please create a branch"
+      echo "in the main repository at:"
+      echo "https://gitlab.cern.ch/lhcb-datapkg/AnalysisProductions"
+    - exit 1
+
+
+test:
+  tags:
+    - lbap_runner
+  except:
+    - tags
+    - merge_requests
+  script:
+    - echo "This should be overridden by LbAnalysisProductions"
+    - exit 42
+
+include:
+  - project: 'lhcb-core/ci-utils'
+    ref: master
+    file: '/data-pkg-deployment/build-and-deploy.yml'

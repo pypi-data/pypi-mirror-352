@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<env:config xmlns:env="EnvSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="EnvSchema EnvSchema.xsd ">
+  <env:set variable="ANALYSIS_PRODUCTIONS_BASE">${.}</env:set>
+  <env:set variable="ANALYSIS_PRODUCTIONS_DYNAMIC">${ANALYSIS_PRODUCTIONS_BASE}/dynamic</env:set>
+  <env:prepend variable="PYTHONPATH">${.}</env:prepend>
+</env:config>

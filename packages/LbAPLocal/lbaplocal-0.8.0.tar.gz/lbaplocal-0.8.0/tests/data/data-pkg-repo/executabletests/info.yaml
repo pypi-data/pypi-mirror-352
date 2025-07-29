@@ -1,0 +1,39 @@
+defaults:
+    application: DaVinci/v45r8
+    wg: Charm
+    inform:
+        - dylan.white@cern.ch
+        - aidan.richard.wiederhold@cern.ch
+    options:
+        - ntuple_options.py
+    output: D02KK.ROOT
+
+2016_MagDown_PromptMC_D02KK:
+    automatically_configure: yes
+    input:
+        bk_query: "/MC/2016/Beam6500GeV-2016-MagDown-Nu1.6-25ns-Pythia8/Sim09c/Trig0x6138160F/Reco16/Turbo03/Stripping28r1NoPrescalingFlagged/27163002/ALLSTREAMS.DST"
+
+2016_MagUp_PromptMC_D02KK:
+    automatically_configure: yes
+    input:
+        filetype: ALLSTREAMS.DST
+        transform_ids:
+            - 70767
+
+2016_MagDown_PromptMC_D02KK_noautoconf:
+    automatically_configure: no
+    options:
+        - 2016_MagDown_PromptMC_D02KK_autoconf.py
+        - ntuple_options.py
+    input:
+        bk_query: "/MC/2016/Beam6500GeV-2016-MagDown-Nu1.6-25ns-Pythia8/Sim09c/Trig0x6138160F/Reco16/Turbo03/Stripping28r1NoPrescalingFlagged/27163002/ALLSTREAMS.DST"
+
+2016_MagUp_PromptMC_D02KK_noautoconf:
+    automatically_configure: no
+    options:
+        - 2016_MagUp_PromptMC_D02KK_autoconf.py
+        - ntuple_options.py
+    input:
+        filetype: ALLSTREAMS.DST
+        transform_ids:
+            - 70767

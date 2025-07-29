@@ -1,0 +1,84 @@
+interactions:
+- request:
+    body: '{"automatically_configure": true, "input": {"bk_query": "/MC/2016/Beam6500GeV-2016-MagDown-Nu1.6-25ns-Pythia8/Sim09c/Trig0x6138160F/Reco16/Turbo03/Stripping28r1NoPrescalingFlagged/27163002/ALLSTREAMS.DST"},
+      "application": "DaVinci/v45r8", "output": ["D02KK.ROOT"], "options": ["$ANALYSIS_PRODUCTIONS_BASE/executabletests/ntuple_options.py"],
+      "wg": "Charm", "inform": ["dylan.white@cern.ch", "aidan.richard.wiederhold@cern.ch"],
+      "turbo": false, "priority": "1b", "completion_percentage": 100.0, "checks":
+      []}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, br
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '507'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.27.1
+    method: POST
+    uri: https://lbap.app.cern.ch/pipelines/autoconf-options/
+  response:
+    body:
+      string: "from Configurables import DaVinci\ntry:\n    DaVinci().Turbo = False\nexcept
+        AttributeError:\n    # Older DaVinci versions don't support Turbo at all\n
+        \   pass\n\nDaVinci().InputType = 'DST'\nDaVinci().DataType = '2016'\nDaVinci().Simulation
+        = True\nDaVinci().Lumi = False\nDaVinci().DDDBtag = 'dddb-20170721-3'\nDaVinci().CondDBtag
+        = 'sim-20170721-2-vc-md100'"
+    headers:
+      connection:
+      - close
+      content-length:
+      - '348'
+      content-type:
+      - text/x-python; charset=utf-8
+      date:
+      - Sun, 20 Feb 2022 16:39:53 GMT
+      server:
+      - uvicorn
+      set-cookie:
+      - dae7fcef62e42a6b90c9cd3c6e96b595=1ab62bf33d1b0c1fd71048b7b90a1db4; path=/;
+        HttpOnly; Secure; SameSite=None
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"bk_query": "/MC/2016/Beam6500GeV-2016-MagDown-Nu1.6-25ns-Pythia8/Sim09c/Trig0x6138160F/Reco16/Turbo03/Stripping28r1NoPrescalingFlagged/27163002/ALLSTREAMS.DST"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, br
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '162'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.27.1
+    method: POST
+    uri: https://lbap.app.cern.ch/pipelines/lfns/
+  response:
+    body:
+      string: '["/lhcb/MC/2016/ALLSTREAMS.DST/00070793/0000/00070793_00000368_7.AllStreams.dst"]'
+    headers:
+      connection:
+      - close
+      content-length:
+      - '81'
+      content-type:
+      - application/json
+      date:
+      - Sun, 20 Feb 2022 16:40:00 GMT
+      server:
+      - uvicorn
+      set-cookie:
+      - dae7fcef62e42a6b90c9cd3c6e96b595=1ab62bf33d1b0c1fd71048b7b90a1db4; path=/;
+        HttpOnly; Secure; SameSite=None
+    status:
+      code: 200
+      message: OK
+version: 1
