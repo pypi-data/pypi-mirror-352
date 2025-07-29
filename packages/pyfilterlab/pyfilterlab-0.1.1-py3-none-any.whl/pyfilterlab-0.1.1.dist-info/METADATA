@@ -1,0 +1,135 @@
+Metadata-Version: 2.4
+Name: pyfilterlab
+Version: 0.1.1
+Summary: Digital filter design and visualization toolkit
+Author: Shinjan Saha
+Author-email: shinjansaha02@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: matplotlib
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# PyFilterLab
+
+A simple Python toolkit for designing, visualizing, and applying digital FIR/IIR filters.
+
+## Features
+
+- FIR/IIR filter design
+- Signal filtering
+- Frequency response visualization
+- Time-domain signal plotting
+
+## Install
+
+```bash
+pip install pyfilterlab
+```
+
+## Usage
+
+
+```bash
+from pyfilterlab import design_fir, apply_filter, plot_response, plot_signal
+```
+
+## Ouput:-
+
+<img src="https://i.postimg.cc/Kjc0J5Bs/temp-Imageqs2b-Et.avif">
+
+<br>
+<img src="https://i.postimg.cc/4yTQSQtT/temp-Imagej-Kbb-Kw.avif">
+
+<br>
+
+<img src="https://i.postimg.cc/zf7NBxzx/temp-Imageyu2-J1-Z.avif">
+---
+<h2>📘 Use Reference</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+      <th>Parameters</th>
+      <th>Returns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>design_fir(num_taps, cutoff, fs, window='hamming')</code></td>
+      <td>Designs a FIR low-pass filter using the window method.</td>
+      <td>
+        <ul>
+          <li><code>num_taps</code> (int): Number of filter coefficients</li>
+          <li><code>cutoff</code> (float): Cutoff frequency in Hz</li>
+          <li><code>fs</code> (float): Sampling frequency in Hz</li>
+          <li><code>window</code> (str): Type of window (e.g., 'hamming', 'hann', 'blackman')</li>
+        </ul>
+      </td>
+      <td><code>numpy.ndarray</code>: FIR filter coefficients</td>
+    </tr>
+    <tr>
+      <td><code>design_iir(order, cutoff, fs, ftype='butter')</code></td>
+      <td>Designs an IIR low-pass filter.</td>
+      <td>
+        <ul>
+          <li><code>order</code> (int): Filter order</li>
+          <li><code>cutoff</code> (float): Cutoff frequency in Hz</li>
+          <li><code>fs</code> (float): Sampling frequency in Hz</li>
+          <li><code>ftype</code> (str): IIR type ('butter', 'cheby1', 'cheby2', 'ellip')</li>
+        </ul>
+      </td>
+      <td>Tuple <code>(b, a)</code>: Numerator and denominator coefficients</td>
+    </tr>
+    <tr>
+      <td><code>apply_filter(b, a, signal)</code></td>
+      <td>Applies a filter to a signal using the filter coefficients.</td>
+      <td>
+        <ul>
+          <li><code>b</code> (array): Numerator coefficients</li>
+          <li><code>a</code> (array or 1): Denominator coefficients</li>
+          <li><code>signal</code> (array): Input signal</li>
+        </ul>
+      </td>
+      <td><code>numpy.ndarray</code>: Filtered signal</td>
+    </tr>
+    <tr>
+      <td><code>plot_response(b, a=1, fs=1.0, title='Frequency Response')</code></td>
+      <td>Plots the frequency response (gain vs frequency) of the filter.</td>
+      <td>
+        <ul>
+          <li><code>b</code>, <code>a</code>: Filter coefficients</li>
+          <li><code>fs</code>: Sampling frequency</li>
+          <li><code>title</code>: Plot title</li>
+        </ul>
+      </td>
+      <td>Displays a Matplotlib plot</td>
+    </tr>
+    <tr>
+      <td><code>plot_signal(signal, fs=1.0, title='Signal')</code></td>
+      <td>Plots a time-domain signal.</td>
+      <td>
+        <ul>
+          <li><code>signal</code>: Signal data</li>
+          <li><code>fs</code>: Sampling frequency</li>
+          <li><code>title</code>: Plot title</li>
+        </ul>
+      </td>
+      <td>Displays a Matplotlib plot</td>
+    </tr>
+  </tbody>
+</table>
