@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling", "hatch-requirements-txt"]
+build-backend = "hatchling.build"
+[project]
+name = "jl95terceira_pytools"
+version = "0.4.2"
+authors = [
+  { name="Joao Luis Ornelas da Silva", email="jl95terceira@gmail.com" },
+]
+description = "Python command line tools collection (general)"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["dependencies"]
+
+[project.urls]
+Homepage = "https://github.com/jl95terceira/project-pytools"
+Issues = "https://github.com/jl95terceira/project-pytools/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["project/package"]
+
+[tool.hatch.build.targets.wheel.sources]
+"project/package"="jl95terceira/pytools"
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = ["requirements.txt"]
+
+[project.scripts]
+#PPTOML:BEGIN
+#import os
+#import project
+#for file_name in filter(lambda file_name: file_name.endswith('.py'), os.listdir(os.path.join(project.PATH, 'project', 'package',))):
+#  app_name = os.path.splitext(file_name)[0]
+#  padding  = (12-len(app_name))*' '
+#  writeline(f'"jl95terceira-pytools/{app_name}"{padding}="jl95terceira.pytools.{app_name}:main"')
+#PPTOML:END
+"jl95terceira-pytools/base64id"    ="jl95terceira.pytools.base64id:main"
+"jl95terceira-pytools/diff"        ="jl95terceira.pytools.diff:main"
+"jl95terceira-pytools/diffdirs"    ="jl95terceira.pytools.diffdirs:main"
+"jl95terceira-pytools/dircopy"     ="jl95terceira.pytools.dircopy:main"
+"jl95terceira-pytools/f"           ="jl95terceira.pytools.f:main"
+"jl95terceira-pytools/fcopy"       ="jl95terceira.pytools.fcopy:main"
+"jl95terceira-pytools/findf"       ="jl95terceira.pytools.findf:main"
+"jl95terceira-pytools/finds"       ="jl95terceira.pytools.finds:main"
+"jl95terceira-pytools/findsb"      ="jl95terceira.pytools.findsb:main"
+"jl95terceira-pytools/ftpcopy"     ="jl95terceira.pytools.ftpcopy:main"
+"jl95terceira-pytools/hashdirs"    ="jl95terceira.pytools.hashdirs:main"
+"jl95terceira-pytools/hashf"       ="jl95terceira.pytools.hashf:main"
+"jl95terceira-pytools/listdirs"    ="jl95terceira.pytools.listdirs:main"
+"jl95terceira-pytools/miko"        ="jl95terceira.pytools.miko:main"
+"jl95terceira-pytools/printf"      ="jl95terceira.pytools.printf:main"
+"jl95terceira-pytools/printfb"     ="jl95terceira.pytools.printfb:main"
+"jl95terceira-pytools/printfiles"  ="jl95terceira.pytools.printfiles:main"
+"jl95terceira-pytools/tcplisten"   ="jl95terceira.pytools.tcplisten:main"
+"jl95terceira-pytools/tcpt"        ="jl95terceira.pytools.tcpt:main"
+"jl95terceira-pytools/tcptalk"     ="jl95terceira.pytools.tcptalk:main"
+"jl95terceira-pytools/uuid"        ="jl95terceira.pytools.uuid:main"
+"jl95terceira-pytools/version"     ="jl95terceira.pytools.version:main"
+"jl95terceira-pytools/wikimaker"   ="jl95terceira.pytools.wikimaker:main"
+"jl95terceira-pytools/wsclient"    ="jl95terceira.pytools.wsclient:main"
+#PPTOML:TAIL
