@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sto-libdata"
+version = "0.5.0"
+authors = [
+  { name="Frank William Hammond Espinosa", email="frank.hammond@fueib.org" },
+]
+description = "STO's library for handling data."
+readme = "README.md"     
+requires-python = ">=3.13"
+keywords = ["sto"]
+# classifiers = [         # See https://pypi.org/classifiers/
+#     "Programming Language :: Python :: 3",
+#     "License :: OSI Approved :: MIT License", # Make sure this matches your LICENSE file
+#     "Operating System :: OS Independent",
+# ]
+dependencies = [
+  "pandas",
+  "sqlalchemy",
+  "dotenv",
+  "pyodbc"
+]
+
+[project.urls]
+"Source" = "https://github.com/Frankwii/sto_libdata"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "src"]

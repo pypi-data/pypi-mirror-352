@@ -1,0 +1,21 @@
+Metadata-Version: 2.4
+Name: sto-libdata
+Version: 0.5.0
+Summary: STO's library for handling data.
+Author-email: Frank William Hammond Espinosa <frank.hammond@fueib.org>
+Project-URL: Source, https://github.com/Frankwii/sto_libdata
+Keywords: sto
+Requires-Python: >=3.13
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas
+Requires-Dist: sqlalchemy
+Requires-Dist: dotenv
+Requires-Dist: pyodbc
+Dynamic: license-file
+
+# STO's library for handling data
+This project is still very early in the development phase. The idea is for it to serve as a library for handling database connections and common operations made in Python. Said operations include:
+
++ Loading tables into pandas DataFrames.
++ Saving pandas DataFrames into tables of the database, with proper datatypes, and primary key and foreign key annotations.
