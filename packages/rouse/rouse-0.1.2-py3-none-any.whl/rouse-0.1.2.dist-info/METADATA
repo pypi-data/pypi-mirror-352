@@ -1,0 +1,65 @@
+Metadata-Version: 2.4
+Name: rouse
+Version: 0.1.2
+Summary: An implementation of the Rouse model of polymer dynamics
+Project-URL: Homepage, https://github.com/OpenTrajectoryAnalysis/rouse
+Project-URL: Documentation, https://rouse.readthedocs.org/en/latest
+Project-URL: Bug Tracker, https://github.com/OpenTrajectoryAnalysis/rouse/issues
+Author-email: Simon Grosse-Holz <sgh256@mit.edu>
+License: MIT License
+        
+        Copyright (c) 2022 Simon Grosse-Holz
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Requires-Dist: numpy>=1.20
+Requires-Dist: scipy>=1.6
+Description-Content-Type: text/markdown
+
+[![Documentation Status](https://readthedocs.org/projects/rouse/badge/?version=latest)](https://rouse.readthedocs.io/en/latest/?badge=latest)
+
+rouse
+=====
+
+An implementation of the Rouse model of polymer dynamics. For [example usage](https://rouse.readthedocs.org/en/latest/examples/01_examples.html) and the full [API reference](https://rouse.readthedocs.org/en/latest/rouse.html) visit our documentation at [ReadTheDocs](https://rouse.readthedocs.org/en/latest)
+
+To install `rouse` you can use the latest stable version from [PyPI](https://pypi.org/project/rouse)
+```sh
+$ pip install --upgrade rouse
+```
+or the very latest updates right from GitHub:
+```sh
+$ pip install git+https://github.com/OpenTrajectoryAnalysis/rouse
+```
+
+Developers
+----------
+Note the `Makefile`, which can be used to build the documentation (using
+Sphinx); run unit tests and check code coverage; and build an updated package
+for release with GNU `make`.
+
+When editing the example notebooks,
+[remember](https://nbsphinx.readthedocs.io/en/sizzle-theme/usage.html#Using-Notebooks-with-Git)
+to remove output and empty cells before committing to the git repo.
+[nbstripout](https://github.com/kynan/nbstripout) allows to do this
+automatically upon commit.
