@@ -1,0 +1,186 @@
+Metadata-Version: 2.4
+Name: cegal-keystoneauth
+Version: 1.0.14
+Summary: A Python package to handle Cegal Keystone tokens
+Home-page: https://docs.prizm.cegal-geo.com/authentication/keystone.html
+Author: Cegal Prizm Team
+Author-email: prizm@cegal.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: PyJWT>=2.2.0
+Requires-Dist: requests>=2.26.0
+Requires-Dist: cryptography>=35.0.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Introduction
+
+A Python client to use with Cegal Keystone.
+
+# Usage
+
+1. (Optional) Configure logging
+2. Define an OidcOptions object
+3. Instantiate an OidcClient object passing in the previously created OidcOptions object
+   - If you need to select another flow use the OidcFlow enum
+4. There is only one method required, use the OidcClient object to call get_access_token()
+5. Use the access token returned
+
+You should always call .get_access_token() each time you need to use the token. This method takes care of expiration and renewal.
+
+# Basic Example (should cover most use cases)
+
+```python
+import logging
+import sys
+
+# Import the OidcClient and OidcOptions
+from cegal.keystone_auth import OidcClient, OidcOptions
+
+# Configure logging
+logging.getLogger()
+logging.basicConfig(
+    format="%(asctime)s %(levelname)s %(message)s",
+    level=logging.DEBUG,
+    stream=sys.stdout,
+)
+
+# Create OidcOptions
+options = OidcOptions(
+    "python_rp",
+    OidcClient.KEYSTONE_URL,
+    extra_scopes=["scope1"],
+    audiences=["api1"],
+)
+# Instantiate an OidcClient
+client = OidcClient(options)
+# Each time you need to use the token call .get_access_token()
+token = client.get_access_token()
+
+```
+
+# Example using device flow
+
+```python
+import logging
+import sys
+from time import sleep
+
+from cegal.keystone_auth import OidcClient, OidcOptions, OidcFlow
+
+logging.getLogger()
+logging.basicConfig(
+    format="%(asctime)s %(levelname)s %(message)s",
+    level=logging.DEBUG,
+    stream=sys.stdout,
+)
+
+options = OidcOptions(
+    "python_rp",
+    OidcClient.KEYSTONE_STG_URL,
+    extra_scopes=["hub_connector_api", "keystone.portal_api.version_scope"],
+    audiences=["hub_connector_api"],
+    oidc_flow=OidcFlow.device_code,
+    no_cache=True,
+)
+
+client = OidcClient(options)
+
+token = client.get_access_token()
+print(token)
+
+```
+
+# Extra scopes and audience
+
+If you are requesting access to APIs then you will need to include these as a list of strings in the extra_scopes OidcOptions arg.\
+In Keystone, API scopes are by default associated with an API Resource which will return an audience claim in the access token. You must therefore also supply the API Resource names as the audience when specifying extra_scopes.\
+An API Resource can have multiple API scopes and they are not necessarily named the same, so you will need to obtain this information from the person setting up the application in Keystone.
+
+# Customing the authentication landing browser page
+
+When using interactive login, the library opens an authentication request page at the specified identity server.  This server then requests the user's password (or skips this if the browser has the details) and redirects the browser page back to a local web server with the auth code specified in the URL.   (This way, the auth-code is communicated to the local process without the local server needing any connection to the internet).
+
+By default, the browser upon successful authentication displays a simple message.  You can customize the behaviour by supplying a `page_handler` object in the OidcClient constructor.
+
+The default page handler is in the `cegal.keystone_auth.responses` module.  A more sophisticated example is `TwoStagePageHandler` which redirects back to a different page.   This is designed currently to be used to PythonToolPro to display a 'welcome' page with version details.   Since the page handler is supplied with the auth state (and therefore auth code) the handler can query Keystone for up-to-date version details.
+
+N.b. This API feels very immature;  it obviously *wants* to be a full-fledged http stack with routing, responses and templating etc.
+
+# Developer extras
+
+If you are currently developing something and the client settings are changing often there is a helper method available within the client.\
+Call client.destroy_tokens_for_client() and this will clear your client_id's tokens from disk and memory.
+
+# Installing for development
+
+Start a shell in the root of the repository working directory.
+
+Create a venv:
+
+`python -m venv .venv`
+
+Activate it (varies according to OS and shell):
+
+`.venv\Scripts\activate.ps1`
+
+Upgrade pip and setuptools:
+
+```
+python -m pip install --upgrade pip
+python install --setuptools
+pip install -r requirements.txt
+```
+
+Install as live development package:
+
+`pip install -e .`
+
+# Installing for development using pipenv (alternative to venv)
+
+Install pipenv if you don't have it already:
+```bash
+pip install pipenv
+```
+
+Init/activate the environment:
+```bash
+pipenv shell
+```
+
+Installing (from pipfile):
+```bash
+pipenv install
+```
+
+To add any packages:
+```bash
+pipenv install packagename
+```
+
+Exit the environment by running: exit
+
+# Tests
+
+Run `pytest` to run all the non-interactive tests.  Those tests requiring user interaction (e.g. a browser, or device-flow login) can be run using `pytest --interactive`
+
+# Devcontainer
+
+This repository includes a devcontainer which can be used within VSCode.  `pytest --interactive` currently will not function correctly:  the browser is launched outside of the container on the developer's machine and the redirect is not able to reach the local server.  A future fix for this might be to include firefox in the devcontainer, set $BROWSER to be firefox, and require an X-server on the developer's machine.
+
+# License
+Copyright (2025) Cegal, As. This library (the "Software") may not be used except in connection with the Licensees use of Cegal software pursuant to an Agreement (defined below) between Licensee (defined below) and Cegal, AS. ("Cegal"). This Software shall be deemed part of the "Subscription Services" under the Agreement. Licensees use of the Software must comply at all times with any restrictions applicable to the Subscription Services, generally, and must be used in accordance with any applicable documentation. If you have not agreed to an Agreement or otherwise do not agree to these terms, you may not use the Software. This license terminates automatically upon the termination of the Agreement or Licensees breach of these terms. Agreement: the agreement between Cegal and Licensee governing the use of the Cegal software, which shall be, with respect to Cegal, and the Cegal Terms of Service located at https://cegal.com/about/terms-and-conditions , in each case unless Licensee has entered into a separate written agreement with Cegal governing the use of the applicable Cegal Services. Licensee: the user of the Software, or, if the Software is being used on behalf of a company, the company.
+
+# Addendum
