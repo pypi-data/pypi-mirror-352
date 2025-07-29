@@ -1,0 +1,42 @@
+(defmacro cond [*body]
+  (def recur [*body]
+    (if (< (len body) 4)
+        (return `(if ~@body))
+        (do (= [test then *orelse] body)
+            (return `(if ~test ~then ~(recur *orelse))))))
+  (return (recur *body)))
+
+(defmacro conde [*body]
+  (def recur [*body]
+    (if (< (len body) 4)
+        (return `(ife ~@body))
+        (do (= [test then *orelse] body)
+            (return `(ife ~test ~then ~(recur *orelse))))))
+  (return (recur *body)))
+
+(defmacro -> [x *fs]
+  (if (== 0 (len fs))
+      (return x))
+  (= [f *rest] fs)
+  (if (isinstance f Paren)
+      (do (f.list.insert 1 x)
+          (return `(-> ~f ~@rest)))
+      (return `(-> (~f ~x) ~@rest))))
+
+(defmacro ->> [x *fs]
+  (if (== 0 (len fs))
+      (return x))
+  (= [f *rest] fs)
+  (if (isinstance f Paren)
+      (do (f.list.append x)
+          (return `(->> ~f ~@rest)))
+      (return `(-> (~f ~x) ~@rest))))
+
+(defmacro fn [*body]
+  (return `(lambda ~@body)))
+
+(defmacro comment [*body]
+  (pass))
+
+(defmacro when [condition *body]
+  (return `(if ~condition (do ~@body))))
