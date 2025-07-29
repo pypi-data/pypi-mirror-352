@@ -1,0 +1,38 @@
+# syntax=docker/dockerfile:1
+FROM python:3.10-slim
+
+# Install system dependencies and GitHub CLI
+RUN apt-get update && \
+    apt-get install -y \
+    build-essential \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libcairo2 \
+    libffi-dev \
+    libxml2 \
+    libxslt1.1 \
+    shared-mime-info \
+    fonts-liberation \
+    fonts-dejavu-core \
+    git \
+    curl \
+    && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && apt-get update \
+    && apt-get install -y gh \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy the entire project
+COPY . .
+
+# Install all dependencies including development ones
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir tox build twine
+
+# Default command to run tests and build
+CMD ["./scripts/release.sh"]
