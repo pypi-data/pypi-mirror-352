@@ -1,0 +1,537 @@
+{% extends "base.html" %}
+
+{% block title %}AI工作汇报与反馈收集{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">💬 AI工作汇报与反馈收集</h1>
+    <p class="page-subtitle">查看AI工作汇报，提供您的宝贵反馈</p>
+</div>
+
+<div class="page-content">
+    <!-- 工作汇报区域 -->
+    <div class="report-section">
+        <div class="card">
+            <div class="card-header">🤖 AI工作汇报</div>
+            <div class="report-content" id="reportContent">
+                {{ work_summary | safe }}
+            </div>
+        </div>
+    </div>
+
+    <!-- 反馈输入区域 -->
+    <div class="feedback-section">
+        <div class="card">
+            <div class="card-header">💬 您的反馈（可选）</div>
+            
+            <!-- 文字反馈 -->
+            <div class="text-feedback">
+                <textarea 
+                    id="feedbackText" 
+                    class="form-control" 
+                    placeholder="请输入您的反馈意见..."
+                    rows="6"
+                ></textarea>
+            </div>
+
+            <!-- 图片反馈 -->
+            <div class="image-feedback">
+                <div class="image-section-header">
+                    <span>🖼️ 图片反馈（可选）</span>
+                    <span class="image-count">0/5</span>
+                </div>
+                
+                <!-- 工具栏 -->
+                <div class="toolbar">
+                    <button type="button" class="toolbar-button" id="selectImagesBtn">
+                        📁 选择文件
+                    </button>
+                    <button type="button" class="toolbar-button" id="pasteImageBtn">
+                        📋 粘贴图片
+                    </button>
+                    <button type="button" class="toolbar-button" id="clearImagesBtn">
+                        🗑️ 清空图片
+                    </button>
+                </div>
+
+                <!-- 图片预览区域 -->
+                <div class="image-preview-area" id="imagePreviewArea">
+                    <div class="drop-zone" id="dropZone">
+                        <div class="drop-zone-content">
+                            <div class="drop-zone-icon">📷</div>
+                            <div class="drop-zone-text">拖拽图片到此处</div>
+                            <div class="drop-zone-hint">或点击上方按钮选择图片</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 提交按钮 -->
+            <div class="submit-section">
+                <div class="toolbar">
+                    <button type="button" class="btn btn-success" id="submitBtn">
+                        ✅ 提交反馈
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">
+                        ❌ 取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 隐藏的文件输入 -->
+<input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+
+<!-- 状态提示 -->
+<div id="statusMessage" class="status-message"></div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .report-section {
+        margin-bottom: 20px;
+    }
+    
+    .report-content {
+        background-color: #2a2a2a;
+        border-radius: 6px;
+        padding: 20px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    
+    .feedback-section .card {
+        background-color: #1e1e1e;
+    }
+    
+    .text-feedback {
+        margin-bottom: 20px;
+    }
+    
+    .text-feedback textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+    
+    .image-feedback {
+        margin-bottom: 20px;
+    }
+    
+    .image-section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+    
+    .image-count {
+        color: #0078d4;
+        font-weight: bold;
+    }
+    
+    .image-preview-area {
+        min-height: 120px;
+        border: 2px dashed #404040;
+        border-radius: 8px;
+        margin-top: 15px;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .image-preview-area.drag-over {
+        border-color: #0078d4;
+        background-color: rgba(0, 120, 212, 0.1);
+    }
+    
+    .drop-zone {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 120px;
+        text-align: center;
+    }
+    
+    .drop-zone-content {
+        color: #888888;
+    }
+    
+    .drop-zone-icon {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+    
+    .drop-zone-text {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+    
+    .drop-zone-hint {
+        font-size: 12px;
+        color: #666666;
+    }
+    
+    .image-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 15px;
+    }
+    
+    .image-tag {
+        position: relative;
+        background-color: #2a2a2a;
+        border: 1px solid #404040;
+        border-radius: 8px;
+        padding: 10px;
+        width: 120px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .image-tag:hover {
+        border-color: #0078d4;
+    }
+    
+    .image-tag img {
+        width: 100px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-bottom: 8px;
+    }
+    
+    .image-tag-name {
+        font-size: 12px;
+        color: #cccccc;
+        word-break: break-all;
+        line-height: 1.2;
+    }
+    
+    .image-tag-delete {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 20px;
+        height: 20px;
+        background-color: #d13438;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .image-tag-delete:hover {
+        background-color: #b52d30;
+    }
+    
+    .submit-section {
+        border-top: 1px solid #333333;
+        padding-top: 20px;
+    }
+    
+    .status-message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 6px;
+        color: white;
+        font-weight: 500;
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .status-message.show {
+        transform: translateX(0);
+    }
+    
+    .status-message.success {
+        background-color: #4CAF50;
+    }
+    
+    .status-message.error {
+        background-color: #f44336;
+    }
+    
+    .status-message.warning {
+        background-color: #ff9800;
+    }
+    
+    .status-message.info {
+        background-color: #2196F3;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+        .image-tags {
+            justify-content: center;
+        }
+        
+        .toolbar {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .toolbar-button, .btn {
+            flex: 1;
+            min-width: 120px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 反馈收集页面JavaScript逻辑
+class FeedbackCollector {
+    constructor() {
+        this.selectedImages = [];
+        this.maxImages = 5;
+        this.init();
+    }
+    
+    init() {
+        this.bindEvents();
+        this.updateImageCount();
+    }
+    
+    bindEvents() {
+        // 文件选择
+        document.getElementById('selectImagesBtn').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+        
+        document.getElementById('fileInput').addEventListener('change', (e) => {
+            this.handleFileSelect(e.target.files);
+        });
+        
+        // 粘贴图片
+        document.getElementById('pasteImageBtn').addEventListener('click', () => {
+            this.pasteFromClipboard();
+        });
+        
+        // 清空图片
+        document.getElementById('clearImagesBtn').addEventListener('click', () => {
+            this.clearImages();
+        });
+        
+        // 拖拽支持
+        const dropZone = document.getElementById('dropZone');
+        const previewArea = document.getElementById('imagePreviewArea');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            previewArea.addEventListener(eventName, this.preventDefaults, false);
+        });
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            previewArea.addEventListener(eventName, () => {
+                previewArea.classList.add('drag-over');
+            }, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            previewArea.addEventListener(eventName, () => {
+                previewArea.classList.remove('drag-over');
+            }, false);
+        });
+        
+        previewArea.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            this.handleFileSelect(files);
+        }, false);
+        
+        // 提交和取消
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            this.submitFeedback();
+        });
+        
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            this.cancelFeedback();
+        });
+        
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'v') {
+                e.preventDefault();
+                this.pasteFromClipboard();
+            } else if (e.key === 'Escape') {
+                this.cancelFeedback();
+            } else if (e.ctrlKey && e.key === 'Enter') {
+                this.submitFeedback();
+            }
+        });
+    }
+    
+    preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    handleFileSelect(files) {
+        for (let file of files) {
+            if (this.selectedImages.length >= this.maxImages) {
+                this.showMessage('最多只能选择5张图片', 'warning');
+                break;
+            }
+            
+            if (file.type.startsWith('image/')) {
+                this.addImage(file);
+            }
+        }
+    }
+    
+    addImage(file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const imageData = {
+                name: file.name,
+                data: e.target.result,
+                size: file.size
+            };
+            
+            this.selectedImages.push(imageData);
+            this.updateImagePreview();
+            this.updateImageCount();
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    async pasteFromClipboard() {
+        try {
+            const clipboardItems = await navigator.clipboard.read();
+            
+            for (const clipboardItem of clipboardItems) {
+                for (const type of clipboardItem.types) {
+                    if (type.startsWith('image/')) {
+                        const blob = await clipboardItem.getType(type);
+                        const file = new File([blob], 'clipboard.png', { type: blob.type });
+                        this.addImage(file);
+                        return;
+                    }
+                }
+            }
+            
+            this.showMessage('剪贴板中没有图片数据', 'warning');
+        } catch (err) {
+            this.showMessage('无法访问剪贴板，请使用文件选择或拖拽', 'error');
+        }
+    }
+    
+    clearImages() {
+        this.selectedImages = [];
+        this.updateImagePreview();
+        this.updateImageCount();
+        this.showMessage('已清空所有图片', 'info');
+    }
+    
+    removeImage(index) {
+        this.selectedImages.splice(index, 1);
+        this.updateImagePreview();
+        this.updateImageCount();
+    }
+    
+    updateImagePreview() {
+        const previewArea = document.getElementById('imagePreviewArea');
+        
+        if (this.selectedImages.length === 0) {
+            previewArea.innerHTML = `
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-zone-content">
+                        <div class="drop-zone-icon">📷</div>
+                        <div class="drop-zone-text">拖拽图片到此处</div>
+                        <div class="drop-zone-hint">或点击上方按钮选择图片</div>
+                    </div>
+                </div>
+            `;
+        } else {
+            const tagsHtml = this.selectedImages.map((img, index) => `
+                <div class="image-tag">
+                    <button class="image-tag-delete" onclick="feedbackCollector.removeImage(${index})">×</button>
+                    <img src="${img.data}" alt="${img.name}">
+                    <div class="image-tag-name">${img.name}</div>
+                </div>
+            `).join('');
+            
+            previewArea.innerHTML = `<div class="image-tags">${tagsHtml}</div>`;
+        }
+    }
+    
+    updateImageCount() {
+        document.querySelector('.image-count').textContent = `${this.selectedImages.length}/${this.maxImages}`;
+    }
+    
+    async submitFeedback() {
+        const textContent = document.getElementById('feedbackText').value.trim();
+        
+        if (!textContent && this.selectedImages.length === 0) {
+            this.showMessage('请提供文字反馈或图片反馈', 'warning');
+            return;
+        }
+        
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ 提交中...';
+        
+        try {
+            const response = await fetch('/api/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    text: textContent,
+                    images: this.selectedImages.map(img => img.data)
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                this.showMessage('反馈提交成功！', 'success');
+                setTimeout(() => {
+                    window.close() || (window.location.href = '/');
+                }, 2000);
+            } else {
+                this.showMessage(result.message || '提交失败', 'error');
+            }
+        } catch (error) {
+            this.showMessage('网络错误，请重试', 'error');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = '✅ 提交反馈';
+        }
+    }
+    
+    cancelFeedback() {
+        if (confirm('确定要取消吗？未保存的内容将丢失。')) {
+            window.close() || (window.location.href = '/');
+        }
+    }
+    
+    showMessage(text, type = 'info') {
+        const messageEl = document.getElementById('statusMessage');
+        messageEl.textContent = text;
+        messageEl.className = `status-message ${type} show`;
+        
+        setTimeout(() => {
+            messageEl.classList.remove('show');
+        }, 3000);
+    }
+}
+
+// 初始化
+const feedbackCollector = new FeedbackCollector();
+</script>
+{% endblock %}
