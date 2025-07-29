@@ -1,0 +1,82 @@
+Metadata-Version: 2.4
+Name: andyreagan
+Version: 0.2.1
+Summary: A command-line resume printer for Andy Reagan - Senior Data Scientist and educator with Ph.D. in Applied Mathematics
+Author: Andy Reagan
+License-Expression: MIT
+Keywords: bio,cli,cv,data-science,resume
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Utilities
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+
+A simple Python package that prints Andy Reagan\'s resume to the command
+line when run via `uvx`.
+
+# Installation
+
+You can run this package directly with `uvx` without installation:
+
+``` bash
+uvx andyreagan
+```
+
+Or install it from PyPI:
+
+``` bash
+pip install andyreagan
+```
+
+Then run:
+
+``` bash
+andyreagan
+```
+
+# Usage
+
+Simply run the command to see Andy\'s resume:
+
+``` bash
+$ uvx andyreagan
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                 ANDY REAGAN                                   ║
+╠═══════════════════════════════════════════════════════════════════════════════╣
+║                         Senior Data Scientist & Educator                     ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+📍 Location: Springfield, MA
+🏢 Current Role: Senior Data Scientist, MassMutual Data Science Program
+🎓 Education: Ph.D. Applied Mathematics (Complex Systems), University of Vermont
+...
+```
+
+# Development
+
+To develop this package locally:
+
+``` bash
+git clone https://github.com/andyreagan/uvx-andyreagan
+cd uvx-andyreagan
+uvx --from . andyreagan
+```
+
+# About Andy
+
+Andy Reagan is a Senior Data Scientist at MassMutual and educator at UC
+Berkeley. He holds a Ph.D. in Applied Mathematics with a focus on
+Complex Systems from the University of Vermont. His research includes
+sentiment analysis, data visualization, and sociotechnical systems
+analysis.
+
+# License
+
+This project is released under the MIT License.
