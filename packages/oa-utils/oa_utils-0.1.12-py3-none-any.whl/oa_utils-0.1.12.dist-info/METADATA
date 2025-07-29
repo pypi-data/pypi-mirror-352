@@ -1,0 +1,37 @@
+Metadata-Version: 2.3
+Name: oa-utils
+Version: 0.1.12
+Summary: Statically typed Python utilities for functional programming.
+License: MIT
+Keywords: utilities,functional programming,fluent interface,collection pipeline
+Author: Oleg Alexander
+Requires-Python: >=3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: more-itertools (>=10.7.0,<11.0.0)
+Requires-Dist: tabulate (>=0.9.0,<0.10.0)
+Project-URL: Homepage, https://github.com/OlegAlexander/oa-utils
+Description-Content-Type: text/markdown
+
+# oa-utils
+
+Statically typed Python utilities for functional programming.
+
+## Pipeline
+
+This class is useful for programming in the [collection pipeline](https://martinfowler.com/articles/collection-pipeline/) style. It wraps a homogenous variadic tuple and exposes a fluent interface with common functional programming operations. Why a tuple and not a "lazy" iterator? Because a tuple is relatively immutable and because, in my opinion, reified collections are much easier to reason about than stateful iterators.
+
+```python
+from oa_utils.pipeline import Pipeline
+
+result = (Pipeline(range(10))
+            .filter(lambda x: x % 2 == 0)
+            .map(lambda x: x * x)
+            .sum()) # 120
+```
+
+See [pipeline.py](https://github.com/OlegAlexander/oa-utils/blob/main/oa_utils/pipeline.py) for docstrings and doctests of every method.
