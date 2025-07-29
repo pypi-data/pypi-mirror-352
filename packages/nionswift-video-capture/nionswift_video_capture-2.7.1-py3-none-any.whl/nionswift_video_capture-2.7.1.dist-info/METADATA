@@ -1,0 +1,68 @@
+Metadata-Version: 2.4
+Name: nionswift-video-capture
+Version: 2.7.1
+Summary: Capture video from built-in camera using OpenCV.
+Home-page: https://github.com/nion-software/nionswift-hyperspy
+Author: Nion Software
+Author-email: swift@nion.com
+License: GPL-3.0-only
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.11
+License-File: LICENSE
+Requires-Dist: nionswift-instrumentation<24.0,>=23.4
+Requires-Dist: nionswift<17.0,>=16.15
+Dynamic: license-file
+
+# Nion Swift Video Capture
+
+A video capture package for Nion Swift.
+
+## Installation
+
+```
+conda install opencv
+conda install nionswift-video-capture
+```
+
+## License
+
+This project is licensed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+Changelog (nionswift-video-capture)
+===================================
+
+2.7.1 (2025-06-02)
+------------------
+- Maintenance release.
+
+2.7.0 (2024-10-27):
+-------------------
+- Require Numpy 2. Add Python 3.13 support. Drop Python 3.9, 3.10 support.
+
+2.6.1 (2024-06-18):
+-------------------
+- Swift 16.11 compatibility (no changes).
+
+2.6.0 (2023-09-14)
+------------------
+- Update compatibility requirement for nionswift-instrumentation kit, nionswift.
+
+0.2.5 (2022-12-08)
+------------------
+- Update compatibility requirement for instrumentation kit.
+
+0.2.4 (2022-09-14)
+------------------
+- Make opencv an optional package.
+
+0.2.3 (2021-11-12)
+------------------
+- nionswift-instrumentation 0.20 compatibility.
+
+0.1.0 (INITIAL VERSION)
+-----------------------
+- Initial version.
