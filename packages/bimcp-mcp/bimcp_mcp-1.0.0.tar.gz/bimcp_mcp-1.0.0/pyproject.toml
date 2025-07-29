@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bimcp-mcp"
+version = "1.0.0"
+description = "Connect Claude Desktop to BIMCP Cloud Service for Revit integration"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+    { name = "BIMCP", email = "support@bimcp.com" }
+]
+keywords = ["mcp", "revit", "bim", "claude", "ai", "model-context-protocol"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "mcp>=0.5.0",
+    "httpx>=0.25.0",  # Better than aiohttp for this use case
+]
+
+[project.scripts]
+bimcp-mcp = "bimcp_mcp.client:main"
+
+[project.urls]
+Homepage = "https://bimcp.com"
+Documentation = "https://docs.bimcp.com/mcp"
+"API Keys" = "https://bimcp.com/api-keys"
