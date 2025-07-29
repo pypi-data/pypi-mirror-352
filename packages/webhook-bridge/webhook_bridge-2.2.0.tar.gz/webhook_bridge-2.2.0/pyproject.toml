@@ -1,0 +1,254 @@
+[project]
+name = "webhook-bridge"
+version = "2.2.0"
+description = "A flexible webhook integration platform with hybrid Go/Python architecture - CLI manager for Go binaries."
+authors = [
+    {name = "hal.long", email = "hal.long@outlook.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "pyyaml>=6.0",
+]
+keywords = ["webhook", "integration", "platform", "go", "python", "cli"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Systems Administration",
+]
+
+[project.urls]
+Homepage = "https://github.com/loonghao/webhook_bridge"
+Repository = "https://github.com/loonghao/webhook_bridge"
+Documentation = "https://github.com/loonghao/webhook_bridge#readme"
+Issues = "https://github.com/loonghao/webhook_bridge/issues"
+
+[project.scripts]
+webhook-bridge = "webhook_bridge.cli:main"
+
+[tool.poetry]
+name = "webhook-bridge"
+version = "2.2.0"
+description = "A flexible webhook integration platform with hybrid Go/Python architecture - CLI manager for Go binaries."
+authors = ["hal.long <hal.long@outlook.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "webhook_bridge" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pyyaml = "^6.0"
+
+[tool.poetry.scripts]
+webhook-bridge = "webhook_bridge.cli:main"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "2.2.0"
+tag_format = "v$version"
+version_files = [
+    "pyproject.toml:version",
+    "webhook_bridge/__version__.py",
+    "pkg/version/version.go:Version = \"$version\""
+]
+
+[tool.black]
+line-length = 120
+target-version = ['py36', 'py37', 'py38', 'py39']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.nox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | datatalk/_vendor
+    | dist
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+'''
+
+[tool.isort]
+profile = "black"
+atomic = true
+include_trailing_comma = true
+lines_after_imports = 2
+lines_between_types = 1
+use_parentheses = true
+src_paths = ["webhook_bridge", "tests"]
+filter_files = true
+known_first_party = "webhook_bridge"
+
+# Enforce import section headers.
+import_heading_future = "Import future modules"
+import_heading_stdlib = "Import built-in modules"
+import_heading_thirdparty = "Import third-party modules"
+import_heading_firstparty = "Import local modules"
+
+force_sort_within_sections = true
+force_single_line = true
+
+# All project unrelated unknown imports belong to third-party.
+default_section = "THIRDPARTY"
+skip_glob = []
+
+# https://beta.ruff.rs/docs/configuration/
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+
+line-length = 120
+indent-width = 4
+target-version = "py38"
+
+[tool.ruff.lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+# Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
+# McCabe complexity (`C901`) by default.
+select = ["E", "F", "ANN", "N", "I", "UP", "RUF", "PTH", "C4", "B", "A", "COM", "C90", "RSE", "SIM", "TID", "PD", "PGH", "FBT", "S", "BLE", "FLY", "PERF", "RUF", "UP", "W", "PL"]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Disable rules 
+ignore = [
+    # Type annotations (too strict for current codebase)
+    "ANN001",  # Missing type annotation for function argument
+    "ANN002",  # Missing type annotation for *args
+    "ANN201",  # Missing return type annotation for public function
+    "ANN202",  # Missing return type annotation for private function
+    "ANN204",  # Missing return type annotation for special method
+    "ANN401",  # Dynamically typed expressions (typing.Any) are disallowed
+    "RUF013",  # PEP 484 prohibits implicit Optional
+    "UP007",   # Use X | Y for type annotations
+
+    # Security (acceptable for development tools)
+    "S101",    # Use of assert detected (in tests)
+    "S104",    # Possible binding to all interfaces
+    "S113",    # Probable use of requests call without timeout
+    "S202",    # Uses of tarfile.extractall()
+    "S310",    # Audit URL open for permitted schemes
+    "S603",    # subprocess call: check for execution of untrusted input
+    "S606",    # Starting a process without a shell
+    "S607",    # Starting a process with a partial executable path
+
+    # Path handling (legacy code compatibility)
+    "PTH100",  # os.path.abspath() should be replaced by Path.resolve()
+    "PTH103",  # os.makedirs() should be replaced by Path.mkdir(parents=True)
+    "PTH110",  # os.path.exists() should be replaced by Path.exists()
+    "PTH112",  # os.path.isdir() should be replaced by Path.is_dir()
+    "PTH118",  # os.path.join() should be replaced by Path with / operator
+    "PTH119",  # os.path.basename() should be replaced by Path.name
+    "PTH120",  # os.path.dirname() should be replaced by Path.parent
+    "PTH123",  # open() should be replaced by Path.open()
+    "PTH204",  # os.path.getmtime should be replaced by Path.stat().st_mtime
+    "PTH207",  # Replace glob with Path.glob or Path.rglob
+    "PTH208",  # Use pathlib.Path.iterdir() instead
+
+    # Complexity (acceptable for current codebase)
+    "C901",    # Function is too complex
+    "PLR0911", # Too many return statements
+    "PLR0912", # Too many branches
+    "PLR0913", # Too many arguments in function definition
+    "PLR0915", # Too many statements
+    "PLR2004", # Magic value used in comparison
+
+    # Boolean arguments (acceptable for CLI and config functions)
+    "FBT001",  # Boolean-typed positional argument
+    "FBT002",  # Boolean default positional argument in function definition
+    "FBT003",  # Boolean positional value in function call
+
+    # Naming conventions (gRPC methods use PascalCase)
+    "N802",    # Function name should be lowercase
+
+    # Error handling (acceptable patterns)
+    "B904",    # Within an except clause, raise exceptions with raise ... from err
+    "BLE001",  # Do not catch blind exception
+    "E722",    # Do not use bare except
+
+    # Code style (not critical)
+    "B007",    # Loop control variable not used within loop body
+    "E402",    # Module level import not at top of file
+    "E501",    # Line too long (handled by formatter)
+    "F401",    # Module imported but unused
+    "F841",    # Local variable is assigned to but never used
+    "I001",    # Import block is un-sorted or un-formatted
+    "PERF102", # When using only the values of a dict use the values() method
+    "PERF203", # try-except within a loop incurs performance overhead
+    "RUF001",  # String contains ambiguous character
+    "RUF005",  # Consider [...] instead of concatenation
+    "SIM102",  # Use a single if statement instead of nested if statements
+    "UP006",   # Use dict instead of Dict for type annotation
+    "W293",    # Blank line contains whitespace
+]
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+
