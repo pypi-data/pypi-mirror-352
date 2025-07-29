@@ -1,0 +1,183 @@
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/187425e7-e73a-4b8c-801b-ee2126db0e30" alt="PyPVR Logo">
+</p>
+
+# PyPVR - Python PVR Image Tool
+
+**PyPVR** is an unofficial, modern Python tool for encoding/decoding PowerVR2 images used by **SEGA Dreamcast** and **SEGA Naomi** systems.
+
+Use it as a module in your Python scripts with:  
+```python
+from pypvr import Pypvr
+```
+
+> ✅ Supports decoding/encoding to PIL Image object buffers via `-buffer` parameter.
+
+---
+
+## 📦 Installation
+
+You can install PyPVR using pip:
+
+```bash
+pip install pypvr
+```
+
+> Note: Ensure you have Python 3.9+ and that required dependencies (`numpy`, `Pillow`, `faiss`) are installed. If not, pip will attempt to install them automatically.
+
+---
+
+## 🧾 Required Imports
+
+- `numpy`
+- `Pillow`
+- `faiss`
+
+---
+
+## 🫶 Support
+
+- [Ko-fi](https://ko-fi.com/vincentnl)
+- [Patreon](https://patreon.com/vincentnl)
+
+---
+
+## 🙏 Credits
+
+Special thanks to:
+
+- **Rob2d** - K-means idea for better VQ
+- **Egregiousguy** - YUV420 decoding
+- **Kion** - SmallVQ mipmaps
+- **tvspelsfreak** - SR to normal map
+- **MetalliC** - Hardware insights
+- **My daughter** - Logo design! ❤️
+
+**Testers**:  
+Esppiral, Alexvgz, PkR, Derek (ateam), dakrk, neSneSgB, woofmute, TVi, Sappharad
+
+
+## ⚙️ Decode Options
+
+| Option        | Description                                     |
+|---------------|-------------------------------------------------|
+| `-flip`       | Flip image vertically                           |
+| `-silent`     | Suppress console output                         |
+| `-nolog`      | Don't create `pvr_info.txt`                     |
+| `-dbg`        | Enable debug mode                               |
+| `-usepal`     | Decode palettized image using a `.pvp` palette  |
+| `-act`        | Convert `.pvp` to Adobe ACT format              |
+| `-nopvp`      | Skip extracting `.pvp` file                     |
+
+---
+
+## 🧪 Encode Options
+
+### 🎨 Color Formats
+
+| Param     | Color Type         | Description                                      |
+|-----------|--------------------|--------------------------------------------------|
+| `-565`    | RGB                | Ideal for gradients, no transparency             |
+| `-1555`   | ARGB 1-bit alpha   | Opaque or fully transparent only                 |
+| `-4444`   | ARGB 4-bit alpha   | Lower quality, supports transparency             |
+| `-8888`   | ARGB 8-bit alpha   | Full transparency support                        |
+| `-yuv422` | YUV422             | Lossy but vibrant color format                   |
+| `-yuv420` | YUV420             | For YUV converter or `.SAN` files (**WARNING**)  |
+| `-bump`   | RGB Normal map     | Converts height map to SR format                 |
+| `-555`    | RGB PCX converter  | **Use `-1555` instead**                          |
+| `-p4bpp`  | 4-bit palette      | **Placeholder only**                             |
+| `-p8bpp`  | 8-bit palette      | **Placeholder only**                             |
+
+### 🧵 Texture Formats
+
+| Param     | Type               | Twiddled | Description                              | Mipmaps |
+|-----------|--------------------|----------|------------------------------------------|---------|
+| `-tw`     | Square             | Yes      | Square dims only                         | Yes     |
+| `-twre`   | Rectangle          | Yes      | Rectangular multiples                     | No      |
+| `-re`     | Rectangle          | No       | Rectangular multiples                     | No      |
+| `-st`     | Stride             | No       | Width must be multiple of 32             | No      |
+| `-twal`   | Alias              | Yes      | Square + mipmaps ≤ 8x8                    | Yes     |
+| `-pal4`   | 16-color palette   | Yes      | Square only                               | Yes     |
+| `-pal8`   | 256-color palette  | Yes      | Square only                               | Yes     |
+| `-vq`     | Vector Quantized   | Yes      | High compression + quality                | Yes     |
+| `-svq`    | Small VQ           | Yes      | Max dimensions 64x64                      | Yes     |
+| `-bmp`    | Bitmap             | No       | Square only                               | Yes     |
+
+### 🧰 Other Options
+
+| Option         | Description                                                  |
+|----------------|--------------------------------------------------------------|
+| `-mm`          | Generate mipmaps                                             |
+| `-near`        | Use nearest resampling (default is bilinear)                 |
+| `-flip`        | Flip image vertically                                        |
+| `-cla`         | Clean RGB where alpha is 0                                   |
+| `-gi <n>`      | GBIX header value                                            |
+| `-gitrim`      | Use short GBIX header                                        |
+| `-pvptrim`     | Trim unused colors in palette                                |
+| `-pvpbank <n>` | Set palette bank index (0–63)                                |
+| `-nopvp`       | Skip PVP output                                              |
+| `-vqa1`        | VQ Algo 1 - detail focused, slower on large images           |
+| `-vqa2`        | VQ Algo 2 - gradient focused, fast (FAISS)                   |
+| `-vqi <n>`     | VQ iterations (default: 10)                                  |
+| `-vqs <n>|rand`| VQ seed (int or `rand`) for artifact variation               |
+
+
+## 🔍 Examples
+
+### 🔹 Decode to PIL Image
+
+```python
+from pypvr import Pypvr
+from PIL import Image
+
+with open('test.pvr', 'rb') as file:
+    pvr_data = file.read()
+
+image_buffer = Pypvr.Decode('-buffer', buff_pvr=pvr_data).get_image_buffer()
+```
+
+### 🔹 Decode with Palette (PVR + PVP)
+
+```python
+from pypvr import Pypvr
+from PIL import Image
+
+with open('test.pvr', 'rb') as file:
+    pvr_data = file.read()
+with open('palette.pvp', 'rb') as file:
+    pvp_data = file.read()
+
+image_buffer = Pypvr.Decode('-buffer', buff_pvr=pvr_data, buff_pvp=pvp_data).get_image_buffer()
+```
+
+### 🔹 Encode from PIL Image
+
+```python
+from pypvr import Pypvr
+from PIL import Image
+
+image = Image.open("test.png")
+pvr_buffer = Pypvr.Encode('-buffer -vq', image).get_pvr_buffer()
+```
+
+### 🔹 Other Encode Examples
+
+- [Encode to VQ-compressed `.PVR`](#):  
+  ```python
+  pvr_buffer = Pypvr.Encode('-buffer -vq', image).get_pvr_buffer()
+  ```
+
+- [Export palette as `.PVP`](#):  
+  ```python
+  pvp_buffer = Pypvr.Encode('-buffer', image).get_pvp_buffer()
+  ```
+
+- [From file path (PNG) to `.PVR` buffer](#):  
+  ```python
+  pvr_buffer = Pypvr.Encode('c:\filename.png -buffer').get_pvr_buffer()
+  ```
+
+- [From file path (PNG) to `.PVP` buffer](#):  
+  ```python
+  pvp_buffer = Pypvr.Encode('c:\filename.png -buffer').get_pvp_buffer()
+  ```
