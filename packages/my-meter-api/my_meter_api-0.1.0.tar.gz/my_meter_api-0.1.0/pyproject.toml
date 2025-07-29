@@ -1,0 +1,24 @@
+[project]
+name = "my-meter-api"
+version = "0.1.0"
+description = "Get your electricity meter reading and usage data from compatible MyMeter sites."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["requests>=2.32.3"]
+authors = [{ name = "Tag Howard", email = "tag@jthoward.dev" }]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICENSE"]
+
+[dependency-groups]
+dev = ["python-dotenv>=1.1.0"]
+
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/my-meter-api"]
