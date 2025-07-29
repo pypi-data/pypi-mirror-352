@@ -1,0 +1,130 @@
+Metadata-Version: 2.4
+Name: timml
+Version: 6.7.0
+Summary: Steady multi-layer AEM Model
+Author: Mark Bakker
+Maintainer-email: Mark Bakker <markbak@gmail.com>, Davíd Brakenhoff <d.brakenhoff@artesia-water.nl>
+License: The MIT License (MIT)
+        
+        Copyright (c) 2015 Mark Bakker
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+        
+Project-URL: homepage, https://github.com/mbakker7/timml
+Project-URL: repository, https://github.com/mbakker7/timml
+Project-URL: documentation, http://mbakker7.github.io/timml/docs/builddocs/html/index.html
+Keywords: hydrology,groundwater,model,analytic element method
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Other Audience
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Scientific/Engineering :: Hydrology
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: numba
+Requires-Dist: matplotlib
+Requires-Dist: pandas
+Provides-Extra: ci
+Requires-Dist: pytest>=4.6; extra == "ci"
+Requires-Dist: pytest-cov; extra == "ci"
+Requires-Dist: jupyter>=1.0.0; extra == "ci"
+Requires-Dist: coveralls; extra == "ci"
+Requires-Dist: shapely; extra == "ci"
+Requires-Dist: ruff; extra == "ci"
+Provides-Extra: docs
+Requires-Dist: timml[ci]; extra == "docs"
+Requires-Dist: sphinx; extra == "docs"
+Requires-Dist: sphinx-design; extra == "docs"
+Requires-Dist: pydata-sphinx-theme; extra == "docs"
+Requires-Dist: numpydoc; extra == "docs"
+Requires-Dist: myst_nb; extra == "docs"
+Requires-Dist: sphinxcontrib-bibtex; extra == "docs"
+Requires-Dist: sphinx-autoapi; extra == "docs"
+Dynamic: license-file
+
+![image](/docs/_static/tim_logo_small.png)
+
+[![timml](https://github.com/mbakker7/timml/actions/workflows/ci.yml/badge.svg)](https://github.com/mbakker7/timml/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/mbakker7/timml/badge.svg?branch=master)](https://coveralls.io/github/mbakker7/timml?branch=master)
+![PyPI](https://img.shields.io/pypi/v/timml?color=green)
+
+# TimML, A Multi-Layer, Analytic Element Model
+
+## Introduction
+
+TimML is a computer program for the modeling of steady-state multi-layer flow with analytic elements
+and consists of a library of Python scripts and FORTRAN extensions.
+TimML may be applied to an arbitrary number of aquifers and leaky layers.
+The head, flow, and leakage between aquifers may be computed analytically at any point in the aquifer system.
+The design of TimML is object-oriented and has been kept simple and flexible.
+New analytic elements may be added to the code without making any changes in the existing part of the code.
+TimML is coded in Python and uses numba to speed up evaluation of the bessel line elements.
+
+## Installation
+
+**Dependencies:**
+
+TimML requires:
+* numpy 
+* scipy
+* matplotlib
+* numba
+
+**Installation:**
+
+To install TimML, open a command prompt and type:
+
+    pip install timml
+
+To update TimML type:
+
+    pip install timml --upgrade
+
+To uninstall TimML type:
+
+    pip uninstall timml
+
+
+## Documentation
+
+* The documentation is hosted on [readthedocs](https://timml.readthedocs.io/).
+* Example Notebooks are also available from the docs directory on github.
+
+
+## Citation
+
+Some of the papers that you may want to cite when using TimML are:
+
+* Bakker, M., and O.D.L. Strack. 2003. Analytic Elements for Multiaquifer Flow. Journal of Hydrology, 271(1-4), 119-129.
+* Bakker, M. 2006. An analytic element approach for modeling polygonal inhomogeneities in multi-aquifer systems. Advances in Water Resources, 29(10), 1546-1555.
