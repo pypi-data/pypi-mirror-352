@@ -1,0 +1,37 @@
+[project]
+name = "niceguicrud"
+version = "0.1.9"
+description = "Edit your pydantic models with a nice GUI - CRUD Create Update Replace Delete"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = ["nicegui"]
+
+[[project.authors]]
+name = "Dronakurl"
+email = "tbo73oij5@mozmail.com"
+
+[tool.uv]
+dev-dependencies = ["pytest", "pytest-asyncio", "pre-commit"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+addopts = [
+  "--import-mode=importlib",
+  "--ignore=.archiv",
+  "--ignore=scripts",
+  "--no-header",
+]
+asyncio_mode = "auto"
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+exclude = ["**/__init__.py"]
+
+[tool.black]
+line-length = 100
