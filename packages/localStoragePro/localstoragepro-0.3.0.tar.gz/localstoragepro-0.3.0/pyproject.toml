@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "localStoragePro"
+version = "0.3.0"
+description = "A familiar API from the Web, adapted to storing data locally with Python."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Suraj Mandal", email = "localstoragepro.oss@mandalsuraj.com" },
+]
+maintainers = [
+    { name = "Suraj Mandal", email = "localstoragepro.oss@mandalsuraj.com" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Database",
+    "Topic :: System :: Archiving",
+]
+keywords = [
+    "localStorage",
+    "storage",
+    "database",
+    "sqlite",
+    "json",
+    "local",
+    "data",
+]
+requires-python = ">=3.9"
+
+[project.urls]
+"Homepage" = "https://github.com/surajmandalcell/localStoragePro"
+"Bug Reports" = "https://github.com/surajmandalcell/localStoragePro/issues"
+"Source" = "https://github.com/surajmandalcell/localStoragePro"
+"Documentation" = "https://github.com/surajmandalcell/localStoragePro#readme"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+localStoragePro = ["py.typed"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3.5", "pytest-asyncio>=0.23.5", "twine", "build"]
