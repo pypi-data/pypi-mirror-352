@@ -1,0 +1,16 @@
+curl_cffi>=0.7.0
+dateparser
+fake_useragent>=2.0.3
+httpx
+httpx[http2]
+prettytable
+requests
+
+[:sys_platform == "linux"]
+gnureadline
+
+[:sys_platform == "win32"]
+pyreadline3
+
+[telebot]
+pyTelegramBotAPI
