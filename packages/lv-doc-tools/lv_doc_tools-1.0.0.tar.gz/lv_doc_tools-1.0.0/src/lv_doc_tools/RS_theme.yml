@@ -1,0 +1,28 @@
+extends: default
+abstract:
+  first-line:
+    text-transform: smallcaps
+header:
+  font-color: #999999
+  height: 0.5in
+  recto:
+    columns: '<45% =10% >45%'
+    left:
+      content: '{doctitle}: {docnumber}| v{vnumber}'
+    right:
+      content: image:RSLogo.png[pdfwidth=1in]
+  verso:
+    columns: $header_recto_columns
+    left:
+      content: $header_recto_right_content
+    right:
+      content: $header_recto_left_content
+  
+footer:
+  height: 0.45in
+  recto:
+    right:
+      content: '{section-or-chapter-title} | {page-number}'
+  verso:
+    left:
+      content: '{page-number} | {chapter-title}'
