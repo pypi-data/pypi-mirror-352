@@ -1,0 +1,118 @@
+[project]
+name = "build-wheel-metadata"
+authors = [
+  {name = "Dhia Hmila"},
+]
+description = "Module to prepare a python package distribution metadata."
+license = {text = "MIT License"}
+requires-python = ">=3.9"
+keywords = []
+readme = "README.md"
+dynamic = ['version']
+classifiers = [
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "build>=1.2.0",
+]
+
+[project.urls]
+Repository = "https://github.com/dhiahmila/build-wheel-metadata"
+Issues = "https://github.com/dhiahmila/build-wheel-metadata/issues"
+
+[dependency-groups]
+dev = [{ include-group = "tests" }]
+tests = [
+    "pytest>=8.3.4",
+    "pytest-sugar"
+]
+ci = ["coverage"]
+linting = ["ruff==0.11.*", "mypy==0.16.*"]
+
+# == Build and Environment Config ==
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/build_wheel_metadata.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/build_wheel_metadata.py"]
+
+# == Workspace Tools ==
+[tool.ruff]
+target-version = "py39"
+[tool.ruff.lint]
+select = [
+  "A", # flake8-builtins
+  "B", # flake8-bugbear
+  "E", # pycodestyle - Error
+  "W", # pycodestyle - Warning
+  "F", # Pyflakes
+  "N", # pep8-naming
+  "S", # flake8-bandit
+  "RUF", # Ruff-specific rules
+  "PLC", # Pylint Convention
+  "PLE", # Pylint Error
+  "PLW", # Pylint Warning
+  "PLR", # Pylint Refactor
+  "Q", # flake8-quotes
+]
+
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**.py" = ["S101"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 6
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 100
+ignore-overlong-task-comments = true
+
+
+# == Tests config ==
+[tool.coverage.run]
+source = ["src"]
+relative_files = true
+
+[tool.tox]
+min_version = "4"
+requires = ["tox>=4.19", "tox-uv>=1"]
+env_list = ["format", "lint", "type", "3.13", "3.12", "3.11", "3.10", "3.9"]
+
+# This is a workaround
+# See Issue: https://github.com/ymyzk/tox-gh-actions/issues/198
+[tool.tox.gh-actions]
+python = """
+	3.9: py39
+	3.10: py310
+	3.11: py311
+	3.12: py312
+	3.13: py313
+	"""
+
+[tool.tox.env_run_base]
+description = "run unit tests"
+dependency_groups = ["tests"]
+commands = [["pytest", { replace = "posargs", default = ["tests"], extend = true }]]
+
+[tool.tox.env.format]
+description = "run formatter"
+skip_install = true
+dependency_groups = ["linting"]
+commands = [["ruff", "format", { replace = "posargs", default = ["."], extend = true }]]
+
+[tool.tox.env.lint]
+description = "run linters"
+skip_install = true
+dependency_groups = ["linting"]
+commands = [["ruff", "check", { replace = "posargs", default = ["."], extend = true }]]
