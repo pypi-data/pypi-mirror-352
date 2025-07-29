@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "nonebot-plugin-df-armor-database"
+version = "0.0.1"
+description = "《三角洲行动》防具简介"
+authors = ["BG4JEC <BG4JEC@hotmail.com>"]
+readme = "README.md"
+packages = [{include = "nonebot_plugin_df_armor_database"}]
+repository = "https://github.com/Starry-Night-Studio/nonebot-plugin-df-armor-database"
+keywords = ["nonebot", "nonebot2", "Delta Force", "Tools"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+nonebot2 = "^2.4.0"
+nonebot-adapter-onebot = "^2.4.6"
+
+[tool.poetry.group.test.dependencies]
+nb-cli = "^1.4.2"
+nonebot2 = {version = "^2.4.0", extras = ["fastapi"]}
+
+[tool.nonebot]
+adapters = [{name="OnebotAdapterV11", module_name="nonebot.adapters.onebot.v11"}]
+plugins = ["nonebot_plugin_df_armor_database"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
