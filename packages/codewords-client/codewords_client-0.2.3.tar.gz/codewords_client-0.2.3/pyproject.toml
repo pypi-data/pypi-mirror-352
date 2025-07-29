@@ -1,0 +1,16 @@
+[project]
+name = "codewords-client"
+version = "0.2.3"
+authors = [
+  { name="Osman Ramadan", email="osman@agemo.ai" }
+]
+description = "Async/Sync Python client for the Codewords runtime API."
+readme = "README.md"
+license = "MIT" 
+requires-python = ">=3.10"
+dependencies = [
+    "httpx>=0.25.0",
+]
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
