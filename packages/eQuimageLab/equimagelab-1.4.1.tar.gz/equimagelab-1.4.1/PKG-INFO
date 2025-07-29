@@ -1,0 +1,64 @@
+Metadata-Version: 2.4
+Name: eQuimageLab
+Version: 1.4.1
+Summary: eQuimageLab is a tool to postprocess astronomical images with JupyterLab notebooks
+Author-email: Yann-Michel Niquet <contact@ymniquet.fr>
+License-Expression: GPL-3.0-or-later
+Project-URL: homepage, https://astro.ymniquet.fr/
+Project-URL: documentation, https://astro.ymniquet.fr/codes/equimagelab/docs/
+Project-URL: repository, https://github.com/ymniquet/eQuimageLab
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: pywavelets
+Requires-Dist: pillow
+Requires-Dist: tifffile
+Requires-Dist: imagecodecs
+Requires-Dist: astropy
+Requires-Dist: scikit-image
+Requires-Dist: dask
+Requires-Dist: jupyterlab
+Requires-Dist: plotly<6.0
+Requires-Dist: dash<3.0
+Requires-Dist: dash-bootstrap-components<2.0
+Requires-Dist: dash_bootstrap_templates<2.0
+Requires-Dist: dash_extensions
+Requires-Dist: tk
+Dynamic: license-file
+
+### eQuimageLab is a Python package to postprocess astronomical images with JupyterLab notebooks
+
+Author: Yann-Michel Niquet (https://astro.ymniquet.fr)
+
+Why use JupyterLab notebooks to process your images ?
+
+  - You can easily modify/add/delete/move any operation in your workflow without the need to manually undo/redo the others.
+  - You can tweak your notebook any time (shall you have new ideas to deal with an image) and reprocess in a few minutes.
+  - You benefit from the full Python ecosystem to help you make the most out of your images (Numpy, Scikit-image, etc...).
+  - ...
+
+Enjoy the power of Python to process your images !
+
+### Installation
+
+eQuimageLab is developed in Python 3. To install the latest version of eQuimageLab, open a linux terminal/windows command prompt and run:
+
+  `pip install --user eQuimageLab`
+
+pip will automatically download eQuimageLab and the missing Python modules if necessary (Dash, Plotly, etc...). You can then launch eQuimageLab by typing:
+
+  `eQuimagelab`
+
+in this same terminal. You can also create a link to eQuimageLab from your desktop; an icon is distributed for this purpose with the Python package.
+
+### Usage
+
+The complete documentation is available at: https://astro.ymniquet.fr/codes/equimagelab/docs/
+
+### Known bugs
+
