@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+      }
+    }
+  }
+}
+
+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
+
+docker run -i --rm -e GITHUB_PERSONAL_ACCESS_TOKEN=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 ghcr.io/github/github-mcp-server
+
+
+curl -H "Authorization: token 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" https://api.github.com/rate_limit
+
+
