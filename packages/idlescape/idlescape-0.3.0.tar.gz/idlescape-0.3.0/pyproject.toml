@@ -1,0 +1,41 @@
+[project]
+name = "idlescape"
+version = "0.3.0"
+description = "An idle game. Collect resources, level up skills."
+readme = "README.md"
+authors = [{ name = "Ben Walzer" }]
+license = "Apache-2.0"
+requires-python = ">=3.13"
+classifiers = []
+dependencies = [
+    "click>=8.2.1",
+    "pendulum>=3.0.0",
+    "questionary>=2.1.0",
+    "sqlalchemy>=2.0.41",
+]
+
+[project.urls]
+Homepage = "https://github.com/BWalzer/idlescape"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["I"]
+
+[build-system]
+requires = ["setuptools", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools_scm]
+
+
+[dependency-groups]
+dev = ["pre-commit>=4.2.0", "pytest>=8.3.5", "uv>=0.7.8"]
+webapp = []
+
+[project.scripts]
+idlescape = "idlescape.cli:cli"
