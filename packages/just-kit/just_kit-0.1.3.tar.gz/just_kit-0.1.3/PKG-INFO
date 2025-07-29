@@ -1,0 +1,77 @@
+Metadata-Version: 2.4
+Name: just_kit
+Version: 0.1.3
+Summary: 江苏科技大学信息门户工具包
+Home-page: https://github.com/heerheer/just-kit
+Author: Harmog
+Author-email: harmog@foxmail.com
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: beautifulsoup4
+Requires-Dist: dotenv
+Requires-Dist: PyExecJS
+Requires-Dist: pycryptodome
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: summary
+
+# just-kit
+
+江苏科技大学信息门户工具包，用于获取和操作学校信息门户上的各种数据。
+
+## 功能特性
+
+- 宿舍电量查询
+- 校园卡余额查询
+- 校车信息查询
+- 更多功能开发中...
+
+## 安装
+
+```bash
+pip install just-kit
+```
+
+## 使用方法
+
+### 登入
+默认使用信息门户作为登入服务
+```python
+from just_kit.auth import Authenticator
+import os
+from dotenv import load_dotenv
+# 读取.env
+load_dotenv()
+# 读取账户以及密码
+username = os.getenv('USER')
+password = os.getenv('PASSWORD')
+# 初始化认证器
+authenticator = Authenticator()
+authenticator.login(username,password)
+```
+
+### 服务:Epay
+epay服务用于获取宿舍电费、用户校园卡余额和浴室专款
+```python
+from just_kit.services import *
+# 认证器作为构造参数
+epay = EpayServiceProvider(authenticator)
+# 通过oauth登入epay的服务
+epay.login()
+# 获取本账户校园卡余额与浴室专款
+epay.query_account_bill()
+```
+
+## 开发说明
+
+本项目使用Python 3.11开发，主要依赖：
+- requests：用于发送HTTP请求
+- beautifulsoup4：用于解析HTML
+
+## 许可证
+
+本项目采用MIT许可证。
