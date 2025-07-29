@@ -1,0 +1,135 @@
+[[contract-management]]
+
+=== Szerződések
+
+==== Üzleti háttér
+
+A BOSs RSZ külön felhasználói felületet biztosít a piaci szereplőkkel történő éves keretszerződések kezelésére. A felhasználói felületen a megfelelő, operátori jogosultsággal rendelkező felhasználók regisztrálhatják, majd kezelhetik a szerződéseket azok teljes életútja alatt. A szerződések létrehozását és a dokumentum piszkozatként történő generálását követőn a piaci partnereknek el kell fogadniuk a szerződés tartalmi elemeit. A partnereknek lehetőségük van a tartalmat véleményezni, ezzel elutasítva a piszkozat tartalmát. Amennyiben egy szerződés tartalmi elemei elfogadottak, a végleges szerződés legenerálásra kerül az adminisztrációt végző felhasználó által. A szerződéseket bármikor érvénytelenítheti (terminálhatja) a megfelelő jogosultsággal rendelkező felhasználó.
+
+A következő főbb funkciók végezhetők el felületen:
+
+[arabic]
+. Szerződés létrehozása, generálása
+. Szerződés törlése
+. Szerződés véglegesítése
+. Szerződés megtekintése, dokumentum(ok) letöltése
+. Szerződés érvénytelenítése
+. Szerződés dokumentum feltöltése
+. RIR üzenet manuális küldése
+
+==== Felületi funkciók használati módja
+
+===== Szerződés létrehozása, generálása
+
+[arabic]
+. A szűrő panelen válassza ki, hogy melyik évre kíván szerződést felvenni!
+. Kattintson az Új hozzáadása gombra!
+. Adja meg a szerződés adatait:
+[loweralpha]
+.. Érvényesség kezdete: A szerződés érvényességének kezdő dátuma.
+
+* A devizaváltás időszaka nem eshet az érvényességi időszakba.
+
+.. Érvényesség vége: A szerződés érvényességének végdátuma.
+.. Partner: Annak a BSP-nek a rövid neve, akire a keretszerződés vonatkozik.
+
+* Az étrélistában csak olyan partnerek jelennek meg, akiknek már van Elfogadott (vagy Kiegészítendő) státuszú pályázati dokumentációja az érintett évre vonatkozóan.
+
+.. Szolgáltatás típusa: Annak a szolgáltatás típusnak a neve, amelyre a keretszerződés vonatkozik. (Lehetséges értékei: Egyedi aFRR, Szabványos aFRR, Szabványos mFRR, FCR, Feszültség és meddőteljesítmény, Black Start, RIR)
+.. Szerződés típusa: A szerződés típusa. (Lehetséges értékei: Market Maker, Opciós)
+.. Szabályozási egység: Annak a szabályozási egységnek a neve, amelyre a szerződés vonatkozik. (Az értéklistában Feszültség és meddőteljesítmény, Black Start, RIR szolgáltatás típusok esetében az adott partnerhez tartozó alegységek jelennek meg, Egyedi aFRR, Szabványos aFRR, Szabványos mFRR szolgáltatás típusok esetében az adott partnerhez tartozó szabályozási egységek jelennek meg, FCR esetében rendszerparaméter beállítástól függ, hogy alegységek vagy szabályozási egységek jelennek meg.)
+. Kattintson a Mentés gombra!
+[loweralpha]
+.. Feszültség és meddőteljesítmény, Black Start, RIR és opciós FCR szerződések mentésének előfeltétele, hogy a Partner adminisztráció képernyő Szerződéses árak card-ján az érintett szolgáltatás típushoz létezzen olyan érvényes beállítás, ami a szerződés teljes érvényességi időszakát lefedi. Ha nem létezik ilyen szerződéses ár szabály, a mentés sikertelen és a képernyőn megjelenik az „Ehhez a szabályozási egységhez nincs érvényes szerződéses ár rögzítve.” hibaüzenet.
+.. A szerződés Létrehozott státuszba kerül.
+. Ha nem kíván további szerződést rögzíteni, kattintson a Dokumentum generálása gombra a piszkozati szerződés generálásához! Ha további szerződéseket kíván rögzíteni, ugorjon a következő pontra!
+[loweralpha]
+.. A szerződés Generált státuszba kerül.
+. Rögzítse a további szabályozási egységekre vonatkozó szerződéseket!
+. A Szerződések táblázat elején taláható checkboxok bekattintásával jelölje ki azokat a szerződéseket, amikre piszkozati szerződést kíván legenerálni!
+. Kattintson a Dokumentum generálása gombra!
+[loweralpha]
+.. A kiválasztott szerződések Generált státuszba kerülnek.
+
+[INFO]
+====
+* A Dokumentum generálása funkció csak Létrehozott és Partner által elutasított státuszban lehetséges.
+* Generált státuszban az operátor a piaci szereplő szerződésének elfogadására/elutasítására vár. A folyamat csak ezt követően folytatható.
+====
+
+A szerződések partner általi elutasítása, illetve elfogadása esetén az operator értesítő e-mailt kap, amelyben szerepel, hogy mely partner, mely szerződését fogadta el, illetve utasította el. Elutasítás esetén egy megjegyzés mezőben köteles a partner megadni az elutasítás indokát.
+
+===== Szerződés törlése
+
+Előfordulhat olyan eset, amikor a rögzített szerződéses adatok hibásak, és azok javítására nincs mód, ezért az ilyen esetekben az operátornak lehetősége nyílik az adott szerződés törlésére.
+
+[arabic]
+. A Szerződések táblázatban válassza ki, hogy melyik szerződést kívánja törölni!
+. Kattintson a Törlés gombra!
+[loweralpha]
+.. Szerződés törlésére csak Létrehozott, Generált és Partner áltlal elfogadott, illetve Partner által elutasított szerződés státusz esetén van lehetőség.
+.. Ha vissza kívánja vonni törlési kezdeményezését, kattintson a Mégsem gombra!
+. A törlés megerősítéséhez kattintson az Igen gombra!
+
+===== Szerződés véglegesítése
+
+[arabic]
+. A szűrő panelen válassza ki, hogy melyik évre kívánja véglegesíteni a szerződéseket!
+. A Szerződések táblázat elején taláható checkboxok bekattintásával jelölje ki azokat a szerződéseket, amelyeket véglegesíteni kíván!
+[loweralpha]
+.. Csak a Partner által jóváhagyott státuszú szerződések véglegesíthetők.
+. Kattintson a Véglegesítés gombra!
+[loweralpha]
+.. A szerződés(ek) Véglegesített státuszba kerül(nek).
+
+===== Szerződés megtekintése, dokumentum(ok) letöltése
+
+[arabic]
+. A szűrő panelen válassza ki, hogy melyik év szerződéseit kívánja megtekinteni!
+. A Szerződések táblázatban kattintson arra a szerződésre, amelynek adatait megkívánja tekinteni!
+. Az adatok megtekintéséhez nyissa le a Szerződés adatok panelt!
+. A csatolmányok letöltéséhez válasszon egy elemet a Csatolmányok mezőben felkínált listából, majd kattintson a Letöltés gombra!
+. A szerződés előnézetének megtekintéséhez nyissa le a Szerződés előnézet panelt!
+[loweralpha]
+.. Mindig a legutolsó érvényes dokumentum előnézete tekinthető csak meg, a többi letöltésre bármikor elérhető.
+
+[INFO]
+====
+Dokumentum elnevezések:
+DRAFT előtag: Az adminisztrátor által piszkozatként generált dokumentum, amelynek tartalmát a piaci szereplőnek el kell fogadnia.
+
+TERMINATED előtag: Az adminisztrátor által véglegesített szerződéshez feltöltött egyedi dokumentum.
+
+OTHER előtag: Az adminisztrátor által szerződéshez feltöltött egyéb dokumentum.
+
+FINALISED előtag: Az adminisztrátor által véglegesített szerződéses dokumentum, szerződésszámmal ellátva.
+
+APPROVED++_++SCANNED előtag: Az adminisztrátor által véglegesített szerződéses szkennelt, aláírt dokumentuma.
+====
+
+===== Szerződés érvénytelenítése
+
+[arabic]
+. A szűrő panelen válassza ki, hogy melyik évre kívánja véglegesíteni a szerződéseket!
+. A Szerződések táblázat elején taláható checkboxok bekattintásával jelölje ki azokat a szerződéseket, amelyeket érvényteleníteni kíván!
+[loweralpha]
+.. Csak Véglegesített státuszban levő szerződést lehet érvényteleníteni!
+. Kattintson az Érvénytelenítés gombra!
+. Adja meg a szerződés érvényességének végdátumát!
+[loweralpha]
+.. Az érvénytelenítéskor megadott érvényesség végdátuma nem lehet későbbi, mint a szerződés érvényességének vége és nem lehet korábbi, mint a szerződés érvényességének kezdete.
+. Kattintson az Érvénytelenítés gombra!
+[loweralpha]
+.. A szerződés(ek) Érvénytelenített státuszba kerül(nek).
+
+===== Szerződéses dokumentum feltöltése
+
+[arabic]
+. A szűrő panelen válassza ki, hogy melyik év szerződéseit kívánja megtekinteni!
+. A Szerződések táblázatban kattintson arra a szerződésre, amelyhez dokumentumot kíván csatolni!
+. Nyissa le a Szerződés adatok panelt!
+. Kattintson az Csatolmányok feltöltése gombra!
+. Adja meg a csatolmány típusát!
+[loweralpha]
+.. A feltöltött dokumentum elérhető a csatolmányok listájában, később bármikor letölthető.
+.. Támogatott dokumentum típusok: docx, doc, txt, pdf
