@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: dag_sdk
+Version: 0.1.0
+Summary: Python SDK for controlling the DAG (Dynamixel Adaptive Gripper) system via TCP
+Author-email: Dexsent Robotics <dexsentrobotics@gmail.com>
+License: Proprietary - Sastra Innovation Labs
+Project-URL: Homepage, https://github.com/dexsent/dag_sdk
+Project-URL: Documentation, https://github.com/dexsent/dag_sdk/wiki
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+
+# dag_sdk
+
+Python SDK for controlling the DAG (Dynamixel Adaptive Gripper).
+
+## Installation
+
+```bash
+pip install dag_sdk
+```
+
+## Usage
+
+```python
+from dag_sdk import DAGGripper
+
+gripper = DAGGripper()
+gripper.home()
+```
