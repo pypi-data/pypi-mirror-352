@@ -1,0 +1,40 @@
+[project]
+name = "bmdf"
+description = "Embed commands, their output, and tables of contents in markdown"
+version = "0.6.0"
+readme = "README.md"
+authors = [
+    { name = "Ryan Williams", email = "ryan@runsascoded.com" }
+]
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = [
+    "utz>=0.19.1",
+    "click>=8",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+ ]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["bmdf", "bmdf.cli", "mdcmd", "mdcmd.cli", "mktoc", "mktoc.cli"]
+
+[project.scripts]
+bmd = "bmdf.cli:bmd"
+bmdf = "bmdf.cli:bmd_f"
+bmdff = "bmdf.cli:bmd_ff"
+bmdfff = "bmdf.cli:bmd_fff"
+mdcmd = "mdcmd.cli:main"
+mktoc = "mktoc.cli:main"
+
+[project.urls]
+"Homepage" = "https://github.com/runsascoded/bash-markdown-fence"
+"Repository" = "https://github.com/runsascoded/bash-markdown-fence.git"
+"Bug Tracker" = "https://github.com/runsascoded/bash-markdown-fence/issues"
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
