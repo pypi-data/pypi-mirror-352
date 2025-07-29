@@ -1,0 +1,38 @@
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
+
+name: macOS build
+jobs:
+    test-macOS:
+        runs-on: ${{ matrix.config.os }}
+        name: ${{ matrix.config.os }} (${{ matrix.config.py }})
+        strategy:
+            fail-fast: false
+            matrix:
+                config:
+                    - { os: macOS-latest, py: "3.12" }
+        env:
+            SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install uv
+              uses: astral-sh/setup-uv@v6
+              with:
+                  version: "0.4.12"
+                  enable-cache: false
+
+            - name: Set up Python ${{ matrix.config.py }}
+              run: uv venv --python ${{ matrix.config.py }}
+
+            - name: Install dependencies
+              run: uv pip install .
+
+            - name: Test import
+              run: |
+                  uv run python -c "import geospatial; print('geospatial import successful')"
