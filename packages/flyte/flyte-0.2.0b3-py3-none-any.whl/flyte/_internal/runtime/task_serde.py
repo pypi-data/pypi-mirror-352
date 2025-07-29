@@ -1,0 +1,240 @@
+"""
+This module provides functionality to serialize and deserialize tasks to and from the wire format.
+It includes a Resolver interface for loading tasks, and functions to load classes and tasks.
+"""
+
+import importlib
+from datetime import timedelta
+from typing import Optional, Type
+
+from flyteidl.core import identifier_pb2, literals_pb2, security_pb2, tasks_pb2
+from google.protobuf import duration_pb2, wrappers_pb2
+
+import flyte.errors
+from flyte._cache.cache import VersionParameters, cache_from_request
+from flyte._logging import logger
+from flyte._protos.workflow import task_definition_pb2
+from flyte._secret import SecretRequest, secrets_from_request
+from flyte._task import AsyncFunctionTaskTemplate, TaskTemplate
+from flyte.models import CodeBundle, SerializationContext
+
+from ..._retry import RetryStrategy
+from ..._timeout import TimeoutType, timeout_from_request
+from .resources_serde import get_proto_extended_resources, get_proto_resources
+from .types_serde import transform_native_to_typed_interface
+
+
+def load_class(qualified_name) -> Type:
+    """
+    Load a class from a qualified name. The qualified name should be in the format 'module.ClassName'.
+    :param qualified_name: The qualified name of the class to load.
+    :return: The class object.
+    """
+    module_name, class_name = qualified_name.rsplit(".", 1)  # Split module and class
+    module = importlib.import_module(module_name)  # Import the module
+    return getattr(module, class_name)  # Retrieve the class
+
+
+def load_task(resolver: str, *resolver_args: str) -> TaskTemplate:
+    """
+    Load a task from a resolver. This is a placeholder function.
+
+    :param resolver: The resolver to use to load the task.
+    :param resolver_args: Arguments to pass to the resolver.
+    :return: The loaded task.
+    """
+    resolver_class = load_class(resolver)
+    resolver_instance = resolver_class()
+    return resolver_instance.load_task(resolver_args)
+
+
+def translate_task_to_wire(
+    task: TaskTemplate, serialization_context: SerializationContext
+) -> task_definition_pb2.TaskSpec:
+    """
+    Translate a task to a wire format. This is a placeholder function.
+
+    :param task: The task to translate.
+    :param serialization_context: The serialization context to use for the translation.
+
+    :return: The translated task.
+    """
+    return get_proto_task(task, serialization_context)
+
+
+def get_security_context(secrets: Optional[SecretRequest]) -> Optional[security_pb2.SecurityContext]:
+    """
+    Get the security context from a list of secrets. This is a placeholder function.
+
+    :param secrets: The list of secrets to use for the security context.
+
+    :return: The security context.
+    """
+    if secrets is None:
+        return None
+
+    secret_list = secrets_from_request(secrets)
+    return security_pb2.SecurityContext(
+        secrets=[
+            security_pb2.Secret(
+                group=secret.group,
+                key=secret.key,
+                mount_requirement=(
+                    security_pb2.Secret.MountType.ENV_VAR if secret.as_env_var else security_pb2.Secret.MountType.FILE
+                ),
+                env_var=secret.as_env_var,
+            )
+            for secret in secret_list
+        ]
+    )
+
+
+def get_proto_retry_strategy(retries: RetryStrategy | int | None) -> Optional[literals_pb2.RetryStrategy]:
+    if retries is None:
+        return None
+
+    if isinstance(retries, int):
+        raise AssertionError("Retries should be an instance of RetryStrategy, not int")
+
+    return literals_pb2.RetryStrategy(retries=retries.count)
+
+
+def get_proto_timeout(timeout: TimeoutType | None) -> Optional[duration_pb2.Duration]:
+    if timeout is None:
+        return None
+    max_runtime_timeout = timeout_from_request(timeout).max_runtime
+    if isinstance(max_runtime_timeout, int):
+        max_runtime_timeout = timedelta(seconds=max_runtime_timeout)
+    return duration_pb2.Duration(seconds=max_runtime_timeout.seconds)
+
+
+def get_proto_task(task: TaskTemplate, serialize_context: SerializationContext) -> task_definition_pb2.TaskSpec:
+    task_id = identifier_pb2.Identifier(
+        resource_type=identifier_pb2.ResourceType.TASK,
+        project=serialize_context.project,
+        domain=serialize_context.domain,
+        org=serialize_context.org,
+        name=task.name,
+        version=serialize_context.version,
+    )
+    # TODO, there will be tasks that do not have images, handle that case
+    # if task.parent_env is None:
+    # raise ValueError(f"Task {task.name} must have a parent environment")
+
+    #
+    # This pod will be incorrect when doing fast serialize
+    #
+    container = _get_urun_container(serialize_context, task)
+
+    # TODO Add support for SQL, Pod, extra_config, custom
+    pod = None
+    sql = None
+    # pod = task.get_k8s_pod(serialize_context)
+    extra_config = {}  # type: ignore
+    custom = {}  # type: ignore
+
+    # -------------- CACHE HANDLING ----------------------
+    task_cache = cache_from_request(task.cache)
+    cache_enabled = task_cache.is_enabled()
+    cache_version = None
+
+    if task_cache.is_enabled():
+        logger.debug(f"Cache enabled for task {task.name}")
+        if serialize_context.code_bundle and serialize_context.code_bundle.pkl:
+            logger.debug(f"Detected pkl bundle for task {task.name}, using computed version as cache version")
+            cache_version = serialize_context.code_bundle.computed_version
+        else:
+            version_parameters = None
+            if isinstance(task, AsyncFunctionTaskTemplate):
+                version_parameters = VersionParameters(func=task.func, image=task.image)
+            else:
+                version_parameters = VersionParameters(func=None, image=task.image)
+            cache_version = task_cache.get_version(version_parameters)
+            logger.debug(f"Cache version for task {task.name} is {cache_version}")
+    else:
+        logger.debug(f"Cache disabled for task {task.name}")
+
+    tt = tasks_pb2.TaskTemplate(
+        id=task_id,
+        type=task.task_type,
+        metadata=tasks_pb2.TaskMetadata(
+            discoverable=cache_enabled,
+            discovery_version=cache_version,
+            cache_serializable=task_cache.serialize,
+            cache_ignore_input_vars=task_cache.ignored_inputs,
+            runtime=tasks_pb2.RuntimeMetadata(),
+            retries=get_proto_retry_strategy(task.retries),
+            timeout=get_proto_timeout(task.timeout),
+            pod_template_name=task.pod_template if task.pod_template and isinstance(task.pod_template, str) else None,
+            interruptible=task.interruptable,
+            generates_deck=wrappers_pb2.BoolValue(value=False),  # TODO add support for reports
+        ),
+        interface=transform_native_to_typed_interface(task.native_interface),
+        custom=custom,
+        container=container,
+        task_type_version=task.task_type_version,
+        security_context=get_security_context(task.secrets),
+        config=extra_config,
+        k8s_pod=pod,
+        sql=sql,
+        extended_resources=get_proto_extended_resources(task.resources),
+    )
+    return task_definition_pb2.TaskSpec(task_template=tt)
+
+
+def _get_urun_container(
+    serialize_context: SerializationContext, task_template: TaskTemplate
+) -> Optional[tasks_pb2.Container]:
+    env = (
+        [literals_pb2.KeyValuePair(key=k, value=v) for k, v in task_template.env.items()] if task_template.env else None
+    )
+    resources = get_proto_resources(task_template.resources)
+    # pr: under what conditions should this return None?
+    if isinstance(task_template.image, str):
+        raise flyte.errors.RuntimeSystemError("BadConfig", "Image is not a valid image")
+    image_id = task_template.image.identifier
+    if not serialize_context.image_cache or image_id not in serialize_context.image_cache.image_lookup:
+        # This computes the image uri, computing hashes as necessary so can fail if done remotely.
+        img_uri = task_template.image.uri
+    else:
+        img_uri = serialize_context.image_cache.image_lookup[image_id]
+
+    return tasks_pb2.Container(
+        image=img_uri,
+        command=[],
+        args=task_template.container_args(serialize_context),
+        resources=resources,
+        env=env,
+        data_config=task_template.data_loading_config(serialize_context),
+        config=task_template.config(serialize_context),
+    )
+
+
+def extract_code_bundle(task_spec: task_definition_pb2.TaskSpec) -> Optional[CodeBundle]:
+    """
+    Extract the code bundle from the task spec.
+    :param task_spec: The task spec to extract the code bundle from.
+    :return: The extracted code bundle or None if not present.
+    """
+    container = task_spec.task_template.container
+    if container and container.args:
+        pkl_path = None
+        tgz_path = None
+        dest_path: str = "."
+        version = ""
+        for i, v in enumerate(container.args):
+            if v == "--pkl":
+                # Extract the code bundle path from the argument
+                pkl_path = container.args[i + 1] if i + 1 < len(container.args) else None
+            elif v == "--tgz":
+                # Extract the code bundle path from the argument
+                tgz_path = container.args[i + 1] if i + 1 < len(container.args) else None
+            elif v == "--dest":
+                # Extract the destination path from the argument
+                dest_path = container.args[i + 1] if i + 1 < len(container.args) else "."
+            elif v == "--version":
+                # Extract the version from the argument
+                version = container.args[i + 1] if i + 1 < len(container.args) else ""
+        if pkl_path or tgz_path:
+            return CodeBundle(destination=dest_path, tgz=tgz_path, pkl=pkl_path, computed_version=version)
+    return None

@@ -1,0 +1,179 @@
+Metadata-Version: 2.4
+Name: flyte
+Version: 0.2.0b3
+Summary: Add your description here
+Author-email: Ketan Umare <kumare3@users.noreply.github.com>
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: aiofiles>=24.1.0
+Requires-Dist: click>=8.2.1
+Requires-Dist: flyteidl==1.15.4b0
+Requires-Dist: cloudpickle>=3.1.1
+Requires-Dist: fsspec>=2025.3.0
+Requires-Dist: grpcio>=1.71.0
+Requires-Dist: obstore>=0.6.0
+Requires-Dist: protobuf>=6.30.1
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: rich-click>=1.8.8
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: keyring>=25.6.0
+Requires-Dist: synchronicity>=0.9.11
+Requires-Dist: msgpack>=1.1.0
+Requires-Dist: toml>=0.10.2
+Requires-Dist: async-lru>=2.0.5
+Requires-Dist: mashumaro
+Requires-Dist: dataclasses_json
+
+# Flyte 2
+
+Next-gen of SDK for Flyte.
+
+## Get started
+
+1. Only async tasks are supported right now. Style recommended, `import flyte` and then `flyte.TaskEnvironment` etc
+2. You have to create environment for even a single task
+3. `flyte run` CLI does not yet support arguments (but will soon)
+4. Support for dataclasses is still limited if present at all
+5. look at examples/... for various examples. 
+6. For a single script recommend using uv run scripts with metadata headers.
+
+Hello world
+
+```python
+import flyte
+
+env = flyte.TaskEnvironment(name="hello_world")
+
+
+@env.task
+async def say_hello(data: str) -> str:
+    return f"Hello {data}"
+
+
+@env.task
+async def say_hello_nested(data: str) -> str:
+    return await say_hello.override(resources=flyte.Resources(gpu="A100 80G:4")).execute(data)
+
+
+if __name__ == "__main__":
+    import asyncio
+    
+    # to run pure python - the SDK is not invoked at all
+    asyncio.run(say_hello_nested("test"))
+    
+    # To run locally, but run through type system etc
+    flyte.init()
+    flyte.run(say_hello_nested, "World")
+    
+    # To run remote
+    flyte.init(endpoint="dns:///localhost:8090", insecure=True)
+    flyte.run(say_hello_nested, "World")
+    # It is possible to switch local and remote, but keeping init to have and endpoint, but , changing context during run
+    flyte.with_runcontext(name="my-run-1", mode="local").run(...)  # this will run locally only
+```
+
+## When testing now, you will have to build images with v2 sdk installed. 
+To do this, you can use a nifty way to add the sdk to the image.
+
+```python
+import flyte
+import pathlib
+
+env = flyte.TaskEnvironment(
+  name="test",
+  image=flyte.Image.auto(registry="ghcr.io/your-handle", name="package-name")
+  .with_source_folder(pathlib.Path(
+    __file__).parent.parent / "dist")  # Assuming you have run `make dist` and the dist folder is in the directory above
+  .with_local_v2(),  # This will add the v2 sdk to the image from the local dist folder
+)
+```
+
+## Run using CLI
+
+```bash
+ flyte --endpoint dns:///localhost:8090 --insecure --org-override testorg run -p project -d development devbox_one.py say_hello_nested
+```
+### Retrieve runs
+```bash
+ flyte --endpoint dns:///localhost:8090 --insecure --org-override testorg get run --project testproject --domain development
+```
+Output:
+```bash
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Run-name            ┃ Name ┃ Start_time                 ┃ End_time            ┃ Run_time   ┃ Phase           ┃ Task             ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ testrun             │ a0   │ 2025-04-25T21:47:37.564471 │ None                │ 41154 secs │ PHASE_QUEUED    │                  │
+│ random-run-5783fbc8 │ a0   │ 2025-04-29T04:39:33.871810 │ 2025-04-29T04:42:24 │ 170 secs   │ PHASE_SUCCEEDED │                  │
+│ random-run-e57d6195 │ a0   │ 2025-04-29T04:40:53.467206 │ 2025-04-29T04:42:54 │ 120 secs   │ PHASE_SUCCEEDED │ say_hello_nested │
+│ random-run-752c52a0 │ a0   │ 2025-04-29T04:44:50.169879 │ 2025-04-29T04:47:34 │ 163 secs   │ PHASE_SUCCEEDED │ failure_recovery │
+│ random-run-4f57d4af │ a0   │ 2025-04-29T05:04:28.780208 │ 2025-04-29T05:07:10 │ 161 secs   │ PHASE_FAILED    │ failure_recovery │
+│ random-run-f6c6405f │ a0   │ 2025-04-29T05:10:19.808186 │ 2025-04-29T05:13:07 │ 167 secs   │ PHASE_FAILED    │ failure_recovery │
+│ random-run-66448df4 │ a0   │ 2025-04-29T05:42:21.625827 │ 2025-04-29T05:45:01 │ 159 secs   │ PHASE_SUCCEEDED │ failure_recovery │
+│ random-run-5c5c905f │ a0   │ 2025-04-29T05:50:32.623097 │ 2025-04-29T05:53:21 │ 168 secs   │ PHASE_SUCCEEDED │ failure_recovery │
+│ random-run-99056dba │ a0   │ 2025-04-29T05:54:47.820520 │ 2025-04-29T05:57:31 │ 163 secs   │ PHASE_SUCCEEDED │ failure_recovery │
+└─────────────────────┴──────┴────────────────────────────┴─────────────────────┴────────────┴─────────────────┴──────────────────┘
+```
+### Retrieve specific run details
+```bash
+flyte --endpoint dns:///localhost:8090 --insecure --org-override testorg get run --project testproject --domain development random-run-66448df4                                    
+```
+Output:
+```bash
+RunDetails(name='random-run-66448df4', start_time='2025-04-29T05:42:21.625827', end_time='2025-04-29T05:45:01', run_time='159 secs', phase='PHASE_SUCCEEDED', error=, task='failure_recovery')
+```
+
+### Retrieve actions for a run
+```bash
+flyte --endpoint dns:///localhost:8090 --insecure --org-override testorg get action --project testproject --domain development random-run-99056dba
+```
+
+Output:
+```bash
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Run-name            ┃ Name                   ┃ Start_time                 ┃ End_time            ┃ Run_time ┃ Phase           ┃ Task             ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ random-run-99056dba │ a0                     │ 2025-04-29T05:54:47.820520 │ 2025-04-29T05:57:31 │ 163 secs │ PHASE_SUCCEEDED │ failure_recovery │
+│ random-run-99056dba │ 5DYnhmntDf3WG9bm5B54E9 │ 2025-04-29T05:55:18.098842 │ 2025-04-29T05:55:51 │ 32 secs  │ PHASE_FAILED    │ always_fails     │
+│ random-run-99056dba │ 7rg3HTmTfCjMqhLLq17ZjR │ 2025-04-29T05:55:51.933307 │ 2025-04-29T05:56:31 │ 39 secs  │ PHASE_FAILED    │ always_fails     │
+│ random-run-99056dba │ 3avSConCJYUMmCuTpqUCdO │ 2025-04-29T05:56:31.939420 │ 2025-04-29T05:57:11 │ 39 secs  │ PHASE_SUCCEEDED │ always_succeeds  │
+└─────────────────────┴────────────────────────┴────────────────────────────┴─────────────────────┴──────────┴─────────────────┴──────────────────┘
+```
+
+### Retrieve action details
+```bash
+flyte --endpoint dns:///localhost:8090 --insecure --org-override testorg get action --project testproject --domain development random-run-99056dba 5DYnhmntDf3WG9bm5B54E9
+```
+
+Output:
+```bash
+ActionDetails(name='random-run-99056dba', start_time='2025-04-29T05:55:18.098842', end_time='2025-04-29T05:55:51', run_time='32 secs', phase='PHASE_FAILED', error=, task='always_fails')
+```
+
+### Deploy
+```bash
+flyte deploy --endpoint dns:///localhost:8090 --insecure --org-override testorg -p project -d development devbox_one.py say_hello_nested
+```
+# Contributor Notes
+Some of these are limited to Union for now, because the new IDL has not yet been open-sourced.
+
+## How to import proto stubs?
+
+Make sure that you have `uv` installed locally then run `make copy-protos <path-to-cloud-repo>`, where `<path-to-cloud-repo>`
+is optional, if it's not defined then it assumes by default that there's a sibling `cloud` directory.
+
+## Iterating on the SDK itself.
+While there is a publicly available semantically version base image (similar to flytekit) for each flyte sdk release,
+it's probably helpful to create your own images if you're to iterate on this SDK itself. Anyone who wishes to modify
+this code and then run it on a Flyte cluster, will need to build their own image.
+
+To do this:
+
+1. Build a wheel with your updated code by running `make dist`
+
+2. (This step only works for Union employees for now) Create the image by running
+  ```
+  python maint_tools/build_default_image.py
+  ```
+  This will build the image using buildx, creating a buildx builder. The image will be tagged with a SHA that changes
+  based on a hash of the built wheel inside the dist folder.
