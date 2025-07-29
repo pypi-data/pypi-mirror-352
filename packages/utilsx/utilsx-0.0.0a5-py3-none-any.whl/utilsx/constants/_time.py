@@ -1,0 +1,35 @@
+"""Time-related constants.
+
+Arrange them in the file as follows:
+    1. Groups start from ``..._IN_MINUTE`` and go ascending, to ``...IN_YEAR``.
+    2. Within groups, go from largest to smallest unit,
+        e.g. ``MINUTES_IN_HOUR`` go before ``SECONDS_IN_HOUR``.
+"""
+
+from typing import Final
+
+SECONDS_IN_MINUTE: Final = 60
+
+MINUTES_IN_HOUR: Final = 60
+SECONDS_IN_HOUR: Final = SECONDS_IN_MINUTE * MINUTES_IN_HOUR
+
+HOURS_IN_DAY: Final = 24
+MINUTES_IN_DAY: Final = MINUTES_IN_HOUR * HOURS_IN_DAY
+SECONDS_IN_DAY: Final = SECONDS_IN_HOUR * HOURS_IN_DAY
+
+DAYS_IN_WEEK: Final = 7
+HOURS_IN_WEEK: Final = HOURS_IN_DAY * DAYS_IN_WEEK
+MINUTES_IN_WEEK: Final = MINUTES_IN_DAY * DAYS_IN_WEEK
+SECONDS_IN_WEEK: Final = SECONDS_IN_DAY * DAYS_IN_WEEK
+
+DAYS_IN_MONTH: Final = 30
+HOURS_IN_MONTH: Final = DAYS_IN_MONTH * HOURS_IN_DAY
+MINUTES_IN_MONTH: Final = MINUTES_IN_DAY * DAYS_IN_MONTH
+SECONDS_IN_MONTH: Final = SECONDS_IN_DAY * DAYS_IN_MONTH
+
+MONTH_IN_YEAR: Final = 12
+DAYS_IN_YEAR: Final = 365
+WEEKS_IN_YEAR: Final = DAYS_IN_YEAR / DAYS_IN_WEEK
+HOURS_IN_YEAR: Final = DAYS_IN_YEAR * HOURS_IN_DAY
+MINUTES_IN_YEAR: Final = DAYS_IN_YEAR * MINUTES_IN_DAY
+SECONDS_IN_YEAR: Final = DAYS_IN_YEAR * SECONDS_IN_DAY
