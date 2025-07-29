@@ -1,0 +1,162 @@
+[project]
+name = "bcolz-zipline"
+dynamic = ["version"]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy >=1.21",
+    'packaging'
+]
+
+description = "Columnar and compressed data containers."
+readme = { file = "README.md", content-type = "text/markdown" }
+
+authors = [
+    { name = "Francesc Alted" },
+    { email = "francesc@blosc.org" }
+]
+maintainers = [
+    { name = "Stefan Jansen" },
+    { email = "stefan@applied-ai.com" }
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: Unix",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13"
+]
+license = { file = "LICENSES/BCOLZ.txt" }
+
+[project.urls]
+repository = "https://github.com/stefan-jansen/bcolz-zipline"
+
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
+    "wheel",
+    "Cython>=0.22,<3.2.0",
+    "toml",
+    # Force numpy higher than 2.0rc1, so that built wheels are compatible
+    # with both numpy 1 and 2
+    "numpy>=2.0.0rc1",
+]
+
+build-backend = "setuptools.build_meta"
+
+[project.optional-dependencies]
+optional = [
+    "numexpr>=2.5.2",
+    "dask>=0.9.0",
+    "pandas",
+    "tables"
+]
+
+test = [
+    'tox',
+    "pytest>= 6.2.3",
+    "pytest-cov>=2.11.1",
+    "coveralls==3.0.1",
+    'pytest-xdist >=2.5.0'
+]
+
+dev = [
+    'ruff',
+    'pre-commit >=2.12.1',
+    'Cython>=0.29.21'
+]
+
+[tool.setuptools_scm]
+write_to = "bcolz/_version.py"
+version_scheme = 'guess-next-dev'
+local_scheme = 'dirty-tag'
+
+[tool.cibuildwheel]
+test-extras = "test"
+test-requires = ["numpy"]
+test-command = 'python -c "import bcolz; bcolz.test()"'
+build-verbosity = 3
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64", "universal2"]
+test-skip = ["*universal2:arm64"]
+
+[tool.ruff.lint]
+select = ["NPY201"]
+
+[tool.pytest.ini_options]
+testpaths = 'bcolz/tests'
+addopts = "-v"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist =
+    py39-numpy{121,122,123,124,125,126,20}
+    py310-numpy{121,122,123,124,125,126,20,21}
+    py311-numpy{123,124,125,126,20,21}
+    py312-numpy{126,20,21,22}
+    clean
+    report
+
+isolated_build = True
+skip_missing_interpreters = True
+minversion = 3.23.0
+
+[pytest]
+testpaths = bcolz/tests
+addopts =
+    --cov-report=term-missing
+    --cov-report=html
+    --cov-report=xml
+
+[gh-actions]
+python =
+    3.9: py39
+    3.10: py310
+    3.11: py311
+    3.12: py312
+    3.13: py313
+
+[testenv]
+commands = pytest --cov --cov-append {posargs:-vv}
+extras = test
+deps =
+    numpy121: numpy>=1.21,<1.22
+    numpy122: numpy>=1.22,<1.23
+    numpy123: numpy>=1.23,<1.24
+    numpy124: numpy>=1.24,<1.25
+    numpy125: numpy>=1.25,<1.26
+    numpy126: numpy>=1.26,<2.0
+    numpy20: numpy>=2.0,<2.1
+    numpy21: numpy>=2.1,<2.2
+    numpy22: numpy>=2.2,<2.3
+    pytest-cov
+    pytest-xdist
+    pytest-timeout
+depends =
+    report: py39,py310,py311,py312
+    {py39,py310,py311,py312}: clean
+
+[testenv:clean]
+skip_install = true
+deps = coverage
+commands =
+    coverage erase
+
+[testenv:report]
+skip_install = true
+deps = coverage
+commands =
+    coverage report
+"""
