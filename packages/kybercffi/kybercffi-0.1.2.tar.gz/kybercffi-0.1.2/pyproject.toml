@@ -1,0 +1,162 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel",
+    "cffi>=1.15.0"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kybercffi"
+version = "0.1.2"
+authors = [
+    {name = "Denis Magnitov", email = "pm13.magnitov@gmail.com"}
+]
+description = "Python CFFI bindings for Kyber post-quantum cryptography"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux", 
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+keywords = [
+    "cryptography", 
+    "post-quantum", 
+    "quantum-resistant",
+    "kyber", 
+    "kem", 
+    "key-encapsulation",
+    "cffi",
+    "pqcrypto",
+    "nist"
+]
+dependencies = [
+    "cffi>=1.15.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "pytest-benchmark",
+    "black",
+    "flake8",
+    "mypy",
+    "build",
+    "twine"
+]
+test = [
+    "pytest>=6.0",
+    "pytest-benchmark"
+]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme"
+]
+
+[project.urls]
+Homepage = "https://github.com/Denis872/KyberCFFI"
+Repository = "https://github.com/Denis872/KyberCFFI"
+Documentation = "https://github.com/Denis872/KyberCFFI#readme"
+Changelog = "https://github.com/Denis872/KyberCFFI/blob/main/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/Denis872/KyberCFFI/issues"
+"Source Code" = "https://github.com/Denis872/KyberCFFI"
+
+[tool.setuptools]
+packages = ["kybercffi"]
+include-package-data = true
+zip-safe = false
+
+# Дополнительные данные пакета
+[tool.setuptools.package-data]
+kybercffi = ["*.c", "*.h"]
+"*" = ["*.c", "*.h"]
+
+# Настройки для черного кода (black)
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# Настройки для pytest
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --tb=short"
+testpaths = [
+    "tests",
+]
+python_files = [
+    "test_*.py",
+    "*_test.py"
+]
+python_classes = [
+    "Test*"
+]
+python_functions = [
+    "test_*"
+]
+
+# Настройки для mypy
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+# Настройки для coverage
+[tool.coverage.run]
+source = ["kybercffi"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/*_test.py",
+    "setup.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:"
+] 

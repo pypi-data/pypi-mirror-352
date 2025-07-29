@@ -1,0 +1,72 @@
+# Основные файлы проекта
+include README.md
+include LICENSE
+include pyproject.toml
+include MANIFEST.in
+
+# Исходные файлы C и заголовочные файлы для CFFI
+recursive-include kyber *.c *.h
+recursive-include kyber/ref *.c *.h
+
+# Python код пакета
+graft kybercffi
+
+# Тесты (опционально, для разработчиков)
+graft tests
+
+# Исключаем скомпилированные и временные файлы
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *.pyd
+global-exclude *.so
+global-exclude *.dylib
+global-exclude *.dll
+global-exclude *.o
+global-exclude *.obj
+global-exclude *.lib
+global-exclude *.a
+
+# Исключаем служебные папки и файлы
+global-exclude __pycache__
+global-exclude .pytest_cache
+global-exclude .mypy_cache
+global-exclude .coverage
+global-exclude .DS_Store
+global-exclude Thumbs.db
+
+# Исключаем папки IDE и системы контроля версий
+prune .git
+prune .idea
+prune .vscode
+prune .venv
+prune venv
+prune env
+
+# Исключаем папки сборки
+prune build
+prune dist
+prune *.egg-info
+
+# Исключаем релизные папки (из вашего проекта)
+prune Release
+prune kyber/Release
+prune kyber/.git
+
+# Исключаем конфигурационные файлы разработки
+exclude .gitignore
+exclude .gitattributes
+exclude .travis.yml
+exclude *.yml
+exclude *.yaml
+exclude tox.ini
+exclude Makefile
+exclude kyber/ref/Makefile
+
+# Исключаем NIST KAT файлы (не нужны для работы)
+prune kyber/ref/nistkat
+
+# Исключаем тестовые файлы из оригинального Kyber
+prune kyber/ref/test
+
+# Исключаем AVX2 версию (используем только ref)
+prune kyber/avx2 
