@@ -1,0 +1,16 @@
+[project]
+name = "genai-scaffold"
+version = "0.1.3"
+description = "CLI tool to scaffold production-ready Generative AI projects"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [{ name="Akinyemi Arabambi", email="yemiarabambi@gmail.com" }]
+dependencies = []
+
+[project.scripts]
+genai-scaffold = "genai_scaffold.__main__:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
