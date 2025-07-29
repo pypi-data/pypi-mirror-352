@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gsoup"
+version = "0.2.9"
+description = "A geoemtry & graphics library with focus on clarity rather than performance."
+readme = "README.md"
+authors = [{ name = "Yotam Erel", email = "erelyotam@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["geometry", "graphics", "autograd", "vision"]
+dependencies = [
+    "torch >= 1.10",
+    "numpy",
+    "Pillow", 
+    "scipy",
+    "opencv-python-headless",
+    "OpenEXR >= 3.3.0",
+    "mitsuba",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+build = ["build", "twine"]
+dev = ["bumpver", "pytest"]
+vis = ["polyscope"]
+
+[project.urls]
+Homepage = "https://github.com/yoterel/gsoup"
+
+[tool.bumpver]
+current_version = "0.2.9"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"',
+]
+"src/gsoup/__init__.py" = [
+    "{version}"
+]
