@@ -1,0 +1,464 @@
+{% extends 'evewiki/base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+{% load humanize %}
+
+{% block details %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			<div class="card card-primary">
+				<div class="card-body" style="min-height: 100px;">
+					{% if is_editor %}
+					<a href="/evewiki/page?parent_id={{ page.parent.pk }}" class="btn btn-primary pull-right">
+						+
+					</a>
+					{% endif %}
+					<div class="wiki_menu">
+						{% include 'evewiki/sidebar.html' %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-8">
+			<div class="panel panel-primary">
+				<div class="panel-heading clearfix">
+					<h1 class="panel-title" style="display: inline;">{{ page.title }}</h1>
+					{% if is_editor %}
+					<button class="btn btn-secondary pull-right" id="mode_raw">
+						{% translate "Raw" %}
+					</button>
+					<button class="btn btn-secondary pull-right" id="mode_edit">
+						{% translate "Edit" %}
+					</button>
+					<button class="btn btn-primary pull-right" id="mode_view">
+						{% translate "View" %}
+					</button>
+					{% endif %}
+				</div>
+				<div class="panel-body" style="min-height: 100px;">
+					{% if page.id %}
+						<div id="the_output"></div>
+						{% if is_editor %}
+						<form method="POST" action="/evewiki/{{ page.path }}">
+							{% csrf_token %}
+							<textarea name="content" id="id_content" style="visibility:hidden">{{ page.content }}</textarea>
+							<button type="submit" class="btn btn-primary" id="save_content">
+								{% translate "Save" %}
+							</button>
+						</form>
+						{% else %}
+						<textarea name="content" id="id_content">{{ page.content }}</textarea>
+						{% endif %}
+					{% else %}
+						{% include 'evewiki/help.html' %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="card card-primary">
+				{% if is_editor %}
+				<div class="card-header" style="background: linear-gradient(135deg, #1e3c72 0%, #192a56 100%);">
+					{% if page.id %}
+						<div class="text-white card-title" style="margin-bottom: 0px;">
+							<a href="/evewiki/page?id={{ page.id }}" class="btn btn-primary pull-right">Manage</a>
+						</div>
+
+						{% if page.is_public %}
+						<div class="public-badge">
+							<i class="fa-solid fa-circle-exclamation"></i>
+							Public
+						</div>
+						{% endif %}
+
+					{% else %}
+						&nbsp;
+					{% endif %}
+				</div>
+				{% endif %}
+				<div class="card-body wiki-summary">
+					<strong>Table of contents</strong>
+					{{ page.summary|safe }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block extra_javascript %}
+<script>
+	function togglePreviewOff(easyMDE) {
+		if (easyMDE.isPreviewActive()) {
+			// Find the preview button and click it
+			const previewButton = easyMDE.codemirror.getWrapperElement().parentNode.querySelector('.fa-eye');
+			if (previewButton) previewButton.click();
+		}
+	}
+
+	function togglePreviewOn(easyMDE) {
+		if (easyMDE.isPreviewActive()) {
+			// Find the preview button and click it
+			const previewButton = easyMDE.codemirror.getWrapperElement().parentNode.querySelector('.fa-eye');
+			if (previewButton) previewButton.click();
+		}
+	}
+
+	var Tree = class Tree {
+        constructor(root_class, default_expand_selected=false) {
+
+			var selected = document.querySelector('.'+root_class+' li.selected');
+            var leaves = document.querySelectorAll('.'+root_class+' li');
+
+            // Loop through the tree applying click event to show branches.
+            for(var i=0; i < leaves.length; i++) {
+                var leaf = leaves[i];
+                var expand_icon = leaf.querySelector('span.expand-icon');
+                // Not all branches can be expanded.
+                if(expand_icon == null) {
+                    continue;
+                }
+                expand_icon.addEventListener("click", function(evt) {
+                    evt.preventDefault();
+                    // A lead is the parent li of the expan-icon.
+                    var leaf = this.parentNode.parentNode;
+                    var immediate_children = leaf.querySelectorAll(':scope > ul');
+                    for(var j=0; j < immediate_children.length; j++) {
+                        var child = immediate_children[j];
+                        if( child.style.display == 'block') {
+                            child.style.display = 'none';
+                            leaf.classList.remove("expanded");
+                        } else {
+                            child.style.display = 'block';
+                            leaf.classList.add("expanded");
+                        }
+                    }
+                });
+            }
+
+            if(selected !== null && default_expand_selected == true) {
+                selected.classList.add("expanded");
+                var immediate_children = selected.querySelectorAll(':scope > ul');
+                for(var j=0; j < immediate_children.length; j++) {
+                    var child = immediate_children[j];
+                    if( child.style.display != 'block') {
+                        child.style.display = 'block';
+                    }
+                }
+            }
+
+            // Loop back through the selected elements parent and set them to be displayed.
+            this.loopParents(selected, function(el, i, child){
+                if(el.classList.contains(root_class)) {
+                    return true;
+                }
+                el.style.display = 'block';
+                this.classList.add("expanded");
+            })
+        }
+
+        /**
+         * Apply the given function to all childs parents.
+         * @param element el
+         * @param function forParent
+         * @return boolean
+         */
+        loopParents(el, forParent) {
+            var node = el,i = 0;
+            while (node != null) {
+                node = node.parentNode;
+                if(node){
+                    if(forParent.call(node, node, i, el)){
+                        return false;
+                    }
+                }
+                i += 1;
+            }
+            return true;
+        }
+    }
+
+	new Tree('tree', true)
+
+	// Start in preview mode
+	var easyMDE = new EasyMDE({
+		element: document.getElementById('id_content'),
+		theme: 'bootstrap-dark',
+		readOnly: true,
+		toolbar: false,
+		status: false,
+		codemirror: {
+			viewportMargin: Infinity, // This makes the editor expand with content
+		}
+	});
+
+	// Wait until the DOM is ready, then toggle preview
+	easyMDE.codemirror.on('refresh', function() {
+		// Check if not already in preview mode
+		if (!easyMDE.isPreviewActive()) {
+			easyMDE.togglePreview();
+		}
+	});
+
+	// Ensure the input is disabled (in case someone tries to edit via JS)
+	easyMDE.codemirror.getInputField().disabled = true;
+	easyMDE.codemirror.getWrapperElement().closest('.EasyMDEContainer').style.display = 'none';
+	window.easyMDE = easyMDE;
+
+	// Get the content of the preview
+	var output_pane = document.getElementById('the_output')
+	var markdown = easyMDE.value();
+	var previewHTML = easyMDE.options.previewRender(markdown);
+	output_pane.innerHTML = previewHTML;
+
+	setEditMode('view')
+
+	function setEditMode(mode) {
+
+		if (document.getElementById('save_content') == null) {
+			return;
+		}
+
+		save_content = document.getElementById('save_content');
+		the_output = document.getElementById('the_output');
+		btn_view = document.getElementById('mode_view');
+		btn_edit = document.getElementById('mode_edit');
+		btn_raw = document.getElementById('mode_raw');
+
+		save_content.style.display = 'none';
+
+		btn_view.classList.remove('btn-primary');
+		btn_view.classList.remove('btn-secondary');
+
+		btn_edit.classList.remove('btn-primary');
+		btn_edit.classList.remove('btn-secondary');
+
+		btn_raw.classList.remove('btn-primary');
+		btn_raw.classList.remove('btn-secondary');
+
+		if (mode == 'edit') {
+			save_content.style.display = 'block';
+			the_output.style.display = 'none';
+			btn_view.classList.add('btn-secondary');
+			btn_edit.classList.add('btn-primary');
+			btn_raw.classList.add('btn-secondary');
+		} else if (mode == 'raw') {
+			save_content.style.display = 'block';
+			the_output.style.display = 'none';
+			btn_view.classList.add('btn-secondary');
+			btn_edit.classList.add('btn-secondary');
+			btn_raw.classList.add('btn-primary');
+		} else {
+			save_content.style.display = 'none';
+			the_output.style.display = 'block';
+			btn_view.classList.add('btn-primary');
+			btn_edit.classList.add('btn-secondary');
+			btn_raw.classList.add('btn-secondary');
+		}
+	}
+
+	// Set view mode
+	mode_view = document.querySelector('#mode_view');
+	mode_view.addEventListener("click", function(evt) {
+		setEditMode('view');
+
+		window.easyMDE.toTextArea();
+		window.easyMDE.cleanup();
+		window.easyMDE = null;
+
+		var easyMDE = new EasyMDE({
+			element: document.getElementById('id_content'),
+			readOnly: true,
+			toolbar: false,
+			status: false
+		});
+
+		// Wait until the DOM is ready, then toggle preview
+		easyMDE.codemirror.on('refresh', function() {
+			if (!easyMDE.isPreviewActive()) {
+				easyMDE.togglePreview();
+			}
+		});
+
+		// Ensure the input is disabled (in case someone tries to edit via JS)
+		easyMDE.codemirror.getInputField().disabled = true;
+		easyMDE.codemirror.getWrapperElement().closest('.EasyMDEContainer').style.display = 'none';
+		window.easyMDE = easyMDE;
+
+		// Get the content of the preview
+		var output_pane = document.getElementById('the_output')
+		var markdown = easyMDE.value();
+		var previewHTML = easyMDE.options.previewRender(markdown);
+		output_pane.innerHTML = previewHTML;
+
+		setEditMode('view')
+	});
+
+	// Set edit mode
+	mode_edit = document.querySelector('#mode_edit');
+	mode_edit.addEventListener("click", function(evt) {
+		setEditMode('edit');
+
+		window.easyMDE.toTextArea();
+		window.easyMDE.cleanup();
+		window.easyMDE = null;
+
+		var easyMDE = new EasyMDE({
+			element: document.getElementById('id_content'),
+			sideBySideFullscreen: false,
+			hideIcons: ['fullscreen'],
+		});
+
+		// Wait until the DOM is ready, then toggle preview
+		easyMDE.codemirror.on('refresh', function() {
+			if (easyMDE.isPreviewActive()) {
+				easyMDE.togglePreview();
+			}
+		});
+		window.easyMDE = easyMDE;
+	});
+
+	// Set raw mode
+	mode_edit = document.querySelector('#mode_raw');
+	mode_edit.addEventListener("click", function(evt) {
+		setEditMode('raw');
+
+		window.easyMDE.toTextArea();
+		window.easyMDE.cleanup();
+		window.easyMDE = null;
+
+		var easyMDE = new EasyMDE({
+			element: document.getElementById('id_content'),
+			theme: 'bootstrap-dark',
+			lineNumbers: true,
+			toolbar: false,
+			sideBySideFullscreen: false,
+			hideIcons: ['fullscreen'],
+			previewRender: (plainText) => plainText
+		});
+
+		// Wait until the DOM is ready, then toggle preview
+		easyMDE.codemirror.on('refresh', function() {
+			if (easyMDE.isPreviewActive()) {
+				easyMDE.togglePreview();
+			}
+		});
+		easyMDE.codemirror.getWrapperElement().style.fontFamily = "'Fira Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace";
+		window.easyMDE = easyMDE;
+	});
+
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+	.public-badge {
+		color:#ffc107;
+	}
+	.wiki_menu a, .wiki-summary a {
+		text-decoration: none;
+	}
+	.wiki_menu ul, .wiki-summary ul {
+		list-style-type: none;
+		padding-left: 1rem;
+	}
+	.wiki_menu li, .wiki-summary li {
+		display:block;
+		padding: .25rem 0 0 0;
+	}
+	.wiki_menu li a, .wiki-summary li a {
+		display:block;
+	}
+
+	ul.tree {display:block;font-size:.9em;}
+	ul.tree ul {display:none;padding:0 0 0 1rem;}
+	ul.tree li { display:block;line-height:2.25em;color:var(--text);}
+	ul.tree li > a {display:block;background-color:var(--background);border:1px solid transparent;}
+	ul.tree li > a:hover {cursor:pointer;background-color:var(--surface);}
+	ul.tree li > a span.expand-icon {transform:rotate(0deg);float:left;padding:0 .5em 0;line-height:2.25em;font-weight:bold;border:1px solid var(--border-surface);border-radius:var(--btn-radius);}
+	ul.tree li.expanded > a span.expand-icon {transform:rotate(90deg);}
+	ul.tree li.selected > a {color:var(--primary);background-color:var(--surface);}
+
+</style>
+{% if dark_mode %}
+<style>
+/* EasyMDE Dark Mode Bootstrap Style */
+.easy-mde-wrapper,
+.editor-toolbar,
+.CodeMirror,
+.CodeMirror-scroll,
+.editor-preview,
+.editor-preview-side {
+  background-color: #212529 !important; /* Bootstrap dark bg */
+  color: #f8f9fa !important;           /* Bootstrap light text */
+  border-color: #343a40 !important;    /* Bootstrap dark border */
+}
+
+/* Toolbar buttons */
+.editor-toolbar button,
+.editor-toolbar button:active,
+.editor-toolbar button:hover {
+  background: #343a40 !important;
+  color: #f8f9fa !important;
+}
+
+/* Toolbar divider */
+.editor-toolbar i.separator {
+  border-left: 1px solid #495057 !important;
+}
+
+/* Active/selected toolbar button */
+.editor-toolbar button.active,
+.editor-toolbar button:focus {
+  background: #495057 !important;
+  color: #fff !important;
+}
+
+/* CodeMirror Editor */
+.CodeMirror {
+  background-color: #212529 !important;
+  color: #f8f9fa !important;
+}
+
+/* Editor cursor */
+.CodeMirror-cursor {
+  border-left: 1px solid #f8f9fa !important;
+}
+
+/* Gutter (line numbers, etc) */
+.CodeMirror-gutters {
+  background: #212529 !important;
+  border-right: 1px solid #343a40 !important;
+  color: #adb5bd !important;
+}
+
+/* Editor preview */
+.editor-preview,
+.editor-preview-side {
+  background: #212529 !important;
+  color: #f8f9fa !important;
+}
+
+/* Scrollbar */
+.CodeMirror-scrollbar-filler,
+.CodeMirror-gutter-filler {
+  background-color: #212529 !important;
+}
+
+/* Placeholder text */
+.CodeMirror-placeholder {
+  color: #6c757d !important;
+  opacity: 1;
+}
+</style>
+{% endif %}
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}
