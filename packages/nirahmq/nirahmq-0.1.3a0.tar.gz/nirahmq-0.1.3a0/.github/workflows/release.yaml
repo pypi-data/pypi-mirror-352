@@ -1,0 +1,53 @@
+name: Upload to PyPI
+
+on:
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+*
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Run CI workflow
+    uses: ./.github/workflows/ci.yaml
+  release:
+    name: Create GitHub release
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel
+      - name: Generate changelog
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
+          excludeTypes: ""
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: nirahmq-*
+          body: ${{ steps.changelog.outputs.changes }}
+          prerelease: ${{ contains(github.ref, 'rc') }}
+  upload:
+    name: Upload to PyPI
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+    environment:
+      name: pypi
+      url: https://test.pypi.org/p/nirahmq/
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheel
+          path: dist/
+      - name: Publish package
+        uses: pypa/gh-action-pypi-publish@release/v1

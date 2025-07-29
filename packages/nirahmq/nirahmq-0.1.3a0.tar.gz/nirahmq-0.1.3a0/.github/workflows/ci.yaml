@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+  workflow_call:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-build:
+    name: Test building package
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [ 12, 13 ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Python 3.${{ matrix.version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.${{ matrix.version }}'
+      - name: Setup build dependencies
+        run: pip install -U build
+      - name: Build package
+        run: python -m build .
+  lint:
+    name: Run Pylint
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '>=3.12'
+      - name: Setup build dependencies
+        run: pip install .[dev]
+      - name: Run Pylint
+        run: pylint --output-format github ./src/nirahmq
+  cov-docstr:
+    name: Run docstring coverage
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '>=3.12'
+      - name: Setup build dependencies
+        run: pip install .[dev]
+      - name: Run Interrogate
+        run: interrogate -vv src
+  wheels:
+    name: Build package wheels
+    runs-on: ubuntu-latest
+    needs: [ test-build, lint, cov-docstr ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '>=3.12'
+      - name: Setup build dependencies
+        run: pip install -U build
+      - name: Build package
+        run: python -m build .
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-wheel
+          path: dist/
