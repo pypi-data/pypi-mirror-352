@@ -1,0 +1,14 @@
+[project]
+name = "feiyu-mcp-server-demo"
+version = "0.1.1"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12.9"
+dependencies = [
+    "mcp[cli]>=1.9.2",
+]
+
+[tool.uv.workspace]
+members = [
+    "test",
+]
