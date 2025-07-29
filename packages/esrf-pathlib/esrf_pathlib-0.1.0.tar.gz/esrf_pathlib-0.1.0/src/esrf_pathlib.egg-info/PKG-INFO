@@ -1,0 +1,77 @@
+Metadata-Version: 2.4
+Name: esrf-pathlib
+Version: 0.1.0
+Summary: A drop-in pathlib clone with ESRF-specific path utilities
+Author-email: ESRF <dau-pydev@esrf.fr>
+License: # MIT License
+        
+        **Copyright (c) 2025 European Synchrotron Radiation Facility**
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of
+        this software and associated documentation files (the "Software"), to deal in
+        the Software without restriction, including without limitation the rights to
+        use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+        the Software, and to permit persons to whom the Software is furnished to do so,
+        subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+        FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+        COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+        IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+        CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        
+Project-URL: Homepage, https://gitlab.esrf.fr/workflow/esrf-pathlib
+Project-URL: Documentation, https://esrf-pathlib.readthedocs.io/
+Project-URL: Repository, https://gitlab.esrf.fr/workflow/esrf-pathlib
+Project-URL: Issues, https://gitlab.esrf.fr/workflow/esrf-pathlib/issues
+Project-URL: Changelog, https://gitlab.esrf.fr/workflow/esrf-pathlib/-/blob/main/CHANGELOG.md
+Keywords: ESRF,pathlib
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Provides-Extra: test
+Requires-Dist: pytest>=7.0; extra == "test"
+Provides-Extra: dev
+Requires-Dist: esrf-pathlib[test]; extra == "dev"
+Requires-Dist: black>=22; extra == "dev"
+Requires-Dist: flake8>=4.0; extra == "dev"
+Provides-Extra: doc
+Requires-Dist: sphinx>=6.0; extra == "doc"
+Requires-Dist: sphinxcontrib-mermaid>=0.7; extra == "doc"
+Requires-Dist: sphinx-autodoc-typehints>=1.16; extra == "doc"
+Requires-Dist: pydata-sphinx-theme; extra == "doc"
+Dynamic: license-file
+
+# esrf-pathlib
+
+*esrf-pathlib* provides a drop-in clone of Python’s `pathlib` with ESRF-specific path utilities.
+
+## Install
+
+```bash
+pip install esrf-pathlib
+```
+
+## Getting started
+
+```python
+from esrf_pathlib import Path
+```
+
+# Use your new ESRF-aware Path
+
+```python
+path = Path("/data/visitor/proposal/beamline/20250202")
+print("Proposal:", path.proposal)
+```
+
+## Contributing
+
+See CONTRIBUTING.md
