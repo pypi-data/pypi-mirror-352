@@ -1,0 +1,61 @@
+---
+# Goss declarative test file for getLLM
+
+# Test that required commands exist
+command:
+  # Check if getLLM is installed
+  "which getllm":
+    exit-status: 0
+    stderr: []
+    timeout: 10000
+  
+  # Test getLLM version command
+  "getllm --version":
+    exit-status: 0
+    timeout: 10000
+
+  # Test that the getLLM models directory exists
+  "test -d ~/.getllm/models":
+    exit-status: 0
+    stderr: []
+    timeout: 5000
+
+# Test file existence and content
+file:
+  # Check if the Hugging Face models cache exists
+  "~/.getllm/models/huggingface_models.json":
+    exists: true
+    filetype: file
+
+  # Check if the Ollama models cache exists
+  "~/.getllm/models/ollama_models.json":
+    exists: true
+    filetype: file
+
+# Test process
+process:
+  # Check if Ollama is running (optional test)
+  ollama:
+    running: false  # Set to true if Ollama should be running
+
+# Custom tests using commands and output validation
+command:
+  # Test Hugging Face model search functionality
+  "echo -e 'search-hf\nbielik\nexit' | getllm --mock -i | grep -i 'bielik'":
+    exit-status: 0
+    timeout: 30000
+
+  # Test Ollama search with Hugging Face fallback
+  "echo -e 'search-ollama\nbie\nexit' | getllm --mock -i | grep -i 'Searching Hugging Face GGUF models'":
+    exit-status: 0
+    timeout: 30000
+
+  # Test model installation check
+  "echo -e 'list\nexit' | getllm --mock -i | grep -i 'available models'":
+    exit-status: 0
+    timeout: 30000
+
+  # Test direct code generation
+  "getllm --mock 'Write a hello world program' | grep -i 'print'":
+    exit-status: 0
+    timeout: 30000

@@ -1,0 +1,92 @@
+---
+# Ansible playbook do testowania integracji Hugging Face w getLLM
+- name: Test integracji Hugging Face w getLLM
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  
+  vars:
+    getllm_path: "{{ playbook_dir }}/../../getllm-cli"
+    test_dir: "/tmp/getllm_hf_test"
+    mock_mode: "--mock"
+  
+  tasks:
+    - name: Utworzenie katalogu testowego
+      file:
+        path: "{{ test_dir }}"
+        state: directory
+        mode: '0755'
+    
+    - name: Sprawdzenie czy getLLM jest dostępny
+      command: which getllm
+      register: getllm_which
+      ignore_errors: yes
+      changed_when: false
+    
+    - name: Użyj lokalnej ścieżki jeśli getLLM nie jest zainstalowany globalnie
+      set_fact:
+        getllm_command: "{{ getllm_path }}"
+      when: getllm_which.rc != 0
+    
+    - name: Użyj globalnej ścieżki jeśli getLLM jest zainstalowany
+      set_fact:
+        getllm_command: "getllm"
+      when: getllm_which.rc == 0
+    
+    - name: Sprawdzenie czy plik cache modeli Hugging Face istnieje
+      stat:
+        path: "~/.getllm/models/huggingface_models.json"
+      register: hf_cache
+    
+    - name: Test wyszukiwania modeli Bielik w Hugging Face
+      shell: |
+        echo "search-hf" > {{ test_dir }}/input.txt
+        echo "bielik" >> {{ test_dir }}/input.txt
+        echo "exit" >> {{ test_dir }}/input.txt
+        cat {{ test_dir }}/input.txt | {{ getllm_command }} {{ mock_mode }} -i
+      register: search_result
+      changed_when: false
+    
+    - name: Sprawdzenie czy modele Bielik zostały znalezione
+      assert:
+        that:
+          - "'bielik' in search_result.stdout or 'Bielik' in search_result.stdout"
+        fail_msg: "Nie znaleziono modeli Bielik w wyszukiwaniu Hugging Face"
+        success_msg: "Modele Bielik zostały pomyślnie znalezione w Hugging Face"
+    
+    - name: Test wyszukiwania w Ollama z fallbackiem do Hugging Face
+      shell: |
+        echo "search-ollama" > {{ test_dir }}/input2.txt
+        echo "bie" >> {{ test_dir }}/input2.txt
+        echo "exit" >> {{ test_dir }}/input2.txt
+        cat {{ test_dir }}/input2.txt | {{ getllm_command }} {{ mock_mode }} -i
+      register: ollama_search_result
+      changed_when: false
+    
+    - name: Sprawdzenie czy wyszukiwanie w Ollama uruchomiło fallback do Hugging Face
+      assert:
+        that:
+          - "'Searching Hugging Face GGUF models' in ollama_search_result.stdout"
+        fail_msg: "Wyszukiwanie w Ollama nie uruchomiło fallbacku do Hugging Face"
+        success_msg: "Wyszukiwanie w Ollama pomyślnie uruchomiło fallback do Hugging Face"
+    
+    - name: Sprawdzenie czy pliki cache modeli istnieją
+      stat:
+        path: "{{ item }}"
+      register: cache_files
+      loop:
+        - "~/.getllm/models/huggingface_models.json"
+        - "~/.getllm/models/ollama_models.json"
+        - "~/.getllm/models/models_metadata.json"
+    
+    - name: Sprawdzenie zawartości pliku cache Hugging Face
+      shell: grep -i "bielik" ~/.getllm/models/huggingface_models.json
+      register: grep_result
+      failed_when: grep_result.rc != 0
+      changed_when: false
+      when: cache_files.results[0].stat.exists
+    
+    - name: Czyszczenie katalogu testowego
+      file:
+        path: "{{ test_dir }}"
+        state: absent

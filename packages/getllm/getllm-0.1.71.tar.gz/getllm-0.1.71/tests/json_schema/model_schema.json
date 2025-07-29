@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "getLLM Model Schema",
+  "description": "JSON Schema for validating getLLM model metadata",
+  "type": "object",
+  "required": ["total_models", "updated_at"],
+  "properties": {
+    "total_models": {
+      "type": "integer",
+      "description": "Total number of models"
+    },
+    "ollama_models": {
+      "type": "integer",
+      "description": "Number of Ollama models"
+    },
+    "huggingface_models": {
+      "type": "integer",
+      "description": "Number of Hugging Face models"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Last update timestamp",
+      "format": "date-time"
+    },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "source"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Model name"
+          },
+          "id": {
+            "type": "string",
+            "description": "Model ID (for Hugging Face models)"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["ollama", "huggingface"],
+            "description": "Model source"
+          },
+          "size": {
+            "type": "string",
+            "description": "Model size (e.g., '7B', '13B')"
+          },
+          "description": {
+            "type": "string",
+            "description": "Model description"
+          },
+          "format": {
+            "type": "string",
+            "enum": ["gguf", "ggml", "safetensors", "pytorch"],
+            "description": "Model format"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Model tags"
+          },
+          "likes": {
+            "type": "integer",
+            "description": "Number of likes (for Hugging Face models)"
+          },
+          "downloads": {
+            "type": "integer",
+            "description": "Number of downloads (for Hugging Face models)"
+          },
+          "pipeline_tag": {
+            "type": "string",
+            "description": "Pipeline tag (for Hugging Face models)"
+          },
+          "installed": {
+            "type": "boolean",
+            "description": "Whether the model is installed locally"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+# GitLab CI/CD dla testów getLLM
+
+stages:
+  - prepare
+  - test
+  - validate
+  - cleanup
+
+variables:
+  MOCK_MODE: "--mock"
+  TEST_DIR: "/tmp/getllm_test"
+
+# Przygotowanie środowiska testowego
+prepare_environment:
+  stage: prepare
+  image: python:3.10-slim
+  script:
+    - mkdir -p $TEST_DIR
+    - pip install -e .
+  artifacts:
+    paths:
+      - $TEST_DIR
+
+# Test instalacji getLLM
+test_installation:
+  stage: test
+  image: python:3.10-slim
+  script:
+    - which getllm || (echo "getLLM nie jest zainstalowany" && exit 1)
+  dependencies:
+    - prepare_environment
+
+# Test wyszukiwania modeli Hugging Face
+test_huggingface_search:
+  stage: test
+  image: python:3.10-slim
+  script:
+    - echo "search-hf" > $TEST_DIR/input.txt
+    - echo "bielik" >> $TEST_DIR/input.txt
+    - echo "exit" >> $TEST_DIR/input.txt
+    - cat $TEST_DIR/input.txt | getllm $MOCK_MODE -i > $TEST_DIR/hf_search_result.log
+    - cat $TEST_DIR/hf_search_result.log
+    - grep -i "bielik" $TEST_DIR/hf_search_result.log || (echo "Nie znaleziono modeli Bielik w wyszukiwaniu Hugging Face" && exit 1)
+  dependencies:
+    - prepare_environment
+  artifacts:
+    paths:
+      - $TEST_DIR/hf_search_result.log
+
+# Test wyszukiwania Ollama z fallbackiem do Hugging Face
+test_ollama_search_fallback:
+  stage: test
+  image: python:3.10-slim
+  script:
+    - echo "search-ollama" > $TEST_DIR/input2.txt
+    - echo "bie" >> $TEST_DIR/input2.txt
+    - echo "exit" >> $TEST_DIR/input2.txt
+    - cat $TEST_DIR/input2.txt | getllm $MOCK_MODE -i > $TEST_DIR/ollama_search_result.log
+    - cat $TEST_DIR/ollama_search_result.log
+    - grep "Searching Hugging Face GGUF models" $TEST_DIR/ollama_search_result.log || (echo "Wyszukiwanie w Ollama nie uruchomiło fallbacku do Hugging Face" && exit 1)
+  dependencies:
+    - prepare_environment
+  artifacts:
+    paths:
+      - $TEST_DIR/ollama_search_result.log
+
+# Test generowania kodu
+test_code_generation:
+  stage: test
+  image: python:3.10-slim
+  script:
+    - getllm $MOCK_MODE "Write a hello world program in Python" > $TEST_DIR/code_gen_result.log
+    - cat $TEST_DIR/code_gen_result.log
+    - grep "print" $TEST_DIR/code_gen_result.log || (echo "Generowanie kodu nie utworzyło kodu Python" && exit 1)
+  dependencies:
+    - prepare_environment
+  artifacts:
+    paths:
+      - $TEST_DIR/code_gen_result.log
+
+# Sprawdzenie plików cache
+validate_cache_files:
+  stage: validate
+  image: python:3.10-slim
+  script:
+    - test -f ~/.getllm/models/huggingface_models.json || (echo 'Plik cache Hugging Face nie istnieje' && exit 1)
+    - test -f ~/.getllm/models/ollama_models.json || (echo 'Plik cache Ollama nie istnieje' && exit 1)
+    - test -f ~/.getllm/models/models_metadata.json || (echo 'Plik metadanych nie istnieje' && exit 1)
+    - grep -i "bielik" ~/.getllm/models/huggingface_models.json || (echo "Nie znaleziono modeli Bielik w cache Hugging Face" && exit 1)
+  dependencies:
+    - prepare_environment
+
+# Czyszczenie po testach
+cleanup:
+  stage: cleanup
+  image: python:3.10-slim
+  script:
+    - rm -rf $TEST_DIR
+  dependencies:
+    - prepare_environment
+  when: always

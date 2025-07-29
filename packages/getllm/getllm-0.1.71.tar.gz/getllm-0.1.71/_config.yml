@@ -1,0 +1,22 @@
+# Jekyll configuration file
+
+# Site settings
+title: GetLLM
+description: Python package for managing LLM models with Ollama integration
+baseurl: "/getllm" # the subpath of your site, e.g. /blog
+url: "https://py-lama.github.io" # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown
+highlight_theme: github
+
+# Exclude from processing
+exclude:
+  - getllm-cli
+  - .git
+  - .github
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

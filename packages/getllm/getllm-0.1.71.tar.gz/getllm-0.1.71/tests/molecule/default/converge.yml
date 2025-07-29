@@ -1,0 +1,43 @@
+---
+- name: Converge
+  hosts: all
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: Install Python dependencies
+      pip:
+        name:
+          - pytest
+          - questionary
+          - requests
+        state: present
+
+    - name: Install getLLM from local directory
+      pip:
+        name: /app
+        state: present
+        editable: true
+
+    - name: Create test directory
+      file:
+        path: /tmp/getllm_test
+        state: directory
+        mode: '0755'
+
+    - name: Create test input files
+      copy:
+        dest: "/tmp/getllm_test/{{ item.name }}"
+        content: "{{ item.content }}"
+        mode: '0644'
+      loop:
+        - name: hf_search_input.txt
+          content: |
+            search-hf
+            bielik
+            exit
+        - name: ollama_search_input.txt
+          content: |
+            search-ollama
+            bie
+            exit

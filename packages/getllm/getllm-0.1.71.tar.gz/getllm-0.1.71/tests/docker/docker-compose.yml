@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  getllm-test:
+    image: python:3.10-slim
+    volumes:
+      - ../../:/app
+      - ./test_results:/test_results
+    working_dir: /app
+    environment:
+      - PYTHONPATH=/app
+      - MOCK_MODE=--mock
+    command: >
+      bash -c "pip install -e . && \
+              mkdir -p /test_results && \
+              echo 'Running getLLM tests...' > /test_results/test_log.txt && \
+              echo '=== Testing Hugging Face Model Search ===' >> /test_results/test_log.txt && \
+              echo 'search-hf\nbielik\nexit' | getllm $${MOCK_MODE} -i 2>&1 | tee -a /test_results/test_log.txt && \
+              echo '=== Testing Ollama Search with Hugging Face Fallback ===' >> /test_results/test_log.txt && \
+              echo 'search-ollama\nbie\nexit' | getllm $${MOCK_MODE} -i 2>&1 | tee -a /test_results/test_log.txt && \
+              echo '=== Testing Direct Code Generation ===' >> /test_results/test_log.txt && \
+              getllm $${MOCK_MODE} 'Write a hello world program in Python' 2>&1 | tee -a /test_results/test_log.txt && \
+              echo '=== Validating Test Results ===' >> /test_results/test_log.txt && \
+              if grep -q 'bielik' /test_results/test_log.txt; then \
+                echo '✅ Hugging Face search test passed' >> /test_results/test_log.txt; \
+              else \
+                echo '❌ Hugging Face search test failed' >> /test_results/test_log.txt; \
+              fi && \
+              if grep -q 'Searching Hugging Face GGUF models' /test_results/test_log.txt; then \
+                echo '✅ Ollama search with fallback test passed' >> /test_results/test_log.txt; \
+              else \
+                echo '❌ Ollama search with fallback test failed' >> /test_results/test_log.txt; \
+              fi && \
+              if grep -q 'print' /test_results/test_log.txt; then \
+                echo '✅ Code generation test passed' >> /test_results/test_log.txt; \
+              else \
+                echo '❌ Code generation test failed' >> /test_results/test_log.txt; \
+              fi"

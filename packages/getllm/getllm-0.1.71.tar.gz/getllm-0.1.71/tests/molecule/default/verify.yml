@@ -1,0 +1,42 @@
+---
+- name: Verify
+  hosts: all
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: Test Hugging Face model search
+      shell: cat /tmp/getllm_test/hf_search_input.txt | getllm --mock -i
+      register: hf_search_result
+      changed_when: false
+
+    - name: Verify Hugging Face search found Bielik models
+      assert:
+        that:
+          - "'bielik' in hf_search_result.stdout.lower() or 'Bielik' in hf_search_result.stdout"
+        fail_msg: "Hugging Face search did not find Bielik models"
+        success_msg: "Hugging Face search successfully found Bielik models"
+
+    - name: Test Ollama search with Hugging Face fallback
+      shell: cat /tmp/getllm_test/ollama_search_input.txt | getllm --mock -i
+      register: ollama_search_result
+      changed_when: false
+
+    - name: Verify Ollama search triggers Hugging Face fallback
+      assert:
+        that:
+          - "'Searching Hugging Face GGUF models' in ollama_search_result.stdout"
+        fail_msg: "Ollama search did not trigger Hugging Face fallback"
+        success_msg: "Ollama search successfully triggered Hugging Face fallback"
+
+    - name: Test direct code generation
+      command: getllm --mock "Write a hello world program in Python"
+      register: code_gen_result
+      changed_when: false
+
+    - name: Verify code generation produced Python code
+      assert:
+        that:
+          - "'print' in code_gen_result.stdout"
+        fail_msg: "Code generation did not produce Python code"
+        success_msg: "Code generation successfully produced Python code"

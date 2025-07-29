@@ -1,0 +1,104 @@
+# TOML Test Manifest for getLLM
+# A declarative approach to defining test cases using TOML format
+
+[test_suite]
+name = "getLLM Functional Tests"
+description = "Declarative test manifests for getLLM functionality"
+version = "1.0.0"
+created_at = "2025-05-29"
+
+[environment]
+PYTHONPATH = "${PROJECT_ROOT}"
+MOCK_MODE = "--mock"
+
+# Test cases for Hugging Face model integration
+[[test_cases]]
+id = "hf-models-cache"
+name = "Hugging Face Models Cache"
+description = "Verify that Hugging Face models cache includes Bielik models"
+
+  [[test_cases.steps]]
+  command = "ls -la ~/.getllm/models/huggingface_models.json"
+  expected_exit_code = 0
+  error_message = "Hugging Face models cache file does not exist"
+
+  [[test_cases.steps]]
+  command = "grep -i 'bielik' ~/.getllm/models/huggingface_models.json"
+  expected_exit_code = 0
+  error_message = "No Bielik models found in Hugging Face cache"
+
+# Test cases for Ollama search with Hugging Face fallback
+[[test_cases]]
+id = "ollama-search-fallback"
+name = "Ollama Search with Hugging Face Fallback"
+description = "Test that Ollama search falls back to Hugging Face when no results are found"
+
+  [[test_cases.steps]]
+  command = "echo -e 'search-ollama\nbie\nexit' | getllm ${MOCK_MODE} -i"
+  expected_exit_code = 0
+  expected_output = ["Searching Hugging Face GGUF models", "Found Hugging Face GGUF models"]
+  error_message = "Hugging Face fallback not triggered for Ollama search"
+
+# Test cases for Ollama installation
+[[test_cases]]
+id = "ollama-installation"
+name = "Ollama Installation Prompt"
+description = "Test that getLLM offers to install Ollama when not found"
+
+  [[test_cases.steps]]
+  command = "echo -e 'n\nexit' | OLLAMA_PATH=/nonexistent/path getllm ${MOCK_MODE} -i"
+  expected_exit_code = 0
+  expected_output = ["install Ollama"]
+  error_message = "Ollama installation prompt not shown"
+
+# Test cases for model selection interface
+[[test_cases]]
+id = "model-selection-interface"
+name = "Model Selection Interface"
+description = "Test the enhanced model selection interface with multiple sources"
+
+  [[test_cases.steps]]
+  command = "echo -e 'list\nexit' | getllm ${MOCK_MODE} -i"
+  expected_exit_code = 0
+  expected_output = ["available models", "Ollama", "Hugging Face"]
+  error_message = "Model selection interface does not show multiple sources"
+
+# Test cases for direct code generation
+[[test_cases]]
+id = "code-generation"
+name = "Direct Code Generation"
+description = "Test direct code generation capability"
+
+  [[test_cases.steps]]
+  command = "getllm ${MOCK_MODE} 'Write a hello world program in Python'"
+  expected_exit_code = 0
+  expected_output = ["print"]
+  error_message = "Code generation failed to produce Python code"
+
+# File validations
+[[validations]]
+type = "file_exists"
+path = "~/.getllm/models/huggingface_models.json"
+error_message = "Hugging Face models cache file does not exist"
+
+[[validations]]
+type = "file_exists"
+path = "~/.getllm/models/ollama_models.json"
+error_message = "Ollama models cache file does not exist"
+
+[[validations]]
+type = "file_content"
+path = "~/.getllm/models/models_metadata.json"
+check = "json_property"
+property = "total_models"
+comparison = "greater_than"
+value = 0
+error_message = "No models found in metadata"
+
+[[validations]]
+type = "file_content"
+path = "~/.getllm/models/huggingface_models.json"
+check = "json_contains"
+pattern = "bielik"
+case_sensitive = false
+error_message = "No Bielik models found in Hugging Face cache"
