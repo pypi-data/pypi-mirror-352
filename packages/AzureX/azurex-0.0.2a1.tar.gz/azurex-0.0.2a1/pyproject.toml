@@ -1,0 +1,29 @@
+[project]
+name = "AzureX"
+version = "0.0.2a1"
+maintainers = [{ name = "Raval Sahil", email = "ravalsahil1311@gmail.com" }]
+authors = [{ name = "Raval Sahil", email = "ravalsahil1311@gmail.com" }]
+dependencies = [
+    "azure-cosmos>=4.9.0", 
+    "python-dotenv>=1.1.0"
+]
+description = "AzureX is a Python library that provides a simple and efficient way to interact with Azure services."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/VectorVerse/AzureX"
+Issues = "https://github.com/VectorVerse/AzureX/issues"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
