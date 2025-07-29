@@ -1,0 +1,58 @@
+Metadata-Version: 2.4
+Name: paaf
+Version: 0.1.5
+Summary: Paaf is an Agent Framework for building AI agents
+Keywords: AI agents,agent framework,openai,paaf,pydantic,python-dotenv,requests,wikipedia-api
+Requires-Python: >=3.10
+Requires-Dist: openai>=1.82.0
+Requires-Dist: pydantic>=2.11.5
+Requires-Dist: python-dotenv>=1.1.0
+Requires-Dist: requests>=2.32.3
+Requires-Dist: wikipedia-api>=0.8.1
+Description-Content-Type: text/markdown
+
+# PAAF
+
+PAAF (Peter Akande Agentic Framwork) is a simple Agentic framwork built to be used for all my LLM applications.
+
+### Example usage
+```py
+from paaf.agents.react import ReactAgent
+from paaf.llms.openai_llm import OpenAILLM
+
+from paaf.tools.tool_registory import ToolRegistry
+from serper import search as serper_search
+from wiki import wiki_search
+
+
+tool_registory = ToolRegistry()
+
+tool_registory.register_tool(serper_search)
+tool_registory.register_tool(wiki_search)
+
+
+@tool_registory.tool()
+def my_name() -> str:
+    """
+    Get the name of the user.
+
+    Returns:
+        str: The name of the user.
+    """
+    return "John Doe"
+
+
+if __name__ == "__main__":
+    llm = OpenAILLM()
+
+    react_agent = ReactAgent(
+        llm=llm,
+        tool_registry=tool_registory,
+        max_iterations=5,
+    )
+
+    response = react_agent.run("Who is older, Cristiano Ronaldo or Lionel Messi?")
+
+    print("Response:", response.content)
+
+```
