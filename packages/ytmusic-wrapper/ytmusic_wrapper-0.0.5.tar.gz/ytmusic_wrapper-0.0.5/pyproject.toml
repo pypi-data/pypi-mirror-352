@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ytmusic-wrapper"
+version = "0.0.5"
+authors = [
+  { name = "Zerwin" },
+]
+description = "A Python Library for Home Assistant for the Youtube Music Wrapper API"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+]
+license = { file = "LICENSE.md" }
+dependencies = [
+    "aiohttp"
+]
