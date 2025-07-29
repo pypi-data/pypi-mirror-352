@@ -1,0 +1,3 @@
+# Introduction / Preamble
+
+This document outlines the overall project architecture for the Fabric MCP Server, including backend systems, shared services, and non-UI specific concerns. Its primary goal is to serve as the guiding architectural blueprint for AI-driven development, ensuring consistency and adherence to chosen patterns and technologies. As this project is a backend server without a significant user interface, a separate Frontend Architecture Document is not applicable. Core technology stack choices documented herein (see "Definitive Tech Stack Selections") are definitive for the entire project.
