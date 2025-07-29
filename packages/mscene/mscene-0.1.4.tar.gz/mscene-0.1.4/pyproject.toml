@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mscene"
+version = "0.1.4"
+dependencies = ["requests"]
+authors = [
+  {name = "CuriousWalk"},
+  {email = "hello@curiouswalk.com"},
+]
+description = "Science animation with Manim in Colab"
+readme = "README.md"
+license = {text = "MIT"}
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Topic :: Education",
+  "Topic :: Multimedia",
+  "Topic :: Scientific/Engineering",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Education",
+  "Operating System :: OS Independent",
+  "Natural Language :: English",
+]
+
+[project.urls]
+Homepage = "https://mscene.curiouswalk.com"
+Documentation = "https://mscene.curiouswalk.com/docs"
+Repository = "https://github.com/curiouswalk/mscene"
+
+[project.scripts]
+mscene = "mscene.__main__:main"
