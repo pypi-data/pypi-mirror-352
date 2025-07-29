@@ -1,0 +1,70 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uvx:*)",
+      "Bash(timeout 5 uvx:*)",
+      "Bash(timeout 2s:*)",
+      "Bash(echo:*)",
+      "Bash(python test_mcp_manual.py:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(python test_fastmcp_simple.py)",
+      "Bash(./test_tools_manual.sh:*)",
+      "WebFetch(domain:gofastmcp.com)",
+      "Bash(./test_tool_execution.sh:*)",
+      "Bash(./test_minimal.sh:*)",
+      "Bash(./test_proper_sequence.sh:*)",
+      "Bash(./test_full_server.sh:*)",
+      "Bash(rm:*)",
+      "Bash(sed:*)",
+      "Bash(mkdir:*)",
+      "Bash(python -m pytest tests/test_python_versions.py -v)",
+      "Bash(python:*)",
+      "WebFetch(domain:ai.google.dev)",
+      "WebFetch(domain:ai.google.dev)",
+      "WebFetch(domain:ai.google.dev)",
+      "Bash(pip install:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(git add:*)",
+      "Bash(generate-auto-prompt:*)",
+      "Bash(PYTHONPATH=. python3 src/auto_prompt_generator.py --help)",
+      "Bash(PYTHONPATH=. python3 src/auto_prompt_generator.py --project-path . --stream)",
+      "Bash(PYTHONPATH=. python3 src/auto_prompt_generator.py --project-path . --output-dir ./tasks)",
+      "Bash(PYTHONPATH=. python3 src/generate_code_review_context.py --help)",
+      "Bash(PYTHONPATH=. python3 src/generate_code_review_context.py . --auto-prompt --context-only)",
+      "Bash(./prompt --help)",
+      "Bash(PYTHONPATH=. python -m src.auto_prompt_generator --help)",
+      "Bash(export:*)",
+      "Bash(source:*)",
+      "Bash(generate-meta-prompt:*)",
+      "Bash(PYTHONPATH=. python3 src/auto_prompt_generator.py --context-content \"Test project with Python code, focus on type safety and testing best practices\" --stream)",
+      "Bash(PYTHONPATH=. python3 src/auto_prompt_generator.py --context-content \"JavaScript React TypeScript project\" --output-dir ./tasks)",
+      "Bash(PYTHONPATH=. python3 src/auto_prompt_generator.py --context-content \"Test clean output\" --output-dir ./tasks)",
+      "Bash(generate-code-review:*)",
+      "Bash(review-with-ai --help)",
+      "Bash(review-with-ai:*)",
+      "Bash(rg:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(claude mcp remove:*)",
+      "Bash(claude --mcp-debug mcp)",
+      "Bash(claude mcp:*)",
+      "Bash(timeout:*)",
+      "mcp__task-list-reviewer__generate_meta_prompt",
+      "mcp__task-list-reviewer__generate_code_review_context"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "mcpServers": {
+    "task-list-reviewer": {
+      "command": "uvx",
+      "args": [
+        "task-list-code-review-mcp"
+      ],
+      "env": {
+        "GEMINI_API_KEY": "AIzaSyDyJBxQ4zZ0GpgCBOlGKcCM2vYSHbpZWQA",
+        "GITHUB_TOKEN": "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"
+      }
+    }
+  }
+}
