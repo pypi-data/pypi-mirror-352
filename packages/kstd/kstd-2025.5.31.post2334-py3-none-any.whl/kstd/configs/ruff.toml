@@ -1,0 +1,63 @@
+# This base configuration file is copied from the `kstd` Python package, using a command like:
+#
+# python -c "from kstd.sync_config import cli; cli()" ruff ruff.toml
+#
+# Do not edit it manually, but update the source of truth in `kstd` first instead.
+#
+# You can extend this base configuration for a specific project's need using Ruff's `extend` capabilities:
+# https://docs.astral.sh/ruff/configuration/#config-file-discovery
+
+line-length = 100
+preview = true
+
+[lint]
+extend-safe-fixes = [
+    "PYI025", # The fix is quite elaborate to do manually, so the autofixer is handy
+    "TC", # It is easy to see and test the effects of this autofix
+]
+ignore = [
+    "A005", # Some submodule names may clash with standard library modules
+    "BLE001", # It's sometimes convenient to catch all exceptions
+    "C90", # The complexity-based rules are too crude
+    "CPY", # It's not always necessary to add a copyright notice
+    "D", # If necessary, documentation rules should be defined in config extension
+    "DOC", # If necessary, documentation rules should be defined in config extension
+    "E501", # Ruff formatter takes care of keeping lines not too long
+    "EM101", # Makes the source code too verbose
+    "EM102", # Makes the source code too verbose
+    "ERA", # It's sometimes convenient to comment-out code and false positives are bothersome
+    "FIX", # Allow intentional comments
+    "FURB118", # `operator.*` methods are often not as well typed as lambda (and arguably less readable)
+    "FURB140", # `itertools.starmap` is is not commonly used and hard to understand at a glance
+    "FURB189", # `isinstance(...)` checks for `dict`, `list`, and `str` types will fail when using the corresponding `User...` class
+    "ISC001", # Incompatible with Ruff formatter
+    "PIE810", # The recommended pattern can be hard to understand (implicit 'or' semantics)
+    "PLC0206", # Calling `keys()` or `values()` can be clearer
+    "PLC0415", # Permit delayed import
+    "PLC1901", # Prefer explicit comparisons
+    "PLR09", # These count-based rules are often too crude
+    "PLR2004", # Magic values are often acceptable, especially as Pyright reasons about them as literals
+    "PLR5501", # Nested if statements are sometimes intentional for readability
+    "PLW0108", # Explicit lambdas make some code more readable
+    "PT011", # Sometimes the raised errors is indeed broad
+    "SIM102", # Nested `if` statements are sometimes more readable
+    "SIM108", # Explicit if-else is sometimes clearer
+    "SIM105", # `contextlib.suppress` is not commonly used, hard to understand at a glance and slower
+    "SIM117", # Nested `with` statements are sometimes more readable
+    "SIM118", # Using explicit `.keys()` makes the code more explicit
+    "TD001", # FIXME comments are sometimes justified
+    "TD002", # Author is not required
+    "TD003", # Issue link is not required
+    "TID252", # Relative imports are sometimes cleaner
+    "TRY002", # It's sometimes convenient to use a basic exception class
+    "TRY003", # Some custom exceptions should be raised with a message and are unusual to subclass
+]
+select = ["ALL"]
+unfixable = [
+    "F841", # Ruff removing unused vars can lead to leftover dead code (it doesn't remove function calls which assign values)
+    "RUF015", # Prefer first/one/only from more_itertools to just next
+    "RUF100", # Prefer to manually review the unnecessary ignore
+]
+
+[lint.flake8-type-checking]
+strict = true
