@@ -1,0 +1,126 @@
+[tool.setuptools.packages.find]
+where = ["src"] # Tells setuptools to look for packages in src/
+
+[project]
+name = "mindbank-poc"
+version = "0.1.7"
+description = "Mindbank PoC: Data ingestion and processing platform"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    # Основные зависимости
+    "pydantic-settings", # Для управления конфигурацией
+    "loguru", # Для продвинутого логирования
+    "python-dotenv", # Для .env файлов
+    "numpy>=2.2.5", # Для обработки данных
+    "scikit-learn>=1.6.1", # Для ML-компонентов
+    "chromadb>=0.4.22", # Для векторного хранилища
+    "psutil>=7.0.0", # Для мониторинга системы
+    # Зависимости API и веб-сервера
+    "fastapi", # Веб-фреймворк
+    "uvicorn[standard]>=0.34.2", # ASGI сервер
+    "aiofiles", # Для асинхронной работы с файлами
+    "pydantic>=2.0", # Для моделей данных
+    "aiohttp>=3.11.18", # Для асинхронных HTTP запросов
+    # Зависимости для провайдеров
+    "openai>=1.0.0", # OpenAI API клиент
+    "dspy-ai", # For DSPy React Agent
+    # Зависимости для Telegram-коннектора (по умолчанию)
+    # Другие коннекторы можно установить через extras
+    "telethon>=1.32.1", # Основная библиотека для работы с Telegram API
+    "requests>=2.32.0", # Для HTTP запросов
+    "httpx>=0.25.0", # Для HTTP запросов к API
+    "dspy>=2.6.24",
+]
+
+# packages = [...] - No longer needed with src-layout and find directive
+
+[project.scripts]
+mindbank-normalizer = "mindbank_poc.cli.normalizer_runner:main"
+mind-client = "mindbank_poc.cli.mind_client:main"
+run-tg-connector = "mindbank_poc.cli.telegram_connector:main"
+run-core = "mindbank_poc.cli.core:main"
+
+[project.optional-dependencies]
+# Core dependencies (buffer, storage, common, ingest)
+core = [
+    "pydantic-settings", # Added for configuration management
+    "loguru", # Added for advanced logging
+    "chromadb>=0.4.22",  # Добавлено для векторного хранилища
+] 
+
+# --- Provider dependencies ---
+# Providers for normalizers
+providers-openai = [
+    "openai>=1.0.0", # OpenAI API client
+]
+
+# --- Connector dependencies (полностью независимые от core и api) ---
+# Каждый коннектор должен включать только библиотеки, необходимые для его работы
+# Коннекторы не должны зависеть от core или api модулей
+connectors-telegram = [
+    "telethon>=1.32.1",  # Основная библиотека для работы с Telegram API
+    "pillow>=10.0.0",    # Для работы с изображениями
+    "aiofiles>=23.2.1",  # Для асинхронной работы с файлами
+    "httpx>=0.25.0",     # Для HTTP запросов к API
+    "python-magic>=0.4.27", # Для определения MIME-типов
+    "aiohttp>=3.9.3",    # Асинхронные HTTP-запросы
+    "pydantic>=2.0",     # Модели данных (используются в client_manager)
+    "requests>=2.32.0",  # Синхронные HTTP-запросы в CLI
+]
+
+connectors-filesystem = [
+    "httpx",  # Для HTTP запросов к API
+]
+
+connectors-debug = [
+    "httpx", # Для HTTP запросов к API
+]
+
+# --- CLI dependencies ---
+cli = [
+    "mindbank-poc[core]",  # CLI зависит от core
+    "mindbank-poc[providers-openai]",  # CLI использует провайдеры
+    "mindbank-poc[connectors-telegram]",  # CLI может запускать телеграм-коннектор
+]
+
+# --- API dependencies ---
+api = [
+    # Зависимости для API (включая core как зависимость)
+    "mindbank-poc[core]", # API зависит от core
+    "mindbank-poc[providers-openai]", # API использует провайдеры
+    "fastapi",
+    "uvicorn[standard]",
+    "aiofiles",
+    # Add pydantic explicitly, as it's used in schemas but not directly by fastapi
+    "pydantic>=2.0", 
+    "requests", # Added for test script
+]
+
+# --- Test dependencies ---
+test = [
+    "pytest",
+    "pytest-asyncio",
+    "httpx", # Required by FastAPI TestClient
+    "Pillow", # Added for image dimension extraction in tests
+]
+
+# --- Meta-dependency to install everything ---
+all = [
+    "mindbank-poc[core]",
+    "mindbank-poc[providers-openai]",
+    "mindbank-poc[connectors-telegram]",
+    "mindbank-poc[connectors-filesystem]",
+    "mindbank-poc[connectors-debug]",
+    "mindbank-poc[cli]",
+    "mindbank-poc[api]",
+    "mindbank-poc[test]",
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::pytest.PytestDeprecationWarning"
+]
+asyncio_default_fixture_loop_scope = "function"
+ 
