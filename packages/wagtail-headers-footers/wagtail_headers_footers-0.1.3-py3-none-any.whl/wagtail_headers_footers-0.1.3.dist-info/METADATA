@@ -1,0 +1,154 @@
+Metadata-Version: 2.4
+Name: wagtail-headers-footers
+Version: 0.1.3
+Summary: Reusable Wagtail app to manage header and footer scripts sitewide and per-page.
+Author-email: Malvin Ndip <23006212+DazzyMlv@users.noreply.github.com>
+License: MIT
+Project-URL: Homepage, https://github.com/dazzymlv/wagtail-headers-footers
+Project-URL: source, https://github.com/dazzymlv/wagtail-headers-footers.git
+Project-URL: changelog, https://github.com/dazzymlv/wagtail-headers-footers/CHANGELOG.md
+Project-URL: issues, https://github.com/dazzymlv/wagtail-headers-footers/issues
+Project-URL: documentation, https://github.com/dazzymlv/wagtail-headers-footers/README.md
+Keywords: wagtail,headers,footers,django,malvin ndip
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 5.2
+Classifier: Framework :: Wagtail
+Classifier: Framework :: Wagtail :: 6
+Classifier: Framework :: Wagtail :: 7
+Classifier: Framework :: tox
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Installation/Setup
+Classifier: Topic :: System :: Software Distribution
+Classifier: Typing :: Typed
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: wagtail>=6.4.0
+Dynamic: license-file
+
+# Wagtail Header & Footer Scripts
+
+A reusable Wagtail app for managing header and footer scripts across different sites using Wagtail Settings. It also supports adding **page-specific** header and footer scripts.
+
+## Features
+
+- Add header/footer scripts per site
+- Add header/footer scripts specific to individual pages
+- Use Wagtail settings and model clustering
+- Toggle scripts on/off
+- Render scripts using custom template tags
+- Supports easy integration into Wagtail pages via models
+
+## Installation
+
+```bash
+pip install wagtail-headers-footers
+```
+
+### Add to `INSTALLED_APPS`
+
+```python
+INSTALLED_APPS = [
+    ...
+    "wagtail.contrib.settings",
+    "wagtail_headers_footers",
+]
+```
+
+### Add context processor to your settings
+
+```python
+TEMPLATES = [
+    {
+        ...
+        "OPTIONS": {
+            "context_processors": [
+                ...
+                "wagtail.contrib.settings.context_processors.settings",
+            ],
+        },
+    },
+]
+```
+
+### Migrate Wagtail H/F
+
+```bash
+python manage.py migrate wagtail_headers_footers
+```
+
+## Usage
+
+### Add Site-wide scripts
+
+Go to **Settings > Headers & Footers** in the Wagtail Admin to manage your scripts.
+
+![Wagtail Admin Screenshot](https://raw.githubusercontent.com/dazzymlv/wagtail-header-footer/main/docs/screenshot.png)
+
+
+
+### Add page-specific scripts
+
+For page-specific headers and footers, you can add them by inheriting the following in your page models:
+
+```python
+from wagtail.models import Page
+from wagtail_headers_footers.models import PageHeaderFooterScriptsMixin
+
+class HomePage(PageHeaderFooterScriptsMixin, Page):
+    content_panels = Page.content_panels + PageHeaderFooterScriptsMixin.header_footer_panels
+```
+
+Don't forget to make migrations and migrate if neccessory.
+
+
+Go to **Pages** in the Wagtail Admin to manage your page-specific scripts.
+
+![Wagtail Admin Page Screenshot](https://raw.githubusercontent.com/dazzymlv/wagtail-header-footer/main/docs/page-specific-screenshot.png)
+
+
+### Add to your templates
+
+Add the following code to your base template where you want to render the scripts:
+
+```django
+{% load header_footer_tags %}
+
+<head>
+	...
+    {% render_header_scripts %}
+	...
+</head>
+<body>
+    ...
+    {% render_footer_scripts %}
+	...
+</body>
+```
+
+This will render both the site-wide and page-specific header/footer scripts dynamically.
+
+## Testing
+
+```bash
+python -m unittest discover tests
+```
+
+## License
+
+MIT
