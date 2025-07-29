@@ -1,0 +1,32 @@
+[CDF-24706] Support cdf build exit non-zero on warning (#1590)
+
+# Description
+
+This PR introduces a new binary flag with `cdf build` command
+`--exit-non-zero-on-warning` or `-w`. If this flag is passed, incase of
+any warning It will exit the build with a non-zero code. Added tests
+`test_exit_build_complete_org_on_warnings()` and
+`test_build_complete_org_without_warnings_with_exit_on_warning_flag()`
+to test the functionality and working of the new flag.
+
+## Changelog
+
+- [x] Patch
+- [ ] Minor
+- [ ] Skip
+
+## cdf
+
+### Added
+
+- [alpha]`--exit-non-zero-on-warning` or `-w` binary flag with `cdf
+build` command
+
+## templates
+
+No changes.
+
+---------
+
+Co-authored-by: Anders Albert <60234212+doctrino@users.noreply.github.com>
+Co-authored-by: Pål Rønning <ronpal@users.noreply.github.com>
