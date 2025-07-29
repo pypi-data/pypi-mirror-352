@@ -1,0 +1,113 @@
+Metadata-Version: 2.4
+Name: lemonade-sdk
+Version: 7.0.2
+Summary: Lemonade SDK: Your LLM Aide for Validation and Deployment
+Author-email: lemonade@amd.com
+Requires-Python: >=3.10, <3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: NOTICE.md
+Requires-Dist: invoke>=2.0.0
+Requires-Dist: onnx<1.18.0,>=1.11.0
+Requires-Dist: torch>=1.12.1
+Requires-Dist: pyyaml>=5.4
+Requires-Dist: typeguard>=2.3.13
+Requires-Dist: packaging>=20.9
+Requires-Dist: numpy<2.0.0
+Requires-Dist: pandas>=1.5.3
+Requires-Dist: fasteners
+Requires-Dist: GitPython>=3.1.40
+Requires-Dist: psutil>=6.1.1
+Requires-Dist: wmi
+Requires-Dist: pytz
+Requires-Dist: zstandard
+Requires-Dist: matplotlib
+Requires-Dist: tabulate
+Requires-Dist: huggingface-hub==0.30.2
+Provides-Extra: llm
+Requires-Dist: torch>=2.6.0; extra == "llm"
+Requires-Dist: transformers<=4.51.3; extra == "llm"
+Requires-Dist: accelerate; extra == "llm"
+Requires-Dist: py-cpuinfo; extra == "llm"
+Requires-Dist: sentencepiece; extra == "llm"
+Requires-Dist: datasets; extra == "llm"
+Requires-Dist: human-eval-windows==1.0.4; extra == "llm"
+Requires-Dist: fastapi; extra == "llm"
+Requires-Dist: uvicorn[standard]; extra == "llm"
+Requires-Dist: openai>=1.81.0; extra == "llm"
+Requires-Dist: lm-eval[api]; extra == "llm"
+Provides-Extra: llm-oga-cpu
+Requires-Dist: onnxruntime-genai==0.6.0; extra == "llm-oga-cpu"
+Requires-Dist: onnxruntime<1.22.0,>=1.10.1; extra == "llm-oga-cpu"
+Requires-Dist: lemonade-sdk[llm]; extra == "llm-oga-cpu"
+Provides-Extra: llm-oga-igpu
+Requires-Dist: onnxruntime-genai-directml==0.6.0; extra == "llm-oga-igpu"
+Requires-Dist: onnxruntime-directml<1.22.0,>=1.19.0; extra == "llm-oga-igpu"
+Requires-Dist: transformers<4.45.0; extra == "llm-oga-igpu"
+Requires-Dist: lemonade-sdk[llm]; extra == "llm-oga-igpu"
+Provides-Extra: llm-oga-cuda
+Requires-Dist: onnxruntime-genai-cuda==0.6.0; extra == "llm-oga-cuda"
+Requires-Dist: onnxruntime-gpu<1.22.0,>=1.19.1; extra == "llm-oga-cuda"
+Requires-Dist: transformers<4.45.0; extra == "llm-oga-cuda"
+Requires-Dist: lemonade-sdk[llm]; extra == "llm-oga-cuda"
+Provides-Extra: llm-oga-npu
+Requires-Dist: onnx==1.16.0; extra == "llm-oga-npu"
+Requires-Dist: onnxruntime==1.18.0; extra == "llm-oga-npu"
+Requires-Dist: numpy==1.26.4; extra == "llm-oga-npu"
+Requires-Dist: protobuf>=6.30.1; extra == "llm-oga-npu"
+Requires-Dist: lemonade-sdk[llm]; extra == "llm-oga-npu"
+Provides-Extra: llm-oga-hybrid
+Requires-Dist: onnx==1.16.1; extra == "llm-oga-hybrid"
+Requires-Dist: numpy==1.26.4; extra == "llm-oga-hybrid"
+Requires-Dist: protobuf>=6.30.1; extra == "llm-oga-hybrid"
+Requires-Dist: lemonade-sdk[llm]; extra == "llm-oga-hybrid"
+Provides-Extra: llm-oga-unified
+Requires-Dist: lemonade-sdk[llm-oga-hybrid]; extra == "llm-oga-unified"
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+[![Lemonade tests](https://github.com/lemonade-sdk/lemonade/actions/workflows/test_lemonade.yml/badge.svg)](https://github.com/lemonade-sdk/lemonade/tree/main/test "Check out our tests")
+[![OS - Windows | Linux](https://img.shields.io/badge/OS-windows%20%7C%20linux-blue)](docs/README.md#installation "Check out our instructions")
+[![Made with Python](https://img.shields.io/badge/Python-3.8,3.10-blue?logo=python&logoColor=white)](docs/README.md#installation "Check out our instructions")
+
+## 🍋 Lemonade SDK: Quickly serve, benchmark and deploy LLMs
+
+The [Lemonade SDK](./docs/README.md) is designed to make it easy to serve, benchmark, and deploy large language models (LLMs) on a variety of hardware platforms, including CPU, GPU, and NPU. 
+
+<div align="center">
+  <img src="https://download.amd.com/images/lemonade_640x480_1.gif" alt="Lemonade Demo" title="Lemonade in Action">
+</div>
+
+The [Lemonade SDK](./docs/README.md) is comprised of the following:
+
+- 🌐 **Lemonade Server**: A server interface that uses the standard Open AI API, allowing applications to integrate with local LLMs.
+- 🐍 **Lemonade Python API**: Offers High-Level API for easy integration of Lemonade LLMs into Python applications and Low-Level API for custom experiments.
+- 🖥️ **Lemonade CLI**: The `lemonade` CLI lets you mix-and-match LLMs, frameworks (PyTorch, ONNX, GGUF), and measurement tools to run experiments. The available tools are:
+  - Prompting an LLM.
+  - Measuring the accuracy of an LLM using a variety of tests.
+  - Benchmarking an LLM to get the time-to-first-token and tokens per second.
+  - Profiling the memory usage of an LLM.
+
+### [Click here to get started with Lemonade.](./docs/README.md)
+
+## Contributing
+
+We are actively seeking collaborators from across the industry. If you would like to contribute to this project, please check out our [contribution guide](./docs/contribute.md).
+
+## Maintainers
+
+This project is sponsored by AMD. It is maintained by @danielholanda @jeremyfowers @ramkrishna @vgodsoe in equal measure. You can reach us by filing an [issue](https://github.com/lemonade-sdk/lemonade/issues) or email [lemonade@amd.com](mailto:lemonade@amd.com).
+
+## License
+
+This project is licensed under the [Apache 2.0 License](https://github.com/lemonade-sdk/lemonade/blob/main/LICENSE). Portions of the project are licensed as described in [NOTICE.md](./NOTICE.md).
+
+<!--This file was originally licensed under Apache 2.0. It has been modified.
+Modifications Copyright (c) 2025 AMD-->
+
