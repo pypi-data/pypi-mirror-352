@@ -1,0 +1,58 @@
+# After making changes to this file, re-run:
+#    python -m bench_runner install
+# to have the changes reflected in the generated workflow files
+
+[bases]
+# List the base versions you want to compare every benchmark run to
+versions = ["3.11.0"]
+# List of configuration flags that are compared against the default build of its commit merge base.
+compare_to_default = []
+
+[benchmarks]
+# List any benchmarks you want to exclude from results here
+excluded_benchmarks = []
+
+[notify]
+# The number of the issue in your repo that will have comments added to
+# it to send nofications
+notification_issue = 182
+
+# Each of the "runners" section has the following values:
+# os: one of 'linux', 'darwin', 'windows'
+# arch: 'amd64' or 'arm64' (used for display only)
+# hostname: Must match the hostname of the machine (as retrieved from
+#   socket.gethostname()).
+# available: True if the machine is available (we need to keep the
+#   metadata around for old machines for the generated results). (Default: True)
+# include_in_all: Whether to include the runner when choosing to run a
+#   benchmark on all runners.
+# env: a table of extra environment variables to pass to the runs.
+#
+# A few notable environment variables for runners:
+# CC, CXX: used by Python's configure to determine the compiler to use.
+# LLVM_AR, LLVM_PROFDATA: used for PGO optimization passes with clang, when
+#   using a version of clang that isn't the default. These must be full
+#   paths for configure to handle them correctly.
+# LLVM_BOLT, MERGE_FDATA: like AR/PROFDATA, but for BOLT.
+#   LLVM_BOLT may need to point to, e.g., /usr/lib/llvm-19/bin/llvm-bolt
+#   rather than /usr/bin/llvm-bolt-19 (see
+#   https://github.com/python/cpython/issues/127047).
+# PYTHON_CONFIGURE_FLAGS: extra flags to pass to Python's configure. These
+#   can override all earlier flags, which by default include
+#   --enable-optimizations and --with-lto=full.
+# BUILD_DEST: (windows only) where to make build.bat install. This is
+#   required for the Windows build to succeed.
+
+[runners.linux]
+os = "linux"
+arch = "x86_64"
+hostname = "pyperf"
+available = true
+
+[runners.windows]
+os = "windows"
+arch = "x86_64"
+hostname = "winperf"
+available = true
+env.BUILD_DEST = "PCbuild/amd64"
+plot = { name = "win64", color = "C3", marker = "^" }

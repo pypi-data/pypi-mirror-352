@@ -1,0 +1,176 @@
+---
+name: _benchmark
+
+"on":
+  workflow_call:
+    inputs:
+      fork:
+        description: "Fork of cpython to benchmark"
+        type: string
+      ref:
+        description: "Branch, tag or (full) SHA commit to benchmark"
+        type: string
+      machine:
+        description: "Machine to run on"
+        type: string
+      benchmarks:
+        description: "Benchmarks to run (comma-separated; empty runs all benchmarks)"
+        type: string
+      pgo:
+        description: "Build with PGO"
+        type: boolean
+      force:
+        description: "Rerun and replace results if commit already exists"
+        type: boolean
+      perf:
+        description: "Collect Linux perf profiling data (Linux only)"
+        type: boolean
+
+  workflow_dispatch:
+    inputs:
+      fork:
+        description: "Fork of cpython to benchmark"
+        type: string
+        default: "python"
+      ref:
+        description: "Branch, tag or (full) SHA commit to benchmark"
+        type: string
+        default: "main"
+      machine:
+        description: "Machine to run on"
+        default: "linux-amd64"
+        type: choice
+        options:
+          - linux-amd64
+          - windows-amd64
+          - darwin-arm64
+          - all
+      benchmarks:
+        description: "Benchmarks to run (comma-separated; empty runs all benchmarks)"
+        type: string
+      force:
+        description: "Rerun and replace results if commit already exists"
+        type: boolean
+      perf:
+        description: "Collect Linux perf profiling data (Linux only)"
+        type: boolean
+
+jobs:
+  benchmark-windows:
+    runs-on: [self-hosted, windows, bare-metal]
+
+    steps:
+      # Tell git to checkout repos with symlinks (required by pyston
+      # benchmarks).
+      # Requires "Developer Mode" switched on in Windows 10/11
+      - name: Enable symlinks for git
+        run: |
+          git config --global core.symlinks true
+      - name: Checkout benchmarking
+        uses: actions/checkout@v4
+      - name: git gc
+        run: |
+          git gc
+      - name: Building Python and running pyperformance
+        run: |
+          py workflow_bootstrap.py ${{ inputs.fork }} ${{ inputs.ref }} ${{ inputs.machine }} ${{ inputs.benchmarks || 'all' }} "${{ env.flags }}" ${{ inputs.force && '--force' || '' }} ${{ inputs.pgo && '--pgo' || '' }} --run_id ${{ github.run_id }}
+      # Pull again, since another job may have committed results in the meantime
+      - name: Pull benchmarking
+        run: |
+          # Another benchmarking task may have created results for the same
+          # commit while the above was running. This "magic" incantation means
+          # that any local results for this commit will override anything we
+          # just pulled in in that case.
+          git pull -s recursive -X ours --autostash --rebase
+      - name: Add data to repo
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: results
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark
+          path: |
+            benchmark.json
+          overwrite: true
+
+  benchmark-linux:
+    runs-on: [self-hosted, linux, bare-metal]
+    timeout-minutes: 1440
+
+    steps:
+      - name: Checkout benchmarking
+        uses: actions/checkout@v4
+      - name: git gc
+        run: |
+          git gc
+      - uses: fregante/setup-git-user@v2
+      - name: Setup system Python
+        if: ${{ runner.arch == 'X64' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Building Python and running pyperformance
+        run: |
+          python workflow_bootstrap.py ${{ inputs.fork }} ${{ inputs.ref }} ${{ inputs.machine }} ${{ inputs.benchmarks || 'all' }} ${{ env.flags }} ${{ inputs.force && '--force' || '' }} ${{ inputs.pgo && '--pgo' || '' }} ${{ inputs.perf && '--perf' || '' }} --run_id ${{ github.run_id }}
+      # Pull again, since another job may have committed results in the meantime
+      - name: Pull benchmarking
+        if: ${{ !inputs.perf }}
+        run: |
+          # Another benchmarking task may have created results for the same
+          # commit while the above was running. This "magic" incantation means
+          # that any local results for this commit will override anything we
+          # just pulled in in that case.
+          git pull -s recursive -X ours --autostash --rebase
+      - name: Adding data to repo
+        if: ${{ !inputs.perf }}
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: results
+      - name: Upload benchmark artifacts
+        if: ${{ !inputs.perf }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark
+          path: |
+            benchmark.json
+          overwrite: true
+      - name: Upload perf artifacts
+        if: ${{ inputs.perf }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf
+          path: |
+            profiling/results
+
+  benchmark-darwin:
+    runs-on: [self-hosted, macos, bare-metal]
+
+    steps:
+      - name: Checkout benchmarking
+        uses: actions/checkout@v4
+      - name: git gc
+        run: |
+          git gc
+      - name: Building Python and running pyperformance
+        run: |
+          python3 workflow_bootstrap.py ${{ inputs.fork }} ${{ inputs.ref }} ${{ inputs.machine }} ${{ inputs.benchmarks || 'all' }} ${{ env.flags }} ${{ inputs.force && '--force' || '' }} ${{ inputs.pgo && '--pgo' || '' }} --run_id ${{ github.run_id }}
+      # Pull again, since another job may have committed results in the meantime
+      - name: Pull benchmarking
+        run: |
+          # Another benchmarking task may have created results for the same
+          # commit while the above was running. This "magic" incantation means
+          # that any local results for this commit will override anything we
+          # just pulled in in that case.
+          git pull -s recursive -X ours --autostash --rebase
+      - name: Add data to repo
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: results
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark
+          path: |
+            benchmark.json
+          overwrite: true

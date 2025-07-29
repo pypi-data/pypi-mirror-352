@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bench_runner"
+authors = [
+    {name = "Michael Droettboom", email = "mdroettboom@microsoft.com"},
+]
+description = "Faster CPython's benchmarking runner utilities"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "BSD-3-Clause"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "matplotlib==3.10.3",
+    "pyperf==2.9.0",
+    "rich==14.0.0",
+    "rich-argparse==1.7.1",
+    "ruamel.yaml==0.18.11",
+    "scour==0.38.2",
+    "wheel",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+test = [
+    "black==25.1.0",
+    "filelock==3.18.0",
+    "flake8==7.2.0",
+    "pyright==1.1.401",
+    "pytest==8.3.5",
+    "pytest-cov==6.1.1",
+    "pytest-xdist==3.6.1",
+]
+
+[tool.setuptools_scm]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+bench_runner = ["templates/*"]
+
+[tool.pytest.ini_options]
+markers = [
+    "long_running: marks tests as long_running (deselect with '-m \"not running\"')",
+]
+
+[tool.coverage.paths]
+source = [
+    "bench_runner",
+    "/tmp/pytest-of-*/pytest-*/*/repo/outer_venv/lib/python*/site-packages/bench_runner",
+    "/tmp/pytest-of-*/pytest-*/*/repo/venv/lib/python*/site-packages/bench_runner",
+]
