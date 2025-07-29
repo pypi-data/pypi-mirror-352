@@ -1,0 +1,46 @@
+Metadata-Version: 2.2
+Name: keypoint-moseq
+Version: 0.6.2
+Home-page: https://github.com/dattalab/keypoint-moseq
+Author: Caleb Weinreb
+Author-email: calebsw@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+License-File: LICENSE.md
+License-File: NOTICE.md
+Requires-Dist: seaborn==0.13.0
+Requires-Dist: cytoolz
+Requires-Dist: matplotlib==3.8.4
+Requires-Dist: tqdm
+Requires-Dist: ipykernel
+Requires-Dist: imageio[ffmpeg]
+Requires-Dist: statsmodels
+Requires-Dist: pyyaml
+Requires-Dist: vidio
+Requires-Dist: holoviews[recommended]
+Requires-Dist: bokeh
+Requires-Dist: pandas
+Requires-Dist: tables
+Requires-Dist: bokeh==2.4.3
+Requires-Dist: panel==0.14.4
+Requires-Dist: holoviews==1.15.4
+Requires-Dist: networkx
+Requires-Dist: sleap_io
+Requires-Dist: pynwb
+Requires-Dist: ndx_pose
+Requires-Dist: plotly
+Requires-Dist: ipython_genutils
+Requires-Dist: tabulate
+Requires-Dist: commentjson
+Requires-Dist: jax-moseq
+Requires-Dist: numpy<=1.26.4
+Requires-Dist: ipywidgets
+Requires-Dist: ipympl
+Provides-Extra: dev
+Requires-Dist: sphinx; extra == "dev"
+Requires-Dist: sphinx-rtd-theme; extra == "dev"
+Requires-Dist: autodocsumm; extra == "dev"
+Requires-Dist: myst-nb; extra == "dev"
+Provides-Extra: cuda
+Requires-Dist: jax-moseq[cuda]; extra == "cuda"
