@@ -1,0 +1,56 @@
+Metadata-Version: 2.4
+Name: rekonify-python-sdk
+Version: 2.0.0
+Summary: The Rekonify Python SDK is the official client for seamless, async-ready integration with the Rekonify API, streamlining transaction ingestion
+Home-page: https://github.com/Frndz-org/rekonify-python-sdk
+Download-URL: https://github.com/Frndz-org/rekonify-python-sdk/archive/refs/tags/2.0.0.tar.gz
+Author: Kuadey Elikem Yao
+Author-email: Kuadey Elikem Yao <key@rekonify.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/Frndz-org/rekonify-python-sdk
+Project-URL: Bug Tracker, https://github.com/Frndz-org/rekonify-python-sdk/issues
+Keywords: rekonify,reconciliation,finance,transactions,payment,automation,sdk,api-client,async,event-tracking,financial-data,accounting,python-sdk,transaction-matching,integration,pay-in,payout,erp,banking,data-ingestion
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.10.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests==2.32.3
+Requires-Dist: pydantic[email]==2.11.5
+Requires-Dist: pydantic==2.33.2
+Requires-Dist: tenacity==9.1.2
+Provides-Extra: dev
+Requires-Dist: pytest>=3.7; extra == "dev"
+Requires-Dist: check-manifest; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Dynamic: author
+Dynamic: download-url
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# 🔁 Rekonify Python SDK
+
+**Rekonify Python SDK** is the official Python client for interacting with the [Rekonify API](https://rekonify.com) — a platform that automates financial data ingestion, reconciliation, and rule-based matching across diverse systems.
+
+This SDK offers both synchronous and asynchronous methods for identifying customers, ingesting transactions, and applying reconciliation rules efficiently.
+
+---
+
+## 🚀 Features
+
+- 🔐 API key authentication
+- 🔁 Transaction ingestion (pay-in / payout)
+- ⚖️ Reconciliation rule management
+- ⚡ Sync and async method support
+- 🧩 Easy integration into any Python app or service
+
+---
+
+## 📦 Installation
+
+```bash
+pip install rekonify
+
