@@ -1,0 +1,59 @@
+Metadata-Version: 2.4
+Name: embedkit
+Version: 0.1.0
+Summary: A simple toolkit for generating vector embeddings across multiple providers and models
+Author-email: JP Hwang <me@jphwang.com>
+License: MIT
+License-File: LICENSE
+Keywords: ai,cohere,colpali,embeddings,machine-learning,vector
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.10
+Requires-Dist: accelerate>=1.7.0
+Requires-Dist: cohere>=5.15.0
+Requires-Dist: colpali-engine<0.4.0,>=0.3.0
+Requires-Dist: pdf2image>=1.17.0
+Requires-Dist: pillow>=11.2.1
+Requires-Dist: torch<=2.5
+Requires-Dist: transformers
+Description-Content-Type: text/markdown
+
+# EmbedKit
+
+A Python library for generating embeddings from text, images, and PDFs using various models (e.g. from Cohere, ColPali).
+
+## Usage
+
+See [main.py](main.py) for examples.
+
+```python
+from embedkit import EmbedKit
+from embedkit.models import Model
+
+# Instantiate a kit
+# Using ColPali
+kit = EmbedKit.colpali(model=Model.ColPali.V1_3)
+
+# Using Cohere
+kit = EmbedKit.cohere(
+    model=Model.Cohere.EMBED_V4_0,
+    api_key="your_api_key",
+    text_input_type=CohereInputType.SEARCH_DOCUMENT,
+)
+
+# Then - the embedding API is consistent
+embeddings = kit.embed_text("Hello world") or kit.embed_text(["Hello world", "Hello world"])
+embeddings = kit.embed_image("path/to/image.png") or kit.embed_image(["path/to/image1.png", "path/to/image2.png"])
+embeddings = kit.embed_pdf("path/to/pdf.pdf")  # Single PDF only
+```
+
+## License
+
+MIT
