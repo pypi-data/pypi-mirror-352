@@ -1,0 +1,25 @@
+name: Puclish to Pypi
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  test:
+    name: Lint and Install
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: codeberg-small-lazy
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-latest
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Install uv
+        run: pip install uv
+      - name: Build
+        run: uv build
+      - name: Publish
+        run: uv publish --token ${{ secrets.PYPI_TOKEN }}
+
