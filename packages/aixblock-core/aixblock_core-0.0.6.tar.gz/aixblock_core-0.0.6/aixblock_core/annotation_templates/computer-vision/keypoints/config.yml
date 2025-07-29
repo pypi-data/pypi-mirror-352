@@ -1,0 +1,25 @@
+title: Keypoint Segmentation
+type: community
+group: Computer Vision
+order: 10000
+extensions: .jpg,.png,.gif,.bmp,.svg,.webp,.json,.tsv,.csv,.txt
+image: /static/templates/keypoints.png
+details: <h1>Click the label and then on the canvas</h1>
+config: |
+  <View>
+    <KeyPointLabels name="kp-1" toName="image">
+      <Label value="Face" background="red" />
+      <Label value="Nose" background="green" />
+    </KeyPointLabels>
+    <Image name="image" value="$image" />
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "image": "/static/samples/tress_in_snow.jpg"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: computer_vision

@@ -1,0 +1,26 @@
+title: PDF Classification
+type: community
+group: Structured Data Parsing
+image: /static/templates/pdf-classification.png
+details: <h1>Classify PDF documents</h1>
+config: |
+  <View>
+    <Header value="Rate this article"/>
+    <Rating name="rating" toName="pdf" maxRating="10" icon="star" size="medium" />
+
+    <Choices name="choices" choice="single-radio" toName="pdf" showInline="true">
+      <Choice value="Important article"/>
+      <Choice value="Yellow press"/>
+    </Choices>
+    <HyperText name="pdf" value="$pdf" inline="true"/>
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "pdf": "&lt;embed src='/static/samples/sample.pdf' width='100%' height='600px'/&gt;"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: structured_data_parsing

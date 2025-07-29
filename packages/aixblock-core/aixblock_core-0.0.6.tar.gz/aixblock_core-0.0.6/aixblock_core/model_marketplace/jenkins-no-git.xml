@@ -1,0 +1,84 @@
+<flow-definition plugin="workflow-job@2.40">
+  <actions/>
+  <description>Job to handle base64-encoded file uploads and perform actions</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <!-- Define a base64 file parameter -->
+        <org.jenkinsci.plugins.file_parameters.Base64FileParameterDefinition>
+          <name>THEFILE</name>
+          <description>Base64-encoded file containing the project</description>
+        </org.jenkinsci.plugins.file_parameters.Base64FileParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.89">
+    <script>
+      pipeline {
+        agent { label 'jenkins-linux' } 
+        parameters {
+          base64File(name: 'THEFILE', description: 'Base64-encoded file containing the project')
+        }
+        stages {
+          stage('Decode and Process File') {
+            steps {
+              script {
+                withFileParameter(name: 'THEFILE', allowNoFile: true) {
+                  sh '''
+                    if [ -f "$THEFILE" ]; then
+                      echo "File $THEFILE found. Decoding and processing..."
+                      # Decode the base64 file
+                      base64 --decode "$THEFILE" > decoded_file.zip
+                      echo "File decoded to decoded_file.zip."
+                      
+                      # Unzip the decoded file
+                      mkdir -p extracted
+                      unzip -o decoded_file.zip -d extracted
+                      echo "File extracted to extracted directory."
+                      
+                      # Change to the extracted directory and check for Dockerfile
+                      cd extracted
+                      if [ -f "Dockerfile" ]; then
+                        echo "Dockerfile found in the extracted directory."
+                      else
+                        echo "Dockerfile not found in the extracted directory."
+                        # Check for subdirectory
+                        folder=$(ls -d */ || echo "")
+                        folder_count=$(ls -d */ | wc -l)
+                        if [ "$folder_count" -eq 1 ]; then
+                          cd "$folder"
+                          echo "Changed into directory $folder"
+                          if [ -f "Dockerfile" ]; then
+                            echo "Dockerfile found in the subdirectory."
+                          else
+                            echo "Dockerfile not found in the subdirectory."
+                            exit 1
+                          fi
+                        else
+                          echo "No Dockerfile found and no single subdirectory to enter."
+                          exit 1
+                        fi
+                      fi
+
+                      # Example build command
+                      docker build -t wowai/${JOB_NAME}:latest .
+                      docker push wowai/${JOB_NAME}:latest
+                      echo "Build completed."
+                      docker system prune --all --force
+                    else
+                      echo "No file provided or file does not exist."
+                    fi
+                  '''
+                }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

@@ -1,0 +1,25 @@
+title: Cuboid Segmentation
+type: community
+group: Computer Vision
+order: 10000
+extensions: .jpg,.png,.gif,.bmp,.svg,.webp,.json,.tsv,.csv,.txt
+image: /static/templates/keypoints.png
+details: <h1>Drawing a cube over an object to get 3D perspectives on Height, Width and Depth.</h1>
+config: |
+  <View>
+    <CuboidLabels name="c-1" toName="image">
+      <Label value="Car" background="blue" />
+      <Label value="Tank" background="green" />
+    </CuboidLabels>
+    <Image name="image" value="$image" />
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "image": "/static/samples/tress_in_snow.jpg"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: computer_vision

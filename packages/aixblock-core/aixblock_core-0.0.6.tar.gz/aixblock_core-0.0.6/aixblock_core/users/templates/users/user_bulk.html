@@ -1,0 +1,83 @@
+
+{% load static %}
+
+{% block head %}
+<title>Bulk Users</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+<!-- <link rel="stylesheet" href="{{ settings.HOSTNAME }}{% static 'css/uikit.css' %}">
+<link rel="stylesheet" href="{{ settings.HOSTNAME }}{% static 'css/users.css' %}"> -->
+<!--<link href="{{settings.HOSTNAME}}{% static 'css/app.beta.css' %}" rel="stylesheet"/>-->
+{% endblock %}
+
+{% block divider %}
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="full_content">
+  <div > 
+    <form action="/user/bulk" method="post" class="user__info" enctype="multipart/form-data">
+      <input type="hidden" name="_method" value="post"/>
+
+      <header>CSV file</header>
+     
+      <div class="user-some-actions">
+
+        <div class="user-pic {{ user.avatar|yesno:'can_delete,can_upload' }}">
+          
+          <input class="file-input" type="file" name="bulk" value="Choose"
+                accept=".csv"/>
+        </div>
+
+       
+      </div>
+      <footer>
+        <button name="submit" class="ls-button ls-button_look_primary" >Save</button>
+      </footer>
+    </form>
+
+  </div>
+
+  <script>
+    (() => {
+      $('[name=submit]').on('click', async (e) => {
+        const formData = new FormData;
+        
+        formData.append(e.target.name, $('.file-input').prop('files'));
+
+        // try {
+          const response = await fetch("/user/bulk", {
+            method: "post",
+            body: formData
+          }).then(data => {
+            
+            setTimeout(function(){
+              window.close();
+              window.opener.location.reload();
+            },60*30);
+
+            
+        })
+         
+         
+        // } catch (err) {
+          
+        //   console.log(err)
+        // }
+      })
+        /**
+        * @param {Response} response
+        */
+        const handleResponseError = (response) => {
+        response.json().then(data => {
+          alert(JSON.stringify(data));
+        })
+      }
+    })();
+  </script>
+</div>
+
+{% endblock %}

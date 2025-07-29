@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% block css %}
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    {% endblock css %}
+
+    <style>
+        body {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #fff;
+        }
+        .block-center {
+            max-width: 500px;
+            padding: 20px;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+        .block-center .block-center-heading {
+            margin: 0;
+            color: #333350;
+        }
+        .block-center form {
+            margin: 0;
+            display: flex;
+            gap: 16px;
+            flex-direction: column;
+        }
+        .authorize-content p,
+        .authorize-content li {
+            color: #333350;
+        }
+        .btn-authorize {
+            outline: unset;
+            box-shadow: unset;
+            padding: 0 20px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 28px;
+            letter-spacing: 0.75px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0px 1px 2px -1px rgba(17, 12, 34, 0.08);
+            padding: 8px 10px;
+            border-radius: 8px;
+        }
+        .btn-authorize.cancel {
+            border-color: #F2415A;
+            background: #F2415A;
+            color: #fff;
+        }
+        .btn-authorize.authorize {
+            border: 1px solid #dedeec;
+            color: #14142a;
+            background: #fff;
+        }
+        .authorize-action {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    {% block content %}
+    {% endblock content %}
+</div>
+
+</body>
+</html>

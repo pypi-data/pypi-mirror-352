@@ -1,0 +1,40 @@
+title: Optical Character Recognition
+type: community
+group: Computer Vision
+extensions: .jpg,.png,.gif,.bmp,.svg,.webp,.json,.tsv,.csv,.txt
+image: /static/templates/optical-character-recognition.png
+details: <h1>Draw a bounding box or polygon around region and write down the text found inside</h1>
+ml_image: wowai/tesseract_server
+ml_url: https://app.aixblock.io:8019
+config: |
+  <View>
+    <Image name="image" value="$image"/>
+
+    <Labels name="label" toName="image" choice="multiple">
+      <Label value="Text" background="green"/>
+      <Label value="Handwriting" background="blue"/>
+    </Labels>
+
+    <Rectangle name="bbox" toName="image" strokeWidth="3"/>
+    <Polygon name="poly" toName="image" strokeWidth="3"/>
+
+    <TextArea name="transcription" toName="image"
+              editable="true"
+              perRegion="true"
+              required="false"
+              maxSubmissions="1"
+              rows="5"
+              placeholder="Recognized Text"
+              displayMode="region-list"
+              />
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "image": "/static/samples/tress_in_snow.jpg"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: computer_vision

@@ -1,0 +1,33 @@
+title: Text Classification
+type: community
+group: Natural Language Processing
+order: 2
+image: /static/templates/text-classification.png
+details: <h1>Classify text document</h1>
+config: |
+  <View>
+    <Text name="text" value="$text"/>
+    <View style="padding: 20px; margin-top: 2em; border-radius: 5px; border: solid 1px rgba(255,255,255,.1);">
+      <Header value="Choose text sentiment"/>
+      <Choices name="sentiment" toName="text" choice="single" showInLine="true">
+        <Choice value="Positive"/>
+        <Choice value="Negative"/>
+        <Choice value="Neutral"/>
+      </Choices>
+    </View>
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "text": "Quisque id blandit nunc, pharetra tincidunt libero. Quisque sit amet euismod mi."
+      }
+    },
+    {
+      "data": {
+        "text": "Donec interdum porta massa. Etiam varius efficitur metus sed posuere."
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: nlp

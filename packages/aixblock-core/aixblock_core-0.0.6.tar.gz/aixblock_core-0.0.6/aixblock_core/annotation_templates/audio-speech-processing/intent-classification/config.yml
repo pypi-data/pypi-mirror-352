@@ -1,0 +1,34 @@
+title: Intent Classification
+type: community
+group: Audio/Speech Processing
+image: /static/templates/intent-classification.png
+ml_image: wowai/llama_meta_2
+ml_url: https://app.aixblock.io:8018
+details: <h1>Do voice activity segmentation and choose spoken intent</h1>
+extensions: .wav,.aiff,.mp3,.au,.flac,.m4a,.ogg,.m4b,.json,.tsv,.csv,.txt
+config: |
+  <View>
+    <Labels name="labels" toName="audio">
+      <Label value="Segment" />
+    </Labels>
+
+    <AudioPlus name="audio" value="$audio"/>
+
+    <Choices name="intent" toName="audio" perRegion="true" required="true">
+      <Choice value="Question" />
+      <Choice value="Request" />
+      <Choice value="Satisfied" />
+      <Choice value="Interested" />
+      <Choice value="Unsatisfied" />
+    </Choices>
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "audio": "/static/audio/sample-15s.mp3"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: audio_speech_processing

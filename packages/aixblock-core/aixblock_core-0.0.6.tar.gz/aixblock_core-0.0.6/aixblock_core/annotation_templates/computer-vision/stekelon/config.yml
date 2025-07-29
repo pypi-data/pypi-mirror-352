@@ -1,0 +1,38 @@
+title: Stekelon Segmentation
+type: community
+group: Computer Vision
+order: 10000
+extensions: .jpg,.png,.gif,.bmp,.svg,.webp,.json,.tsv,.csv,.txt
+image: /static/templates/keypoints.png
+details: <h1>Click the label and then on the canvas</h1>
+config: |
+  <View>
+    <SkeletonLabels name="skeleton" toName="image">
+      <Label value="Human" background="#0000FF" data='{"ratio": 2, "points": [{"x": 0.5, "y": 0.1, "name": "head"}, {"x": 0.2, "y": 0.2, "name": "left-shoulder", "to": ["neck"]}, {"x": 0.5, "y": 0.2, "name": "neck", "to": ["head"]}, {"x": 0.8, "y": 0.2, "name": "right-shoulder", "to": ["neck"]}, {"x": 0.2, "y": 0.4, "name": "left-elbow", "to": ["left-shoulder"]}, {"x": 0.8, "y": 0.4, "name": "right-elbow", "to": ["right-shoulder"]}, {"x": 0.2, "y": 0.6, "name": "left-hand", "to": ["left-elbow"]}, {"x": 0.8, "y": 0.6, "name": "right-hand", "to": ["right-elbow"]}, {"x": 0.5, "y": 0.5, "name": "waist", "to": ["neck"]}, {"x": 0.2, "y": 0.7, "name": "left-knee", "to": ["waist"]}, {"x": 0.8, "y": 0.7, "name": "right-knee", "to": ["waist"]}, {"x": 0.2, "y": 0.9, "name": "left-foot", "to": ["left-knee"]}, {"x": 0.8, "y": 0.9, "name": "right-foot", "to": ["right-knee"]}]}' />
+    </SkeletonLabels>
+    <!--
+            x          {"x": 0.5, "y": 0.1, "name": "head"}
+            |
+        x...x...x      {"x": 0.2, "y": 0.2, "name": "left-shoulder", "to": ["neck"]}, {"x": 0.5, "y": 0.2, "name": "neck", "to": ["head"]}, {"x": 0.8, "y": 0.2, "name": "right-shoulder", "to": ["neck"]}
+        |   |   |
+        x   |   x      {"x": 0.2, "y": 0.4, "name": "left-elbow", "to": ["left-shoulder"]}, {"x": 0.8, "y": 0.4, "name": "right-elbow", "to": ["right-shoulder"]}
+        |   |   |
+        x   |   x      {"x": 0.2, "y": 0.6, "name": "left-hand", "to": ["left-elbow"]}, {"x": 0.8, "y": 0.6, "name": "right-hand", "to": ["right-elbow"]}
+            x          {"x": 0.5, "y": 0.5, "name": "waist", "to": ["neck"]}
+          /   \
+        x       x      {"x": 0.2, "y": 0.7, "name": "left-knee", "to": ["waist"]}, {"x": 0.8, "y": 0.7, "name": "right-knee", "to": ["waist"]}
+        |       |
+        x       x      {"x": 0.2, "y": 0.9, "name": "left-foot", "to": ["left-knee"]}, {"x": 0.8, "y": 0.9, "name": "right-foot", "to": ["right-knee"]}
+    -->
+    <Image name="image" value="$image" />
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "image": "/static/samples/tress_in_snow.jpg"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: computer_vision

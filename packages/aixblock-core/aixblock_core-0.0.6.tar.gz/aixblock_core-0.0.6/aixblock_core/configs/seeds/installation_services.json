@@ -1,0 +1,65 @@
+[
+    {
+        "name": "PostgreSQL",
+        "description": "PostgreSQL is a robust open-source relational database management system known for its reliability, scalability, and extensive features. It offers powerful capabilities for managing and organizing data, making it a popular choice for a wide range of applications, from small projects to large-scale enterprise systems. With support for various data types, advanced indexing, and ACID compliance, PostgreSQL provides a solid foundation for building high-performance, secure, and flexible database solutions. Its active community and frequent updates ensure ongoing development and innovation, making it a leading option for developers and businesses alike.",
+        "version": "latest",
+        "image": "postgres",
+        "registry": "hub.docker.com",
+        "environment": "dev",
+        "status": "active"
+    },
+    {
+        "name": "Minio Storage",
+        "description": "Minio Storage is a scalable, open-source object storage solution designed for cloud-native and containerized environments. It provides a simple yet powerful platform for storing unstructured data, such as photos, videos, and log files, with high performance and durability. With its S3-compatible API, Minio enables seamless integration with existing applications and tools that support Amazon S3, making it easy to migrate data and workloads to Minio or use it as a drop-in replacement. Its distributed architecture and advanced features like erasure coding and encryption ensure data resilience and security, making Minio Storage a versatile choice for modern data storage needs.",
+        "version": "latest",
+        "image": "bitnami/minio",
+        "registry": "hub.docker.com",
+        "environment": "dev",
+        "status": "active"
+    },
+    {
+        "name": "Aixblock Platform",
+        "description": "",
+        "version": "latest",
+        "image": "aixblock/platform",
+        "registry": "hub.docker.com",
+        "environment": "dev",
+        "status": "active"
+    },
+    {
+        "name": "Aixblock Notification",
+        "description": "",
+        "version": "latest",
+        "image": "aixblock/notification-server",
+        "registry": "hub.docker.com",
+        "environment": "dev",
+        "status": "active"
+    },
+    {
+      "name": "Aixblock Payment",
+      "description": "",
+      "version": "latest",
+      "image": "aixblock/payment",
+      "registry": "hub.docker.com",
+      "environment": "dev",
+      "status": "active"
+    },
+    {
+      "name": "Aixblock Crawling Servver",
+      "description": "",
+      "version": "latest",
+      "image": "aixblock/crawling-servver",
+      "registry": "hub.docker.com",
+      "environment": "dev",
+      "status": "active"
+    },
+    {
+      "name": "Aixblock Jupyter Notebook Live",
+      "description": "",
+      "version": "latest",
+      "image": "aixblock/jupyter_notebook_live",
+      "registry": "hub.docker.com",
+      "environment": "dev",
+      "status": "active"
+    }
+]

@@ -1,0 +1,36 @@
+title: Relation Extraction
+type: community
+group: Natural Language Processing
+order: 5
+image: /static/templates/relation-extraction.png
+details: <h1>Predict attributes and relations for entities in a sentence</h1>
+config: |
+  <View>
+     <Relations>
+      <Relation value="org:founded_by"/>
+      <Relation value="org:founded"/>
+    </Relations>
+    <Labels name="label" toName="text">
+      <Label value="Organization" background="orange"/>
+      <Label value="Person" background="green"/>
+      <Label value="Datetime" background="blue"/>
+    </Labels>
+
+    <Text name="text" value="$text"/>
+  
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "text": "Quisque id blandit nunc, pharetra tincidunt libero. Quisque sit amet euismod mi."
+      }
+    },
+    {
+      "data": {
+        "text": "Donec interdum porta massa. Etiam varius efficitur metus sed posuere."
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: nlp

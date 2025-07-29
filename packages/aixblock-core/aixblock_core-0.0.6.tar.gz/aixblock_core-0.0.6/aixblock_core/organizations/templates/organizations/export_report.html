@@ -1,0 +1,126 @@
+
+{% load static %}
+
+{% block head %}
+<title>Export Report</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+<!-- <link rel="stylesheet" href="{{ settings.HOSTNAME }}{% static 'css/uikit.css' %}">
+<link rel="stylesheet" href="{{ settings.HOSTNAME }}{% static 'css/users.css' %}"> -->
+<!--<link href="{{settings.HOSTNAME}}{% static 'css/app.beta.css' %}" rel="stylesheet"/>-->
+{% endblock %}
+
+{% block divider %}
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="full_content">
+  <div >
+    <form action="/organization/report" method="post" class="user__info">
+      <input type="hidden" name="_method" value="post"/>
+
+      <header>....</header>
+      <ul>
+        <li class="field">
+          <label for="">Projects</label>
+          <select name="projects" id="projects"> 
+            <!-- <option value="01">project 01</option>  -->
+        </select>
+        </li>
+        <li class="field">
+          <label for="">Roles</label>
+          <select name="roles" id="roles"> 
+              <option value="all">All</option> 
+              <option value="is_annotator">Annotator</option> 
+              <option value="is_qa">QA</option> 
+              <option value="is_qc">QC</option> 
+          </select>
+        </li>
+        
+      </ul>
+      
+      <footer>
+  
+        <button name="submit" class="ls-button ls-button_look_primary">Save</button>
+      </footer>
+    </form>
+
+
+  </div>
+
+  <script>
+    window.addEventListener('load', async () => {
+    try {
+        const response = await fetch("/api/organizations/{{ pk }}/projects", {});
+        const data = await response.json();
+        // console.log(data)
+        var $select = $('#projects');        
+        $.each(data, function(key, value) {
+        $select.append(`<option value="${value.pk}">${value.fields.title}</option>`);
+      });
+      } catch (err) {
+        console.log(err);
+      }
+
+      project = 0
+      role = 'all'
+      ///api/organizations/{id}/projects
+
+      $('[name=projects]').on('change', async (e) => {
+        project = $('[name=projects]').val()
+      });
+      $('[name=roles]').on('change', async (e) => {
+        role = $('[name=roles]').val()
+      });
+
+      $('[name=submit]').on('click', async (e) => {
+        // try {
+         console.log({
+            project_id: project,
+            roles: role
+           
+          })
+          //redirect to export
+          window.close();
+          if(project == 0)
+            alert("please choose project")
+          else
+            window.open('/api/organizations/{{ pk }}/report/'+project+'/'+role,'_blank');
+          // $.ajax({
+          //     type: 'POST',
+          //     url: '/api/organizations/{{ pk }}/report/',
+          //     data: Data,
+          //     success: function(data) { 
+          //       window.close();
+          //   },
+          //     contentType: "application/json",
+          //     // dataType: 'json'
+          // });
+
+          // await fetch("/api/organizations/{{ pk }}/report", {
+          //     method: "POST",
+          //     headers: {
+          //       "Content-Type": "application/json"
+          //     },
+          //     body: JSON.stringify({
+          //       project_id: project,
+          //       roles: role
+          //   })
+          // }).then(res => {
+          //   window.close();
+          // })
+
+        // } catch (err) {
+        //   alert(JSON.stringify(err));
+        //   console.log(err)
+        // }
+      });
+  });
+   
+  </script>
+</div>
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% load static %}{% load i18n %}{% load rules %}{% load filters %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="author" content="AIxBlock"/>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, shrink-to-fit=no">
+  <meta name="theme-color" content="#272727"> <!-- Chrome, Firefox OS and Opera -->
+  <meta name="msapplication-navbutton-color" content="#272727">  <!-- Windows Phone -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="#272727">  <!-- iOS Safari -->
+
+  <meta property="og:title" content="AIxBlock - Unleash your AI initiatives on the Blockchain">
+  <meta property="og:image" content="{{settings.HOSTNAME}}{% static 'images/homepage.png' %}">
+  <meta property="og:description" content="Building and deploying your own AI model - Easier, cheaper, and more secure.">
+  <meta property="og:url" content="{{settings.HOSTNAME}}">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;700&family=Montserrat:wght@500;700;900&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="{{settings.HOSTNAME}}{% static 'images/favicon2.ico' %}" rel="shortcut icon"/>
+  {% if versions.ui.css is not None %}
+    <link href="{% if settings.DEBUG or not settings.ASSETS_CDN %}{{settings.HOSTNAME}}{% else %}{{settings.ASSETS_CDN}}{% endif %}{{ versions.ui.css }}?v={{ versions.ui.version }}" rel="stylesheet" />
+  {% endif %}
+  {% block head %}<title>AIxBlock</title>{% endblock %}
+  {% get_current_language as LANGUAGE_CODE %}
+  {% get_available_languages as LANGUAGES %}
+  {% if settings.GTAGS_ID %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.GTAGS_ID }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ settings.GTAGS_ID }}');
+    </script>
+  {% endif %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16793370343"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-16793370343');
+  </script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PC6R4N4D');</script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '603804808873652');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=603804808873652&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PC6R4N4D" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="root"></div>
+{% csrf_token %}
+<script id="app-settings">
+  window.APP_SETTINGS = Object.assign({
+    title: "AIxBlock",
+    debug: {{settings.DEBUG|yesno:"true,false"}},
+    mqtt_server: "{{ settings.MQTT_SERVER }}",
+    mqtt_port: {{ settings.MQTT_PORT }},
+    mqtt_port_tls: {{ settings.MQTT_PORT_TLS }},
+    storage_server: "{{ settings.MINIO_API_URL }}",
+    toolbar_predict_sam: "{{ settings.TOOLBAR_PREDICT_SAM }}",
+    toolbar_predict_rectangle: "{{ settings.TOOLBAR_PREDICT_RECTANGLE }}",
+    toolbar_predict_polygon: "{{ settings.TOOLBAR_PREDICT_POLYGON }}",
+    hostname: "{% if settings.HOSTNAME %}{{settings.HOSTNAME}}{% else %}/{% endif %}",
+    ip_compute: "{% if settings.IP_COMPUTE %}{{settings.IP_COMPUTE}}{% else %}/{% endif %}",
+    editor_keymap: JSON.parse({{ settings.EDITOR_KEYMAP|safe }}),
+    feature_flags: {{ feature_flags|json_dumps_ensure_ascii|safe }},
+    feature_flags_default_value: {{ settings.FEATURE_FLAGS_DEFAULT_VALUE|json_dumps_ensure_ascii|safe }},
+    centrifuge_server: "{{ settings.CENTRIFUGE_URL }}",
+    centrifuge_topic_prefix: "{{ settings.CENTRIFUGE_TOPIC_PREFIX }}",
+    lsfJS: "{% if settings.DEBUG or not settings.ASSETS_CDN %}{{settings.HOSTNAME}}{% else %}{{settings.ASSETS_CDN}}{% endif %}/frontend/js/main.js?v={{ versions.lsf.commit }}",
+    lsfCSS: "{% if settings.DEBUG or not settings.ASSETS_CDN %}{{settings.HOSTNAME}}{% else %}{{settings.ASSETS_CDN}}{% endif %}/frontend/css/main.css?v={{ versions.lsf.commit }}",
+    {% if versions.ria.js is not None %}
+    riaJS: "{% if settings.DEBUG or not settings.ASSETS_CDN %}{{settings.HOSTNAME}}{% else %}{{settings.ASSETS_CDN}}{% endif %}{{ versions.ria.js }}?v={{ versions.ria.version }}",
+    {% endif %}
+    {% if versions.ria.css is not None %}
+    riaCSS: "{% if settings.DEBUG or not settings.ASSETS_CDN %}{{settings.HOSTNAME}}{% else %}{{settings.ASSETS_CDN}}{% endif %}{{ versions.ria.css }}?v={{ versions.ria.version }}",
+    {% endif %}
+    {% if versions.tde.js is not None %}
+    tdeJS: "{% if settings.DEBUG or not settings.ASSETS_CDN %}{{settings.HOSTNAME}}{% else %}{{settings.ASSETS_CDN}}{% endif %}{{ versions.tde.js }}?v={{ versions.tde.version }}",
+    {% endif %}
+    {% if versions.tde.css is not None %}
+    tdeCSS: "{% if settings.DEBUG or not settings.ASSETS_CDN %}{{settings.HOSTNAME}}{% else %}{{settings.ASSETS_CDN}}{% endif %}{{ versions.tde.css }}?v={{ versions.tde.version }}",
+    {% endif %}
+    {% if versions.llm.js is not None %}
+		llmJS: "{% if settings.DEBUG or not settings.ASSETS_CDN %}{{settings.HOSTNAME}}{% else %}{{settings.ASSETS_CDN}}{% endif %}{{ versions.llm.js }}?v={{ versions.llm.version }}",
+    {% endif %}
+    {% if versions.llm.css is not None %}
+    llmCSS: "{% if settings.DEBUG or not settings.ASSETS_CDN %}{{settings.HOSTNAME}}{% else %}{{settings.ASSETS_CDN}}{% endif %}{{ versions.llm.css }}?v={{ versions.llm.version }}",
+    {% endif %}
+    paypalClientId: "{{ settings.PAYPAL_CLIENT_ID }}",
+    stripePublicKey: "{{ settings.STRIPE_PUBLIC_KEY }}",
+  }, {% block frontend_settings %}{}{% endblock %});
+</script>
+<script src="{% if settings.DEBUG or not settings.ASSETS_CDN %}{{settings.HOSTNAME}}{% else %}{{settings.ASSETS_CDN}}{% endif %}{{ versions.ui.js }}?v={{ versions.ui.version }}"></script>
+</body>
+</html>

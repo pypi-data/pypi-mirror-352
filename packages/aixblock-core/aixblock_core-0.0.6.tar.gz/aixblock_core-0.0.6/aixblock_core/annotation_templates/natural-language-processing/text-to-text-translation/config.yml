@@ -1,0 +1,34 @@
+title: Text-to-Text Translation
+type: community
+group: Natural Language Processing
+image: /static/templates/machine-translation.png
+details: <h1>Translate text from one language to another</h1>
+config: |
+  <View>
+    <LanguagePair name="language" src="ENG" tgt="FRA" />
+    <View style="display: grid; grid-template: auto/1fr 1fr; column-gap: 1em">
+      <Header value="Read the sentence in source language" />
+      <Header value="Provide translaton in destination language" />
+  
+      <Text name="text" value="$text" />
+  
+      <TextArea name="translation" toName="text" transcription="true"
+                showSubmitButton="true" maxSubmissions="1" editable="true"
+                required="true" rows="5"/>
+    </View>
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "text": "Quisque id blandit nunc, pharetra tincidunt libero. Quisque sit amet euismod mi."
+      }
+    },
+    {
+      "data": {
+        "text": "Donec interdum porta massa. Etiam varius efficitur metus sed posuere."
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: nlp

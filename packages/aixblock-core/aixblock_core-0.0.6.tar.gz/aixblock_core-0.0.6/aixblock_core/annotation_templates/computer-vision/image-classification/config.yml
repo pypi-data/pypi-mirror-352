@@ -1,0 +1,25 @@
+title: Image Classification
+type: community
+group: Computer Vision
+extensions: .jpg,.png,.gif,.bmp,.svg,.webp,.json,.tsv,.csv,.txt
+image: /static/templates/image-classification.png
+details: <h1>Classify the image</h1>
+config: |
+  <View>
+    <Image name="image" value="$image"/>
+    <Choices name="choice" toName="image">
+      <Choice value="Adult content"/>
+      <Choice value="Weapons" />
+      <Choice value="Violence" />
+    </Choices>
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "image": "/static/samples/tress_in_snow.jpg"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: computer_vision

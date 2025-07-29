@@ -1,0 +1,71 @@
+title: Named Entity Recognition
+type: community
+group: Natural Language Processing
+order: 3
+image: /static/templates/named-entity-recognition.png
+details: <h1>Extract named entities from text</h1>
+config: |
+  <View>
+    <View className="lsf-sticky">
+      <Labels name="label" toName="text">
+        <Label value="PER" background="red"/>
+        <Label value="ORG" background="darkorange"/>
+        <Label value="LOC" background="orange"/>
+        <Label value="MISC" background="green"/>
+      </Labels>
+    </View>
+
+    <Text name="text" value="$text"/>
+    <AIConfig task="text-ner">
+        <AIConfigFixedString key="from_name" value="text,ner"
+                             description="Name of the objects to get the data to predict"/>
+        <AIConfigFixedString key="to_name" value="text" description="Name of the object to be set the result"/>
+        <AIConfigFixedString key="model_id" value="kaiku03/bert-base-NER-finetuned_custom_complain_dataset_NER9"
+                             description="Can not be changed string"/>
+        <AIConfigFixedNumber key="payload_version" value="2" description="Can not be changed number"/>
+        <AIConfigNumber key="token_length" value="50" description="Simple number input"/>
+        <AIConfigNumber key="max_gen_len" value="1024" description="Simple number input"/>
+        <AIConfigString key="prompt" value="prompt text" multiline="true" description="Text area string input"/>
+        <AIConfigRange key="temperature" min="0" max="1" step="0.05" value="0.9" description="Change value by slider"/>
+        <AIConfigRange key="top_p" min="0" max="1" step="0.05" value="0.5" description="Change value by slider"/>
+        <AIConfigNumber key="seed" value="0" description="Simple number input"/>
+        <!--
+          Payload object that built from the config above
+          {
+            command: "predict",
+            project: "<project_id>",
+            params: {
+              task: "text-ner",
+              from_name: {
+                text: "<the value of the [text] object",
+                ner: <array of labels of the [ner] object>, // => ["Person", "Organization", "Fact"...]
+              },
+              to_name: "text",
+              model_id: "kaiku03/bert-base-NER-finetuned_custom_complain_dataset_NER9",
+              payload_version: 2,
+              token_length: 50,
+              max_gen_len: 1024,
+              prompt: "<the prompt text>",
+              temperature: 0.9,
+              top_p: 0.5,
+              seed: 0,
+            },
+          }
+        -->
+    </AIConfig>
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "text": "Quisque id blandit nunc, pharetra tincidunt libero. Quisque sit amet euismod mi."
+      }
+    },
+    {
+      "data": {
+        "text": "Donec interdum porta massa. Etiam varius efficitur metus sed posuere."
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: nlp

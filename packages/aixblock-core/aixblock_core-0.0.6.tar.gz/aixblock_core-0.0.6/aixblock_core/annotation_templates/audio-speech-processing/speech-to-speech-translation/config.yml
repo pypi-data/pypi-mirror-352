@@ -1,0 +1,27 @@
+title: Speech-to-Speech Translation
+type: community
+group: Audio/Speech Processing
+order: 1
+image: /static/templates/text-summarization.png
+ml_image: wowai/llama_meta_2
+ml_url: https://app.aixblock.io:8018
+extensions: .json,.tsv,.csv,.txt
+details: Provide translated audio file based on the source audio file.
+config: |
+  <View>
+    <LanguagePair name="language" src="ENG" tgt="FRA" />
+    <Header value="Source audio" />
+    <Audio name="audio" value="$audio" zoom="true" hotkey="ctrl+enter" />
+    <Header value="Translated audio" />
+    <AudioFile name="audiofile" />
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "audio": "/static/audio/sample-15s.mp3"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: audio_speech_processing

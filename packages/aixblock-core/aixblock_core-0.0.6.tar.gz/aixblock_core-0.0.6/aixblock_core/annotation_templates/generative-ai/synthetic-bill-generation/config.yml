@@ -1,0 +1,42 @@
+title: "Synthetic Bill Generation"
+type: community
+group: Generative AI
+order: 5
+extensions: .json,.tsv,.csv,.txt
+image: /static/templates/visual-ranker.png
+details: Create questions from PDF and transcripts
+config: |
+  <View>
+    <View style="display:flex; flex-direction:row; justify-content:stretch; gap:16px">
+      <View style="flex:1">
+        <Labels name="labels" toName="transcripts" choice="multiple">
+          <Label value="billing_device" background="#FF0000" />
+          <Label value="billing_credits" background="#00FF00" />
+          <Label value="billing_upcoming" background="#0000FF" />
+        </Labels>
+        <Transcripts name="transcripts" value="$transcripts" transcriptStyle="height: 200px" />
+        <Questions name="questions" toName="transcripts" style="margin-top: 8px; height: 400px" />
+      </View>
+      <Splitter/>
+      <View style="flex:1.2">
+        <IFrame src="$pdf" style="width:100%; border:none; height:100%" />
+      </View>
+    </View>
+    <View style="display:none" class="example">
+  [
+    { 
+      "data": {
+        "pdf": "/static/PCI_PII_Marked_bill_example.pdf",
+        "transcripts": "{\"transcript-file-1.txt\": \"Transcript content\", \"transcript-file-2.txt\": \"Transcript content\"}"
+      }
+    },
+    { 
+      "data": {
+        "pdf": "/static/PCI_PII_Marked_bill_example.pdf",
+        "transcripts": "Transcript content"
+      }
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: generative_ai

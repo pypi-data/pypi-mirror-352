@@ -1,0 +1,60 @@
+title: Speech-to-Text Translation
+type: community
+group: Audio/Speech Processing
+image: /static/templates/automatic-speech-recognition.png
+ml_image: wowai/automatic_speech_recognition
+ml_url: https://app.aixblock.io:8010
+extensions: .wav,.aiff,.mp3,.au,.flac,.m4a,.ogg,.m4b,.json,.tsv,.csv,.txt
+details: <h1>Provide transcript for the audio</h1>
+config: |
+  <View>
+    <LanguagePair name="language" src="ENG" tgt="FRA" />
+    <Audio name="audio" value="$audio" zoom="true" hotkey="ctrl+enter" />
+    <View style="margin-top:16px">
+      <Header value="Provide Transcription" />
+      <TextArea name="transcription" toName="audio"
+                rows="4" editable="true" maxSubmissions="1" />
+    </View>
+   
+    <View style="display:none" class="example">
+  [
+    {
+      "data": {
+        "audio": "/static/audio/sample-15s.mp3"
+      },
+      "annotations": [
+        {
+          "result": [
+            {
+              "value": {
+                "text": [
+                  "Transcript from audio"
+                ]
+              },
+              "id": "S3aqbyv06r",
+              "from_name": "transcription",
+              "to_name": "audio",
+              "type": "textarea",
+              "origin": "manual"
+            },
+            {
+              "id": "LBM_6aUUL_",
+              "from_name": "language",
+              "to_name": "language",
+              "type": "languagepair",
+              "value": {
+                "languagepair": {
+                  "source": "ENG",
+                  "target": "FRA"
+                }
+              },
+              "origin": "manual"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+    </View>
+  </View>
+catalog_model_key: audio_speech_processing
