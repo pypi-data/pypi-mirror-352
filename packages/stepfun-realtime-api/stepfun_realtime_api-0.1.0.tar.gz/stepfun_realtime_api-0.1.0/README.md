@@ -1,0 +1,11 @@
+# Stepfun Realtime API 阶跃星辰实时语音（python）
+
+## 简介
+
+本项目提供了一个实时的语音交互 API，允许将基于语音的功能无缝集成到您的应用程序中。
+
+## 安装
+
+```bash
+pip install stepfun_realtime_api
+```
