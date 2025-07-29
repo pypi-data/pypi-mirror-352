@@ -1,0 +1,47 @@
+[build-system]
+requires = ['setuptools', 'wheel']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'deltacalc'
+
+version = '1.1.0'
+
+description = 'a model for the mass of an exoplanet given the radius'
+
+authors = [{name = 'Kevin Zhu'}, {email = 'kzhu2099@gmail.com'}]
+maintainers = [{name = 'Kevin Zhu'}, {email = 'kzhu2099@gmail.com'}]
+
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+
+    'Intended Audience :: Developers',
+    'Intended Audience :: End Users/Desktop',
+    'Intended Audience :: Science/Research',
+
+    'License :: OSI Approved :: MIT License',
+
+    'Natural Language :: English',
+
+    'Operating System :: OS Independent',
+
+    'Programming Language :: Python :: 3',
+]
+
+readme = 'README.md'
+
+license = {file = 'LICENSE'}
+
+requires-python = '>= 3.9'
+
+dependencies = ['sympy', 'IPython']
+
+[project.urls]
+Homepage = 'https://github.com/kzhu2099/Delta-Calculus'
+Issues = 'https://github.com/kzhu2099/Delta-Calculus/issues'
+
+[tool.setuptools.packages.find]
+include = ['deltacalc', 'deltacalc.*']
+
+[tool.setuptools]
+license-files = []
