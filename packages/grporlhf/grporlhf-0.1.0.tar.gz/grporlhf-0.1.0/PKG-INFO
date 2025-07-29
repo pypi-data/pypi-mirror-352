@@ -1,0 +1,45 @@
+Metadata-Version: 2.4
+Name: grporlhf
+Version: 0.1.0
+Summary: Reference implementation of Group Relative Policy Optimization (GRPO)
+Home-page: https://github.com/kaushikd24/GRPO-Package
+Author: Kaushik D. (Not associated with DeepSeek -- Demo Implementation)
+Author-email: "Kaushik D." <dwivedi.kaushik24@gmail.com>
+License: Apache-2.0
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: torch<2.4,>=2.2
+Requires-Dist: transformers<4.43,>=4.41.2
+Requires-Dist: peft>=0.11.0
+Requires-Dist: datasets>=2.20.0
+Requires-Dist: pyyaml
+Requires-Dist: tqdm
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# GRPO RLHF
+
+This package provides a reference implementation of Group Relative Policy Optimization (GRPO) by DeepSeek. It includes components such as a trainer, CLI, and utilities for handling datasets.
+
+## Installation
+
+You can install the package using pip:
+
+```
+pip install grporlhf
+```
+
+## Usage
+
+To use the CLI, run:
+
+```
+grporlhf --help
+```
+
+## License
+
+This project is licensed under the Apache-2.0 License. 

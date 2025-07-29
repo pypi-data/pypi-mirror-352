@@ -1,0 +1,26 @@
+ [build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name            = "grporlhf"
+version         = "0.1.0"
+description     = "Reference implementation of Group Relative Policy Optimization (GRPO)"
+authors         = [{ name="Kaushik D.", email="dwivedi.kaushik24@gmail.com" }]
+license         = { text = "Apache-2.0" }
+readme          = "README.md"
+requires-python = ">=3.9"
+dependencies    = [
+  "torch>=2.2,<2.4",
+  "transformers>=4.41.2,<4.43",
+  "peft>=0.11.0",
+  "datasets>=2.20.0",
+  "pyyaml",
+  "tqdm",
+]
+
+[project.scripts]
+grporlhf = "grporlhf.cli:main"
+
+[tool.setuptools]
+packages = ["grporlhf"]
