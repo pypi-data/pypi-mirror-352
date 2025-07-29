@@ -1,0 +1,42 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ windows-latest, ubuntu-latest ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6.0.1
+        with:
+          version: "latest"
+
+      - name: Install nightly rust
+        run: |
+          rustup default nightly
+
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v3
+
+      - name: Install deps
+        run: |
+          uv sync --no-install-project  --only-dev --index https://pypi.org/simple
+          make dev
+      - name: Test
+        run: |
+          make test
+
+
+
