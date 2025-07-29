@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gs1_gpc"
+version = "0.1.5"
+description = "A tool for importing GS1 Global Product Classification (GPC) data into SQL databases"
+readme = "README.md"
+authors = [
+    {name = "Michael McGarrah", email = "mcgarrah@gmail.com"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "click>=8.0.0",
+    "gpcc>=1.1.0",
+]
+
+[project.scripts]
+gpc = "gs1_gpc.cli:cli"
+
+[project.optional-dependencies]
+postgresql = [
+    "psycopg2-binary>=2.9.0",
+]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.10",
+    "black>=22.3",
+    "flake8>=3.9",
+    "mypy>=0.910",
+    "isort>=5.0",
+    "bandit>=1.7",
+    "pre-commit>=2.13",
+]
+docs = [
+    "sphinx>=8.2.3",
+    "sphinx-rtd-theme>=3.0.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/mcgarrah/gs1_gpc_python"
+"Bug Tracker" = "https://github.com/mcgarrah/gs1_gpc_python/issues"
+Repository = "https://github.com/mcgarrah/gs1_gpc_python"
+Documentation = "https://gs1-gpc.readthedocs.io/"
+
+[tool.setuptools]
+packages = ["gs1_gpc"]
