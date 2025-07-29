@@ -1,0 +1,203 @@
+# structlog_wrap - 基于structlog的函数日志装饰器
+
+一个简单易用的Python装饰器，基于structlog实现自动函数调用日志记录。
+
+## 特性
+
+- 🕒 **时间戳**：自动记录函数调用时间
+- 📝 **函数名对齐**：支持自定义函数名显示宽度，保持日志整齐对齐
+- ✂️ **智能截断**：
+  - 长字符串和大型集合自动截断，避免日志过长
+  - **超长函数名自动截断**：当函数名超过设定宽度时，自动截断并添加省略号，确保对齐不被破坏
+- 📋 **参数记录**：自动捕获并格式化所有函数参数（包括默认参数）
+- 🎯 **零侵入**：不影响原函数的执行和返回值
+- 🔧 **易于使用**：提供简单和高级两种使用方式
+
+## 安装
+
+### 从 PyPI 安装（推荐）
+
+```bash
+pip install structlog-wrap
+```
+
+### 从源码安装
+
+```bash
+git clone https://github.com/structlog-wrap/structlog-wrap.git
+cd structlog-wrap
+pip install -e .
+```
+
+## 快速开始
+
+### 最简单用法（推荐）
+
+```python
+import structlog_wrap
+
+@structlog_wrap
+def my_function(name: str, age: int = 25):
+    return f"Hello, {name}! You are {age} years old."
+
+# 调用函数
+result = my_function("张三", 30)
+```
+
+输出：
+```
+2025-06-01 23:06:31 | my_function          | (name='张三', age=30)
+```
+
+### 其他用法
+
+```python
+from structlog_wrap import log_calls
+
+@log_calls
+def my_function(name: str, age: int = 25):
+    return f"Hello, {name}! You are {age} years old."
+```
+
+### 自定义函数名宽度
+
+```python
+from structlog_wrap import log_function_calls
+
+@log_function_calls(30)  # 函数名宽度设为30字符
+def calculate_area(length: float, width: float, unit: str = "m"):
+    return length * width
+
+result = calculate_area(10.5, 8.2)
+```
+
+输出：
+```
+2025-06-01 22:58:29 | calculate_area                 | (length=10.5, width=8.2, unit='m')
+```
+
+## 日志格式
+
+日志格式为：`时间戳 | 函数名 | (参数列表)`
+
+- **时间戳**：`YYYY-MM-DD HH:MM:SS` 格式
+- **函数名**：左对齐，可自定义宽度
+- **参数列表**：`(arg1=value1, arg2=value2, ...)` 格式
+
+## 高级特性
+
+### 参数处理
+
+1. **长字符串截断**：超过50字符的字符串会被截断并显示省略号
+2. **集合类型优化**：大型列表、字典等显示为类型和长度信息
+3. **默认参数**：自动包含函数的默认参数值
+
+### 函数名处理
+
+1. **自动对齐**：函数名左对齐，短函数名用空格填充到设定宽度
+2. **智能截断**：超长函数名自动截断并添加省略号，确保不破坏对齐格式
+   - 例如：`very_long_function_name` → `very_long_func...`（宽度20时）
+3. **极小宽度处理**：当设定宽度小于等于3时，直接截断不添加省略号
+
+### 示例
+
+```python
+@log_calls
+def process_data(data: list, multiplier: int = 2, debug: bool = False):
+    return [x * multiplier for x in data]
+
+# 长列表会显示为类型和长度
+long_list = list(range(100))
+result = process_data(long_list, 3, True)
+```
+
+输出：
+```
+2025-06-01 22:58:29 | process_data         | (data=list(len=100), multiplier=3, debug=True)
+```
+
+## API 参考
+
+### `@structlog_wrap`（推荐）
+
+最简单的使用方式，直接导入模块作为装饰器。
+
+```python
+import structlog_wrap
+
+@structlog_wrap
+def my_function():
+    pass
+```
+
+### `@log_calls`
+
+从模块导入的装饰器，使用默认设置（函数名宽度20字符）。
+
+```python
+from structlog_wrap import log_calls
+
+@log_calls
+def my_function():
+    pass
+```
+
+### `@log_function_calls(function_name_width)`
+
+可配置的装饰器。
+
+**参数：**
+- `function_name_width` (int): 函数名显示宽度，用于对齐，默认20
+
+```python
+@log_function_calls(25)
+def my_function():
+    pass
+```
+
+## 运行示例
+
+```bash
+# 运行详细示例
+python example.py
+
+# 运行最简单用法示例
+python test_simple_usage.py
+
+# 运行超长函数名处理测试
+python test_long_function_names.py
+
+# 运行最简单演示
+python demo.py
+```
+
+## 运行测试
+
+```bash
+python test_structlog_wrap.py
+# 或者
+python -m pytest test_structlog_wrap.py -v
+```
+
+## 文件结构
+
+```
+structlog_wrap/
+├── structlog_wrap.py         # 主要装饰器实现
+├── demo.py                   # 最简单演示
+├── example.py                # 详细使用示例
+├── test_simple_usage.py      # 最简单用法示例
+├── test_long_function_names.py # 超长函数名处理测试
+├── test_structlog_wrap.py    # 单元测试
+├── requirements.txt          # 依赖文件
+└── README.md                # 说明文档
+```
+
+## 依赖
+
+- `structlog>=23.1.0`
+- `colorama>=0.4.6`
+
+## 许可证
+
+MIT License

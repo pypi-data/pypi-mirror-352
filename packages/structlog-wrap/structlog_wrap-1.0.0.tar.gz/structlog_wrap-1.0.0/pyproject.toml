@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "structlog-wrap"
+version = "1.0.0"
+description = "基于structlog的函数日志装饰器，自动打印函数调用日志 - A structlog-based function logging decorator that automatically prints function call logs"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "structlog-wrap", email = "structlog.wrap@example.com"}
+]
+maintainers = [
+    {name = "structlog-wrap", email = "structlog.wrap@example.com"}
+]
+keywords = ["structlog", "logging", "decorator", "function", "calls"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Logging",
+
+    "Topic :: Utilities",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "structlog>=23.1.0",
+    "colorama>=0.4.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "flake8",
+]
+
+[project.urls]
+Homepage = "https://pypi.org/project/structlog-wrap/"
+Repository = "https://github.com/structlog-wrap/structlog-wrap"
+Issues = "https://github.com/structlog-wrap/structlog-wrap/issues"
+Documentation = "https://github.com/structlog-wrap/structlog-wrap#readme"
+
+[tool.setuptools]
+py-modules = ["structlog_wrap"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.pytest.ini_options]
+testpaths = [".", "tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
