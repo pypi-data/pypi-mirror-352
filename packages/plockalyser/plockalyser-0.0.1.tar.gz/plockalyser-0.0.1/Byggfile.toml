@@ -1,0 +1,37 @@
+[settings]
+default_action = "png"
+
+# Generate a set of Markdown tables
+[actions.analysis]
+inputs = ["examples/npm_ls.json", "plockalyser.py"]
+outputs = ["examples/Tables.md"]
+shell = ".venv/bin/plockalyser examples/npm_ls.json --tables --output=examples/Tables.md"
+
+### Dependency network actions
+
+# DOT graph
+[actions.dot]
+inputs = ["examples/npm_ls.json", "plockalyser.py"]
+outputs = ["examples/dependency_network.dot"]
+shell = ".venv/bin/plockalyser examples/npm_ls.json --dot --output=examples/dependency_network.dot"
+
+# PNG
+[actions.png]
+dependencies = ["dot"]
+inputs = ["examples/dependency_network.dot"]
+outputs = ["examples/dependency_network.png"]
+shell = "dot -T png examples/dependency_network.dot -o examples/dependency_network.png"
+
+# SVG with background colour
+[actions.svg]
+dependencies = ["dot"]
+inputs = ["examples/dependency_network.dot"]
+outputs = ["examples/dependency_network.svg"]
+shell = "dot -T svg examples/dependency_network.dot -o examples/dependency_network.svg"
+
+# SVG with transparent background
+[actions.svgprod]
+dependencies = ["dot"]
+inputs = ["examples/dependency_network.dot"]
+outputs = ["examples/dependency_network.svg"]
+shell = "dot -T svg examples/dependency_network.dot -o examples/dependency_network.svg -Gbgcolor=transparent"
