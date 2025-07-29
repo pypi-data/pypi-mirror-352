@@ -1,0 +1,209 @@
+Metadata-Version: 2.1
+Name: sap-ecs-gcp-log-forwarder
+Version: 1.0.8
+Summary: A package to consume events from an Google Pub/Sub, process log files, and forward them to a HTTP endpoint or file.
+Home-page: https://www.sap.com/
+License: SAP DEVELOPER LICENSE AGREEMENT
+Keywords: SAP GCP Log Forwarder,SAP Log Forwarder
+Author: SAP SE
+Requires-Python: >=3.10,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: cryptography (>=44.0.1,<45.0.0)
+Requires-Dist: google-cloud-pubsub (>=2.21.2,<3.0.0)
+Requires-Dist: google-cloud-storage (>=2.16.0,<3.0.0)
+Requires-Dist: python-dotenv (>=1.0.1,<2.0.0)
+Requires-Dist: requests (>=2.32.3,<3.0.0)
+Description-Content-Type: text/markdown
+
+# GCP Log Forwarder
+
+GCP Log Forwarder is a Python package that monitors a GCP Pub/Sub subscription for object creation messages, downloads and processes the corresponding log files from a Google Cloud Storage, and forwards the log data to a configured HTTP endpoint or writes it to local files.
+
+![Image for sap-ecs-gcp-log-forwarder](https://raw.githubusercontent.com/sap-ecs-log-forwarders/pypi/main/gcp-log-forwarder.png)
+
+## Features
+
+- Monitors a GCP Pub/Sub subscription for object creation messages.
+- Processes logs and forwards them to a configurable HTTP endpoint or writes them to local files.
+- Supports both mutual TLS and standard HTTP connections.
+- Offers flexible HTTP authentication via bearer tokens or API keys.
+- Fully configurable through environment variables or a `.env` file in the working directory.
+- Provides an inactivity timeout to gracefully terminate when the queue is empty.
+
+## Prerequisites
+
+- Python 3.10 or higher
+- A GCP project with Pub/Sub and Cloud Storage enabled.
+- GCP Service Account in your own project with appropriate permissions:
+  - `roles/pubsub.subscriber` for the Pub/Sub subscription
+  - `roles/storage.objectViewer` for accessing Cloud Storage objects
+
+## Installation
+
+### With direct internet access:
+```sh
+pip install sap-ecs-gcp-log-forwarder
+or
+pip install sap-ecs-gcp-log-forwarder==<version>
+```
+
+### Without direct internet access:
+1. **Download the wheel**  
+   On a machine with internet access, visit the [PyPI files page](https://pypi.org/project/sap-ecs-gcp-log-forwarder/#files) for `sap-ecs-gcp-log-forwarder` and download the `.whl` file matching your Python version (e.g., `sap_ecs_gcp_log_forwarder-1.0.2-py3-none-any.whl`).
+2. **Transfer the file**  
+   Copy the downloaded wheel to the target (offline) machine using SCP, or another secure method.
+3. **Install from file**  
+   On the offline machine, run:
+   ```sh
+   pip install /path/to/sap_ecs_gcp_log_forwarder-<version>-py3-none-any.whl
+   ```
+
+## Configuration
+
+Configure the GCP Log Forwarder by setting environment variables in your shell or in a `.env` file in the current working directory.
+
+- `GOOGLE_APPLICATION_CREDENTIALS`: Path to your service account key JSON file. (**Required**)
+- `LOGSERV_PROJECT_ID`: The ID of the Google Cloud Project where the Cloud Storage Bucket is in. (**Required**)
+- `LOGSERV_PUBSUB_SUBSCRIPTION_NAME`: The name of the Pub/Sub subscription to consume events from. (Not the full path) (**Required**)
+- `OUTPUT_METHOD`: Method to forward logs (`http` or `files`). (**Required**)
+  - `http`: Forward logs to an HTTP endpoint.
+  - `files`: Write logs to files in the specified output directory.
+- `TIMEOUT_DURATION`: Time in seconds to wait for messages before exiting. (Optional)
+- `LOGSERV_LOG_FILTERS`: Comma-separated list of log type filters. Only messages whose subject paths contain at least one of these filters will be processed (e.g., `hana`, `hanaaudit`, `abap/audit`, `linux`). (Optional)
+
+- `HTTP_ENDPOINT`: HTTP endpoint to forward logs to. (Required if `OUTPUT_METHOD=http`)
+- `TLS_CERT_PATH`: Path to the TLS certificate for mutual TLS connections. (Optional)
+- `TLS_KEY_PATH`: Path to the TLS key for mutual TLS connections. (Optional)
+- `AUTH_METHOD`: Authentication method. (Required if `OUTPUT_METHOD=http`)
+  - `token`: Use a bearer/OAuth token for authentication.
+  - `api_key`: Use an API key for authentication.
+- `AUTH_TOKEN`: Bearer/OAuth token for HTTP endpoint authentication. (Required if `AUTH_METHOD=token`)
+- `API_KEY`: API key for HTTP endpoint authentication. (Required if `AUTH_METHOD=api_key`)
+
+- `OUTPUT_DIR`: Output directory to write log files to. (Required if `OUTPUT_METHOD=files`)
+- `COMPRESS_OUTPUT_FILE`: Whether to gzip-compress output files. (Defaults to `true`)
+  - `true`: Compress output files using gzip.
+  - `false`: Do not compress output files.
+- `LOG_LEVEL`: Log level for the forwarder application. (`DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`) (Defaults to `INFO`)
+
+### Example of setting environment variables in a shell:
+
+```sh
+export GOOGLE_APPLICATION_CREDENTIALS="path/to/your-service-account-key.json"
+export LOGSERV_PROJECT_ID="id-of-the-google-project-where-the-cloud-storage-bucket-is-in"
+export LOGSERV_PUBSUB_SUBSCRIPTION_NAME="pubsub-subscription-name-to-consume-events-from"
+export TIMEOUT_DURATION=120  # Timeout after 120 seconds of inactivity. DO NOT set for indefinite runs.
+export LOGSERV_LOG_FILTERS="hana,abap"
+
+# For HTTP output
+export OUTPUT_METHOD="http"
+export HTTP_ENDPOINT="https://your-http-endpoint.com"
+export TLS_CERT_PATH="/path/to/tls_cert.pem"
+export TLS_KEY_PATH="/path/to/tls_key.pem"
+export AUTH_METHOD="token"
+export AUTH_TOKEN="your_token"
+export AUTH_METHOD="api_key"
+export API_KEY="your_api_key"
+
+# For file output
+export OUTPUT_METHOD="files"
+export OUTPUT_DIR="/path/to/output/"
+export COMPRESS_OUTPUT_FILE="false"
+
+# Log level
+export LOG_LEVEL="DEBUG" # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL. Default is INFO.
+```
+
+### Example of setting environment variables in a local `.env` file:
+```sh
+GOOGLE_APPLICATION_CREDENTIALS="path/to/your-service-account-key.json"
+LOGSERV_PROJECT_ID="id-of-the-google-project-where-the-cloud-storage-bucket-is-in"
+LOGSERV_PUBSUB_SUBSCRIPTION_NAME="pubsub-subscription-name-to-consume-events-from"
+TIMEOUT_DURATION=120  # Timeout after 120 seconds of inactivity. DO NOT set for indefinite runs.
+LOGSERV_LOG_FILTERS="hana,abap"
+
+# For HTTP output
+OUTPUT_METHOD="http"
+HTTP_ENDPOINT="https://your-http-endpoint.com"
+TLS_CERT_PATH="/path/to/tls_cert.pem"
+TLS_KEY_PATH="/path/to/tls_key.pem"
+AUTH_METHOD="token"
+AUTH_TOKEN="your_token"
+AUTH_METHOD="api_key"
+API_KEY="your_api_key"
+
+# For file output
+OUTPUT_METHOD="files"
+OUTPUT_DIR="/path/to/output/"
+COMPRESS_OUTPUT_FILE="false"
+
+# Log level
+LOG_LEVEL="DEBUG" # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL. Default is INFO.
+```
+
+## Usage
+
+To run the GCP Log Forwarder, use:
+```sh
+sap-ecs-gcp-log-forwarder
+```
+
+This will start the process of consuming messages from the Pub/Sub subscription, processing log files, and forwarding them according to the specified method. The program will exit if no messages are found within the specified timeout duration. If not timeout duration is specified, the program will run indefinitely.
+
+## Examples
+### Forwarding specific log types
+To forward only specific log types, set `LOGSERV_LOG_FILTERS` to a comma-separated list of filters.
+
+For example, to forward `HANA Audit logs` and `ABAP Audit logs`, set the following environment variable:
+
+In your shell:
+```sh
+export LOGSERV_LOG_FILTERS="hanaaudit,abap/audit"
+```
+
+Or in your `.env` file:
+```sh
+LOGSERV_LOG_FILTERS="hanaaudit,abap/audit"
+```
+
+Only files matching at least one of these filters will be processed and forwarded. If you want to forward all log types, simply omit the `LOGSERV_LOG_FILTERS` variable or set it to an empty string. Please reach out to your SAP contact for the correct container structure or run the forwarder without the filter to see the available log types and their structure.
+
+## Things to remember
+
+- If `TIMEOUT_DURATION` is not set, the program will run indefinitely.
+- The service account **must** have `Storage Object Viewer` and `Pub/Sub Subscriber` permissions over the bucket and subscription respectively.
+
+## License
+
+This application and its source code are licensed under the SAP Developer License Agreement. See the LICENSE file for more information.
+
+## Release Notes
+
+### 1.0.1
+- Initial release
+
+### 1.0.2
+- Updated README with additional instructions for installing the package without direct internet access.
+
+### 1.0.5
+- Improved error handling for permission issues and retry mechanisms.
+- Validates the existence of the Pub/Sub subscription before consuming messages from it.
+
+### 1.0.6
+- Point dotenv to the current working directory for the .env file.
+
+### 1.0.8
+- Added a new configuration option (LOGSERV_LOG_FILTERS) to filter log types.
+- Added a new configuration option (COMPRESS_OUTPUT_FILE) to set the compression option for output files.
+- Updated README with instructions on setting the log type filters and compression option.
+- Skipped 1.0.7 to fix a versioning issue.
