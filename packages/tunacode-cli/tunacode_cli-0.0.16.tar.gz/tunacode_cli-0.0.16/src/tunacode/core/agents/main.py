@@ -1,0 +1,337 @@
+"""Module: tunacode.core.agents.main
+
+Main agent functionality and coordination for the TunaCode CLI.
+Handles agent creation, configuration, and request processing.
+"""
+
+import json
+import re
+from datetime import datetime, timezone
+from typing import Optional
+
+from pydantic_ai import Agent, Tool
+from pydantic_ai.messages import ModelRequest, ToolReturnPart
+
+from tunacode.core.state import StateManager
+from tunacode.services.mcp import get_mcp_servers
+from tunacode.tools.bash import bash
+from tunacode.tools.grep import grep
+from tunacode.tools.read_file import read_file
+from tunacode.tools.run_command import run_command
+from tunacode.tools.update_file import update_file
+from tunacode.tools.write_file import write_file
+from tunacode.types import (
+    AgentRun,
+    ErrorMessage,
+    ModelName,
+    PydanticAgent,
+    ToolCallback,
+    ToolCallId,
+    ToolName,
+)
+
+
+async def _process_node(node, tool_callback: Optional[ToolCallback], state_manager: StateManager):
+    if hasattr(node, "request"):
+        state_manager.session.messages.append(node.request)
+
+    if hasattr(node, "thought") and node.thought:
+        state_manager.session.messages.append({"thought": node.thought})
+        # Display thought immediately if show_thoughts is enabled
+        if state_manager.session.show_thoughts:
+            from tunacode.ui import console as ui
+            await ui.muted(f"💭 THOUGHT: {node.thought}")
+
+    if hasattr(node, "model_response"):
+        state_manager.session.messages.append(node.model_response)
+        
+        # Enhanced ReAct thought processing
+        if state_manager.session.show_thoughts:
+            from tunacode.ui import console as ui
+            import json
+            import re
+            
+            for part in node.model_response.parts:
+                if hasattr(part, 'content') and isinstance(part.content, str):
+                    content = part.content.strip()
+                    
+                    # Pattern 1: Inline JSON thoughts {"thought": "..."}
+                    thought_pattern = r'\{"thought":\s*"([^"]+)"\}'
+                    matches = re.findall(thought_pattern, content)
+                    for thought in matches:
+                        await ui.muted(f"💭 REASONING: {thought}")
+                        
+                    # Pattern 2: Standalone thought JSON objects
+                    try:
+                        if content.startswith('{"thought"'):
+                            thought_obj = json.loads(content)
+                            if 'thought' in thought_obj:
+                                await ui.muted(f"💭 REASONING: {thought_obj['thought']}")
+                    except (json.JSONDecodeError, KeyError):
+                        pass
+                    
+                    # Pattern 3: Multi-line thoughts with context
+                    multiline_pattern = r'\{"thought":\s*"([^"]+(?:\\.[^"]*)*?)"\}'
+                    multiline_matches = re.findall(multiline_pattern, content, re.DOTALL)
+                    for thought in multiline_matches:
+                        if thought not in [m for m in matches]:  # Avoid duplicates
+                            # Clean up escaped characters
+                            cleaned_thought = thought.replace('\\"', '"').replace('\\n', ' ')
+                            await ui.muted(f"💭 REASONING: {cleaned_thought}")
+                    
+                    # Pattern 4: Text-based reasoning indicators
+                    reasoning_indicators = [
+                        (r'I need to (.+?)\.', 'PLANNING'),
+                        (r'Let me (.+?)\.', 'ACTION'),
+                        (r'The output shows (.+?)\.', 'OBSERVATION'),
+                        (r'Based on (.+?), I should (.+?)\.', 'DECISION')
+                    ]
+                    
+                    for pattern, label in reasoning_indicators:
+                        indicator_matches = re.findall(pattern, content, re.IGNORECASE)
+                        for match in indicator_matches:
+                            if isinstance(match, tuple):
+                                match_text = ' '.join(match)
+                            else:
+                                match_text = match
+                            await ui.muted(f"🎯 {label}: {match_text}")
+                            break  # Only show first match per pattern
+        
+        # Check for tool calls and fallback to JSON parsing if needed
+        has_tool_calls = False
+        for part in node.model_response.parts:
+            if part.part_kind == "tool-call" and tool_callback:
+                has_tool_calls = True
+                await tool_callback(part, node)
+            elif part.part_kind == "tool-return":
+                obs_msg = f"OBSERVATION[{part.tool_name}]: {part.content[:2_000]}"
+                state_manager.session.messages.append(obs_msg)
+        
+        # If no structured tool calls found, try parsing JSON from text content
+        if not has_tool_calls and tool_callback:
+            for part in node.model_response.parts:
+                if hasattr(part, 'content') and isinstance(part.content, str):
+                    await extract_and_execute_tool_calls(part.content, tool_callback, state_manager)
+
+
+def get_or_create_agent(model: ModelName, state_manager: StateManager) -> PydanticAgent:
+    if model not in state_manager.session.agents:
+        max_retries = state_manager.session.user_config["settings"]["max_retries"]
+        
+        # Load system prompt
+        import os
+        from pathlib import Path
+        prompt_path = Path(__file__).parent.parent.parent / "prompts" / "system.txt"
+        try:
+            with open(prompt_path, "r", encoding="utf-8") as f:
+                system_prompt = f.read().strip()
+        except FileNotFoundError:
+            system_prompt = None
+        
+        state_manager.session.agents[model] = Agent(
+            model=model,
+            system_prompt=system_prompt,
+            tools=[
+                Tool(bash, max_retries=max_retries),
+                Tool(grep, max_retries=max_retries),
+                Tool(read_file, max_retries=max_retries),
+                Tool(run_command, max_retries=max_retries),
+                Tool(update_file, max_retries=max_retries),
+                Tool(write_file, max_retries=max_retries),
+            ],
+            mcp_servers=get_mcp_servers(state_manager),
+        )
+    return state_manager.session.agents[model]
+
+
+def patch_tool_messages(
+    error_message: ErrorMessage = "Tool operation failed",
+    state_manager: StateManager = None,
+):
+    """
+    Find any tool calls without responses and add synthetic error responses for them.
+    Takes an error message to use in the synthesized tool response.
+
+    Ignores tools that have corresponding retry prompts as the model is already
+    addressing them.
+    """
+    if state_manager is None:
+        raise ValueError("state_manager is required for patch_tool_messages")
+
+    messages = state_manager.session.messages
+
+    if not messages:
+        return
+
+    # Map tool calls to their tool returns
+    tool_calls: dict[ToolCallId, ToolName] = {}  # tool_call_id -> tool_name
+    tool_returns: set[ToolCallId] = set()  # set of tool_call_ids with returns
+    retry_prompts: set[ToolCallId] = set()  # set of tool_call_ids with retry prompts
+
+    for message in messages:
+        if hasattr(message, "parts"):
+            for part in message.parts:
+                if (
+                    hasattr(part, "part_kind")
+                    and hasattr(part, "tool_call_id")
+                    and part.tool_call_id
+                ):
+                    if part.part_kind == "tool-call":
+                        tool_calls[part.tool_call_id] = part.tool_name
+                    elif part.part_kind == "tool-return":
+                        tool_returns.add(part.tool_call_id)
+                    elif part.part_kind == "retry-prompt":
+                        retry_prompts.add(part.tool_call_id)
+
+    # Identify orphaned tools (those without responses and not being retried)
+    for tool_call_id, tool_name in list(tool_calls.items()):
+        if tool_call_id not in tool_returns and tool_call_id not in retry_prompts:
+            messages.append(
+                ModelRequest(
+                    parts=[
+                        ToolReturnPart(
+                            tool_name=tool_name,
+                            content=error_message,
+                            tool_call_id=tool_call_id,
+                            timestamp=datetime.now(timezone.utc),
+                            part_kind="tool-return",
+                        )
+                    ],
+                    kind="request",
+                )
+            )
+
+
+async def parse_json_tool_calls(text: str, tool_callback: Optional[ToolCallback], state_manager: StateManager):
+    """
+    Parse JSON tool calls from text when structured tool calling fails.
+    Fallback for when API providers don't support proper tool calling.
+    """
+    if not tool_callback:
+        return
+    
+    # Pattern for JSON tool calls: {"tool": "tool_name", "args": {...}}
+    # Find potential JSON objects and parse them
+    potential_jsons = []
+    brace_count = 0
+    start_pos = -1
+    
+    for i, char in enumerate(text):
+        if char == '{':
+            if brace_count == 0:
+                start_pos = i
+            brace_count += 1
+        elif char == '}':
+            brace_count -= 1
+            if brace_count == 0 and start_pos != -1:
+                potential_json = text[start_pos:i+1]
+                try:
+                    parsed = json.loads(potential_json)
+                    if isinstance(parsed, dict) and 'tool' in parsed and 'args' in parsed:
+                        potential_jsons.append((parsed['tool'], parsed['args']))
+                except json.JSONDecodeError:
+                    pass
+                start_pos = -1
+    
+    matches = potential_jsons
+    
+    for tool_name, args in matches:
+        try:
+            # Create a mock tool call object
+            class MockToolCall:
+                def __init__(self, tool_name: str, args: dict):
+                    self.tool_name = tool_name
+                    self.args = args
+                    self.tool_call_id = f"fallback_{datetime.now().timestamp()}"
+            
+            class MockNode:
+                pass
+            
+            # Execute the tool through the callback
+            mock_call = MockToolCall(tool_name, args)
+            mock_node = MockNode()
+            
+            await tool_callback(mock_call, mock_node)
+            
+            if state_manager.session.show_thoughts:
+                from tunacode.ui import console as ui
+                await ui.muted(f"🔧 FALLBACK: Executed {tool_name} via JSON parsing")
+                
+        except Exception as e:
+            if state_manager.session.show_thoughts:
+                from tunacode.ui import console as ui
+                await ui.error(f"❌ Error executing fallback tool {tool_name}: {str(e)}")
+
+
+async def extract_and_execute_tool_calls(text: str, tool_callback: Optional[ToolCallback], state_manager: StateManager):
+    """
+    Extract tool calls from text content and execute them.
+    Supports multiple formats for maximum compatibility.
+    """
+    if not tool_callback:
+        return
+    
+    # Format 1: {"tool": "name", "args": {...}}
+    await parse_json_tool_calls(text, tool_callback, state_manager)
+    
+    # Format 2: Tool calls in code blocks
+    code_block_pattern = r'```json\s*(\{(?:[^{}]|"[^"]*"|(?:\{[^}]*\}))*"tool"(?:[^{}]|"[^"]*"|(?:\{[^}]*\}))*\})\s*```'
+    code_matches = re.findall(code_block_pattern, text, re.MULTILINE | re.DOTALL)
+    
+    for match in code_matches:
+        try:
+            tool_data = json.loads(match)
+            if 'tool' in tool_data and 'args' in tool_data:
+                class MockToolCall:
+                    def __init__(self, tool_name: str, args: dict):
+                        self.tool_name = tool_name
+                        self.args = args
+                        self.tool_call_id = f"codeblock_{datetime.now().timestamp()}"
+                
+                class MockNode:
+                    pass
+                
+                mock_call = MockToolCall(tool_data['tool'], tool_data['args'])
+                mock_node = MockNode()
+                
+                await tool_callback(mock_call, mock_node)
+                
+                if state_manager.session.show_thoughts:
+                    from tunacode.ui import console as ui
+                    await ui.muted(f"🔧 FALLBACK: Executed {tool_data['tool']} from code block")
+                    
+        except (json.JSONDecodeError, KeyError, Exception) as e:
+            if state_manager.session.show_thoughts:
+                from tunacode.ui import console as ui
+                await ui.error(f"❌ Error parsing code block tool call: {str(e)}")
+
+
+async def process_request(
+    model: ModelName,
+    message: str,
+    state_manager: StateManager,
+    tool_callback: Optional[ToolCallback] = None,
+) -> AgentRun:
+    agent = get_or_create_agent(model, state_manager)
+    mh = state_manager.session.messages.copy()
+    # Get max iterations from config (default: 20)
+    max_iterations = state_manager.session.user_config.get("settings", {}).get("max_iterations", 20)
+    
+    async with agent.iter(message, message_history=mh) as agent_run:
+        i = 0
+        async for node in agent_run:
+            await _process_node(node, tool_callback, state_manager)
+            i += 1
+            
+            # Display iteration progress if thoughts are enabled
+            if state_manager.session.show_thoughts and i > 1:
+                from tunacode.ui import console as ui
+                await ui.muted(f"🔄 Iteration {i}/{max_iterations}")
+            
+            if i >= max_iterations:
+                if state_manager.session.show_thoughts:
+                    from tunacode.ui import console as ui
+                    await ui.warning(f"⚠️ Reached maximum iterations ({max_iterations})")
+                break
+                
+        return agent_run
