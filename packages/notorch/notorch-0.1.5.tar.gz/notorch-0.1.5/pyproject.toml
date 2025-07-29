@@ -1,0 +1,22 @@
+[project]
+name = "notorch"
+version = "0.1.5"
+description = "Neural networks and ML from scratch in pure Python"
+authors = [
+    { name = "Mohammed Montaser", email = "moe.montaser@pm.me" },
+    { name = "Andrew Bassem", email = "andrewaziz555@gmail.com" }
+]
+license = {text = "GNU General Public License"}
+dependencies = ["numpy", "pandas"]
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
