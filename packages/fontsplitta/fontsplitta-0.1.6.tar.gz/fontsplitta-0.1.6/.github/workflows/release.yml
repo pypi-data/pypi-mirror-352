@@ -1,0 +1,111 @@
+name: release
+permissions:
+  contents: write
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+jobs:
+  release-binary:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          [
+            "windows-latest",
+            "ubuntu-24.04",
+            "ubuntu-24.04-arm",
+            "macos-13",
+            "macos-latest",
+          ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set filename
+        uses: actions/github-script@v7
+        id: set-filename
+        with:
+          script: |
+            const os = require("os");
+            const platform = process.platform
+            const arch = process.env.PROCESSOR_ARCHITEW6432 || process.arch;
+            if (platform === "win32") {
+              return `fontsplitta-${platform}-${arch}.zip`;
+            } else {
+              return `fontsplitta-${platform}-${arch}.tar.gz`;
+            }
+          result-encoding: string
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+      - name: Install dependencies
+        run: |
+          uv sync --extra dev
+      - name: Build executable
+        run: |
+          uv run pyinstaller --onefile --clean --name "fontsplitta" "fontsplitta/__main__.py"
+      - name: Archive Release (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd dist
+          powershell Compress-Archive -Path "fontsplitta.exe" -DestinationPath "${{ steps.set-filename.outputs.result }}"
+      - name: Archive Release (Linux/Darwin)
+        if: matrix.os != 'windows-latest'
+        run: |
+          cd dist
+          tar czf "${{ steps.set-filename.outputs.result }}" "fontsplitta"
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "dist/${{ steps.set-filename.outputs.result }}"
+  release-python:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+      - name: Install dependencies
+        run: |
+          uv sync
+      - name: Publish package
+        run: |
+          uv build
+          uv publish --token ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
+  update-homebrew:
+    runs-on: ubuntu-latest
+    needs: release-binary
+    steps:
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Checkout homebrew repo
+        uses: actions/checkout@v4
+        with:
+          repository: shunirr/homebrew-fontsplitta
+          path: homebrew-fontsplitta
+          token: ${{ secrets.TAP_GITHUB_TOKEN }}
+      - name: Update formula
+        run: |
+          cd homebrew-fontsplitta
+          deno run --allow-net --allow-write ../tools/update-homebrew.ts
+      - name: Commit and push
+        run: |
+          cd homebrew-fontsplitta
+          if [[ ! -z "$(git status -s)" ]]; then
+            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add fontsplitta.rb
+            git commit -m "Bump to $(cat current-version)"
+            git push
+          fi

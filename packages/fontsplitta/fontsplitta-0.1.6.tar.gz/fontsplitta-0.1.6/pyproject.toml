@@ -1,0 +1,27 @@
+[project]
+name = "fontsplitta"
+version = "0.1.6"
+description = "fontsplitta is a command-line tool that splits web fonts and generates CSS."
+authors = [{name = "shunirr", email = "git@s5r.jp"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "brotli>=1.1.0",
+    "fonttools>=4.56.0",
+    "urllib3>=2.3.0",
+    "click>=8.1.8",
+]
+
+[project.optional-dependencies]
+dev = [
+    "setuptools>=75.8.2",
+    "pyinstaller>=6.12.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+fontsplitta = "fontsplitta:main"
