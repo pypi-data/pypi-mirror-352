@@ -1,0 +1,11 @@
+[console_scripts]
+trialmesh-codemd = trialmesh.utils.codemd:cli_main
+trialmesh-download-models = trialmesh.cli.download_models:cli_main
+trialmesh-download-sigir2016 = trialmesh.fetchers.pull_sigir2016:cli_main
+trialmesh-embed = trialmesh.embeddings.run_embedding:cli_main
+trialmesh-evaluate = trialmesh.evaluation.evaluate_results:cli_main
+trialmesh-index = trialmesh.embeddings.build_index:cli_main
+trialmesh-match = trialmesh.cli.run_matcher:cli_main
+trialmesh-process-sigir2016 = trialmesh.fetchers.processxml:cli_main
+trialmesh-retrieval = trialmesh.cli.run_retrieval_pipeline:cli_main
+trialmesh-summarize = trialmesh.llm.summarizers:cli_main
