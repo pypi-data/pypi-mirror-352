@@ -1,0 +1,58 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "latest"
+
+    - name: Install dependencies
+      run: |
+        uv sync --all-extras --dev
+
+    - name: Check YAML files
+      run: |
+        # 验证YAML文件语法
+        uv run python -c "
+        import yaml
+        import sys
+        files = ['.pre-commit-config.yaml', '.github/workflows/pr-check.yml']
+        for f in files:
+          try:
+            with open(f, 'r') as file:
+              yaml.safe_load(file)
+            print(f'✅ {f}: Valid YAML')
+          except Exception as e:
+            print(f'❌ {f}: Invalid YAML - {e}')
+            sys.exit(1)
+        "
+
+    - name: Code quality with ruff
+      run: |
+        uv run ruff check src/
+
+    - name: Code formatting with ruff
+      run: |
+        uv run ruff format src/ --check
+
+    - name: Type check with mypy
+      run: |
+        uv run mypy src/ --show-error-codes
+
+    - name: Run tests
+      run: |
+        uv run pytest tests/ -v
