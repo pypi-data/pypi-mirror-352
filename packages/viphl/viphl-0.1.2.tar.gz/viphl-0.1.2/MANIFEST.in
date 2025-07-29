@@ -1,0 +1,33 @@
+include LICENSE
+include README.md
+include requirements.txt
+include pyproject.toml
+
+# Include pre-compiled C files for sdist
+recursive-include indicators *.c
+recursive-include indicators *.cpp
+recursive-include indicators *.h
+
+# Exclude all Python and Cython source files
+global-exclude *.py
+global-exclude *.pyx
+global-exclude *.pxd
+
+# Exclude Python implementation files we want to protect - be explicit
+exclude indicators/viphl/viphl_indicator_1_95.py
+exclude indicators/viphl/viphl.py
+exclude indicators/viphl/dto/viphl.py
+exclude indicators/viphl/dto/bypoint.py
+exclude indicators/viphl/dto/hl.py
+exclude indicators/viphl/dto/recovery_window.py
+exclude indicators/viphl/dto/settings.py
+prune indicators/viphl/dto/__pycache__
+
+# Exclude any private configuration files
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *.pyd
+global-exclude __pycache__
+global-exclude .git
+global-exclude .ipynb_checkpoints
+global-exclude .DS_Store 
