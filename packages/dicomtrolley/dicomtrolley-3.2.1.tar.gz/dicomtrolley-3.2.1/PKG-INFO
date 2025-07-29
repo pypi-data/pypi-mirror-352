@@ -1,0 +1,70 @@
+Metadata-Version: 2.1
+Name: dicomtrolley
+Version: 3.2.1
+Summary: Retrieve medical images via WADO-URI, WADO-RS, QIDO-RS, MINT, RAD69 and DICOM-QR
+Home-page: https://github.com/sjoerdk/dicomtrolley
+License: Apache-2.0
+Author: sjoerdk
+Author-email: sjoerd.kerkstra@radboudumc.nl
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: Jinja2 (>=3.0.3,<4.0.0)
+Requires-Dist: pydantic (>=2.9.1,<3.0.0)
+Requires-Dist: pydicom (>=2.1.2,<3.0.0)
+Requires-Dist: pynetdicom (>=1.5.6,<2.0.0)
+Requires-Dist: requests (>=2.25.1,<3.0.0)
+Requires-Dist: requests-futures (>=1.0.0,<2.0.0)
+Requires-Dist: requests-toolbelt (>=1.0.0,<2.0.0)
+Project-URL: Repository, https://github.com/sjoerdk/dicomtrolley
+Description-Content-Type: text/markdown
+
+# dicomtrolley
+
+[![CI](https://github.com/sjoerdk/dicomtrolley/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/sjoerdk/dicomtrolley/actions/workflows/build.yml?query=branch%3Amain)
+[![PyPI](https://img.shields.io/pypi/v/dicomtrolley)](https://pypi.org/project/dicomtrolley/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dicomtrolley)](https://pypi.org/project/dicomtrolley/)
+[![Code Climate](https://codeclimate.com/github/sjoerdk/dicomtrolley/badges/gpa.svg)](https://codeclimate.com/github/sjoerdk/dicomtrolley)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
+
+Retrieve medical images via WADO-URI, WADO-RS, QIDO-RS, MINT, RAD69 and DICOM-QR
+
+* Uses `pydicom` and `pynetdicom`. Images and query results are `pydicom.Dataset` instances
+* Query and download DICOM Studies, Series and Instances
+* Integrated search and download - automatic queries for missing series and instance info
+
+![A trolley](docs/resources/trolley.png)
+
+[dicomtrolley docs on readthedocs.io](https://dicomtrolley.readthedocs.io)
+
+## Installation
+```
+pip install dicomtrolley
+```
+
+## Basic usage
+```python
+# Create a http session
+session = requests.Session()
+
+# Use this session to create a trolley using MINT and WADO
+trolley = Trolley(searcher=Mint(session, "https://server/mint"),
+                  downloader=WadoURI(session, "https://server/wado_uri"))
+
+# find some studies (using MINT)
+studies = trolley.find_studies(Query(PatientName='B*'))
+
+# download the fist one (using WADO)
+trolley.download(studies[0], output_dir='/tmp/trolley')
+```
+
+## Documentation
+see [dicomtrolley docs on readthedocs.io](https://dicomtrolley.readthedocs.io)
+
