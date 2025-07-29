@@ -1,0 +1,64 @@
+Metadata-Version: 2.1
+Name: photolink
+Version: 1.0.3
+Summary: PhotoLink API wrapper
+Home-page: https://github.com/xudoberdigayratov/PhotoLink
+Download-URL: https://github.com/xudoberdigayratov/PhotoLink.git
+Author: Xudoberdi G'ayratov
+Author-email: gayratov@xudoberdi.uz
+License: MIT
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: filetype
+Provides-Extra: aio
+Requires-Dist: httpx; extra == "aio"
+Requires-Dist: filetype; extra == "aio"
+
+# PhotoLink
+
+Python PhotoLink API wrapper
+
+- [Documentation](https://photolink.uz);
+
+```bash
+$ python3 -m pip install photolink
+# with asyncio support
+$ python3 -m pip install 'photolink[aio]'
+```
+
+## Example
+```python
+from photolink import PhotoLink
+
+photolink = PhotoLink(client_id='lSeA0sSUgd')
+upload = photolink.upload_image(file_path='doppi.png')
+uploadFromUrl = photolink.upload_image_url(url="https://example.com/doppi.png")
+
+print(upload)
+print(uploadFromUrl)
+
+```
+
+## Async Example
+```python
+import asyncio
+from photolink.aio import PhotoLink
+
+async def main():
+    photolink = PhotoLink(client_id='lSeA0sSUgd')
+    print(await photolink.upload_image(file_path='doppi.png'))
+    print(await photolink.upload_image_url(url='https://example.com/doppi.png'))
+
+
+asyncio.run(main())
+```
