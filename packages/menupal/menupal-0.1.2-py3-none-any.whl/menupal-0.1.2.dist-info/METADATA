@@ -1,0 +1,103 @@
+Metadata-Version: 2.4
+Name: menupal
+Version: 0.1.2
+Summary: Menu Recommendation Tool
+Home-page: https://github.com/911218sky/mc-menu-picker
+Author: sky
+Author-email: sky@sky1218.com
+Keywords: menu recommendation utils tool
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: matplotlib~=3.10.3
+Requires-Dist: numpy~=2.2.6
+Requires-Dist: openpyxl~=3.1.5
+Requires-Dist: pandas~=2.2.3
+Requires-Dist: scikit_learn~=1.6.1
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# mc-menu-picker
+
+A content-based recommendation system built on McDonald's menu nutrition data. It computes multi-dimensional similarity across numeric, ingredient, and category features and provides the top-N most similar menu items.
+
+## ✨ Features
+
+| Feature | Description |
+|---------|-------------|
+| **🔢 Numeric Similarity** | Cosine similarity calculation based on calories, fat, carbohydrates, and other numeric fields |
+| **🥗 Ingredient Similarity** | Jaccard similarity calculation based on one-hot encoded ingredient features |
+| **📂 Category Similarity** | Jaccard similarity calculation based on one-hot encoded category features |
+| **⚖️ Weighted Fusion** | Combines three similarity matrices with customizable weights (default `[0.4, 0.35, 0.35]`) |
+| **💻 Local Recommendation** | Run `python main.py` to randomly select items and list top-K similar items |
+| **🚀 RESTful API** | Launch FastAPI service via `./scripts/api.sh` for external calls |
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/911218sky/mc-menu-picker.git
+cd mc-menu-picker
+pip install -r requirements.txt
+```
+
+## 📊 Data Preparation
+
+**Alternative:** You can also download the dataset directly - [download here](https://github.com/911218sky/mc-menu-picker/releases/tag/V1).
+
+**Step 1:** Extract the provided dataset
+```bash
+# Example extraction (adjust path as needed)
+unrar x data.rar ./
+```
+
+
+The program loads raw data and feature matrices, builds or loads the combined similarity matrix, and displays the top-10 recommendations for a random test ID.
+
+## 🌐 API Service
+
+Start the FastAPI service using the following command:
+
+```bash
+bash ./scripts/api.sh
+```
+
+### Environment Variables
+
+| Environment Variable | Description | Default Value |
+|---------------------|-------------|---------------|
+| `HOST` | Bind address | `0.0.0.0` |
+| `PORT` | Listening port | `3010` |
+| `PRODUCTION` | If set to `true`, disables `/docs` and `/redoc` endpoints | `false` |
+
+### 📖 API Documentation
+
+After startup, visit `http://localhost:3010/docs` to explore the Swagger UI interface.
+
+---
+
+## 🔧 Development Notes
+
+- **Similarity Calculation**: The system combines three different similarity algorithms for numeric, ingredient, and category features
+- **Flexible Weighting**: Weight ratios for different features can be adjusted according to requirements
+- **High Performance**: Pre-computed similarity matrices provide fast recommendation responses
+
+## 📝 Usage Examples
+
+**Local Recommendation:**
+```bash
+python ./src/main.py
+# Output: Random item and its top-10 similar recommendations
+```
