@@ -1,0 +1,181 @@
+[build-system]
+requires = ["hatchling"]
+build-backend="hatchling.build"
+
+[project]
+name = "airflow-priority"
+authors = [{name = "the airflow-priority authors", email = "t.paine154@gmail.com"}]
+description = "Priority Tags for Airflow Dags"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+version = "1.3.0"
+requires-python = ">=3.9"
+keywords = []
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+dependencies = [
+    "apache-airflow>=2,<3",
+]
+
+[project.optional-dependencies]
+develop = [
+    "build",
+    "bump-my-version",
+    "check-manifest",
+    "hatchling",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "twine",
+    "uv",
+    "wheel",
+    # Plugins
+    "boto3",
+    "botocore",
+    "datadog-api-client",
+    "discord.py",
+    "httpx",
+    "logfire",
+    "newrelic-telemetry-sdk",
+    "opsgenie-sdk",
+    "pagerduty",
+    "slack-sdk",
+    # Config
+    "airflow-config>=0.1.2",
+]
+aws = [
+    "boto3",
+    "botocore",
+]
+config = [
+    "airflow-config>=0.1.2",
+]
+datadog = [
+    "datadog-api-client",
+]
+discord = [
+    "discord.py",
+]
+logfire = [
+    "logfire",
+]
+newrelic = [
+    "newrelic-telemetry-sdk",
+]
+opsgenie = [
+    "opsgenie-sdk",
+]
+pagerduty = [
+    "pagerduty",
+]
+slack = [
+    "slack-sdk",
+]
+symphony = [
+    "httpx",
+]
+
+[project.scripts]
+
+[project.entry-points."airflow.plugins"]
+airflow_priority = "airflow_priority.plugin:AirflowPriorityPlugin"
+
+[project.urls]
+Repository = "https://github.com/airflow-laminar/airflow-priority"
+Homepage = "https://github.com/airflow-laminar/airflow-priority"
+
+[tool.bumpversion]
+current_version = "1.3.0"
+commit = true
+tag = false
+
+[[tool.bumpversion.files]]
+filename = "airflow_priority/__init__.py"
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
+
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+search = 'version = "{current_version}"'
+replace = 'version = "{new_version}"'
+
+[tool.check-manifest]
+ignore = [
+    ".copier-answers.yml",
+    "Makefile",
+    "docs/**/*",
+]
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "airflow_priority/tests/integration/",
+]
+[tool.coverage.report]
+exclude_also = [
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "@(abc\\.)?abstractmethod",
+]
+ignore_errors = true
+fail_under = 70
+
+[tool.hatch.build]
+artifacts = []
+
+[tool.hatch.build.sources]
+src = "/"
+
+[tool.hatch.build.targets.sdist]
+packages = ["airflow_priority"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["airflow_priority"]
+
+[tool.pytest.ini_options]
+addopts = ["-vvv", "--junitxml=junit.xml"]
+testpaths = "airflow_priority/tests"
+
+[tool.ruff]
+line-length = 150
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+default-section = "third-party"
+known-first-party = ["airflow_priority"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "F403"]
+
+[tool.yardang]
+title = "airflow-priority"
+root = "README.md"
+pages = [
+    "docs/src/introduction.md",
+    "docs/src/datadog.md",
+    "docs/src/discord.md",
+    "docs/src/newrelic.md",
+    "docs/src/opsgenie.md",
+    "docs/src/logfire.md",
+    "docs/src/slack.md",
+    "docs/src/symphony.md",
+    "docs/src/cloudwatch.md",
+    "docs/src/API.md",
+]
+use-autoapi = false
