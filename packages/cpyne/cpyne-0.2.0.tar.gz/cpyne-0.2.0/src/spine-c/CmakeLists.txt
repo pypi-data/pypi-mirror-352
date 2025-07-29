@@ -1,0 +1,84 @@
+cmake_minimum_required(VERSION 3.10)
+project(spine_c C)
+
+# 设置 C 标准
+set(CMAKE_C_STANDARD 90)
+set(CMAKE_C_STANDARD_REQUIRED OFF)
+set(CMAKE_C_EXTENSIONS OFF)
+
+set(CMAKE_C_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+
+# macOS Clang 特殊处理
+if(CMAKE_C_COMPILER_ID MATCHES "AppleClang")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c89")
+endif()
+
+# Spine 源文件
+set(SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Animation.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/AnimationState.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/AnimationStateData.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Array.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Atlas.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/AtlasAttachmentLoader.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Attachment.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/AttachmentLoader.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Bone.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/BoneData.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/BoundingBoxAttachment.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ClippingAttachment.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Color.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Event.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/EventData.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/IkConstraint.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/IkConstraintData.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Json.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/MeshAttachment.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/PathAttachment.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/PathConstraint.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/PathConstraintData.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/PointAttachment.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/RegionAttachment.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Skeleton.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/SkeletonBinary.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/SkeletonBounds.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/SkeletonClipping.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/SkeletonData.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/SkeletonJson.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Skin.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Slot.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/SlotData.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/TransformConstraint.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/TransformConstraintData.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Triangulator.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/VertexAttachment.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/VertexEffect.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/extension.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/spine_extension.c
+)
+
+# 动态库目标
+add_library(spine_c SHARED ${SOURCES})
+
+# 包含路径
+target_include_directories(spine_c PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/spine
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+# 编译定义
+target_compile_definitions(spine_c PRIVATE
+    SPINE_SHORT_NAMES
+    SPINE_STATIC
+)
+
+# macOS 输出设置
+set_target_properties(spine_c PROPERTIES
+    MACOSX_RPATH ON
+    OUTPUT_NAME "spine"
+    PREFIX "lib"
+    SUFFIX ".dylib"
+)
+
