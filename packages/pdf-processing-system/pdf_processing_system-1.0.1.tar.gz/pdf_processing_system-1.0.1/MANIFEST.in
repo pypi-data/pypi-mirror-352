@@ -1,0 +1,19 @@
+# PDF Processing System - Release Package
+
+include README.md
+include LICENSE
+include requirements.txt
+include config.json
+include *.py
+recursive-include samples *.pdf
+recursive-include docs *.md
+exclude test_*
+exclude run_tests.bat
+prune test_output
+prune processed_data
+prune __pycache__
+prune .pytest_cache
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *~
+global-exclude .DS_Store
