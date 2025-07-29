@@ -1,0 +1,141 @@
+Metadata-Version: 2.4
+Name: gestao_aluguer
+Version: 0.1.0
+Summary: Ferramenta para gestão de aluguer de imóveis.
+Home-page: https://github.com/DasilvaCatarina/-gest-o-de-aluguer-de-im-veis
+Author: Catarina Silva,João Pedro Pinto Costa,Ana Martins,Daniel Teixeira da Silva
+Author-email: seu@email.com
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: datetime
+Requires-Dist: tabulate
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: summary
+
+# 🏠 Sistema de Gestão de Aluguer de Imóveis
+
+Este projeto foi desenvolvido no âmbito da unidade curricular **Metodologias Ágeis de Desenvolvimento de Software**, do curso de **Tecnologias de Informação, Web e Multimédia** do **Instituto Politécnico da Maia (IPMaia)**.
+
+## 👥 Autores
+- Catarina Silva  
+- Ana Martins  
+- Daniel Teixeira da Silva  
+- João Pedro Pinto Costa  
+
+## 📚 Descrição do Projeto
+
+O **Sistema de Gestão de Aluguer de Imóveis** tem como objetivo facilitar a administração de reservas de imóveis, permitindo:
+
+- 📇 Cadastro de clientes;
+- 🏡 Cadastro de imóveis;
+- 📆 Reserva de imóveis para períodos específicos;
+- 💶 Cálculo automático do custo da reserva;
+- 📊 Geração de relatórios e gráficos de faturação.
+
+O sistema garante que **não existem reservas duplicadas** para o mesmo imóvel no mesmo período, assegurando a integridade dos dados.
+
+## 🧱 Estrutura do Sistema
+
+O código é composto pelas seguintes classes principais:
+
+### `Cliente`
+- Guarda informações do cliente (nome, email, telefone, NIF);
+- Armazena as reservas associadas.
+
+### `Imovel`
+- Define as características de um imóvel;
+- Permite verificar a disponibilidade para um intervalo de datas.
+
+### `Reserva`
+- Regista a reserva de um imóvel por um cliente;
+- Calcula automaticamente o custo da estadia.
+
+### `GestorAluguer`
+- Gerencia todos os dados do sistema:
+  - Adição de clientes e imóveis;
+  - Criação de reservas;
+  - Listagem de dados;
+  - Validação da integridade;
+  - Relatórios de faturação;
+  - Visualização gráfica dos resultados.
+
+## 🧪 Funcionalidades
+
+- ✅ Verificação de disponibilidade antes da reserva;
+- 🔍 Validação de dados (duplicações, conflitos de datas);
+- 📈 Gráficos de faturação por imóvel;
+- 🏆 Identificação do melhor cliente e do imóvel mais lucrativo;
+- 📅 Relatórios por período;
+- 📊 Estatísticas do mês mais procurado.
+
+## 📦 Requisitos
+
+Este projeto utiliza bibliotecas Python como:
+
+- `pandas`
+- `matplotlib`
+- `tabulate`
+- `collections`
+
+Instalação recomendada via pip:
+
+```bash
+pip install pandas matplotlib tabulate
+```
+
+## ▶️ Como Usar
+
+Segue os passos abaixo para utilizar o sistema:
+
+1. **Instanciar o sistema de gestão:**
+```python
+from gestor_aluguer import GestorAluguer
+
+gestor = GestorAluguer()
+```
+
+2. **Adicionar clientes e imóveis:**
+```python
+gestor.adicionar_cliente("João Silva", "joao@email.com", "912345678", "123456789")
+gestor.adicionar_imovel("Lisboa", 85, "Apartamento T2 com varanda")
+```
+
+3. **Criar reservas:**
+```python
+from datetime import date
+
+gestor.criar_reserva("joao@email.com", "Lisboa - Apartamento T2 com varanda", date(2025, 7, 1), date(2025, 7, 10))
+```
+
+4. **Listar clientes, imóveis e reservas:**
+```python
+gestor.listar_clientes()
+gestor.listar_imoveis()
+gestor.listar_reservas()
+```
+
+5. **Validar integridade de dados:**
+```python
+gestor.validar_integridade_dados()
+```
+
+6. **Visualizar faturação e relatórios:**
+```python
+gestor.visualizar_faturacao()
+gestor.melhor_cliente()
+gestor.imovel_mais_lucrativo()
+gestor.relatorio_faturacao_por_periodo(date(2025, 1, 1), date(2025, 12, 31))
+gestor.mes_mais_procurado()
+```
+
+## 📝 Logbook
+
+[Consulta o log de desenvolvimento (Google Docs)](https://docs.google.com/document/d/1ARa5t2Dxl0LvPMn40caitLQuUNPLj3jOobCxl6A-NW8/edit?usp=sharing)
