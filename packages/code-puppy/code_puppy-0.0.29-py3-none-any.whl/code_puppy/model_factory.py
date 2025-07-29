@@ -1,0 +1,215 @@
+import os
+import json
+import asyncio
+import time
+from typing import Dict, Any
+from pydantic_ai.models.gemini import GeminiModel
+from pydantic_ai.models.openai import OpenAIModel
+from pydantic_ai.models.anthropic import AnthropicModel
+from pydantic_ai.providers.google_gla import GoogleGLAProvider
+from pydantic_ai.providers.openai import OpenAIProvider
+from pydantic_ai.providers.anthropic import AnthropicProvider
+from anthropic import AsyncAnthropic
+import httpx
+from httpx import Response
+import threading
+from collections import deque
+
+# Environment variables used in this module:
+# - GEMINI_API_KEY: API key for Google's Gemini models. Required when using Gemini models.
+# - OPENAI_API_KEY: API key for OpenAI models. Required when using OpenAI models or custom_openai endpoints.
+# - TOGETHER_AI_KEY: API key for Together AI models. Required when using Together AI models.
+#
+# When using custom endpoints (type: "custom_openai" in models.json):
+# - Environment variables can be referenced in header values by prefixing with $ in models.json.
+#   Example: "X-Api-Key": "$OPENAI_API_KEY" will use the value from os.environ.get("OPENAI_API_KEY")
+
+
+def make_client(
+    max_requests_per_minute: int = 10, max_retries: int = 3, retry_base_delay: int = 10
+) -> httpx.AsyncClient:
+    # Create a rate limiter using a token bucket approach
+    class RateLimiter:
+        def __init__(self, max_requests_per_minute):
+            self.max_requests_per_minute = max_requests_per_minute
+            self.interval = (
+                60.0 / max_requests_per_minute
+            )  # Time between requests in seconds
+            self.request_times = deque(maxlen=max_requests_per_minute)
+            self.lock = threading.Lock()
+
+        async def acquire(self):
+            """Wait until a request can be made according to the rate limit."""
+            while True:
+                with self.lock:
+                    now = time.time()
+
+                    # Remove timestamps older than 1 minute
+                    while self.request_times and now - self.request_times[0] > 60:
+                        self.request_times.popleft()
+
+                    # If we haven't reached the limit, add the timestamp and proceed
+                    if len(self.request_times) < self.max_requests_per_minute:
+                        self.request_times.append(now)
+                        return
+
+                    # Otherwise, calculate the wait time until we can make another request
+                    oldest = self.request_times[0]
+                    wait_time = max(0, oldest + 60 - now)
+
+                if wait_time > 0:
+                    print(
+                        f"Rate limit would be exceeded. Waiting {wait_time:.2f} seconds before sending request."
+                    )
+                    await asyncio.sleep(wait_time)
+                else:
+                    # Try again immediately
+                    continue
+
+    # Create the rate limiter instance
+    rate_limiter = RateLimiter(max_requests_per_minute)
+
+    def should_retry(response: Response) -> bool:
+        return response.status_code == 429 or (500 <= response.status_code < 600)
+
+    async def request_hook(request):
+        # Wait until we can make a request according to our rate limit
+        await rate_limiter.acquire()
+        return request
+
+    async def response_hook(response: Response) -> Response:
+        retries = getattr(response.request, "_retries", 0)
+
+        if should_retry(response) and retries < max_retries:
+            setattr(response.request, "_retries", retries + 1)
+
+            delay = retry_base_delay * (2**retries)
+
+            if response.status_code == 429:
+                print(
+                    f"Rate limit exceeded. Retrying in {delay:.2f} seconds (attempt {retries + 1}/{max_retries})"
+                )
+            else:
+                print(
+                    f"Server error {response.status_code}. Retrying in {delay:.2f} seconds (attempt {retries + 1}/{max_retries})"
+                )
+
+            await asyncio.sleep(delay)
+
+            new_request = response.request.copy()
+            async with httpx.AsyncClient() as client:
+                # Apply rate limiting to the retry request as well
+                await rate_limiter.acquire()
+                new_response = await client.request(
+                    new_request.method,
+                    str(new_request.url),
+                    headers=new_request.headers,
+                    content=new_request.content,
+                    params=dict(new_request.url.params),
+                )
+                return new_response
+        return response
+
+    # Setup both request and response hooks
+    event_hooks = {"request": [request_hook], "response": [response_hook]}
+
+    client = httpx.AsyncClient(event_hooks=event_hooks)
+    return client
+
+
+def get_custom_config(model_config):
+    custom_config = model_config.get("custom_endpoint", {})
+    if not custom_config:
+        raise ValueError(
+            "Custom model requires 'custom_endpoint' configuration"
+        )
+
+    url = custom_config.get("url")
+    if not url:
+        raise ValueError("Custom endpoint requires 'url' field")
+
+    headers = {}
+    for key, value in custom_config.get("headers", {}).items():
+        if value.startswith("$"):
+            value = os.environ.get(value[1:])
+        headers[key] = value
+
+    ca_certs_path = None
+    if "ca_certs_path" in custom_config:
+        ca_certs_path = custom_config.get("ca_certs_path")
+
+    api_key = None
+    if "api_key" in model_config:
+        if model_config["api_key"].startswith("$"):
+            api_key = os.environ.get(model_config["api_key"][1:])
+        else:
+            api_key = model_config["api_key"]
+    return url, headers, ca_certs_path, api_key
+
+
+class ModelFactory:
+    """A factory for creating and managing different AI models."""
+
+    @staticmethod
+    def load_config(config_path: str) -> Dict[str, Any]:
+        """Loads model configurations from a JSON file."""
+        with open(config_path, "r") as f:
+            return json.load(f)
+
+    @staticmethod
+    def get_model(model_name: str, config: Dict[str, Any]) -> Any:
+        """Returns a configured model instance based on the provided name and config."""
+        model_config = config.get(model_name)
+        if not model_config:
+            raise ValueError(f"Model '{model_name}' not found in configuration.")
+
+        model_type = model_config.get("type")
+
+        # Common configuration for rate limiting and retries
+        max_requests_per_minute = model_config.get("max_requests_per_minute", 100)
+        max_retries = model_config.get("max_retries", 3)
+        retry_base_delay = model_config.get("retry_base_delay", 1.0)
+
+        client = make_client(
+            max_requests_per_minute=max_requests_per_minute,
+            max_retries=max_retries,
+            retry_base_delay=retry_base_delay,
+        )
+
+        if model_type == "gemini":
+            provider = GoogleGLAProvider(api_key=os.environ.get("GEMINI_API_KEY", ""))
+
+            return GeminiModel(model_name=model_config["name"], provider=provider)
+
+        elif model_type == "openai":
+            provider = OpenAIProvider(api_key=os.environ.get("OPENAI_API_KEY", ""))
+
+            return OpenAIModel(model_name=model_config["name"], provider=provider)
+
+        elif model_type == "custom_anthropic":
+            url, headers, ca_certs_path, api_key = get_custom_config(model_config)
+            client = httpx.AsyncClient(headers=headers, verify=ca_certs_path)
+            anthropic_client = AsyncAnthropic(
+                base_url=url,
+                http_client=client,
+                api_key=api_key,
+            )
+            provider = AnthropicProvider(anthropic_client=anthropic_client)
+
+            return AnthropicModel(model_name=model_config["name"], provider=provider)
+
+        elif model_type == "custom_openai":
+            url, headers, ca_certs_path, api_key = get_custom_config(model_config)
+            client = httpx.AsyncClient(headers=headers, verify=ca_certs_path)
+            provider_args = dict(
+                base_url=url,
+                http_client=client,
+            )
+            if api_key:
+                provider_args["api_key"] = api_key
+            provider = OpenAIProvider(**provider_args)
+
+            return OpenAIModel(model_name=model_config["name"], provider=provider)
+
+        else:
+            raise ValueError(f"Unsupported model type: {model_type}")
