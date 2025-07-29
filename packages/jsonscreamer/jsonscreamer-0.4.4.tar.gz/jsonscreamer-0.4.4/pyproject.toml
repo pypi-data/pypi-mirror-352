@@ -1,0 +1,198 @@
+[build-system]
+requires = ["flit_core >=3.11,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "jsonscreamer"
+version = "0.4.4"
+authors = [{ name = "Oliver Margetts" }]
+description = "fast json schema validator"
+requires-python = ">=3.10"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: File Formats :: JSON",
+  "Topic :: File Formats :: JSON :: JSON Schema",
+]
+dependencies = [
+  "fastjsonschema",  # ref resolution
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "jsonschema",
+  "ruff",
+  "pyright",
+  # extra format checkers
+  "idna",
+  "jsonpointer",
+  "rfc3987",
+  "uri_template",
+  "fqdn",
+]
+all_formats = [
+  # extra format checkers
+  "idna",
+  "jsonpointer",
+  "rfc3987",
+  "uri_template",
+  "fqdn",
+]
+
+[tool.flit.external-data]
+directory = "jsonscreamer/_metaschemas"
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+## File Selection
+force-exclude = true # don't check excluded files even if passed directly
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+## Rule Selection
+# to read about ruff rules check this: https://beta.ruff.rs/docs/rules/
+select = [
+  'E',
+  'W',      # pycodestyle: E, W
+  'F',      # pyflakes: F
+  'B',      # flake8-bugbear: B
+  'N',      # pep8-naming: N
+  'I',      # isort: I
+  'ISC',    # flake8-implicit-str-concat: ISC
+  'ANN',    # flake8-annotations: ANN
+  'PYI',    # flake8-pyi: PYI
+  'PT',     # flake8-pytest-style: PT (Specifically pytest-raises-too-broad)
+  'T10',    # flake8-debugger: T10
+  'S',      # flake8-bandit: S
+  'UP',     # pyupgrade: U
+  'TC',     # flake8-type-checking
+  'RUF',    # ruff-specific: RUF
+]
+ignore = [
+  'E501',   # Line too long: https://beta.ruff.rs/docs/rules/line-too-long/
+  'B905',   # Zip without strict flag
+  'ANN401', # Annotated with `Any`: https://beta.ruff.rs/docs/rules/any-type/
+  'UP038',  # isinstance(x, a | b) is 2x slower than isinstance(x, (a, b))
+  'PT006',  # pytest prameters have lax types
+  'PT007',  # pytest prameters have lax types
+
+  # The following rules are ignored for `ruff format`'s benefit
+  # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
+  'W191',
+  'E111',
+  'E114',
+  'E117',
+  'D206',
+  'D300',
+  'Q000',
+  'Q001',
+  'Q002',
+  'Q003',
+  'COM812',
+  'COM819',
+  'ISC001',
+]
+unfixable = [
+  'ISC', # Occurrences of this are usually due to a missing comma,
+  # We don't want to autofix this as it probably won't be what we want.
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Here we are predominantly ignoring Typehinting related rules, namely:
+# - ANN: https://beta.ruff.rs/docs/rules/#flake8-annotations-ann
+# - PYI024: https://beta.ruff.rs/docs/rules/collections-named-tuple/
+
+# External Repo
+"base_image/packages/fire_schemas/fire_schemas/fire/*" = ['ANN', 'PYI024']
+
+# Testing files
+"**/tests/*" = ['ANN', 'PYI024', 'S']
+"**/test_*.py" = ['ANN', 'PYI024', 'S']
+"**/conftest.py" = ['ANN', 'PYI024', 'S']
+
+[tool.ruff.lint.pep8-naming]
+classmethod-decorators = []
+staticmethod-decorators = []
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = []
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = true
+
+[tool.ruff.lint.flake8-type-checking]
+strict = true
+exempt-modules = []
+runtime-evaluated-base-classes = []
+
+[tool.ruff.lint.isort]
+
+required-imports = ["from __future__ import annotations"]
+relative-imports-order = "closest-to-furthest"
+combine-as-imports = true
+section-order = [
+  "future",
+  "standard-library",
+  "third-party",
+  "first-party",
+  "local-folder",
+]
+
+[tool.pyright]
+pythonVersion = "3.10"
+typeCheckingMode = "standard"
+
+# Used for better TypeForm support
+enableExperimentalFeatures  = true
+
+# Imports
+reportMissingTypeStubs = false
+
+## Comments
+reportUnnecessaryTypeIgnoreComment = "warning"
+reportTypeCommentUsage = true
+
+## Container Inference
+# Use strict type assumptions when inferring the type of containers
+strictListInference = true
+strictDictionaryInference = true
+strictSetInference = true
+
+## Decoraters
+reportUntypedFunctionDecorator = true
+reportUntypedClassDecorator = true
+
+## Unused
+reportUnusedClass = true
+reportUnusedVariable = true
+
+## Miscellaneous
+deprecateTypingAliases = true
+reportConstantRedefinition = "warning"
+reportUnhashable = true
+reportDeprecated = "warning"
+
+
+exclude = [
+  # Venv & Caches
+  '*venv',
+  '**/__pycache__',
+]
