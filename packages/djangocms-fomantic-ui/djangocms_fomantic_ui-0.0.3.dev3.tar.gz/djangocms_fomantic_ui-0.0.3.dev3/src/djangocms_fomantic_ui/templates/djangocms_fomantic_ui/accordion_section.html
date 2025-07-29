@@ -1,0 +1,13 @@
+{% load cms_tags i18n %}
+	<div class="{{ instance.get_classes }}">
+		<i class="dropdown icon"></i>
+	{{ instance.title }}
+	</div>
+	<div class="{% if instance.active %}active {% endif %}content">
+	{% autoescape off %}
+	{{ instance.content }}
+	{% endautoescape %}
+	{% for plugin in instance.child_plugin_instances %}
+		{% render_plugin plugin %}
+	{% endfor %}
+  </div>

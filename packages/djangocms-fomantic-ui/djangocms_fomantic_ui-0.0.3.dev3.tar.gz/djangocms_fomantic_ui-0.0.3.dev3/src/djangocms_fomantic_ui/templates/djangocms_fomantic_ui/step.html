@@ -1,0 +1,18 @@
+{% load cms_tags i18n sekizai_tags %}
+{% with step=instance %}
+	{% autoescape off %}{{ step.get_opening_tag }}{% endautoescape %}
+		{% if step.icon_name %}
+		  <i class="{{ step.icon_name }} icon"></i>
+		{% endif %}
+		<div class="content">
+		  <div class="title">
+			  {{ step.title }}
+		  </div>
+		  <div class="description">
+			  {{ step.description }}
+		  </div>
+		</div>
+	{% autoescape off %}{{ step.get_closing_tag }}{% endautoescape %}
+{% endwith %}
+{% addtoblock "js" %}
+{% endaddtoblock %}

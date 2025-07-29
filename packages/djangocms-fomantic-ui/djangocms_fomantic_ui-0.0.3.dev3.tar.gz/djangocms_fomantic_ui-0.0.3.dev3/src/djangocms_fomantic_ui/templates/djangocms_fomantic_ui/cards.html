@@ -1,0 +1,6 @@
+{% load cms_tags i18n %}
+<div class="ui stackable cards">
+	{% for plugin in instance.child_plugin_instances %}
+		{% render_plugin plugin %}
+	{% endfor %}
+</div>

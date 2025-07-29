@@ -1,0 +1,71 @@
+{% load i18n static sekizai_tags thumbnail %}
+{% addtoblock "js" strip %}
+<script>
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>
+{% endaddtoblock %}
+{% addtoblock "js" strip %}
+
+{# Modal overlay #}
+<script>
+    $(function () {
+        if (getCookie('modal-{{ instance.id }}') != "don't show") {
+            date = new Date()
+            if ( date > new Date("{{ instance.visible_from|date:'c' }}")
+            && date < new Date("{{ instance.visible_until|date:'c' }}")) {
+                $('#modal-{{ instance.id }}').modal('show');
+            }
+        }
+        $('#open-link-button-{{ instance.id }}').click(function () {
+	        {% if instance.button_linked_page %}
+            window.open("{{ instance.button_linked_page.get_public_url }}", "{{ instance.target }}");
+	        {% elif instance.link_button_url %}
+            window.open("{{ instance.link_button_url }}", "{{ instance.target }}");
+	        {% endif %}
+        })
+        $('#stay-button-{{ instance.id }}').click(function () {
+            document.cookie = "modal-{{ instance.id }}=don't show; expires={{ instance.visible_until|date:'D, d M Y G:i:s e' }}; path=/";
+        })
+    });
+</script>
+{% endaddtoblock %}
+
+{# Modal overlay #}
+<div id="modal-{{ instance.id }}" class="ui modal">
+	<i class="close icon"></i>
+	<div class="header">
+		{{ instance.header }}
+	</div>
+	<div class="image content">
+		{% if instance.picture %}
+		<img class="image" src="{% thumbnail instance.picture 500x500 %}" style="max-width: 50%;">
+		{% endif %}
+		<div class="description">
+			{{ instance.text }}
+		</div>
+	</div>
+	
+	<div class="actions">
+		<div class="ui red negative button" id="stay-button-{{ instance.id }}">
+			{% trans "Stay here and don’t show this alert again" %}
+		</div>
+		<div class="ui positive right labeled icon button" id="open-link-button-{{ instance.id }}">
+			{{ instance.link_button_text }}
+			<i class="checkmark icon"></i>
+		</div>
+	</div>
+</div>

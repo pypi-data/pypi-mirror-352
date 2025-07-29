@@ -1,0 +1,29 @@
+{% load menu_tags sekizai_tags %}
+
+{% addtoblock "css" strip %}
+<style>
+	{# FIXME: class="active" breaks the dropdown functionality, use selected instead #}
+	.ui.menu .selected.item {
+		background: rgba(0, 0, 0, 0.05);
+	}
+</style>
+{% endaddtoblock %}
+{% for child in children %}
+<div class="{% if child.children %} ui dropdown{% endif %}{% if child.selected %} selected  {% endif %} item ">
+	<a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+	{% if child.children %}
+	<i class="dropdown icon"></i>
+	<div class="menu">
+		{% show_menu from_level to_level extra_inactive extra_active "menu/sub_menu.html" "" "" child %}
+	</div>
+	{% endif %}
+</div>
+{% endfor %}
+
+{% addtoblock "js" strip %}
+<script>
+	$(function () {
+		$('.ui.dropdown').dropdown({'on': 'hover'})
+	})
+</script>
+{% endaddtoblock %}

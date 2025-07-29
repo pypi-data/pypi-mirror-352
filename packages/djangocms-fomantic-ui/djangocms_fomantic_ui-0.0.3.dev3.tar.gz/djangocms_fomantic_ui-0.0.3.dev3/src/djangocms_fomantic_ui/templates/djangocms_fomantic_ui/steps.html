@@ -1,0 +1,34 @@
+{% load cms_tags i18n sekizai_tags %}
+{% addtoblock "js" %}
+<script>
+{# TODO: What if there are multiple steps containers or other JS with samename on the page? Namespaces in JS? #}
+	function hideAll() {
+		{% for plugin in instance.child_plugin_instances %}
+		$("#step-{{ plugin.id }}-tab-text").hide();
+		$("#step-{{ plugin.id }}").removeClass("active");
+		{% endfor %}
+	}
+	$(function() {
+		hideAll();
+	})
+	
+	function show(step) {
+		hideAll();
+		$(step+"-tab-text").show();
+		$(step).addClass("active");
+	}
+</script>
+{% endaddtoblock %}
+<div class="{{ instance.get_classes }}">
+	{% for plugin in instance.child_plugin_instances %}
+		{% render_plugin plugin %}
+	{% endfor %}
+</div>
+{% for plugin in instance.child_plugin_instances %}
+	<div id="step-{{ plugin.id }}-tab-text" class="step-tab-text ui segment">
+		{% autoescape off %}
+		{{ plugin.tab_text }}
+		{% endautoescape %}
+	</div>
+{% endfor %}
+
