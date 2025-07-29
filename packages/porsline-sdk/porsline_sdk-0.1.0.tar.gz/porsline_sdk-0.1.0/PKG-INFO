@@ -1,0 +1,36 @@
+Metadata-Version: 2.4
+Name: porsline-sdk
+Version: 0.1.0
+Summary: A lightweight SDK for interacting with Porsline forms and responses
+Author-email: Matin Khosravi <matinkhosravi97@gmail.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/matinkhosravi/porsline-sdk
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: jdatetime
+Dynamic: license-file
+
+# Porsline SDK
+A lightweight Python SDK to interact with Porsline forms and convert Jalali dates to Gregorian.
+
+## Features
+Fetch and parse form data from Porsline
+
+Convert Jalali dates to Gregorian
+
+Designed for integration with surveys
+
+## Installation
+
+`pip install porsline-sdk`
+
+## Usage
+````
+from porsline.client import PorslineClient
+
+client = PorslineClient(api_key="your_api_key")
+form = client.get_form("form_id")
+print(form.cols)
+````
