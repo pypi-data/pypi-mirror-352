@@ -1,0 +1,55 @@
+# pyproject.toml
+# https://github.com/ddh0/easy-llama/
+# MIT License -- Copyright (c) 2024 Dylan Halladay
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "easy_llama"
+dynamic = ["version"]
+description = "This is easy-llama, a Python package that wraps the C/C++ API provided by llama.cpp. It's intended for developers and machine learning hobbyists who want to integrate on-device language models (LLMs) into their applications."
+readme = "README.md"
+authors = [{ name = "Dylan Halladay", email = "chemist-mulches-39@icloud.com" }]
+license = { text = "MIT" }
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",  
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"
+]
+dependencies = [
+    "numpy",
+    "fastapi",
+    "uvicorn",
+    "jinja2",
+    "tqdm"
+]
+
+[project.urls]
+Homepage = "https://github.com/ddh0/easy-llama"
+
+[tool.setuptools]
+packages = ["easy_llama", "easy_llama.webui"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "easy_llama.__version__"}
+
+[tool.setuptools.package-data]
+"easy_llama.webui" = [
+    "*.ico",
+    "*.png",
+    "*.html",
+    "*.css",
+    "*.js",
+    "*.webmanifest",
+]
