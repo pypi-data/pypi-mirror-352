@@ -1,0 +1,145 @@
+Metadata-Version: 2.4
+Name: hwytvidgrabber
+Version: 1.5
+Summary: A YouTube downloader app with GUI
+Home-page: https://github.com/MalikHw/HwYtVidGrabber
+Author: MalikHw
+Author-email: MalikHw <help.malicorporation@gmail.com>
+License: MIT
+Project-URL: Homepage, https://github.com/MalikHw/HwYtVidGrabber
+Project-URL: Bug Reports, https://github.com/MalikHw/HwYtVidGrabber/issues
+Project-URL: Source, https://github.com/MalikHw/HwYtVidGrabber
+Project-URL: Funding, https://www.ko-fi.com/MalikHw47
+Keywords: youtube,downloader,video,audio,mp3,mp4,gui,pyqt6
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Multimedia :: Video
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Environment :: X11 Applications :: Qt
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: PyQt6>=6.4.0
+Requires-Dist: yt-dlp>=2023.1.6
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: black>=22.0.0; extra == "dev"
+Requires-Dist: flake8>=4.0.0; extra == "dev"
+Requires-Dist: twine>=4.0.0; extra == "dev"
+Requires-Dist: build>=0.8.0; extra == "dev"
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# HwYtVidGrabber
+
+![lol.png](screenshots/lol.png)
+
+A simple, efficient YouTube video and audio downloader without pissing you off
+
+## Features
+
+- Download YouTube videos in various resolutions (144p to 4K)
+- Extract audio as MP3
+- Option for 60fps videos when available
+- Download videos without audio (muted mp4)
+- Pause, resume, and cancel downloads
+- Dark mode support
+- Progress tracking with speed, file size, and ETA indicators
+- Auto-detection of maximum available resolution
+- Customizable download location
+
+## Requirements
+
+- Python 3.8+
+- FFmpeg (will auto install it on Linux, but theres a [shit](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-essentials.7z) (find ffmpeg.exe), u have to put it on HwYtVidGrabbe.exe if you're on windows
+- PyQt6
+- yt-dlp
+
+
+
+## Installation
+
+
+### Windows
+
+download HwYtVidGrabber.exe from the releases
+and done :)
+
+### Linux
+
+install HwYtVidGrabber.deb(Debian/Ubuntu) or HwYtVidGrabber.pkg.tar.gz(Arch)
+
+### MacOS
+
+... Mount HwYtVidGrabber.dmg, move the HwYtVidGrabber.app to ur Applications folder ;)
+
+### using pip (yep)
+
+`pip install hwyvidgrabber==1.5` (this command will be updated everytime a new version is released)
+
+## Usage
+
+1. Launch the application
+2. Enter a YouTube URL in the input field
+3. Select your preferred format (mp4, mp3, or muted mp4)
+4. Choose the desired resolution
+5. Toggle 60fps option if needed
+6. Click the "Download" button
+7. Monitor download progress and use the pause/cancel buttons as needed
+
+## Settings
+
+- **Save Path**: Choose where downloaded files are saved
+- **Dark Mode**: Toggle between light and dark themes
+
+
+## Support
+
+If you find this application useful, consider supporting the developer:
+
+[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/MalikHw47)
+
+## License
+
+MIT License
+
+## Disclaimer
+
+This tool is designed for personal use only. Always respect copyright laws and YouTube's Terms of Service. Download only content that you have permission to download.
+
+
+
+
+
+
+
+
+...dont spam somewhere & try to download a Miku song :)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+...dont click 10 times on somewhere
