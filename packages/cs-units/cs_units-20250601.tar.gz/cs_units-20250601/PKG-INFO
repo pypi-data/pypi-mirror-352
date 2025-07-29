@@ -1,0 +1,193 @@
+Metadata-Version: 2.4
+Name: cs-units
+Version: 20250601
+Summary: Functions for decomposing nonnegative integers according to various unit scales and also parsing support for values written in scales.
+Keywords: python2,python3
+Author-email: Cameron Simpson <cs@cskk.id.au>
+Description-Content-Type: text/markdown
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Requires-Dist: cs.deco>=20250601
+Requires-Dist: cs.lex>=20250428
+Project-URL: MonoRepo Commits, https://bitbucket.org/cameron_simpson/css/commits/branch/main
+Project-URL: Monorepo Git Mirror, https://github.com/cameron-simpson/css
+Project-URL: Monorepo Hg/Mercurial Mirror, https://hg.sr.ht/~cameron-simpson/css
+Project-URL: Source, https://github.com/cameron-simpson/css/blob/main/lib/python/cs/units.py
+
+Functions for decomposing nonnegative integers according to various unit scales
+and also parsing support for values written in scales.
+
+*Latest release 20250601*:
+Fix @OBSOLETE definition of decompose_time.
+
+Presupplied scales:
+* `BINARY_BYTES_SCALE`: Binary units of (B)ytes, KiB, MiB, GiB etc.
+* `DECIMAL_BYTES_SCALE`: Decimal units of (B)ytes, KB, MB, GB etc.
+* `DECIMAL_SCALE`: Unit suffixes K, M, G etc.
+* `TIME_SCALE`: Units of (s)econds, (m)inutes, (h)ours, (d)ays and (w)eeks.
+* `UNSCALED_SCALE`: no units
+
+Short summary:
+* `decimal`: Decompose a nonnegative integer `n` into human decimal counts (kilo etc).
+* `decompose`: Decompose a nonnegative integer `n` into counts by unit from `scale`. Returns a `Decomposed` list of `(modulus,UnitStep)` in order from smallest unit upward.
+* `decompose_time`: OBSOLETE version of human_time, suggestion: human_time(n).
+* `Decomposed`: A list of `(modulus,UnitStep)` 2-tuples representing a decomposed value.
+* `geek`: Decompose a nonnegative integer `n` into geek bytes sizes (kibibytes etc).
+* `geek_bytes`: Decompose a nonnegative integer `n` into geek bytes sizes (kibibytes etc).
+* `human`: Decompose a nonnegative integer `n` into human decimal counts (kilo etc).
+* `human_bytes`: Decompose a nonnegative integer `n` into human bytes sizes (kilobytes etc).
+* `human_time`: Decompose a nonnegative integer `n` into human time (hours etc).
+* `multiparse`: Parse an integer followed by an optional scale and return computed value. Returns the parsed value and the new offset.
+* `parse`: Parse an integer followed by an optional scale and return computed value. Returns the parsed value and the new offset. This is a shim for `UnitScale.get_term(s,offset)`.
+* `transcribe`: Transcribe a nonnegative integer `n` against `scale`. This is just a shim for `UnitScale.transcribe`, itself a shim for `Decomposed.__str__`.
+* `transcribe_bytes_decompose`: OBSOLETE version of transcribe_bytes_decompose, suggestion: transcribe(n,'decimal') or str(human(n)).
+* `transcribe_bytes_geek`: OBSOLETE version of transcribe_bytes_geek, suggestion: transcribe(n,'geek_bytes',1) or str(geek_bytes(n)).
+* `transcribe_time`: OBSOLETE version of transcribe_time, suggestion: transcribe(n,'human_time',3) or str(human_time(n)).
+* `UnitScale`: A representation of a unit scale as a list of unit terms and scale factors.
+* `UnitStep`: A scale step for a unit scale. The last `UnitStep` in a scale should have `factor=0`.
+
+Module contents:
+- <a name="decimal"></a>`decimal(n)`: Decompose a nonnegative integer `n` into human decimal counts (kilo etc).
+- <a name="decompose"></a>`decompose(n, scale: cs.units.UnitScale) -> cs.units.Decomposed`: Decompose a nonnegative integer `n` into counts by unit from `scale`.
+  Returns a `Decomposed` list of `(modulus,UnitStep)` in order from smallest unit upward.
+
+  Parameters:
+  * `n`: a nonnegative integer.
+  * `scale`: a `UnitScale` (or promotable)
+- <a name="decompose_time"></a>`decompose_time(n)`: OBSOLETE version of human_time, suggestion: human_time(n)
+
+  Decompose a nonnegative integer `n` into human time (hours etc).
+- <a name="Decomposed"></a>`class Decomposed(builtins.list)`: A list of `(modulus,UnitStep)` 2-tuples
+  representing a decomposed value.
+
+*`Decomposed.__float__(self) -> float`*:
+The total value as a `float`.
+
+*`Decomposed.__int__(self) -> int`*:
+The total value as an `int`.
+
+*`Decomposed.__str__(self, max_parts=None, *, skip_zero=False, sep='', no_pad=False) -> str`*:
+Transcribe a nonnegative integer `n` against `scale`.
+
+Parameters:
+* `max_parts`: the maximum number of components to transcribe.
+* `skip_zero`: omit components of value 0.
+* `sep`: separator between words, default: `''`.
+
+*`Decomposed.sum(self)`*:
+Return the total value represented by this `Decomposed`.
+- <a name="geek"></a>`geek(n)`: Decompose a nonnegative integer `n` into geek bytes sizes (kibibytes etc).
+- <a name="geek_bytes"></a>`geek_bytes(n)`: Decompose a nonnegative integer `n` into geek bytes sizes (kibibytes etc).
+- <a name="human"></a>`human(n)`: Decompose a nonnegative integer `n` into human decimal counts (kilo etc).
+- <a name="human_bytes"></a>`human_bytes(n)`: Decompose a nonnegative integer `n` into human bytes sizes (kilobytes etc).
+- <a name="human_time"></a>`human_time(n)`: Decompose a nonnegative integer `n` into human time (hours etc).
+- <a name="multiparse"></a>`multiparse(s, scales, offset=0)`: Parse an integer followed by an optional scale and return computed value.
+  Returns the parsed value and the new offset.
+
+  Parameters:
+  * `s`: the string to parse.
+  * `scales`: an iterable of scale arrays of (factor, unit_name).
+  * `offset`: starting position for parse.
+- <a name="parse"></a>`parse(s: str, scale: cs.units.UnitScale, offset=0)`: Parse an integer followed by an optional scale and return computed value.
+  Returns the parsed value and the new offset.
+  This is a shim for `UnitScale.get_term(s,offset)`.
+
+  Parameters:
+  * `s`: the string to parse.
+  * `scale`: a scale array of (factor, unit_name).
+  * `offset`: starting position for parse.
+- <a name="transcribe"></a>`transcribe(n, scale: cs.units.UnitScale, max_parts=None, *, skip_zero=False, sep='', no_pad=False)`: Transcribe a nonnegative integer `n` against `scale`.
+  This is just a shim for `UnitScale.transcribe`,
+  itself a shim for `Decomposed.__str__`.
+
+  Parameters:
+  * `n`: a nonnegative integer.
+  * `scale`: a `UnitScale` (or promotable)
+  * `max_parts`: the maximum number of components to transcribe.
+  * `skip_zero`: omit components of value 0.
+  * `sep`: separator between words, default: `''`.
+- <a name="transcribe_bytes_decompose"></a>`transcribe_bytes_decompose(n, max_parts=1, **kw)`: OBSOLETE version of transcribe_bytes_decompose, suggestion: transcribe(n,'decimal') or str(human(n))
+
+  Transcribe a nonnegative integer `n` against `DECIMAL_BYTES_SCALE`.
+- <a name="transcribe_bytes_geek"></a>`transcribe_bytes_geek(n, max_parts=1, **kw)`: OBSOLETE version of transcribe_bytes_geek, suggestion: transcribe(n,'geek_bytes',1) or str(geek_bytes(n))
+
+  Transcribe a nonnegative integer `n` against `BINARY_BYTES_SCALE`.
+- <a name="transcribe_time"></a>`transcribe_time(n, max_parts=3, **kw)`: OBSOLETE version of transcribe_time, suggestion: transcribe(n,'human_time',3) or str(human_time(n))
+
+  Transcribe a nonnegative integer `n` against `TIME_SCALE`.
+- <a name="UnitScale"></a>`class UnitScale(cs.deco.Promotable)`: A representation of a unit scale as a list of unit terms and scale factors.
+
+*`UnitScale.decompose(self, n) -> cs.units.Decomposed`*:
+Decompose a nonnegative integer `n` into counts by unit.
+Returns a `Decomposed` list of `(modulus,UnitStep)` in order from smallest unit upward.
+
+Parameters:
+* `n`: a nonnegative integer.
+* `scale`: a sequence of `UnitStep` or `(factor,unit[,max_width])`
+  where factor is the size factor to the following scale item
+  and `unit` is the designator of the unit.
+
+*`UnitScale.from_str(scale_name: str)`*:
+Return a `UnitScale` from its name.
+
+*`UnitScale.get_term(self, s: str, offset=0) -> Tuple[int, int]`*:
+Parse a decimal values possibly followed by a unit name from `s` at `offset`.
+Return a `(value,offset)` 2-tuple.
+
+Parameters:
+* `s`: the string to parse.
+* `scale`: a scale array of (factor, unit_name).
+* `offset`: starting position for parse.
+
+*`UnitScale.transcribe(self, n, max_parts=None, *, skip_zero=False, sep='', no_pad=False)`*:
+Transcribe `n` according to this scale.
+Parameters are passed to `Decomposed.__str__`.
+- <a name="UnitStep"></a>`class UnitStep`: A scale step for a unit scale.
+  The last `UnitStep` in a scale should have `factor=0`.
+
+*`UnitStep.__iter__(self)`*:
+for unpacking assignment
+
+# Release Log
+
+
+
+*Release 20250601*:
+Fix @OBSOLETE definition of decompose_time.
+
+*Release 20250528*:
+* Big refactor so that we can just str() the result of a decompose.
+* New Decomposed, UnitStep, UnitScale classes.
+
+*Release 20220311*:
+Naming update: rename human* to decompose* to clarify that these decompose a number into a sequence of values on a scale.
+
+*Release 20210809*:
+Update parse() for new structure in the scale definitions.
+
+*Release 20210717*:
+transcribe: pad units by default, produces less jitter in dynamic displays like progress bars.
+
+*Release 20201025*:
+transcribe: use str(count_i), not str(count) if count == count_i.
+
+*Release 20200718*:
+Use str.isalpha to recognise "unit" words instead of string.ascii_letters (uses new cs.lex.get_chars "callable gochars" mode).
+
+*Release 20200626*:
+transcribe: use "%.1f" to format the count if it is not == int(count) ==> a float-with-fraction.
+
+*Release 20200613*:
+New UNSCALED_SCALE for no units.
+
+*Release 20190220*:
+Dependency fix.
+
+*Release 20181228*:
+Initial PyPI release.
