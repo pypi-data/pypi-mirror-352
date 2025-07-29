@@ -1,0 +1,372 @@
+LICENSE
+MANIFEST.in
+README.md
+setup.py
+cmdbox/__init__.py
+cmdbox/__main__.py
+cmdbox/config.yml
+cmdbox/logconf_audit.yml
+cmdbox/logconf_client.yml
+cmdbox/logconf_cmdbox.yml
+cmdbox/logconf_edge.yml
+cmdbox/logconf_gui.yml
+cmdbox/logconf_server.yml
+cmdbox/logconf_web.yml
+cmdbox/version.py
+cmdbox.egg-info/PKG-INFO
+cmdbox.egg-info/SOURCES.txt
+cmdbox.egg-info/dependency_links.txt
+cmdbox.egg-info/entry_points.txt
+cmdbox.egg-info/requires.txt
+cmdbox.egg-info/top_level.txt
+cmdbox/app/__init__.py
+cmdbox/app/app.py
+cmdbox/app/client.py
+cmdbox/app/common.py
+cmdbox/app/edge.py
+cmdbox/app/edge_tool.py
+cmdbox/app/feature.py
+cmdbox/app/filer.py
+cmdbox/app/options.py
+cmdbox/app/server.py
+cmdbox/app/web.py
+cmdbox/app/auth/__init__.py
+cmdbox/app/auth/azure_signin.py
+cmdbox/app/auth/azure_signin_saml.py
+cmdbox/app/auth/github_signin.py
+cmdbox/app/auth/google_signin.py
+cmdbox/app/auth/signin.py
+cmdbox/app/auth/signin_saml.py
+cmdbox/app/commons/convert.py
+cmdbox/app/commons/loghandler.py
+cmdbox/app/commons/module.py
+cmdbox/app/commons/redis_client.py
+cmdbox/app/features/cli/agent_base.py
+cmdbox/app/features/cli/audit_base.py
+cmdbox/app/features/cli/cmdbox_audit_createdb.py
+cmdbox/app/features/cli/cmdbox_audit_delete.py
+cmdbox/app/features/cli/cmdbox_audit_search.py
+cmdbox/app/features/cli/cmdbox_audit_write.py
+cmdbox/app/features/cli/cmdbox_client_file_copy.py
+cmdbox/app/features/cli/cmdbox_client_file_download.py
+cmdbox/app/features/cli/cmdbox_client_file_list.py
+cmdbox/app/features/cli/cmdbox_client_file_mkdir.py
+cmdbox/app/features/cli/cmdbox_client_file_move.py
+cmdbox/app/features/cli/cmdbox_client_file_remove.py
+cmdbox/app/features/cli/cmdbox_client_file_rmdir.py
+cmdbox/app/features/cli/cmdbox_client_file_upload.py
+cmdbox/app/features/cli/cmdbox_client_server_info.py
+cmdbox/app/features/cli/cmdbox_cmd_list.py
+cmdbox/app/features/cli/cmdbox_cmd_load.py
+cmdbox/app/features/cli/cmdbox_edge_config.py
+cmdbox/app/features/cli/cmdbox_edge_start.py
+cmdbox/app/features/cli/cmdbox_gui_start.py
+cmdbox/app/features/cli/cmdbox_gui_stop.py
+cmdbox/app/features/cli/cmdbox_server_list.py
+cmdbox/app/features/cli/cmdbox_server_start.py
+cmdbox/app/features/cli/cmdbox_server_stop.py
+cmdbox/app/features/cli/cmdbox_web_apikey_add.py
+cmdbox/app/features/cli/cmdbox_web_apikey_del.py
+cmdbox/app/features/cli/cmdbox_web_gencert.py
+cmdbox/app/features/cli/cmdbox_web_genpass.py
+cmdbox/app/features/cli/cmdbox_web_group_add.py
+cmdbox/app/features/cli/cmdbox_web_group_del.py
+cmdbox/app/features/cli/cmdbox_web_group_edit.py
+cmdbox/app/features/cli/cmdbox_web_group_list.py
+cmdbox/app/features/cli/cmdbox_web_start.py
+cmdbox/app/features/cli/cmdbox_web_stop.py
+cmdbox/app/features/cli/cmdbox_web_user_add.py
+cmdbox/app/features/cli/cmdbox_web_user_del.py
+cmdbox/app/features/cli/cmdbox_web_user_edit.py
+cmdbox/app/features/cli/cmdbox_web_user_list.py
+cmdbox/app/features/web/cmdbox_web_agent.py
+cmdbox/app/features/web/cmdbox_web_assets.py
+cmdbox/app/features/web/cmdbox_web_audit.py
+cmdbox/app/features/web/cmdbox_web_audit_metrics.py
+cmdbox/app/features/web/cmdbox_web_bbforce_cmd.py
+cmdbox/app/features/web/cmdbox_web_copyright.py
+cmdbox/app/features/web/cmdbox_web_del_cmd.py
+cmdbox/app/features/web/cmdbox_web_del_pipe.py
+cmdbox/app/features/web/cmdbox_web_do_signin.py
+cmdbox/app/features/web/cmdbox_web_do_signout.py
+cmdbox/app/features/web/cmdbox_web_exec_cmd.py
+cmdbox/app/features/web/cmdbox_web_exec_pipe.py
+cmdbox/app/features/web/cmdbox_web_filer download.py
+cmdbox/app/features/web/cmdbox_web_filer.py
+cmdbox/app/features/web/cmdbox_web_filer_upload.py
+cmdbox/app/features/web/cmdbox_web_get_cmd_choices.py
+cmdbox/app/features/web/cmdbox_web_get_cmds.py
+cmdbox/app/features/web/cmdbox_web_get_modes.py
+cmdbox/app/features/web/cmdbox_web_get_server_opt.py
+cmdbox/app/features/web/cmdbox_web_gui.py
+cmdbox/app/features/web/cmdbox_web_gui_callback.py
+cmdbox/app/features/web/cmdbox_web_list_cmd.py
+cmdbox/app/features/web/cmdbox_web_list_pipe.py
+cmdbox/app/features/web/cmdbox_web_load_cmd.py
+cmdbox/app/features/web/cmdbox_web_load_pipe.py
+cmdbox/app/features/web/cmdbox_web_raw_cmd.py
+cmdbox/app/features/web/cmdbox_web_raw_pipe.py
+cmdbox/app/features/web/cmdbox_web_result.py
+cmdbox/app/features/web/cmdbox_web_save_cmd.py
+cmdbox/app/features/web/cmdbox_web_save_pipe.py
+cmdbox/app/features/web/cmdbox_web_signin.py
+cmdbox/app/features/web/cmdbox_web_user_data.py
+cmdbox/app/features/web/cmdbox_web_users.py
+cmdbox/app/features/web/cmdbox_web_usesignout.py
+cmdbox/app/features/web/cmdbox_web_versions_cmdbox.py
+cmdbox/app/features/web/cmdbox_web_versions_used.py
+cmdbox/extensions/features.yml
+cmdbox/extensions/user_list.yml
+cmdbox/extensions/sample_project/requirements.txt
+cmdbox/extensions/sample_project/.vscode/launch.json
+cmdbox/extensions/sample_project/sample/__init__.py
+cmdbox/extensions/sample_project/sample/__main__.py
+cmdbox/extensions/sample_project/sample/logconf_sample.yml
+cmdbox/extensions/sample_project/sample/version.py
+cmdbox/extensions/sample_project/sample/app/app.py
+cmdbox/extensions/sample_project/sample/app/features/cli/__init__.py
+cmdbox/extensions/sample_project/sample/app/features/cli/sample_client_time.py
+cmdbox/extensions/sample_project/sample/app/features/cli/sample_server_time.py
+cmdbox/extensions/sample_project/sample/app/features/web/__init__.py
+cmdbox/extensions/sample_project/sample/extensions/features.yml
+cmdbox/extensions/sample_project/sample/extensions/user_list.yml
+cmdbox/extensions/sample_project/sample/web/assets/sample/favicon.ico
+cmdbox/extensions/sample_project/sample/web/assets/sample/icon.png
+cmdbox/licenses/LICENSE.Authlib.1.5.2(BSD License).txt
+cmdbox/licenses/LICENSE.Deprecated.1.2.18(MIT License).txt
+cmdbox/licenses/LICENSE.Jinja2.3.1.6(BSD License).txt
+cmdbox/licenses/LICENSE.MarkupSafe.3.0.2(BSD License).txt
+cmdbox/licenses/LICENSE.PyYAML.6.0.2(MIT License).txt
+cmdbox/licenses/LICENSE.Pygments.2.19.1(BSD License).txt
+cmdbox/licenses/LICENSE.SQLAlchemy.2.0.40(MIT License).txt
+cmdbox/licenses/LICENSE.Sphinx.8.2.3(UNKNOWN).txt
+cmdbox/licenses/LICENSE.aiohappyeyeballs.2.6.1(Python Software Foundation License).txt
+cmdbox/licenses/LICENSE.aiohttp.3.11.18(Apache Software License).txt
+cmdbox/licenses/LICENSE.aiosignal.1.3.2(Apache Software License).txt
+cmdbox/licenses/LICENSE.alabaster.1.0.0(BSD License).txt
+cmdbox/licenses/LICENSE.annotated-types.0.7.0(MIT License).txt
+cmdbox/licenses/LICENSE.anyio.4.9.0(MIT License).txt
+cmdbox/licenses/LICENSE.argcomplete.3.6.2(Apache Software License).txt
+cmdbox/licenses/LICENSE.async-timeout.5.0.1(Apache Software License).txt
+cmdbox/licenses/LICENSE.attrs.25.3.0(UNKNOWN).txt
+cmdbox/licenses/LICENSE.babel.2.17.0(BSD License).txt
+cmdbox/licenses/LICENSE.backports.tarfile.1.2.0(MIT License).txt
+cmdbox/licenses/LICENSE.cachetools.5.5.2(MIT License).txt
+cmdbox/licenses/LICENSE.certifi.2025.4.26(Mozilla Public License 2.0 (MPL 2.0)).txt
+cmdbox/licenses/LICENSE.cffi.1.17.1(MIT License).txt
+cmdbox/licenses/LICENSE.charset-normalizer.3.4.2(MIT License).txt
+cmdbox/licenses/LICENSE.click.8.2.0(UNKNOWN).txt
+cmdbox/licenses/LICENSE.colorama.0.4.6(BSD License).txt
+cmdbox/licenses/LICENSE.cryptography.44.0.3(Apache Software License; BSD License).txt
+cmdbox/licenses/LICENSE.distro.1.9.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.docstring_parser.0.16(MIT License).txt
+cmdbox/licenses/LICENSE.docutils.0.21.2(BSD License; GNU General Public License (GPL); Public Domain; Python Software Foundation License).txt
+cmdbox/licenses/LICENSE.fastapi.0.115.12(MIT License).txt
+cmdbox/licenses/LICENSE.filelock.3.18.0(The Unlicense (Unlicense)).txt
+cmdbox/licenses/LICENSE.frozenlist.1.6.0(Apache-2.0).txt
+cmdbox/licenses/LICENSE.fsspec.2025.3.2(BSD License).txt
+cmdbox/licenses/LICENSE.gevent.25.4.2(MIT).txt
+cmdbox/licenses/LICENSE.google-adk.0.5.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-api-core.2.24.2(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-api-python-client.2.169.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-auth-httplib2.0.2.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-auth.2.40.1(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-cloud-aiplatform.1.92.0(Apache 2.0).txt
+cmdbox/licenses/LICENSE.google-cloud-bigquery.3.31.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-cloud-core.2.4.3(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-cloud-resource-manager.1.14.2(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-cloud-secret-manager.2.23.3(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-cloud-speech.2.32.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-cloud-storage.2.19.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-cloud-trace.1.16.1(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-crc32c.1.7.1(Apache 2.0).txt
+cmdbox/licenses/LICENSE.google-genai.1.14.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.google-resumable-media.2.7.2(Apache Software License).txt
+cmdbox/licenses/LICENSE.googleapis-common-protos.1.70.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.graphviz.0.20.3(MIT License).txt
+cmdbox/licenses/LICENSE.greenlet.3.2.2(MIT AND Python-2.0).txt
+cmdbox/licenses/LICENSE.grpc-google-iam-v1.0.14.2(Apache Software License).txt
+cmdbox/licenses/LICENSE.grpcio-status.1.71.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.grpcio.1.71.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.gunicorn.23.0.0(MIT License).txt
+cmdbox/licenses/LICENSE.h11.0.16.0(MIT License).txt
+cmdbox/licenses/LICENSE.httpcore.1.0.9(BSD License).txt
+cmdbox/licenses/LICENSE.httplib2.0.22.0(MIT License).txt
+cmdbox/licenses/LICENSE.httptools.0.6.4(MIT License).txt
+cmdbox/licenses/LICENSE.httpx-sse.0.4.0(MIT).txt
+cmdbox/licenses/LICENSE.httpx.0.28.1(BSD License).txt
+cmdbox/licenses/LICENSE.huggingface-hub.0.31.1(Apache Software License).txt
+cmdbox/licenses/LICENSE.id.1.5.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.idna.3.10(BSD License).txt
+cmdbox/licenses/LICENSE.imagesize.1.4.1(MIT License).txt
+cmdbox/licenses/LICENSE.importlib_metadata.8.6.1(Apache Software License).txt
+cmdbox/licenses/LICENSE.itsdangerous.2.2.0(BSD License).txt
+cmdbox/licenses/LICENSE.jaraco.classes.3.4.0(MIT License).txt
+cmdbox/licenses/LICENSE.jaraco.context.6.0.1(MIT License).txt
+cmdbox/licenses/LICENSE.jaraco.functools.4.1.0(MIT License).txt
+cmdbox/licenses/LICENSE.jiter.0.9.0(MIT License).txt
+cmdbox/licenses/LICENSE.jsonschema-specifications.2025.4.1(UNKNOWN).txt
+cmdbox/licenses/LICENSE.jsonschema.4.23.0(MIT License).txt
+cmdbox/licenses/LICENSE.keyring.25.6.0(MIT License).txt
+cmdbox/licenses/LICENSE.litellm.1.69.0(MIT License).txt
+cmdbox/licenses/LICENSE.markdown-it-py.3.0.0(MIT License).txt
+cmdbox/licenses/LICENSE.mcp.1.8.0(MIT License).txt
+cmdbox/licenses/LICENSE.mdurl.0.1.2(MIT License).txt
+cmdbox/licenses/LICENSE.more-itertools.10.7.0(MIT License).txt
+cmdbox/licenses/LICENSE.multidict.6.4.3(Apache Software License).txt
+cmdbox/licenses/LICENSE.nh3.0.2.21(MIT).txt
+cmdbox/licenses/LICENSE.numpy.2.2.5(BSD License).txt
+cmdbox/licenses/LICENSE.openai.1.75.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.opentelemetry-api.1.33.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.opentelemetry-exporter-gcp-trace.1.9.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.opentelemetry-resourcedetector-gcp.1.9.0a0(Apache Software License).txt
+cmdbox/licenses/LICENSE.opentelemetry-sdk.1.33.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.opentelemetry-semantic-conventions.0.54b0(Apache Software License).txt
+cmdbox/licenses/LICENSE.packaging.25.0(Apache Software License; BSD License).txt
+cmdbox/licenses/LICENSE.pillow.11.2.1(UNKNOWN).txt
+cmdbox/licenses/LICENSE.pip.24.0(MIT License).txt
+cmdbox/licenses/LICENSE.plyer.2.1.0(MIT License).txt
+cmdbox/licenses/LICENSE.prettytable.3.16.0(UNKNOWN).txt
+cmdbox/licenses/LICENSE.prompt_toolkit.3.0.51(BSD License).txt
+cmdbox/licenses/LICENSE.propcache.0.3.1(Apache Software License).txt
+cmdbox/licenses/LICENSE.proto-plus.1.26.1(Apache Software License).txt
+cmdbox/licenses/LICENSE.protobuf.5.29.4(3-Clause BSD License).txt
+cmdbox/licenses/LICENSE.psycopg-binary.3.2.7(GNU Lesser General Public License v3 (LGPLv3)).txt
+cmdbox/licenses/LICENSE.psycopg.3.2.7(GNU Lesser General Public License v3 (LGPLv3)).txt
+cmdbox/licenses/LICENSE.pyasn1.0.6.1(BSD License).txt
+cmdbox/licenses/LICENSE.pyasn1_modules.0.4.2(BSD License).txt
+cmdbox/licenses/LICENSE.pycparser.2.22(BSD License).txt
+cmdbox/licenses/LICENSE.pycryptodome.3.22.0(BSD License; Public Domain).txt
+cmdbox/licenses/LICENSE.pydantic-settings.2.9.1(MIT License).txt
+cmdbox/licenses/LICENSE.pydantic.2.11.4(MIT License).txt
+cmdbox/licenses/LICENSE.pydantic_core.2.33.2(MIT License).txt
+cmdbox/licenses/LICENSE.pyparsing.3.2.3(MIT License).txt
+cmdbox/licenses/LICENSE.pystray.0.19.5(GNU Lesser General Public License v3 (LGPLv3)).txt
+cmdbox/licenses/LICENSE.python-dateutil.2.9.0.post0(Apache Software License; BSD License).txt
+cmdbox/licenses/LICENSE.python-dotenv.1.1.0(BSD License).txt
+cmdbox/licenses/LICENSE.python-multipart.0.0.20(Apache Software License).txt
+cmdbox/licenses/LICENSE.pywin32-ctypes.0.2.3(BSD-3-Clause).txt
+cmdbox/licenses/LICENSE.questionary.2.1.0(MIT License).txt
+cmdbox/licenses/LICENSE.readme_renderer.44.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.redis.6.0.0(MIT License).txt
+cmdbox/licenses/LICENSE.referencing.0.36.2(UNKNOWN).txt
+cmdbox/licenses/LICENSE.regex.2024.11.6(Apache Software License).txt
+cmdbox/licenses/LICENSE.requests-toolbelt.1.0.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.requests.2.32.3(Apache Software License).txt
+cmdbox/licenses/LICENSE.rfc3986.2.0.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.rich.14.0.0(MIT License).txt
+cmdbox/licenses/LICENSE.roman-numerals-py.3.1.0(CC0 1.0 Universal (CC0 1.0) Public Domain Dedication; Zero-Clause BSD (0BSD)).txt
+cmdbox/licenses/LICENSE.rpds-py.0.24.0(MIT).txt
+cmdbox/licenses/LICENSE.rsa.4.9.1(Apache Software License).txt
+cmdbox/licenses/LICENSE.setuptools.65.5.0(MIT License).txt
+cmdbox/licenses/LICENSE.shapely.2.1.0(BSD License).txt
+cmdbox/licenses/LICENSE.six.1.17.0(MIT License).txt
+cmdbox/licenses/LICENSE.sniffio.1.3.1(Apache Software License; MIT License).txt
+cmdbox/licenses/LICENSE.snowballstemmer.3.0.1(BSD License).txt
+cmdbox/licenses/LICENSE.sphinx-intl.2.3.1(BSD License).txt
+cmdbox/licenses/LICENSE.sphinx-rtd-theme.3.0.2(MIT License).txt
+cmdbox/licenses/LICENSE.sphinx-sitemap.2.6.0(MIT License).txt
+cmdbox/licenses/LICENSE.sphinx_fontawesome.0.0.6(GNU General Public License v2 (GPLv2)).txt
+cmdbox/licenses/LICENSE.sphinxcontrib-applehelp.2.0.0(BSD License).txt
+cmdbox/licenses/LICENSE.sphinxcontrib-devhelp.2.0.0(BSD License).txt
+cmdbox/licenses/LICENSE.sphinxcontrib-htmlhelp.2.1.0(BSD License).txt
+cmdbox/licenses/LICENSE.sphinxcontrib-jquery.4.1(BSD License).txt
+cmdbox/licenses/LICENSE.sphinxcontrib-jsmath.1.0.1(BSD License).txt
+cmdbox/licenses/LICENSE.sphinxcontrib-qthelp.2.0.0(BSD License).txt
+cmdbox/licenses/LICENSE.sphinxcontrib-serializinghtml.2.0.0(BSD License).txt
+cmdbox/licenses/LICENSE.sse-starlette.2.3.4(BSD License).txt
+cmdbox/licenses/LICENSE.starlette.0.46.2(BSD License).txt
+cmdbox/licenses/LICENSE.tabulate.0.9.0(MIT License).txt
+cmdbox/licenses/LICENSE.tiktoken.0.9.0(MIT License).txt
+cmdbox/licenses/LICENSE.tokenizers.0.21.1(Apache Software License).txt
+cmdbox/licenses/LICENSE.tomli.2.2.1(MIT License).txt
+cmdbox/licenses/LICENSE.tqdm.4.67.1(MIT License; Mozilla Public License 2.0 (MPL 2.0)).txt
+cmdbox/licenses/LICENSE.twine.6.1.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.typing-inspection.0.4.0(MIT License).txt
+cmdbox/licenses/LICENSE.typing_extensions.4.13.2(UNKNOWN).txt
+cmdbox/licenses/LICENSE.tzdata.2025.2(Apache Software License).txt
+cmdbox/licenses/LICENSE.tzlocal.5.3.1(MIT License).txt
+cmdbox/licenses/LICENSE.uritemplate.4.1.1(Apache Software License; BSD License).txt
+cmdbox/licenses/LICENSE.urllib3.2.4.0(UNKNOWN).txt
+cmdbox/licenses/LICENSE.uvicorn.0.34.2(BSD License).txt
+cmdbox/licenses/LICENSE.watchfiles.1.0.5(MIT License).txt
+cmdbox/licenses/LICENSE.wcwidth.0.2.13(MIT License).txt
+cmdbox/licenses/LICENSE.websockets.15.0.1(BSD License).txt
+cmdbox/licenses/LICENSE.wheel.0.45.1(MIT License).txt
+cmdbox/licenses/LICENSE.wrapt.1.17.2(BSD License).txt
+cmdbox/licenses/LICENSE.yarl.1.20.0(Apache Software License).txt
+cmdbox/licenses/LICENSE.zipp.3.21.0(MIT License).txt
+cmdbox/licenses/LICENSE.zope.event.5.0(Zope Public License).txt
+cmdbox/licenses/LICENSE.zope.interface.7.2(Zope Public License).txt
+cmdbox/licenses/files.txt
+cmdbox/web/agent.html
+cmdbox/web/assets_license_list.txt
+cmdbox/web/audit.html
+cmdbox/web/filer.html
+cmdbox/web/gui.html
+cmdbox/web/result.html
+cmdbox/web/signin.html
+cmdbox/web/users.html
+cmdbox/web/assets/apexcharts/apexcharts.css
+cmdbox/web/assets/apexcharts/apexcharts.min.js
+cmdbox/web/assets/bootstrap/bootstrap.bundle.min.5.3.0.js
+cmdbox/web/assets/bootstrap/bootstrap.min.5.3.0.css
+cmdbox/web/assets/cmdbox/agent.js
+cmdbox/web/assets/cmdbox/audit.js
+cmdbox/web/assets/cmdbox/color_mode.css
+cmdbox/web/assets/cmdbox/common.js
+cmdbox/web/assets/cmdbox/favicon.ico
+cmdbox/web/assets/cmdbox/filer_modal.js
+cmdbox/web/assets/cmdbox/icon.png
+cmdbox/web/assets/cmdbox/list_cmd.js
+cmdbox/web/assets/cmdbox/list_pipe.js
+cmdbox/web/assets/cmdbox/main.js
+cmdbox/web/assets/cmdbox/open_capture.js
+cmdbox/web/assets/cmdbox/open_output_json.js
+cmdbox/web/assets/cmdbox/result.js
+cmdbox/web/assets/cmdbox/signin.js
+cmdbox/web/assets/cmdbox/users.js
+cmdbox/web/assets/cmdbox/view_raw.js
+cmdbox/web/assets/cmdbox/view_result.js
+cmdbox/web/assets/encodingjs/LICENSE.txt
+cmdbox/web/assets/encodingjs/encoding.js
+cmdbox/web/assets/encodingjs/encoding.min.js
+cmdbox/web/assets/filer/filer.js
+cmdbox/web/assets/filer/main.css
+cmdbox/web/assets/filer/main.js
+cmdbox/web/assets/highlight/default.css
+cmdbox/web/assets/highlight/highlight.min.js
+cmdbox/web/assets/highlight/styles/tokyo-night-dark.min.css
+cmdbox/web/assets/jquery/jquery.min.3.2.0.js
+cmdbox/web/assets/jquery-linedtextarea/README.md
+cmdbox/web/assets/jquery-linedtextarea/jquery-linedtextarea-license.txt
+cmdbox/web/assets/jquery-linedtextarea/jquery-linedtextarea.css
+cmdbox/web/assets/jquery-linedtextarea/jquery-linedtextarea.html
+cmdbox/web/assets/jquery-linedtextarea/jquery-linedtextarea.js
+cmdbox/web/assets/jquery-resizable/jquery-resizable.min.js
+cmdbox/web/assets/jquery-ui/AUTHORS.txt
+cmdbox/web/assets/jquery-ui/LICENSE.txt
+cmdbox/web/assets/jquery-ui/jquery-ui.min.css
+cmdbox/web/assets/jquery-ui/jquery-ui.min.js
+cmdbox/web/assets/jquery-ui/jquery-ui.structure.min.css
+cmdbox/web/assets/jquery-ui/jquery-ui.theme.min.css
+cmdbox/web/assets/jquery-ui/package.json
+cmdbox/web/assets/jquery-ui/images/ui-icons_444444_256x240.png
+cmdbox/web/assets/jquery-ui/images/ui-icons_555555_256x240.png
+cmdbox/web/assets/jquery-ui/images/ui-icons_777620_256x240.png
+cmdbox/web/assets/jquery-ui/images/ui-icons_777777_256x240.png
+cmdbox/web/assets/jquery-ui/images/ui-icons_cc0000_256x240.png
+cmdbox/web/assets/jquery-ui/images/ui-icons_ffffff_256x240.png
+cmdbox/web/assets/lightbox2/css/lightbox.min.css
+cmdbox/web/assets/lightbox2/images/close.png
+cmdbox/web/assets/lightbox2/images/loading.gif
+cmdbox/web/assets/lightbox2/images/next.png
+cmdbox/web/assets/lightbox2/images/prev.png
+cmdbox/web/assets/lightbox2/js/lightbox.min.js
+cmdbox/web/assets/split-pane/split-pane.css
+cmdbox/web/assets/split-pane/split-pane.js
+cmdbox/web/assets/tree-menu/css/tree-menu.css
+cmdbox/web/assets/tree-menu/image/file.png
+cmdbox/web/assets/tree-menu/image/folder-close.png
+cmdbox/web/assets/tree-menu/image/folder-open.png
+cmdbox/web/assets/tree-menu/js/tree-menu.js
