@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+exclude = ["django_example_project",".python312","git_hooks"]
+
+[project]
+name = "django_api_engine"
+authors = [
+    {name = "Lauro Cesar de Oliveira", email = "olarva@gmail.com"},
+]
+description = "Django API engine"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "BSD-3-Clause"}
+dynamic = ["version"]
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django"
+]
+dependencies = [
+    "Django>=4",
+    "djangorestframework-xml",
+    "djangorestframework",
+    "requests",
+    "numpy",
+    "daphne",
+    "django-cors-headers",
+    "gunicorn",
+    "celery[librabbitmq,redis,auth,msgpack]",
+    "autobahn",
+    "Twisted[tls,http2]",
+    "channels",
+    "channels_redis"
+]
+
+
+
+[tool.setuptools_scm]
+
+[project.urls]
+Homepage = "https://github.com/sharedway/django_api_engine"
+Issues = "https://github.com/sharedway/django_api_engine/issues"
