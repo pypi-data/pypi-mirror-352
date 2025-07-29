@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pandoctylus"
+version = "0.1.0"
+description = "A crazy and opinionated way of generating documents."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [
+    { name = "Sebastian Schaetz", email = "seb.schaetz@gmail.com" }
+]
+dependencies = [
+    "pypandoc-binary",
+    "docxtpl",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "isort",
+    "mypy",
+]
+
+[tool.hatch.build]
+include = [
+    "pandoctylus/**/*.py",
+    "LICENSE.md",
+    "README.md",
+]
+exclude = [
+    "**/__pycache__",
+    "**/*.pyc",
+    "**/*.pyo",
+    "**/*.pyd",
+    ".DS_Store",
+    "~$*.docx",
+    "pandoctylus-venv",
+    ".git",
+    ".github",
+    ".pytest_cache",
+    "tests",
+    "examples",
+    "doc",
+    "dist",
+    "build",
+]
