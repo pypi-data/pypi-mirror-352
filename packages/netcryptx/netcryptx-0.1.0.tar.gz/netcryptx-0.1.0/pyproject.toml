@@ -1,0 +1,25 @@
+# pyproject.toml
+
+[project]
+name = "netcryptx"
+version = "0.1.0"
+description = "Encrypted socket communication and secure tunneling for Python"
+authors = [
+    { name = "Raghava Chellu", email = "raghava.chellu@gmail.com" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "cryptography>=41.0.0",
+    "click>=8.0.0"
+]
+keywords = ["cryptography", "network", "socket", "encryption", "python", "vpn", "linux"]
+
+[project.urls]
+"Homepage" = "https://github.com/RaghavaCh440/netcryptx"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
