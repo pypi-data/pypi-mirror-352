@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>pggm_datalab_utils.db API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pggm_datalab_utils.db</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from contextlib import contextmanager
+from datetime import datetime
+import json
+import logging
+import os
+import pyodbc
+import sqlite3
+from typing import Dict, List, Optional, Iterator, Any, Union, Hashable
+
+Connection = Union[pyodbc.Connection, sqlite3.Connection]  # Todo: unify in own interface to get autocomplete
+Cursor = Union[pyodbc.Cursor, sqlite3.Cursor]
+Record = Dict[str, Any]
+RecordList = List[Record]
+
+
+def get_db_connection(server: str, database: str) -&gt; Connection:
+    &#34;&#34;&#34;
+    Initiate pyodbc connection to a SQL Server database. This function is intended to be suitable for cloud development:
+    in the cloud you use environment variables to log in under a certain username and password, whereas locally you
+    simply log in using your AAD credentials.
+    You may specify `DB_DRIVER` to a pyodbc-compatible driver name for your system. It defaults
+    to `{ODBC Driver 17 for SQL Server}`. If you specify the value `SQLITE` this routine will use the built-in sqlite3
+    library to connect instead.
+    By default, this connection will try to log into the database with the user account it&#39;s executing under. This is
+    compatible with AAD login and suitable for local development. If you want to log into a database from another
+    environment, you will have to use Windows credentials. Save the username in the environment variable `DB_UID`,
+    the password in `DB_PASSWORD`.
+    &#34;&#34;&#34;
+    driver = os.environ.get(&#39;DB_DRIVER&#39;, &#39;{ODBC Driver 17 for SQL Server}&#39;)
+    if driver == &#39;SQLITE&#39;:
+        logging.info(f&#39;Connecting to SQLite database {database} because driver=SQLITE. Ignoring server {server}.&#39;)
+
+        # Make sqlite3 somewhat well-behaved.
+        sqlite3.register_converter(&#39;datetime&#39;, lambda b: datetime.fromisoformat(b.decode()))
+        sqlite3.register_converter(&#39;json&#39;, json.loads)
+        sqlite3.register_adapter(list, json.dumps)
+        sqlite3.register_adapter(dict, json.dumps)
+
+        return sqlite3.connect(database, detect_types=sqlite3.PARSE_DECLTYPES)
+    elif user := os.environ.get(&#39;DB_UID&#39;, False):
+        logging.info(f&#39;Logging into {database}/{server} as {user}.&#39;)
+        pwd = os.environ[&#39;DB_PASSWORD&#39;]
+        return pyodbc.connect(
+            f&#39;Driver={driver};&#39;
+            f&#39;Server={server};&#39;
+            f&#39;Database={database};&#39;
+            f&#39;Uid={os.environ[&#34;DB_UID&#34;]};&#39;
+            f&#39;Pwd={pwd};&#39;)
+    else:
+        logging.info(f&#39;Logging into {database}/{server} as program user.&#39;)
+        return pyodbc.connect(
+            f&#39;Driver={driver};&#39;
+            f&#39;Server={server};&#39;
+            f&#39;Database={database};&#39;
+            f&#39;trusted_connection=yes;&#39;)
+
+
+@contextmanager
+def cursor(db_server: str, db_name: str) -&gt; Iterator[Cursor]:
+    &#34;&#34;&#34;
+    Obtain a cursor for a certain database server and database name. Internally uses `get_db_connection`. Use this as
+    a context manager, which will handle closing the cursor and the connection. NOTE: this will not handle transaction
+    support: most of the time that means you need to commit your transactions yourself!
+    Example usage:
+    ```
+    with cursor(&#39;my_server.net&#39;, &#39;test&#39;) as c:
+        my_data = c.execute(&#39;select * from test_database&#39;).fetchall()
+    ```
+    &#34;&#34;&#34;
+    conn = get_db_connection(db_server, db_name)
+    c = conn.cursor()
+    try:
+        yield c
+    finally:
+        c.close()
+        conn.close()
+
+
+def query(c: Cursor, sql: str, data: Optional[tuple] = None) -&gt; RecordList:
+    &#34;&#34;&#34;
+    Call `c.execute(sql, data).fetchall()` and format the resulting rowset a list of records of the form
+    [{colname: value}].
+    &#34;&#34;&#34;
+    if data is None:
+        result = c.execute(sql).fetchall()
+    else:
+        result = c.execute(sql, data).fetchall()
+    headers = [name for name, *_ in c.description]
+    return [dict(zip(headers, r)) for r in result]
+
+
+def get_all(c: Cursor, table_name: str) -&gt; RecordList:
+    &#34;&#34;&#34;
+    Get all current data from table `table_name`.
+
+    IMPORTANT WARNING: `table_name` is not sanitized. Don&#39;t pass untrusted table names to this function!
+    &#34;&#34;&#34;
+    return query(c, f&#39;select * from {table_name}&#39;)
+
+
+def validate(data: RecordList):
+    assert len(unique := set(tuple(sorted(r.keys())) for r in data)) == 1, \
+        f&#39;Non-uniform list of dictionaries passed, got differing keys {unique}.&#39;
+    assert not any(non_str := {k: type(k) for k in data[0].keys() if not isinstance(k, str)}), \
+        f&#39;Non-string keys in data, got keys with types {non_str}.&#39;
+
+
+def insert_with_return(
+        c: Cursor, table_name: str, data: Record, return_columns: Optional[Union[str, tuple]] = None
+) -&gt; Record:
+    &#34;&#34;&#34;
+    Insert data into the database, returning a set of return columns. The primary use for this is if you have columns
+    generated by your database, like an identity. Returns input record with returned columns added (if any).
+    &#34;&#34;&#34;
+    validate([data])
+    return_columns = (return_columns,) if isinstance(return_columns, str) else return_columns
+
+    columns = data.keys()
+    insert_data = tuple(data[col] for col in columns)
+    text_columns = &#39;, &#39;.join(columns)
+    placeholders = &#39;, &#39;.join(&#39;?&#39; for _ in columns)
+    # Dispatch on cursor type for now, pyodbc type is for MSSQL only
+    if return_columns is None:
+        sql = f&#39;insert into {table_name}({text_columns}) values ({placeholders})&#39;
+        c.execute(sql)
+        return data
+    elif isinstance(c, sqlite3.Cursor):
+        text_return_columns = &#39;, &#39;.join(return_columns)
+        sql = f&#39;insert into {table_name}({text_columns}) values ({placeholders}) returning {text_return_columns}&#39;
+        output = query(c, sql, insert_data)[0]
+        return {**data, **output}
+    else:
+        text_return_columns = &#39;, &#39;.join(f&#39;Inserted.{col}&#39; for col in return_columns)
+        sql = f&#39;insert into {table_name}({text_columns}) output {text_return_columns} values ({placeholders})&#39;
+        output = query(c, sql, insert_data)[0]
+        return {**data, **output}
+
+
+def write(c: Cursor, table_name: str, data: RecordList, primary_key: Optional[Union[str, tuple]] = None, *,
+          update=True, insert=True, delete=True):
+    &#34;&#34;&#34;
+    Update data in database table. We check identity based on the keys of the IndexedPyFrame.
+    `update`, `insert`, and `delete` control which actions to take. By default, this function emits the correct update,
+    insert, and delete queries to make the database table equal to the in-memory table.
+    - `update=True` means rows already in the database will be updated with the in-memory data
+    - `insert=True` means rows not already in the database will be added from the in-memory data
+    - `delete=True` means rows present in the database but not in the in-memory database will be deleted
+
+    If primary_key is None, only inserting is supported.
+
+    IMPORTANT WARNING: `table_name` is not sanitized. Don&#39;t pass untrusted table names to this function!
+    &#34;&#34;&#34;
+    validate(data)
+
+    # Deal with primary key, list of writeable columns, indexed data, data in db
+    if primary_key is None:
+        assert not update and not delete, &#39;updating and deleting without specifying a primary key not supported&#39;
+        primary_key = tuple()
+        data = {i: r for i, r in enumerate(data)}
+        columns = tuple(k for k in data[0].keys())
+        in_db = set()
+    else:
+        primary_key = (primary_key,) if isinstance(primary_key, str) else tuple(primary_key)
+        assert all(isinstance(r[k], Hashable) for r in data for k in primary_key)
+        if any(empty_strings := [name for name in data[0].keys() if any(r[name] == &#39;&#39; for r in data)]):
+            logging.warning(f&#39;Columns {empty_strings} contain empty strings. &#39;
+                            f&#39;Generally inserting empty strings into a database is a bad idea.&#39;)
+
+        # List of writeable columns (for updates we don&#39;t try to overwrite the primary key)
+        columns = tuple(k for k in data[0].keys() if k not in primary_key)
+
+        # Indexed data on primary key
+        data = {tuple(r[i] for i in primary_key): r for r in data}
+
+        # Data present in database
+        sql = f&#39;select {&#34;, &#34;.join(primary_key)} from {table_name}&#39;
+        in_db = {tuple(r[k] for k in primary_key) for r in query(c, sql)}
+
+    if update and (update_keys := data.keys() &amp; in_db):
+        update_data = [
+            (tuple(data[k][col] for col in columns) + tuple(data[k][col] for col in primary_key)) for k in update_keys
+        ]
+
+        # Cannot use keyword placeholders because pyodbc doesn&#39;t support named paramstyle. Would be better.
+        assignment = &#39;, &#39;.join(f&#39;{col}=?&#39; for col in columns)
+        pk_cols = &#39; AND &#39;.join(f&#39;{col}=?&#39; for col in primary_key)
+        sql = f&#39;update {table_name} set {assignment} where {pk_cols}&#39;
+
+        c.executemany(sql, update_data)
+
+    if insert and (insert_keys := data.keys() - in_db):
+        insert_data = [tuple(data[k][col] for col in columns + primary_key) for k in insert_keys]
+
+        placeholders = &#39;, &#39;.join(f&#39;?&#39; for _ in columns + primary_key)
+        text_columns = &#39;, &#39;.join(columns + primary_key)
+        sql = f&#39;insert into {table_name}({text_columns}) VALUES ({placeholders})&#39;
+
+        c.executemany(sql, insert_data)
+
+    if delete and (delete_keys := in_db - data.keys()):
+        condition = &#39; AND &#39;.join(f&#39;{k}=?&#39; for k in primary_key)
+        sql = f&#39;delete from {table_name} where {condition}&#39;
+
+        c.executemany(sql, list(delete_keys))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="pggm_datalab_utils.db.cursor"><code class="name flex">
+<span>def <span class="ident">cursor</span></span>(<span>db_server: str, db_name: str) ‑> Iterator[Union[pyodbc.Cursor, sqlite3.Cursor]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Obtain a cursor for a certain database server and database name. Internally uses <code><a title="pggm_datalab_utils.db.get_db_connection" href="#pggm_datalab_utils.db.get_db_connection">get_db_connection()</a></code>. Use this as
+a context manager, which will handle closing the cursor and the connection. NOTE: this will not handle transaction
+support: most of the time that means you need to commit your transactions yourself!
+Example usage:</p>
+<pre><code>with cursor('my_server.net', 'test') as c:
+    my_data = c.execute('select * from test_database').fetchall()
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@contextmanager
+def cursor(db_server: str, db_name: str) -&gt; Iterator[Cursor]:
+    &#34;&#34;&#34;
+    Obtain a cursor for a certain database server and database name. Internally uses `get_db_connection`. Use this as
+    a context manager, which will handle closing the cursor and the connection. NOTE: this will not handle transaction
+    support: most of the time that means you need to commit your transactions yourself!
+    Example usage:
+    ```
+    with cursor(&#39;my_server.net&#39;, &#39;test&#39;) as c:
+        my_data = c.execute(&#39;select * from test_database&#39;).fetchall()
+    ```
+    &#34;&#34;&#34;
+    conn = get_db_connection(db_server, db_name)
+    c = conn.cursor()
+    try:
+        yield c
+    finally:
+        c.close()
+        conn.close()</code></pre>
+</details>
+</dd>
+<dt id="pggm_datalab_utils.db.get_all"><code class="name flex">
+<span>def <span class="ident">get_all</span></span>(<span>c: Union[pyodbc.Cursor, sqlite3.Cursor], table_name: str) ‑> List[Dict[str, Any]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get all current data from table <code>table_name</code>.</p>
+<p>IMPORTANT WARNING: <code>table_name</code> is not sanitized. Don't pass untrusted table names to this function!</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all(c: Cursor, table_name: str) -&gt; RecordList:
+    &#34;&#34;&#34;
+    Get all current data from table `table_name`.
+
+    IMPORTANT WARNING: `table_name` is not sanitized. Don&#39;t pass untrusted table names to this function!
+    &#34;&#34;&#34;
+    return query(c, f&#39;select * from {table_name}&#39;)</code></pre>
+</details>
+</dd>
+<dt id="pggm_datalab_utils.db.get_db_connection"><code class="name flex">
+<span>def <span class="ident">get_db_connection</span></span>(<span>server: str, database: str) ‑> Union[pyodbc.Connection, sqlite3.Connection]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initiate pyodbc connection to a SQL Server database. This function is intended to be suitable for cloud development:
+in the cloud you use environment variables to log in under a certain username and password, whereas locally you
+simply log in using your AAD credentials.
+You may specify <code>DB_DRIVER</code> to a pyodbc-compatible driver name for your system. It defaults
+to <code>{ODBC Driver 17 for SQL Server}</code>. If you specify the value <code>SQLITE</code> this routine will use the built-in sqlite3
+library to connect instead.
+By default, this connection will try to log into the database with the user account it's executing under. This is
+compatible with AAD login and suitable for local development. If you want to log into a database from another
+environment, you will have to use Windows credentials. Save the username in the environment variable <code>DB_UID</code>,
+the password in <code>DB_PASSWORD</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_db_connection(server: str, database: str) -&gt; Connection:
+    &#34;&#34;&#34;
+    Initiate pyodbc connection to a SQL Server database. This function is intended to be suitable for cloud development:
+    in the cloud you use environment variables to log in under a certain username and password, whereas locally you
+    simply log in using your AAD credentials.
+    You may specify `DB_DRIVER` to a pyodbc-compatible driver name for your system. It defaults
+    to `{ODBC Driver 17 for SQL Server}`. If you specify the value `SQLITE` this routine will use the built-in sqlite3
+    library to connect instead.
+    By default, this connection will try to log into the database with the user account it&#39;s executing under. This is
+    compatible with AAD login and suitable for local development. If you want to log into a database from another
+    environment, you will have to use Windows credentials. Save the username in the environment variable `DB_UID`,
+    the password in `DB_PASSWORD`.
+    &#34;&#34;&#34;
+    driver = os.environ.get(&#39;DB_DRIVER&#39;, &#39;{ODBC Driver 17 for SQL Server}&#39;)
+    if driver == &#39;SQLITE&#39;:
+        logging.info(f&#39;Connecting to SQLite database {database} because driver=SQLITE. Ignoring server {server}.&#39;)
+
+        # Make sqlite3 somewhat well-behaved.
+        sqlite3.register_converter(&#39;datetime&#39;, lambda b: datetime.fromisoformat(b.decode()))
+        sqlite3.register_converter(&#39;json&#39;, json.loads)
+        sqlite3.register_adapter(list, json.dumps)
+        sqlite3.register_adapter(dict, json.dumps)
+
+        return sqlite3.connect(database, detect_types=sqlite3.PARSE_DECLTYPES)
+    elif user := os.environ.get(&#39;DB_UID&#39;, False):
+        logging.info(f&#39;Logging into {database}/{server} as {user}.&#39;)
+        pwd = os.environ[&#39;DB_PASSWORD&#39;]
+        return pyodbc.connect(
+            f&#39;Driver={driver};&#39;
+            f&#39;Server={server};&#39;
+            f&#39;Database={database};&#39;
+            f&#39;Uid={os.environ[&#34;DB_UID&#34;]};&#39;
+            f&#39;Pwd={pwd};&#39;)
+    else:
+        logging.info(f&#39;Logging into {database}/{server} as program user.&#39;)
+        return pyodbc.connect(
+            f&#39;Driver={driver};&#39;
+            f&#39;Server={server};&#39;
+            f&#39;Database={database};&#39;
+            f&#39;trusted_connection=yes;&#39;)</code></pre>
+</details>
+</dd>
+<dt id="pggm_datalab_utils.db.insert_with_return"><code class="name flex">
+<span>def <span class="ident">insert_with_return</span></span>(<span>c: Union[pyodbc.Cursor, sqlite3.Cursor], table_name: str, data: Dict[str, Any], return_columns: Union[str, tuple, ForwardRef(None)] = None) ‑> Dict[str, Any]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Insert data into the database, returning a set of return columns. The primary use for this is if you have columns
+generated by your database, like an identity. Returns input record with returned columns added (if any).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def insert_with_return(
+        c: Cursor, table_name: str, data: Record, return_columns: Optional[Union[str, tuple]] = None
+) -&gt; Record:
+    &#34;&#34;&#34;
+    Insert data into the database, returning a set of return columns. The primary use for this is if you have columns
+    generated by your database, like an identity. Returns input record with returned columns added (if any).
+    &#34;&#34;&#34;
+    validate([data])
+    return_columns = (return_columns,) if isinstance(return_columns, str) else return_columns
+
+    columns = data.keys()
+    insert_data = tuple(data[col] for col in columns)
+    text_columns = &#39;, &#39;.join(columns)
+    placeholders = &#39;, &#39;.join(&#39;?&#39; for _ in columns)
+    # Dispatch on cursor type for now, pyodbc type is for MSSQL only
+    if return_columns is None:
+        sql = f&#39;insert into {table_name}({text_columns}) values ({placeholders})&#39;
+        c.execute(sql)
+        return data
+    elif isinstance(c, sqlite3.Cursor):
+        text_return_columns = &#39;, &#39;.join(return_columns)
+        sql = f&#39;insert into {table_name}({text_columns}) values ({placeholders}) returning {text_return_columns}&#39;
+        output = query(c, sql, insert_data)[0]
+        return {**data, **output}
+    else:
+        text_return_columns = &#39;, &#39;.join(f&#39;Inserted.{col}&#39; for col in return_columns)
+        sql = f&#39;insert into {table_name}({text_columns}) output {text_return_columns} values ({placeholders})&#39;
+        output = query(c, sql, insert_data)[0]
+        return {**data, **output}</code></pre>
+</details>
+</dd>
+<dt id="pggm_datalab_utils.db.query"><code class="name flex">
+<span>def <span class="ident">query</span></span>(<span>c: Union[pyodbc.Cursor, sqlite3.Cursor], sql: str, data: Optional[tuple] = None) ‑> List[Dict[str, Any]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Call <code>c.execute(sql, data).fetchall()</code> and format the resulting rowset a list of records of the form
+[{colname: value}].</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def query(c: Cursor, sql: str, data: Optional[tuple] = None) -&gt; RecordList:
+    &#34;&#34;&#34;
+    Call `c.execute(sql, data).fetchall()` and format the resulting rowset a list of records of the form
+    [{colname: value}].
+    &#34;&#34;&#34;
+    if data is None:
+        result = c.execute(sql).fetchall()
+    else:
+        result = c.execute(sql, data).fetchall()
+    headers = [name for name, *_ in c.description]
+    return [dict(zip(headers, r)) for r in result]</code></pre>
+</details>
+</dd>
+<dt id="pggm_datalab_utils.db.validate"><code class="name flex">
+<span>def <span class="ident">validate</span></span>(<span>data: List[Dict[str, Any]])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate(data: RecordList):
+    assert len(unique := set(tuple(sorted(r.keys())) for r in data)) == 1, \
+        f&#39;Non-uniform list of dictionaries passed, got differing keys {unique}.&#39;
+    assert not any(non_str := {k: type(k) for k in data[0].keys() if not isinstance(k, str)}), \
+        f&#39;Non-string keys in data, got keys with types {non_str}.&#39;</code></pre>
+</details>
+</dd>
+<dt id="pggm_datalab_utils.db.write"><code class="name flex">
+<span>def <span class="ident">write</span></span>(<span>c: Union[pyodbc.Cursor, sqlite3.Cursor], table_name: str, data: List[Dict[str, Any]], primary_key: Union[str, tuple, ForwardRef(None)] = None, *, update=True, insert=True, delete=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update data in database table. We check identity based on the keys of the IndexedPyFrame.
+<code>update</code>, <code>insert</code>, and <code>delete</code> control which actions to take. By default, this function emits the correct update,
+insert, and delete queries to make the database table equal to the in-memory table.
+- <code>update=True</code> means rows already in the database will be updated with the in-memory data
+- <code>insert=True</code> means rows not already in the database will be added from the in-memory data
+- <code>delete=True</code> means rows present in the database but not in the in-memory database will be deleted</p>
+<p>If primary_key is None, only inserting is supported.</p>
+<p>IMPORTANT WARNING: <code>table_name</code> is not sanitized. Don't pass untrusted table names to this function!</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write(c: Cursor, table_name: str, data: RecordList, primary_key: Optional[Union[str, tuple]] = None, *,
+          update=True, insert=True, delete=True):
+    &#34;&#34;&#34;
+    Update data in database table. We check identity based on the keys of the IndexedPyFrame.
+    `update`, `insert`, and `delete` control which actions to take. By default, this function emits the correct update,
+    insert, and delete queries to make the database table equal to the in-memory table.
+    - `update=True` means rows already in the database will be updated with the in-memory data
+    - `insert=True` means rows not already in the database will be added from the in-memory data
+    - `delete=True` means rows present in the database but not in the in-memory database will be deleted
+
+    If primary_key is None, only inserting is supported.
+
+    IMPORTANT WARNING: `table_name` is not sanitized. Don&#39;t pass untrusted table names to this function!
+    &#34;&#34;&#34;
+    validate(data)
+
+    # Deal with primary key, list of writeable columns, indexed data, data in db
+    if primary_key is None:
+        assert not update and not delete, &#39;updating and deleting without specifying a primary key not supported&#39;
+        primary_key = tuple()
+        data = {i: r for i, r in enumerate(data)}
+        columns = tuple(k for k in data[0].keys())
+        in_db = set()
+    else:
+        primary_key = (primary_key,) if isinstance(primary_key, str) else tuple(primary_key)
+        assert all(isinstance(r[k], Hashable) for r in data for k in primary_key)
+        if any(empty_strings := [name for name in data[0].keys() if any(r[name] == &#39;&#39; for r in data)]):
+            logging.warning(f&#39;Columns {empty_strings} contain empty strings. &#39;
+                            f&#39;Generally inserting empty strings into a database is a bad idea.&#39;)
+
+        # List of writeable columns (for updates we don&#39;t try to overwrite the primary key)
+        columns = tuple(k for k in data[0].keys() if k not in primary_key)
+
+        # Indexed data on primary key
+        data = {tuple(r[i] for i in primary_key): r for r in data}
+
+        # Data present in database
+        sql = f&#39;select {&#34;, &#34;.join(primary_key)} from {table_name}&#39;
+        in_db = {tuple(r[k] for k in primary_key) for r in query(c, sql)}
+
+    if update and (update_keys := data.keys() &amp; in_db):
+        update_data = [
+            (tuple(data[k][col] for col in columns) + tuple(data[k][col] for col in primary_key)) for k in update_keys
+        ]
+
+        # Cannot use keyword placeholders because pyodbc doesn&#39;t support named paramstyle. Would be better.
+        assignment = &#39;, &#39;.join(f&#39;{col}=?&#39; for col in columns)
+        pk_cols = &#39; AND &#39;.join(f&#39;{col}=?&#39; for col in primary_key)
+        sql = f&#39;update {table_name} set {assignment} where {pk_cols}&#39;
+
+        c.executemany(sql, update_data)
+
+    if insert and (insert_keys := data.keys() - in_db):
+        insert_data = [tuple(data[k][col] for col in columns + primary_key) for k in insert_keys]
+
+        placeholders = &#39;, &#39;.join(f&#39;?&#39; for _ in columns + primary_key)
+        text_columns = &#39;, &#39;.join(columns + primary_key)
+        sql = f&#39;insert into {table_name}({text_columns}) VALUES ({placeholders})&#39;
+
+        c.executemany(sql, insert_data)
+
+    if delete and (delete_keys := in_db - data.keys()):
+        condition = &#39; AND &#39;.join(f&#39;{k}=?&#39; for k in primary_key)
+        sql = f&#39;delete from {table_name} where {condition}&#39;
+
+        c.executemany(sql, list(delete_keys))</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pggm_datalab_utils" href="index.html">pggm_datalab_utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="pggm_datalab_utils.db.cursor" href="#pggm_datalab_utils.db.cursor">cursor</a></code></li>
+<li><code><a title="pggm_datalab_utils.db.get_all" href="#pggm_datalab_utils.db.get_all">get_all</a></code></li>
+<li><code><a title="pggm_datalab_utils.db.get_db_connection" href="#pggm_datalab_utils.db.get_db_connection">get_db_connection</a></code></li>
+<li><code><a title="pggm_datalab_utils.db.insert_with_return" href="#pggm_datalab_utils.db.insert_with_return">insert_with_return</a></code></li>
+<li><code><a title="pggm_datalab_utils.db.query" href="#pggm_datalab_utils.db.query">query</a></code></li>
+<li><code><a title="pggm_datalab_utils.db.validate" href="#pggm_datalab_utils.db.validate">validate</a></code></li>
+<li><code><a title="pggm_datalab_utils.db.write" href="#pggm_datalab_utils.db.write">write</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
