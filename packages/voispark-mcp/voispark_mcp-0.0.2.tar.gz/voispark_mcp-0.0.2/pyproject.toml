@@ -1,0 +1,42 @@
+[project]
+name = "voispark-mcp"
+version = "0.0.2"
+description = "A Model Context Protocol (MCP) project for VoiSpark."
+keywords = [
+    "voispark",
+    "tts",
+    "text-to-speech",
+    "voice-changer",
+    "change-voice",
+    "voice-cloning",
+    "voice-clone",
+    "conversation",
+]
+maintainers = [{ name = "SkywalkerDarren", email = "yh322yh@outlook.com" }]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "aiohttp>=3.11.18",
+    "dotenv>=0.9.9",
+    "mcp[cli]>=1.9.0",
+    "pydantic>=2.11.4",
+]
+
+[project.scripts]
+voispark-mcp = "voispark_mcp:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[[tool.uv.index]]
+url = "https://pypi.org/simple"
+default = true
