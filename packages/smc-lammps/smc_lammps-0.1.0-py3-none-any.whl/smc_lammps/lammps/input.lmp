@@ -1,0 +1,172 @@
+####################################################################################################
+################################## SMC with DNA (Worm Like Chain) ##################################
+####################################################################################################
+
+units nano
+
+
+#--------------------------------------Initial Parameters------------------------------------------#
+
+
+include parameterfile
+
+if $(!is_defined(variable,is_restart)) then &
+    "variable is_restart equal 0"
+
+if $(!is_defined(variable,lammps_root_dir)) then &
+    "variable lammps_root_dir string ../lammps"
+
+# Fixed boundaries in all dimensions
+boundary f f f
+
+
+#-----------------------------------------Define Styles--------------------------------------------#
+
+
+include styles
+
+# Give weighting coef to LJ potentials (0 = turn off) between atoms that are bonded, seperated by 2 and 3 bonds
+special_bonds lj/coul 0. 0. 0.
+
+# Only compute interactions between nearby atoms
+neighbor $(4*3.5) bin
+
+# Only when multiple processors are used
+#comm_modify cutoff/multi 2*7 70
+
+
+#-------------------------------------------Read Data----------------------------------------------#
+
+# read_data datafile_coeffs extra/bond/per/atom 2 extra/angle/per/atom 2 extra/improper/per/atom 3
+if $(!v_is_restart) then &
+    "read_data datafile_positions" &
+else &
+    "read_restart restartfile"
+
+read_data datafile_coeffs add merge
+
+#---------------------------------------------Fixes------------------------------------------------#
+
+
+# Group all type 1 molecules as 'DNA' and all other types as 'SMC'
+group DNA molecule ${DNA_mols}
+group SMC molecule ${SMC_mols}
+
+# DNA Langevin integration (nve + langevin = Brownian dynamics)
+fix 1a DNA nve
+fix 1b DNA langevin $T $T ${gamma} ${seed}
+
+# SMC is set of rigid bodies, each type of SMC-atom is a rigid body ('rigid molecule'), with Langevin integration
+fix 2 SMC rigid molecule langevin $T $T ${gamma} ${seed}
+
+# Hold end points of DNA in place
+group end_points ${dna_end_points}
+fix end_points_frz end_points setforce 0 0 0
+
+# Stretching forces
+
+# test values:
+# variable stretching_forces_len equal 2
+# variable stretching_forces_groups universe "id 1 2" "id 3 4"
+# variable stretching_forces universe "1 0 0" "0 0 1"
+
+if $(!is_defined(variable,stretching_forces_len)) then &
+	"jump SELF sf_exit"
+
+label sf_enter
+variable sfi loop ${stretching_forces_len}
+
+group sf_grp_${sfi} ${stretching_forces_groups}
+fix sf_fix_${sfi} sf_grp_${sfi} addforce ${stretching_forces}
+
+next sfi
+next stretching_forces_groups stretching_forces
+jump SELF sf_enter
+label sf_exit
+
+# Prevents the system from diffusing away (spring with K=10.0 tethers all atoms to origin)
+#fix 4 all spring tether 10.0 0 0 0 0
+
+# ---OBSTACLE---
+# use infinite wall to represent very large particle
+if $(is_defined(variable,excluded)) then &
+	"group exl_grp ${excluded}" &
+	"group repelled_by_wall subtract all exl_grp" &
+	"fix obstacle repelled_by_wall wall/lj126 ylo ${wall_y} ${epsilon3} ${sigma} ${sigma}"
+
+# For VMD visualisation
+dump movie all custom ${output_steps} output.lammpstrj id type x y z
+dump_modify movie sort id pbc yes append yes
+
+# Computes SMC potential energy due to angles and impropers
+#compute en all pe angle improper
+#variable en equal c_en
+#fix 5 all print 1000 "${en}" append "energy.dat"
+#compute enDNA DNA pe/atom bond angle
+#compute enSMC SMC pe/atom angle improper
+
+#compute enDNAtot DNA reduce sum c_enDNA
+#compute enSMCtot SMC reduce sum c_enSMC
+
+#variable enDNA equal c_enDNAtot
+#variable enSMC equal c_enSMCtot
+
+#fix 5 all print 1000 "${enDNA} ${enSMC}" append "energy.dat"
+
+# Set integration timestep
+timestep ${timestep}
+
+
+#----------------------------------------------Run-------------------------------------------------#
+
+if $(!v_is_restart) then &
+    "include ${lammps_root_dir}/equilibrate.lmp"
+
+# collect msd for obstacle
+if $(is_defined(variable,obstacle_id)) then &
+	"group obst_group id ${obstacle_id}" &
+	"dump obst_dump obst_group custom ${output_steps} obstacle.lammpstrj id type x y z" &
+	"dump_modify obst_dump pbc yes append yes"
+
+# apply force to smc
+if $(is_defined(variable,smc_force)) then &
+	"fix smc_force SMC addforce $(-v_smc_force) $(v_smc_force) 0"
+
+# Reference point in script (enter loop)
+label main_loop
+
+# APO state
+include states/apo
+run ${runtimes}
+next runtimes
+
+# ATP-bound state
+include states/atp_bound_1
+run ${runtimes}
+next runtimes
+
+include states/atp_bound_2
+run ${runtimes}
+next runtimes
+
+# ADP-bound state
+include states/adp_bound
+run ${runtimes}
+next runtimes
+
+write_restart restartfile
+
+#print "${stepCurrent}" append ${timesfile} screen no
+
+#dump movie all atom ${output_steps} ${outputfile}
+#dump_modify movie sort id pbc yes append yes
+
+#run 0
+
+# Re-enter loop
+# LAMMPS will auto skip this when the runtimes variable is exhausted
+jump SELF main_loop
+
+# The End
+
+############################################################################################################
