@@ -1,0 +1,28 @@
+[project]
+name = "my-library-template"
+version = "0.1.0"
+description = "A minimal template for Python packaging"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {file = "LICENSE"}    # text = "MIT"
+authors = [
+    { name="my name", email="me@gmail.com" }
+]
+keywords = ["example", "template", "library"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+#[project.urls]
+#"Homepage" = "https://github.com/myusername/my-library"
+#"Bug Tracker" = "https://github.com/myusername/my-library/issues"
+
+#[project.dependencies]
+# Optional dependencies my library needs
+# requests = "^2.31.0"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
