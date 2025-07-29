@@ -1,0 +1,38 @@
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val bitmap = Bitmap.createBitmap(600, 600, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        val redPaint = Paint().apply { color = Color.RED }
+        val bluePaint = Paint().apply { color = Color.BLUE }
+        val greenPaint = Paint().apply { color = Color.GREEN }
+
+        // 🔴 Red Squares - aligned left
+        canvas.drawRect(80f, 100f, 130f, 150f, redPaint)
+        canvas.drawRect(80f, 250f, 130f, 300f, redPaint)
+        canvas.drawRect(80f, 400f, 130f, 450f, redPaint)
+
+        // 🔵 Blue Circles - vertically between red squares
+        canvas.drawCircle(180f, 180f, 40f, bluePaint)
+        canvas.drawCircle(180f, 430f, 40f, bluePaint)
+
+        // 🟢 Green Triangles - right side
+        drawTriangle(canvas, 300f, 120f, greenPaint)
+        drawTriangle(canvas, 380f, 120f, greenPaint)
+
+        val iv = findViewById<ImageView>(R.id.imageV)
+        iv.background = BitmapDrawable(resources, bitmap)
+    }
+
+    private fun drawTriangle(canvas: Canvas, x: Float, y: Float, paint: Paint) {
+        val path = Path()
+        path.moveTo(x, y)             // Top
+        path.lineTo(x - 30, y + 60)   // Bottom left
+        path.lineTo(x + 30, y + 60)   // Bottom right
+        path.close()
+        canvas.drawPath(path, paint)
+    }
+}

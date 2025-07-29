@@ -1,0 +1,30 @@
+// Make it accessible throughout the class
+    private lateinit var showDialogMessage: Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        showDialogMessage = findViewById(R.id.button)
+
+        showDialogMessage.setOnClickListener {
+            showAlertDialog()
+        }
+    }
+
+    fun showAlertDialog() {
+        val alertDialog = AlertDialog.Builder(this@MainActivity)
+        alertDialog.setTitle("Change")
+            .setMessage("Do you want to change the text of the button?")
+            .setIcon(R.drawable.ic_baseline_warning_24)
+            .setCancelable(false)
+            .setNegativeButton("No") { dialogInterface, _ ->
+                dialogInterface.cancel()
+            }
+            .setPositiveButton("Yes") { _, _ ->
+                showDialogMessage.text = "Alert Dialog"
+            }
+
+        alertDialog.create().show()
+    }
+}

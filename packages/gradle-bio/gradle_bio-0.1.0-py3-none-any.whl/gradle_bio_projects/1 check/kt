@@ -1,0 +1,18 @@
+override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.layout)
+        var btn=findViewById<Button>(R.id.button2)
+        btn.setOnClickListener {
+            var ckb2 = findViewById<CheckBox>(R.id.checkBox2)
+//            var ckb3 = findViewById<CheckBox>(R.id.checkBox3)
+//            var ckb6 = findViewById<CheckBox>(R.id.checkBox6)
+            val sb = StringBuilder("") // create an empty string
+//            if (ckb3.isChecked)
+//                sb.append(" " + ckb3.text) //append the string with text message of checkbox given in layout file
+            if (ckb2.isChecked)
+                sb.append(" " + ckb2.text)
+//            if (ckb6.isChecked)
+//                sb.append(" " + ckb6.text)
+            Toast.makeText(this, sb, Toast.LENGTH_LONG).show()
+        }
+    }
