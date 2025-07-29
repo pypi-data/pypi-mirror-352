@@ -1,0 +1,24 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="rss_provider"
+    >
+
+  <!-- Publish static files -->
+  <plone:static
+      directory="static"
+      name="rss_provider"
+      type="plone"
+      />
+
+  <browser:page
+      name="rss_feed_view"
+      for="*"
+      class=".rssfeed.rssfeedView"
+      template="pt/rss_feed_view.pt"
+      permission="zope2.View"
+      layer="plone.app.contenttypes.interfaces.IPloneAppContenttypesLayer"
+      />
+
+</configure>
