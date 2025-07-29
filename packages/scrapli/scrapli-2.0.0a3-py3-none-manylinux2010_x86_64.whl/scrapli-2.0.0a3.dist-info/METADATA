@@ -1,0 +1,49 @@
+Metadata-Version: 2.4
+Name: scrapli
+Version: 2.0.0a3
+Summary: Fast, flexible, sync/async, Python 3.10+ screen scraping client specifically for network devices
+Author-email: Carl Montanari <carl.r.montanari@gmail.com>
+License-Expression: MIT
+Project-URL: Changelog, https://carlmontanari.github.io/scrapli/changelog
+Project-URL: Docs, https://carlmontanari.github.io/scrapli/
+Project-URL: Homepage, https://github.com/carlmontanari/scrapli
+Keywords: netconf,network,ssh,telnet,async
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: nox==2025.5.1; extra == "dev"
+Requires-Dist: black<26.0.0,>=25.1.0; extra == "dev"
+Requires-Dist: isort<7.0.0,>=6.0.1; extra == "dev"
+Requires-Dist: ruff<1.0.0,>=0.11.8; extra == "dev"
+Requires-Dist: mypy<2.0.0,>=1.15.0; extra == "dev"
+Requires-Dist: pytest<9.0.0,>=8.3.5; extra == "dev"
+Requires-Dist: pytest-cov<7.0.0,>=6.1.1; extra == "dev"
+Requires-Dist: pytest-asyncio<1.0.0,>=0.26.0; extra == "dev"
+Requires-Dist: pyats>=20.2; extra == "dev"
+Requires-Dist: genie>=20.2; extra == "dev"
+Requires-Dist: ntc-templates<8.0.0,>=1.1.0; extra == "dev"
+Requires-Dist: textfsm<2.0.0,>=1.1.0; extra == "dev"
+Provides-Extra: full
+Requires-Dist: ntc-templates<8.0.0,>=1.1.0; extra == "full"
+Requires-Dist: textfsm<2.0.0,>=1.1.0; extra == "full"
+Requires-Dist: pyats>=20.2; extra == "full"
+Requires-Dist: genie>=20.2; extra == "full"
+Provides-Extra: textfsm
+Requires-Dist: ntc-templates<8.0.0,>=1.1.0; extra == "textfsm"
+Requires-Dist: textfsm<2.0.0,>=1.1.0; extra == "textfsm"
+Provides-Extra: genie
+Requires-Dist: pyats>=20.2; extra == "genie"
+Requires-Dist: genie>=20.2; extra == "genie"
+Dynamic: license-file
+
+<p center><a href=""><img src=https://github.com/carlmontanari/scrapli/blob/main/scrapli.svg?sanitize=true/></a></p>
