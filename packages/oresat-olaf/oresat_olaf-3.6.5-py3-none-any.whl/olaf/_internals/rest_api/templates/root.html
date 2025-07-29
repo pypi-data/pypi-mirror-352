@@ -1,0 +1,48 @@
+{% extends "_base.html" %}
+
+{% block baseContent %}
+  <style>
+    #headerGrid {
+      display: grid;
+      grid-template-columns: 40% 20% 40%;
+    }
+    #headerCenter {
+      text-align: center;
+    }
+    #headerRight {
+      text-align: right;
+    }
+  </style>
+  <div id="headerGrid">
+    <div id="headerLeft">
+    </div>
+    <div id="headerCenter">
+      <h2>{{title}}</h2>
+    </div>
+    <div id="headerRight">
+      <text><b><span id="busChannel">vcan0</span></b>: <span id="busStatus">BUS_DOWN</span> | </text>
+      <label for="flightMode"><b>Flight Mode</b>: </label>
+      <input type="checkbox" id="flightMode" onclick="toggleFlightMode()"></input>
+    </div>
+  </div>
+  <br/>
+  <a>Endpoints:</a>
+  <br/>
+  {% for route in routes %}
+  <a>-</a>
+  <a href="{{route}}">{{route}}</a>
+  <br/>
+  {% endfor %}
+  <script>
+    async function updateBusStatus() {
+      const status = await getBusStatus();
+      document.getElementById("busChannel").textContent = status.channel;
+      document.getElementById("busStatus").textContent = status.status;
+    }
+
+    updateBusStatus();
+    const busInterval = setInterval(function() {
+      updateBusStatus();
+    }, 1000);
+  </script>
+{% endblock %}

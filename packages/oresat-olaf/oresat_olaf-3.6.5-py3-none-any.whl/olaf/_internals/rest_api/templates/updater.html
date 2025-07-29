@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+  </style>
+  <table>
+    <tr>
+      <td>Status</td>
+      <td><span id="status"></span></td>
+    </tr>
+    <tr>
+      <td>Updates Available</td>
+      <td><span id="updatesAvailable"></span></td>
+    </tr>
+  </table>
+  <br/>
+  <button id="startUpdateButton" onclick="startUpdate()" disabled>Start Update</button>
+  <button id="makeStatusFileButton" onclick="makeStatusFile()">Generate Status File</button>
+  <script>
+    const STATES = {
+      0: "UPDATE_SUCCESSFUL",
+      1: "PRE_UPDATE_FAILED",
+      2: "UPDATE_FAILED",
+      255: "UPDATING",
+    }
+
+    async function updaterInfo() {
+      const statusObj = await readValue("updater", "status");
+      const newState = STATES[statusObj.value];
+      document.getElementById("status").textContent = newState;
+
+      const updatesObj = await readValue("updater", "cache_length");
+      document.getElementById("updatesAvailable").textContent = updatesObj.value;
+
+      if (newState === "UPDATING") {
+        document.getElementById("startUpdateButton").disabled = true;
+        document.getElementById("makeStatusFileButton").disabled = true;
+      } else {
+        if (updatesObj.value === 0) {
+          document.getElementById("startUpdateButton").disabled = true;
+          document.getElementById("makeStatusFileButton").disabled = false;
+        } else {
+          document.getElementById("startUpdateButton").disabled = false;
+          document.getElementById("makeStatusFileButton").disabled = false;
+        }
+      }
+    }
+
+    async function startUpdate() {
+      document.getElementById("startUpdateButton").disabled = false;
+      document.getElementById("makeStatusFileButton").disabled = true;
+      writeValue("updater", "update", true);
+    }
+
+    async function makeStatusFile() {
+      document.getElementById("startUpdateButton").disabled = true;
+      document.getElementById("makeStatusFileButton").disabled = false;
+      writeValue("updater", "make_status_file", true);
+    }
+
+    updaterInfo();
+    const interval = setInterval(function() {
+      updaterInfo();
+    }, 10000);
+  </script>
+{% endblock %}

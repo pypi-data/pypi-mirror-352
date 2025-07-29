@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    #variableObj, #arrayRecordObj {
+      display: none;
+    }
+    label, .boldText {
+      font-weight: bold;
+    }
+  </style>
+  <label for="indexSelect">Index:</label>
+  <select id="indexSelect"></select>
+  <label for="subindexSelect">Subindex:</label>
+  <select id="subindexSelect"></select>
+  <br/>
+  <br/>
+  <div id="variableObj">
+    <table>
+      <tr>
+        <td>Object Type</td>
+        <td>VARIABLE</td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><span id="varName"></span></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td><pre id="varDesc"></pre></td>
+      </tr>
+      <tr>
+        <td>Data Type</td>
+        <td><span id="varDataType"></span></td>
+      </tr>
+      <tr>
+        <td>Access Type *</td>
+        <td><span id="varAccessType"></span></td>
+      </tr>
+      <tr>
+        <td>Value</td>
+        <td><span id="varValue"></span></td>
+      </tr>
+      <tr id="varLowLimitRow">
+        <td>Low Limit</td>
+        <td><span id="varLowLimit"></span></td>
+      </tr>
+      <tr id="varHighLimitRow">
+        <td>High Limit</td>
+        <td><span id="varHighLimit"></span></td>
+      </tr>
+      <tr id="varScalingRow">
+        <td>Scale Factor</td>
+      <td><span id="varScaling"></span></td>
+      </tr>
+      <tr id="varEngValueRow">
+        <td>Engineering Value</td>
+        <td><span id="varEngValue"></span></td>
+      </tr>
+    </table>
+    <br/>
+    <label for="objNewValue">New Value:</label>
+    <input type="text" id="objNewValue" name="objNewValue"/>
+    <button id="setObjectValueButton" onclick="setObjectValue()">Change</button>
+    <br/>
+    <br/>
+    <small>* Access premissions are be bypassed by REST API for testing/integration purposes. They are inforced over the CAN bus.</small>
+  </div>
+  <div id="arrayRecordObj">
+    <table>
+      <tr>
+        <td>Object Type</td>
+        <td><span id="objType"></span></td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><span id="objName"></span></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td><pre id="objDesc"></pre></td>
+      </tr>
+      <tr>
+        <td>Subindexes</td>
+        <td><span id="objSubindexes"></span></td>
+      </tr>
+    </table>
+  </div>
+  <script>
+    async function updateData() {
+      const index = document.getElementById("indexSelect").value;
+      const subindex = document.getElementById("subindexSelect").value;
+
+      if (index === "") {
+        alert("error: requires at least the index field to be set")
+        return;
+      }
+
+      const obj = await readValue(index, subindex);
+
+      if (obj.error !== undefined) {
+        document.getElementById("variableObj").style.display = "none";
+        document.getElementById("arrayRecordObj").style.display = "none";
+
+        alert(`error: ${obj.error}`);
+      } else if (obj["object_type"] === "VARIABLE") {
+        document.getElementById("variableObj").style.display = "inline";
+        document.getElementById("arrayRecordObj").style.display = "none";
+
+        document.getElementById("varName").textContent = obj.name;
+        let desc = obj.description;
+        if (obj.value_descriptions &&  Object.keys(obj.value_descriptions).length > 0) {
+          if (desc.length > 0) {
+            desc += "\n\n"
+          }
+          desc += "Values:\n";
+          for (const val in obj.value_descriptions) {
+            desc += `- ${val}: ${obj.value_descriptions[val]}\n`;
+          }
+        }
+        if (obj.bit_definitions &&  Object.keys(obj.bit_definitions).length > 0) {
+          if (desc.length > 0) {
+            desc += "\n\n"
+          }
+          desc += "Bitfield:\n";
+          for (const val in obj.bit_definitions) {
+            desc += `- ${val}: ${obj.bit_definitions[val]}\n`;
+          }
+        }
+        document.getElementById("varDesc").textContent = desc;
+        document.getElementById("varDataType").textContent = obj.data_type;
+        document.getElementById("varAccessType").textContent = obj.access_type;
+        document.getElementById("varValue").textContent = obj.value;
+        document.getElementById("varEngValueRow").style.display = "none";
+        document.getElementById("varScalingRow").style.display = "none";
+        document.getElementById("varLowLimitRow").style.display = "none";
+        document.getElementById("varHighLimitRow").style.display = "none";
+        if (obj.data_type.startsWith("INTEGER") || obj.data_type.startsWith("UNSIGNED")) {
+          document.getElementById("varScaling").textContent = obj.scale_factor;
+          document.getElementById("varEngValue").textContent = `${obj.eng_value} ${obj.unit}`;
+          document.getElementById("varLowLimit").textContent = obj.low_limit;
+          document.getElementById("varHighLimit").textContent = obj.high_limit;
+          document.getElementById("varEngValueRow").style.display = "";
+          document.getElementById("varScalingRow").style.display = "";
+          document.getElementById("varLowLimitRow").style.display = "";
+          document.getElementById("varHighLimitRow").style.display = "";
+        } else if (obj.data_type.startsWith("REAL")) {
+          document.getElementById("varValue").textContent = `${obj.value} ${obj.unit}`;
+        }
+        document.getElementById("objNewValue").value = obj.value;
+        localStorage.setItem("subindex", obj.name);
+      } else {
+        document.getElementById("variableObj").style.display = "none";
+        document.getElementById("arrayRecordObj").style.display = "inline";
+
+        document.getElementById("objType").textContent = obj.object_type;
+        document.getElementById("objName").textContent = obj.name;
+        document.getElementById("objDesc").textContent = obj.description;
+        document.getElementById("objSubindexes").textContent = Object.keys(obj.subindexes).length;
+        localStorage.removeItem("subindex");
+      }
+    }
+
+    async function setObjectValue() {
+      const indexSelect = document.getElementById("indexSelect");
+      const subindexSelect = document.getElementById("subindexSelect");
+      const value = document.getElementById("objNewValue").value;
+      const index = parseInt(indexSelect.value, 16);
+      let subindex = "";
+      if (subindexSelect.value !== "") {
+        subindex = parseInt(subindexSelect.value, 16);
+      }
+      console.log(index, subindex, value);
+
+      if (index === "") {
+        alert("error: requires at least the index field to be set")
+        return;
+      }
+
+      await writeValue(index, subindex, value);
+      updateData();
+    }
+
+    function updateSubindexSelect() {
+
+      const indexSelect = document.getElementById("indexSelect");
+      const subindexSelect = document.getElementById("subindexSelect");
+      const index = parseInt(indexSelect.value, 16);
+      const obj = objects[index];
+
+      localStorage.setItem("index", obj.name);
+
+      // clear select options
+      subindexSelect.options.length = 0
+
+      let opt = document.createElement("option");
+      opt.value = "";
+      opt.innerHTML = "None";
+      subindexSelect.appendChild(opt);
+
+      if (obj.subindexes === undefined) {
+        document.getElementById("subindexSelect").disabled = true;
+      } else {
+        document.getElementById("subindexSelect").disabled = false;
+        for (const subindex in objects[index].subindexes) {
+          let subindexHex = "0x" + parseInt(subindex).toString(16).toUpperCase();
+          let opt = document.createElement("option");
+          opt.value = subindexHex;
+          opt.innerHTML = `${subindexHex} - ${objects[index].subindexes[subindex].name}`;
+          subindexSelect.appendChild(opt);
+          if (objects[index].subindexes[subindex].name === localStorage.getItem("subindex")) {
+            subindexSelect.value = subindexHex;
+          }
+        }
+      }
+      updateData();
+    }
+
+    let objects;
+
+    async function readAllObjects() {
+      objects = await fetch(`http://${window.location.host}/od-all`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.error !== undefined) {
+            console.log(data);
+          }
+          return data;
+        });
+    }
+
+    async function updateIndexSelect() {
+
+      await readAllObjects();
+
+      const indexSelect = document.getElementById("indexSelect");
+      indexSelect.onchange = updateSubindexSelect;
+      for (const index in objects) {
+        let indexHex = "0x" + parseInt(index).toString(16).toUpperCase();
+        let opt = document.createElement("option");
+        opt.value = indexHex;
+        opt.innerHTML = `${indexHex} - ${objects[index].name}`;
+        indexSelect.appendChild(opt);
+        if (objects[index].name === localStorage.getItem("index")) {
+          indexSelect.value = indexHex;
+        }
+      }
+
+      const subindexSelect = document.getElementById("subindexSelect");
+      subindexSelect.onchange = updateData;
+
+      updateSubindexSelect();
+    }
+
+    updateIndexSelect();
+  </script>
+{% endblock %}
