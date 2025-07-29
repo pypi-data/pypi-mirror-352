@@ -1,0 +1,24 @@
+// This base configuration file is copied from the `kstd` Python package, using a command like:
+//
+// python -c "from kstd.sync_config import cli; cli()" pyright pyrightconfig.json
+//
+// Do not edit it manually, but update the source of truth in `kstd` first instead.
+//
+// You can extend this base configuration for a specific project's need using Pyright's `extend` capabilities:
+// https://microsoft.github.io/pyright/#/configuration?id=environment-options
+
+{
+    "reportCallInDefaultInitializer": true,
+    "reportImplicitOverride": true,
+    "reportMissingSuperCall": true,
+    "reportMissingTypeStubs": false, // too many libraries fail this
+    "reportPropertyTypeMismatch": true,
+    "reportShadowedImports": true,
+    "reportUninitializedInstanceVariable": true,
+    "reportUnknownArgumentType": false, // there is too much untyped Python code now
+    "reportUnknownMemberType": false, // there is too much untyped Python code now
+    "reportUnknownVariableType": false, // there is too much untyped Python code now
+    "reportUnnecessaryTypeIgnoreComment": true,
+    "typeCheckingMode": "strict",
+    "useLibraryCodeForTypes": true,
+}
