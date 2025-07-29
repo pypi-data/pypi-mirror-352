@@ -1,0 +1,240 @@
+# 🤖 Galaxy Object Detection Core
+
+Welcome to the **Galaxy Object Detection Core** — a modular, production-ready object detection library built using **YOLOv8** and **YOLOv11** architectures. This project empowers developers, researchers, and enterprises to detect and analyze a variety of objects across domains like transportation, safety, documentation, and natural resources with high precision and speed.
+
+Developed by **@muhammadhaerul.25**
+
+---
+
+## 📚 Table of Contents
+
+* [✨ Key Features](#-key-features)
+* [🏢 Industry Applications](#-industry-applications)
+* [📦 Supported Models](#-supported-models)
+* [⚙️ Installation](#-installation)
+* [🚀 Quick Start](#-quick-start)
+* [🧠 Available Detection APIs](#-available-detection-apis)
+* [📁 Project Structure](#-project-structure)
+* [📸 Example Results](#-example-results)
+* [🛠 Contributing](#-contributing)
+* [📝 License](#-license)
+
+---
+
+## ✨ Key Features
+
+* ✅ **Plug-and-play object detection** with pretrained YOLO models
+* 🎯 **Supports 20+ categories** including safety gear, documents, vehicles, and minerals
+* 🚦 **Optimized for real-time inference** (30+ FPS)
+* 🛠 **Simple Python API** for both batch and single-image detection
+* 📊 **Segmentation and detection** support with metadata extraction
+* 🌍 **Indonesian-optimized models** for local compliance and recognition
+* 📈 **Statistical logging and dashboard integration** ready
+
+---
+
+## 🏢 Industry Applications
+
+* **Human, Safety, Environment**
+* **Transportation and Infrastructure**
+* **Fast-Moving Consumer Goods**
+* **Office, Legal, Finance**
+* **Nature and Environment**
+
+---
+
+## 📦 Supported Models
+
+### 🚗 Transportation
+
+* Vehicle Detection
+* Vehicle Plate Detection (Indonesia-specific)
+* Road Damage Detection
+
+### 🏗️ Construction & Safety
+
+* Personal Protective Equipment (PPE v1, v2)
+* PPE Segmentation (v2)
+* Human Head Detection
+
+### 📌 Documentation
+
+* Indonesian KTP Detection
+* QR Code Detection
+* Invoice & Receipt Detection
+* Meterai (Stamp Duty) v1 & v2
+
+### 🌋 Minerals
+
+* Mineral Boulder Detection
+* Boulder Segmentation
+* Mineral Soil Detection
+
+### 🧪 Coming Soon Models
+
+---
+
+## ⚙️ Installation
+
+### 📋 Requirements
+
+* Python >= 3.10
+* CUDA-compatible GPU (optional but recommended)
+* pip
+
+### 🔧 Install via PyPI (Recommended)
+
+```bash
+pip install galaxy-object-detection-core
+```
+
+### 🧪 Install via GitHub (Latest Development Version)
+
+```bash
+pip install git+https://github.com/muhammadhaerul/Galaxy-Object-Detection-Core.git
+```
+
+### 💻 Install via Clone
+
+```bash
+# Clone the repository
+$ git clone https://github.com/muhammadhaerul/Galaxy-Object-Detection-Core.git
+$ cd galaxy-object-detection-core
+
+# Install dependencies
+$ pip install -r requirements.txt
+```
+
+---
+
+## 🚀 Quick Start
+
+### 🔍 Detect a Single Image
+
+```python
+from galaxy_object_detection_core.GalaxyObjectDetector import GalaxyObjectDetector
+
+img = "images_sample/sample1.jpg"
+
+# Detect PPE
+result = GalaxyObjectDetector.detect_ppe(img, version="v2")
+print("Saved at:", result)
+
+# Detect Vehicle
+result = GalaxyObjectDetector.detect_vehicle(img)
+
+# Segment PPE
+result = GalaxyObjectDetector.segment_ppe(img)
+
+# Detect Custom Objects (YOLO World)
+result = GalaxyObjectDetector.detect_custom_object(img, ["helmet", "person"])
+```
+
+---
+
+## 🧠 Available Detection APIs
+
+### Generic
+
+* `detect_object(model_path: str, image_path: str)`
+* `segment_object(model_path: str, image_path: str)`
+
+### Human, Safety, Environment
+
+* `detect_human_head(image_path: str)`
+* `detect_ppe(image_path: str, version: Literal['v1', 'v2', 'latest'])`
+* `segment_ppe(image_path: str)`
+
+### Transportation and Infrastructure
+
+* `detect_vehicle(image_path: str)`
+* `detect_vehicle_plate(image_path: str)`
+* `detect_road_damage(image_path: str)`
+
+### Fast-Moving Consumer Goods
+
+* `detect_product_fmcg(image_path: str)`
+
+### Office, Legal, Finance
+
+* `detect_ktp(image_path: str)`
+* `detect_invoice_and_receipt(image_path: str)`
+* `detect_meterai(image_path: str, version: Literal['v1', 'v2', 'latest'])`
+* `detect_qrcode(image_path: str)`
+
+### Nature and Environment
+
+* `detect_mineral_boulder(image_path: str)`
+* `segment_mineral_boulder(image_path: str)`
+* `detect_mineral_soil(image_path: str)`
+
+### YOLO World
+
+* `detect_custom_object(image_path: str, list_object_to_detect: List[str])`
+
+---
+
+## 📁 Project Structure
+
+```
+galaxy-object-detection-core/
+├── galaxy_object_detection_core/
+│   ├── GalaxyObjectDetector.py       # Main detection API class
+│   └── models/                       # YOLO model weights (excluded from PyPI, downloaded externally)
+├── images_sample/                   # Example input images
+├── images_detected/                 # Detection result outputs
+├── main.py                          # Sample runner
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## 📸 Example Results
+
+| Example                          | Output Path                                                                                                   |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Human Head Detection             | images\_detected/result\_of\_head\_using\_model\_human\_head\_detector\_yolo8n.jpg                            |
+| PPE Detection                    | images\_detected/result\_of\_head\_using\_model\_personal\_protective\_equipment\_detector\_yolo8n\_v2.jpg    |
+| PPE Segmentation                 | images\_detected/result\_of\_head\_using\_model\_personal\_protective\_equipment\_segmentator\_yolo8n\_v2.jpg |
+| Vehicle Detection                | images\_detected/result\_of\_model\_vehicle\_detector\_yolo11n\_v1.jpg                                        |
+| License Plate Detection          | images\_detected/result\_of\_model\_vehicle\_plate\_detector\_yolo8n\_v1.jpg                                  |
+| Road Damage Detection            | images\_detected/result\_of\_model\_road\_damage\_detector\_yolo8n.jpg                                        |
+| Invoice Detection                | images\_detected/result\_of\_invoice\_using\_model\_invoice\_and\_receipt\_detector\_yolo8n.jpg               |
+| Meterai Detection                | images\_detected/result\_of\_meterai\_using\_model\_meterai\_detector\_yolo8n\_v2.jpg                         |
+| Custom Detection (Fish)          | images\_detected/result\_of\_fish\_using\_custom\_detect\_plant\_fish.jpg                                     |
+| Custom Detection (Helmet/Person) | images\_detected/result\_of\_head\_using\_custom\_detect\_helmet\_person.jpg                                  |
+
+> ⚠️ *Make sure to run inference at least once before using visual outputs.*
+
+---
+
+## 🛠 Contributing
+
+We welcome your contributions to improve this library!
+
+### 📌 To contribute:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/add-new-detector`)
+3. Commit your changes (`git commit -am 'Add new model support'`)
+4. Push to the branch (`git push origin feature/add-new-detector`)
+5. Create a new Pull Request 🚀
+
+### 📍 Contribution Ideas
+
+* Add new YOLOv8 detectors (e.g., fire extinguisher, safety signs)
+* Improve confidence filtering and logging
+* Web UI integration using Streamlit or Flask
+* Export results to JSON/CSV/Database
+
+---
+
+## 📝 License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for more information.
+
+---
+
+Developed by **@muhammadhaerul.25**
+"Build safer, smarter systems with AI."
