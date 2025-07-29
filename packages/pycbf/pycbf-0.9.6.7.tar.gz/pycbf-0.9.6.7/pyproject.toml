@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools", "Cython~=3.1.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pycbf"
+version = "0.9.6.7"
+description = "An API for CBF/imgCIF Crystallographic Binary Files"
+authors = [
+    { name = "Herbert J. Bernstein", email = "yaya@bernstein-plus-sons.com" },
+    { name = "Paul J. Ellis" },
+]
+maintainers = [{ name = "Nicholas Devenish", email = "ndevenish@gmail.com" }]
+license = "LGPL-2.1-or-later"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.26; python_version <= '3.12'",
+    "numpy>=2.1; python_version >= '3.13'",
+]
+
+[project.urls]
+Homepate = "http://www.bernstein-plus-sons.com/software/CBF/"
+Repository = "https://github.com/dials/pycbf"
+
+[dependency-groups]
+dev = [
+    "bump-my-version",
+    "Cython~=3.1.1",
+    "dials-data",
+    "pytest",
+    "toml~=0.10.2",
+    "towncrier",
+]
+
+[tool.ruff]
+exclude = ["src/pycbf/_wrapper.py"]
+
+[tool.ruff.format]
+exclude = ["cbflib/", "src/pycbf/__init__.py"]
+
+[tool.towncrier]
+package = "pycbf"
+package_dir = ".."
+filename = "CHANGELOG.rst"
+
+[tool.pytest.ini_options]
+addopts = "--regression -ra"
+testpaths = ["tests"]
+
+[tool.bumpversion]
+parse = "(?P<cbflib_version>\\d+\\.\\d+\\.\\d+)\\.(?P<minor>\\d+)\\.?(?P<release>[a-z]+)?"
+current_version = "0.9.6.7"
+serialize = ["{cbflib_version}.{minor}.{release}", "{cbflib_version}.{minor}"]
+
+[tool.bumpversion.parts.release]
+values = ["dev", "prod"]
+optional_value = "prod"
+first_value = "dev"
+
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+search = 'version = "{current_version}"'
+replace = 'version = "{new_version}"'
