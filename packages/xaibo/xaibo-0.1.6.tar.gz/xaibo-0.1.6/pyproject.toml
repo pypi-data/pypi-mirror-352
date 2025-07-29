@@ -1,0 +1,87 @@
+[project]
+name = "xaibo"
+version = "0.1.6"  # Development version, will be replaced during CI/CD
+description = "Xaibo is a framework for building powerful, transparent, and modular AI agents."
+keywords = ["AI", "agent", "framework", "modular"]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "docstring-parser>=0.16",
+    "pydantic>=2.10.6",
+    "pydantic-yaml>=1.4.0",
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.3",
+    "questionary>=2.1.0",
+    "numpy>=2.2.5",
+    "aiohttp>=3.8.0",
+    "websockets>=11.0.0",
+]
+
+[project.scripts]
+xaibo = "xaibo.cli:main"
+
+[build-system]
+requires = [
+    "hatchling",
+    "hatch-build-scripts"   # Plugin to run custom build scripts
+]
+build-backend = "hatchling.build"
+
+[[tool.hatch.build.hooks.build-scripts.scripts]]
+# Run pnpm install + build before packaging
+work_dir = "ui"           # Run commands in the frontend directory
+commands = [
+    "pnpm install",                   # install frontend dependencies
+    "pnpm run build"                  # build the frontend (outputs to ui/build)
+]
+artifacts = [
+    "build/**"                   # glob pattern to include all files in frontend/dist
+]
+out_dir = "src/xaibo/server/adapters/ui/static"  # copy built files into the Python package dir
+
+# Include the built assets in both sdist and wheel distributions
+[tool.hatch.build.targets.sdist]
+artifacts = ["ui/build/**"]
+
+[tool.hatch.build.targets.wheel]
+sources = ["src"]
+packages = ["src/xaibo"]
+artifacts = ["ui/build/**"]
+
+
+[project.optional-dependencies]
+webserver = [
+    "fastapi[standard]>=0.115.12",
+    "strawberry-graphql>=0.262.5",
+    "strawberry-graphql[cli]>=0.262.5",
+    "watchfiles>=1.0.4",
+    "python-dotenv>=1.1.0",
+]
+openai = [
+    "openai>=1.65.4",
+]
+anthropic = [
+    "anthropic>=0.49.0",
+]
+google = [
+    "google-genai>=1.5.0",
+]
+bedrock = [
+    "boto3>=1.37.38",
+]
+local = [
+    "sentence-transformers>=4.1.0",
+    "soundfile>=0.13.1",
+    "tiktoken>=0.9.0",
+    "transformers>=4.51.3",
+]
+
+[dependency-groups]
+dev = [
+    "coverage>=7.8.0",
+    "devtools>=0.12.2",
+    "mkdocs-asciinema-player>=0.17.0",
+    "mkdocs-git-revision-date-localized-plugin>=1.4.5",
+    "mkdocs-material[imaging]>=9.6.14",
+    "mkdocs-mermaid2-plugin>=1.2.1",
+]
