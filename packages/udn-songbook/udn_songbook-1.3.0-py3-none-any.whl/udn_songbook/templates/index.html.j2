@@ -1,0 +1,40 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% for style in styles -%}
+    <link rel="stylesheet" type="text/css" href="css/{{ style }}.css" />
+    {% endfor %}
+    <title>{{ title }}</title>
+    <!-- # also import javascript stuff here if needed -->
+</head>
+<div class="header" id="index_{{ '%02d' | format(index_page) }}">
+    <h1>{{ title }} Index</h1>
+</div>
+<div class="index">
+    {% for title, song in entries %}
+    {% if outfmt == "html" %}
+    {% set target='songs/%s'| format(song.filename.with_suffix('.html').name) %}
+    {% else %}
+    {% set target='#title_%03d'| format(song.id) %}
+    {% endif %}
+    <a class="indexlink" id="song_{{ song.id}}" href="{{ target }}" alt="{{ song.title }} - {{ song.artist }}">
+        {{ song.title }} - {{ song.artist }}
+    </a>
+    <br />
+    {% endfor %}
+</div>
+<!-- outer div -->
+<div class="footer">
+    {% if index_count > index_page %}
+    <a class="right" href="index{{ '%02d' | format(index_page + 1) }}.html">Next</a>
+    {% if index_page > 0 %}
+    <a class="middle" href="index.html">Home</a>
+    <a class="left" href="index{{ '%02d' | format(index_page - 1) }}.html">Prev</a>
+    {% endif %}
+    {% endif %}
+</div>
+
+</html>
