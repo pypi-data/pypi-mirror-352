@@ -1,0 +1,3 @@
+from autoai.data_preprocessing_scripts.encoding_scaling_scripts import scaling_script
+
+scaler = scaling_script
