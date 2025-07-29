@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: sar_sdk
+Version: 0.1.0
+Summary: Python SDK for controlling SAR grippers over TCP
+Author-email: Dexsent Robotics <dexsentrobotics@gmail.com>
+License: Proprietary - Sastra Innovation Labs
+Project-URL: Homepage, https://github.com/dexsent/sar_sdk
+Project-URL: Documentation, https://github.com/dexsent/sar_sdk/wiki
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# sar_sdk
+
+Python SDK for controlling SAR grippers over TCP.
+
+## Installation
+
+```bash
+pip install sar_sdk
+```
+
+## Usage
+
+```python
+from sar_sdk import SARModule
+
+sar = SARModule()
+sar.grip_close()
+```
