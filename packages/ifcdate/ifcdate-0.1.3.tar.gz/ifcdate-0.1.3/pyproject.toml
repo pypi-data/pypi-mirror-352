@@ -1,0 +1,25 @@
+[project]
+name = "ifcdate"
+version = "0.1.3"
+description = "Convert dates between Unix, Gregorian, and International Fixed Calendar"
+readme = "README.md"
+authors = [
+    { name = "Fabian Köll", email = "koell.dev@google.com" }
+]
+license = "MIT"
+requires-python = ">=3.8"
+dependencies = []
+
+[project.scripts]
+ifcdate = "ifcdate.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.0"
+pytest-cov = "^5.0"
+
+[tool.pytest.ini_options]
+addopts = "--cov=ifcdate --cov-report=term-missing --cov-fail-under=85"
