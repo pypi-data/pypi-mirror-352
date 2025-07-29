@@ -1,0 +1,167 @@
+[project]
+name = "cloudcoil"
+version = "0.5.8"
+description = "Cloud native made easy with Python"
+authors = [{ name = "Sambhav Kothari", email = "sambhavs.email@gmail.com" }]
+maintainers = [{ name = "Sambhav Kothari", email = "sambhavs.email@gmail.com" }]
+license = { text = "Apache-2.0" }
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>2.0",
+    "httpx",
+    "pyyaml>=6.0.2",
+    "typing_extensions>=4.0.0; python_version <= '3.10'",
+]
+keywords = ["cloud-native", "kubernetes", "pydantic", "python", "async"]
+
+[project.scripts]
+cloudcoil-model-codegen = "cloudcoil.codegen.generator:main"
+
+[project.optional-dependencies]
+test = ["pytest", "filelock", "pytest-asyncio"]
+codegen = ["datamodel-code-generator[http]~=0.26.4", "ruff"]
+cert-manager = ["cloudcoil.models.cert_manager"]
+fluxcd = ["cloudcoil.models.fluxcd"]
+istio = ["cloudcoil.models.istio"]
+keda = ["cloudcoil.models.keda"]
+knative-eventing = ["cloudcoil.models.knative_eventing"]
+knative-serving = ["cloudcoil.models.knative_serving"]
+kpack = ["cloudcoil.models.kpack"]
+kubernetes = ["cloudcoil.models.kubernetes"]
+kubernetes-1-29 = ["cloudcoil.models.kubernetes~=1.29.0"]
+kubernetes-1-30 = ["cloudcoil.models.kubernetes~=1.30.0"]
+kubernetes-1-31 = ["cloudcoil.models.kubernetes~=1.31.0"]
+kubernetes-1-32 = ["cloudcoil.models.kubernetes~=1.32.0"]
+kyverno = ["cloudcoil.models.kyverno"]
+prometheus-operator = ["cloudcoil.models.prometheus_operator"]
+sealed-secrets = ["cloudcoil.models.sealed_secrets"]
+velero = ["cloudcoil.models.velero"]
+truststore = ["truststore>=0.8.0"]
+all-models = [
+    "cloudcoil.models.cert_manager",
+    "cloudcoil.models.fluxcd",
+    "cloudcoil.models.istio",
+    "cloudcoil.models.keda",
+    "cloudcoil.models.knative_eventing",
+    "cloudcoil.models.knative_serving",
+    "cloudcoil.models.kpack",
+    "cloudcoil.models.kubernetes",
+    "cloudcoil.models.kyverno",
+    "cloudcoil.models.prometheus_operator",
+    "cloudcoil.models.sealed_secrets",
+    "cloudcoil.models.velero",
+]
+
+
+[project.urls]
+Homepage = "https://github.com/cloudcoil/cloudcoil"
+Documentation = "https://cloudcoil.github.io/cloudcoil"
+Repository = "https://github.com/cloudcoil/cloudcoil"
+Issues = "https://github.com/cloudcoil/cloudcoil/issues"
+Changelog = "https://github.com/cloudcoil/cloudcoil/releases"
+
+[build-system]
+requires = ["hatchling>=1.18.0"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "0.5.8"
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle
+    "F", # pyflakes
+    "B", # flake8-bugbear
+    "N", # pep8-naming
+    "I", # isort
+]
+ignore = ["E203", "B008", "N818", "E501", "B904"]
+
+[tool.ruff.lint.pep8-naming]
+extend-ignore-names = ["Dynamic*"]
+
+
+[tool.pytest.ini_options]
+addopts = "-n 4 -ra -q --import-mode=importlib --cov=cloudcoil --cov-report=xml --cov-report=term -vvv --junitxml=junit.xml -o junit_family=legacy"
+testpaths = ["tests"]
+markers = ["configure_test_cluster: Configure cloudcoil test cluster"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[dependency-groups]
+dev = [
+    "mypy",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.5.3",
+    "mkdocstrings>=0.24.0",
+    "mkdocstrings-python>=1.7.5",
+    "mkdocs-autorefs>=0.5.0",
+    "pytest>=8.3.4",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.8.4",
+    "mkdocs-autorefs",
+    "datamodel-code-generator[http]",
+    "types-pyyaml>=6.0.12.20241221",
+    "ipython>=8.12.3",
+    "pytest-sugar>=1.0.0",
+    "pytest-asyncio>=0.25.0",
+    "pytest-xdist>=3.6.1",
+    "cloudcoil-models-kubernetes>=1.29.13.1",
+    "filelock>=3.17.0",
+    "truststore>=0.8.0",
+]
+
+[tool.mypy]
+plugins = ['pydantic.mypy', 'cloudcoil.mypy']
+
+# Add the pytest plugin
+[project.entry-points.pytest11]
+cloudcoil = "cloudcoil._testing.plugin"
+
+[tool.coverage.run]
+omit = [
+    "cloudcoil/models/**",
+    "cloudcoil/mypy.py",
+    "cloudcoil/_testing/**",
+    "cloudcoil/codegen/_tomllib/**",
+    "cloudcoil/apimachinery.py",
+    "cloudcoil/pydantic.py",
+    "cloudcoil/_pydantic.py",
+]
+
+[tool.hatch.build.targets.wheel]
+only-include = ["cloudcoil"]
+
+[tool.uv]
+conflicts = [
+    [
+        { extra = "kubernetes-1-29" },
+        { extra = "kubernetes-1-30" },
+        { extra = "kubernetes-1-31" },
+        { extra = "kubernetes-1-32" },
+    ],
+]
+
+[[tool.cloudcoil.codegen.models]]
+# Unique name for the models
+# This will be used as the name for the setuptools entrypoints
+namespace = "cloudcoil"
+# The input OpenAPI spec
+input = "https://raw.githubusercontent.com/kubernetes/kubernetes/refs/tags/v1.31.4/api/openapi-spec/swagger.json"
+mode = "base"
+generate-init = false
+generate-py-typed = false
+# Rename the definitions to a more pythonic name
+# This is a list of regex substitutions
+transformations = [
+    { match = "^io\\.k8s\\.apimachinery\\..*\\.(.+)", replace = "apimachinery.\\g<1>" },
+    { match = "^(.+)$", exclude = true },
+]
