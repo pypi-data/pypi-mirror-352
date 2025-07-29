@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "point-topic-utils"
+version = "0.1.25"
+description = "Utilities for Point Topic projects"
+authors = [{ name = "Peter Donaghey" }]
+dependencies = [
+    "pymongo>=4.0.0",
+    "gspread>=6.2.1",
+    "google-auth>=2.40.1",
+    "cachetools>=5.0.0",
+    "requests>=2.32.0",
+    "pyasn1>=0.4.1",
+    "pyasn1_modules>=0.4.2",
+    "rsa>=4.9.1",
+    "boto3>=1.35.0",
+    "snowflake-connector-python[pandas]",
+    "pandas"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=22.0.0",
+    "isort>=5.0.0",
+]
+
+[project.scripts]
+pt-update-status = "point_topic_utils.update_status:main"
+pt-export-gsheet = "point_topic_utils.google_sheets:main" 
