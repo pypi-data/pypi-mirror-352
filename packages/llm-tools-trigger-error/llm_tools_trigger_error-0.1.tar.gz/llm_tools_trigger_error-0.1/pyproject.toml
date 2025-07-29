@@ -1,0 +1,28 @@
+[project]
+name = "llm-tools-trigger-error"
+version = "0.1"
+description = "Trigger an LLM tools error, useful for testing"
+readme = "README.md"
+authors = [{name = "Simon Willison"}]
+license = "Apache-2.0"
+classifiers = []
+requires-python = ">=3.9"
+dependencies = [
+    "llm>=0.26"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/simonw/llm-tools-trigger-error"
+Changelog = "https://github.com/simonw/llm-tools-trigger-error/releases"
+Issues = "https://github.com/simonw/llm-tools-trigger-error/issues"
+CI = "https://github.com/simonw/llm-tools-trigger-error/actions"
+
+[project.entry-points.llm]
+llm_tools_trigger_error = "llm_tools_trigger_error"
+
+[project.optional-dependencies]
+test = ["pytest", "llm-echo>=0.3a1"]
