@@ -1,0 +1,1515 @@
+5. Seamless interoperation with the DOM
+***************************************
+
+
+5.1. Practical example: a simple, responsive website using no HTML or CSS at all
+================================================================================
+
+To many programmers, using ‘static’ HTML and CSS feels like being
+locked up in a closet. As an alternative, responsiveness can simply be
+programmed using Transcrypt, as can be seen on the website of
+Transcrypt itself. The site adapts to diverse screen formats, device
+types and landscape vs. portrait mode.
+
+
+5.2. SVG example: Turtle graphics
+=================================
+
+*Turtle graphics* are a way to teach computer programming to children,
+invented by Seymour Papert in the 1960’s. Lines are drawn as ‘track’
+of a walking turtle, that can move ahead and turn. Children use turtle
+graphics intuitively by imagining what they would do if they were the
+turtle. This leads to a *recipe of motion*, indeed an *algorithm*,
+which is the basis of imperative (as opposed to e.g. declarative)
+programming.
+
+*SVG* or *Scalable Vector Graphics* are a way to display high quality
+graphs, e.g. in the browser. SVG, as opposed to e.g. the HTML Canvas,
+bypasses the pixel paradigm and works with floating point coordinates
+directly. As a consequence, SVG plots can be zoomed without becoming
+ragged or ‘pixelated’.
+
+When looking under the hood of SVG, there’s an amazing correspondence
+between the primitives in an SVG *path* and the primitives of turtle
+graphics. So both from an aestethical and from a conceptual point of
+view, turtle graphics and SVG form a happy mariage.
+
+Turtle graphics in Transcrypt do not require the use of any graphics
+libraries. Below are two turtle graphics examples and the source code
+of Transcrypt’s *turtle* module, which is quite compact. As can be
+seen from the code integration between Transcrypt and JavaScript is
+trivial.
+
+Drawing a alternatingly floodfilled star
+
+   # Free after the example from the Python 3.5 manual
+
+   from turtle import *
+
+   up ()
+   goto (-250, -21)
+   startPos = pos ()
+
+   down ()
+   color ('red', 'yellow')
+   begin_fill ()
+   while True:
+       forward (500)
+       right (170)
+       if distance (startPos) < 1:
+           break
+   end_fill ()
+   done ()
+
+Click here to view the resulting zoomable star.
+
+Drawing the contours of a snowflake
+
+   from turtle import *
+
+   josh = Turtle ()
+
+   def draw (length):
+       if length > 9:
+           draw (length / 3)
+           josh.left (60)
+           draw (length / 3)
+           josh.right (120)
+           draw (length / 3)
+           josh.left (60)
+           draw (length / 3)
+       else:
+           josh.forward (length)
+
+   length = 150
+   josh.up ()
+   josh.forward (length / 2)
+   josh.left (90)
+   josh.forward (length / 4)
+   josh.right (90)
+   josh.down ()
+
+   for i in range (3):
+       josh.right (120)
+       draw (length)
+       
+   josh.done ()
+
+Click here to view the resulting zoomable snowflake.
+
+Transcrypt’s turtle graphics module sits directly on top of SVG, no
+libraries needed, so a very compact download
+
+   __pragma__ ('skip')
+   document = Math = setInterval = clearInterval = 0
+   __pragma__ ('noskip')
+
+   _debug = False
+
+   #def abs (vec2D):
+   #    return Math.sqrt (vec2D [0] * vec2D [0] + vec2D [1] * vec2D [1])
+
+   _ns = 'http://www.w3.org/2000/svg'
+   _svg = document.createElementNS (_ns, 'svg')
+
+   _defaultElement = document.getElementById ('__turtlegraph__')
+   if not _defaultElement:
+       _defaultElement = document.body
+   _defaultElement.appendChild (_svg)
+
+   _width = None
+   _height = None
+   _offset = None
+
+   def _rightSize (self):
+       nonlocal _width
+       nonlocal _height
+       nonlocal _offset
+       
+       _width = _defaultElement.offsetWidth
+       _height = _defaultElement.offsetHeight
+       _offset = [_width // 2, _height // 2]
+       
+       _svg.setAttribute ('width', _width)
+       _svg.setAttribute ('height', _height)
+       
+   window.onresize = _rightSize
+
+   _rightSize ()
+
+   def bgcolor (color):
+       nonlocal _defaultElement
+
+       _bgcolor = color
+       _defaultElement.style.backgroundColor = _bgcolor
+
+   bgcolor ('white')
+       
+   def setDefaultElement (element):
+       nonlocal _defaultElement
+
+       _defaultElement.removeChild (_svg)
+       _defaultElement = element
+       element.appendChild (_svg)
+       
+       _rightSize ()
+       bgcolor ('white')
+
+   _allTurtles = []
+       
+   class Turtle:
+       def __init__ (self):
+           _allTurtles.append (self)
+           self._paths = []
+           self.reset ()
+           
+       def reset (self):
+           self._heading = Math.PI / 2
+           self.pensize (1)
+           self.color ('black', 'black')
+           self.down ()
+           self._track = []    # Need to make track explicitly because:
+           self.home ()        #   Makes a position but needs a track to put in in
+           self.clear ()       #   Makes a track but needs a position to initialize it with
+           
+       def clear (self):
+           for path in self._paths:
+               _svg.removeChild (path)
+           self._paths = []
+           
+           self._track = []
+           self._moveto (self._position)
+           
+       def _flush (self):
+           if _debug:
+               print ('Flush:', self._track)
+       
+           if len (self._track) > 1:
+               path = document.createElementNS (_ns, 'path')
+               path.setAttribute ('d', ' '.join (self._track))
+               path.setAttribute ('stroke', self._pencolor if self._pencolor != None else 'none')
+               path.setAttribute ('stroke-width', self._pensize)
+               path.setAttribute ('fill', self._fillcolor if self._fill and self._fillcolor != None else 'none')           
+               path.setAttribute ('fill-rule', 'evenodd')
+               _svg.appendChild (path)
+               self._paths.append (path)
+                   
+               self._track = []
+               self._moveto (self._position)   # _track should start with a move command
+           
+       def done (self):
+           self._flush ()
+           
+       def pensize (self, width):
+           self._flush ()
+           if width == None:
+               return self._pensize
+           else:
+               self._pensize = width
+       
+       def color (self, pencolor, fillcolor = None):
+           self._flush ()
+           self._pencolor = pencolor
+           
+           if fillcolor != None:
+               self._fillcolor = fillcolor
+       
+       def goto (self, x, y = None):
+           if y == None:
+               self._position = x
+           else:
+               self._position = [x, y]
+               
+           self._track.append ('{} {} {}'.format (
+               'L' if self._down else 'M',
+               self._position [0] + _offset [0],
+               self._position [1] + _offset [1])
+           )
+           
+       def _moveto (self, x, y = None):
+           wasdown = self.isdown ()
+           self.up ()
+           self.goto (x, y)
+           if wasdown:
+               self.down ()
+               
+       def home (self):
+           self._moveto (0, 0)
+           
+       def position (self):
+           return self._position [:]
+           
+       def pos (self):
+           return self.position ()
+           
+       def distance (self, x, y = None):
+           if y == None:
+               other = x
+           else:
+               other = [x, y]
+               
+           dX = other [0] - self._position [0]
+           dY = other [1] - self._position [1]
+           
+           return Math.sqrt (dX * dX + dY * dY)
+               
+       def up (self):
+           self._down = False
+           
+       def down (self):
+           self._down = True
+           
+       def isdown (self):
+           return self._down
+           
+       def _predict (self, length):
+           delta = [Math.sin (self._heading), Math.cos (self._heading)]
+           return [self._position [0] + length * delta [0], self._position [1] + length * delta [1]]
+           
+       def forward (self, length):
+           self._position = self._predict (length)
+           
+           self._track.append ('{} {} {}'.format (
+               'L' if self._down else 'M',
+               self._position [0] + _offset [0],
+               self._position [1] + _offset [1])
+           )
+           
+       def back (self, length):
+           self.forward (-length)
+           
+       def circle (self, radius):
+           self.left (90)
+           opposite = self._predict (2 * (radius + 1) + 1)
+           self.right (90)
+       
+           self._track.append ('{} {} {} {} {} {} {} {}'.format (
+               'A',
+               radius,
+               radius,
+               0,
+               1,
+               0,
+               opposite [0] + _offset [0],
+               opposite [1] + _offset [1]
+           ))
+           
+           self._track.append ('{} {} {} {} {} {} {} {}'.format (
+               'A',
+               radius,
+               radius,
+               0,
+               1,
+               0,
+               self._position [0] + _offset [0],
+               self._position [1] + _offset [1]
+           ))
+           
+       def left (self, angle):
+           self._heading = (self._heading + Math.PI * angle / 180) % (2 * Math.PI)
+               
+       def right (self, angle): 
+           self.left (-angle)
+           
+       def begin_fill (self):
+           self._flush ()
+           self._fill = True
+       
+       def end_fill (self):
+           self._flush ()
+           self._fill = False
+           
+       def speed (speed = None):
+           pass
+           
+   _defaultTurtle = Turtle ()
+   _timer = None
+       
+   def reset ():
+       nonlocal _timer, _allTurtles
+       if _timer:
+           clearTimeout (_timer)
+       bgcolor ('white')
+       for turtle in _allTurtles:
+           turtle.reset ()
+           turtle.done ()
+           
+   def clear ():
+       nonlocal _allTurtles
+       for turtle in _allTurtles:
+           turtle.clear ()
+           
+   def ontimer (fun, t = 0):
+       nonlocal _timer
+       _timer = setTimeout (fun, t)
+
+   def done ():                            _defaultTurtle.done ()
+   def pensize (width):                    _defaultTurtle.pensize (width)
+   def color (pencolor, fillcolor = None): _defaultTurtle.color (pencolor, fillcolor)
+   def home ():                            _defaultTurtle.home ()
+   def goto (x, y = None):                 _defaultTurtle.goto (x, y)
+   def position ():                        return _defaultTurtle.position ()
+   def pos ():                             return _defaultTurtle.pos ()
+   def distance (x, y = None):             return _defaultTurtle.distance (x, y)
+   def up ():                              _defaultTurtle.up ()
+   def down ():                            _defaultTurtle.down ()
+   def forward (length):                   _defaultTurtle.forward (length)
+   def back (length):                      _defaultTurtle.back (length)
+   def circle (radius):                    _defaultTurtle.circle (radius)
+   def left (angle):                       _defaultTurtle.left (angle)
+   def right (angle):                      _defaultTurtle.right (angle)
+   def begin_fill ():                      _defaultTurtle.begin_fill ()
+   def end_fill ():                        _defaultTurtle.end_fill ()
+   def speed (speed):                      _defaultTurtle.speed (speed)
+
+Remark: In a later stage animation may be added. As a further step,
+for complicated fractals, transparent server side compilation of a
+relatively simple algorithm would allow on-line editing combined with
+fast client side rendering of high-resolution graphics.
+
+
+6. Mixed examples
+*****************
+
+
+6.1. Example: Pong
+==================
+
+In using the fabric.js JavaScript library this for example, the only
+thing differing from plain JavaScript is that *new <constructor>* is
+replaced by *__new__ (<constructor>)*.
+
++------------------------------------------------+-----------------------------------------------------------+
+| p o n g . p y __pragma__ ('skip') document =   | p o n g . j s // Transcrypt'ed from Python, 2023-04-22    |
+| window = Math = Date = 0 # Prevent complaints  | 17:11:43 import {AssertionError, AttributeError,          |
+| by optional static checker __pragma__          | BaseException, DeprecationWarning, Exception, IndexError, |
+| ('noskip')  __pragma__ ('noalias', 'clear')    | IterableError, KeyError, NotImplementedError,             |
+| from com.fabricjs import fabric  orthoWidth =  | RuntimeWarning, StopIteration, UserWarning, ValueError,   |
+| 1000 orthoHeight = 750 fieldHeight = 650       | Warning, __JsIterator__, __PyIterator__, __Terminal__,    |
+| enter, esc, space = 13, 27, 32                 | __add__, __and__, __call__, __class__, __envir__, __eq__, |
+| window.onkeydown = lambda event: event.keyCode | __floordiv__, __ge__, __get__, __getcm__, __getitem__,    |
+| != space # Prevent scrolldown on spacebar      | __getslice__, __getsm__, __gt__, __i__, __iadd__,         |
+| press  class Attribute:    # Attribute in the  | __iand__, __idiv__, __ijsmod__, __ilshift__, __imatmul__, |
+| gaming sense of the word, rather than of an    | __imod__, __imul__, __in__, __init__, __ior__, __ipow__,  |
+| object     def __init__ (self, game):          | __irshift__, __isub__, __ixor__, __jsUsePyNext__,         |
+| self.game = game                    #          | __jsmod__, __k__, __kwargtrans__, __le__, __lshift__,     |
+| Attribute knows game it's part of              | __lt__, __matmul__, __mergefields__, __mergekwargtrans__, |
+| self.game.attributes.append (self)  # Game     | __mod__, __mul__, __ne__, __neg__, __nest__, __or__,      |
+| knows all its attributes         self.install  | __pow__, __pragma__, __pyUseJsNext__, __rshift__,         |
+| ()                     # Put in place          | __setitem__, __setproperty__, __setslice__, __sort__,     |
+| graphical representation of attribute          | __specialattrib__, __sub__, __super__, __t__,             |
+| self.reset ()                       # Reset    | __terminal__, __truediv__, __withblock__, __xor__, abs,   |
+| attribute to start position                    | all, any, assert, bool, bytearray, bytes, callable, chr,  |
+| def reset (self):       # Restore starting     | copy, deepcopy, delattr, dict, dir, divmod, enumerate,    |
+| positions or score, then commit to fabric      | filter, float, format, getattr, hasattr, input, int,      |
+| self.commit ()      # Nothing to restore for   | isinstance, issubclass, len, list, map, max, min, object, |
+| the Attribute base class                       | ord, pow, print, property, py_TypeError, py_iter,         |
+| def predict (self):         pass               | py_metatype, py_next, py_reversed, py_typeof, range,      |
+| def interact (self):         pass              | repr, round, set, setattr, sorted, str, sum, tuple, zip}  |
+| def commit (self):         pass  class Sprite  | from './org.transcrypt.__runtime__.js'; import {fabric}   |
+| (Attribute):   # Here, a sprite is an          | from './com.fabricjs.js'; var __name__ = '__main__';      |
+| attribute that can move     def __init__       | export var orthoWidth = 1000; export var orthoHeight =    |
+| (self, game, width, height):                   | 750; export var fieldHeight = 650; var __left0__ = tuple  |
+| self.width = width         self.height =       | ([13, 27, 32]); export var enter = __left0__ [0]; export  |
+| height         Attribute.__init__ (self, game) | var esc = __left0__ [1]; export var space = __left0__     |
+| def install (self):     # The sprite holds an  | [2]; window.onkeydown = (function __lambda__ (event) {    |
+| image that fabric can display                  | return event.keyCode != space; }); export var Attribute = |
+| self.image = __new__ (fabric.Rect ({           | __class__ ('Attribute', [object], {     __module__:       |
+| 'width': self.game.scaleX (self.width),        | __name__,     get __init__ () {return __get__ (this,      |
+| 'height': self.game.scaleY (self.height),      | function (self, game) {         self.game = game;         |
+| 'originX': 'center', 'originY': 'center',      | self.game.attributes.append (self);         self.install  |
+| 'fill': 'white'         }))                    | ();         self.reset ();     });},     get reset ()     |
+| __pragma__ ('kwargs')     def reset (self, vX  | {return __get__ (this, function (self) {                  |
+| = 0, vY = 0, x = 0, y = 0):         self.vX =  | self.commit ();     });},     get predict () {return      |
+| vX        # Speed         self.vY = vY         | __get__ (this, function (self) {         // pass;         |
+| self.x = x          # Predicted position, can  | });},     get interact () {return __get__ (this, function |
+| be commit, no bouncing initially               | (self) {         // pass;     });},     get commit ()     |
+| self.y = y                  Attribute.reset    | {return __get__ (this, function (self) {         // pass; |
+| (self)     __pragma__ ('nokwargs')             | });} }); export var Sprite =  __class__ ('Sprite',        |
+| def predict (self):     # Predict position, do | [Attribute], {     __module__: __name__,     get __init__ |
+| not yet commit, bouncing may alter it          | () {return __get__ (this, function (self, game, width,    |
+| self.x += self.vX * self.game.deltaT           | height) {         self.width = width;         self.height |
+| self.y += self.vY * self.game.deltaT      def  | = height;         Attribute.__init__ (self, game);        |
+| commit (self):      # Update fabric image for  | });},     get install () {return __get__ (this, function  |
+| asynch draw         self.image.left =          | (self) {         self.image = new fabric.Rect (dict       |
+| self.game.orthoX (self.x)                      | ({'width': self.game.scaleX (self.width), 'height':       |
+| self.image.top = self.game.orthoY (self.y)     | self.game.scaleY (self.height), 'originX': 'center',      |
+| def draw (self):         self.game.canvas.add  | 'originY': 'center', 'fill': 'white'}));     });},        |
+| (self.image)           class Paddle (Sprite):  | get reset () {return __get__ (this, function (self, vX,   |
+| margin = 30 # Distance of paddles from walls   | vY, x, y) {         if (typeof vX == 'undefined' || (vX   |
+| width = 10     height = 100     speed = 400 #  | != null && vX.hasOwnProperty ("__kwargtrans__"))) {;      |
+| / s          def __init__ (self, game, index): | var vX = 0;         };         if (typeof vY ==           |
+| self.index = index  # Paddle knows its player  | 'undefined' || (vY != null && vY.hasOwnProperty           |
+| index, 0 == left, 1 == right                   | ("__kwargtrans__"))) {;             var vY = 0;           |
+| Sprite.__init__ (self, game, self.width,       | };         if (typeof x == 'undefined' || (x != null &&   |
+| self.height)              def reset (self):    | x.hasOwnProperty ("__kwargtrans__"))) {;             var  |
+| # Put paddle in rest position, dependent on    | x = 0;         };         if (typeof y == 'undefined' ||  |
+| player index         Sprite.reset (            | (y != null && y.hasOwnProperty ("__kwargtrans__"))) {;    |
+| self,             x = orthoWidth // 2 -        | var y = 0;         };         if (arguments.length) {     |
+| self.margin if self.index else -orthoWidth //  | var __ilastarg0__ = arguments.length - 1;             if  |
+| 2 + self.margin,             y = 0         )   | (arguments [__ilastarg0__] && arguments                   |
+| def predict (self): # Let paddle react on keys | [__ilastarg0__].hasOwnProperty ("__kwargtrans__")) {      |
+| self.vY = 0                  if self.index:    | var __allkwargs0__ = arguments [__ilastarg0__--];         |
+| # Right player             if                  | for (var __attrib0__ in __allkwargs0__) {                 |
+| self.game.keyCode == ord ('K'):  # Letter K    | switch (__attrib0__) {                         case       |
+| pressed                 self.vY = self.speed   | 'self': var self = __allkwargs0__ [__attrib0__]; break;   |
+| elif self.game.keyCode == ord ('M'):           | case 'vX': var vX = __allkwargs0__ [__attrib0__]; break;  |
+| self.vY = -self.speed         else:            | case 'vY': var vY = __allkwargs0__ [__attrib0__]; break;  |
+| # Left player             if self.game.keyCode | case 'x': var x = __allkwargs0__ [__attrib0__]; break;    |
+| == ord ('A'):                 self.vY =        | case 'y': var y = __allkwargs0__ [__attrib0__]; break;    |
+| self.speed             elif self.game.keyCode  | }                 }             }         }         else  |
+| == ord ('Z'):                 self.vY =        | {         }         self.vX = vX;         self.vY = vY;   |
+| -self.speed                                    | self.x = x;         self.y = y;         Attribute.reset   |
+| Sprite.predict (self)                   # Do   | (self);     });},     get predict () {return __get__      |
+| not yet commit, paddle may bounce with walls   | (this, function (self) {         self.x += self.vX *      |
+| def interact (self):    # Paddles and ball     | self.game.deltaT;         self.y += self.vY *             |
+| assumed infinitely thin         # Paddle       | self.game.deltaT;     });},     get commit () {return     |
+| touches wall         self.y = Math.max         | __get__ (this, function (self) {         self.image.left  |
+| (self.height // 2 - fieldHeight // 2, Math.min | = self.game.orthoX (self.x);         self.image.top =     |
+| (self.y, fieldHeight // 2 - self.height // 2)) | self.game.orthoY (self.y);     });},     get draw ()      |
+| # Paddle hits ball         if (                | {return __get__ (this, function (self) {                  |
+| (self.y - self.height // 2) < self.game.ball.y | self.game.canvas.add (self.image);     });} }); export    |
+| < (self.y + self.height // 2)             and  | var Paddle =  __class__ ('Paddle', [Sprite], {            |
+| (                 (self.index == 0 and         | __module__: __name__,     margin: 30,     width: 10,      |
+| self.game.ball.x < self.x) # On or behind left | height: 100,     speed: 400,     get __init__ () {return  |
+| paddle                 or                      | __get__ (this, function (self, game, index) {             |
+| (self.index == 1 and self.game.ball.x >        | self.index = index;         Sprite.__init__ (self, game,  |
+| self.x) # On or behind right paddle            | self.width, self.height);     });},     get reset ()      |
+| )         ):             self.game.ball.x =    | {return __get__ (this, function (self) {                  |
+| self.x               # Ball may have gone too  | Sprite.reset (self, __kwargtrans__ ({x: (self.index ?     |
+| far already             self.game.ball.vX =    | Math.floor (orthoWidth / 2) - self.margin : Math.floor    |
+| -self.game.ball.vX  # Bounce on paddle         | (-(orthoWidth) / 2) + self.margin), y: 0}));     });},    |
+| self.game.ball.speedUp (self)          class   | get predict () {return __get__ (this, function (self) {   |
+| Ball (Sprite):     side = 8     speed = 300 #  | self.vY = 0;         if (self.index) {             if     |
+| / s          def __init__ (self, game):        | (self.game.keyCode == ord ('K')) {                        |
+| Sprite.__init__ (self, game, self.side,        | self.vY = self.speed;             }             else if   |
+| self.side)       def reset (self):   # Launch  | (self.game.keyCode == ord ('M')) {                        |
+| according to service direction with random     | self.vY = -(self.speed);             }         }          |
+| angle offset from horizontal         angle =   | else if (self.game.keyCode == ord ('A')) {                |
+| (             self.game.serviceIndex * Math.PI | self.vY = self.speed;         }         else if           |
+| # Service direction             +              | (self.game.keyCode == ord ('Z')) {             self.vY =  |
+| (1 if Math.random () > 0.5 else -1) *          | -(self.speed);         }         Sprite.predict (self);   |
+| Math.random () * Math.atan (fieldHeight /      | });},     get interact () {return __get__ (this, function |
+| orthoWidth)         )                          | (self) {         self.y = Math.max (Math.floor            |
+| Sprite.reset (             self,               | (self.height / 2) - Math.floor (fieldHeight / 2),         |
+| vX = self.speed * Math.cos (angle),            | Math.min (self.y, Math.floor (fieldHeight / 2) -          |
+| vY = self.speed * Math.sin (angle)         )   | Math.floor (self.height / 2)));         if ((self.y -     |
+| def predict (self):         Sprite.predict     | Math.floor (self.height / 2) < self.game.ball.y &&        |
+| (self)           # Integrate velocity to       | self.game.ball.y < self.y + Math.floor (self.height / 2)) |
+| position                  if self.x <          | && (self.index == 0 && self.game.ball.x < self.x ||       |
+| -orthoWidth // 2:   # If out on left side      | self.index == 1 && self.game.ball.x > self.x)) {          |
+| self.game.scored (1)        #   Right player   | self.game.ball.x = self.x;             self.game.ball.vX  |
+| scored         elif self.x > orthoWidth // 2:  | = -(self.game.ball.vX);                                   |
+| self.game.scored (0)                      if   | self.game.ball.speedUp (self);         }     });} });     |
+| self.y > fieldHeight // 2:   # If it hits top  | export var Ball =  __class__ ('Ball', [Sprite], {         |
+| wall             self.y = fieldHeight // 2   # | __module__: __name__,     side: 8,     speed: 300,        |
+| It may have gone too far already               | get __init__ () {return __get__ (this, function (self,    |
+| self.vY = -self.vY          #   Bounce         | game) {         Sprite.__init__ (self, game, self.side,   |
+| elif self.y < -fieldHeight // 2:               | self.side);     });},     get reset () {return __get__    |
+| self.y = -fieldHeight // 2             self.vY | (this, function (self) {         var angle =              |
+| = -self.vY      def speedUp (self, bat):       | self.game.serviceIndex * Math.PI + ((Math.random () > 0.5 |
+| factor = 1 + 0.15 * (1 - Math.abs (self.y -    | ? 1 : -(1)) * Math.random ()) * Math.atan (fieldHeight /  |
+| bat.y) / (bat.height // 2)) ** 2    # Speed    | orthoWidth);         Sprite.reset (self, __kwargtrans__   |
+| will increase more if paddle hit near centre   | ({vX: self.speed * Math.cos (angle), vY: self.speed *     |
+| if Math.abs (self.vX) < 3 * self.speed:        | Math.sin (angle)}));     });},     get predict () {return |
+| self.vX *= factor             self.vY *=       | __get__ (this, function (self) {         Sprite.predict   |
+| factor             class Scoreboard            | (self);         if (self.x < Math.floor (-(orthoWidth) /  |
+| (Attribute):     nameShift = 75     hintShift  | 2)) {             self.game.scored (1);         }         |
+| = 25                  def install (self): #    | else if (self.x > Math.floor (orthoWidth / 2)) {          |
+| Graphical representation of scoreboard are     | self.game.scored (0);         }         if (self.y >      |
+| four labels and a separator line               | Math.floor (fieldHeight / 2)) {             self.y =      |
+| self.playerLabels = [__new__ (fabric.Text      | Math.floor (fieldHeight / 2);             self.vY =       |
+| ('Player {}'.format (name), {                  | -(self.vY);         }         else if (self.y <           |
+| 'fill': 'white', 'fontFamily': 'arial',        | Math.floor (-(fieldHeight) / 2)) {             self.y =   |
+| 'fontSize': '{}' .format                       | Math.floor (-(fieldHeight) / 2);             self.vY =    |
+| (self.game.canvas.width / 30),                 | -(self.vY);         }     });},     get speedUp ()        |
+| 'left': self.game.orthoX (position *           | {return __get__ (this, function (self, bat) {         var |
+| orthoWidth), 'top': self.game.orthoY           | factor = 1 + 0.15 * Math.pow (1 - Math.abs (self.y -      |
+| (fieldHeight // 2 + self.nameShift)            | bat.y) / (Math.floor (bat.height / 2)), 2);         if    |
+| })) for name, position in (('AZ keys:',        | (Math.abs (self.vX) < 3 * self.speed) {                   |
+| -7/16), ('KM keys:', 1/16))]                   | self.vX *= factor;             self.vY *= factor;         |
+| self.hintLabel = __new__ (fabric.Text          | }     });} }); export var Scoreboard =  __class__         |
+| ('[spacebar] starts game, [enter] resets       | ('Scoreboard', [Attribute], {     __module__: __name__,   |
+| score', {                 'fill': 'white',     | nameShift: 75,     hintShift: 25,     get install ()      |
+| 'fontFamily': 'arial', 'fontSize': '{}'.format | {return __get__ (this, function (self) {                  |
+| (self.game.canvas.width / 70),                 | self.playerLabels = (function () {             var        |
+| 'left': self.game.orthoX (-7/16 * orthoWidth), | __accu0__ = [];             for (var [py_name, position]  |
+| 'top': self.game.orthoY (fieldHeight // 2 +    | of tuple ([tuple (['AZ keys:', -(7) / 16]), tuple (['KM   |
+| self.hintShift)         }))                    | keys:', 1 / 16])])) {                 __accu0__.append    |
+| self.image = __new__ (fabric.Line ([           | (new fabric.Text ('Player {}'.format (py_name), dict      |
+| self.game.orthoX (-orthoWidth // 2),           | ({'fill': 'white', 'fontFamily': 'arial', 'fontSize':     |
+| self.game.orthoY (fieldHeight // 2),           | '{}'.format (self.game.canvas.width / 30), 'left':        |
+| self.game.orthoX (orthoWidth // 2),            | self.game.orthoX (position * orthoWidth), 'top':          |
+| self.game.orthoY (fieldHeight // 2)            | self.game.orthoY (Math.floor (fieldHeight / 2) +          |
+| ],             {'stroke': 'white'}         ))  | self.nameShift)})));             }             return     |
+| def increment (self, playerIndex):             | __accu0__;         }) ();         self.hintLabel = new    |
+| self.scores [playerIndex] += 1                 | fabric.Text ('[spacebar] starts game, [enter] resets      |
+| def reset (self):         self.scores = [0, 0] | score', dict ({'fill': 'white', 'fontFamily': 'arial',    |
+| Attribute.reset (self)  # Only does a commit   | 'fontSize': '{}'.format (self.game.canvas.width / 70),    |
+| here              def commit (self):           | 'left': self.game.orthoX ((-(7) / 16) * orthoWidth),      |
+| # Committing labels is adapting their texts    | 'top': self.game.orthoY (Math.floor (fieldHeight / 2) +   |
+| self.scoreLabels = [__new__ (fabric.Text       | self.hintShift)}));         self.image = new fabric.Line  |
+| ('{}'.format (score), {                        | ([self.game.orthoX (Math.floor (-(orthoWidth) / 2)),      |
+| 'fill': 'white', 'fontFamily': 'arial',        | self.game.orthoY (Math.floor (fieldHeight / 2)),          |
+| 'fontSize': '{}'.format                        | self.game.orthoX (Math.floor (orthoWidth / 2)),           |
+| (self.game.canvas.width / 30),                 | self.game.orthoY (Math.floor (fieldHeight / 2))], dict    |
+| 'left': self.game.orthoX (position *           | ({'stroke': 'white'}));     });},     get increment ()    |
+| orthoWidth), 'top': self.game.orthoY           | {return __get__ (this, function (self, playerIndex) {     |
+| (fieldHeight // 2 + self.nameShift)            | self.scores [playerIndex]++;     });},     get reset ()   |
+| })) for score, position in zip (self.scores,   | {return __get__ (this, function (self) {                  |
+| (-2/16, 6/16))]      def draw (self):          | self.scores = [0, 0];         Attribute.reset (self);     |
+| for playerLabel, scoreLabel in zip             | });},     get commit () {return __get__ (this, function   |
+| (self.playerLabels, self.scoreLabels):         | (self) {         self.scoreLabels = (function () {        |
+| self.game.canvas.add (playerLabel)             | var __accu0__ = [];             for (var [score,          |
+| self.game.canvas.add (scoreLabel)              | position] of zip (self.scores, tuple ([-(2) / 16, 6 /     |
+| self.game.canvas.add (self.hintLabel)          | 16]))) {                 __accu0__.append (new            |
+| self.game.canvas.add (self.image)              | fabric.Text ('{}'.format (score), dict ({'fill': 'white', |
+| class Game:     def __init__ (self):           | 'fontFamily': 'arial', 'fontSize': '{}'.format            |
+| self.serviceIndex = 1 if Math.random () > 0.5  | (self.game.canvas.width / 30), 'left': self.game.orthoX   |
+| else 0    # Index of player that has initial   | (position * orthoWidth), 'top': self.game.orthoY          |
+| service         self.pause = True              | (Math.floor (fieldHeight / 2) + self.nameShift)})));      |
+| # Start game in paused state                   | }             return __accu0__;         }) ();     });},  |
+| self.keyCode = None                            | get draw () {return __get__ (this, function (self) {      |
+| self.textFrame = document.getElementById       | for (var [playerLabel, scoreLabel] of zip                 |
+| ('text_frame')         self.canvasFrame =      | (self.playerLabels, self.scoreLabels)) {                  |
+| document.getElementById ('canvas_frame')       | self.game.canvas.add (playerLabel);                       |
+| self.buttonsFrame = document.getElementById    | self.game.canvas.add (scoreLabel);                        |
+| ('buttons_frame')                  self.canvas | self.game.canvas.add (self.hintLabel);         }          |
+| = __new__ (fabric.Canvas ('canvas',            | self.game.canvas.add (self.image);     });} }); export    |
+| {'backgroundColor': 'black', 'originX':        | var Game =  __class__ ('Game', [object], {                |
+| 'center', 'originY': 'center'}))               | __module__: __name__,     get __init__ () {return __get__ |
+| self.canvas.onWindowDraw = self.draw        #  | (this, function (self) {         self.serviceIndex =      |
+| Install draw callback, will be called asynch   | (Math.random () > 0.5 ? 1 : 0);         self.pause =      |
+| self.canvas.lineWidth = 2                      | true;         self.keyCode = null;         self.textFrame |
+| self.canvas.clear ()                           | = document.getElementById ('text_frame');                 |
+| self.attributes = []                        #  | self.canvasFrame = document.getElementById                |
+| All attributes will insert themselves here     | ('canvas_frame');         self.buttonsFrame =             |
+| self.paddles = [Paddle (self, index) for index | document.getElementById ('buttons_frame');                |
+| in range (2)]    # Pass game as parameter self | self.canvas = new fabric.Canvas ('canvas', dict           |
+| self.ball = Ball (self)                        | ({'backgroundColor': 'black', 'originX': 'center',        |
+| self.scoreboard = Scoreboard (self)            | 'originY': 'center'}));         self.canvas.onWindowDraw  |
+| window.setInterval (self.update, 10)    #      | = self.draw;         self.canvas.lineWidth = 2;           |
+| Install update callback, time in ms            | self.canvas.clear ();         self.attributes = [];       |
+| window.setInterval (self.draw, 20)      #      | self.paddles = (function () {             var __accu0__ = |
+| Install draw callback, time in ms              | [];             for (var index = 0; index < 2; index++) { |
+| window.addEventListener ('keydown',            | __accu0__.append (Paddle (self, index));             }    |
+| self.keydown)         window.addEventListener  | return __accu0__;         }) ();         self.ball = Ball |
+| ('keyup', self.keyup)                          | (self);         self.scoreboard = Scoreboard (self);      |
+| self.buttons = []                  for key in  | window.setInterval (self.py_update, 10);                  |
+| ('A', 'Z', 'K', 'M', 'space', 'enter'):        | window.setInterval (self.draw, 20);                       |
+| button = document.getElementById (key)         | window.addEventListener ('keydown', self.keydown);        |
+| button.addEventListener ('mousedown', (lambda  | window.addEventListener ('keyup', self.keyup);            |
+| aKey: lambda: self.mouseOrTouch (aKey, True))  | self.buttons = [];         for (var key of tuple (['A',   |
+| (key))  # Returns inner lambda                 | 'Z', 'K', 'M', 'space', 'enter'])) {             var      |
+| button.addEventListener ('touchstart', (lambda | button = document.getElementById (key);                   |
+| aKey: lambda: self.mouseOrTouch (aKey, True))  | button.addEventListener ('mousedown', (function           |
+| (key))             button.addEventListener     | __lambda__ (aKey) {                 return (function      |
+| ('mouseup', (lambda aKey: lambda:              | __lambda__ () {                     return                |
+| self.mouseOrTouch (aKey, False)) (key))        | self.mouseOrTouch (aKey, true);                 });       |
+| button.addEventListener ('touchend', (lambda   | }) (key));             button.addEventListener            |
+| aKey: lambda: self.mouseOrTouch (aKey, False)) | ('touchstart', (function __lambda__ (aKey) {              |
+| (key))             button.style.cursor =       | return (function __lambda__ () {                          |
+| 'pointer'             button.style.userSelect  | return self.mouseOrTouch (aKey, true);                    |
+| = 'none'             self.buttons.append       | });             }) (key));                                |
+| (button)                      self.time = +    | button.addEventListener ('mouseup', (function __lambda__  |
+| __new__ (Date)                                 | (aKey) {                 return (function __lambda__ () { |
+| window.onresize = self.resize                  | return self.mouseOrTouch (aKey, false);                   |
+| self.resize ()              def install        | });             }) (key));                                |
+| (self):         for attribute in               | button.addEventListener ('touchend', (function __lambda__ |
+| self.attributes:             attribute.install | (aKey) {                 return (function __lambda__ () { |
+| ()              def mouseOrTouch (self, key,   | return self.mouseOrTouch (aKey, false);                   |
+| down):         if down:             if key ==  | });             }) (key));                                |
+| 'space':                 self.keyCode = space  | button.style.cursor = 'pointer';                          |
+| elif key == 'enter':                           | button.style.userSelect = 'none';                         |
+| self.keyCode = enter             else:         | self.buttons.append (button);         }         self.time |
+| self.keyCode = ord (key)         else:         | = +(new Date);         window.onresize = self.resize;     |
+| self.keyCode = None       def update (self):   | self.resize ();     });},     get install () {return      |
+| # Note that update and draw are not            | __get__ (this, function (self) {         for (var         |
+| synchronized         oldTime = self.time       | attribute of self.attributes) {                           |
+| self.time = + __new__ (Date)                   | attribute.install ();         }     });},     get         |
+| self.deltaT = (self.time - oldTime) / 1000.    | mouseOrTouch () {return __get__ (this, function (self,    |
+| if self.pause:                          # If   | key, down) {         if (down) {             if (key ==   |
+| in paused state             if self.keyCode == | 'space') {                 self.keyCode = space;          |
+| space:           #   If spacebar hit           | }             else if (key == 'enter') {                  |
+| self.pause = False              #              | self.keyCode = enter;             }             else {    |
+| Start playing             elif self.keyCode == | self.keyCode = ord (key);             }         }         |
+| enter:         #   Else if enter hit           | else {             self.keyCode = null;         }         |
+| self.scoreboard.reset ()        #              | });},     get py_update () {return __get__ (this,         |
+| Reset score         else:                      | function (self) {         var oldTime = self.time;        |
+| # Else, so if in active state             for  | self.time = +(new Date);         self.deltaT = (self.time |
+| attribute in self.attributes:   #   Compute    | - oldTime) / 1000.0;         if (self.pause) {            |
+| predicted values                               | if (self.keyCode == space) {                 self.pause = |
+| attribute.predict ()                           | false;             }             else if (self.keyCode == |
+| for attribute in self.attributes:   #          | enter) {                 self.scoreboard.reset ();        |
+| Correct values for bouncing and scoring        | }         }         else {             for (var attribute |
+| attribute.interact ()                          | of self.attributes) {                 attribute.predict   |
+| for attribute in self.attributes:   #   Commit | ();             }             for (var attribute of       |
+| them to pyglet for display                     | self.attributes) {                 attribute.interact (); |
+| attribute.commit ()                  def       | }             for (var attribute of self.attributes) {    |
+| scored (self, playerIndex):             #      | attribute.commit ();             }         }     });},    |
+| Player has scored                              | get scored () {return __get__ (this, function (self,      |
+| self.scoreboard.increment (playerIndex) #      | playerIndex) {         self.scoreboard.increment          |
+| Increment player's points                      | (playerIndex);         self.serviceIndex = 1 -            |
+| self.serviceIndex = 1 - playerIndex     #      | playerIndex;         for (var paddle of self.paddles) {   |
+| Grant service to the unlucky player            | paddle.reset ();         }         self.ball.reset ();    |
+| for paddle in self.paddles:             # Put  | self.pause = true;     });},     get commit () {return    |
+| paddles in rest position                       | __get__ (this, function (self) {         for (var         |
+| paddle.reset ()                                | attribute of self.attributes) {                           |
+| self.ball.reset ()                      # Put  | attribute.commit ();         }     });},     get draw ()  |
+| ball in rest position         self.pause =     | {return __get__ (this, function (self) {                  |
+| True                       # Wait for next     | self.canvas.clear ();         for (var attribute of       |
+| round              def commit (self):          | self.attributes) {             attribute.draw ();         |
+| for attribute in self.attributes:              | }     });},     get resize () {return __get__ (this,      |
+| attribute.commit ()              def draw      | function (self) {         self.pageWidth =                |
+| (self):         self.canvas.clear ()           | window.innerWidth;         self.pageHeight =              |
+| for attribute in self.attributes:              | window.innerHeight;         self.textTop = 0;         if  |
+| attribute.draw ()                   def resize | (self.pageHeight > 1.2 * self.pageWidth) {                |
+| (self):         self.pageWidth =               | self.canvasWidth = self.pageWidth;                        |
+| window.innerWidth         self.pageHeight =    | self.canvasTop = self.textTop + 300;         }            |
+| window.innerHeight                             | else {             self.canvasWidth = 0.6 *               |
+| self.textTop = 0          if self.pageHeight > | self.pageWidth;             self.canvasTop = self.textTop |
+| 1.2 * self.pageWidth:                          | + 200;         }         self.canvasLeft = 0.5 *          |
+| self.canvasWidth = self.pageWidth              | (self.pageWidth - self.canvasWidth);                      |
+| self.canvasTop = self.textTop + 300            | self.canvasHeight = 0.6 * self.canvasWidth;               |
+| else:             self.canvasWidth = 0.6 *     | self.buttonsTop = (self.canvasTop + self.canvasHeight) +  |
+| self.pageWidth             self.canvasTop =    | 50;         self.buttonsWidth = 500;                      |
+| self.textTop + 200          self.canvasLeft =  | self.textFrame.style.top = self.textTop;                  |
+| 0.5 * (self.pageWidth - self.canvasWidth)      | self.textFrame.style.left = self.canvasLeft + 0.05 *      |
+| self.canvasHeight = 0.6 * self.canvasWidth     | self.canvasWidth;         self.textFrame.style.width =    |
+| self.buttonsTop = self.canvasTop +             | 0.9 * self.canvasWidth;                                   |
+| self.canvasHeight + 50                         | self.canvasFrame.style.top = self.canvasTop;              |
+| self.buttonsWidth = 500                        | self.canvasFrame.style.left = self.canvasLeft;            |
+| self.textFrame.style.top = self.textTop;       | self.canvas.setDimensions (dict ({'width':                |
+| self.textFrame.style.left = self.canvasLeft +  | self.canvasWidth, 'height': self.canvasHeight}));         |
+| 0.05 * self.canvasWidth                        | self.buttonsFrame.style.top = self.buttonsTop;            |
+| self.textFrame.style.width = 0.9 *             | self.buttonsFrame.style.left = 0.5 * (self.pageWidth -    |
+| self.canvasWidth                               | self.buttonsWidth);         self.buttonsFrame.style.width |
+| self.canvasFrame.style.top = self.canvasTop    | = self.canvasWidth;         self.install ();              |
+| self.canvasFrame.style.left = self.canvasLeft  | self.commit ();         self.draw ();     });},     get   |
+| self.canvas.setDimensions ({'width':           | scaleX () {return __get__ (this, function (self, x) {     |
+| self.canvasWidth, 'height':                    | return x * (self.canvas.width / orthoWidth);     });},    |
+| self.canvasHeight})                            | get scaleY () {return __get__ (this, function (self, y) { |
+| self.buttonsFrame.style.top = self.buttonsTop  | return y * (self.canvas.height / orthoHeight);     });},  |
+| self.buttonsFrame.style.left = 0.5 *           | get orthoX () {return __get__ (this, function (self, x) { |
+| (self.pageWidth - self.buttonsWidth)           | return self.scaleX (x + Math.floor (orthoWidth / 2));     |
+| self.buttonsFrame.style.width =                | });},     get orthoY () {return __get__ (this, function   |
+| self.canvasWidth                  self.install | (self, y) {         return self.scaleY ((orthoHeight -    |
+| ()         self.commit ()         self.draw () | Math.floor (fieldHeight / 2)) - y);     });},     get     |
+| def scaleX (self, x):         return x *       | keydown () {return __get__ (this, function (self, event)  |
+| (self.canvas.width / orthoWidth)               | {         self.keyCode = event.keyCode;     });},     get |
+| def scaleY (self, y):         return y *       | keyup () {return __get__ (this, function (self, event) {  |
+| (self.canvas.height / orthoHeight)             | self.keyCode = null;     });} }); export var game = Game  |
+| def orthoX (self, x):         return           | ();  //# sourceMappingURL=pong.map                        |
+| self.scaleX (x + orthoWidth // 2)              |                                                           |
+| def orthoY (self, y):         return           |                                                           |
+| self.scaleY (orthoHeight - fieldHeight // 2 -  |                                                           |
+| y)                      def keydown (self,     |                                                           |
+| event):         self.keyCode = event.keyCode   |                                                           |
+| def keyup (self, event):         self.keyCode  |                                                           |
+| = None           game = Game ()  # Create and  |                                                           |
+| run game                                       |                                                           |
++------------------------------------------------+-----------------------------------------------------------+
+
+
+6.1.1. Four ways of integration with JavaScript libraries
+---------------------------------------------------------
+
+There are four ways to integrate Transcrypt applications with existing
+JavaScript libraries.
+
+1. The simplest way is to use the library as is, without any
+   encapsulation. In this way all symbols of that library will be in
+   the global namespace. While many JavaScript programmers don’t seem
+   to mind that, many Python programmers do. For example, in the
+   Terminal demo, the JavaScript module is imported using a *<script>*
+   tag in the HTML header:
+
+terminal_demo.html
+
+   <html>
+       <head>
+           <script type="module">import * as terminal_demo from "./__target__/terminal_demo.js";</script>
+       </head>
+       <body>
+       </body>
+   </html>
+
+2. Another way is to encapsulate the JavaScript library as a whole in
+   a Transcrypt module. In the distribution this is done for the
+   *fabric* module, that encapsulates *fabric.js* and is imported in
+   the Pong example. In this way the global namespace stays clean.
+
+3. A third way is to write a complete Pythonic API for the JavaScript
+   library. This is overkill in most cases and makes it harder to keep
+   up with new versions of the library. Note that Transcrypt was
+   designed to make seamless cooperation between Transcrypt and
+   JavaScript libraries possible without any glue code.
+
+4. The fourth way only works if you are using something like Webpack
+   or Parcel to process and bundle the JavaScript files. In that case,
+   you can use the Node *require()* function to dynamically load
+   JavaScript libraries into the namespace.
+
+nodejs_demo.py
+
+   import time
+
+   http = require ('http')
+
+   class Demo:
+       def __init__ (self, port):
+           print ('Demo server started on port', port)
+           self.server = http.createServer (self.serve)
+           self.server.listen (port)
+           self.oldIndex = 0
+           self.newIndex = 0
+           self.count = 0
+
+In most cases, approach 2 strikes a good balance between effort and
+yield. As can be seen below, the effort involved is minimal.
+
+The encapsulation layer for fabric.js
+
+   __pragma__ ('noanno')
+
+   fabric = __pragma__ ('js',
+       '''
+   (function () {{
+       var exports = {{}};
+       {}  // Puts fabric in exports and in global window
+       delete window.fabric;
+       return exports;
+   }}) () .fabric;
+       ''',
+       __include__ ('com/fabricjs/fabric_downloaded.js')
+   )
+
+Note that __pragma__ (‘js’, <skeletoncode>, includes = [<file1>,
+<file2>, ..]) is used to achieve the encapsulation. It replaces the {}
+by the respective contents of the files. The *fabric* module is part
+of the download. Note that not all facilities were included in
+customizing fabric.js. You can drop-in replace the *fabric.js* by
+another customized version without changing anything. Preferably
+download a development version, since that enables easy debugging.
+Transcrypt will minify it for you on the fly.
+
+
+6.1.2. Minification
+-------------------
+
+Minification is currently performed by the Google closure compiler,
+that’s also part of the distribution. Currently closures
+ADVANCED_OPTIMIZATIONS switch breaks the working *strict* code,
+however, so the SIMPLE_OPTIMIZATIONS switch is used by default.
+
+As can be seen from the listings of the Pong example, even the non-
+minified *pong.js* module is only slightly larger than *pong.py*. This
+is despite the expensive keyword arguments mechanism that is activated
+for the *reset* function, using *__pragma__ (‘kwargs’)* and
+*__pragma__ (‘nokwargs’)*. The minified but not treeshaked Transcrypt
+runtime is slightly above 40 kB. The *fabric.js* library on the other
+hand occupies 180 kB. From this example it becomes clear that
+Transcrypt is extremely lightweight.
+
+
+6.2. Example: jQuery
+====================
+
+In contrast to the use of the *fabric.js* library in the Pong example,
+*jQuery* hasn’t been encapsulated at all. It’s just downloaded on the
+fly from a content delivery network and used as-is. Instead of the *$*
+(that is not a valid Python identifier), an *S* is used as alias. This
+might have been any character sequence.
+
++--------------------------------------------------------------+-------------------------------------------------------------------------+
+| j q u e r y _ d e m o . p y __pragma__ ('alias', 'S', '$')   | j q u e r y _ d e m o . j s // Transcrypt'ed from Python, 2023-04-22    |
+| def start ():     def changeColors ():         for div in    | 17:10:57 import {AssertionError, AttributeError, BaseException,         |
+| S__divs:             S (div) .css ({                         | DeprecationWarning, Exception, IndexError, IterableError, KeyError,     |
+| 'color': 'rgb({},{},{})'.format (* [int (256 * Math.random   | NotImplementedError, RuntimeWarning, StopIteration, UserWarning,        |
+| ()) for i in range (3)]),             })      S__divs = S    | ValueError, Warning, __JsIterator__, __PyIterator__, __Terminal__,      |
+| ('div')     changeColors ()     window.setInterval           | __add__, __and__, __call__, __class__, __envir__, __eq__, __floordiv__, |
+| (changeColors, 500)                                          | __ge__, __get__, __getcm__, __getitem__, __getslice__, __getsm__,       |
+|                                                              | __gt__, __i__, __iadd__, __iand__, __idiv__, __ijsmod__, __ilshift__,   |
+|                                                              | __imatmul__, __imod__, __imul__, __in__, __init__, __ior__, __ipow__,   |
+|                                                              | __irshift__, __isub__, __ixor__, __jsUsePyNext__, __jsmod__, __k__,     |
+|                                                              | __kwargtrans__, __le__, __lshift__, __lt__, __matmul__,                 |
+|                                                              | __mergefields__, __mergekwargtrans__, __mod__, __mul__, __ne__,         |
+|                                                              | __neg__, __nest__, __or__, __pow__, __pragma__, __pyUseJsNext__,        |
+|                                                              | __rshift__, __setitem__, __setproperty__, __setslice__, __sort__,       |
+|                                                              | __specialattrib__, __sub__, __super__, __t__, __terminal__,             |
+|                                                              | __truediv__, __withblock__, __xor__, abs, all, any, assert, bool,       |
+|                                                              | bytearray, bytes, callable, chr, copy, deepcopy, delattr, dict, dir,    |
+|                                                              | divmod, enumerate, filter, float, format, getattr, hasattr, input, int, |
+|                                                              | isinstance, issubclass, len, list, map, max, min, object, ord, pow,     |
+|                                                              | print, property, py_TypeError, py_iter, py_metatype, py_next,           |
+|                                                              | py_reversed, py_typeof, range, repr, round, set, setattr, sorted, str,  |
+|                                                              | sum, tuple, zip} from './org.transcrypt.__runtime__.js'; var __name__ = |
+|                                                              | '__main__'; export var start = function () {     var changeColors =     |
+|                                                              | function () {         for (var div of $divs) {             $ (div).css  |
+|                                                              | (dict ({'color': 'rgb({},{},{})'.format (...(function () {              |
+|                                                              | var __accu0__ = [];                 for (var i = 0; i < 3; i++) {       |
+|                                                              | __accu0__.append (int (256 * Math.random ()));                 }        |
+|                                                              | return __accu0__;             }) ())}));         }     };     var $divs |
+|                                                              | = $ ('div');     changeColors ();     window.setInterval (changeColors, |
+|                                                              | 500); };  //# sourceMappingURL=jquery_demo.map                          |
++--------------------------------------------------------------+-------------------------------------------------------------------------+
+
+
+6.3. Example: iOS web app with native look and feel
+===================================================
+
+You can write full screen iOS web apps in Transcrypt with native look
+and feel. As example here’s an app simulating 6 dice. While this
+example is kept very simple, you can in fact make apps of arbitrary
+complexity, with fast and beautiful graphics using any JS graphics
+library, e.g. multiplayer games working over the Internet. If you add
+the app to your homescreen it will be cached, so no Internet
+connection is needed to use it. Web apps for iOS can obtain and use
+location information from the user.
+
+   [image: A simple dice web app for iOS][image]
+
+   [image: The prepacked dice icon on the homescreen][image]
+
+You can install this app on your iPhone from
+http://www.transcrypt.org/live/transcrypt/demos/ios_app/ios_app.html .
+
++------------------------------------------------------+
+| i o s _ a p p . p y import random  class Dice:       |
+| def __init__ (self):                                 |
+| document.body.addEventListener ('touchstart', lambda |
+| event: event.preventDefault ())                      |
+| document.body.addEventListener ('mousedown', lambda  |
+| event: event.preventDefault ())                      |
+| document.body.style.margin = 0                       |
+| document.body.style.overflow = 'hidden';             |
+| self.all = document.createElement ('div')            |
+| self.all.style.color = 'white'                       |
+| self.all.style.backgroundColor = 'black'             |
+| self.all.style.height = '100%'                       |
+| self.all.style.width = '100%'                        |
+| self.all.style.padding = 0                           |
+| self.all.style.margin = 0                            |
+| document.body.appendChild (self.all)                 |
+| self.dices = []                  for index in range  |
+| (6):             dice = document.createElement       |
+| ('div')             dice.normalColor = '#770000' if  |
+| index < 3 else '#0000ff'                             |
+| dice.style.position = 'absolute'                     |
+| dice.style.backgroundColor = dice.normalColor        |
+| dice.addEventListener ('touchstart', (lambda aDice:  |
+| lambda: self.roll (aDice)) (dice))  # Returns inner  |
+| lambda             dice.addEventListener             |
+| ('mousedown', (lambda aDice: lambda: self.roll       |
+| (aDice)) (dice))             self.dices.append       |
+| (dice)             self.all.appendChild (dice)       |
+| dice.inner = document.createElement ('div')          |
+| dice.inner.setAttribute ('unselectable', 'on')       |
+| dice.inner.style.fontWeight = 'bold'                 |
+| dice.inner.style.textAlign = 'center'                |
+| dice.inner.style.position = 'absolute'               |
+| dice.inner.innerHTML = '?'                           |
+| dice.appendChild (dice.inner)                        |
+| self.banner = document.createElement ('div')         |
+| self.banner.style.position = 'absolute'              |
+| self.banner.style.cursor = 'pointer'                 |
+| self.banner.addEventListener ('touchstart',          |
+| self.gotoTranscryptSite)                             |
+| self.banner.addEventListener ('mousedown',           |
+| self.gotoTranscryptSite)                             |
+| self.banner.style.fontFamily = 'arial'               |
+| self.banner.innerHTML = (             '<span         |
+| id="bannerLarge"><font color="777777">www.<b><i>' +  |
+| '<font color="ff4422">T<font color="ffb000">r<font   |
+| color="228822">a<font color="3366ff">n' +            |
+| '<font color="ff4422">s<font color="ffb000">c<font   |
+| color="228822">r<font color="3366ff">y<font          |
+| color="ffb000">p<font color="228822">t' +            |
+| '</i></b><font color="777777">.org<font              |
+| size={}><font color="cccccc"></span>' +              |
+| '<span id="bannerSmall"><i> Write your apps in       |
+| Python for free!</i></span>'         )               |
+| self.all.appendChild (self.banner)                   |
+| self.bannerLarge = document.getElementById           |
+| ('bannerLarge')         self.bannerSmall =           |
+| document.getElementById ('bannerSmall')              |
+| self.audio = __new__ (Audio ('ios_app.mp3'))         |
+| window.onresize = self.rightSize                     |
+| self.rightSize ()              def                   |
+| gotoTranscryptSite (self):                           |
+| document.location.href = 'http://www.transcrypt.org' |
+| def roll (self, dice):         frameIndex = 10       |
+| self.audio.play ()                  def frame ():    |
+| nonlocal frameIndex             frameIndex -= 1      |
+| dice.inner.innerHTML = random.randint (1, 6)         |
+| if frameIndex:                 dice.style.color =    |
+| random.choice (('red', 'green', 'blue', 'yellow'))   |
+| setTimeout (frame, 100)             else:            |
+| dice.style.backgroundColor = dice.normalColor        |
+| dice.style.color = 'white'                           |
+| frame ()          def rightSize (self):              |
+| self.pageWidth = window.innerWidth                   |
+| self.pageHeight = window.innerHeight                 |
+| portrait = self.pageHeight > self.pageWidth          |
+| for index, dice in enumerate (self.dices):           |
+| if self.pageHeight > self.pageWidth:    # Portrait   |
+| dice.style.height = 0.3 * self.pageHeight            |
+| dice.style.width = 0.4 * self.pageWidth              |
+| dice.style.top = (0.03 + (index if index < 3 else    |
+| index - 3) * 0.32) * self.pageHeight                 |
+| dice.style.left = (0.06 if index < 3 else 0.54) *    |
+| self.pageWidth                                       |
+| charBoxSide = 0.3 * self.pageHeight                  |
+| dice.inner.style.top = 0.15 * self.pageHeight - 0.6  |
+| * charBoxSide                 dice.inner.style.left  |
+| = 0.2 * self.pageWidth - 0.5 * charBoxSide           |
+| self.banner.style.top = 0.975 * self.pageHeight      |
+| self.banner.style.left = 0.06 * self.pageWidth       |
+| self.bannerLarge.style.fontSize = 0.017 *            |
+| self.pageHeight                                      |
+| self.bannerSmall.style.fontSize = 0.014 *            |
+| self.pageHeight             else:                    |
+| # Landscape                 dice.style.height = 0.4  |
+| * self.pageHeight                 dice.style.width = |
+| 0.3 * self.pageWidth                 dice.style.top  |
+| = (0.06 if index < 3 else 0.54) * self.pageHeight    |
+| dice.style.left = (0.03 + (index if index < 3 else   |
+| index - 3) * 0.32) * self.pageWidth                  |
+| charBoxSide = 0.4 * self.pageHeight                  |
+| dice.inner.style.top = 0.2 * self.pageHeight - 0.6 * |
+| charBoxSide                 dice.inner.style.left =  |
+| 0.15 * self.pageWidth - 0.5 * charBoxSide            |
+| self.banner.style.top = 0.95 * self.pageHeight       |
+| self.banner.style.left = 0.03 * self.pageWidth       |
+| self.bannerLarge.style.fontSize = 0.015 *            |
+| self.pageWidth                                       |
+| self.bannerSmall.style.fontSize = 0.012 *            |
+| self.pageWidth                                       |
+| dice.inner.style.height = charBoxSide                |
+| dice.inner.style.width = charBoxSide                 |
+| dice.inner.style.fontSize = charBoxSide              |
+| dice = Dice ()                                       |
++------------------------------------------------------+
+
++--------------------------------------------------------+
+| i o s _ a p p . h t m l <html                          |
+| manifest="cache.manifest">     <!-- v45 -->     <head> |
+| <meta name="apple-mobile-web-app-capable"              |
+| content="yes">         <meta name="apple-mobile-web-   |
+| app-status-bar-style" content="black">         <meta   |
+| name="apple-mobile-web-app-title" content="Dice">      |
+| <meta name="viewport" content="width=device-width,     |
+| initial-scale=1, user-scalable=no">         <link rel  |
+| ="apple-touch-icon" href="ios_app.png">     </head>    |
+| <body>         <script type="module">                  |
+| import * as ios_app from "./__target__/ios_app.js";    |
+| window.ios_app = ios_app;         </script>            |
+| </body>  </html>                                       |
++--------------------------------------------------------+
+
++----------------------------------------------------------+
+| c a c h e . m a n i f e s t CACHE MANIFEST  # v45        |
+| CACHE: ios_app.html ios_app.mp3                          |
+| __javascript__/ios_app.js                                |
++----------------------------------------------------------+
+
+N.B.1 Cache manifests have to be served with mime type *text/cache-
+manifest*.
+
+N.B.2 For native behaviour, e.g. no visible address bar, the app must
+indeed be added to the home screen of your iOS device.
+
+
+6.4. Example: D3.js
+===================
+
+The *D3.js* graphics library offers animation by data driven DOM
+manipulation. It combines well with class based object oriented
+programming as supported by Transcrypt, leading to applications that
+are easy to understand and maintain.
+
++----------------------------------------------------------+---------------------------------------------------------------------+
+| d 3 j s _ d e m o . p y class Spawn:     def __init__    | d 3 j s _ d e m o . j s // Transcrypt'ed from Python, 2023-04-22    |
+| (self, width, height):         self.width, self.height,  | 17:11:03 import {AssertionError, AttributeError, BaseException,     |
+| self.spacing = self.fill = width, height, 100,           | DeprecationWarning, Exception, IndexError, IterableError, KeyError, |
+| d3.scale.category20 ()          self.svg = d3.select     | NotImplementedError, RuntimeWarning, StopIteration, UserWarning,    |
+| ('body'         ) .append ('svg'         ) .attr         | ValueError, Warning, __JsIterator__, __PyIterator__, __Terminal__,  |
+| ('width', self.width         ) .attr ('height',          | __add__, __and__, __call__, __class__, __envir__, __eq__,           |
+| self.height         ) .on ('mousemove', self.mousemove   | __floordiv__, __ge__, __get__, __getcm__, __getitem__,              |
+| ) .on ('mousedown', self.mousedown)                      | __getslice__, __getsm__, __gt__, __i__, __iadd__, __iand__,         |
+| self.svg.append ('rect'         ) .attr ('width',        | __idiv__, __ijsmod__, __ilshift__, __imatmul__, __imod__, __imul__, |
+| self.width         ) .attr ('height', self.height)       | __in__, __init__, __ior__, __ipow__, __irshift__, __isub__,         |
+| self.cursor = self.svg.append ('circle'         ) .attr  | __ixor__, __jsUsePyNext__, __jsmod__, __k__, __kwargtrans__,        |
+| ('r', self.spacing         ) .attr ('transform',         | __le__, __lshift__, __lt__, __matmul__, __mergefields__,            |
+| 'translate ({}, {})' .format (self.width / 2,            | __mergekwargtrans__, __mod__, __mul__, __ne__, __neg__, __nest__,   |
+| self.height / 2)         ) .attr ('class', 'cursor')     | __or__, __pow__, __pragma__, __pyUseJsNext__, __rshift__,           |
+| self.force = d3.layout.force (         ) .size           | __setitem__, __setproperty__, __setslice__, __sort__,               |
+| ([self.width, self.height]         ) .nodes ([{}]        | __specialattrib__, __sub__, __super__, __t__, __terminal__,         |
+| ) .linkDistance (self.spacing         ) .charge (-1000   | __truediv__, __withblock__, __xor__, abs, all, any, assert, bool,   |
+| ) .on ('tick', self.tick)                 self.nodes,    | bytearray, bytes, callable, chr, copy, deepcopy, delattr, dict,     |
+| self.links, self.node, self.link = self.force.nodes (),  | dir, divmod, enumerate, filter, float, format, getattr, hasattr,    |
+| self.force.links (), self.svg.selectAll ('.node'),       | input, int, isinstance, issubclass, len, list, map, max, min,       |
+| self.svg.selectAll ('.link')                             | object, ord, pow, print, property, py_TypeError, py_iter,           |
+| self.restart ()              def mousemove (self):       | py_metatype, py_next, py_reversed, py_typeof, range, repr, round,   |
+| self.cursor.attr ('transform', 'translate (' + d3.mouse  | set, setattr, sorted, str, sum, tuple, zip} from                    |
+| (self.svg.node ()) + ')')      def mousedown (self):     | './org.transcrypt.__runtime__.js'; var __name__ = '__main__';       |
+| def pushLink (target):             x, y = target.x -     | export var Spawn =  __class__ ('Spawn', [object], {     __module__: |
+| node.x, target.y - node.y             if Math.sqrt (x *  | __name__,     get __init__ () {return __get__ (this, function       |
+| x + y * y) < self.spacing:                               | (self, width, height) {         var __left0__ = tuple ([width,      |
+| spawn.links.push ({'source': node, 'target': target})    | height, 100, d3.scale.category20 ()]);         self.width =         |
+| point = d3.mouse (self.svg.node ())         node = {'x': | __left0__ [0];         self.height = __left0__ [1];                 |
+| point [0], 'y': point [1]}         self.nodes.push       | self.spacing = __left0__ [2];         self.fill = __left0__;        |
+| (node)         self.nodes.forEach (pushLink)             | self.svg = d3.select ('body').append ('svg').attr ('width',         |
+| self.restart ()                       def tick (self):   | self.width).attr ('height', self.height).on ('mousemove',           |
+| self.link.attr ('x1', lambda d: d.source.x         )     | self.mousemove).on ('mousedown', self.mousedown);                   |
+| .attr ('y1', lambda d: d.source.y         ) .attr ('x2', | self.svg.append ('rect').attr ('width', self.width).attr ('height', |
+| lambda d: d.target.x         ) .attr ('y2', lambda d:    | self.height);         self.cursor = self.svg.append ('circle').attr |
+| d.target.y)                      self.node.attr ('cx',   | ('r', self.spacing).attr ('transform', 'translate ({}, {})'.format  |
+| lambda d: d.x         ) .attr ('cy', lambda d: d.y)      | (self.width / 2, self.height / 2)).attr ('class', 'cursor');        |
+| def restart (self):         self.link = self.link.data   | self.force = d3.layout.force ().size ([self.width,                  |
+| (self.links)                  self.link.enter (          | self.height]).nodes ([dict ({})]).linkDistance                      |
+| ) .insert ('line', '.node'         ) .attr('class',      | (self.spacing).charge (-(1000)).on ('tick', self.tick);         var |
+| 'link')          self.node = self.node.data (self.nodes) | __left0__ = tuple ([self.force.nodes (), self.force.links (),       |
+| self.node.enter (         ) .insert ('circle', '.cursor' | self.svg.selectAll ('.node'), self.svg.selectAll ('.link')]);       |
+| ) .attr ('class', 'node'         ) .attr ('r', 7         | self.nodes = __left0__ [0];         self.links = __left0__ [1];     |
+| ) .call (self.force.drag)          self.force.start ()   | self.node = __left0__ [2];         self.link = __left0__ [3];       |
+| spawn = Spawn (window.innerWidth, window.innerHeight)    | self.restart ();     });},     get mousemove () {return __get__     |
+|                                                          | (this, function (self) {         self.cursor.attr ('transform',     |
+|                                                          | ('translate (' + d3.mouse (self.svg.node ())) + ')');     });},     |
+|                                                          | get mousedown () {return __get__ (this, function (self) {           |
+|                                                          | var pushLink = function (target) {             var __left0__ =      |
+|                                                          | tuple ([target.x - node.x, target.y - node.y]);             var x = |
+|                                                          | __left0__ [0];             var y = __left0__ [1];             if    |
+|                                                          | (Math.sqrt (x * x + y * y) < self.spacing) {                        |
+|                                                          | spawn.links.push (dict ({'source': node, 'target': target}));       |
+|                                                          | }         };         var point = d3.mouse (self.svg.node ());       |
+|                                                          | var node = dict ({'x': point [0], 'y': point [1]});                 |
+|                                                          | self.nodes.push (node);         self.nodes.forEach (pushLink);      |
+|                                                          | self.restart ();     });},     get tick () {return __get__ (this,   |
+|                                                          | function (self) {         self.link.attr ('x1', (function           |
+|                                                          | __lambda__ (d) {             return d.source.x;         })).attr    |
+|                                                          | ('y1', (function __lambda__ (d) {             return d.source.y;    |
+|                                                          | })).attr ('x2', (function __lambda__ (d) {             return       |
+|                                                          | d.target.x;         })).attr ('y2', (function __lambda__ (d) {      |
+|                                                          | return d.target.y;         }));         self.node.attr ('cx',       |
+|                                                          | (function __lambda__ (d) {             return d.x;         })).attr |
+|                                                          | ('cy', (function __lambda__ (d) {             return d.y;           |
+|                                                          | }));     });},     get restart () {return __get__ (this, function   |
+|                                                          | (self) {         self.link = self.link.data (self.links);           |
+|                                                          | self.link.enter ().insert ('line', '.node').attr ('class', 'link'); |
+|                                                          | self.node = self.node.data (self.nodes);         self.node.enter    |
+|                                                          | ().insert ('circle', '.cursor').attr ('class', 'node').attr ('r',   |
+|                                                          | 7).call (self.force.drag);         self.force.start ();     });}    |
+|                                                          | }); export var spawn = Spawn (window.innerWidth,                    |
+|                                                          | window.innerHeight);  //# sourceMappingURL=d3js_demo.map            |
++----------------------------------------------------------+---------------------------------------------------------------------+
+
+
+6.5. Example: React
+===================
+
+*React* is a JavaScript library for easy creation of interactive UI’s.
+Changes to the UI are made by fast manipulation of a light-weight
+virtual DOM. The real DOM, which is much slower to manipulate, is then
+compared with the altered virtual DOM and updated efficiently in a
+minimum number of steps. This way of working leads to good
+performance, at the same time keeping a straightforward structure of
+application UI code, since the complexities of optimizing DOM updates
+are left to the React library. React is unintrusive and mixes well
+with Transcrypt, allowing creation of extensive web applications that
+combine maintainability with speed. This example once again clearly
+illustrates the philosophy behind Transcrypt: rather than confining
+you to a “parallel” universe that could never keep up, Transcrypt
+offers you direct access to the ever expanding universe of innovative
+JavaScript libraries.
+
++------------------------------------------------------------+-----------------------------------------------------------------------+
+| r e a c t _ d e m o . p y from org.reactjs import          | r e a c t _ d e m o . j s // Transcrypt'ed from Python, 2023-04-22    |
+| createElement, useState, useEffect, useRef from            | 17:11:15 import {AssertionError, AttributeError, BaseException,       |
+| org.reactjs.dom import render as react_render   # Helper   | DeprecationWarning, Exception, IndexError, IterableError, KeyError,   |
+| functions  def h(elm_type, props='', *args):     return    | NotImplementedError, RuntimeWarning, StopIteration, UserWarning,      |
+| createElement(elm_type, props, *args)   def                | ValueError, Warning, __JsIterator__, __PyIterator__, __Terminal__,    |
+| render(react_element, destination_id, callback=lambda:     | __add__, __and__, __call__, __class__, __envir__, __eq__,             |
+| None):     container =                                     | __floordiv__, __ge__, __get__, __getcm__, __getitem__, __getslice__,  |
+| document.getElementById(destination_id)                    | __getsm__, __gt__, __i__, __iadd__, __iand__, __idiv__, __ijsmod__,   |
+| react_render(react_element, container, callback)   def     | __ilshift__, __imatmul__, __imod__, __imul__, __in__, __init__,       |
+| useInterval(func, delay=None):     # can be used as        | __ior__, __ipow__, __irshift__, __isub__, __ixor__, __jsUsePyNext__,  |
+| `useInterval(func, delay)`     # or as                     | __jsmod__, __k__, __kwargtrans__, __le__, __lshift__, __lt__,         |
+| `@useInterval(delay)`     if delay is None:         delay  | __matmul__, __mergefields__, __mergekwargtrans__, __mod__, __mul__,   |
+| = func         return lambda fn: useInterval(fn, delay)    | __ne__, __neg__, __nest__, __or__, __pow__, __pragma__,               |
+| ref = useRef(func)     ref.current = func                  | __pyUseJsNext__, __rshift__, __setitem__, __setproperty__,            |
+| @useEffect.withDeps(delay)     def setup():         id =   | __setslice__, __sort__, __specialattrib__, __sub__, __super__, __t__, |
+| setInterval(lambda: ref.current(), delay)         return   | __terminal__, __truediv__, __withblock__, __xor__, abs, all, any,     |
+| lambda: clearInterval(id)      return func   # Create a    | assert, bool, bytearray, bytes, callable, chr, copy, deepcopy,        |
+| component  def Hello(props):     count, setCount =         | delattr, dict, dir, divmod, enumerate, filter, float, format,         |
+| useState(0)      @useInterval(1000)     def                | getattr, hasattr, input, int, isinstance, issubclass, len, list, map, |
+| updateCounter():         setCount(count+1)      return h(  | max, min, object, ord, pow, print, property, py_TypeError, py_iter,   |
+| 'div',         {'className': 'maindiv'},         h('h1',   | py_metatype, py_next, py_reversed, py_typeof, range, repr, round,     |
+| None, 'Hello ', props['name']),         h('p', None,       | set, setattr, sorted, str, sum, tuple, zip} from                      |
+| 'Lorem ipsum dolor sit ame.'),         h('p', None,        | './org.transcrypt.__runtime__.js'; import {render as react_render}    |
+| 'Counter: ', count),         h(             'button',      | from './org.reactjs.dom.js'; import {createElement, useEffect,        |
+| {'onClick': updateCounter},             'Increment',       | useRef, useState} from './org.reactjs.js'; var __name__ = '__main__'; |
+| )     )   # Render the component in a 'container' div      | export var h = function (elm_type, props) {     if (typeof props ==   |
+| element = React.createElement(Hello, {'name': 'React!'})   | 'undefined' || (props != null && props.hasOwnProperty                 |
+| render(element, 'container')                               | ("__kwargtrans__"))) {;         var props = '';     };     var args = |
+|                                                            | tuple ([].slice.apply (arguments).slice (2));     return              |
+|                                                            | createElement (elm_type, props, ...args); }; export var render =      |
+|                                                            | function (react_element, destination_id, callback) {     if (typeof   |
+|                                                            | callback == 'undefined' || (callback != null &&                       |
+|                                                            | callback.hasOwnProperty ("__kwargtrans__"))) {;         var callback  |
+|                                                            | = (function __lambda__ () {             return null;         });      |
+|                                                            | };     var container = document.getElementById (destination_id);      |
+|                                                            | react_render (react_element, container, callback); }; export var      |
+|                                                            | useInterval = function (func, delay) {     if (typeof delay ==        |
+|                                                            | 'undefined' || (delay != null && delay.hasOwnProperty                 |
+|                                                            | ("__kwargtrans__"))) {;         var delay = null;     };     if       |
+|                                                            | (delay === null) {         var delay = func;         return (function |
+|                                                            | __lambda__ (fn) {             return useInterval (fn, delay);         |
+|                                                            | });     }     var ref = useRef (func);     ref.current = func;        |
+|                                                            | var setup = useEffect.withDeps (delay) (function () {         var id  |
+|                                                            | = setInterval ((function __lambda__ () {             return           |
+|                                                            | ref.current ();         }), delay);         return (function          |
+|                                                            | __lambda__ () {             return clearInterval (id);         });    |
+|                                                            | });     return func; }; export var Hello = function (props) {     var |
+|                                                            | __left0__ = useState (0);     var count = __left0__ [0];     var      |
+|                                                            | setCount = __left0__ [1];     var updateCounter = useInterval (1000)  |
+|                                                            | (function () {         setCount (count + 1);     });     return h     |
+|                                                            | ('div', dict ({'className': 'maindiv'}), h ('h1', null, 'Hello ',     |
+|                                                            | props ['name']), h ('p', null, 'Lorem ipsum dolor sit ame.'), h ('p', |
+|                                                            | null, 'Counter: ', count), h ('button', dict ({'onClick':             |
+|                                                            | updateCounter}), 'Increment')); }; export var element =               |
+|                                                            | React.createElement (Hello, dict ({'name': 'React!'})); render        |
+|                                                            | (element, 'container');  //# sourceMappingURL=react_demo.map          |
++------------------------------------------------------------+-----------------------------------------------------------------------+
+
+
+6.6. Example: Riot
+==================
+
+*Riot* is a UI framework that combines the use of custom tags and a
+virtual DOM, much like the one in React. Custom tags look like
+ordinary HTML tags, but whereas HTML tags only define structure, Riot
+tags define structure, style and behaviour. Custom tags are compiled
+to JavaScript by a compiler that comes with Riot. With these custom
+tags as reusable components, web pages can be built. Riot itself is
+tiny, and the virtual DOM allows for fast adaptation of page content.
+
++------------------------------------------------------------+
+| r i o t _ d e m o . h t m l <!DOCTYPE html> <html>         |
+| <head>     <meta charset="UTF-8" />     <title>Hello       |
+| PyRiot ;-)</title>     <!-- for transcrypted version we do |
+| not need the compiler.          for the classic version    |
+| you can use riot+compiler -->     <script                  |
+| src="https://cdn.jsdelivr.net/riot/2.5/riot.js"></script>  |
+| <style>         body {font-family:arial;font-              |
+| size:30px;padding:50px;}         h1 {font-                 |
+| size:50px;color:#0000ff;}     </style>   </head>    <body> |
+| <!-- classic riot (compiled on server, could be done in    |
+| browser)         -->         <sample id="s1"></sample>     |
+| <script src="tags/sample.js"></script>                     |
+| <script>riot.mount('sample')</script>     <!--             |
+| transcrypted version (transpiled on server, using python)  |
+| -->         <sample2 id='s2' label="nr1"></sample2>        |
+| <mp2     id='s3' label="nr2"></mp2>         <!-- the       |
+| transpiled tag's js -->         <script type="module">     |
+| import * as riot_demo from "./__target__/riot_demo.js"     |
+| // register             var cls = riot_demo.Sample2        |
+| riot.tag2('sample2', cls.template, cls.style, '',          |
+| function(opts) {                 new cls(this, opts)})     |
+| document.t1 = riot.mount('sample2')[0].update()            |
+| document.t2 = riot.mount('#s3', 'sample2')[0]              |
+| document.t2.update()         </script>   </body> </html>   |
++------------------------------------------------------------+
+
++-------------------------------------------------------------+------------------------------------------------------------+
+| s a m p l e . t a g ,   a   c l a s s i c   R i o t   t a g | s a m p l e . j s ,   c o m p i l e d   b y   R i o t //   |
+| // vim: ft=html <sample>      <h1>Riot Native Tag</h1>      | vim: ft=html riot.tag2('sample', '<h1>Riot Native Tag</h1> |
+| <h5 each="{lv}">name: {name} - counter: {this.count()}</h5> | <h5 each="{lv}">name: {name} - counter:                    |
+| <script>         this.counter = 0          // riot's        | {this.count()}</h5>',  'sample h1,[riot-tag="sample"] h1   |
+| synctactic sugar:         count() { this.counter += 1;      | ,[data-is="sample"] h1{color: red}', '', function(opts) {  |
+| return this.counter }          // to test stuff on console: | this.counter = 0          this.count = function() {        |
+| window.native_tag = this          this.on('update',         | this.counter += 1; return this.counter }.bind(this)        |
+| function() {             this.lv = [{name: 'n1'}, {'name':  | window.native_tag = this          this.on('update',        |
+| 'n2'}]             this.update()         })     </script>   | function() {             this.lv = [{name: 'n1'}, {'name': |
+| <style scoped>     h1 {color: red}     </style>  </sample>  | 'n2'}]             this.update()         }) });            |
++-------------------------------------------------------------+------------------------------------------------------------+
+
++-------------------------------------------------------------------+--------------------------------------------------------------------+
+| r i o t _ t a g . p y ,   b a s e c l a s s   o f   a l l   T r a | r i o t _ t a g . j s ,   c o m p i l e d   b y   T r a n s c r y  |
+| n s c r y p t   R i o t   t a g s # Parent Class for a Transcrypt | p t // Transcrypt'ed from Python, 2023-04-22 17:11:21 import       |
+| Riot Tag # # This binds the namespace of a riot tag at before-    | {AssertionError, AttributeError, BaseException,                    |
+| mount event 100% to that of # the a transcrypt instance, except   | DeprecationWarning, Exception, IndexError, IterableError,          |
+| members which begin with an underscore, those # are private to    | KeyError, NotImplementedError, RuntimeWarning, StopIteration,      |
+| the transcrypt object. # # The 4 riot lifecycle events are bound  | UserWarning, ValueError, Warning, __JsIterator__, __PyIterator__,  |
+| to overwritable python functions. # # Immutables (strings, ints,  | __Terminal__, __add__, __and__, __call__, __class__, __envir__,    |
+| ...) are bound to property functions within the tag, # so the     | __eq__, __floordiv__, __ge__, __get__, __getcm__, __getitem__,     |
+| templates work, based on state in the transcrypt tag. # State can | __getslice__, __getsm__, __gt__, __i__, __iadd__, __iand__,        |
+| be changed in the riot tag as well but take care to not create    | __idiv__, __ijsmod__, __ilshift__, __imatmul__, __imod__,          |
+| new # references - you won't find them in the Transcrypt tag. # # | __imul__, __in__, __init__, __ior__, __ipow__, __irshift__,        |
+| # Best Practices: #  - mutate state only in the transcrypt tag. # | __isub__, __ixor__, __jsUsePyNext__, __jsmod__, __k__,             |
+| - declare all variables so they are bound into the riot tag #  -  | __kwargtrans__, __le__, __lshift__, __lt__, __matmul__,            |
+| IF you declare new variables to be used in templates, run #       | __mergefields__, __mergekwargtrans__, __mod__, __mul__, __ne__,    |
+| self.bind_vars(self.riot_tag) # TODO: docstring format not        | __neg__, __nest__, __or__, __pow__, __pragma__, __pyUseJsNext__,   |
+| accepted by the transpiler, strange.  __author__ = "Gunther       | __rshift__, __setitem__, __setproperty__, __setslice__, __sort__,  |
+| Klessinger, gk@axiros.com, Germany"  # just a minihack to get     | __specialattrib__, __sub__, __super__, __t__, __terminal__,        |
+| some colors, mainly to test lamdas and imports: from color import | __truediv__, __withblock__, __xor__, abs, all, any, assert, bool,  |
+| colors, cprint as col_print c = colors M, I, L, R, B =            | bytearray, bytes, callable, chr, copy, deepcopy, delattr, dict,    |
+| c['purple'], c['orange'], c['gray'], c['red'], c['black']         | dir, divmod, enumerate, filter, float, format, getattr, hasattr,   |
+| lifecycle_ev = ['before-mount', 'mount', 'update', 'unmount']     | input, int, isinstance, issubclass, len, list, map, max, min,      |
+| cur_tag_col = 0 class RiotTag:     """     taking care for        | object, ord, pow, print, property, py_TypeError, py_iter,          |
+| extending the riot tag obj with     functions and immutable(!)    | py_metatype, py_next, py_reversed, py_typeof, range, repr, round,  |
+| properties of derivations of us     See counter.     """          | set, setattr, sorted, str, sum, tuple, zip} from                   |
+| debug = None     # placeholders:     template = '<h1>it           | './org.transcrypt.__runtime__.js'; import {cprint as col_print,    |
+| worx</h1>'     style = ''     node_name = 'unmounted'     opts =  | colors} from './color.js'; var __name__ = 'riot_tag'; export var   |
+| None     def __init__(self, tag, opts):         # opts into the   | __author__ = 'Gunther Klessinger, gk@axiros.com, Germany'; export  |
+| python instance, why not:         self.opts = opts                | var c = colors; var __left0__ = tuple ([c ['purple'], c            |
+| self._setup_tag(tag)         # giving ourselves a unique color:   | ['orange'], c ['gray'], c ['red'], c ['black']]); export var M =   |
+| global cur_tag_col # working (!)         cur_tag_col =            | __left0__ [0]; export var I = __left0__ [1]; export var L =        |
+| (cur_tag_col + 1) % len(colors)         # TODO values() on a dict | __left0__ [2]; export var R = __left0__ [3]; export var B =        |
+| self.my_col = colors.items()[cur_tag_col][1]      def             | __left0__ [4]; export var lifecycle_ev = ['before-mount', 'mount', |
+| _setup_tag(self, tag):         # keeping mutual refs              | 'update', 'unmount']; export var cur_tag_col = 0; export var       |
+| tag.py_obj = self         self.riot_tag = tag         # making    | RiotTag =  __class__ ('RiotTag', [object], {     __module__:       |
+| the event system call self's methods:         handlers = {}       | __name__,     debug: null,     template: '<h1>it worx</h1>',       |
+| for ev in lifecycle_ev:             f = getattr(self,             | style: '',     node_name: 'unmounted',     opts: null,     get     |
+| ev.replace('-', '_'))             if f:                 #         | __init__ () {return __get__ (this, function (self, tag, opts) {    |
+| this.on('mount', function() {...}):                 # whats       | self.opts = opts;         self._setup_tag (tag);                   |
+| nicer?                 tag.on(ev, f)      def pp(self, *msg):     | cur_tag_col = __mod__ (cur_tag_col + 1, len (colors));             |
+| # color flash in the console. one color per tag instance.         | self.my_col = colors.py_items () [cur_tag_col] [1];     });},      |
+| col_print(             #B(self.riot_tag._riot_id),                | get _setup_tag () {return __get__ (this, function (self, tag) {    |
+| L('<', self.my_col(self.node_name, self.my_col), '/> '),          | tag.py_obj = self;         self.riot_tag = tag;         var        |
+| M(' '.join([s for s in msg])))      def _lifecycle_ev(self,       | handlers = dict ({});         for (var ev of lifecycle_ev) {       |
+| mode):         if self.debug:             self.pp(mode + 'ing')   | var f = getattr (self, ev.py_replace ('-', '_'));             if   |
+| # overwrite these for your specific one:     def update (self):   | (f) {                 tag.on (ev, f);             }         }      |
+| self._lifecycle_ev('update')     def mount  (self):               | });},     get pp () {return __get__ (this, function (self) {       |
+| self._lifecycle_ev('mount')     def unmount(self):                | var msg = tuple ([].slice.apply (arguments).slice (1));            |
+| self._lifecycle_ev('unmount')      def before_mount(self):        | col_print (L ('<', self.my_col (self.node_name, self.my_col), '/>  |
+| self._lifecycle_ev('before-mount')         return                 | '), M (' '.join ((function () {             var __accu0__ = [];    |
+| self.bind_vars()      def bind_vars(self):         tag =          | for (var s of msg) {                 __accu0__.append (s);         |
+| self.riot_tag         self.node_name = tag.root.nodeName.lower()  | }             return __accu0__;         }) ())));     });},        |
+| self.debug and self.pp('binding vars')         # binding self's   | get _lifecycle_ev () {return __get__ (this, function (self, mode)  |
+| functions into the tag instance         # binding writable        | {         if (self.debug) {             self.pp (mode + 'ing');    |
+| properties to everything else (e.g. ints, strs...)                | }     });},     get py_update () {return __get__ (this, function   |
+| tag._immutables = im = []         lc = lifecycle_ev         for k | (self) {         self._lifecycle_ev ('update');     });},     get  |
+| in dir(self):             # private or lifecycle function? don't  | mount () {return __get__ (this, function (self) {                  |
+| bind:             if k[0] == '_' or k in lifecycle_ev or k ==     | self._lifecycle_ev ('mount');     });},     get unmount () {return |
+| 'before_mount':                 continue             v =          | __get__ (this, function (self) {         self._lifecycle_ev        |
+| getattr(self, k)             # these I can't write in python.     | ('unmount');     });},     get before_mount () {return __get__     |
+| Lets use JS then.             # TODO there should be, maybe some  | (this, function (self) {         self._lifecycle_ev ('before-      |
+| mocking facility for code             # testing w/o a js runtime: | mount');         return self.bind_vars ();     });},     get       |
+| __pragma__('js', '{}', '''                   typeof v ===         | bind_vars () {return __get__ (this, function (self) {         var  |
+| "function" || typeof v === "object" ?                   tag[k] =  | tag = self.riot_tag;         self.node_name =                      |
+| self[k] : tag._immutables.push(k)''')          __pragma__('js',   | tag.root.nodeName.lower ();         self.debug && self.pp          |
+| '{}', '''         var i = tag._immutables, py = self              | ('binding vars');         var __left0__ = [];                      |
+| i.forEach(function(k, j, i) {                                     | tag._immutables = __left0__;         var im = __left0__;           |
+| Object.defineProperty(tag, k, {                 get: function()   | var lc = lifecycle_ev;         for (var k of dir (self)) {         |
+| { return self[k]},                 set: function(v) { self[k] = v | if (k [0] == '_' || __in__ (k, lifecycle_ev) || k ==               |
+| }             })         })''')                                   | 'before_mount') {                 continue;             }          |
+|                                                                   | var v = getattr (self, k);                                         |
+|                                                                   | typeof v === "function" || typeof v === "object" ?                 |
+|                                                                   | tag[k] = self[k] : tag._immutables.push(k)         }               |
+|                                                                   | var i = tag._immutables, py = self                                 |
+|                                                                   | i.forEach(function(k, j, i) {                                      |
+|                                                                   | Object.defineProperty(tag, k, {                         get:       |
+|                                                                   | function()  { return self[k]},                         set:        |
+|                                                                   | function(v) { self[k] = v }                     })                 |
+|                                                                   | })     });} });  //# sourceMappingURL=riot_tag.map                 |
++-------------------------------------------------------------------+--------------------------------------------------------------------+
+
++------------------------------------------------------------------+---------------------------------------------------------------------+
+| r i o t _ d e m o . p y ,   a   d e r i v e d   T r a n s c r y  | r i o t _ d e m o . j s ,   c o m p i l e d   b y   T r a n s c r y |
+| p t   R i o t   t a g   c l a s s # an example user tag, using   | p t // Transcrypt'ed from Python, 2023-04-22 17:11:21 import        |
+| RiotTag  from riot_tag import RiotTag  class P(RiotTag):         | {AssertionError, AttributeError, BaseException, DeprecationWarning, |
+| debug = 1     # never do mutables on class level. this is just   | Exception, IndexError, IterableError, KeyError,                     |
+| to check if transpiler     # creates the same behaviour - and it | NotImplementedError, RuntimeWarning, StopIteration, UserWarning,    |
+| does, a second tag instance gets     # the same lv object:       | ValueError, Warning, __JsIterator__, __PyIterator__, __Terminal__,  |
+| lv = [{'name': 'n0'}]     # immuatble on class level. does a     | __add__, __and__, __call__, __class__, __envir__, __eq__,           |
+| second instance start at 1?     # answer: yes, perfect:          | __floordiv__, __ge__, __get__, __getcm__, __getitem__,              |
+| counter = 1      template = ''' <div><h1>Riot Transcrypt Tag     | __getslice__, __getsm__, __gt__, __i__, __iadd__, __iand__,         |
+| Instance {label}</h1>                                            | __idiv__, __ijsmod__, __ilshift__, __imatmul__, __imod__, __imul__, |
+| <div>INNER</div></div> '''     def count_up(self):               | __in__, __init__, __ior__, __ipow__, __irshift__, __isub__,         |
+| self.counter = self.counter + 1         self.pp('counter:',      | __ixor__, __jsUsePyNext__, __jsmod__, __k__, __kwargtrans__,        |
+| self.counter, 'len lv:', len(self.lv), 'adding one lv' )         | __le__, __lshift__, __lt__, __matmul__, __mergefields__,            |
+| self.lv.append({'name': 'n' + self.counter})         return      | __mergekwargtrans__, __mod__, __mul__, __ne__, __neg__, __nest__,   |
+| self.counter  # try some inheritance... class Sample2(P):     #  | __or__, __pow__, __pragma__, __pyUseJsNext__, __rshift__,           |
+| ... and change the state at every update, just for fun:          | __setitem__, __setproperty__, __setslice__, __sort__,               |
+| template = P.template.replace('INNER', '''     <div>     <h5     | __specialattrib__, __sub__, __super__, __t__, __terminal__,         |
+| each="{lv}">name: {name} - counter: {count_up()}</h5>     </div> | __truediv__, __withblock__, __xor__, abs, all, any, assert, bool,   |
+| ''')      # no scoped styles currently     style = '''sample2 h5 | bytearray, bytes, callable, chr, copy, deepcopy, delattr, dict,     |
+| {color: green}'''       def __init__(self, tag, opts):           | dir, divmod, enumerate, filter, float, format, getattr, hasattr,    |
+| self.label = opts.label.capitalize()  # this rocks so much.      | input, int, isinstance, issubclass, len, list, map, max, min,       |
+| # alternative to super:         RiotTag.__init__(self, tag,      | object, ord, pow, print, property, py_TypeError, py_iter,           |
+| opts)         # uncomment next line and chrome will stop:        | py_metatype, py_next, py_reversed, py_typeof, range, repr, round,   |
+| # debugger         self.pp('tag init', 'adding 2 lv')         #  | set, setattr, sorted, str, sum, tuple, zip} from                    |
+| mutating the lv object:         self.lv.extend([{'name': 'n1'},  | './org.transcrypt.__runtime__.js'; import {RiotTag} from            |
+| {'name': 'n2'}])       def update(self):         self.pp('update | './riot_tag.js'; var __name__ = '__main__'; export var P =          |
+| handler in the custom tag, calling super')                       | __class__ ('P', [RiotTag], {     __module__: __name__,     debug:   |
+| RiotTag.update(self)                                             | 1,     lv: [dict ({'name': 'n0'})],     counter: 1,     template: ' |
+|                                                                  | <div><h1>Riot Transcrypt Tag Instance {label}</h1>\n                |
+|                                                                  | <div>INNER</div></div> ',     get count_up () {return __get__       |
+|                                                                  | (this, function (self) {         self.counter = self.counter + 1;   |
+|                                                                  | self.pp ('counter:', self.counter, 'len lv:', len (self.lv),        |
+|                                                                  | 'adding one lv');         self.lv.append (dict ({'name': 'n' +      |
+|                                                                  | self.counter}));         return self.counter;     });} }); export   |
+|                                                                  | var Sample2 =  __class__ ('Sample2', [P], {     __module__:         |
+|                                                                  | __name__,     template: P.template.py_replace ('INNER', '\n         |
+|                                                                  | <div>\n    <h5 each="{lv}">name: {name} - counter:                  |
+|                                                                  | {count_up()}</h5>\n    </div>\n    '),     style: 'sample2 h5       |
+|                                                                  | {color: green}',     get __init__ () {return __get__ (this,         |
+|                                                                  | function (self, tag, opts) {         self.label =                   |
+|                                                                  | opts.label.capitalize ();         RiotTag.__init__ (self, tag,      |
+|                                                                  | opts);         self.pp ('tag init', 'adding 2 lv');                 |
+|                                                                  | self.lv.extend ([dict ({'name': 'n1'}), dict ({'name': 'n2'})]);    |
+|                                                                  | });},     get py_update () {return __get__ (this, function (self) { |
+|                                                                  | self.pp ('update handler in the custom tag, calling super');        |
+|                                                                  | RiotTag.py_update (self);     });} });  //#                         |
+|                                                                  | sourceMappingURL=riot_demo.map                                      |
++------------------------------------------------------------------+---------------------------------------------------------------------+
+
+
+6.7. Example: Using input and print in a DOM __terminal__ element in your browser
+=================================================================================
+
+Without special measures, Transcrypt’s *print* function prints to the
+debugging console. However if there’s an element with id
+*__terminal__* in your DOM tree, the *print* function prints to this
+element. Moreover, the *input* function also prints its prompt message
+to the terminal element. Input is collected using a dialog box and
+echoed to the terminal element.
+
+This means that you can write applications with blocking I/O, rather
+than event driven behaviour, e.g. for simple activities or, since they
+are intuitively easy to comprehend, for educational purposes.
+
++--------------------------------------------------------------------+
+| t e r m i n a l _ d e m o . h t m l <html>     <head>              |
+| <script type="module">import * as terminal_demo from               |
+| "./__target__/terminal_demo.js";</script>     </head>     <body>   |
+| <b>             Leave input field blank to quit<br>                |
+| Refresh browser window to restart<br>         </b>         <div    |
+| id='__terminal__'></div>     </body> </html>                       |
++--------------------------------------------------------------------+
+
++------------------------------------------------------------------+
+| t e r m i n a l _ d e m o . p y while True:     name = input     |
+| ('What''s your name? ')          if name == '':         break;   |
+| print ('Hi', name, 'I am your computer.')      age = float       |
+| (input ('How old are you? '))     if age < 18:         print     |
+| ('Sorry', name, ',', age, 'is too young to drive a car in the    |
+| Netherlands.')     else:         print ('OK', name, ',', age,    |
+| 'is old enough to drive a car in the Netherlands.')              |
+| print ()                                                         |
++------------------------------------------------------------------+
+
+
+6.8. Example: Using the Parcel.js bundler to package a set of modules written in diverse programming languages
+==============================================================================================================
+
+Bundlers are increasingly popular in the world of web development.
+With the Parcel bundler, it is possible to integrate Transcrypt
+modules with modules written in other languages. Whenever the source
+code of any module changes, automatic recompilation and repackaging
+takes place. Sourcemaps are generated for all non-JavaScript modules,
+enabling source level debugging in the browser.
+
+In the example, the top level file of the module hierarchy is the html
+file below:
+
++------------------------------------------------------------------+
+| i n d e x . h t m l <html> <head>     <meta charset="UTF-8">     |
+| <title>parcel-plugin-python</title> </head> <body>               |
+| <h1>Python+Transcrypt Plugin for Parcel Bundler</h1>     <p>[    |
+| open the console for program output ]</p>     <script            |
+| src="./index.js"></script> </body> </html>                       |
++------------------------------------------------------------------+
+
+The html file above refers to the JavaScript file below:
+
++----------------------------------------------------------------+
+| i n d e x . j s import { main } from "./main.py";  main();     |
++----------------------------------------------------------------+
+
+This top level JavaScript file in turn refers to a Python file, that
+makes use of many modules, some written in Python, some in JavaScript:
+
++---------------------------------------------------------------+
+| m a i n . p y from testcontext import Test  def main():       |
+| '''Main function of the program (called from index.js)'''     |
+| # sibling module     with Test('import sibling') as test:     |
+| import sibling         test.result =                          |
+| sibling.sibling_func(test.random_num)      with Test('import  |
+| sibling as alias_sibling') as test:         import sibling as |
+| alias_sibling         test.result =                           |
+| alias_sibling.sibling_func(test.random_num)      with         |
+| Test('from sibling import sibling_func') as test:             |
+| from sibling import sibling_func         test.result =        |
+| sibling_func(test.random_num)      with Test('from sibling    |
+| import sibling_func as alias_sibling_func') as test:          |
+| from sibling import sibling_func as alias_sibling_func        |
+| test.result = alias_sibling_func(test.random_num)      #      |
+| sibling2 module (using sibling2 because `import * from        |
+| sibling` would overrride sibling_func above)     with         |
+| Test('from sibling2 import *') as test:         from sibling2 |
+| import *         test.result = sibling2_func(test.random_num) |
+| # siblingjs.js (Javascript file import)     with Test('import |
+| siblingjs') as test:         import siblingjs                 |
+| test.result = siblingjs.siblingjs_func(test.random_num)       |
+| with Test('import siblingjs as alias_siblingjs') as test:     |
+| import siblingjs as alias_siblingjs         test.result =     |
+| alias_siblingjs.siblingjs_func(test.random_num)      with     |
+| Test('from siblingjs import siblingjs_func') as test:         |
+| from siblingjs import siblingjs_func         test.result =    |
+| siblingjs_func(test.random_num)      with Test('from          |
+| siblingjs import siblingjs_func as alias_siblingjs_func') as  |
+| test:         from siblingjs import siblingjs_func as         |
+| alias_siblingjs_func         test.result =                    |
+| alias_siblingjs_func(test.random_num)      # mymod package    |
+| (__init__.py file)     with Test('import mymod') as test:     |
+| import mymod         test.result =                            |
+| mymod.mymod_func(test.random_num)      with Test('import      |
+| mymod as alias_mymod') as test:         import mymod as       |
+| alias_mymod         test.result =                             |
+| alias_mymod.mymod_func(test.random_num)      with Test('from  |
+| mymod import mymod_func') as test:         from mymod import  |
+| mymod_func         test.result = mymod_func(test.random_num)  |
+| with Test('from mymod import mymod_func as alias_mymod_func') |
+| as test:         from mymod import mymod_func as              |
+| alias_mymod_func         test.result =                        |
+| alias_mymod_func(test.random_num)      # mymod.child (subdir  |
+| module)     with Test('import mymod.child') as test:          |
+| import mymod.child         test.result =                      |
+| mymod.child.child_func(test.random_num)      with             |
+| Test('alias_child.child_func') as test:         import        |
+| mymod.child as alias_child         test.result =              |
+| alias_child.child_func(test.random_num)      with Test('from  |
+| mymod.child import child_func') as test:         from         |
+| mymod.child import child_func         test.result =           |
+| child_func(test.random_num)      with Test('from mymod.child  |
+| import child_func as alias_child_func') as test:         from |
+| mymod.child import child_func as alias_child_func             |
+| test.result = alias_child_func(test.random_num)      with     |
+| Test('import mymod.grandchildmod') as test:         import    |
+| mymod.grandchildmod         test.result =                     |
+| mymod.grandchildmod.grandchildmod_func(test.random_num)       |
+| with Test('import mymod.grandchildmod as                      |
+| alias_grandchildmod') as test:         import                 |
+| mymod.grandchildmod as alias_grandchildmod                    |
+| test.result =                                                 |
+| alias_grandchildmod.grandchildmod_func(test.random_num)       |
+| with Test('from mymod.grandchildmod.grandchild import         |
+| grandchild_func') as test:         from                       |
+| mymod.grandchildmod.grandchild import grandchild_func         |
+| test.result = grandchild_func(test.random_num)      with      |
+| Test('from mymod.grandchildmod.grandchild import              |
+| grandchild_func as alias_grandchild_func') as test:           |
+| from mymod.grandchildmod.grandchild import grandchild_func as |
+| alias_grandchild_func         test.result =                   |
+| alias_grandchild_func(test.random_num)                        |
++---------------------------------------------------------------+
+
+Whenever a source file of this mixed bag of modules is changed, the
+whole module hierarchy is rebuilt and repackaged. The bundler gets its
+information from the *.project* file in the *__target__* directory.
+Consequently Transcrypt can be fully integrated in an automated build
+process for a project featuring an arbitrary mix of source languages.
+With this feature, Python has truly become a first class citizen in
+the browser world.

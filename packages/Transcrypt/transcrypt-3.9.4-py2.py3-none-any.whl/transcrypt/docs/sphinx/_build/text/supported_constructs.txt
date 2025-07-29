@@ -1,0 +1,5469 @@
+4. Systematic code examples: a guided tour of Transcrypt
+********************************************************
+
+One ready-to-run code example is worth more than ten lengthy
+descriptions. The *autotest and demo suite*, that is part of the
+distribution, is a collection of sourcecode fragments called
+*testlets*. These testlets are used for automated regression testing
+of Transcrypt against CPython. Since they systematically cover all
+language constructs, they are also very effective as a learning tool.
+The testlets are arranged alphabetically by subject.
+
+Autotest: Transcrypt autotest demo suite
+
+   from org.transcrypt.stubs.browser import __pragma__
+   import org.transcrypt.autotester
+
+   import arguments
+   import attribs_by_name
+   import builtin_super
+   import byte_arrays
+   import callable_test
+   import classes
+   import complex_numbers
+   import conditional_expressions
+   import control_structures
+   import dashed_numbers
+   import data_classes
+   import data_structures
+   import decorators
+   import dict_comprehensions
+   import dictionaries
+   import div_issues
+   import div_pulls
+   import docstrings
+   import exceptions
+   import executable_comments
+   import extended_slices
+   import fstrings
+   import general_functions
+   import globals_function
+   import indices_and_slices
+   import iterators_and_generators
+   import lambda_functions
+   import list_comprehensions
+   import local_classes
+   import metaclasses
+   import method_and_class_decorators
+   import module_builtin
+   import module_cmath
+
+   if __pragma__ ('defined', 'undefined'):
+       import module_collections
+
+   import module_copy
+   import module_datetime
+   import module_itertools
+   import module_math
+   import module_unicodedata
+   import modules
+   import nonlocals
+   import operator_overloading
+   import properties
+   import proxies
+   import reprtest
+   import set_comprehensions
+   import simple_and_augmented_assignment
+
+   if __pragma__ ('defined', '__sform__'):
+       import string_format
+
+   import truthyness
+   import tuple_assignment
+   import transducers
+
+   autoTester = org.transcrypt.autotester.AutoTester ()
+   autoTester.run (arguments, 'arguments')
+   autoTester.run (attribs_by_name, 'attribs_by_name')
+   autoTester.run (builtin_super, 'builtin_super')
+   autoTester.run (byte_arrays, 'byte_arrays')
+   autoTester.run (callable_test, 'callable')
+   autoTester.run (classes, 'classes')
+   autoTester.run (complex_numbers, 'complex_numbers')
+   autoTester.run (conditional_expressions, 'conditional_expressions')
+   autoTester.run (control_structures, 'control_structures')
+   autoTester.run (dashed_numbers, 'dashed_numbers')
+   autoTester.run (data_classes, 'data_classes')
+   autoTester.run (data_structures, 'data_structures')
+   autoTester.run (decorators, 'decorators')
+   autoTester.run (dict_comprehensions, 'dict_comprehensions')
+   autoTester.run (dictionaries, 'dictionaries')
+   autoTester.run (div_issues, 'div_issues')
+   autoTester.run (div_pulls, 'div_pulls')
+   autoTester.run (docstrings, 'docstrings')
+   autoTester.run (exceptions, 'exceptions')
+   autoTester.run (executable_comments, 'executable_comments')
+   autoTester.run (extended_slices, 'extended_slices')
+   autoTester.run (fstrings, 'fstrings')
+   autoTester.run (general_functions, 'general_functions')
+   autoTester.run (globals_function, 'globals_function')
+   autoTester.run (indices_and_slices, 'indices_and_slices')
+   autoTester.run (iterators_and_generators, 'iterators_and_generators') 
+   autoTester.run (lambda_functions, 'lambda_functions')
+   autoTester.run (list_comprehensions, 'list_comprehensions')
+   autoTester.run (local_classes, 'local_classes')
+   autoTester.run (metaclasses, 'metaclasses')
+   autoTester.run (method_and_class_decorators, 'method_and_class_decorators')
+   autoTester.run (module_builtin, 'module_builtin')
+   autoTester.run (module_cmath, 'module_cmath')
+
+   if __pragma__ ('defined', 'undefined'):
+       autoTester.run (module_collections, 'module_collections')
+
+   autoTester.run (module_copy, 'module_copy')
+   autoTester.run (module_datetime, 'module_datetime')
+   autoTester.run (module_itertools, 'module_itertools')
+   autoTester.run (module_math, 'module_math')
+   autoTester.run (module_unicodedata, 'module_unicodedata')
+   autoTester.run (modules, 'modules')
+   autoTester.run (nonlocals, 'nonlocals')
+   autoTester.run (operator_overloading, 'operator_overloading')
+   autoTester.run (properties, 'properties')
+   autoTester.run (reprtest, 'repr_str')
+   autoTester.run (proxies, 'proxies')
+   autoTester.run (set_comprehensions, 'set_comprehensions')
+   autoTester.run (simple_and_augmented_assignment, 'simple_and_augmented_assignment')
+
+   if __pragma__ ('defined', '__sform__'):
+       autoTester.run (string_format, 'string_format')
+    
+   autoTester.run (truthyness, 'truthyness')
+   autoTester.run (tuple_assignment, 'tuple_assignment')
+   autoTester.run (transducers, 'transducers')
+
+   autoTester.done ()
+
+
+4.1. Arguments: **kwargs, *args, defaults, at call and def time, also for lambda’s
+==================================================================================
+
+Testlet: arguments
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   __pragma__ ('kwargs')
+
+   class A:
+       def __init__ (self, x = 123, y = 456, *args, m, n = 456, **kwargs):
+           self.x = x
+           self.y = y
+           self.args = args
+           self.m = m
+           self.n = n
+           self.kwargs = kwargs
+           self.extra = 'hello'
+
+       def f (self, autoTester):
+           autoTester.check (self.x, self.y, self.args, self.m, self.n, self.kwargs, self.extra)
+           
+   class B (A):
+       def __init__ (self, x, y = -1, *args, m = -2, n, **kwargs):
+           A.__init__ (self, y, x, *args, m = n, n = m, **kwargs)
+           
+   class C:
+       __pragma__ ('nokwargs')
+       def tricky (self, *args):
+           return args
+       __pragma__ ('kwargs')
+       
+   def run (autoTester):
+       def f (x, y = -1, *args, m = -2, n, **kwargs):
+           # BEGIN issue 203, kwargs turned into real dict
+           autoTester.check ('#203', kwargs.__class__.__name__)
+           autoTester.check ('#203', sorted (kwargs.keys ()))
+           # END issue 203
+       
+           def f2 (x, y = -3, *args, m = -4, n, **kwargs):
+               autoTester.check (x, y, args, m, n, kwargs)
+           f2 (11, 22, 1010, 2020, m = 100100, n = 200200, p = 10001000, q = 20002000)
+           autoTester.check (x, y, args, m, n, kwargs)
+           
+       f (1, 2, 10, 20, m = 100, n = 200, p = 1000, q = 2000)
+       
+       b = B (3, 4, 30, 40, m = 300, n = 400, p = 3000, q = 4000)
+       b.f (autoTester)
+       
+       def g (*args, **kwargs):
+           autoTester.check (args, kwargs)
+           
+       g (*(1, 2, 3), **{'p': 'aP', 'q': 'aQ', 'r': 'anR'})
+       
+       (lambda x, y = -1, *args, m = -2, n, **kwargs: autoTester.check (x, y, args, m, n, kwargs)) (1, 2, 8, 16, m = 128, n = 256.3, p = 1024.3, q = 2048.3)
+       
+       autoTester.check (C () .tricky (* range (4)))
+       autoTester.check ('{}-{}'.format (1, 3, 5, 7, 9))
+       autoTester.check ('{}-{}'.format (* range (4)))
+
+
+4.2. Attribute access by name: getattr, setattr, hasattr
+========================================================
+
+Testlet: attribs_by_name
+
+   class A:
+       def __init__ (self):
+           self.s = 'hello'
+           
+   a = A ()
+
+   def run (autoTester):
+       autoTester.check (a.s, getattr (a, 's'))
+       
+       setattr (a, 's', 'goodbye')
+       autoTester.check (a.s, getattr (a, 's'))
+       
+       setattr (a, 't', 'exists')
+       autoTester.check (hasattr (a, 't'), a.t, getattr (a, 't'))
+       
+       delattr (a, 't')
+       autoTester.check (hasattr (a, 't'))
+
+
+4.3. Attribute proxies by name: __getattr__, __setattr__
+========================================================
+
+Testlet: proxies
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   def run (autoTester):
+       class CodedStore:
+           def __init__ (self):
+               try:
+                   __pragma__ ('js', '{}', 'self ["__dict__"] = {}')
+               except:
+                   pass
+
+           def __setattr__ (self, name, message):
+               self.__dict__ ['_' + name] = 'coded_' + message
+
+           def __getattr__ (self, name):
+               return 'decoded_' + self.__dict__ ['_' + name]
+               
+           def peek (self, name):
+               return self.__dict__ ['_' + name]
+               
+       s = CodedStore ()
+
+       s.john = 'brown'
+       s.mary = 'white'
+
+       autoTester.check (s.peek ('john'))
+       autoTester.check (s.peek ('mary'))
+
+       autoTester.check (s.john)
+       autoTester.check (s.mary)
+       
+       '''
+       The code above produces the following output:
+           'coded_brown'
+           'coded_white'
+           'decoded_coded_brown'
+           'decoded_coded_white'
+       '''
+
+       class A:
+           def __init__ (self):
+               self.p = 1
+               self.q = 2
+               
+       class B (A):
+           def __getattr__ (self, name):
+               return 'Faked {}'.format (name)
+               
+       class C (A):
+           def __setattr__ (self, name, value):
+               autoTester.check ('Set faked {}'.format (name))
+               
+               A.__setattr__ (self, name, value)
+               # Needed for CPython, inherited from class 'object'
+               # Transcrypt doesn't need it, if there's no __setattrib__ it will just use self [name] = value
+       
+       class D (B, C):
+           pass
+           
+       a = A ()
+       b = B ()
+       c = C ()
+       d = D ()
+       
+       autoTester.check (a.p, a.q)
+       a.p = 3
+       autoTester.check (a.p, a.q)
+       
+       autoTester.check (b.p, b.q, b.r, b.s)
+       b.p = 4
+       b.r = 5
+       autoTester.check (b.p, b.q, b.r, b.s)
+       
+       autoTester.check (c.p, c.q)
+       c.p = 6
+       c.q = 7
+       autoTester.check (c.p, c.q)
+
+       autoTester.check (d.p, d.q, d.r, d.s)
+       d.p = 8
+       d.q = 9
+       d.r = 10
+       d.s = 11
+       autoTester.check (d.p, d.q, d.r, d.s)  
+
+       # Issue 587, code as utilized by pjbonestro
+
+       autoTester.check ("Issue 587")
+
+       class Element():
+           def __init__(self):
+               self.message = "Goodbye"
+
+           def sayBye(self):
+               autoTester.check (self.message)
+
+       class Wrapper():
+           def __init__ (self, element):
+               self.element = element
+
+           def __setattr__ (self, name, value):
+               """ set attribute on element if it already has the attribute """
+               if name != "element" and hasattr(self.element, name):
+                   setattr(self.element, name, value)
+               else:
+                   self.__dict__[name] = value
+
+           def __getattr__ (self, name):
+               """ get attribute from element if this object doesn't have the attribute """
+               result = getattr(self.element, name)
+               # if result is a function, bind self.element to it
+               if hasattr(result, 'call') and hasattr(result, 'bind'):
+                   result = result.bind(self.element)
+               return result
+
+           def sayHello(self):
+               autoTester.check("Hello")
+               return self
+
+
+       e = Element()
+       w = Wrapper(e)
+
+       #
+       # Usage
+       #
+
+       e.sayBye()
+       w.sayBye() # call functions on e, using w
+
+       # and method chaining should work:
+       w.sayHello().sayBye()  
+       
+       w.message = "Bye" # set attributes on e, using w
+       
+       e.sayBye()
+       w.sayBye() # call functions on e, using w
+
+       # and method chaining should work:
+       w.sayHello().sayBye()  
+       
+       autoTester.check ("End issue 587")
+
+       # End of issue 587
+       
+
+
+4.4. Bytes and bytearrays: initial support
+==========================================
+
+Testlet: byte_arrays
+
+   def run (autoTester):
+       b = b'bike'
+       s = bytes ('shop', 'utf8')
+       e = b''
+       bb = bytearray ([0, 1, 2, 3, 4])
+       bc = bytes ((5, 6, 7, 8, 9))
+
+       # __pragma__ ('opov')
+       bps = b + b'pump' + s
+       bps3 = 3 * bps + b'\0'
+       aBps3 = bps * 3 + b'\0'
+       l = [1, 2, 3] + [4, 5, 6]
+       # __pragma__ ('noopov')
+
+       def formatCheck (aBytes):
+           autoTester.check ([int (aByte) for aByte in aBytes])
+       
+       formatCheck (b)
+       formatCheck (s)
+       formatCheck (e)
+       formatCheck (bb)
+       formatCheck (bc)
+       formatCheck (bps)
+       formatCheck (bps3)
+       formatCheck (aBps3)
+
+       # __pragma__ ('opov')
+       formatCheck (bb + bc)
+       formatCheck (bytearray ('ding', 'utf8') + b'dang' + bytes ('dong', 'utf8'))
+       # __pragma__ ('noopov')
+
+       formatCheck (l)
+
+
+4.5. Callable or not: using the callable () built-in function
+=============================================================
+
+The *callable (object)* built-in function will tell you if something
+supports the () operator.
+
+Testlet: callable_test
+
+   # Callable built-in method unit tests
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   def run(test):
+       """
+       """
+
+       def func(a,b):
+           return(a*b)
+
+       test.check( func(3,4) )
+       test.check( callable(func) )
+
+       for a in (True, False):
+           test.check( callable(a) )
+
+       a = 1
+       test.check( callable(a) )
+       a = 2.3
+       test.check( callable(a) )
+       a = "asdf"
+       test.check( callable(a) )
+
+       a = []
+       test.check( callable(a) )
+       a = [1,2,3,3]
+       test.check( callable(a) )
+       a = ["asdf", "qwer", "zxcv"]
+       test.check( callable(a) )
+
+       a = {"asdf" : 1, "qwer": 2}
+       test.check( callable(a) )
+
+       a = set([1,2])
+       test.check(callable(a))
+
+       __pragma__('opov')
+
+       class CallObj(object):
+           def __init__(self, r):
+               self._r = r
+
+           def __call__(self):
+               return(self._r)
+
+       test.check( callable(CallObj) )
+
+       obj = CallObj(2)
+       test.check(obj())
+       test.check( callable(obj) )
+       test.check( callable(obj._r) )
+
+       class NonCallObj(object):
+           def __init__(self, b):
+               self._b = b
+
+           def func(self):
+               return(self._b)
+
+       test.check( callable(NonCallObj) )
+
+       obj2 = NonCallObj(2)
+       test.check( callable(obj2) )
+       test.check( callable(obj2._b) )
+       test.check( callable(obj2.func) )
+
+       __pragma__('noopov')
+
+       class NonOpovNonCallObj(object):
+           """
+           """
+           def __init__(self, c):
+               self._c = c
+
+           def other(self, b):
+               return(self._c * b)
+
+           def _getC(self):
+               return(self._c)
+           def _setC(self, val):
+               self._c = val
+
+           C = property(_getC, _setC)
+
+       obj = NonOpovNonCallObj(4)
+       test.check( callable(obj) )
+       test.check( callable(obj.other) )
+       test.check( callable(obj._c) )
+       test.check( callable(obj.C) )
+
+       exc = Exception("asdf")
+       test.check( callable(exc) )
+
+
+4.6. Classes: multiple inheritance and assignment of bound functions
+====================================================================
+
+Testlet: classes
+
+   def run (autoTester):
+       autoTester.check ('<br>General<br>')
+
+       class A:
+           p = 123
+           def __init__ (self, x):
+               self.x = x
+               autoTester.check (self.p)
+
+           def show (self, label):
+               autoTester.check ('A.show', label, self.x)
+               
+           def show2 (self, label):
+               autoTester.check ('A.show2', label, self.x)
+           
+       class B:
+           p, q = 456, 789
+           def __init__ (self, y):
+               autoTester.check ('In B constructor')
+               self.y = y
+               autoTester.check (self.p)
+               
+           def show (self, label):
+               autoTester.check ('B.show', label, self.y)
+               
+       class C (A, B):
+           def __init__ (self, x, y):
+               autoTester.check ('In C constructor')
+               A.__init__ (self, x)
+               B.__init__ (self, y)
+               
+           def show (self, label):
+               A.show (self, label)
+               B.show (self, label)
+               autoTester.check ('C.show', label, self.x, self.y)
+           
+       a = A (1001)
+       a.show ('america')
+       autoTester.check (A.p)
+       autoTester.check (a.p)
+
+       b = B (2002)
+       b.show ('russia')
+       autoTester.check (B.p)
+       autoTester.check (b.p)
+       autoTester.check (b.q)
+
+       autoTester.check (A.p)
+       autoTester.check (a.p)
+
+       c = C (3003, 4004)
+       c.show ('netherlands')
+       autoTester.check (C.p)
+       autoTester.check (c.p)
+       autoTester.check (c.q)
+
+       c.show2 ('amsterdam')
+       A.show2 (c, 'rotterdam')
+
+       show3 = c.show
+       show3 ('copy')
+       
+       autoTester.check (hasattr (a, 'x'))
+       autoTester.check (hasattr (a, 'y'))
+       autoTester.check (hasattr (a, 'p'))
+       autoTester.check (hasattr (a, 'q'))
+       
+       autoTester.check ('<br><br>Augmented isinstance and issubclass<br>')
+       # Augmented meaning: compatible with native JavaScript types
+           
+       simpleTypes = (dict, list, A, B, C, bool, str, float, int, object)
+       tupleTypes = ((dict, list), (bool, int), (bool, A), (C, B), (B, object))
+       for i, types in enumerate ((simpleTypes, tupleTypes)):
+           for j, aType in enumerate (types):
+               for k, anObject in enumerate (({'a': 1}, [], a, C, c, C, b, True, 'a', 1, 1.2)):
+                   autoTester.check (i, j, k, isinstance (anObject, aType))
+                   if types == simpleTypes:
+                       autoTester.check (i, j, k, isinstance (anObject, simpleTypes))
+
+       for i, types in enumerate ((simpleTypes, tupleTypes)):
+           for j, aType in enumerate (types):
+               for k, aClass in enumerate ((dict, list, A, C, B, bool, str, int, float)):
+                   autoTester.check (i + 2, j, k, issubclass (aClass, aType))
+                   if types == simpleTypes:
+                       autoTester.check (i + 2, j, k, issubclass (aClass, simpleTypes))
+                       
+       autoTester.check ('<br><br>Method resolution order<br>')
+       
+       def mro (aClass, result = None):
+           ''' Recursively assemble method resolution order from all base classes'''
+           last = 0
+           if result is None:
+               result = [aClass]
+               last = 1
+           for aBase in aClass.__bases__:
+               if not aBase in result and aBase != object:
+                   result.append (aBase)
+                   mro (aBase, result)
+           if last and object in aClass.__bases__:
+               aRoot.append (object)
+           return result
+           
+       autoTester.check ([aClass.__name__ for aClass in mro (C)])
+       
+
+
+4.7. Complex numbers: Python’s builtin complex datatype
+=======================================================
+
+Testlet: complex_numbers
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   def run (autoTester):
+       x = 567
+       y = -3
+       z = 5 * x + 2 * y
+       autoTester.check (x.conjugate () .real, x.conjugate () .imag)
+       autoTester.check (x, y, z)
+
+       __pragma__ ('opov')
+       
+       a = 234 + 3j
+       b = 4 - 5j
+       c = complex (-6, 7)
+       d = 1
+       autoTester.check (a, b, c)
+       autoTester.check (d.conjugate () .real, d.conjugate () .imag)
+       
+       t = 6 * x - 3 * y + 7   # Just to check, faster with 'noopov'
+       autoTester.check (t)
+       
+       d = 2 * a
+       e = x * b
+       f = z + d + e
+       g = a / b
+       h = a - b
+       i = x - c
+       j = a - x
+       k = b + y
+       
+       autoTester.check (d, e, f, round (g.real, 2), round (g.imag, 2), h, i, j, k)
+       
+       __pragma__ ('noopov')
+       
+
+
+4.8. Conditional expressions: simple and nested
+===============================================
+
+Testlet: conditional_expressions
+
+   def f (x, b):
+       return x * x if b else x + x
+
+   def run (autoTester):
+       bools = (False, True)
+       for a in bools:
+           for b in bools:
+               autoTester.check (f (10 if a else 100, b))
+               
+       for p in bools:
+           for q in bools:
+               for r in bools:
+                   autoTester.check ('a' if p else 'b' if q else 'c' if r else 'd')
+                   
+                   a = ((('e' if p else 'f') if q else 'g') if r else 'h')
+                   b = ('i' if p else ('j' if q else ('k' if r else 'l')))
+                   c = 'm' if (p if q else r) else 'n'
+                   d = 'o' if p < q <= r else 'p'
+                   autoTester.check (a, b, c, d)
+                   
+       odd = [x if x % 2 else x + 1 for x in range (10)]
+       noDuplicates = set (odd)
+       autoTester.check (odd, noDuplicates)
+       
+
+
+4.9. Control structures: for…else, while…else, if…elif…else, break, continue
+============================================================================
+
+Testlet: control_structures
+
+   class ContextManagerExample:
+       def __init__ (self):
+           self.counter = 0
+           
+       def __enter__ (self):
+           self.counter += 1
+           return self
+           
+       def __exit__ (self, *args):
+           self.counter += 99
+
+   def run (autoTester):
+
+       # General control structure tests
+
+       for index in range (10):
+           autoTester.check (index)
+           
+       for index in range (8, 16):
+           autoTester.check (index)
+           
+       for index in range (8, 16, 2):
+           autoTester.check (index)
+           
+       for index in range (10, 0, -1):
+           autoTester.check (index)
+           
+       for index in range (16, 8, -2):
+           autoTester.check (index)
+           
+       for animal in ('cat', 'dog', 'turtle', 'goldfish'):
+           autoTester.check (animal)
+
+       for index, square in enumerate ([x * x for x in range (10) if x % 2]):
+           for y in (1, 2, 3):
+               for z in (10, 20, 30):
+                   autoTester.check (square + y, z )
+
+       vehicles = ['bike', 'train', 'boat', 'car', 'plane', 'bus']
+                   
+       for doBreak in (False, True):
+           for doContinue in (False, True):
+               for index in range (10):
+                   for index2 in range (0, 100, 10):
+                       if doBreak and index2 == 50:
+                           autoTester.check ('break2')
+                           break
+                       if doContinue and index2 == 50:
+                           autoTester.check ('continue2')
+                           continue
+                   else:
+                       autoTester.check ('noBreak2')
+                       
+                   if doBreak and index == 5:
+                       autoTester.check ('break')
+                       break
+                   if doContinue and index == 5:
+                       autoTester.check ('continue')
+                       continue
+               else:
+                   autoTester.check ('noBreak')
+                   
+               index = 0
+               while index < len (vehicles) and vehicles [index] != 'bus':
+                   autoTester.check (index, vehicles [index])
+                   if doBreak and vehicles [index] == 'car':
+                       autoTester.check ('breakWhile')
+                       break
+                   if doContinue and vehicles [index] == 'car':
+                       autoTester.check ('continueWhile')
+                       index += 1
+                       continue
+                   index += 1
+               else:
+                   autoTester.check ('noBreakWhile')
+                   
+           for vehicle in vehicles:
+               if vehicle == 'bike':
+                   autoTester.check ('netherlands')
+               elif vehicle == 'car':
+                   autoTester.check ('america')
+               elif vehicle == 'boat':
+                   autoTester.check ('oceania')
+               else:
+                   autoTester.check ('anywhere') 
+                   
+       # Context manager tests
+
+       externalCounter1 = 0
+       with ContextManagerExample () as contextManagerExample1:
+           externalCounter1 += 1
+       autoTester.check ('ctx1', contextManagerExample1.counter, externalCounter1)
+       
+       externalCounter2 = 0
+       with ContextManagerExample () as contextManagerExample2:
+           externalCounter2 += 1
+           contextManagerExample2.counter += 100
+           externalCounter3 = 0
+           with ContextManagerExample () as contextManagerExample3:
+               externalCounter3 += 1
+               contextManagerExample2.counter += 100     
+               externalCounter3 += 2
+               contextManagerExample3.counter += 200
+           autoTester.check ('ctx3', contextManagerExample3.counter, externalCounter3)
+           externalCounter2 += 2
+           contextManagerExample2.counter += 200
+       autoTester.check ('ctx2', contextManagerExample2.counter, externalCounter2)
+
+       try:
+           externalCounter4 = 0
+           with ContextManagerExample () as contextManagerExample4:
+               externalCounter4 += 1
+               contextManagerExample4.counter += 100
+               externalCounter5 = 0
+               with ContextManagerExample () as contextManagerExample5:
+                   externalCounter5 += 1
+                   contextManagerExample5.counter += 100
+                   raise Exception ()    
+                   externalCounter5 += 2
+                   contextManagerExample5.counter += 200  
+               externalCounter4 += 2
+               contextManagerExample4.counter += 200
+       except Exception as exception:
+           autoTester.check ('ctx6', exception)
+       finally:
+           autoTester.check ('ctx5', contextManagerExample5.counter, externalCounter5)
+           autoTester.check ('ctx4', contextManagerExample4.counter, externalCounter4)
+
+       # Multiple context managers in one clause
+       
+       # $$$ The new parsers seems to treat them more like separate context managers.
+       # $$$ Or maybe it's a command line switch.
+       
+       
+       iterationCount = 0
+       with ContextManagerExample () as contextManagerExample5, ContextManagerExample () as contextManagerExample6:
+           iterationCount += 1
+       autoTester.check ('ctx7', iterationCount, contextManagerExample5.counter, contextManagerExample6.counter)
+
+       iterationCount = 0
+       with ContextManagerExample (), ContextManagerExample (), ContextManagerExample (), \
+            ContextManagerExample (), ContextManagerExample ():
+           iterationCount += 1
+       autoTester.check ('ctx8', iterationCount)
+
+
+4.10. Data classes: Avoiding boilerplate code
+=============================================
+
+Testlet: data_classes
+
+   from dataclasses import dataclass
+   from typing import ClassVar
+
+   def getQ ():
+       return 1002
+
+   @dataclass
+   class A:
+       m = 101010
+       n: int = 202020
+
+   @dataclass
+   class B (A):
+       p: int = 1001
+       q: int = 1002
+       
+   @dataclass (order = True)
+   class C (B):
+       @dataclass
+       class CC (B):
+           k: int = 40
+           l: float = 55.5
+           j = 60
+       x: ClassVar = 10
+       y: int = 20
+       yy: int = 22
+       z: int = 30
+       zz: int = 33
+       t: ClassVar = 40
+       g = 100000
+       h = 100001
+       i = 100002
+       
+       def getV (self):
+           return 3
+           
+       def setV (self, value):
+           pass
+       
+       v = property (getV, setV)
+
+       def getW (self):
+           return 4
+           
+       def setW (self, value):
+           pass
+       
+       w: int = property (getW, setW)
+
+       def f (self, p, autoTester):
+           self.a = p
+           self.b = 2000
+           autoTester.check (self.x, self.y, self.a)
+           return f'something(a: {self.a}, b: {self.b})'
+
+
+   @dataclass (order = True)        
+   class D:        
+       _p: int = 3
+
+       def setP (self, value):
+           pass
+           #self._p = value
+
+       def getP (self):
+           return 20
+           #return self._p
+           
+       p: int = property (getP, setP)
+       
+   def run (autoTester):
+       c = C (y = 200, zz = 330)
+       cc = C (y = 10200)
+       c.f (123, autoTester)
+       c.t = 400
+       cc.f (456, autoTester)
+       cc.t = 4000
+       
+       for obj in c, cc:
+           autoTester.check (obj.x, obj.y, obj.yy, obj.z, obj.zz, obj.t, obj.a, obj.b)
+           
+       autoTester.check (repr (c))
+       autoTester.check (repr (cc)) 
+       
+       #__pragma__ ('opov')
+       
+       autoTester.check (c == cc)
+       autoTester.check (c != cc)
+       
+       autoTester.check (c < cc)
+       autoTester.check (c > cc)  #
+       autoTester.check (c <= cc) #
+       autoTester.check (c >= cc)
+       
+       autoTester.check (c == c)
+       autoTester.check (c != c)
+       autoTester.check (c < c)
+       autoTester.check (c > c)
+       autoTester.check (c <= c)
+       autoTester.check (c >= c)
+
+       d3 = D ()
+       d1 = D ()
+       d2 = D ()
+       
+       autoTester.check (repr (d1))
+
+       autoTester.check (d3, d1, d3 > d1)
+       autoTester.check (d2, d1, d2 > d1)
+       autoTester.check (d3, d2, d3 > d2) 
+
+       ccc = C.CC ()
+       autoTester.check (ccc.n, ccc.p, ccc.q, ccc.k, ccc.l)
+       
+
+
+4.11. Data structures: tuple, list, dict, set
+=============================================
+
+Testlet: data_structures
+
+   def run (autoTester):
+       aList = [1, 2, 3, 'moon', 'stars']
+       autoTester.check (aList)
+       aList.insert (3, 'sun')
+       autoTester.check (aList)
+       autoTester.check (aList [2:4:1])
+       autoTester.check (aList [:])
+       autoTester.check (aList [2:])
+       autoTester.check (len (aList))
+       aList.append ('milkyway')
+       autoTester.check (aList)
+       aList.extend (['m1', 'm31'])
+       autoTester.check (aList)
+
+       anotherList = list (('a', 'b', 'c'))
+       autoTester.check (anotherList)
+       autoTester.check ('b' in anotherList)
+       autoTester.check ('d' in anotherList)
+       
+       aDict = {1: 'plant', 'animal': 2}
+       autoTester.check (aDict)
+       autoTester.check (aDict [1], aDict ['animal'])
+       
+       def p ():
+           return 3
+           
+       q = 4
+       
+       autoTester.check ({p (): 'three', q: 'four'})
+       
+       aTuple = (1, 2, 3, 4, 5)
+       autoTester.check(aTuple)
+       autoTester.check (len (aTuple))
+
+       anotherTuple = (1,)
+       autoTester.check (anotherTuple)
+
+       aSet = {1, 2, 2, 3}
+       autoTester.check (aSet)
+       autoTester.check (len (aSet))
+       autoTester.check (2 in aSet)
+       autoTester.check (4 in aSet)
+       aSet.clear ()
+       autoTester.check (aSet)
+
+       anotherSet = set ((4, 5, 5, 6))
+       autoTester.check (anotherSet)
+
+       emptySet = set ()
+       autoTester.check (emptySet)
+       autoTester.check (len (emptySet))
+       
+       aString = 'c_cis_d_dis_e_f_fis_g_gis_a_ais_b_c'
+       autoTester.check ('cis' in aString)
+       autoTester.check ('g' in aString)
+       autoTester.check ('bes'  in aString)
+       autoTester.check ('z' in aString)
+       
+
+
+4.12. Decorators: function and class, with and without parameters
+=================================================================
+
+Transcrypt supports decorators on methods and classes. A decorator
+itself can be a function or an object with an overloaded __call__
+operator. Parameterized decorator factories are also supported. All
+flavours of properties can be used directly or through decorator
+syntax. Extensive use of properties is demonstrated in the properties
+testlet.
+
+Testlet: decorators
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   def run (autoTester):
+       def repeat3 (bareFunc):
+           __pragma__ ('kwargs')
+           def innerFunc (*args, **kwargs):
+               autoTester.check ('BEGIN repeat3')
+               for i in range (3):
+                   bareFunc (*args, **kwargs)
+               autoTester.check ('END repeat3')
+           __pragma__ ('nokwargs')
+           return innerFunc
+           
+       def repeatN (n):
+           def repeat (bareFunc):
+               __pragma__ ('kwargs')
+               def innerFunc (*args, **kwargs):
+                   autoTester.check ('BEGIN repeatN ({})'.format (n))
+                   for i in range (n):
+                       bareFunc (*args, **kwargs)
+                   autoTester.check ('END repeatN ({})'.format (n))
+               __pragma__ ('nokwargs')
+               return innerFunc
+           return repeat
+
+       class Repeater:
+           def __init__ (self, n):
+               self.n = n
+               
+           def __call__ (self, bareFunc):
+               __pragma__ ('kwargs')
+               def innerFunc (*args, **kwargs):
+                   autoTester.check ('BEGIN repeat3')
+                   for i in range (self.n):
+                       bareFunc (*args, **kwargs)
+                   autoTester.check ('END repeat3')
+               __pragma__ ('nokwargs')
+               return innerFunc
+           
+       @repeatN (4)
+       @repeat3
+       def funcNoArg ():
+           autoTester.check ('spam')
+           
+       funcNoArg ()
+       autoTester.check ()
+
+       __pragma__ ('kwargs')
+       @repeat3
+       @repeatN (2)
+       def funcArg (a):
+           autoTester.check ('eggs', a)
+       __pragma__ ('nokwargs')
+           
+       funcArg (3)
+       autoTester.check ()
+
+       funcArg (a = 4)
+       autoTester.check ()
+
+       __pragma__ ('opov')
+       @Repeater (3)
+       def funcNoArg2 ():
+           autoTester.check ('toast')
+       __pragma__ ('noopov')
+
+       funcNoArg2 ()
+       autoTester.check ()
+
+       __pragma__ ('opov')
+       __pragma__ ('kwargs')
+       @Repeater (5)
+       def funcArg2 (a):
+           autoTester.check ('jam', a)
+       __pragma__ ('nokwargs')
+       __pragma__ ('noopov')
+
+       funcArg2 (3)
+       autoTester.check ()
+
+       funcArg2 (a = 4)
+       autoTester.check ()
+
+       def next (bareFunc):
+           def innerFunc (value):
+               return bareFunc (value + 1)
+           return innerFunc
+           
+       @next
+       class Number:
+           def __init__ (self, value):
+               self.value = value
+               
+       autoTester.check ('two', Number (1) .value)
+       
+       class Test: 
+           @classmethod
+           def f (cls, x, y):
+               autoTester.check (cls.__name__, x, y)
+               
+           def g (self, x, y):
+               autoTester.check (self.__class__.__name__, x, y)
+               
+       test = Test ()
+
+       test.f (1, 2)
+       test.g (3, 4)
+       
+       
+
+
+4.13. Dict comprehensions
+=========================
+
+Testlet: dict_comprehensions
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   __pragma__ ('iconv')    # Convert dict to key list without using keys () method
+
+   def run (autoTester):
+       original = {'Isaac': 'Newton', 'Albert': 'Einstein', 'Paul': 'Dirac'}
+       autoTester.check (original)
+
+       inverted = {original [key]: key for key in original}
+       autoTester.check (inverted)
+
+
+4.14. Dictionaries: dict revisited
+==================================
+
+Testlet: dictionaries
+
+   from org.transcrypt.stubs.browser import __pragma__
+   __pragma__ ('iconv')
+
+   # Dictionaries are translated to JavaScript objects,
+   # to achieve JSON-compatible syntax for JavaScript library object initialisation.
+   # Keys that may denote a number are interpreted as such in Transcrypt.
+   # All other keys are interpreted as strings.
+
+   def run (autoTester):
+       tel = {'guido': 4127, 'jack': 4098}
+       autoTester.check (len (tel))
+       tel ['sape'] = 4139
+
+       autoTester.check (tel)
+       autoTester.check (tel ['jack'])
+
+       del tel ['sape']
+       tel ['irv'] = 4127
+       autoTester.check (tel)
+
+       autoTester.check (sorted (list (tel.keys ())), False)
+       autoTester.check (sorted (tel.keys ()))
+
+       autoTester.check ('guido' in tel)
+       autoTester.check ('jack' not in tel)
+
+       autoTester.check (dict ([('guido', 4127), ('jack', 4098), ('sape', 4139)]))
+       autoTester.check (
+           autoTester.expectException( lambda: dict(1) )
+       )
+       autoTester.check (
+           autoTester.expectException( lambda: dict(134.34) )
+       )
+       autoTester.check (
+           autoTester.expectException( lambda: dict('asdf') )
+       )
+       autoTester.check (
+           autoTester.expectException( lambda: dict(['1234', 1]) )
+       )
+
+       autoTester.check( dict ([]))
+       autoTester.check (dict ({}))
+       autoTester.check (dict ({'asdf': 1, 'qwer': 2}) )
+
+       # check dict copy, Issue # 221
+       b = {'a' : 2.01, 'b': -3.3}
+       d = dict (b)
+       autoTester.check (d)
+       b = {'a' : 2, 'b': [1,2,3]}
+       d = dict (b)
+       autoTester.check (d)
+       b = {'a' : None, 'b': set([1,2,3])}
+       d = dict (b)
+       autoTester.check (d)
+       b = {'a' : {'c': 2}, 'b': (1,2)}
+       d = dict (b)
+       autoTester.check (d)
+       autoTester.check (d['a']['c'])
+       autoTester.check (d.get('a').get('c'))
+       autoTester.check (b.get('a').get('c'))
+       d['a']['c'] = 3
+       autoTester.check (d.get('a').get('c'))
+       autoTester.check (b.get('a').get('c'))
+
+       knights = {'robin': 'the brave', 'gallahad': 'the pure'}
+
+       for k, v in sorted (knights.items ()):
+           autoTester.check (k, v)
+
+       if 'gallahad' in knights:
+           autoTester.check ('gallahad is a knight') 
+
+       for k in sorted (knights):
+           autoTester.check (k)
+           
+       knight = {'rudolph': 'the righteous'}
+       for k in knight:    # Autotest automatic conversion with one knight, since sort order of dict undefined
+           autoTester.check (k)
+           
+       tel = {'guido': 123}
+       tel.update({'edsger': 42})
+       autoTester.check (tel.setdefault ('linus', 456))
+       autoTester.check (tel ['linus'])
+       autoTester.check (tel.setdefault ('guido', 789))
+       autoTester.check (tel.pop ('guido', 1))
+       autoTester.check (tel.pop ('guido', 1))
+       autoTester.check (tel.pop ('edsger', 2))
+       autoTester.check (tel.pop ('foo', 'bar'))
+       autoTester.check (tel.pop ('foo', None))
+
+       # Check compound keys (issue 281)
+       d = {}
+       d ['a'] = 3777
+       d [(1, 2)] = 4777
+       autoTester.check (d ['a'], d [(1, 2)])
+
+       __pragma__ ('opov')
+       d = {}
+       d ['a'] = 3777
+       d [(1, 2)] = 4777
+       autoTester.check (d ['a'], d [(1, 2)])
+       __pragma__ ('noopov')
+
+       # Check dict.popitem (issue 306)
+       dict_306 = {'Abraham': 'Lincoln', 'Barack': 'O\'Bama', 'Thomas': 'Jefferson'}
+       results = []
+       try:
+           while True:
+               results.append (list(dict_306.popitem ()))
+       except Exception as exception:
+           autoTester.check (sorted (results))
+
+       # Check exceptions
+       knights = {'robin': 'the brave', 'gallahad': 'the pure'}
+       autoTester.check (
+           autoTester.expectException ( lambda: knights.pop("batman") )
+       )
+       autoTester.check (
+           autoTester.expectException ( lambda: knights.pop("batman", None) )
+       )
+       autoTester.check (
+           autoTester.expectException ( lambda: knights.pop("batman", "the gullible") )
+       )
+
+
+4.15. Diverse issues
+====================
+
+Testlet: div_issues
+
+   from org.transcrypt.stubs.browser import __pragma__, __new__, __envir__, __symbols__
+
+   from div_issues.issue55 import *        # Names not exported from package's __init__.py, no output, only compilation check
+   from div_issues.issue387 import run387  # Support __module__ and __qualname__ for introspection (only __module__ done and
+                                           # __name__ set to '__main__ for main module'
+   from div_issues.issue559 import run559  # Imported names not reexported form the __init__.py of a module
+
+   import re
+                              
+   def run (autoTester):
+       autoTester.check ('Issue 24')   # Non keyword switch generates javascript SyntaxError
+       switch = False
+       autoTester.check (switch)
+       
+       autoTester.check ('Issue 27')   # Python list.index () not translated correctly
+       autoTester.check (['zero', 'one', 'two', 'three', 'four'] .index ('three'))
+       
+       autoTester.check ('Issue 36')   # Bug in compiling lambda default argument values
+       # Workaround for Python closures capturing variables rather than values
+       # An extra enclosing scope is created to remember the value of the variable
+       results = []
+       for i in range (10):
+           # results.append (lambda: i)                # Works nowhere
+           # results.append (lambda j = i: j)          # Works only in Python
+           results.append ((lambda j: lambda: j) (i))  # Works in Python and Transcrypt
+       autoTester.check ([result () for result in results])        
+
+       autoTester.check ('Issue 37')   # Python integer division not translated correctly
+       autoTester.check (15 // 7)
+       
+       autoTester.check ('Issue 40')   # Python parentheses dropped during translation
+       autoTester.check (65 / (5 * 2))
+
+       autoTester.check ('Issue 50')   # Wrong answer with parentheses moved during translation
+       autoTester.check ((240 + 30 - 1) // 30 * 30)
+       
+       autoTester.check ('Issue 51')   # Wrong answer with set() compare
+       a = 1
+       b = 1
+       autoTester.check (a, b, {a, b} == {1, 2})
+       
+       autoTester.check ('Issue 52')   # Non keyword 'default' generates javascript SyntaxError
+       switch, case, default = 'switch', 'case', 'default'
+       autoTester.check (switch, case, default)
+       
+       autoTester.check ('Issue 54')   # Type dict missing clear(), setdefault()
+       aDict = {1: 11, 2: 22, 3: 33}
+       autoTester.check (aDict)
+       aDict.clear ()
+       autoTester.check (aDict)
+       
+       autoTester.check ('Issue 60')   # Python bool() not translated
+       three = 3
+       one = three & 1
+       seven = three | 4
+       eight = one << 3
+       four = eight >> 1
+       aTrue = bool (three & one)
+       aFalse = bool (three & four)
+       autoTester.check (3, three, 1, one, 7, seven, 8, eight, 4, four, True, aTrue, False, aFalse)
+       
+       autoTester.check ('Issue 65')   # Adding two lists with + not supported
+       __pragma__ ('opov')
+       aList = [4, 5, 6]
+       autoTester.check ([1, 2, 3,] + aList + [4, 5, 6])
+       autoTester.check (3 * [1, 2, 3])
+       autoTester.check ([1, 2, 3] * 3)
+       aString = 'Crocodile'
+       autoTester.check ('Tiger' + aString + 'Elephant')
+       autoTester.check (3 * aString)
+       autoTester.check (aString * 3)
+       __pragma__ ('noopov')
+       
+       autoTester.check ('Issue 76')   # Python //= not translated correctly
+       initially17 = 17
+       autoTester.check (initially17)
+       initially17 //= 2
+       autoTester.check (initially17)
+       initially17 //= 2
+       autoTester.check (initially17)
+       
+       autoTester.check ('Issue 112')  # When using -e6, iterating TypedArrays or other non-list Iterables doesn't work
+       try:
+           if __envir__.executor_name == __envir__.transpiler_name: # CPython doesn't know Int8Array
+               x = __new__ (Int8Array (2))
+           else:
+               x = [None, None]
+           
+           x [0] = 3
+           x [1] = 2
+           for i in x:
+               autoTester.check (i)
+           
+           y = 3
+           for j in y:
+               autoTester.check (j)
+               
+       except: # No 'Exception' can be used behind this, since this is a JavaScript exception, and no subclass of Exception. ??? How desirable is this behaviour?
+           pass
+           # autoTester.check ('Detected iterating over non-iterable') # Minifier masks this exception, so we'll have to pass
+           
+       autoTester.check ('Issue 122')  # Problem with yield (or rather with slicing beyond list end)
+       
+       def chunks (aList, chunkLength):
+           for index in range (0, len (aList), chunkLength):
+               yield aList [index : index + chunkLength]
+
+       for chunk in chunks ([chr (index + 97) for index in range (26)], 10):
+           autoTester.check (chunk)
+
+       autoTester.check ('Issue 123')  # Python % shouldn't behave like JS %
+       autoTester.check (10 % 3, 10 % -3, -10 % 3, -10 % -3, 10 % 10, 10 % -10, -10 % 10, -10 % -10)
+       
+       autoTester.check ('Issue 125')  # Strings not iterable
+       abc = 'abc'
+       
+       for index in abc:
+           autoTester.check (abc)
+           
+       autoTester.check ('Issue 127')  # Can't use the key 'keys' in a dict
+       autoTester.check ({"include_docs": "true", "keys": ["key1", "key2"], "limit": 50})
+       
+       autoTester.check ('Issue 134')  # Operator %= translated incorrectly
+       x0, x1, x2, x3, x4, x5 = 5, 12, -5, -5, 0, 0
+       x0 %= 10; x1 %= 5; x2 %= 2; x3 %= -3; x4 %= 1; x5 %= -1000 
+       autoTester.check (x0, x1, x2, x3, x4)
+       
+       autoTester.check ('Issue 136')  # Method dict.get(key[, default]) not implemented
+       aDict = {'a': 'ape', 'b': 'banana'}
+       autoTester.check (aDict.get ('a', 'noApe'), aDict.get ('b'), aDict.get ('c', 'noCarot'), aDict.get ('d'))
+       
+       autoTester.check ('Issue 144')
+       __pragma__('opov')
+       aList = [x for x in [1, 2, 3]]
+       autoTester.check (aList)
+       __pragma__('noopov')    
+       
+       autoTester.check ('<br><br>Issue 145<br>')  # List sorting incorrect in case of multiple columns
+       
+       class SortTest:
+           def __init__ (self):
+               self.alphabet = 'abcdefghijklmnopqrstuvwxyz'
+               self.nChars = 10
+               self.nCols = 10
+               self.nRows = 30
+               
+               self.pseudoRandom = 0
+               
+               def randomWord ():
+                   word = ''
+                   for iChar in range (self.nChars):
+                       self.pseudoRandom = (81212 * self.pseudoRandom + 28411) % 134456
+   #                   self.pseudoRandom = (1234 * self.pseudoRandom + 57) % 137           # Deliberately short period
+                       word += self.alphabet [self.pseudoRandom % 26]
+                   return word 
+           
+               self.rows = [[randomWord () for iCol in range (self.nCols)] for iRow in range (self.nRows)]
+                   
+           def sort (self):
+               for iCol in reversed (range (self.nCols)):
+                   self.rows.sort (key = lambda row: row [iCol])
+               
+       sortTest = SortTest ()
+       
+       autoTester.check ('<br>Unsorted:<br>')
+       for row in sortTest.rows:
+           autoTester.check ('{}<br>'.format (','.join ([word for word in row])))
+           
+       sortTest.sort ()
+       
+       autoTester.check ('<br>Sorted:<br>')
+       for row in sortTest.rows:
+           autoTester.check ('{}<br>'.format (','.join ([word for word in row])))
+           
+       autoTester.check ('<br><br>Issue 148<br>')  # Allow key a.o. key 'items' in dict
+       
+       aDict = {
+           'items': [4, 5, 6]
+       }
+
+       for aKey, aValue in aDict.items ():
+           autoTester.check ('{}: {}'.format (aKey, aValue))   
+           
+       autoTester.check ('<br><br>Issue 169<br>')  # Add support for float('inf') and float('-inf')
+       
+       autoTester.check (int (1 / float ('inf')), int (1 / float ('-inf')))
+       
+       autoTester.check ('<br><br>Issue 178<br>')  # List Comprehensions / Operator Precedence Bug
+       
+       bitmaps = [
+           (2 , ''),
+           (4 , ''),
+           (8, 'i'),
+           (16, 'm'),
+           (32, 'y'),
+           (64, 'u'),
+           (128, 'g')
+       ]
+       
+       for flags in (122, 233, 11, 55, 79, 201, 23, 111, 200, 100, 50, 25, 12, 6):
+           autoTester.check  (''.join ([x [1] for x in bitmaps if (x [0] & flags) > 0]))
+           
+       def issue256 ():
+           autoTester.check ('Issue 256')
+
+           class C:
+               def __init__ (self, value):
+                   self.value = value
+
+           def f1 (value):  # Generate parens after return
+               return (C (value) .value or 'second') .capitalize () == 'First'
+               
+           def f2 (value):  # Generate parens after return
+               return (C (value) .value or 'second') .capitalize () == 'Second'
+               
+           def f3 (value):  # Generate NO parens after return
+               return C (value) .value or 'second'
+               
+           def f4 (value):  # Generate NO parens after return
+               return (C (value) .value or 'second')
+                   
+           autoTester.check (f1 ('first'))
+           autoTester.check (f1 (''))
+           autoTester.check (f2 ('first'))
+           autoTester.check (f2 (''))
+           autoTester.check (f3 ('first'))
+           autoTester.check (f4 (''))
+           
+       issue256 ()
+       
+       autoTester.check ('Issue 274')
+       a = 3
+       del a
+       autoTester.check ('Still alive')
+
+       autoTester.check ('Issue 276')  # Partial, other part tested in testlet 'operator_overloading'
+       a = 2
+       b = a ** 3
+       a **= 4
+       autoTester.check (a, b)
+           
+       autoTester.check ('Issue 277')
+       new = 3
+       autoTester.check (new)
+       
+       autoTester.check ('Issue 279')
+       class A:
+           TypeError = 111
+           js_TypeError = 222
+       autoTester.check (A.TypeError, A.js_TypeError)  # ... Generated code should use py_TypeError and TypeError respectively    
+       autoTester.check ('Still alive')
+       
+       autoTester.check ('Issue 301')
+       def filter_word (word0, word1):
+           if len (word0) != len (word1):
+               return False
+           for char0, char1 in zip (word0, word1):
+               if char0 != '_' and char0 != char1:
+                   return False
+           return True
+       autoTester.check (filter_word ('bee', 'beer'))
+       autoTester.check (filter_word ('wine', 'wine'))
+       autoTester.check (filter_word ('win_', 'wind'))
+       autoTester.check (filter_word ('_in_', 'kind'))
+       autoTester.check (filter_word ('min_', 'kind'))
+
+       autoTester.check ('Issue 314')
+       try:
+           autoTester.check (int (float (123)))
+       except:
+           autoTester.check ('a')
+           
+       try:
+           autoTester.check (float (12.3))
+       except:
+           autoTester.check ('b')
+           
+       try:
+           autoTester.check (int (float ('123')))
+       except:
+           autoTester.check ('c')
+           
+       try:
+           autoTester.check (int (float (' 123')))
+       except:
+           autoTester.check ('d')
+                           
+       try:
+           autoTester.check (float (''))
+       except:
+           autoTester.check ('e')
+           
+       try:
+           autoTester.check (float (' '))
+       except:
+           autoTester.check ('f')
+       try:
+           autoTester.check (float ('drie'))
+       except:
+           autoTester.check ('g')
+           
+       autoTester.check ('Issue 316')
+       
+       autoTester.check (list (filter (None, [[1, 2], [3], [], [4, 5], [6]])))
+       autoTester.check (list (filter (lambda l: len (l) >= 2, [[1, 2], [3], [], [4, 5], [6]])))
+       
+       autoTester.check ('Issue 317')
+
+       mylist = []
+       try:
+           mylist.remove ('value')
+       except ValueError as exception:
+           autoTester.check (exception.__class__.__name__)
+           
+       autoTester.check ('Issue 331')
+       
+       autoTester.check (max (-5, 4, 1, 2, -3, 2))
+       autoTester.check (max ([-5, 4, 1, 2, -3, 2]))
+       autoTester.check (max ((5, 6, 2, -2, -4)))
+
+       autoTester.check (min (-5, 4, 1, 2, -3, 2))
+       autoTester.check (min ([-5, 4, 1, 2, -3, 2]))
+       autoTester.check (min ((5, 6, 2, -2, -4)))
+       
+       autoTester.check ('issue 356')
+       
+       try:
+           raise TypeError("How are you?")
+       except TypeError as exception:
+           autoTester.check (exception)
+           
+       autoTester.check ('Issue 369')
+       
+       class Vector:
+           def __init__ (self, *values):
+               self.values = values
+
+           def __iter__ (self):
+               for item in self.values:
+                   yield item
+
+           def __add__(self, other):
+               return Vector (* (x + y for x, y in zip (self, other)))
+               
+           def __str__ (self):
+               return str (list (self.values))
+           
+       #__pragma__ ('opov')
+
+       autoTester.check (str (Vector (1,2,3) + Vector (3,4,5)))
+
+       #__pragma__ ('noopov')
+
+       
+       autoTester.check ('Issue 387')
+       run387 (autoTester)
+       
+       autoTester.check ('Issue 391')
+       autoTester.check (int (False))
+       autoTester.check (int (True))
+       autoTester.check (int (1 == 2))
+       autoTester.check (int (1 != 2))
+       
+       autoTester.check ('Issue 392')
+
+       class Example:
+
+           d = {'A': 1, 'B': 2}
+           rec = re.compile ('(?P<decimal>\d+)', re.ASCII)
+
+           def run(self):
+               match = self.rec.match ('42')
+               if not match:
+                   print('ERROR: RE does not match')
+               e = match.groupdict ()
+               autoTester.check ("before: self.d=", self.d)
+               autoTester.check ("before: e=", e)
+               self.d.update (e)
+               autoTester.check ("after: self.d=", self.d)
+
+
+       example = Example ()
+       example.run ()
+       
+       autoTester.check ('Issue 398')
+       # This used to give extra comma's so invalid syntax (no check calls needed)
+       
+       class Test398 (object):
+           #__pragma__ ('skip')
+           def method1 (self):
+               pass
+
+           def method2 (self):
+               pass
+           #__pragma__ ('noskip')
+           pass
+           
+       test398 = Test398 ()
+           
+       autoTester.check ('Issue 399')
+       
+       __pragma__ ('keycheck')
+       try:
+           surpressWarning = {'a':5}['a']
+           surpressWarning = {'a':5}['b']
+           autoTester.check ('no problem')
+       except KeyError:
+           autoTester.check ('not found')    
+       
+       autoTester.check ('Issue 413')
+       __pragma__ ('nokeycheck')
+       
+       class Foo:
+           def __len__ (self):
+               return 3
+           
+           def __getitem__ (self, i):
+               if i >= 3:
+                   raise IndexError
+               return 'This is item ' + str (i)
+
+       foo = Foo ()
+
+       #__pragma__ ('opov')
+       autoTester.check ('Attempt 1:')
+       for i in foo:
+           autoTester.check (i)
+
+       autoTester.check ('Attempt 2:')
+       for i in range (len (foo)):
+           autoTester.check (foo [i])
+       #__pragma__('noopov')
+       
+       autoTester.check ('Issue 414')
+       
+       class Foo:
+           pass
+
+       foo = Foo ()
+       foo.bar = 'baz'
+       foo.name = 'hello'
+       foo.default = 'world'
+
+       autoTester.check ([x for x in dir (foo) if not x.startswith ('__')])
+
+       #__pragma__('kwargs')
+       def foo (*args, **kwargs):
+           default = kwargs.get ('default', 'bar')
+           return default
+
+       autoTester.check (foo())
+       autoTester.check (foo(default = 'Hello World'))
+       
+       autoTester.check ('Issue 460')
+       
+       s460 = 'car'
+       l460 = [11, 22, 33]
+       t460 = (4, 5, 6)
+       d460 = {-1: 'mmminusOne', 'b': 'bbbike'}
+       
+       #__pragma__ ('opov')
+       
+       l460 [0] = 1
+       l460 [-2] = 2
+       l460 [-1] = 3
+       
+       d460 [-1] = 'minusOne'
+       d460 ['b'] = 'bike'
+       
+       autoTester.check (s460 [0], s460 [1], s460 [2], s460 [-1], s460 [-2], s460 [-3])
+       autoTester.check (l460 [0], l460 [1], l460 [2], l460 [-1], l460 [-2], l460 [-3])
+       autoTester.check (t460 [0], t460 [1], t460 [2], t460 [-1], t460 [-2], t460 [-3])
+       autoTester.check (d460 [-1], d460 ['b'])
+       
+       autoTester.check (s460 [0], s460 [1], s460 [2], s460 [-1], s460 [-2], s460 [-3])
+       autoTester.check (l460 [0], l460 [1], l460 [2], l460 [-1], l460 [-2], l460 [-3])
+       autoTester.check (t460 [0], t460 [1], t460 [2], t460 [-1], t460 [-2], t460 [-3])
+       autoTester.check (d460 [-1], d460 ['b'])
+
+       #__pragma__ ('noopov')
+
+       #__pragma__ ('keycheck')
+       
+       try:
+           autoTester.check (d460 [-1], d460 ['c'])
+       except:
+           autoTester.check (111)
+       try:
+           autoTester.check (d460 [-2], d460 ['b'])
+       except:
+           autoTester.check (222)
+           
+       #__pragma__ ('nokeycheck')
+       
+       a = [1, 2, 3]
+       b = [4, 5, 6]
+       c = '1,2,34,5,6'
+
+       if __envir__.executor_name == __envir__.transpiler_name:
+           autoTester.check (a + b)
+           autoTester.check (a + b)    #__:opov
+           autoTester.check (a + b)
+       else:
+           autoTester.check (c)
+           autoTester.check (a + b)    #__:opov
+           autoTester.check (c)
+
+       #__pragma__ ('opov')
+           
+       if __envir__.executor_name == __envir__.transpiler_name:
+           autoTester.check (a + b)    #__:noopov
+           autoTester.check (a + b)
+           autoTester.check (a + b)    #__:noopov
+       else:
+           autoTester.check (c)        #__:noopov
+           autoTester.check (a + b)
+           autoTester.check (c)        #__:noopov
+
+       #__pragma__ ('noopov')
+       
+       autoTester.check ('Issue 494')  # {None} in formatted string gets converted to {}
+       
+       # Worked, should still work
+       a = 1
+       autoTester.check (f'a={a}')
+
+       # Failed, should now work
+       a = None
+       autoTester.check (f'a={a}')
+       
+       autoTester.check ('Issue 515')  # Method format() is failing to replace the replacement fields if the value is None
+       
+       autoTester.check('a: {}; b: {}'.format(None, 1))
+       autoTester.check('a: {}; b: {}'.format(1, None))
+       autoTester.check('a: {0}; b: {1}'.format(1, None))
+       autoTester.check('a: {0}; b: {1}'.format(1, []))
+       autoTester.check('a: {}; b: {}'.format(1, []))
+       autoTester.check('a: {0}; b: {1}'.format(1, {}))
+       autoTester.check('a: {}; b: {}'.format(1, {}))
+       autoTester.check('a: {0}; b: {1}'.format(1, 0))
+       autoTester.check('a: {}; b: {}'.format(1, 0))
+       
+       autoTester.check ('Issue 559')  # Reexport everything imported, e.g. by the __init__.py of a module
+       run559 (autoTester)
+       
+
+
+4.16. Diverse pulls
+===================
+
+Testlet: div_pulls
+
+   # Also contains small enhancements
+
+   import div_pulls.pull575_reexport_modules as pull575
+
+   'This is a single line docstring'
+   class A:
+       '''
+       This
+       is 
+       a 
+       multiline
+       docstring
+       '''
+       def __init__ (self, x):
+           'This is a single line comment'
+           self.x = x
+           '''
+           This
+           is 
+           a 
+           multiline
+           docstring
+           '''
+       'This is a single line docstring'
+   '''
+   This
+   is 
+   a 
+   multiline
+   docstring
+   '''
+
+   a = A (5.5)
+
+   def run (autoTester):   
+       autoTester.check ('Pull 56')
+       s = 'abcdefghij'
+       autoTester.check (s [2:3])
+       autoTester.check (s [:3])
+       autoTester.check (s [2:])
+       autoTester.check (s [::2])
+       
+       autoTester.check ('Pull 561')
+       def brackets (word):
+           autoTester.check ('sideeffect')
+           return '[' + word + ']'
+       autoTester.check (brackets ('anything') .lower ())   #__:opov
+       
+       pull575.run (autoTester)
+       
+
+
+4.17. Docstrings: __doc__ attribute generated optionally
+========================================================
+
+To keep the generated code lean, generation of *__doc__* attributes is
+controlled per module by *__pragma__ (‘docat’)* or by the *-d* /
+*–docat* command line switch, combined with user per module of
+*__pragma__ (‘nodocat’)*
+
+Testlet: docstrings
+
+   '''Just a module
+   to test docstrings'''
+   '''Not visible'''
+
+   from org.transcrypt.stubs.browser import __pragma__
+   __pragma__ ('docat')
+
+   def run (autoTester):
+       def f (p):
+           '''Just a function
+           called f'''
+           '''Not visible'''
+           autoTester.check (p) 
+
+       class C:
+           '''Just a class
+           called C'''
+           '''Not visible'''
+           def g (self, q):
+               '''Just a method
+               called g'''
+               '''Not visible'''
+               autoTester.check (q)
+           
+       autoTester.check (__doc__)
+       autoTester.check ()
+
+       autoTester.check (f.__doc__)
+       autoTester.check ()
+
+       autoTester.check (C.__doc__)
+       autoTester.check ()
+
+       autoTester.check (C.g.__doc__)
+       autoTester.check ()
+
+       f ('Doc')
+       C () .g ('strings')
+
+
+4.18. Exceptions: exception class hierarchy, finally
+====================================================
+
+Testlet: exceptions
+
+   from org.transcrypt.stubs.browser import __envir__, __new__, __pragma__
+
+   class Ex1 (Exception):
+       pass
+           
+   class Ex2 (Ex1):
+       pass
+       
+   class Ex3 (Exception):
+       pass
+       
+   class Table (BaseException):    # Any Python exception MUST inherit from BaseException
+       def __init__ (self, *args):
+           self.fields = args
+           
+       def __repr__ (self):
+           return 'Table' + repr (self.fields) .replace (', ', ',') .replace ('\'', '')
+
+   def test1 ():
+       raise (Exception ('mary'))
+       
+   def test2 (autoTester):
+       try:
+           test1 ()
+       except Ex1 as exception:
+           autoTester.check (111)
+           autoTester.check (exception)
+       except Exception as exception:
+           autoTester.check (222)
+           autoTester.check (exception)
+           
+   def run (autoTester):
+       test2 (autoTester)
+       
+       try:
+           raise Ex2 ('had')
+       except Ex1 as exception:
+           autoTester.check ('a')
+       except Exception as exception:
+           autoTester.check ('little')
+           autoTester.check (exception)
+           
+       autoTester.check (333)
+           
+       try:
+           raise Ex1 ('lamb')
+       except Ex2 as exception:
+           autoTester.check ('his')
+           autoTester.check (exception)
+       except Ex1 as exception:
+           autoTester.check ('fleece')
+           autoTester.check (exception)
+       except Exception as exception:
+           autoTester.check ('was')
+           autoTester.check (exception)
+       finally:
+           autoTester.check ('white')
+           
+       autoTester.check (444)
+
+       def test3 ():
+           raise Ex3 ('as')
+           
+       autoTester.check (555)
+
+       try:
+           test3 ()
+       except Ex1 as exception:
+           autoTester.check ('snow')
+           autoTester.check (exception)
+       except Exception as exception:
+           autoTester.check ('and')
+           autoTester.check (exception)
+       finally:
+           autoTester.check ('everywhere')
+           
+       autoTester.check (666)
+       
+       try:
+           raise Ex3 ('that')
+       except Ex1 as exception:
+           autoTester.check ('mary')
+           autoTester.check (exception)
+       except:
+           autoTester.check ('went')
+       finally:
+           autoTester.check ('the')
+       
+       autoTester.check (777)
+       
+       try:
+           try:
+               raise Ex3 ('lamb')
+           except Ex1 as exception:
+               autoTester.check ('was')
+               autoTester.check (exception)
+           finally:
+               autoTester.check ('to')
+       except Ex3 as exception:    # We should get here, exception not swallowed
+           autoTester.check ('go')
+           autoTester.check (exception)
+           
+       try:
+           raise __new__ (Table ('he', 'followed', 'her'))
+       except Ex1 as exception:
+           autoTester.check ('to')
+           autoTester.check (exception)
+       except Table as exception:  # Pure JavaScript exception, if no Python __class__
+           autoTester.check ('school')
+           autoTester.check (exception)
+       except Ex3 as exception:
+           autoTester.check ('one')
+           autoTester.check (exception)
+       finally:
+           autoTester.check ('day')
+       
+       try:
+           assert 2 * 8 / 4 == 2, 'Assert error 1'
+       except AssertionError as exception:
+           autoTester.check (exception)
+           
+       try:
+           assert 2 * 8 / 4 == 4, 'Assert error 2'
+       except AssertionError as exception:
+           autoTester.check (exception)
+           
+       try:
+           assert 2 * 8 / 4 == 2
+       except AssertionError as exception:
+           autoTester.check (exception)
+           
+       try:
+           assert 2 * 8 / 4 == 4
+       except AssertionError as exception:
+           autoTester.check (exception)
+           
+       autoTester.check (888)
+       
+       try:
+           autoTester.check ('hello world 1')
+       except:
+           autoTester.check ('error 1')
+       else:
+           autoTester.check ('no error 1')
+           
+       i = 1 + 2
+       try:
+           autoTester.check ('hello world 2')
+           if i == 3:  # Prevent unreachable code warning
+               raise Exception ()
+       except:
+           autoTester.check ('error 2')
+       else:
+           autoTester.check ('no error 2')
+           
+       for raiseIt in (False, True):
+           try:
+               try:
+                   if raiseIt:
+                       raise Exception ()
+                   autoTester.check ('no error 3')
+               finally:
+                   autoTester.check ('anyhow 3')
+           except:
+               autoTester.check ('error 3')
+               
+
+
+4.19. Extended slices: facilitating NumScrypt and such
+======================================================
+
+Testlet: extended_slices
+
+   from org.transcrypt.stubs.browser import *
+   from org.transcrypt.stubs.browser import __pragma__, __envir__
+
+   def indices (key):
+       if __envir__.executor_name == __envir__.transpiler_name:
+           return tuple (key) if type (key) == list else key
+       else:
+           try:
+               return key.indices (1000000000)
+           except:
+               try:
+                   return tuple ([indices (subkey) for subkey in key])
+               except:
+                   return key
+
+   class Test:
+       def __init__ (self, autoTester):
+           self.autoTester = autoTester
+
+       def __getitem__ (self, key):
+           self.autoTester.check ('getitem (', indices (key), ')')
+           return 1234567
+           
+       def __setitem__ (self, key, value):
+           self.autoTester.check ('setitem (', indices (key), ')', value)
+
+   def run (autoTester):
+       a = b = c = d = e = f = g = h = i = j = k = l = Test (autoTester)
+
+       __pragma__ ('opov')
+               
+       a [1:2:3, 4:5:6] = b [7:8:9]
+       c [1:2:3] = d [4:5:6, 7:8:9]
+       e [1, 1:2:3, 3] = f [4, 4:5:6, 6]
+       g [1, 2, 3] = h [1, 2, 3]
+       i [1] = j [1]
+       k [1:2:3] = l [1:2:3]
+
+
+4.20. General functions: sort and sorted
+========================================
+
+Testlet: general_functions
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   class A:
+       foo='bar'
+       def __init__ (self):
+           self.foo2 = 'bar2'
+
+   class B (A):
+       foo3='bar3'
+       def __init__ (self):
+           self.foo4 = 'bar4'
+           
+   class C:
+       def __len__ (self):
+           return 42
+
+   def run (autoTester):
+       autoTester.check ('len')
+
+       strings = ['hello', ',', 'world', '!']
+       instances = [C()]
+       collections = [
+           [], [1], [1, 2],
+           tuple(), (1,), (1, 2),
+           {}, {1: 1}, {1: 1, 2: 2}
+       ]
+
+       for string in strings:
+           autoTester.check (len (string))
+
+       for instance in instances:
+           autoTester.check (len (instance))
+
+       for collection in collections:
+           autoTester.check (len (collection))
+
+       autoTester.check ('sort and sorted<br>')
+       a = [11, 7, 23, 4, -1]
+       b = ['sun', 'earth', 'moon']
+       c = [{'name': 'Defg', 'qty': 99}, {'name': 'Abcd', 'qty': 42}, {'name': 'Hijk', 'qty': 11}]
+       d = [[21, 19, 54], [22, 7, 12, 37]]
+
+       autoTester.check (a)
+       autoTester.check (sorted (a))
+       autoTester.check (a)
+       autoTester.check (sorted (a, key=str))
+       autoTester.check (sorted (a, key=int))
+       autoTester.check (sorted (b))
+
+       autoTester.check (sorted(c, key=lambda k: k['qty']))
+       autoTester.check (sorted(c, key=lambda k: k['name']))
+       autoTester.check (sorted(c, key=lambda k: k['name'], reverse=True))
+
+       autoTester.check (sorted(d))
+       autoTester.check (sorted(d, key=sum))
+
+       # Make sure sorted is doing a proper shallow copy (issue 866)
+       e = sorted(d)
+       autoTester.check(e)
+       d[1][1] = 9
+       autoTester.check(d)
+       autoTester.check(e)
+       d[1] = [22,14,36]
+       autoTester.check(d)
+       autoTester.check(e)
+
+
+       a.sort ()
+       autoTester.check (a)
+       
+       b.sort ()
+       autoTester.check (b)
+
+       autoTester.check (sorted (a, reverse = True))
+       autoTester.check (sorted (b, reverse = True))
+       
+       a.sort (reverse = True)
+       autoTester.check (a)
+       
+       a.sort (key=int)
+       autoTester.check (a)
+
+       b.sort (reverse = True)
+       autoTester.check (b)
+       
+       b.sort (key = lambda x: len (x)) 
+       autoTester.check (b)
+
+       b.sort (key = lambda x: len (x), reverse = True) 
+       autoTester.check (b)
+
+       autoTester.check ('<br><br>dir<br>')
+       autoTester.check ([entry for entry in dir (A) if not entry.startswith ('__')])
+       autoTester.check ([entry for entry in dir (A()) if not entry.startswith ('__')])
+       autoTester.check ([entry for entry in dir (B) if not entry.startswith ('__')])
+       autoTester.check ([entry for entry in dir (B()) if not entry.startswith ('__')])
+
+       autoTester.check ('<br><br>any, all, sum<br>')
+       list1 = ['ape', 'node', 'mice']
+       list2 = ['vim', '', 'jet']
+       list3 = ['', '', '']
+       list4 = [[1, 2], [1], []]   # Truthyness into play
+       autoTester.check (list1, any (list1), all (list1))
+       autoTester.check (list2, any (list2), all (list2))
+       autoTester.check (list3, any (list3), all (list3))
+       autoTester.check (list4, any (list4), all (list4))
+       
+       autoTester.check (sum (range (5)))
+         
+       def generator1 ():
+           for i in range (5):
+               yield i;
+               
+       def generator2 ():
+           for i in range (5):
+               if i % 2:
+                   yield 0
+               else:
+                   yield i;
+                   
+       def generator3 ():
+           for i in range (5):
+               yield 0;
+                   
+           autoTester.check (generator1 (), any (generator1 ()), all (generator1 ()))
+           autoTester.check (generator2 (), any (generator2 ()), all (generator2 ()))
+           autoTester.check (generator3 (), any (generator3 ()), all (generator3 ()))
+           
+           autoTester.check (sum (generator1 ()))
+       __pragma__ ('endif')
+
+
+4.21. Global variable access by using globals () [<variable_name>]
+==================================================================
+
+The *globals ()* function does the same as its counterpart in CPython,
+with some restrictions.
+
+In the same module:
+
+* *globals ()* can retrieve all module-level variables, whether
+  created via *globals ()* or in the normal way
+
+* module-level variables created via *globals ()* can only be
+  retrieved by *globals ()*, not as a normal variable
+
+From a different module:
+
+* *globals ()* can retrieve all module-level variables, whether
+  created by *globals ()* or in the normal way
+
+* module-level variables created by *globals ()* can be retrieved by
+  *globals ()*, but also as a normal variable
+
+Since imports are done (statically) at compile time, *from … import **
+will not include the variables created (dynamically) via *globals ()*.
+You can however import the whole module, e.g. *import <longName> as
+<shortName>* and then use *<shortName>.<dynamicallyCreatedVariable>*.
+
+The code below shows what’s possible:
+
+Testlet: globals_function, module sub
+
+   #  __pragma__ ('xglobs')
+
+   xxa = 'subXxa'
+   xxb = 'subXxb'
+   xxp = None
+   xxq = None
+   xxr = None
+   xxs = None
+
+   for name in ('xxp', 'xxq'):
+       globals () [name] = 'sub{}'.format (name.capitalize ())
+
+   def f ():
+       for name in ('xxr', 'xxs'):
+           globals () [name] = 'sub{}'.format (name.capitalize ())
+           
+   def run (autoTester):
+       f ()
+       autoTester.check ('Check sub 1', xxa, xxb)    
+       autoTester.check ('Check sub 2', * [globals () [name] for name in ('xxa', 'xxb', 'xxp', 'xxq', 'xxr', 'xxs')])
+       autoTester.check ('Check sub 3', * sorted ([value for key, value in globals () .items () if key.startswith ('xx')]))
+
+       
+
+Testlet: globals_function, main program
+
+   # __pragma__ ('xglobs')
+
+   from globals_function import sub
+
+   xxa = 'mainXxa'
+   xxb = 'mainXxb'
+   xxp = None
+   xxq = None
+   xxr = None
+   xxs = None
+
+   for name in ('xxp', 'xxq'):
+       globals () [name] = 'main{}'.format (name.capitalize ())    
+       
+   def f ():
+       for name in ('xxr', 'xxs'):
+           globals () [name] = 'main{}'.format (name.capitalize ())
+           
+   def run (autoTester):
+       f ()                 # All vars of main added
+       sub.run (autoTester) # Shouldn't override vars of main
+       
+       autoTester.check ('Check main 1', xxa, xxb)
+       autoTester.check ('Check main 2', * [globals () [name] for name in ('xxa', 'xxb', 'xxp', 'xxq', 'xxr', 'xxs')])
+       autoTester.check ('Check main 3', sub.xxa, sub.xxb, sub.xxp, sub.xxq, sub.xxr, sub.xxs)
+       autoTester.check ('Check main 4', * sorted ([value for key, value in globals () .items () if key.startswith ('xx')]))
+       
+
+The output will be:
+
+   [image: Output of 'global_functions autotest'][image]
+
+
+4.22. Indices and slices: LHS, RHS, basic and extended
+======================================================
+
+Testlet: indices_and_slices
+
+   from copy import copy
+
+   def run (autoTester):
+       # Right hand side slices
+       all = range (32)
+       autoTester.check (all)
+       
+       autoTester.check (all [8 : 24])
+       autoTester.check (all [8 : 24 : 2]) 
+       
+       # Left hand side slices
+       aList = [3, 4, 7, 8]
+       autoTester.check (aList)
+       
+       aList [4 : 4] = [9, 10]
+       autoTester.check (aList)
+       
+       aList [2 : 2] = [5, 6]
+       autoTester.check (aList)
+       
+       aList [0 : 0] = [1, 2]
+       autoTester.check (aList)
+       
+       aList [ : : 2] = [x + 0.001 for x in range (10) if x % 2]
+       autoTester.check (aList)
+
+       allLists = [[], ['a', 'b', 'c', 'd', 'e', 'f', 'g'], ['a', 'b', 'c', 'd'], 'abcdefg', 'abc']
+       for aList in allLists:
+           autoTester.check(aList)
+           autoTester.check(aList[:])
+           autoTester.check(aList[None:None])
+           autoTester.check(aList[::])
+           autoTester.check(aList[::-1])
+           autoTester.check(aList[-1:-8:-1])
+           autoTester.check(aList[::2])
+           autoTester.check(aList[::-2])
+           autoTester.check(aList[:4:1])
+           autoTester.check(aList[:4:-1])
+           autoTester.check(aList[4:])
+           autoTester.check(aList[4::])
+           autoTester.check(aList[4::1])
+           autoTester.check(aList[4::-1])
+           autoTester.check(aList[1:4])
+           autoTester.check(aList[1:4:1])
+           autoTester.check(aList[1:4:2])
+           autoTester.check(aList[1:4:-2])
+           autoTester.check(aList[4:1:-2])
+           autoTester.check(aList[4:1])
+           autoTester.check(aList[-1:-4])
+           autoTester.check(aList[-4:-1])
+           autoTester.check(aList[-4:-1:2])
+           autoTester.check(aList[-4:-1:-2])
+           autoTester.check(aList[9:-9:1])
+           autoTester.check(aList[-9:9:1])
+           autoTester.check(aList[9:-9:-1])
+           autoTester.check(aList[-9:9:-1])
+           autoTester.check(aList[-9:9:-1])
+           autoTester.check('zero step slice', autoTester.expectException(lambda: print(aList[::0])))
+
+
+       sample_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+       aList = copy(sample_list)
+       aList[1:3] = ['x', 'y', 'z']
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       aList[1:1] = ['x', 'y', 'z']
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       aList[:] = ['x', 'y', 'z']
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       aList[1:5] = ['x', 'y', 'z']
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       aList[1:5] = 'xyz'
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       aList[0:5:2] = ['x', 'y', 'z']
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       def aTest1(test_list):
+           test_list[1:5:2] = ['x', 'y', 'z']  # ValueError: attempt to assign sequence of size 3 to extended slice of size 2
+       autoTester.check('Invalid slice assignment', autoTester.expectException(lambda: aTest1(aList)))
+
+       aList = copy(sample_list)
+       aList[5:2:-1] = ['x', 'y', 'z']
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       aList[5:0:-2] = ['x', 'y', 'z']
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       aList[1:5] = []
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       aList[1:5:1] = []
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       def aTest3(test_list):
+           test_list[5:1:-1] = []  # ValueError: attempt to assign sequence of size 0 to extended slice of size 4
+       autoTester.check('Invalid slice assignment', autoTester.expectException(lambda: aTest3(aList)))
+
+       aList = copy(sample_list)
+       def aTest4(test_list):
+           test_list[5:1:-1] = ['x', 'y', 'z']  # ValueError: attempt to assign sequence of size 3 to extended slice of size 4
+       autoTester.check('Invalid slice assignment', autoTester.expectException(lambda: aTest4(aList)))
+
+       aList = copy(sample_list)
+       aList[1:5:-1] = []
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       def aTest2(test_list):
+           test_list[0:5:-1] = ['x', 'y', 'z']  # ValueError: attempt to assign sequence of size 3 to extended slice of size 0
+       autoTester.check('Invalid slice assignment', autoTester.expectException(lambda: aTest2(aList)))
+
+       aList = copy(sample_list)
+       aList[0:7:3] = ['x', 'y', 'z']
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       def aTest5(test_list):
+           test_list[1:7:3] = ['x', 'y', 'z']  # ValueError: attempt to assign sequence of size 3 to extended slice of size 2
+       autoTester.check('Invalid slice assignment', autoTester.expectException(lambda: aTest5(aList)))
+
+       aList = copy(sample_list)
+       def aTest6(test_list):
+           test_list[7:0:-3] = ['x', 'y', 'z']  # ValueError: attempt to assign sequence of size 3 to extended slice of size 2
+       autoTester.check('Invalid slice assignment', autoTester.expectException(lambda: aTest6(aList)))
+
+       aList = copy(sample_list)
+       aList[7:0:-3] = ['x', 'y']
+       autoTester.check(aList)
+
+       aList = copy(sample_list)
+       def aTest7(test_list):
+           test_list[7:0:0] = ['x', 'y', 'z']  # ValueError: slice step cannot be zero
+       autoTester.check('zero step slice', autoTester.expectException(lambda: aTest7(aList)))
+
+
+4.23. Iterators and generators
+==============================
+
+Testlet: iterators_and_generators
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   class Iterable:
+       def __init__ (self, i):
+           self.aList = range (0, 50, i)
+
+       def __iter__ (self):
+           return Iterator (self) 
+           
+   class Iterator:
+       def __init__ (self, iterable):
+           self.iterable = iterable
+           self.index = -1
+           
+       def __next__ (self):    # Should be auto-wrapped in a next (self) by the compiler 
+           self.index += 1
+           
+           if self.index > 5:
+               raise StopIteration ()
+               
+           return self.iterable.aList [self.index]
+               
+       def __iter__ (self):
+           return self
+           
+   def exhaustableGenerator (i):
+       for i in range (5):
+           yield 2 * i
+
+   def run (autoTester):
+       exhaustableGenExp = (a * a * a for a in [10, 20, 30])   # Currently still converted to iterator on list comprehension, must also be iterable
+       # So becomes py_iter (aList).
+       # List already has an __iter__ which it will return, it's a __PyIterator__
+       # To that __PyIterator__, that will already have a __next__, py_iter first adds a next
+       # So exhaustableGenExp is an iterator with a next and a __next__
+       # If we call iter on that, py_iter is calle again py_iter, on an object with a next and a next __next__
+       # For this reason py_iter needs a recursion prevention check
+
+       iterables = [Iterable (7), exhaustableGenerator (5), [i * 3 for i in range (5)], exhaustableGenExp]
+
+       for iterable in iterables:  
+           autoTester.check ('[1]')
+           iterator = iter (iterable)
+           try:
+               while True:
+                   autoTester.check (next (iterator))
+           except Exception as exception:
+               autoTester.check (exception.__class__.__name__)
+
+           autoTester.check ('[2]')
+           iterator = iter (iterable)
+           try:
+               while True:
+                   autoTester.check (next (iterator))
+           except Exception as exception:
+               autoTester.check (exception.__class__.__name__)
+               
+       for iterable in iterables:
+           autoTester.check ('[3]')
+           for n in iterable:
+               autoTester.check (n)
+               
+           autoTester.check ('[4]')
+           for n in iterable:
+               autoTester.check (n)
+               
+       # BEGIN issue 196: for loop over iter (), runs OK but needs JavaScript 6. This should be clearly in the docs.
+               
+       a = 0
+       vals = [1,2,3]
+       ret = iter (vals)
+       for m in ret:
+           a += m
+       autoTester.check (a)
+        
+       # END issue 196
+                   
+       # BEGIN 1st example with 'send'
+           
+       __pragma__ ('gsend')
+
+       def test0 ():
+           r = 0
+           while True:
+               r = r + (yield r)
+
+       gen0 = test0()
+       next (gen0)
+       autoTester.check (gen0.send (1))
+       autoTester.check (gen0.send (2))
+
+       def test1 ():
+           r = 0
+           while True:
+               r = (yield r) + r
+
+       gen1 = test1()
+       next (gen1)
+       autoTester.check (gen1.send (3))
+       autoTester.check (gen1.send (4))
+       
+       # END 1st example with 'send'
+       
+       def subGenerator ():
+           yield 27
+           yield 37
+           yield 47
+       
+       
+       def mainGenerator ():
+           yield 17
+           yield from subGenerator ()
+           yield 57
+           
+       autoTester.check (* [i for i in mainGenerator ()])
+       
+       def subCoroutine ():
+           autoTester.check (38)
+           yield
+           autoTester.check (48)
+           yield
+           autoTester.check (58)
+           yield
+           autoTester.check (68)
+       
+       
+       def mainCoroutine ():
+           autoTester.check (18)
+           yield
+           autoTester.check (28)
+           yield from subCoroutine ()
+           autoTester.check (78)
+           yield
+           autoTester.check (88)
+           
+       m = mainCoroutine ()
+       for i in range (5):
+           m.send (None)
+           
+
+
+4.24. Lambda functions with all types of args
+=============================================
+
+Testlet: lambda_functions
+
+   def run (autoTester):
+       z = 1000
+       autoTester.check ((lambda x, y: x + y + z) (111, 222))
+
+       def f (list0, list1, aFunc):
+           return [aFunc (*elem) for elem in zip (list0, list1)]
+
+       x = f (range (10), range (0, 100, 10), lambda x, y: x + y + z)
+       autoTester.check (x)
+       
+       autoTester.check (f (range (10, 20), range (100, 200, 10), lambda x, y: x * y + 100 * z))
+       autoTester.check (f (range (10, 20), range (100, 200, 10), lambda *args: args [0] * args [1] + 100 * z))
+
+
+4.25. List comprehensions: multi-loop and nested with multiple if’s
+===================================================================
+
+Testlet: list_comprehensions
+
+   def run (autoTester):
+       squares = [i * i for i in range (10) if i % 2]
+       autoTester.check (squares)
+       
+       tuples = [
+           (x, y, z)
+           for x in (100, 200, 300, 400, 500, 600, 700)
+               for y in (10, 20, 30, 40, 50, 60, 70) if 20 < y  < 60
+                   for z in (1, 2, 3, 4, 5, 6, 7) if 200 < x < 600 if 2 < z < 6
+       ]
+       autoTester.check (tuples)
+       
+       tricky = [(2 * x, 3 * y) for x, y in ((10, 11), (20, 21))]
+       autoTester.check (tricky)
+       
+       nested = [2 * x for x in [x * x for x in range (3)]]
+       autoTester.check (nested)
+       
+       a = 100
+       x = 5
+       scopeTest = [x + a for x in range (5)]
+       autoTester.check (x)
+       autoTester.check (scopeTest)
+
+
+4.26. Local classes: inside other classes and functions
+=======================================================
+
+Testlet: local_classes
+
+   def run (autoTester):       
+       class A:
+           class B:
+               class C:
+                   def __init__ (self, x):
+                       self.x = x
+                       
+                   def tell (self):
+                       autoTester.check (self.x)
+                       autoTester.check (self.e)
+                       
+                   # Limitation: no destructuring assignment inside nested classes
+                   e = 3
+                   
+               def __init__ (self, x):
+                   self.x = x
+                   
+               def tell (self):
+                   autoTester.check (self.x)
+                   autoTester.check (self.d)
+                   
+               d = 2
+                   
+           c = 1
+
+           def __init__ (self, x):
+               self.x = x
+               
+           def tell (self):
+               autoTester.check (self.x)
+               autoTester.check (self.c)
+               
+       def f (x):
+           class G:
+               class H:
+                   def __init__ (self, x):
+                       self.x = x
+                       
+                   def tell (self):
+                       autoTester.check (self.x)
+                       autoTester.check (self.i)
+                       
+                   i = 5
+           
+               def __init__ (self, x):
+                   self.x = x
+                   
+               def tell (self):
+                   autoTester.check (self.x)
+                   
+               k = 4
+               
+           g = G (6)
+           g.tell ()
+           autoTester.check (g.k)
+           
+           h = G.H (7)
+           h.tell ()
+           autoTester.check (h.i)
+           
+           class P (A.B):
+               pass
+               
+           p = P (7)
+           p.tell ()
+           autoTester.check (p.d)
+                   
+       a = A (8)
+       b = a.B (9)
+       c = b.C (10)
+
+       a.tell ()
+       b.tell ()
+       c.tell ()
+
+       autoTester.check (a.c)
+       autoTester.check (b.d)
+
+       f (7)
+
+
+4.27. Metaclasses: overriding type.__new__ in a descendant metaclass
+====================================================================
+
+Testlet: metaclasses
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   class UppercaserMeta (type):
+       def __new__ (meta, name, bases, attribs):
+           __pragma__ ('jsiter')       # Translate for ... in directly to JavaScript for ... in ... and translate {} to bare {} rather than to dict {}
+                                       # Using bare {} as attribs parameter to __new__ avoids dict attributes masking regular attributes
+                                       # For more flexibility use __pragma__ ('js', '{}', '''...''')
+           upperAttribs = {}
+           
+           for attribKey in attribs:   # Translates to 'for (var attribKey in attribs)' by virtue of __pragma__ ('jsiter'), to iterate over the attributes of a bare JavaScript {}
+               upperAttribs [attribKey if  attribKey.startswith ('__') else attribKey.upper ()] = attribs [attribKey]
+               
+           __pragma__ ('nojsiter')
+               
+           return type.__new__ (meta, name, bases, upperAttribs)
+
+   class Uppercaser (metaclass = UppercaserMeta):
+       pass
+       
+   class Animal (Uppercaser):
+       class Thoughts:
+           quantity = 7
+
+       # Limitation: no destructuring assignment if metaclass has to alter attributes
+       color = 'Brown'
+       state = 'Moving'
+
+       def move (self):
+           return 'Move'
+
+   class Plant (Uppercaser):
+       class Thoughts:
+           quantity = 6
+
+       color = 'Green'
+       state = 'Growing'
+
+       def grow (self):
+           return 'Grow'
+           
+   class Stone:
+       class Thoughts:
+           quantity = 5
+
+       color = 'Gray'
+       
+       def be (self):
+           return ('Being')
+
+   def run (autoTester):
+       animal = Animal ()
+       autoTester.check (animal.THOUGHTS.quantity, Animal.COLOR, animal.COLOR, animal.MOVE ())
+       
+       plant = Plant ()
+       autoTester.check (plant.THOUGHTS.quantity, Plant.COLOR, plant.COLOR, plant.GROW ())
+       
+       stone = Stone ()
+       autoTester.check (stone.Thoughts.quantity, Stone.color, stone.color, stone.be ())
+       
+
+
+4.28. Method and class decorators
+=================================
+
+Testlet: method_and_class_decorators
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   def run (autoTester):
+
+       class adecorator:
+           __pragma__('kwargs')
+           def __init__(self, *args, **kwargs):
+               self.args = args
+               self.kwargs = kwargs
+           __pragma__('nokwargs')
+
+           def __call__(self, func):
+               __pragma__('kwargs')
+               def wrapper(*args, **kwargs):
+                   slf = args[0]
+
+                   # replace and store the attributes
+                   saved = {}
+                   for k, v in self.kwargs.items():
+                       if hasattr(slf, k):
+                           saved[k] = getattr(slf, k)
+                           setattr(slf, k, v)
+
+                   # call the method
+                   ret = func(*args, **kwargs)
+
+                   # put things back
+                   for k, v in saved.items():
+                       setattr(slf, k, v)
+
+                   return ret
+
+               __pragma__('nokwargs')
+               return wrapper
+
+       def method_decorator(prefix):
+           def inner_decorator(method):
+               def wrapper(self, name):
+                   autoTester.check(name)
+                   return method(self, prefix + name)
+               return wrapper
+           return inner_decorator
+
+       def method_decorator2(prefix):
+           def inner_decorator(method):
+               def wrapper(self, name):
+                   autoTester.check(name)
+                   return method(self, prefix + name)
+               return wrapper
+           return inner_decorator
+
+       def multiplier(m):
+           def inner_decorator(method):
+               def wrapper(self, num):
+                   autoTester.check(num)
+                   n = method(self, num)
+                   return n * m
+               return wrapper
+           return inner_decorator
+
+       def classmethod_decorator(method):
+
+           def wrapper(cls, a, b):
+               autoTester.check(cls.__name__, a, b)
+               return method(cls, b, a)
+
+           return wrapper
+
+       def class_decorator(prefix):
+
+           def wrapper(cls):
+               autoTester.check(prefix + cls.__name__)
+               return cls
+
+           return wrapper
+
+       @class_decorator('outer_')
+       class MyClass:
+
+           @class_decorator('inner_')
+           class InnerClass:
+               @method_decorator('inner_first_')
+               @method_decorator2('inner_second_')
+               def mymethod(self, name):
+                   autoTester.check(name)
+
+               @classmethod
+               @classmethod_decorator
+               def myclassmethod(cls, a, b):
+                   autoTester.check(cls.__name__, a, b)
+                   return a + b
+
+               @staticmethod
+               def mystaticmethod(a, b):
+                   autoTester.check(a, b)
+                   return a + b
+
+               @property
+               def inner_property(self):
+                   return 'I am a property'
+
+           def __init__(self):
+               self.greetings = 'Hello'
+
+           __pragma__('opov')
+           @adecorator(greetings='Goodbye')
+           def get_greetings(self):
+               return self.greetings
+           __pragma__('noopov')
+
+           @method_decorator('first_')
+           @method_decorator2('second_')
+           def mymethod(self, name):
+               autoTester.check(name)
+
+           @multiplier(5)
+           def number(self, num):
+               return num
+
+           @classmethod
+           def myclassmethod(cls, a, b):
+               autoTester.check(cls.__name__, a, b)
+               return a + b
+
+           @staticmethod
+           def mystaticmethod(a, b):
+               autoTester.check(a + b)
+               return a + b
+
+           @property
+           def simple_property(self):
+               return self.greetings
+
+           @simple_property.setter
+           def simple_property(self, value):
+               self.greetings = value
+
+           def run(self):
+               inner_obj = self.InnerClass()
+               inner_obj.mymethod('Dog')
+               result1 = inner_obj.myclassmethod('param1', 'param2')
+               result2 = self.InnerClass.myclassmethod('param1', 'param2')
+               autoTester.check(result1 == result2)
+               result1 = inner_obj.mystaticmethod('param1', 'param2')
+               result2 = self.InnerClass.mystaticmethod('param1', 'param2')
+               autoTester.check(result1 == result2)
+               autoTester.check(inner_obj.inner_property)
+
+       myobj = MyClass()
+       myobj.mymethod('Cat')
+       autoTester.check(myobj.greetings)
+       autoTester.check(myobj.get_greetings())
+       result1 = myobj.myclassmethod('param1', 'param2')
+       result2 = MyClass.myclassmethod('param1', 'param2')
+       autoTester.check(result1 == result2)
+       result1 = myobj.mystaticmethod('param1', 'param2')
+       result2 = MyClass.mystaticmethod('param1', 'param2')
+       autoTester.check(result1 == result2)
+       autoTester.check(myobj.number(3))
+       autoTester.check(myobj.simple_property)
+       myobj.simple_property = 'New value'
+       autoTester.check(myobj.simple_property)
+       autoTester.check(myobj.greetings == myobj.simple_property)
+       myobj.run()
+
+
+4.29. Module builtin: a small part of it demo’ed
+================================================
+
+Testlet: module_builtin
+
+   # coding: utf-8
+
+   from org.transcrypt.stubs.browser import __envir__
+
+   def canonizeString (aString):
+       if __envir__.executor_name == 'transcrypt':
+           return aString.replace ('\t', '\\t') .replace ('\n', '\\n')
+       else:
+           return aString
+
+   def canonizeStringList (stringList):
+       return [canonizeString (aString) for aString in stringList]
+
+   def run (autoTester):
+       autoTester.check ('min',
+                         min (-1.1, -1, -3),
+                         min ([-1.1, -1, -3]),
+                         min ((-1.1, -1, -3)),
+                         min ('abc', 'ABC', 'xyz', 'XYZ'),
+                         min ('abc', 'ABC', 'xyz', 'XYZ', key=lambda v: v[1]),
+                         min (['abc', 'ABC', 'xyz', 'XYZ']),
+                         min([5,6,7,8,9],[1,2,3,4],key=len),
+                         min([[5,6,7,8,9],[1,2,3,4]],default=[1,1,1],key=len),
+                         min ([], default='zzz'),
+                         )
+
+       autoTester.check ('max',
+                         max (-1.1, -1, -3),
+                         max ([-1.1, -1, -3]),
+                         max ((-1.1, -1, -3)),
+                         max ('abc', 'ABC', 'xyz', 'XYZ'),
+                         max ('abc', 'ABC', 'xyz', 'XYZ', key=lambda v: v[1]),
+                         max (['abc', 'ABC', 'xyz', 'XYZ']),
+                         max([5,6,7,8,9],[1,2,3,4],key=len),
+                         max([[5,6,7,8,9],[1,2,3,4]],default=[1,1,1],key=len),
+                         max ([], default='zzz'),
+                         )
+       # autoTester.check ('max', autoTester.expectException(lambda: max () ))
+       # autoTester.check ('max', autoTester.expectException(lambda: max (1,2,3,4, default=5) ))
+       # autoTester.check ('max', autoTester.expectException(lambda: max (default=5)))
+       # autoTester.check ('max', autoTester.expectException(lambda: max ([])))
+       # autoTester.check ('max', autoTester.expectException(lambda: max([5,6,7,8,9],[1,2,3,4],default=[1,1,1],key=len) ))
+       # autoTester.check ('max', autoTester.expectException(lambda: max ([4, 5, 'xyz', 'XYZ']) ))
+
+       autoTester.check ('abs', abs (-1), abs (1), abs (0), abs (-0.1), abs (0.1))
+
+       autoTester.check ('ord', ord ('a'), ord ('e´'[0]))  # This is the 2 codepoint version
+       autoTester.check ('chr', chr (97), chr (122), chr (65), chr (90))  # a z A Z
+
+       autoTester.check ('round',
+           round (4.006),
+           round (4.006, 2),
+           round (4060, -2),
+           
+           round (-4.006),
+           round (-4.006, 2),
+           round (-4060, -2),
+           
+           round (1/2.),
+           round (1/2., 1),
+           round (1/2, 1),
+           round (1/3., 2),
+           
+           round (-1/2.),
+           round (-1/2., 1),
+           round (-1/2, 1),
+           round (-1/3., 2),
+       
+           round (0.5),
+           round (0.51),
+           round (1.5),
+           round (1.51),
+           round (1.51),
+           round (2.5),
+           round (2.59),
+           round (3.5),
+           round (3.59),
+           
+           round (-0.5),
+           round (-0.51),
+           round (-1.5),
+           round (-1.51),
+           round (-1.51),
+           round (-2.5),
+           round (-2.59),
+           round (-3.5),
+           round (-3.59)
+       )
+       
+       strings = [
+           'der des dem den die der den die das des dem das',
+           'an auf hinter ueber    neben vor   zwischen',
+           '''
+               durch
+               fuer
+               ohne
+               um
+               bis
+               gegen
+               entlang
+           ''',
+           'eins,zwei,drie,vier,fuenf,sechs,sieben'
+       ]
+       
+       autoTester.check ('<br><br>split')
+       for aString in strings:
+           autoTester.check (
+               canonizeString (aString),
+               canonizeStringList (aString.split ()),
+               canonizeStringList (aString.split (' ')),
+               canonizeStringList (aString.split (' ', 4)),
+               canonizeStringList (aString.split ('\t')),
+               canonizeStringList (aString.split ('\t', 4)),
+               canonizeStringList (aString.split ('\n')),
+               canonizeStringList (aString.split ('\n', 4)),
+               canonizeStringList (aString.split (',')),
+               canonizeStringList (aString.split (',', 4)),
+               '<br>'
+           )
+           
+       autoTester.check ('<br>rsplit')
+       for aString in strings:
+           autoTester.check (
+               canonizeString (aString),
+               canonizeStringList (aString.rsplit ()),
+               canonizeStringList (aString.rsplit (' ')),
+               canonizeStringList (aString.rsplit (' ', 4)),
+               canonizeStringList (aString.rsplit ('\t')),
+               canonizeStringList (aString.rsplit ('\t', 4)),
+               canonizeStringList (aString.rsplit ('\n')),
+               canonizeStringList (aString.rsplit ('\n', 4)),
+               canonizeStringList (aString.rsplit (',')),
+               canonizeStringList (aString.rsplit (',', 4)),
+               '<br>'
+           )
+
+       autoTester.check("isalpha",
+                        "".isalpha(),
+                        "123".isalpha(),
+                        "abc".isalpha(),
+                        "abc123".isalpha(),
+                        )
+
+       enumerate_list = ['a', 'b', 'c', 'd', 'e']
+       # JS does not have tuples so coerce  to list of lists
+       autoTester.check("enumerate",
+           [list(item) for item in enumerate(enumerate_list)],
+           [list(item) for item in enumerate(enumerate_list, 1)],
+           [list(item) for item in enumerate(enumerate_list, start=2)]
+       )
+
+       replace_test = "abcabcabcabc"
+       autoTester.check("replace",
+           replace_test.replace("c", "x"),
+           replace_test.replace("c", "x", -1),
+           replace_test.replace("c", "x", 0),
+           replace_test.replace("c", "x", 1),
+           replace_test.replace("c", "x", 2),
+           replace_test.replace("c", "x", 10),
+       )
+
+       autoTester.check("bin-oct-hex",
+           bin(42),
+           oct(42),
+           hex(42),
+           bin(0),
+           oct(0),
+           hex(0),
+           bin(-42),
+           oct(-42),
+           hex(-42),
+       )
+
+       string_test = "abcdefghijkl"
+       autoTester.check("startswith",
+           string_test.startswith(""),
+           string_test.startswith("abcd"),
+           string_test.startswith("efgh"),
+           string_test.startswith("efgh", 2),
+           string_test.startswith("efgh", 4),
+           string_test.startswith("abcd", 0, 3),
+           string_test.startswith("abcd", 0, 5),
+           string_test.startswith("efgh", 4, -2),
+           string_test.startswith("efgh", 4, -6),
+           string_test.startswith(("abc",)),
+           string_test.startswith(("abc", "de", "gh")),
+           string_test.startswith(("abc", "de", "gh"), 2),
+           string_test.startswith(("abc", "de", "gh"), 3),
+           string_test.startswith(("abc", "defgh"), 3, 9),
+           string_test.startswith(("abc", "defgh"), 3, 6),
+       )
+
+       autoTester.check("endswith",
+           string_test.endswith(""),
+           string_test.endswith("ijkl"),
+           string_test.endswith("efgh"),
+           string_test.endswith("efgh", 2),
+           string_test.endswith("abcd", 0, 3),
+           string_test.endswith("abcd", 0, 4),
+           string_test.endswith("efgh", 4, -2),
+           string_test.endswith("efgh", 4, -4),
+           string_test.endswith(("ijkl",)),
+           string_test.endswith(("abc", "de", "gh")),
+           string_test.endswith(("abc", "de", "gh"), 3, -4),
+           string_test.endswith(("abc", "de", "gh"), -6, -4),
+           string_test.endswith(("abc", "defgh"), -3, 8),
+           string_test.endswith(("abc", "defgh"), -9, 8),
+       )
+
+
+4.30. Module cmath: almost all of Python’s cmath module
+=======================================================
+
+Testlet: module_cmath
+
+   from org.transcrypt.stubs.browser import __pragma__
+   from cmath import *
+
+   twoPi = 2 * pi
+   nDecs = 5
+
+   __pragma__ ('opov')
+
+   def run (autoTester):
+       autoTester.check (phase (1 + 1j))
+       
+       aPolar = polar (3 + 5j)
+       autoTester.check (round (aPolar [0], nDecs), aPolar [1])
+       
+       aRect = rect (*aPolar)
+       autoTester.check (round (aRect.real), round (aRect.imag))
+       
+       anExp = exp (-2.2 - 3.3j)
+       autoTester.check (round (anExp.real, nDecs), round (anExp.imag, nDecs))
+       
+       aLog = log (anExp)
+       autoTester.check (round (aLog.real, nDecs), round (aLog.imag, nDecs))
+       
+       anExp10 = aLog ** 10
+       autoTester.check (round (anExp10.real, nDecs), round (anExp10.imag, nDecs))
+       
+       aLog10 = log10 (anExp10)
+       autoTester.check (round (aLog10.real, nDecs), round (aLog10.imag, nDecs))
+       
+       anExpRect = aLog ** aRect
+       autoTester.check (round (anExpRect.real, nDecs), round (anExpRect.imag, nDecs))
+       
+       aLogRect = log (anExpRect, aRect)
+       autoTester.check (round (aLogRect.real, nDecs), round (aLogRect.imag, nDecs))
+       
+       aSqrt = sqrt (1j)
+       autoTester.check (round (aSqrt.real, nDecs), round (aSqrt.imag, nDecs))
+       autoTester.check (sqrt (4))
+       anotherSqrt = sqrt (-4)
+       autoTester.check (round (anotherSqrt.real), round (anotherSqrt.imag))
+       
+       anAsin = asin (1 + 2j)
+       autoTester.check (round (anAsin.real, nDecs), round (anAsin.imag, nDecs))
+
+       anAcos = acos (-2 + 3j)
+       autoTester.check (round (anAcos.real, nDecs), round (anAcos.imag, nDecs))
+       
+       anAtan = atan (3 - 4j)
+       autoTester.check (round (anAtan.real, nDecs), round (anAtan.imag, nDecs))
+       
+       aSin = sin (anAsin)
+       autoTester.check (round (aSin.real), round (aSin.imag))
+       
+       aCos = cos (anAcos)
+       autoTester.check (round (aCos.real), round (aCos.imag))
+       
+       aTan = tan (anAtan)
+       autoTester.check (round (aTan.real), round (aTan.imag))
+       
+       anAsinh = asinh (aCos)
+       autoTester.check (round (anAsinh.real, nDecs), round (anAsinh.imag, nDecs))
+
+       anAcosh = acosh (aSin)
+       autoTester.check (round (anAcosh.real, nDecs), round (anAcosh.imag, nDecs))
+       
+       anAtanh = atanh (aTan)
+       autoTester.check (round (anAtanh.real, nDecs), round (anAtanh.imag, nDecs))
+       
+       aSinh = sinh (anAsinh)
+       autoTester.check (round (aSinh.real), round (aSinh.imag))
+       
+       aCosh = cosh (anAcosh)
+       autoTester.check (round (aCosh.real), round (aCosh.imag))
+       
+       aTanh = tanh (anAtanh)
+       autoTester.check (round (aTanh.real), round (aTanh.imag))
+       
+
+
+4.31. Module datetime: transcryption of Python’s datetime module
+================================================================
+
+Testlet: module_datetime
+
+   from datetime import date, timedelta, datetime, timezone
+
+   # __pragma__('opov')
+
+   def fix_time (dt):
+       if dt.hour > 23:
+           dt = dt - timedelta (minutes=60)
+       if dt.minute > 50:
+           dt = dt - timedelta (minutes=10)
+       return dt
+
+   def run (autoTester):
+       # timezone
+       tz = timezone.utc
+       autoTester.check (repr (tz))
+
+       tz2 = timezone (timedelta (hours=-5), 'EST')
+       autoTester.check (repr (tz2))
+
+       now = fix_time (datetime.utcnow ())
+       now2 = fix_time (datetime.now (timezone.utc))
+       autoTester.check (now.day == now2.day)
+       autoTester.check (now.hour == now2.hour)
+       autoTester.check (now.replace (tzinfo=timezone.utc).astimezone (tz=None).hour)
+
+       # timedelta
+       delta = timedelta (days=8, minutes=15, microseconds=685)
+       delta2 = timedelta (days=8, minutes=15, microseconds=684)
+       autoTester.check (delta)
+       autoTester.check (delta2)
+
+       # timedelta comparisons
+       autoTester.check (delta == delta2)
+       autoTester.check (delta > delta2)
+       autoTester.check (delta < delta2)
+
+       # date
+       d = date (2017, 5, 5)
+       autoTester.check (d.day)
+       d = date.today ()
+       autoTester.check (d)
+       autoTester.check (d.day)
+       autoTester.check (d.weekday ())
+       autoTester.check (d.isoweekday ())
+       # !!! autoTester.check (d.isocalendar ()) Format changed in Python 3.9!
+       # Autotest: module_datetime/__init__.py:45  datetime.IsoCalendarDate(year=2021, week=19, weekday=5) (2021, 19, 5)   module_datetime.js:108
+       autoTester.check (d.ctime ())
+       d = d.replace (day=28)
+       autoTester.check (d.day)
+       autoTester.check (d.strftime ('%Y.%m.%d'))
+       autoTester.check (d.ctime ())
+       autoTester.check (d.isoformat ())
+
+       # date comparisons
+       d2 = d + delta
+       d3 = d2 - delta
+       autoTester.check (d)
+       autoTester.check (d2)
+       autoTester.check (d3)
+       autoTester.check (d == d3)
+       autoTester.check (d > d3)
+       autoTester.check (d < d3)
+       autoTester.check (d == d2)
+       autoTester.check (d > d2)
+       autoTester.check (d < d2)
+
+       # datetime
+       now = fix_time (datetime.now ())
+       autoTester.check (now.day)
+       autoTester.check (now.hour)
+       autoTester.check ((now + timedelta (days=2)).day)
+
+       d = datetime (2010, 1, 1, tzinfo=timezone.utc)
+       autoTester.check (d)
+
+       d = datetime (2017, 9, 19, 15, 43, 8, 142)
+       autoTester.check (d)
+       autoTester.check (d - timedelta (minutes=150))
+
+       d = datetime.strptime ('2017-03-14 15:28:14', '%Y-%m-%d %H:%M:%S')
+       autoTester.check (d)
+       autoTester.check (d.strftime ('%Y.%m.%d %H:%M:%S'))
+       d = d + timedelta (hours=5, minutes=18, seconds=25)
+       autoTester.check (d.strftime ('%Y-%m-%d %H:%M:%S'))
+       d = d.replace (year=2016, month=1)
+       autoTester.check (d.ctime ())
+       autoTester.check (d.isoformat ())
+       autoTester.check (d.date ())
+       autoTester.check (d.time ())
+       # named tuples not supported, need to convert
+       autoTester.check (tuple (d.timetuple ()))
+       autoTester.check (tuple (d.utctimetuple ()))
+
+       # datetime comparisons
+       d2 = d + delta
+       d3 = d2 - delta
+       autoTester.check (d)
+       autoTester.check (d2)
+       autoTester.check (d3)
+       autoTester.check (d == d3)
+       autoTester.check (d > d3)
+       autoTester.check (d < d3)
+       autoTester.check (d == d2)
+       autoTester.check (d > d2)
+       autoTester.check (d < d2)
+
+
+4.32. Module itertools: almost all of Python’s itertools module
+===============================================================
+
+Testlet: module_itertools
+
+   from itertools import *
+   from math import pow
+
+   def fibonacci():
+       a, b = 0, 1
+       for i in range (10):
+           yield a
+           a, b = b, a + b
+
+   squares = [i * i for i in range (10)]
+
+   chars = 'thequickbrownfoxjumpsoverthelazydog'
+           
+   def run (autoTester):
+       autoTester.check ('islice count', list (islice (count (10, 2), 4, 40, 3)))
+       autoTester.check ('islice cycle', list (islice (cycle (fibonacci ()), 15)))
+       autoTester.check ('repeat', list (repeat (3.14, 15)))
+       autoTester.check ('islice repeat', list (islice (repeat (2.74), 15)))
+       autoTester.check ('accumulate', list (accumulate (range (5))))
+
+       def add (total, element):
+           return total + element
+       
+       autoTester.check ('accumulate', list (accumulate (['alamak', 'mirach', 'sirrah'], add)))
+       
+       autoTester.check ('chain', list (chain (fibonacci (), squares, chars)))
+       autoTester.check ('chain.from_iterable', list (chain.from_iterable (['ape', 'node', 'mice', 'vim', 'sus', 'jet'])))
+       
+       selectors = [True, True, False, True, False, False, True, True, False, True]
+       
+       autoTester.check ('compress', list (compress (
+           ['{}{}'.format (('take' if selector else 'leave'), index) for index, selector in enumerate (selectors)],
+           selectors
+       )))
+       
+       autoTester.check ('dropwhile', list (dropwhile (lambda x: x < 5, [1, 4, 6, 4, 1])))
+       autoTester.check ('filterfalse', list (filterfalse (lambda x: x % 2, range (10))))
+       
+       things = [('animal', 'bear'), ('animal', 'duck'), ('plant', 'cactus'), ('vehicle', 'speed boat'), ('vehicle', 'school bus')]
+
+       for key, group in groupby (things, lambda x: x [0]):
+           for thing in group:
+               autoTester.check ('A {} is a {}.' .format (thing[1], key))
+           autoTester.check (' ')
+           
+       autoTester.check ('islice', list (islice ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2, 9, 2)))
+           
+       autoTester.check ('starmap', [int (x) for x in starmap (pow, [(2, 5), (3, 2), (10, 3)])])
+       autoTester.check ('takewhile', list (takewhile (lambda x: x < 5, [1, 4, 6, 4, 1])))
+       
+       i1, i2 = tee (islice (count (), 5))
+       autoTester.check ('tee', list (i1), list (i1), list (i2))
+       
+       autoTester.check ('product', list (product ('ABCD', 'xy')), list (product (range (2), repeat = 3)))
+
+       autoTester.check ('permutations', list (permutations ('ABCD')), list (permutations ('ABCD', 2)))
+       
+       autoTester.check ('combinations',
+           list (combinations ('ABCD', 2)),
+           list (combinations ([1, 2, 3, 4, 5], 3)),
+           list (combinations (islice (count (), 6), 4))
+       )
+       
+       autoTester.check ('combinations_with_replacement',
+           list (combinations_with_replacement ('ABCD', 2)),
+           list (combinations_with_replacement ([1, 2, 3, 4, 5], 3)),
+           list (combinations_with_replacement (islice (count (), 6), 4))
+       )
+       
+
+
+4.33. Module math: almost all of Python’s math module
+=====================================================
+
+Testlet: module_math
+
+   from math import *
+
+   def _check(nr, autoTester):
+       # we just compare the first 15 digits of floats due to precision deviations
+       # in browser and CPython:
+       if isinstance(nr, float):
+           nr = str(nr)[:15]
+       autoTester.check(nr)
+
+
+   def run (autoTester):
+       check = lambda nr: _check(nr, autoTester)
+       check (pi)
+       check (e)
+       
+       check (exp (3))
+       check (int (expm1 (5)))
+       
+       check (log (0.2))
+       check (round (log (1024, 2)))
+       check (log1p (5))
+       check (int (log2 (257)))
+       check (int (log10 (1001)))
+       
+       check (pow (3, 4.5))
+       check (sqrt (25.1))
+       
+       check (sin (10))
+       check (cos (10))
+       check (tan (10))
+
+       check (asin (0.5))
+       check (acos (0.5))
+       check (atan (0.5))
+       check (atan2 (1, 2))
+       
+       check (int (hypot (3, 4.1)))
+       
+       check (degrees (pi/2.1))
+       check (radians (90))
+       
+       check (sinh (1))
+       check (cosh (1))
+       check (tan (1))
+       
+       check (asinh (70))
+       check (acosh (70))
+       check (atan (70))
+       
+       check (floor (3.5))
+       check (ceil (3.5))
+       check (trunc (3.5))
+
+       # Format float since python adds .0 and JS does not
+       autoTester.check('{0:g}'.format(copysign(42.0, 99.0)))
+       autoTester.check('{0:g}'.format(copysign(-42, 99.0)))
+       autoTester.check('{0:g}'.format(copysign(42, -99.0)))
+       autoTester.check('{0:g}'.format(copysign(-42.0, -99.0)))
+
+       autoTester.check(
+           isclose(2.123456, 2.123457),
+           isclose(2.12, 2.123457),
+           isclose(2.1234567891, 2.1234567892),
+           isclose(2.1, 2, rel_tol=0.05),
+           isclose(2.15, 2, rel_tol=0.05),
+           isclose(1, 1),
+           isclose(1, 1.000000002),
+           isclose(1, 1.0000000002),
+           isclose(1.0, 1.02, rel_tol=0.02),
+           isclose(1.0, 1.02, rel_tol=0.0, abs_tol=0.02),
+           isclose(0.000000001, 0.0, rel_tol=0.000000001),
+           isclose(0.000000001, 0.0, rel_tol=0.0, abs_tol=0.000000000999),
+           isclose(0.000000001, 0.0, rel_tol=0.0, abs_tol=0.000000001),
+           isclose(0.0, 0.000000001, rel_tol=0.0, abs_tol=0.000000001),
+       )
+
+       autoTester.check (isnan (3))
+       autoTester.check (isnan (nan))
+       
+       
+
+
+4.34. Module random: most important functions of Python’s random module
+=======================================================================
+
+Manual_test: module_random
+
+   from random import *
+
+   result = ''
+
+   def output (any):
+       result += any + '<br>\n'
+
+   for fixedSeed in (False, True):
+       if fixedSeed:
+           seed (3)
+       else:
+           seed ()
+
+       output ('------ {} ------'.format ('fixed seed' if fixedSeed else 'auto seed'))
+           
+       output ('--- randint in [10, 20] ---')
+       for i in range (20):
+           output (randint (10, 20))
+
+       output ('<br>\n--- choice ---')
+       for i in range (20):
+           output (choice ([1, 2, 3, 4, 5]))
+
+       output ('<br>\n--- random ---')
+       for i in range (20):
+           output (random ())
+           
+       output ('<br>\n--- shuffle ---')
+       aList = [0, 1, 2, 3, 4, 5, 6]
+       output (aList)
+       for i in range (7):
+           shuffle (aList)
+           output (aList)
+       
+       output ('<br>\n')
+       
+   document.getElementById ('output') .innerHTML = result
+
+
+4.35. Module re: transcryption of Python’s re module
+====================================================
+
+Testlet: re/autotest
+
+   import org.transcrypt.autotester
+
+   import basic_pyre
+   import basic_jsre
+
+   autoTester = org.transcrypt.autotester.AutoTester ()
+
+   autoTester.run (basic_jsre, 'Basic JS RE Tests')
+   autoTester.run (basic_pyre, 'Basic Python RE Tests')
+
+   autoTester.done ()
+
+Testlet: re/basictests
+
+
+   from org.transcrypt.stubs.browser import __pragma__, __symbols__, __envir__
+   import re
+   __pragma__("skip")
+   re.J = (1<<19)
+   re.JSSTRICT = re.J
+
+   def convertMappingDict(mdict):
+       """ This method converts a mapping proxy object to
+       a dict object. mapping proxies create read-only dicts
+       but we don't have that concept in transcrypt yet.
+       """
+       ret = {}
+       for k in mdict.keys():
+           ret[k] = mdict[k]
+       return(ret)
+
+   __pragma__("noskip")
+
+   testStr1 = "There,is,No,Time"
+   testStr2 = "som[23] In[23423] the[34].asd[934].234."
+   testStr3 = "s(43) d(03) asdfasd dsfsd(3) sd"
+   testStr4 = "Were an apple like an orange then apple orange no appleorange"
+
+   def checkMatchProperties(test, flags = 0):
+       """ This test checks that properties on the match
+       are reported correctly, and that they are read-only
+       """
+       result = re.search(",", testStr1, flags)
+       if ( result is not None ):
+           test.check( result.pos )
+           test.check( result.endpos )
+           test.check( result.group() )
+           test.check( result.group(0) )
+           test.check( result.string )
+
+           # Check readonly props of match
+           def assignPos():
+               result.pos = 1
+           test.check(test.expectException(assignPos))
+           def assignEndPos():
+               result.endpos = 1
+           test.check(test.expectException(assignEndPos))
+           def assignRe():
+               result.re = "asdfasdf"
+           test.check(test.expectException(assignRe))
+           def assignStr():
+               result.string = "asdf"
+           test.check(test.expectException(assignStr))
+           def assignLastGroup():
+               result.lastgroup = "asdfasdf"
+           test.check(test.expectException(assignLastGroup))
+           def assignLastIndex():
+               result.lastindex = 33
+           test.check(test.expectException(assignLastIndex))
+       else:
+           test.checkPad("NULL", 11)
+
+
+   def checkRegexProperties(test, flags = 0):
+       """ This test checks that the appropriate properties
+       exist on the Regex object and that these properties
+       are read-only.
+       """
+       r = re.compile(",", flags)
+       if ( r is not None ):
+           test.check( r.groups )
+           test.check( r.pattern )
+           test.check( r.flags )
+           d = r.groupindex
+           __pragma__('skip')
+           d = convertMappingDict(d)
+           __pragma__('noskip')
+           test.check( d )
+           # Check Read-only props on regex object
+           def assignPattern():
+               r.pattern = "asdfasdf"
+           test.check(
+               test.expectException(assignPattern)
+           )
+           def assignFlags():
+               r.flags = "wer"
+           test.check(
+               test.expectException(assignFlags)
+           )
+           def assignGroups():
+               r.groups = 1
+           test.check(
+               test.expectException(assignGroups)
+           )
+           def assignGroupIndex():
+               r.groupindex = 34
+           test.check(
+               test.expectException(assignGroupIndex)
+           )
+       else:
+           test.checkPad("NULL", 8)
+           
+   def aValue (flag):   # Workaround for Python 3.6 enums
+       result = flag.value
+       return result if result else flag
+           
+   def checkFlagsExist(test):
+       test.check(aValue(re.T))
+       test.check(aValue(re.I))
+       test.check(aValue(re.IGNORECASE))
+       test.check(aValue(re.M))
+       test.check(aValue(re.MULTILINE))
+       test.check(aValue(re.S))
+       test.check(aValue(re.DOTALL))
+       test.check(aValue(re.U))
+       test.check(aValue(re.UNICODE))
+       test.check(aValue(re.X))
+       test.check(aValue(re.VERBOSE))
+       test.check(aValue(re.A))
+       test.check(aValue(re.ASCII))
+
+   def escapeTests(test):
+       test.check(re.escape("buf[34]"))
+       test.check(re.escape("C:\\asdf\\wewer\\"))
+       test.check(re.escape("func(int a) { return(3)};"))
+
+   def checkIgnoreCase(test, flags = 0):
+       test.check( re.search("as", testStr3, flags|re.I).pos )
+       test.check( re.search("as", testStr3, flags|re.I).endpos )
+       test.check( re.search("as", testStr3, flags|re.I).group() )
+       test.check( re.search("as", testStr3, flags|re.I).group(0) )
+       test.check( re.search("AS", testStr3, flags|re.I).pos )
+       test.check( re.search("AS", testStr3, flags|re.I).endpos )
+       test.check( re.search("AS", testStr3, flags|re.I).group() )
+       test.check( re.search("AS", testStr3, flags|re.I).group(0) )
+
+   def checkSearchWithGroups(test, flags = 0):
+       r = "\\[([\\d]+)\\]"
+       test.check( re.compile(r, flags).groups )
+       test.check( re.search(r, testStr2, flags).pos)
+       test.check( re.search(r, testStr2, flags).endpos)
+       test.check( re.search(r, testStr2, flags).groups())
+       test.check( re.search(r, testStr2, flags).group())
+       test.checkEval(lambda: re.search(r, testStr2, flags).group(0))
+       test.checkEval(lambda: re.search(r, testStr2, flags).group(1))
+       test.check( re.search(r, testStr2, flags).start())
+       test.checkEval(lambda: re.search(r, testStr2, flags).start(0))
+       test.checkEval(lambda: re.search(r, testStr2, flags).start(1))
+
+       test.check( re.search(r, testStr2, flags).end())
+       test.checkEval(lambda: re.search(r, testStr2, flags).end(0))
+       test.checkEval(lambda: re.search(r, testStr2, flags).end(1))
+
+       test.check( re.search(r, testStr2, flags).span())
+       test.checkEval(lambda: re.search(r, testStr2, flags).span(0))
+       test.checkEval(lambda: re.search(r, testStr2, flags).span(1))
+
+       test.check( re.search(r, testStr2, flags).lastgroup)
+       test.check( re.search(r, testStr2, flags).lastindex)
+
+       for i in range(2,50):
+           test.check(
+               test.expectException(lambda: re.search(',', testStr1, flags).group(i))
+           )
+
+   def checkMatchOps(test, flags = 0):
+       test.check( re.match("asdf", "asdf", flags).pos )
+       test.check( re.match(r"asdf", "asdf", flags).endpos )
+       test.check( re.match("asdf", "asdf", flags).groups() )
+       test.check( re.match("a", "asdf", flags).pos )
+       test.check( re.match("a", "asdf", flags).endpos )
+       test.check( re.match("a", "asdf", flags).groups() )
+       test.check( (re.match("s", "asdf", flags) is None) )
+       test.check( (re.match(r"^s", "asdf", flags) is None) )
+       test.check( (re.compile("^s", flags).match("asdf", 1) is None) )
+
+   def checkMatchWithNamedGroups(test, flags = 0):
+       """
+       """
+       # Matches with named groups
+       r = None
+       try:
+           r = re.compile(r"(?P<prefix>[a-zA-Z]+)://(?P<suffix>[^/]*)", flags)
+       except Exception as exc:
+           test.checkPad(None, 15)
+
+       if ( r is not None ):
+           test.check(r.groups)
+           test.check(r.pattern)
+           d = r.groupindex
+           __pragma__('skip')
+           d = convertMappingDict(d)
+           __pragma__('noskip')
+           test.check( d )
+
+           m = r.match("http://asdf")
+           test.check( m.groups() )
+           test.check( m.group() )
+           test.check( m.group(0) )
+           test.check( m.group(1) )
+           test.check( m.group("prefix") )
+           test.check( m.group("suffix") )
+
+           m = r.match("ftp://192.168.1.1")
+           test.check( m.group() )
+           test.check( m.group(0) )
+           test.check( m.group(1) )
+           test.check( m.group("prefix") )
+           test.check( m.group("suffix") )
+           m = r.match("555-5555")
+           test.check(m)
+
+       try:
+           r = re.compile(r"(?P<country>\d{1,3})-(?P<areacode>\d{3})-(?P<number>\d{3}-\d{4})", flags)
+       except:
+           test.checkPad(None, 13)
+
+       if ( r is not None ):
+           test.check(r.groups)
+           test.check(r.pattern)
+           d = r.groupindex
+           __pragma__('skip')
+           d = convertMappingDict(d)
+           __pragma__('noskip')
+           test.check( d )
+
+           m = r.match("1-234-567-9012")
+           test.check(m.groups())
+           test.check(m.group())
+           test.check(m.group(0))
+           test.check(m.group(1))
+           test.check(m.group(2))
+           test.check(m.group(3))
+
+           test.check( m.group("country") )
+           test.check( m.group("areacode") )
+           test.check( m.group("number") )
+
+           m = r.match("adfs;")
+           test.check(m)
+
+   def checkMatchWithGroups(test, flags = 0):
+       rgx = re.compile(r'(\w)(\w)(\w)?', flags)
+       test.check(rgx.pattern)
+       test.check(rgx.groups)
+       m = rgx.match('abc')
+       if m:
+           test.check(m.group(0))
+           test.check(m.group(1))
+           test.check(m.group(1, 2))
+           test.check(m.group(2, 1))
+       else:
+           test.checkPad(None, 4)
+
+       # groups() with default value
+
+       m = rgx.match('ab')
+       if m:
+           test.check(m.groups(0))
+       else:
+           test.checkPad(None, 1)
+
+       # Match with group that is non-captured
+       rgx = re.compile(r'(?:[\w\s]+)\[(\d+)\]', flags)
+       test.check(rgx.pattern)
+       test.check(rgx.groups)
+
+       m = rgx.match("asdf[23]")
+       if m:
+           test.check( m.groups() )
+           test.check( m.group(0) )
+           test.check( m.group(1) )
+           test.check( test.expectException( lambda: m.group(2) ) )
+       else:
+           test.checkPad(None, 4)
+
+
+   def checkCommentGroup(test, flags = 0):
+       """ Comment Groups are only supported in Python so will
+       likely fail in javascript only mode
+       """
+       r = None
+       try:
+           r = re.compile(r'a(?#foobar)b', flags)
+       except:
+           test.checkPad(None,4)
+
+       if ( r is not None ):
+           test.check(r.groups)
+           test.check(r.pattern)
+           test.check(r.search("ab").group())
+           test.check(r.search("er"))
+
+       try:
+           r = re.compile(r'([\d]+)(?#blarg)\[\]', flags)
+       except:
+           test.checkPad(None, 4)
+           return
+
+       test.check( r.groups )
+       test.check( r.pattern )
+       test.check( r.search("1234[]").group())
+       test.check( r.search("asdf[]"))
+
+
+   def checkFullMatchOps(test, flags = 0):
+       test.check( (re.fullmatch("asdf", "asdf", flags).pos))
+       test.check( (re.fullmatch("asdf", "asdf", flags).endpos))
+       test.check( (re.fullmatch("as", "asdf", flags) is None))
+       test.check( (re.fullmatch("q", "asdf", flags) is None))
+       test.check( (re.compile("o[gh]", flags).fullmatch("dog") is None))
+       test.check( (re.compile("o[gh]", flags).fullmatch("ogre") is None))
+
+       m = re.compile("o[gh]", flags).fullmatch("doggie",1,3)
+       if m:
+           test.check(m.pos)
+           test.check(m.endpos)
+       else:
+           test.checkPad(None,2)
+
+   def checkFindAllOps(test, flags = 0):
+       test.check(re.findall(",", testStr1, flags)) # No Caps
+       test.check(re.findall("\\[([\\d]+)\\]", testStr2, flags)) # 1 Cap
+       r = "([^\d\s]+\\(([\d]+)\\))"
+       test.check(re.compile(r, flags).groups)
+       test.check(re.findall(r, testStr3, flags)) # 2 Caps
+
+   def checkSplitOps(test, flags = 0):
+       test.check(re.split(",", testStr1, 0, flags))
+
+       test.check(re.split("(apple|orange)",testStr4, 0, flags))
+       test.check(re.split("\\[([\\d]+)\\]", testStr2, 0, flags))
+       r = re.compile(",", flags)
+       test.check(r.split(testStr1, 0))
+       test.check(r.split(testStr1, 1))
+       test.check(r.split(testStr1, 2))
+       test.check(r.split(testStr1, 3))
+       test.check(r.split(testStr1, 4))
+
+       r = re.compile("\\[([\\d]+)\\]", flags)
+       test.check(r.split(testStr2,0))
+       test.check(r.split(testStr2,1))
+       test.check(r.split(testStr2,2))
+       test.check(r.split(testStr2,3))
+       test.check(r.split(testStr2,4))
+
+   def checkSubOps(test, flags = 0):
+       def dashrepl(matchobj):
+           if matchobj.group(0) == '-':
+               return ' '
+           else:
+               return '-'
+       test.check(re.sub('-{1,2}', dashrepl, 'pro----gram-files',0, flags))
+       test.check(re.sub('-{1,2}', '4', 'pro----gram-files',0, flags))
+       test.check(re.subn('-{1,2}', dashrepl, 'pro----gram-files',0,flags))
+       test.check(re.subn('-{1,2}', '4', 'pro----gram-files',0,flags))
+
+   def checkSyntaxErrors(test, flags = 0):
+       test.check(test.expectException( lambda: re.compile(r')', flags)))
+       test.check(test.expectException( lambda: re.compile("a\\", flags)))
+       test.check(test.expectException( lambda: re.compile(r'a[b', flags)))
+       test.check(test.expectException( lambda: re.compile(r'(abc', flags)))
+       test.check(test.expectException( lambda: re.compile(r')(', flags)))
+       test.check(test.expectException( lambda: re.compile(r'))', flags)))
+       test.check(test.expectException( lambda: re.compile(r'a[b-a]', flags)))
+       test.check(test.expectException( lambda: re.compile(r'*a', flags)))
+
+   def checkFindIter(test, flags = 0):
+       """ Test the finditer method
+       """
+       p = "\\[([\\d]+)\\]"
+       r = re.compile(p, flags)
+       test.check( r.groups )
+
+       iret = r.finditer(testStr2)
+       for m in iret:
+           test.check(m.pos)
+           test.check(m.endpos)
+           test.check(m.string)
+           test.check(m.lastindex)
+           test.check(m.groups())
+           test.check(m.group(0))
+           test.check(m.group(1))
+           test.check(test.expectException( lambda: m.group(2) ))
+           test.check(test.expectException( lambda: m.group(2342)))
+           test.check(test.expectException( lambda: m.group("asdf")))
+           test.check(m.start(0))
+           test.check(m.start(1))
+           test.check(test.expectException( lambda: m.start("asdf")))
+           test.check(m.end(0))
+           test.check(m.end(1))
+           test.check(test.expectException( lambda: m.end("asdf")))
+
+
+   def checkWithFlags(test, flags = 0):
+       """ This checks the regex with flags called out in the
+       string, for example (?i) for ignore case.
+       This is a python only feature.
+       """
+       try:
+           r = re.compile(r'(?i)aba', flags)
+       except:
+           test.checkPad(None, 5)
+           return
+
+       test.check(r.groups)
+       test.check(r.pattern)
+
+       m = r.search("aBA")
+       test.check(m.group() )
+       test.check(m.groups())
+
+       m = r.match("aAa")
+       test.check(m)
+
+       m = r.match("ABA")
+       test.check(m.group())
+
+       m = r.match("abA")
+       test.check(m.group())
+
+
+   def checkConditionalGroups(test, flags = 0):
+       """ Check conditional groups - this is a python only
+       feature - will likely faily in the js strict mode
+       """
+       rgx = None
+       try:
+           rgx = re.compile(r'(a)?(b)?(?(1)a|c)(?(2)b)', flags)
+       except:
+           test.checkPad(None, 12)
+
+       if ( rgx is not None ):
+   #        test.check(rgx.groups)                                             # !!! @JdeH temporarily disabled this
+           test.check(rgx.pattern)
+           test.checkEval(lambda: rgx.match('abab').group())
+           test.checkEval(lambda: rgx.match('aa').group())
+           test.checkEval(lambda: rgx.match('bcb').group())
+           test.checkEval(lambda: rgx.match('c').group())
+           test.checkEval(lambda: rgx.match('abcb'))
+           # PyRegex needs to use n_splits from `translate` for this to work
+           # test.checkEval(lambda: rgx.match('c').groups())                   # !!! @JdeH temporarily disabled this
+           # test.checkEval(lambda: rgx.split("ababbababcdjsabbabdbab"))       # !!! @JdeH temporarily disabled this
+           test.checkEval(lambda: rgx.sub("jumbo", "ababsdf rexababwer"))
+           test.checkEval(lambda: rgx.sub("shrimp", "shipbcb shootc aardvark"))
+           # test.checkEval(lambda: rgx.findall("ababxaaxcebbcxababeded"))     # !!! @JdeH temporarily disabled this
+
+       try:
+           rgx = re.compile(r'(a)?(b)?(?(1)a|c)(?(2)b|d)', flags)
+       except:
+           test.checkPad(None, 6)
+           return
+
+       # test.check(rgx.groups)                                                # !!! @JdeH temporarily disabled this
+       test.check(rgx.pattern)
+       test.checkEval(lambda: rgx.match('abab').group())
+       test.checkEval(lambda: rgx.match('aad').group())
+       test.checkEval(lambda: rgx.match('bcb').group())
+       test.checkEval(lambda: rgx.match('bcb').group())
+
+Testlet: re/basic_pyre
+
+   # File: basic_pyre.py
+   #
+   # This file contains the basic regex tests run on the
+   # python translated regex expressions.
+   #
+
+   from org.transcrypt.stubs.browser import __pragma__
+   import re
+   from basictests import *
+
+   def run (test):
+       """ basic tests of the re engine. The point is to
+       exercise most of the methods to make sure they behave as
+       expected. These tests are expected to provide exhaustive
+       coverage of the regex engine.
+       """
+       checkFlagsExist(test)
+
+       escapeTests(test)
+       checkMatchProperties(test)
+       checkRegexProperties(test)
+
+       checkIgnoreCase(test)
+
+       checkSearchWithGroups(test)
+       checkMatchOps(test)
+       checkMatchWithGroups(test)
+       # checkMatchWithNamedGroups(test)           # !!! @JdeH temporarily disabled this
+       checkFullMatchOps(test)
+       checkFindAllOps(test)
+       checkSplitOps(test)
+       checkSubOps(test)
+       checkSyntaxErrors(test)
+       checkConditionalGroups(test)
+       checkCommentGroup(test)
+       checkWithFlags(test)
+
+       checkFindIter(test)
+
+Testlet: re/basictests
+
+   from org.transcrypt.stubs.browser import __pragma__
+   import re
+   __pragma__("skip")
+   re.J = (1<<19)
+   re.JSSTRICT = re.J
+   __pragma__("noskip")
+
+   from basictests import *
+
+   def run (test):
+       """ basic tests of the re engine. The point is to
+       exercise most of the methods to make sure they behave as
+       expected. These tests are expected to provide exhaustive
+       coverage of the regex engine.
+       """
+       checkFlagsExist(test)
+       escapeTests(test)
+       checkMatchProperties(test, re.JSSTRICT)
+       checkRegexProperties(test, re.JSSTRICT)
+
+       checkIgnoreCase(test, re.JSSTRICT)
+
+       checkSearchWithGroups(test, re.JSSTRICT)
+       checkMatchOps(test, re.JSSTRICT)
+       checkMatchWithGroups(test, re.JSSTRICT)
+       #checkMatchWithNamedGroups(test, re.JSSTRICT)
+
+       checkFullMatchOps(test, re.JSSTRICT)
+       checkFindAllOps(test, re.JSSTRICT)
+       checkSplitOps(test, re.JSSTRICT)
+       checkSubOps(test, re.JSSTRICT)
+       checkSyntaxErrors(test, re.JSSTRICT)
+       #checkConditionalGroups(test, re.JSSTRICT)
+       #checkCommentGroup(test, re.JSSTRICT)
+       #checkWithFlags(test, re.JSSTRICT)
+
+       checkFindIter(test, re.JSSTRICT)
+
+
+4.36. Module time: transcryption of Python’s time module
+========================================================
+
+Testlet: time/testlet0
+
+   import org.transcrypt.autotester
+
+   import testlet0, strptime, mult_time
+
+   autoTester = org.transcrypt.autotester.AutoTester ()
+
+   autoTester.run (testlet0, 'testlet0')
+   autoTester.run (strptime, 'strptime')
+   autoTester.run (mult_time, 'mult_time')
+
+   autoTester.done ()
+
+Testlet: time/testlet0
+
+   ''' general functions '''
+   import time
+
+   ts = 1468968009.638596 # a test timestamp
+   hy = 6 * 30 * 86400 # around half a year
+   # accommodate the offset between python and transcrypt run:
+   def run (autoTester):
+       c = autoTester.check
+       # rounding this one much, since test res is not updated when code not
+       # changes (?)
+       c('time():'         , int(time.time() / 1000))
+       c('altzone:'        , time.altzone)
+       c('timelen:'        , len(str(int(time.time()))))
+       c('localtime:'      , list(time.localtime(ts)))
+       c('ltime_no_dst:'   , list(time.localtime(ts + hy)))
+       c('gmtime:'         , list(time.gmtime(ts)))
+       c('daylight:'       , bool(time.daylight))
+       c('timezone:'       , time.timezone)
+       # c('tzname:'         , time.tzname) # Won't work under Windows 10, since it mixes up CET/CEST and WET/WEST and names CEST deviantly.
+       # more tests in other testlests
+
+
+Testlet: time/mult_time
+
+   '''
+   testing strftime.
+   '''
+
+   import time
+
+
+   def run (autoTester):
+       t = [2000, 1, 1, 1, 1, 1, 1, 1, 0]
+       def check(fmt):
+           s = time.mktime(tuple(t))
+           autoTester.check('gmtime'   , tuple(time.gmtime(int(s))))
+           autoTester.check('localtime', tuple(time.localtime(int(s))))
+           autoTester.check('mktime'   , int(s))
+           autoTester.check('ctime'    , int(s))
+
+       for hour in (0, 1, 12, 14, 23):
+           t[3] = hour
+           for f in (
+                '%p %I.%d.%Y'
+               ,'%b .%d.%y'
+               ,'%b .%d.%Y'
+               ,'%d%m%Y%H:%M:%S%p'
+               ,'%b .%d.%Y'
+               ,'M%m.%d.%Y'
+               ,'%m.%d.%Y'
+               ,'%m.%d.%Y'
+               ,'%b .%d.%Y'
+               ,'%m.%d.%Y'
+               ,'%B %d.%Y'
+               ,'%a %b %d %H:%M:%S %Y'
+               ,'%d.%m.%Y %I:%M:%S%p'
+               ,'%a%b %d %H:%M:%S %Y'
+               ,'%a%b%d %H:%M:%S %Y'
+               ,'%a%b%d%H:%Mx%S%Y'
+               ,'%a%b%d%H:%Mxx%S%Y'
+               ,'%a%b%d%H:%Mxx%S%Y +000'
+               ,' %a%b%d%H:%Mxx%S%Y +000 '
+               ): check(f)
+
+       autoTester.check('asctime', t)
+
+
+
+
+Testlet: time/strptime
+
+   '''
+   testing strptime.
+
+   Note, Py3 bug:
+
+   while true; do
+       python3.5 -c "import time; print(tuple(time.strptime('nov 1.1.1900', '%b %m.%d.%Y')))"
+   done
+
+   => we simply cannot test conflicting %b %m switches,
+   it decides per run which one it takes(!!!), so autotest would fail randomly.
+
+   Verified with 3.4, 3.5 on mac and linux.
+
+   Root cause explained here: https://github.com/JdeH/Transcrypt/issues/85
+   '''
+
+   import time
+
+   # Note: The localized names for months and weekdays assumed to be english here.
+   # And the js implementation takes the names of the locale. That may fail the
+   # tests in other areas of the world. tried with export LANG other locales but
+   # did not get an error though.
+   # In any case the Js implementation of the checking the weekdays and monthnames
+   # should be safe.
+
+   def run (autoTester):
+       def check(t, fmt):
+           s = tuple(time.strptime(t, fmt))
+           autoTester.check(' '.join([t, '[', fmt, '] = ']), s)
+
+       check('jan .1.1902'               , '%b .%d.%Y')
+       check('3112199912:00:00pm'         , '%d%m%Y%H:%M:%S%p')
+       check('FEb .1.1902'               , '%b .%d.%Y')
+       check('M1.1.1901'                  , 'M%m.%d.%Y')
+       check('2.1.1900'                   , '%m.%d.%Y')
+       check('6.1.2000'                   , '%m.%d.%Y')
+       check('nov .1.1900'                , '%b .%d.%Y')
+       check('2.1.1900'                   , '%m.%d.%Y')
+       check('december 1.1999'            , '%B %d.%Y')
+       check('Tue Jul 18 19:32:11 2016'   , '%a %b %d %H:%M:%S %Y')
+       check('31.12.1999 12:00:00pm'      , '%d.%m.%Y %I:%M:%S%p')
+       check('TueJul 18 19:32:11 2016'    , '%a%b %d %H:%M:%S %Y')
+       check('TueJul18 19:32:11 2016'     , '%a%b%d %H:%M:%S %Y')
+       check('TueJul1819:32x112016'       , '%a%b%d%H:%Mx%S%Y')
+       check('TueJul1819:32xx112016'      , '%a%b%d%H:%Mxx%S%Y')
+
+
+4.37. Modules: hierarchical, both local to the project and global url-based
+===========================================================================
+
+Testlet: modules
+
+   import modules.mod1.mod11.mod111
+   import modules.mod3
+   import modules.mod1.mod11.mod112
+   import modules.mod1
+   import modules.mod1.mod11
+   import modules.mod2
+   import modules.mod2.mod21
+   import modules.mod2.mod22
+
+   import modules.mod1.mod11.mod111 as aliasMod111
+   import modules.mod1 as aMod1
+
+   from modules.mod1.mod11 import mod111, mod112
+
+   from modules.mod2 import mod21 as aMod21, mod22 as aMod22
+
+   from modules.mod3 import *
+
+   from modules.mod1.mod11.mod111 import A
+
+   from modules import mod4
+
+   a = modules.mod1.mod11.mod111.A (12345)
+   pi = modules.mod1.pi
+   f = modules.mod2.f
+
+   def run (autoTester):
+       # Import without 'as'
+       autoTester.check ('modules')
+       autoTester.check (a.f ())
+       autoTester.check (modules.mod1.mod11.mod112.f ())
+       autoTester.check (modules.mod1.mod11.e)
+       autoTester.check (pi)
+       autoTester.check (f (102030))
+       autoTester.check (modules.mod2.mod21.f ())
+       B = modules.mod2.mod22.B
+       b = B ()
+       autoTester.check (b.x)
+       autoTester.check (modules.mod3.x)
+       
+       # Import with 'as'
+       a2 = aliasMod111.A (6789101112)
+       autoTester.check (a2.f ())
+       autoTester.check (aMod1.pi)
+       
+       # From ... import without 'as'
+       a3 = mod111.A (100.001)
+       autoTester.check (a3.f ())
+       autoTester.check (mod112.f ())
+       
+       # From ... import with 'as'
+       autoTester.check (aMod21.f ())
+       autoTester.check (aMod22.B () .x)
+       
+       # From ... import *
+       autoTester.check (mod3Hundred)
+       autoTester.check (mod3GetTwoHundred ())
+       autoTester.check (A (123.321) .f ())
+
+       # Circular import (between mod4 and mod5)
+       autoTester.check(mod4.mod4Add2FromMod5(449))
+
+
+4.38. Nonlocals
+===============
+
+Testlet: nonlocals
+
+   def run (autoTester):
+       test1 = 1
+       test2 = 2
+       
+       def f ():
+           test1 = 10
+           
+           nonlocal test2
+           test2 = 20
+           
+           autoTester.check (test1, test2)
+           
+       f ()
+       autoTester.check (test1, test2)     
+
+
+4.39. Operator overloading
+==========================
+
+Testlet: operator_overloading
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   class Matrix:
+       def __init__ (self, nRows, nCols, elements = []):
+           self.nRows = nRows
+           self.nCols = nCols
+           
+           if len (elements):
+               self._ = elements
+           else:
+               self._ = [[0 for col in range (nCols)] for row in range (nRows)]
+           
+       def __matmul__ (self, other):
+           result = Matrix (self.nRows, other.nCols)
+           for iTargetRow in range (result.nRows):
+               for iTargetCol in range (result.nCols):
+                   for iTerm in range (self.nCols):
+                       result._ [iTargetRow][iTargetCol] += self._ [iTargetRow][iTerm] * other._ [iTerm][iTargetCol]
+           return result
+                   
+       def __imatmul__ (self, other):
+           # True in-place multiplication not yet implemented in compiler
+           # It currently translates m1 @= m2 to m1 = m1 @ ms and uses __matmul__ instead
+           # This fake __imatmul__ is just for CPython , allowing back to back testing
+           return self.__matmul__ (other)
+           
+       def __mul__ (self, other):
+           if type (other) == Matrix:
+               result = Matrix (self.nRows, self.nCols)
+               for iRow in range (self.nRows):
+                   for iCol in range (self.nCols):
+                       result._ [iRow][iCol] = self._ [iRow][iCol] * other._ [iRow][iCol]   
+               return result
+           else:  # other is a scalar
+               return self.__rmul__ (other)
+                   
+       def __rmul__ (self, scalar):    # Only called if left operand is scalar, all other cases will call __mul__
+           result = Matrix (self.nRows, self.nCols)
+           for iRow in range (self.nRows):
+               for iCol in range (self.nCols): 
+                   result._ [iRow][iCol] = scalar * self._ [iRow][iCol]
+           return result
+       
+       def __imul__ (self, other):
+           return self.__mul__ (other)
+                   
+       def __add__ (self, other):
+           result = Matrix (self.nRows, self.nCols)
+           for iRow in range (self.nRows):
+               for iCol in range (self.nCols):
+                   result._ [iRow][iCol] = self._ [iRow][iCol] + other._ [iRow][iCol]
+           return result
+           
+       # No __iadd__, to test fallback to __add__
+       
+       def __getitem__ (self, index):
+           return self._ [index]
+
+       def __setitem__ (self, index, value):
+           self._ [index] = value
+           
+       def __repr__ (self):
+           return repr (self._)
+           
+       def __floordiv__ (self, other):
+           return 'Overloading __floordiv__ has no meaning for matrices'
+           
+       def __truediv__ (self, other):
+           return 'Overloading __truediv__ has no meaning for matrices'
+           
+   class Functor:
+       def __init__ (self, factor):
+           self.factor = factor
+           
+       __pragma__ ('kwargs')
+       def __call__ (self, x, y = -1, *args, m = -2, n, **kwargs):
+           return (
+               self.factor * x,
+               self.factor * y,
+               [self.factor * arg for arg in args],
+               self.factor * m,
+               self.factor * n,
+               # !!! [self.factor * kwargs [key] for key in sorted (kwargs.keys ())] Add supoprt for keys () on kwargs
+           )
+       __pragma__ ('nokwargs')
+       
+   f = Functor (10)
+
+   __pragma__ ('kwargs')
+   def g (x, y = -1, *args, m = -2, n, **kwargs):
+       return (x, y, args, m, n) # !!! , [kwargs [key] for key in sorted (kwargs.keys ())]) Add support for keys () on kwargs
+   __pragma__ ('nokwargs')
+           
+   def run (autoTester):
+       m0 = Matrix (3, 3, [
+           [1, 2, 3],
+           [4, 5, 6],
+           [7, 8, 10]
+       ])
+       
+       m1 = Matrix (3, 3, [
+           [10, 20, 30],
+           [40, 50, 60],
+           [70, 80, 90]
+       ])
+       
+       m4 = Matrix (3, 3, [
+           [1, 1,  2],
+           [2, 2,  3],
+           [3, 3, -5]
+       ])
+       
+       m5 = Matrix (3, 3, [
+           [1, 1,  2],
+           [2, 2,  3],
+           [3, 3, -5]
+       ])
+           
+       x = 3
+       y = x * 4 * x
+       fast = 2 * 3
+       fast += 1
+       
+       __pragma__ ('opov')
+       
+       m1 [1][2] = m0 [1][2]
+       slow = 2 + 3
+       m2 = m0 * m1  + m1 * (m0 + m1)
+       m3 = 2 * (2 * m0 * 3 * m1 + m2 * 4) * 2
+
+       autoTester.check (m0 [1][1], m0 [1][2], m1 [1][1], m1 [1][2])
+
+       m1 += m0
+       m2 *= m1
+       
+       m5 @= m4
+       m6 = m0 @ m1
+       
+       autoTester.check (m0 / m1)
+       autoTester.check (m0 // m1)
+       
+       __pragma__ ('noopov')
+       
+       fast2 = 16 * y + 1
+       fast *= 2
+       
+       autoTester.check (m0, m1)
+       autoTester.check (x, y)
+       autoTester.check (m2)
+       autoTester.check (m3)
+       autoTester.check (m5)
+       autoTester.check (m6)
+       autoTester.check (fast, slow, fast2)
+       
+       x = 'marker'
+       
+       __pragma__ ('opov')
+       autoTester.check (f (3, 4, 30, 40, m = 300, n = 400, p = 3000, q = 4000))
+       autoTester.check (g (3, 4, 30, 40, m = 300, n = 400, p = 3000, q = 4000))
+       
+       autoTester.check (set ((1, 2, 3)) == set ((3, 2, 1)))
+       autoTester.check (set ((1, 2, 3)) != set ((3, 2, 1)))
+       autoTester.check (set ((1, 3)) == set ((3, 2, 1)))
+       autoTester.check (set ((1, 3)) != set ((3, 2, 1)))
+       autoTester.check (set ((1, 2)) < set ((3, 2, 1)))
+       autoTester.check (set ((1, 2, 3)) <= set ((3, 2, 1)))
+       autoTester.check (set ((1, 2, 3)) > set ((2, 1)))
+       autoTester.check (set ((1, 2, 3)) >= set ((3, 2, 1)))
+       
+       autoTester.check ((1, 2, 3) == (1, 2, 3))
+       autoTester.check ([1, 2, 3] == [1, 2, 3])
+       autoTester.check ((1, 2, 3) != (1, 2, 3))
+       autoTester.check ([1, 2, 3] != [1, 2, 3])
+       autoTester.check ((2, 1, 3) == (1, 2, 3))
+       autoTester.check ([2, 1, 3] == [1, 2, 3])
+       autoTester.check ((2, 1, 3) != (1, 2, 3))
+       autoTester.check ([2, 1, 3] != [1, 2, 3])
+       __pragma__ ('noopov')
+       
+       class Bitwise:
+           def __lshift__ (self, other):
+               autoTester.check ('lshift')
+               
+           def __rlshift__ (self, other):
+               autoTester.check ('rlshift')
+               
+           def __rshift__ (self, other):
+               autoTester.check ('rshift')
+               
+           def __rrshift__ (self, other):
+               autoTester.check ('rrshift')
+               
+           def __or__ (self, other):
+               autoTester.check ('or') 
+               
+           def __ror__ (self, other):
+               autoTester.check ('ror')
+               
+           def __xor__ (self, other):
+               autoTester.check ('xor')
+               
+           def __rxor__ (self, other):
+               autoTester.check ('rxor')
+               
+           def __and__ (self, other):
+               autoTester.check ('and')
+               
+           def __rand__ (self, other):
+               autoTester.check ('rand') 
+
+       bitwise = Bitwise ()
+       
+       __pragma__ ('opov')
+       
+       bitwise << []
+       [] << bitwise
+       autoTester.check (32 << 2)
+       
+       bitwise >> []
+       [] >> bitwise
+       autoTester.check (32 >> 2)
+       
+       bitwise | []
+       [] | bitwise
+       autoTester.check (1 | 4)
+       
+       bitwise ^ []
+       [] ^ bitwise
+       autoTester.check (11 ^ 13)
+       
+       bitwise & []
+       [] & bitwise
+       autoTester.check (12 & 20)
+       
+       a = 32
+       a <<=2
+       autoTester.check (a)
+       
+       __pragma__ ('noopov')
+       
+       autoTester.check (32 << 2)
+       autoTester.check (32 >> 2)
+       autoTester.check (1 | 4)
+       autoTester.check (11 ^ 13)
+       autoTester.check (12 & 20)
+       
+       a = 32
+       a <<= 2
+       autoTester.check (a)
+       
+       class A:
+           def __init__ (self):
+               self.b = {}
+               
+       a = A ()
+       a.b ['c'] = 'd'
+           
+       __pragma__('opov')
+       a.b ['c'] += 'e'
+       __pragma__('noopov')
+       
+       autoTester.check (a.b ['c'])
+
+
+4.40. Properties
+================
+
+Testlet: properties
+
+   class A:
+       p = 1234
+       def getX (self):
+           return self._x
+
+       def setX (self, value):
+           self._x = value
+               
+       def getY (self):
+           return self._y
+
+       def setY (self, value):
+           self._y = 1000 + value  # Weird but should be possible
+           
+       def getY2 (self):
+           return self._y
+
+       def setY2 (self, value):
+           self._y = value
+           
+       def getT    (self):
+           return self._t
+
+       def setT (self, value):
+           self._t = value
+           
+       def getU (self):
+           return self._u + 10000
+
+       def setU (self, value):
+           self._u = value - 5000
+               
+       x, y, y2 = property (getX, setX), property (getY, setY), property (getY2, setY2)
+       t = property (getT, setT)
+       u = property (getU, setU)
+       
+   A.q = 5678
+
+   class B:
+       def getZ (self):
+           return self.z_
+       
+       def setZ (self, value):
+           self.z_ = value
+           
+       z = property (getZ, setZ)
+       
+   class C:
+       def __init__ (self):
+           self.offset = 1234
+
+       def getW (self):
+           return self.w_ + self.offset
+           
+       def setW (self, value):
+           self.w_ = value - self.offset
+           
+       w = property (getW, setW)
+       
+   def run (autoTester):
+       a1 = A ()
+       a2 = A ()
+
+       a1.y2 = 1000
+       a2.y2 = 2000
+       
+       a1.x = 5
+       a1.y = 6
+       
+       a2.x = 7
+       a2.y = 8
+
+       a1.t = 77
+       a1.u = 88
+           
+       autoTester.check (a1.x, a1.y, a1.y2)
+       autoTester.check (a2.x, a2.y, a2.y2)
+       autoTester.check (a1.p, a2.p, a1.q, a2.q)
+       
+       autoTester.check (a1.t, a1.u)
+       
+       b = B ()
+       c = C ()
+       
+       b.z = 100100
+       c.z = 200200
+       c.w = 300300
+       
+       autoTester.check (a1.x, b.z, c.z, c.w)
+       
+       c.w = 400400
+       c.z = 500500
+       b.z = 600600
+       
+       autoTester.check (a1.x, b.z, c.z, c.w)
+
+
+4.41. Representation as text: the repr and str built-in functions
+=================================================================
+
+Testlet: reprtest
+
+
+   def run(test):
+       """ Test the repr and string implementations
+       """
+
+       v = 1
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = "asdf"
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = True
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = False
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = 1.2
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = -31.2
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = 63e-12
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = 24e37
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = -34e-23
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = -89e32
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = None
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = [None]
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = [None, None]
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = [None, 1.02]
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = [1,3.000234]
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = [1,2,3]
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = [1.04, 2.03, 3.005]
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = ["asdf", 2.00009, "1234"]
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = set([1,2,3])
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = set([])
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = (1,2)
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = (3.4, 4.4)
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = (None, 5.32)
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = {}
+       test.check( repr(v) )
+       test.check( str(v) )
+       v = { "a": 1 }
+       test.check( repr(v) )
+       test.check( str(v) )
+
+       # @note - in python the dictionary key
+       #     ordering is not specified. So the following tests
+       #     cannot be reliably completed when there are more than
+       #     one key in a dict - so this test coverage was skipped for now.
+
+       d = { "asdf": 3.4 }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "qwer": "qwerqwer qwerqwer" }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "a9342" : None }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "nfdns" : True }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "alel;e;" : False }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "didi" : [True,False,True] }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "bibi" : [1,2,3] }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "gigi" : ["Asdf","qwer","rewer"] }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "hihi" : ("esdf","qwer","rewer") }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "jiji" : [None, None, None] }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "jiji" : (1.3, 3.4) }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+
+       d = { "jiji" : { "c" : 4 } }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+
+       class Test1(object):
+           def __init__(self, val):
+               self._val = val
+
+           def __str__(self):
+               return("[Test1 {}]".format(self._val))
+
+           def __repr__(self):
+               return(str(self))
+
+       class Test2(object):
+           def __init__(self, val):
+               self._val = val
+
+           def __repr__(self):
+               return("[Test2 {},{}]".format(self._val, self._val*2))
+
+           def __str__(self):
+               return( repr(self) )
+
+       class Test3(Test2):
+           def __str__(self):
+               return("[Test3 {}]".format(self._val))
+
+       class Test4(object):
+           def __init__(self, val):
+               self._val = val
+
+           def __repr__(self):
+               return("[Test4 {}]".format(self._val))
+
+
+       t1 = Test1(2)
+       test.check( repr(t1) )
+       test.check( str(t1) )
+       t1 = Test1(4.5)
+       test.check( repr(t1) )
+       test.check( str(t1) )
+       t1 = Test1("blarg")
+       test.check( repr(t1) )
+       test.check( str(t1) )
+       t1 = Test1([1,2,3])
+       test.check( repr(t1) )
+       test.check( str(t1) )
+
+       t2 = Test2(3)
+       test.check( repr(t2) )
+       test.check( str(t2) )
+       t2 = Test2(7.6)
+       test.check( repr(t2) )
+       test.check( str(t2) )
+       t2 = Test2(-8.9)
+       test.check( repr(t2) )
+       test.check( str(t2) )
+
+       t3 = Test3(8)
+       test.check( repr(t3) )
+       test.check( str(t3) )
+
+       t3 = Test3(3.4)
+       test.check( repr(t3) )
+       test.check( str(t3) )
+
+       test.check( repr( [t1,t2,3] ) )
+
+       d = { "irew" : t1 }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+       d = { "irew" : [t1,t2,t3] }
+       test.check( repr( d ) )
+       test.check( str( d ) )
+
+       t4 = Test4("qwer")
+       test.check( repr(t4) )
+       test.check( str(t4) )
+
+
+4.42. Set comprehensions
+========================
+
+Testlet: set_comprehensions
+
+   def run (autoTester):
+       even = {2 * i for i in [0, 9, 1, 7, 2, 8, 3, 6, 4, 5]}
+       autoTester.check (even)
+       
+       odd = {2 * i + 1 for i in [5, 6, 7, 8, 9, 4, 3, 1, 2, 0]}
+       autoTester.check (odd)
+       
+       even.add (12)
+       even.add (12)
+       autoTester.check (even)
+       
+       even.discard (12)
+       even.discard (12)
+       autoTester.check (even)
+       
+       uni = even.union (odd)
+       autoTester.check (uni)
+       
+       autoTester.check (odd.isdisjoint (even))
+       autoTester.check (uni.isdisjoint (even))
+           
+       autoTester.check (even.issuperset (uni))
+       autoTester.check (uni.issuperset (even))
+       
+       autoTester.check (even.issubset (uni))
+       autoTester.check (uni.issubset (even))
+       
+       first = {4, 1, 0, 5, 3, 2, 6}
+       autoTester.check (first)
+       
+       second = {3, 5, 6, 9, 4, 7, 8}
+       autoTester.check (second)
+       
+       inter = first.intersection (second)
+       autoTester.check (inter)
+       
+       diff = first.difference (second)
+       autoTester.check (diff)
+       
+       symDiff = first.symmetric_difference (second)
+       autoTester.check (symDiff)
+       
+       aSet = {200, 4, 5, 100}
+       aSet.update (first, symDiff, second)
+       autoTester.check (aSet)
+       
+
+
+4.43. Super
+===========
+
+The *super ()*  builtin function is supported for cases where there’s
+exactly one path upwards to exactly one matching method. This covers
+most use cases, even in a diamond class hierarchy, and results in fast
+and compact code. In case of more than one path, possibly to more than
+one matching method, use explicit class names, as shown in the example
+below.
+
+Testlet: builtin_super
+
+   def run (autoTester):
+       def show (*args):
+           autoTester.check (*args)
+           # print (*args) # Leave in for debugging purposes
+
+       class R:
+           def __init__ (self, a, b):
+               self.a = a
+               self.b = b
+               
+       class A (R):
+           def __init__ (self, a, b, c):
+               super () .__init__ (a, b)
+               self.c = c
+
+           def f (self, x, y):
+               show ('A.f:', x, y, self.a, self.b, self.c)
+               
+           def g (self, x, y):
+               show ('A.g:', x, y)
+               
+       class B (R):
+           def __init__ (self, a, b, d):
+               super () .__init__ (a, b)
+               self.d = d
+
+           def f (self, x, y):
+               show ('B.f:', x, y, self.a, self.b, self.d)
+               
+           def h (self, x, y):
+               show ('A.h:', x, y, self.a, self.b, self.d)
+
+       class C (A):
+           def __init__ (self, a, b, c):
+               super () .__init__ (a, b, c)
+           
+           def f (self, x, y):
+               super () .f (x, y)
+               show ('C.f:', x, y, self.a, self.b, self.c)
+               
+       class D (B):
+           def __init__ (self, a, b, d):
+               super () .__init__ (a, b, d)
+           
+           def f (self, x, y):
+               super () .f (x, y)
+               show ('D.f:', x, y, self.a, self.b, self.d)
+               
+       # Diamond inheritance, use super () only to call exactly one target method via unique path.
+       # In case of multiple target methods or multiple paths, don't use super (), but refer to ancestor classes explicitly instead
+       class E (C, D):        
+           def __init__ (self, a, b, c, d):
+               R.__init__ (self, a, b) # Inherited via multiple legs of a diamond, so call explicitly
+               self.c = c              # Could also have used C.__init__, but symmetry preferred
+               self.d = d              # Don't use both C.__init__ and D.__init__, since R.__init__ will be called by both
+                                       # That's harmless here, but not always
+
+           def f (self, x, y):
+               C.f (self, x, y)        # Ambiguous part of diamond, don't use super ()
+               D.f (self, x, y)        # Ambiguous part of diamond, don't use super ()
+               show ('E.f:', x, y, self.a, self.b, self.c, self.d)
+               
+           def g (self, x, y):
+               super () .g (x, y)      # Unique, using super () is OK
+               show ('E.g:', x, y, self.a, self.b, self.c, self.d)
+               
+           def h (self, x, y):
+               super () .h (x, y)      # Unique, using super () is OK
+               show ('E.h:', x, y, self.a, self.b, self.c, self.d)
+              
+       rr = R (100, 200)
+
+       show ('--1--')
+
+       a = A (101, 201, 301)
+       a.f (711, 811)
+       a.g (721, 821)
+
+       show ('--2--')
+
+       b = B (102, 202, 302)
+       b.f (712, 812)
+       b.h (732, 832)
+
+       show ('--3--')
+
+       c = C (103, 203, 303)
+       c.f (713, 813)
+       c.g (723, 823)
+
+       show ('--4--')
+
+       d = D (104, 204, 304)
+       d.f (714, 814)
+       d.h (734, 834)
+
+       show ('--5--')
+
+       e = E (105, 205, 305, 405)
+       e.f (715, 815)
+       e.g (725, 825)
+       e.h (735, 835)
+
+
+4.44. Simple and augmented assignment
+=====================================
+
+Testlet: simple_and_augmented_assignment
+
+   class A:
+       def __init__ (self):
+           self.i = 0
+           
+       def f (self):
+           return self.i
+
+   a = A ()
+           
+   def run (autoTester):
+       x = 3
+       y = 5
+       z = x + y
+       autoTester.check (z)
+       
+       l = [1, 2, 3]
+       l [1] = l [2]
+       autoTester.check (l)
+       
+       # Should generate x++
+       x += 1
+       autoTester.check (x)
+       x += +1
+       autoTester.check (x)
+       x -= -1
+       autoTester.check (x)
+       
+       # Should generate y--
+       y -= 1
+       autoTester.check (y)
+       y -= +1
+       autoTester.check (y)
+       y += -1
+       autoTester.check (y)
+       
+       x += -3
+       autoTester.check (x)
+       
+       x += 6
+       autoTester.check (x)
+       
+       y -= 3
+       autoTester.check (y)
+       
+       l [1] += l [1]
+       autoTester.check (l)
+       
+       x += y
+       y += x
+       
+       autoTester.check (x, y)
+       
+       f = a.f
+       
+       a.i += 1
+       autoTester.check (f ())
+       
+       a.i += 10
+       autoTester.check (f ())
+       
+       a.i += a.i
+       autoTester.check (f ())
+
+
+4.45. Truthyness: optional Python-style evaluation of truthyness, falsyness and non-empty container selection
+=============================================================================================================
+
+Testlet: truthyness
+
+   from org.transcrypt.stubs.browser import __pragma__
+
+   __pragma__ ('tconv')
+
+   def run (autoTester):
+       autoTester.check (len ({1:2}))
+
+       autoTester.check ('Select nonemtpy container, if any<br>')
+
+       autoTester.check ((0) or (1, 2, 3))
+       autoTester.check (() or (1, 2, 3))
+       autoTester.check (() or ())
+       
+       autoTester.check ((-1) or (0) or (1, 2, 3))
+       autoTester.check (() or (0) or (1, 2, 3))
+       autoTester.check (() or () or (1, 2, 3))
+       autoTester.check (() or () or ())
+       
+       autoTester.check ([0] or [1, 2, 3])
+       autoTester.check ([] or [1, 2, 3])
+       autoTester.check ([] or [])
+       
+       autoTester.check ([-1] or [0] or [1, 2, 3])
+       autoTester.check ([] or [0] or [1, 2, 3])
+       autoTester.check ([] or [] or [1, 2, 3])
+       autoTester.check ([] or [] or [])
+       
+       autoTester.check ({0} or {1, 2, 3, 4})
+       autoTester.check (set () or {1, 2, 3, 4})
+       autoTester.check (set () or set ())
+       
+       autoTester.check ({-1} or {0} or {1, 2, 3, 5})
+       autoTester.check (set () or {0} or {1, 2, 3, 6})
+       autoTester.check (set () or set () or {1, 2, 3, 7})
+       autoTester.check (set () or set () or set ())
+       
+       autoTester.check ({0:10} or {1:11, 2:12, 3:13})
+       autoTester.check ({} or {1, 2, 3, 8})
+       autoTester.check ({} or {})
+       
+       autoTester.check ({-1:-11} or {0:10} or {1:11, 2:12, 3:13})
+       autoTester.check ({} or {0:10} or {1:11, 2:12, 3:13})
+       autoTester.check ({} or {} or {1:11, 2:12, 3:13})
+       autoTester.check ({} or {} or {})
+       
+       autoTester.check ('<br><br>')
+       autoTester.check ('Boolean evaluations')
+       for expression in (
+           '<br> -- falsy -- <br>',
+           (),
+           [],
+           set (),
+           {},
+           0,
+           '',
+           3 > 5,
+           False,
+           '<br> -- truthy -- <br>',
+           (1, 2, 3),
+           [1, 2, 3],
+           {1, 2, 3},
+           {'a': 1, 'b': 2, 'c': 3},
+           3,
+           'hello',
+           5 > 3,
+           True
+       ):
+           if expression in ('<br> -- falsy -- <br>', '<br> -- truthy -- <br>'):
+               autoTester.check (expression)
+           else:
+               autoTester.check (expression, ' . . . ')
+               autoTester.check ('operators')
+               autoTester.check (not not expression)
+               autoTester.check (not not (True and expression))
+               autoTester.check (not not (False or expression))
+               autoTester.check (not not (expression and True))
+               autoTester.check (not not (expression and False))
+               
+               autoTester.check ('if')
+               if expression:
+                   autoTester.check (True)
+               else:
+                   autoTester.check (False)
+                   
+               if expression or expression:
+                   autoTester.check (True)
+               else:
+                   autoTester.check (False)
+                   
+               if False:
+                   autoTester.check ('if')
+               elif expression:
+                   autoTester.check ('elif')
+               else:
+                   autoTester.check ('else')
+                   
+               autoTester.check ('while')
+               while expression:
+                   autoTester.check (True)
+                   break
+                   
+               autoTester.check ('condex')
+               autoTester.check (True if expression else False)
+               
+       if (0.0):
+           autoTester.check ('0.0')
+       elif (0.1):
+           autoTester.check ('0.1')
+       else:
+           autoTester.check ('Shouldn\'t be here...')
+           
+       class A:
+           pass
+           
+       class B:
+           def __bool__ ( self):
+               return False
+
+       class C:
+           def __bool__ (self):
+               return True
+
+           def __len__ (self):
+               return 0
+
+       class D:
+           def __len__ (self):
+               return 0
+
+       class E:
+           def __len__ (self):
+               return 1
+
+       autoTester.check ('instances of custom classes')
+       autoTester.check (not not A ())
+       autoTester.check (not not B ())
+       autoTester.check (not not C ())
+       autoTester.check (not not D ())
+       autoTester.check (not not E ())
+       
+
+
+4.46. Tuple assignment: recursive and in for-headers using enumerate
+====================================================================
+
+Testlet: tuple_assignment
+
+   def run (autoTester):
+       ((a, b), santa, [c, d], e) = ((1, 2), 'santa-claus', {3, 4}, 5)
+       autoTester.check (a, b, c, d, e, santa)
+       
+       for i, x in enumerate ((0.5, 1.5, 2.5, 3.5)):
+           autoTester.check (i, x)
+       
+       e, pi = 3.14, 2.74
+       e, pi = pi, e
+       autoTester.check (e, pi)
+       
+       def f ():
+           return [(i, 2 * i) for i in range (7000, 10000, 1000)]
+           
+       def g ():
+           return f
+           
+       [k, l], [m, n], (o, p) = g () ()
+       
+       autoTester.check (k, l, m, n, o, p)

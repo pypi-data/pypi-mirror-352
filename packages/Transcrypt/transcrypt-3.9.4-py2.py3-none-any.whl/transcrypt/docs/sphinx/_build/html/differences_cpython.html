@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>9. The main differences with CPython &#8212; Transcrypt 3.9.4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="8. The philosophy behind Transcrypt and its impact on design decisions" href="philosophy_directions.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="philosophy_directions.html" title="8. The philosophy behind Transcrypt and its impact on design decisions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Transcrypt 3.9.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9. </span>The main differences with CPython</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="the-main-differences-with-cpython">
+<h1><span class="section-number">9. </span>The main differences with CPython<a class="headerlink" href="#the-main-differences-with-cpython" title="Permalink to this headline">¶</a></h1>
+<section id="differences-due-to-the-compiled-rather-than-interpreted-nature-of-transcrypt">
+<h2><span class="section-number">9.1. </span>Differences due to the compiled, rather than interpreted nature of Transcrypt<a class="headerlink" href="#differences-due-to-the-compiled-rather-than-interpreted-nature-of-transcrypt" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Since Transcrypt is precompiled on the development machine, Python’s exec and eval are not supported, but JavaScript’s eval is.</p></li>
+<li><p>C++ style conditional compilation is supported through <a class="reference internal" href="special_facilities.html#pragma-ifdef"><span class="std std-ref">pragmas</span></a>.</p></li>
+<li><p>Conditional import of modules is done by using conditional compilation rather than conditional statements.</p></li>
+<li><p>Source level debugging in the browser is available through the use of sourcemaps.</p></li>
+<li><p>Running a compiled Transcrypt program doesn’t require a Python or Transcrypt interpreter. It only requires the runtime, which is about 40 kB.</p></li>
+</ul>
+</section>
+<section id="differences-due-to-the-lean-and-mean-design-goal">
+<h2><span class="section-number">9.2. </span>Differences due to the ‘lean and mean’ design goal<a class="headerlink" href="#differences-due-to-the-lean-and-mean-design-goal" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Facilities like operator overloading, automatic truth value conversion and named parameters can be switched on and off locally using pragmas, to keep the generated code small.</p></li>
+<li><p>Interpreting negative indices as offsets from the end of a list or string requires operator overloading to be switched on.</p></li>
+<li><p>String formatting is done through the <em>format</em> method or through f-strings, as this is considered most flexible. Using % for formatting isn’t supported.</p></li>
+<li><p>Some methods of container types like list, set and dict, that duplicate functionality of other methods, have been left out of the core libraries. If needed they can be supplied in separate libraries.</p></li>
+<li><p>Metaclasses only support overloading the __new__ method, covering 90% of the use cases.</p></li>
+<li><p>Currently the  *, /, //, +, -, &#64;, [], (), ==, !=, &lt;, &lt;=, &gt;, &gt;=, **, &lt;&lt; and &gt;&gt; operators can be overloaded, both forward and reverse where appropriate, covering almost all use cases.</p></li>
+<li><p>The ‘with’ statement can currently only be used for file-like objects.</p></li>
+</ul>
+</section>
+<section id="differences-due-to-interoperability-with-javascript-and-javascript-libraries">
+<h2><span class="section-number">9.3. </span>Differences due to interoperability with JavaScript and JavaScript libraries<a class="headerlink" href="#differences-due-to-interoperability-with-javascript-and-javascript-libraries" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Python objects, functions and methods and their JavaScript counterparts can in general be mixed freely without special syntax.</p></li>
+<li><p>To be able to use JSON-like syntax in configuring JavaScript libraries, Transcrypt dicts are in fact JavaScript objects. Attribute keys that may denote a number are interpreted as such, all others are interpreted as strings.</p></li>
+<li><p>Any amount of literal JavaScript can be included in-line or from a separate file using <a class="reference internal" href="special_facilities.html#pragma-js"><span class="std std-ref">__pragma__ (‘js’, …, …)</span></a>.</p></li>
+<li><p>The <em>print</em> function can be used to print to a DOM element or to the browser console.</p></li>
+<li><p>The methods <em>console.dir</em> and <em>console.log</em> are also available when programming for the browser, as are in fact all JavaScript facilities, including the complete DOM-manipulation API.</p></li>
+<li><p>Certain identifiers are reserved in JavaScript. In most cases they still can be used in Transcrypt, since they are aliased to other identifiers. Identifiers and directory keys starting with <em>py_</em> are to be avoided, since many of them have special meaning in Transcrypt. It would have been possible to make clashes even more rare, by using e.g. &#64; and __ in but this would have made the JavaScript code harder to read. Note that you can define a local alias yourself if you still want to use a reserved identifier.</p></li>
+<li><p>The name <em>type</em> cannot be used as an ordinary identifier.</p></li>
+<li><p>You can use <em>require</em> to load JavaScript modules on the fly and access them just as you would from JavaScript.</p></li>
+</ul>
+</section>
+<section id="differences-due-to-running-transcrypt-applications-in-the-browser-rather-than-on-the-desktop">
+<h2><span class="section-number">9.4. </span>Differences due to running Transcrypt applications in the browser, rather than on the desktop<a class="headerlink" href="#differences-due-to-running-transcrypt-applications-in-the-browser-rather-than-on-the-desktop" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Transcrypt doesn’t directly support the use of libraries written in C or C++ since, without special measures like compiling to asm.js, C and C++ don’t run in the browser.</p></li>
+<li><p>The browser programming model is event driven, so Transcrypt programs are also event driven, as are their JavaScript counterparts.</p></li>
+<li><p>Just like JavaScript, Transcrypt running in the browser cannot write to an ordinary disk file, due to security limitations. However, just like JavaScript, it can store and retrieve data using JSON and Ajax.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_sphinx.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Subjects</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">9. The main differences with CPython</a><ul>
+<li><a class="reference internal" href="#differences-due-to-the-compiled-rather-than-interpreted-nature-of-transcrypt">9.1. Differences due to the compiled, rather than interpreted nature of Transcrypt</a></li>
+<li><a class="reference internal" href="#differences-due-to-the-lean-and-mean-design-goal">9.2. Differences due to the ‘lean and mean’ design goal</a></li>
+<li><a class="reference internal" href="#differences-due-to-interoperability-with-javascript-and-javascript-libraries">9.3. Differences due to interoperability with JavaScript and JavaScript libraries</a></li>
+<li><a class="reference internal" href="#differences-due-to-running-transcrypt-applications-in-the-browser-rather-than-on-the-desktop">9.4. Differences due to running Transcrypt applications in the browser, rather than on the desktop</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="philosophy_directions.html"
+                        title="previous chapter"><span class="section-number">8. </span>The philosophy behind Transcrypt and its impact on design decisions</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/differences_cpython.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="philosophy_directions.html" title="8. The philosophy behind Transcrypt and its impact on design decisions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Transcrypt 3.9.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9. </span>The main differences with CPython</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2014-2024, Jacques de Hooge.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

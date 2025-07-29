@@ -1,0 +1,67 @@
+<html><head><meta charset = 'UTF-8'>
+        <style>
+          body {
+            max-width: 100%;
+          }
+          .faultrow > td {
+             background-color: LightCoral;
+          }
+          #resulttable {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+          }
+          #resulttable th, #resulttable td {
+            border: 1px solid grey;
+          }
+          .testletheader > td {
+            background-color: LightSkyBlue;
+          }
+          .header-pos {
+            width: 20%;
+          }
+          .header-val {
+            width: 30%;
+          }
+          .py-pos,.trans-pos {
+            width: 20%;
+            overflow: hidden;
+          }
+          .py-val, .trans-val {
+            width: 30%;
+            overflow-x: auto;
+          }
+          .exc-header {
+          color: red;
+          }
+          .collapsed {
+            display: None;
+          }
+        </style>
+        </head><body><b>Status:</b>
+<div id="message"></div><br><br>
+
+<div id="python" style="display: None"><div id="logger_tests">
+<div id="pyresults">'tester' | 0 | False | 30 | 10 | 'exception' | 'Level USERDEFLEVEL' | 'NOTSET' | 'Level 5' | 'DEBUG' | 'Level 15' | 'INFO' | 'Level 25' | 'WARNING' | 'Level 35' | 'ERROR' | 'Level 45' | 35 | 'NOTSET' | 'Level 5' | 'DEBUG' | 'Level 15' | 'INFO' | 'Level 25' | 'WARNING' | 'USERDEFLEVEL' | 'ERROR' | 'Level 45' | False | False | True | True | True | True | True | True | True | True | True | 'This is a warning message' | 'This is an error message' | 'The house is on fire' | 'This is a blue warning message in the barn' | 'This is an error message: 3 23 4' | 'The house is on fire' | 'This is a blue warning message in the barn' | 'This is an error message: 3 23 4' | 'The house is on fire' | 'Another Crazy Message!' | 'Oh the humanity' | 'Is it hot in here?' | 'Another Crazy Message!' | 'Oh the humanity' | 'Another Crazy Message!' | 'Oh the humanity' | 'Another Crazy Message!' | 'Oh the humanity' | 'Another Crazy Message!' | 'Another Crazy Message!' | 'Oh the humanity' | 'Another Crazy Message!' | 'Oh the humanity' | False | None | 'Asdf' | 30 | True | 'WARNING:fmttest:This is a warning message' | 'ERROR:fmttest:This is an error message' | 'CRITICAL:fmttest:The house is on fire' | 'DEBUG:fmttest:This is a debug message' | 'INFO:fmttest:This is an info message' | 'WARNING:fmttest:This is a warning message' | 'ERROR:fmttest:This is an error message' | 'CRITICAL:fmttest:The house is on fire' | False | 'consoleTest:This is an info message' | 'consoleTest:This is a warning message' | 'consoleTest:This is an error message' | 'consoleTest:The house is on fire' | 'consoleTest:This is an info message' | 'consoleTest:This is a warning message' | 'consoleTest:This is an error message' | 'consoleTest:The house is on fire' | 'consoleTest:This is an info message' | 'consoleTest:This is a warning message' | 'consoleTest:This is an error message' | 'consoleTest:The house is on fire' | 'ERROR:phtest.middle.testme:Gen a message' | 'INFO:phtest.middle:This is another message' | 'INFO:phtest:Yet another message' | 'ERROR:mngtest:Gen a message 2 - the generating' | 'INFO:mngtest.mid:This is another message 2 - the anothering' | 'INFO:mngtest.mid:This is another message 2 - the anothering' | 'INFO:mngtest.mid.end:Yet another message 2 - the whatever...' | 'INFO:mngtest.mid.end:Yet another message 2 - the whatever...' | 'INFO:mngtest.mid.end:Yet another message 2 - the whatever...'</div>
+
+<div id="pypos">logging/logger_tests.py:13 | logging/logger_tests.py:14 | logging/logger_tests.py:15 | logging/logger_tests.py:18 | logging/logger_tests.py:20 | logging/logger_tests.py:22 | logging/logger_tests.py:23 | logging/logger_tests.py:25 | logging/logger_tests.py:25 | logging/logger_tests.py:25 | logging/logger_tests.py:25 | logging/logger_tests.py:25 | logging/logger_tests.py:25 | logging/logger_tests.py:25 | logging/logger_tests.py:25 | logging/logger_tests.py:25 | logging/logger_tests.py:25 | logging/logger_tests.py:28 | logging/logger_tests.py:30 | logging/logger_tests.py:30 | logging/logger_tests.py:30 | logging/logger_tests.py:30 | logging/logger_tests.py:30 | logging/logger_tests.py:30 | logging/logger_tests.py:30 | logging/logger_tests.py:30 | logging/logger_tests.py:30 | logging/logger_tests.py:30 | logging/logger_tests.py:33 | logging/logger_tests.py:33 | logging/logger_tests.py:33 | logging/logger_tests.py:33 | logging/logger_tests.py:33 | logging/logger_tests.py:33 | logging/logger_tests.py:33 | logging/logger_tests.py:33 | logging/logger_tests.py:33 | logging/logger_tests.py:33 | logging/logger_tests.py:41 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/logger_tests.py:173 | logging/logger_tests.py:178 | logging/logger_tests.py:180 | logging/logger_tests.py:181 | logging/logger_tests.py:183 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/logger_tests.py:213 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27</div>
+</div>
+<div id="config_tests">
+<div id="pyresults">2 | 0 | 30 | 'test1_WARNING_ioureoiu' | 'Custom: [test1]_ioureoiu' | 'test1_ERROR_jekwejrjek' | 'Custom: [test1]_jekwejrjek' | 'test1_CRITICAL_jlkjelkjwelkr' | 'Custom: [test1]_jlkjelkjwelkr' | 'test1_WARNING_ioureoiu' | 'Custom: [test1]_ioureoiu' | 'test1_ERROR_jekwejrjek' | 'Custom: [test1]_jekwejrjek' | 'test1_CRITICAL_jlkjelkjwelkr' | 'Custom: [test1]_jlkjelkjwelkr' | 'test1_WARNING_ioureoiu' | 'Custom: [test1]_ioureoiu' | 'test1_ERROR_jekwejrjek' | 'Custom: [test1]_jekwejrjek' | 'test1_CRITICAL_jlkjelkjwelkr' | 'Custom: [test1]_jlkjelkjwelkr' | 'test1_WARNING_ioureoiu' | 'Custom: [test1]_ioureoiu' | 'test1_ERROR_jekwejrjek' | 'Custom: [test1]_jekwejrjek' | 'test1_CRITICAL_jlkjelkjwelkr' | 'Custom: [test1]_jlkjelkjwelkr' | 'test1_WARNING_ioureoiu' | 'Custom: [test1]_ioureoiu' | 'test1_ERROR_jekwejrjek' | 'Custom: [test1]_jekwejrjek' | 'test1_CRITICAL_jlkjelkjwelkr' | 'Custom: [test1]_jlkjelkjwelkr' | 'test1_WARNING_ioureoiu' | 'Custom: [test1]_ioureoiu' | 'test1_ERROR_jekwejrjek' | 'Custom: [test1]_jekwejrjek' | 'test1_CRITICAL_jlkjelkjwelkr' | 'Custom: [test1]_jlkjelkjwelkr' | 'test1_WARNING_ioureoiu' | 'Custom: [test1]_ioureoiu' | 'test1_ERROR_jekwejrjek' | 'Custom: [test1]_jekwejrjek' | 'test1_CRITICAL_jlkjelkjwelkr' | 'Custom: [test1]_jlkjelkjwelkr' | 'test1_WARNING_ioureoiu' | 'Custom: [test1]_ioureoiu' | 'test1_ERROR_jekwejrjek' | 'Custom: [test1]_jekwejrjek' | 'test1_CRITICAL_jlkjelkjwelkr' | 'Custom: [test1]_jlkjelkjwelkr' | 'test1_WARNING_ioureoiu' | 'Custom: [test1]_ioureoiu' | 'test1_ERROR_jekwejrjek' | 'Custom: [test1]_jekwejrjek' | 'test1_CRITICAL_jlkjelkjwelkr' | 'Custom: [test1]_jlkjelkjwelkr' | 'test1_WARNING_ioureoiu' | 'Custom: [test1]_ioureoiu' | 'test1_ERROR_jekwejrjek' | 'Custom: [test1]_jekwejrjek' | 'test1_CRITICAL_jlkjelkjwelkr' | 'Custom: [test1]_jlkjelkjwelkr'</div>
+
+<div id="pypos">logging/config_tests.py:116 | logging/config_tests.py:117 | logging/config_tests.py:118 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27</div>
+</div>
+<div id="basicConfig_tests">
+<div id="pyresults">True | 20 | 1 | 5 | 'Never gonna let you go' | 'Never gonna run around and desert you' | 'Never gonna make you cry' | 'Never gonna give you up' | 'Never gonna let you go' | 'Never gonna run around and desert you' | 'Never gonna make you cry'</div>
+
+<div id="pypos">logging/basicConfig_tests.py:20 | logging/basicConfig_tests.py:21 | logging/basicConfig_tests.py:22 | logging/basicConfig_tests.py:24 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27 | logging/utils.py:27</div>
+</div>
+<div id="buffering_tests">
+<div id="pyresults">'------ 3 Records ------\nDEBUG:OneINFO:DosWARNING:Tres' | '------ 3 Records ------\nDEBUG:OneINFO:DosWARNING:Tres' | '------ 3 Records ------\nDEBUG:OneINFO:DosWARNING:Tres' | '------ 2 Records ------\nDEBUG:OneERROR:Dos' | '------ 1 Records ------\nERROR:Tres'</div>
+
+<div id="pypos">logging/buffering_tests.py:42 | logging/buffering_tests.py:42 | logging/buffering_tests.py:42 | logging/buffering_tests.py:42 | logging/buffering_tests.py:42</div>
+</div>
+</div></div>
+<div id="exc-area"></div><div id="results"><div> <a id="force-collapse" href="#"> Collapse All</a> <a id="force-expand" href="#">Expand All</a></div><table id="resulttable"><thead><tr> <th colspan="2"> CPython </th> <th colspan="2"> Transcrypt </th> </tr><tr> <th class="header-pos"> Location </th> <th class="header-val"> Value </th> <th class="header-val"> Value </th> <th class="header-pos"> Location </th> </tr></thead><tbody></tbody></table></div><script type="module" src="__target__/autotest.js"></script>
+
+</body></html>
