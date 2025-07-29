@@ -1,0 +1,26 @@
+Metadata-Version: 2.4
+Name: pggm-datalab-utils
+Version: 2.19
+Summary: Utilities created and used by the Datalab of PGGM
+Author-email: Rik de Kort <rik.de.kort@pggm.nl>
+Requires-Python: <4.0,>=3.9
+Requires-Dist: azure-identity<2.0.0,>=1.15.0
+Requires-Dist: pyodbc>=4.0.39
+Description-Content-Type: text/markdown
+
+# Datalab utils
+Well-specified utilities from the Datalab of PGGM. Our aim with this package is to provide some tooling to make our lives a bit easier.
+So far the package contains:
+- Database utilities, allowing you to connect to cloud databases using pyodbc in a standard pattern.
+- Helpers around nested lists (flattening and unflattening).
+- Helpers to make working with lists of dictionaries a bit easier so you don't have to resort to Pandas as fast.
+
+## How to use the database helpers
+```python
+from pggm_datalab_utils.db import cursor, query
+
+bbg_id = 'WOW'
+
+with cursor('pggm-sql-lre-o.database.windows.net', 'lre') as c:
+    data = query(c, 'select sedol, name from portfolio where bbg_id=?', bbg_id)
+```
