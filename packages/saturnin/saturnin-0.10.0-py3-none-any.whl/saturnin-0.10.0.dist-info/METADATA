@@ -1,0 +1,215 @@
+Metadata-Version: 2.4
+Name: saturnin
+Version: 0.10.0
+Summary: Firebird Butler platform for Python
+Project-URL: Home, http://firebirdsql.org/en/saturnin/
+Project-URL: Documentation, https://saturnin.rtfd.io
+Project-URL: Issues, https://github.com/FirebirdSQL/saturnin/issues
+Project-URL: Funding, https://github.com/sponsors/pcisar
+Project-URL: Source, https://github.com/FirebirdSQL/saturnin
+Author-email: Pavel Cisar <pcisar@users.sourceforge.net>
+License: MIT License
+        
+        Copyright (c) 2018 Firebird Project (www.firebirdsql.org)
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Keywords: Butler,Firebird,Platform,Saturnin,ZeroMQ
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Database
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Object Brokering
+Classifier: Topic :: System :: Logging
+Classifier: Topic :: System :: Monitoring
+Classifier: Topic :: System :: Systems Administration
+Requires-Python: >=3.11
+Requires-Dist: firebird-base~=2.0
+Requires-Dist: firebird-butler-protobuf~=2.0
+Requires-Dist: firebird-uuid~=1.0
+Requires-Dist: packaging~=25.0
+Requires-Dist: prompt-toolkit~=3.0
+Requires-Dist: protobuf~=5.29
+Requires-Dist: psutil~=7.0
+Requires-Dist: pyzmq~=26.4
+Requires-Dist: rich~=14.0
+Requires-Dist: tomli-w~=1.2
+Requires-Dist: typer~=0.15
+Provides-Extra: firebird
+Requires-Dist: firebird-driver~=2.0; extra == 'firebird'
+Requires-Dist: firebird-lib~=2.0; extra == 'firebird'
+Description-Content-Type: text/markdown
+
+# saturnin
+
+## The [Firebird Butler](https://firebird-butler.rtfd.io/) platform for Python
+
+[![PyPI - Version](https://img.shields.io/pypi/v/saturnin.svg)](https://pypi.org/project/saturnin)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/saturnin.svg)](https://pypi.org/project/saturnin)
+[![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
+
+Saturnin is an implementation of Firebird Butler platform for Python.
+
+> **Note**
+For best experience with Saturnin console and other tools, we recommend to use terminal with good support for ANSI escape sequences. On Windows platform, we recommend to use [Windows Terminal](https://aka.ms/terminal).
+
+-----
+
+**Table of Contents**
+
+- [License](#license)
+- [Installation](#installation)
+- [Initialization](#initialization)
+- [Saturnin console](#saturnin-console)
+- [Installing services](#installing-services)
+- [Using Firebird services](#using-firebird-services)
+- [Saturnin recipes](#saturnin-recipes)
+- [Documentation](#documentation)
+
+## License
+
+`saturnin` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+
+## Installation
+
+For regular deployments, we recommend installing using the [pipx](https://pypa.github.io/pipx/)
+tool, which installs into a separate virtual Python environment and exposes all executable
+commands in the search path.
+
+```console
+pip install pipx
+pipx install saturnin
+```
+If you want to develop your own services using the Saturnin SDK, we recommend that you
+first create a separate virtual environment into which you install Saturnin in the usual
+way. For example:
+
+```console
+pip install saturnin
+```
+
+## Initialization
+
+Saturnin uses a number of files and directories whose location in the file system corresponds
+to the standards for the platform on which it is installed. This basic directory placement
+scheme can be changed by using the `SATURNIN_HOME` environment variable, which sets the root
+of the other directory locations. Alternatively, you can create a `"home"` subdirectory in
+the root directory of the virtual environment in which Saturnin is isolated.
+
+> **Warning**
+Because on Linux or MacOS the default location of some directories may require higher than
+normal access rights, we recommend that you always use the home directory setting on these
+platforms.
+
+> **Note**
+To set the home directory in the virtual environment (recommended when installing with pipx),
+use the command:
+
+   ```console
+   saturnin create home
+   ```
+
+The next step is to initialize the Saturnin installation with the command:
+
+   ```console
+   saturnin initialize
+   ```
+
+## Saturnin console
+
+The `saturnin` tool is used to manage the Saturnin platform installation. It can be operated
+in two modes:
+
+- **Single command (direct) mode.** The required command and parameters are entered directly on
+  the command line, and after the command is executed, the tool is terminated.
+
+- **Interactive console mode** activated by running the tool without additional parameters.
+  The interactive console offers an enhanced command line with persistent command history,
+  command and parameter completion, and interactive help.
+
+> **Note**
+The command set available in console mode differs from command set available in direct mode,
+as some commands (typically those required to run only once or not very often like `initialize`
+or `create home`) are available only in direct mode.
+
+For normal work, we recommend using the interactive console mode. In the following sections,
+all the commands described are entered in the interactive console.
+
+## Installing services
+
+
+Immediately after installation, Saturnin does not provide any Butler services. These
+services need to be installed separately. Although you can install service packages with
+the standard pip utility, we recommend that you use saturnin's `install package`,
+`uninstall package`, and `pip` commands to install, uninstall, or manage service packages,
+as these commands also update the necessary registries that Saturnin uses to work with
+Butler services and Saturnin applications.
+
+> **Note**
+If necessary, the command: `update registry` can be used to update the registries.
+
+To install package with Saturnin core services, use command:
+
+   ```console
+   install package saturnin-core
+   ```
+
+## Using Firebird services
+
+
+To use Butler services that work with Firebird server, you need to create (and update)
+a configuration file for the firebird driver using the commands:
+
+   ```console
+   create config firebird
+   edit config firebird
+   ```
+
+## Saturnin recipes
+
+Recipes are Saturnin-specific configuration files with instructions for running Butler
+services built for Saturnin. Recipes can be created with the `create recipe` command, which
+creates a recipe template that typically needs to be modified further (because it only
+contains default values). Recipes created independently (e.g. by a solution supplier or
+provided by installed Saturnin application) must be installed with the `install recipe` command.
+
+Created or installed recipes can be run with the `run recipe-name` command. You can get
+a list of recipes that can be started with the `list recipes` command.
+
+For more information, see the [Usage Guide](https://saturnin.readthedocs.io/en/latest/usage-guide.html).
+
+## Documentation
+
+Documentation related to Saturnin:
+
+- [Firebird Butler](https://firebird-butler.rtfd.io/)
+- [Saturnin](https://saturnin.rtfd.io/)
+- [Saturnin CORE](https://saturnin-core.rtfd.io/) services
+- [Saturnin SDK](https://saturnin-sdk.rtfd.io/)
