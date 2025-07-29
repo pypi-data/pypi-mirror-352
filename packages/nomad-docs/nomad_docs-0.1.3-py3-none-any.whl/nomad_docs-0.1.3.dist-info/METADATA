@@ -1,0 +1,40 @@
+Metadata-Version: 2.3
+Name: nomad-docs
+Version: 0.1.3
+Summary: Add your description here
+Author: Ahmed Ilyas
+Author-email: Ahmed Ilyas <ahmed.n.ilyas@gmail.com>
+Requires-Dist: mkdocs-click
+Requires-Dist: mkdocs-git-revision-date-localized-plugin
+Requires-Dist: mkdocs-glightbox
+Requires-Dist: mkdocs-macros-plugin
+Requires-Dist: mkdocs-material-extensions
+Requires-Dist: mkdocs-material
+Requires-Dist: mkdocs-redirects
+Requires-Dist: mkdocs
+Requires-Dist: nomad-lab[infrastructure]>=1.3.16.dev238
+Requires-Dist: pydantic>=2.0
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
+## `nomad-docs`
+
+This repository contains the documentation for the central NOMAD distribution.
+
+### Contributing
+
+To contribute, please open a pull request (PR) with your changes.
+
+#### Running the Docs Server Locally
+
+You have two options to run the documentation server:
+
+1. Use the [nomad-dev-distro](https://github.com/FAIRmat-NFDI/nomad-distro-dev?tab=readme-ov-file#day-to-day-development) command.
+
+2. Or manually install the required dependencies and run:
+
+```bash
+uv run mkdocs serve
+```
+
+This will start a local server where you can preview your changes.
