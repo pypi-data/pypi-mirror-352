@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my-cli-utilities"
+version = "0.1.1"
+authors = [
+  { name="Swain Zheng", email="swain.zheng@xxxx.com" },
+]
+description = "A suite of CLI utilities for account pool and device spy services."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT License"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "httpx>=0.20",
+    "fire>=0.4",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/yourusername/my-cli-utilities"
+"Bug Tracker" = "https://github.com/yourusername/my-cli-utilities/issues"
+
+[project.scripts]
+ap = "account_pool_cli.cli:main_cli_function"
+ds = "device_spy_cli.cli:main_ds_function"
+
+[tool.setuptools.packages.find]
+include = ["account_pool_cli*", "device_spy_cli*", "my_cli_utilities_common*"]
+exclude = ["plists*" ] 
