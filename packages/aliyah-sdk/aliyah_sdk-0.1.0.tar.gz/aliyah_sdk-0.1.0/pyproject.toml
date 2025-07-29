@@ -1,0 +1,90 @@
+[build-system]
+# Use setuptools for building
+# These are the minimum packages required to build the distribution files
+requires = ["setuptools>=61.0", "build", "twine"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aliyah-sdk"
+version = "0.1.0" 
+
+authors = [
+    { name="Your Name", email="your.email@example.com" }, # Replace with your name and email
+]
+description = "Aaliyah SDK for connecting AI agents to the Aaliyah platform for compliance checking and monitoring."
+readme = "README.md" # Ensure you have a README.md file
+requires-python = ">=3.10" 
+license = { file="LICENSE" }
+keywords = ["ai", "agent", "monitoring", "compliance", "governance", "opentelemetry"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License", # Updated classifier for Apache 2.0
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Monitoring",
+    # Add specific Python versions supported if needed, e.g., "Programming Language :: Python :: 3.8", "Programming Language :: Python :: 3.9", ...
+]
+
+# Runtime dependencies - these are installed by default with the package
+# Runtime dependencies - these are installed by default with the package
+dependencies = [
+    # Core SDK Dependencies
+    "requests",
+    "wrapt",
+    "psutil",
+    "termcolor",
+
+    # Core OpenTelemetry Dependencies
+    "opentelemetry-api",
+    "opentelemetry-sdk",
+    "opentelemetry-instrumentation",
+    "opentelemetry-semantic-conventions",
+
+    # OpenTelemetry OTLP HTTP Exporter Dependencies
+    "opentelemetry-exporter-otlp-proto-http",
+
+    # General Purpose Libraries
+    "pydantic",
+    "typing-extensions",
+    "python-dotenv",
+    "PyYAML",
+
+    # Dependencies for Specific Instrumentations
+    "openai",
+    "anthropic",
+    "google-generativeai",
+    "karo",
+    "openpyxl",
+    "pandas",
+
+    # Other dependencies
+    "jsonpatch",
+    "jsonpointer",
+    "jsonschema",
+    "referencing",
+    "rpds-py",
+    "websocket-client",
+    "websockets",
+    "watchfiles",
+]
+
+# Use setuptools to automatically find packages that have __init__.py files.
+# We tell it to look starting from the current directory (where pyproject.toml is)
+# and include the top-level package 'aliyah_sdk' and all its sub-packages.
+[tool.setuptools]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["aliyah_sdk*"]
+
+# We are using a static version for now, so this dynamic lookup is commented out.
+# To use dynamic version later, uncomment this section and ensure aliyah_sdk/__version__.py exists.
+# [tool.setuptools.dynamic]
+# version = {attr = "aliyah_sdk.__version__.__version__"}
+
+# Optional: Include package data if you have non-Python files (e.g., templates, data files)
+# If your instrumentation code relies on reading files (e.g., templates for reports,
+# config files for compliance features *within the SDK*), you need to include them here.
+# [tool.setuptools.package-data]
+# "aliyah_sdk" = ["compliance/templates/*", "compliance/docs/standards/*"] # Example paths if these are needed *by the SDK*
