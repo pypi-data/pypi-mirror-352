@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: pip install .
+      - name: Lint
+        run: echo "TODO: add flake8 or ruff"
