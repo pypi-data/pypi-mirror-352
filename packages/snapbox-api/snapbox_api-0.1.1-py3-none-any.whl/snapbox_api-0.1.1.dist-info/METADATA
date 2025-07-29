@@ -1,0 +1,73 @@
+Metadata-Version: 2.4
+Name: snapbox-api
+Version: 0.1.1
+Summary: A background removal CLI tool using InSPyReNet model
+Home-page: https://github.com/vinacogroup/snapbox-effect-api.git
+Author: Your Name
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: pillow>=11.2.0
+Requires-Dist: numpy>=2.0.0
+Requires-Dist: opencv-python>=4.11.0
+Requires-Dist: torch>=2.0.0
+Requires-Dist: transparent-background>=1.2.4
+Requires-Dist: fastapi>=0.100.0
+Requires-Dist: python-multipart>=0.0.6
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: flake8; extra == "dev"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# RemoveBG CLI
+
+A Python command-line tool for background removal from images and videos.
+
+## Installation
+
+```bash
+pip install snapbox-api
+```
+
+## Usage
+
+1. Process a single image:
+```bash
+snapbox-api image -i "input.jpg" -o "output.png"
+```
+
+2. Process a video:
+```bash
+snapbox-api video -i "input.mp4" -o "output.mp4"
+```
+
+3. Extract video mask only:
+```bash
+snapbox-api video -i "input.mp4" -mk -o "output.mp4"
+```
+
+## Requirements
+
+- Python 3.8 or higher
+- Dependencies are automatically installed with the package:
+  - Pillow (for image processing)
+  - rembg (for background removal)
+  - OpenCV (for video processing)
+  - NumPy (for array operations)
+
+## License
+
+MIT License 
