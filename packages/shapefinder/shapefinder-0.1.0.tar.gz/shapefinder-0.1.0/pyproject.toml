@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shapefinder"
+version = "0.1.0"
+description = "A tool to find patterns in time series dataset and forecast"
+authors = [
+  { name = "Thomas Schincariol", email = "thomas.schincariol@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+
+dependencies = [
+    "pandas==1.1.5",
+    "matplotlib==3.3.4",
+    "numpy==1.19.5",
+    "scipy==1.5.4",
+    "dtaidistance==2.3.10",
+    "plotly==4.14.3",
+    "POT==0.7.0"
+]
+
+keywords = ["python", "time series", "find", "pattern"]
+
+[project.urls]
+Homepage = "https://github.com/ThomasSchinca/shapefinder"   
+Issues = "https://github.com/ThomasSchinca/shapefinder/issues"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["test"]
+addopts = "-ra -q"
