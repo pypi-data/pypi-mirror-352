@@ -1,0 +1,18 @@
+[project]
+name = "deliverfresh-whatsapp-order"
+version = "0.1.7"
+description = "Clean and normalize WhatsApp chat orders into structured product lists."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Raman Perumal", email = "rperumal3000@gmail.com" }
+]
+requires-python = ">=3.7"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "build", "twine"]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
