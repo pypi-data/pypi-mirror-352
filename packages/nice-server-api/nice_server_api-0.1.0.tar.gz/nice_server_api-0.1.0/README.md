@@ -1,0 +1,174 @@
+markdown
+
+# NiceServerAPI
+
+**NiceServerAPI** — это простая библиотека на Python, которая позволяет легко создавать серверные и клиентские приложения. Сервер строится на Flask, а клиент использует `requests` для взаимодействия. Вы пишете обычные Python-функции, а библиотека обрабатывает маршруты и запросы за вас!
+
+## Установка
+
+Установите библиотеку через pip:
+
+```bash
+pip install nice-server-api
+```
+Зависимости
+Python >= 3.6
+
+flask>=2.0.0
+
+requests>=2.25.0
+
+Быстрый старт
+1. Создание сервера
+Создайте файл, например, server_app.py.
+
+Определите функции для обработки запросов, используя декоратор @server.route(url).
+
+Запустите сервер.
+
+Пример файла server_app.py:
+python
+
+from nice_server_api import NiceServer
+
+# Создаем сервер на порту 5000
+server = NiceServer(port=5000)
+
+# Определяем функцию для маршрута
+@server.route("/hello")
+def hello(url, name="Guest"):
+    return f"Hello, {name} from {url}!"
+
+@server.route("/add")
+def add(url, a=0, b=0):
+    return int(a) + int(b)
+
+# Запускаем сервер
+server.run()
+
+Что происходит:
+Создается сервер на порту 5000.
+
+Функция hello доступна по адресу /hello (например, http://localhost:5000/hello?name=Alex).
+
+Функция add складывает два числа, переданных через запрос (например, http://localhost:5000/add?a=2&b=3 или POST с JSON {"a": 2, "b": 3}).
+
+Аргумент url автоматически передается библиотекой, чтобы вы могли использовать его в логике.
+
+2. Создание клиента
+Создайте файл, например, client_app.py.
+
+Используйте NiceClient для подключения к серверу.
+
+Вызывайте функции сервера через server.connect(function_name, *args, **kwargs).
+
+Пример файла client_app.py:
+python
+
+from nice_server_api import NiceClient
+
+# Создаем клиент, указывая адрес сервера
+server = NiceClient("http://localhost:5000")
+
+# Вызываем функции на сервере
+print(server.connect("hello", name="Alex"))  # Вывод: {'result': 'Hello, Alex from /hello!', 'status': 'success'}
+print(server.connect("add", 2, 3))  # Вывод: {'result': 5, 'status': 'success'}
+print(server.connect("add", a=10, b=20))  # Вывод: {'result': 30, 'status': 'success'}
+
+Что происходит:
+Клиент подключается к серверу по адресу http://localhost:5000.
+
+server.connect("hello", name="Alex") отправляет POST-запрос с JSON {"name": "Alex"} к /hello.
+
+server.connect("add", 2, 3) отправляет GET-запрос с параметрами arg0=2&arg1=3 к /add.
+
+server.connect("add", a=10, b=20) отправляет POST-запрос с JSON {"a": 10, "b": 20} к /add.
+
+Как это работает
+Сервер
+Инициализация: Создайте объект NiceServer(port) с нужным портом.
+
+Маршруты: Используйте декоратор @server.route(url) для определения функций. Функции принимают:
+url: Путь маршрута (автоматически передается библиотекой).
+
+Прочие параметры: Извлекаются из GET (query-параметры) или POST (JSON) запросов.
+
+Запуск: Вызовите server.run() для запуска.
+
+Клиент
+Инициализация: Создайте объект NiceClient(server_address) с адресом сервера (например, http://localhost:5000).
+
+Вызов функций: Используйте server.connect(function_name, *args, **kwargs):
+function_name: Имя маршрута/функции (например, "hello" для /hello).
+
+*args: Позиционные аргументы — отправляются как GET-параметры (arg0, arg1, ...).
+
+**kwargs: Именованные аргументы — отправляются как JSON в POST-запросе.
+
+Ответ: Возвращается словарь с ключами:
+result: Результат выполнения функции.
+
+status: "success" или "error".
+
+error: Текст ошибки, если что-то пошло не так.
+
+Примеры
+Пример 1: Приветствие
+Сервер (server_app.py):
+python
+
+from nice_server_api import NiceServer
+
+server = NiceServer(port=5000)
+
+@server.route("/greet")
+def greet(url, user="User"):
+    return f"Welcome, {user}, to {url}!"
+
+server.run()
+
+Клиент (client_app.py):
+python
+
+from nice_server_api import NiceClient
+
+server = NiceClient("http://localhost:5000")
+print(server.connect("greet", user="Alice"))  # {'result': 'Welcome, Alice, to /greet!', 'status': 'success'}
+
+Пример 2: Калькулятор
+Сервер (server_app.py):
+python
+
+from nice_server_api import NiceServer
+
+server = NiceServer(port=5000)
+
+@server.route("/multiply")
+def multiply(url, x=1, y=1):
+    return int(x) * int(y)
+
+server.run()
+
+Клиент (client_app.py):
+python
+
+from nice_server_api import NiceClient
+
+server = NiceClient("http://localhost:5000")
+print(server.connect("multiply", 4, 5))  # {'result': 20, 'status': 'success'}
+print(server.connect("multiply", x=3, y=7))  # {'result': 21, 'status': 'success'}
+
+Советы
+Запуск сервера: Запускайте сервер в одном терминале (или PyCharm Run), а клиент — в другом.
+
+Обработка ошибок: Если функция на сервере вызывает ошибку, клиент получит {"error": "текст_ошибки", "status": "error"}.
+
+Расширение: Добавляйте свои функции с любыми параметрами, библиотека автоматически обработает запросы.
+
+Лицензия
+MIT License
+Поддержка
+Репозиторий: https://github.com/твой_пользователь/nice-server-api
+
+Сообщения об ошибках: https://github.com/твой_пользователь/nice-server-api/issues
+
