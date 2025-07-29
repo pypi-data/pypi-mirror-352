@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+<record id="link_stock_move_rma_line_view_form" model="ir.ui.view">
+    <field name="name">Link RMA Line To Stock Move</field>
+    <field name="model">link_stock_move_rma_line</field>
+    <field name="arch" type="xml">
+        <form>
+            <field name="model_id" invisible="1" />
+            <field name="allowed_stock_move_ids" invisible="1" />
+            <field
+                    name="stock_move_ids"
+                    domain="[('id','in',allowed_stock_move_ids)]"
+                />
+            <footer>
+                <button
+                        string="Confirm"
+                        name="action_confirm"
+                        type="object"
+                        class="oe_highlight"
+                        confirm="Are you sure?"
+                    />
+                or
+                <button string="Cancel" class="oe_link" special="cancel" />
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="link_stock_move_rma_line_action" model="ir.actions.act_window">
+    <field name="name">Link RMA Line To Stock Move</field>
+    <field name="res_model">link_stock_move_rma_line</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="link_stock_move_rma_line_view_form" />
+    <field name="target">new</field>
+</record>
+
+</odoo>

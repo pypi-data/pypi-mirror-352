@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2023 OpenSynergy Indonesia-->
+<!--Copyright 2023 PT. Simetri Sinergi Indonesia-->
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+<odoo>
+    <record id="rma_mixin_view_tree" model="ir.ui.view">
+        <field name="name">rma_mixin - Tree</field>
+        <field name="model">rma_order_mixin</field>
+        <field
+            name="inherit_id"
+            ref="ssi_transaction_mixin.mixin_transaction_view_tree"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="type" invisible="1" />
+                <field name="partner_id" widget="many2one_avatar" />
+                <field
+                    name="contact_partner_id"
+                    optional="hide"
+                    widget="many2one_avatar"
+                />
+                <field name="source_picking_id" />
+                <field name="date" />
+                <field name="date_due" />
+                <field name="reason_id" />
+                <field name="operation_id" />
+                <field name="route_template_id" />
+                <field name="need_reception" optional="hide" />
+                <field
+                    name="percent_reception"
+                    string="Reception"
+                    optional="show"
+                    widget="percentage"
+                />
+                <field name="need_delivery" optional="hide" />
+                <field
+                    name="percent_delivery"
+                    string="Delivery"
+                    optional="show"
+                    widget="percentage"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="rma_mixin_view_search" model="ir.ui.view">
+        <field name="name">rma_mixin - Search</field>
+        <field name="model">rma_order_mixin</field>
+        <field
+            name="inherit_id"
+            ref="ssi_transaction_mixin.mixin_transaction_view_search"
+        />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='user_id']" position='after'>
+                    <field name="operation_id" />
+                    <field name="partner_id" />
+                    <field name="contact_partner_id" />
+                    <field name="source_picking_id" />
+                    <field name="date" />
+                    <field name="duration_id" />
+                    <field name="date_due" />
+                    <field name="route_template_id" />
+                    <field name="group_id" />
+                    <separator name="need_receiption" />
+                    <filter
+                        name="need_reception"
+                        string="Receiption Needed"
+                        domain="[('need_reception','=',1)]"
+                    />
+                    <filter
+                        name="no_need_reception"
+                        string="Receiption Not Needed"
+                        domain="[('need_reception','=',0)]"
+                    />
+                    <separator name="need_delivery" />
+                    <filter
+                        name="need_delivery"
+                        string="Delivery Needed"
+                        domain="[('need_delivery','=',1)]"
+                    />
+                    <filter
+                        name="no_need_delivery"
+                        string="Delivery Not Needed"
+                        domain="[('need_delivery','=',0)]"
+                    />
+                    <separator name="reception_complete" />
+                    <filter
+                        name="reception_complete"
+                        string="Reception Complete"
+                        domain="[('reception_complete','=',1)]"
+                    />
+                    <filter
+                        name="reception_not_complete"
+                        string="Reception Not Complete"
+                        domain="[('reception_complete','=',0),('percent_reception','&lt;',1.0)]"
+                    />
+                    <filter
+                        name="over_receipt"
+                        string="Over Receipt"
+                        domain="[('reception_complete','=',0),('percent_reception','&gt;',1.0)]"
+                    />
+                    <separator name="delivery_complete" />
+                    <filter
+                        name="delivery_complete"
+                        string="Delivery Complete"
+                        domain="[('delivery_complete','=',1)]"
+                    />
+                    <filter
+                        name="delivery_not_complete"
+                        string="Delivery Not Complete"
+                        domain="[('delivery_complete','=',0),('percent_delivery','&lt;',1.0)]"
+                    />
+                    <filter
+                        name="over_deliver"
+                        string="Over Deliver"
+                        domain="[('delivery_complete','=',0),('percent_delivery','&gt;',1)]"
+                    />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="rma_mixin_view_form" model="ir.ui.view">
+        <field name="name">rma_mixin - Form</field>
+        <field name="model">rma_order_mixin</field>
+        <field
+            name="inherit_id"
+            ref="ssi_transaction_mixin.mixin_transaction_view_form"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_open_reception"
+                    class="oe_stat_button"
+                    type="object"
+                    icon="fa-sign-in"
+                >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="num_of_reception" />
+                        </span>
+                        <span class="o_stat_text">Reception</span>
+                    </div>
+                </button>
+                <button
+                    name="action_open_delivery"
+                    class="oe_stat_button"
+                    type="object"
+                    icon="fa-sign-out"
+                >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="num_of_delivery" />
+                        </span>
+                        <span class="o_stat_text">Delivery</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="type" invisible="1" />
+                <field name="operation_id" />
+                <field name="reason_id" />
+                <field
+                    name="allowed_source_picking_type_category_ids"
+                    widget="many2many_tags"
+                    invisible="1"
+                />
+                <field
+                    name="allowed_source_picking_type_ids"
+                    widget="many2many_tags"
+                    invisible="1"
+                />
+                <field name="partner_id" widget="many2one_avatar" />
+                <field
+                    name="allowed_contact_ids"
+                    widget="many2many_avatar"
+                    invisible="1"
+                />
+                <field
+                    name="contact_partner_id"
+                    domain="[('id','in',allowed_contact_ids)]"
+                    widget="many2one_avatar"
+                />
+                <label for="source_picking_id" />
+                <div>
+                    <field name="source_picking_id" />
+                    <button
+                        name="%(select_rma_source_picking_action)d"
+                        help="Link Source Picking"
+                        icon="fa-link"
+                        type="action"
+                        attrs="{'invisible':['|',('state','!=','draft'),'&amp;',('state','=','draft'),('source_picking_id','!=',False)]}"
+                        class="oe_highlight"
+                        style="margin-right:4px"
+                    />
+                    <button
+                        name="action_unlink_source_picking"
+                        help="Unlink Source Picking"
+                        icon="fa-unlink"
+                        type="object"
+                        attrs="{'invisible':['|',('state','!=','draft'),'&amp;',('state','=','draft'),('source_picking_id','=',False)]}"
+                        class="oe_highlight"
+                    />
+                </div>
+                <field name="line_edit_ok" invisible="1" />
+            </xpath>
+            <xpath expr="//group[@name='header_right']" position="inside">
+                <field name="date" />
+                <field name="duration_id" />
+                <field name="date_due" />
+            </xpath>
+            <xpath expr="//page[1]" position="before">
+                <page name="detail" string="Details">
+                    <field
+                        name="line_ids"
+                        attrs="{'readonly': [('line_edit_ok','=',False)]}"
+                    >
+                        <tree>
+                            <field name="sequence" widget="handle" />
+                            <field name="product_id" />
+                            <field name="lot_id" />
+                            <field name="uom_quantity" />
+                            <field name="uom_id" />
+                            <field name="need_reception" optional="hide" />
+                            <field
+                                name="percent_reception"
+                                string="Reception"
+                                optional="show"
+                                widget="percentage"
+                            />
+                            <field name="reception_complete" invisible="1" />
+                            <field name="need_delivery" optional="hide" />
+                            <field
+                                name="percent_delivery"
+                                string="Delivery"
+                                optional="show"
+                                widget="percentage"
+                            />
+                            <field name="delivery_complete" invisible="1" />
+                            <field name="rma_state" invisible="1" />
+                            <button
+                                name="%(link_stock_move_rma_line_action)d"
+                                type="action"
+                                help="Link To Stock Move"
+                                icon="fa-cubes"
+                                attrs="{'invisible': [('rma_state','!=','open')]}"
+                            />
+                        </tree>
+                        <form>
+                            <group name="form_detail" colspan="4" col="2">
+                                <group name="form_detail1" colspan="1" col="2">
+                                    <field name="sequence" />
+                                    <field name="source_stock_move_id" />
+                                    <field name="product_id" />
+                                    <field name="name" />
+                                    <field
+                                        name="allowed_lot_ids"
+                                        widget="many2many_tags"
+                                        invisible="1"
+                                    />
+                                    <field
+                                        name="lot_id"
+                                        domain="[('id','in',allowed_lot_ids)]"
+                                    />
+                                </group>
+                                <group name="form_detail2" colspan="1" col="2">
+                                    <field
+                                        name="allowed_uom_ids"
+                                        widget="many2many_tags"
+                                        invisible="1"
+                                    />
+                                    <label for="uom_quantity" string="Quantity" />
+                                    <div>
+                                        <field name="uom_quantity" class="oe_inline" />
+                                        <field
+                                            name="uom_id"
+                                            domain="[('id','in',allowed_uom_ids)]"
+                                            class="oe_inline"
+                                        />
+                                    </div>
+                                    <field name="quantity" invisible="1" />
+                                    <field name="currency_id" />
+                                    <field
+                                        name="allowed_pricelist_ids"
+                                        widget="many2many_tags"
+                                        invisible="1"
+                                    />
+                                    <field
+                                        name="pricelist_id"
+                                        domain="[('id','in',allowed_pricelist_ids)]"
+                                    />
+                                    <field name="price_unit" />
+                                </group>
+                            </group>
+                            <notebook>
+                                <page name="move" string="Stock Move">
+                                    <field name="stock_move_ids" readonly="1" />
+                                </page>
+                                <page name="quantity" string="Quantities">
+
+                                    <group name="quantity" colspan="4" col="3">
+                                        <group name="quantity1" colspan="1" col="2">
+                                            <field name="qty_to_receive" />
+                                            <field name="qty_incoming" />
+                                            <field name="qty_received" />
+                                        </group>
+                                        <group name="quantity2" colspan="1" col="2">
+                                            <field name="qty_to_deliver" />
+                                            <field name="qty_outgoing" />
+                                            <field name="qty_delivered" />
+                                        </group>
+                                        <group name="quantity3" colspan="1" col="2">
+                                            <field name="reception_complete" />
+                                            <field name="delivery_complete" />
+                                        </group>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </form>
+                    </field>
+                </page>
+                <page name="procurement" string="Procurement">
+                    <button
+                        name="action_create_reception"
+                        type="object"
+                        string="Create Reception"
+                        class="oe_highlight"
+                        icon="fa-sign-in"
+                        attrs="{'invisible':[('receipt_ok','=',False)]}"
+                        style="margin-right:4px"
+                    />
+                    <button
+                        name="action_create_delivery"
+                        type="object"
+                        string="Create Delivery"
+                        class="oe_highlight"
+                        icon="fa-sign-out"
+                        attrs="{'invisible':[('deliver_ok','=',False)]}"
+                        style="margin-right:4px"
+                    />
+                    <group name="procurement_1" colspan="4" col="2">
+                        <field
+                            name="allowed_route_template_ids"
+                            widget="many2many_tags"
+                            invisible="1"
+                        />
+                        <field
+                            name="route_template_id"
+                            domain="[('id','in',allowed_route_template_ids)]"
+                        />
+                        <field name="group_id" />
+                    </group>
+                    <separator name="stock_picking" string="Stock Pickings" />
+                    <field name="stock_picking_ids" nolabel="1" />
+                    <separator name="stock_move" string="Stock Moves" />
+                    <field name="stock_move_ids" nolabel="1" />
+                    <group
+                        name="procurement_2"
+                        colspan="4"
+                        col="2"
+                        groups="base.group_no_one"
+                    >
+                        <field name="receipt_ok" groups="base.group_no_one" />
+                        <field name="deliver_ok" groups="base.group_no_one" />
+                        <field name="resolve_ok" groups="base.group_no_one" />
+                    </group>
+                </page>
+                <page name="quantity" string="Quantity">
+                    <button
+                        name="action_recompute_resolution"
+                        type="object"
+                        string="Resolution"
+                        icon="fa-gear"
+                        attrs="{'invisible':[('state','!=','open')]}"
+                        class="oe_highlight"
+                    />
+                    <group name="quantity_1" colspan="4" col="3">
+                        <group name="quantity_1_1" colspan="1" col="2">
+                            <field name="uom_quantity" />
+                            <field name="qty_to_receipt" />
+                            <field name="qty_to_deliver" />
+                        </group>
+                        <group name="quantity_1_2" colspan="1" col="2">
+                            <field name="qty_received" />
+                            <field name="qty_delivered" />
+                        </group>
+                        <group name="quantity_1_3" colspan="1" col="2">
+                            <field name="percent_reception" widget="percentage" />
+                            <field name="need_reception" />
+                            <field name="delivery_complete" />
+                            <field name="percent_delivery" widget="percentage" />
+                            <field name="need_delivery" />
+                            <field name="reception_complete" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="rma_mixin_view_form1" model="ir.ui.view">
+        <field name="name">rma_mixin - Form - Editable Stock Move</field>
+        <field name="model">rma_order_mixin</field>
+        <field name="inherit_id" ref="ssi_rma.rma_mixin_view_form" />
+        <field name="groups_id" eval="[(4, ref('base.group_system'))]" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//page[@name='move']/field[@name='stock_move_ids']"
+                position="attributes"
+            >
+                <attribute name="readonly">0</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

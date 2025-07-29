@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="customer_rma_out_action" model="ir.actions.act_window">
+    <field name="name">Customer RMA Out</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">tree,form</field>
+    <field
+            name="domain"
+            eval="[('picking_type_category_id','=',ref('ssi_rma.picking_category_cro'))]"
+        />
+    <field
+            name="context"
+            eval="{'default_picking_type_category_id':ref('ssi_rma.picking_category_cro')}"
+        />
+</record>
+
+<menuitem
+        id="customer_rma_out_menu"
+        name="Customer RMA Out"
+        parent="ssi_stock.menu_outgoing_movement"
+        groups="customer_rma_out_viewer_group"
+        action="customer_rma_out_action"
+        sequence="103"
+    />
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<data noupdate="1">
+    <!-- RMA CUSTOMER -->
+<record id="rma_customer_sequence_template" model="sequence.template">
+    <field name="name">Standard</field>
+    <field name="model_id" ref="model_rma_customer" />
+    <field name="sequence" eval="100" />
+    <field name="initial_string">/</field>
+    <field
+                name="sequence_field_id"
+                search="[('model_id.model','=','rma_customer'),('name','=','name')]"
+            />
+    <field
+                name="date_field_id"
+                search="[('model_id.model','=','rma_customer'),('name','=','date')]"
+            />
+    <field name="computation_method">use_python</field>
+    <field name="python_code">result=True</field>
+    <field name="sequence_id" ref="rma_customer_sequence" />
+    <field name="sequence_selection_method">use_sequence</field>
+    <field name="add_custom_prefix" eval="0" />
+    <field name="add_custom_suffix" eval="0" />
+</record>
+<!-- RMA SUPPLIER -->
+<record id="rma_supplier_sequence_template" model="sequence.template">
+    <field name="name">Standard</field>
+    <field name="model_id" ref="model_rma_supplier" />
+    <field name="sequence" eval="100" />
+    <field name="initial_string">/</field>
+    <field
+                name="sequence_field_id"
+                search="[('model_id.model','=','rma_supplier'),('name','=','name')]"
+            />
+    <field
+                name="date_field_id"
+                search="[('model_id.model','=','rma_supplier'),('name','=','date')]"
+            />
+    <field name="computation_method">use_python</field>
+    <field name="python_code">result=True</field>
+    <field name="sequence_id" ref="rma_supplier_sequence" />
+    <field name="sequence_selection_method">use_sequence</field>
+    <field name="add_custom_prefix" eval="0" />
+    <field name="add_custom_suffix" eval="0" />
+</record>
+</data>
+</odoo>

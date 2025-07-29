@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<data>
+<record id="rma_operation_demo1" model="rma_operation">
+    <field name="name">Replace After Receive</field>
+    <field name="active" eval="1" />
+    <field name="code">X001</field>
+    <field name="receipt_policy_id" ref="rma_policy_ordered_received" />
+    <field name="delivery_policy_id" ref="rma_policy_received_delivered" />
+    <field name="rma_supplier_policy_id" ref="rma_policy_no" />
+    <field name="direction">customer</field>
+    <field
+                name="allowed_route_template_ids"
+                eval="[(6, 0, [ref('rma_route_template_demo1')])]"
+            />
+</record>
+
+<record id="rma_operation_demo2" model="rma_operation">
+    <field name="name">Replace</field>
+    <field name="active" eval="1" />
+    <field name="code">X002</field>
+    <field name="receipt_policy_id" ref="rma_policy_ordered_received" />
+    <field name="delivery_policy_id" ref="rma_policy_ordered_delivered" />
+    <field name="rma_supplier_policy_id" ref="rma_policy_no" />
+    <field name="direction">supplier</field>
+</record>
+
+<record id="rma_operation_demo3" model="rma_operation">
+    <field name="name">Refund before receive</field>
+    <field name="active" eval="1" />
+    <field name="code">X003</field>
+    <field name="receipt_policy_id" ref="rma_policy_no" />
+    <field name="delivery_policy_id" ref="rma_policy_no" />
+    <field name="rma_supplier_policy_id" ref="rma_policy_no" />
+    <field name="direction">customer</field>
+</record>
+
+<record id="rma_operation_demo4" model="rma_operation">
+    <field name="name">Refund only</field>
+    <field name="active" eval="1" />
+    <field name="code">X004</field>
+    <field name="receipt_policy_id" ref="rma_policy_no" />
+    <field name="delivery_policy_id" ref="rma_policy_no" />
+    <field name="rma_supplier_policy_id" ref="rma_policy_no" />
+    <field name="direction">supplier</field>
+</record>
+
+<record id="rma_operation_demo5" model="rma_operation">
+    <field name="name">Replace deliver to vendor</field>
+    <field name="active" eval="1" />
+    <field name="code">X005</field>
+    <field name="receipt_policy_id" ref="rma_policy_ordered_received" />
+    <field name="delivery_policy_id" ref="rma_policy_no" />
+    <field name="rma_supplier_policy_id" ref="rma_policy_no" />
+    <field name="direction">customer</field>
+</record>
+
+<record id="rma_operation_demo6" model="rma_operation">
+    <field name="name">Replace receive in vendor</field>
+    <field name="active" eval="1" />
+    <field name="code">X006</field>
+    <field name="receipt_policy_id" ref="rma_policy_no" />
+    <field name="delivery_policy_id" ref="rma_policy_received_delivered" />
+    <field name="rma_supplier_policy_id" ref="rma_policy_no" />
+    <field name="direction">customer</field>
+</record>
+
+<record id="rma_operation_demo7" model="rma_operation">
+    <field name="name">Replace deliver to customer</field>
+    <field name="active" eval="1" />
+    <field name="code">X007</field>
+    <field name="receipt_policy_id" ref="rma_policy_no" />
+    <field name="delivery_policy_id" ref="rma_policy_received_delivered" />
+    <field name="rma_supplier_policy_id" ref="rma_policy_no" />
+    <field name="direction">supplier</field>
+</record>
+</data>
+</odoo>

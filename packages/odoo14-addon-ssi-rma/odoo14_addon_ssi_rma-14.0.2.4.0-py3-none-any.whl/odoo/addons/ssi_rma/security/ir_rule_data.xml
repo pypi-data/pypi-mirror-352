@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<!-- RMA CUSTOMER -->
+<record id="rma_customer_internal_user_rule" model="ir.rule">
+    <field name="name">RMA Customer - Internal Users</field>
+    <field name="model_id" ref="model_rma_customer" />
+    <field name="groups" eval="[(4, ref('base.group_user'))]" />
+    <field name="domain_force">[('user_id','=',user.id)]</field>
+    <field name="perm_unlink" eval="1" />
+    <field name="perm_write" eval="1" />
+    <field name="perm_read" eval="1" />
+    <field name="perm_create" eval="1" />
+</record>
+
+<record id="rma_customer_company_rule" model="ir.rule">
+    <field name="name">RMA Customer - Responsible to company data</field>
+    <field name="model_id" ref="model_rma_customer" />
+    <field name="groups" eval="[(4, ref('rma_customer_company_group'))]" />
+    <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+    <field name="perm_unlink" eval="1" />
+    <field name="perm_write" eval="1" />
+    <field name="perm_read" eval="1" />
+    <field name="perm_create" eval="1" />
+</record>
+
+<record id="rma_customer_company_child_rule" model="ir.rule">
+    <field
+            name="name"
+        >RMA Customer - Responsible to company and all child companies data</field>
+    <field name="model_id" ref="model_rma_customer" />
+    <field name="groups" eval="[(4, ref('rma_customer_company_child_group'))]" />
+    <field name="domain_force">[('company_id','in',user.company_ids.ids)]</field>
+    <field name="perm_unlink" eval="1" />
+    <field name="perm_write" eval="1" />
+    <field name="perm_read" eval="1" />
+    <field name="perm_create" eval="1" />
+</record>
+
+<record id="rma_customner_all_rule" model="ir.rule">
+    <field name="name">RMA Customer - Responsible to all data</field>
+    <field name="model_id" ref="model_rma_customer" />
+    <field name="groups" eval="[(4, ref('rma_customer_all_group'))]" />
+    <field name="domain_force">[(1,'=',1)]</field>
+    <field name="perm_unlink" eval="1" />
+    <field name="perm_write" eval="1" />
+    <field name="perm_read" eval="1" />
+    <field name="perm_create" eval="1" />
+</record>
+
+<!-- SUPPLIER -->
+<record id="rma_supplier_internal_user_rule" model="ir.rule">
+    <field name="name">RMA Supplier - Internal Users</field>
+    <field name="model_id" ref="model_rma_supplier" />
+    <field name="groups" eval="[(4, ref('base.group_user'))]" />
+    <field name="domain_force">[('user_id','=',user.id)]</field>
+    <field name="perm_unlink" eval="1" />
+    <field name="perm_write" eval="1" />
+    <field name="perm_read" eval="1" />
+    <field name="perm_create" eval="1" />
+</record>
+
+<record id="rma_supplier_company_rule" model="ir.rule">
+    <field name="name">RMA Supplier - Responsible to company data</field>
+    <field name="model_id" ref="model_rma_supplier" />
+    <field name="groups" eval="[(4, ref('rma_supplier_company_group'))]" />
+    <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+    <field name="perm_unlink" eval="1" />
+    <field name="perm_write" eval="1" />
+    <field name="perm_read" eval="1" />
+    <field name="perm_create" eval="1" />
+</record>
+
+<record id="rma_supplier_company_child_rule" model="ir.rule">
+    <field
+            name="name"
+        >RMA Supplier - Responsible to company and all child companies data</field>
+    <field name="model_id" ref="model_rma_supplier" />
+    <field name="groups" eval="[(4, ref('rma_supplier_company_child_group'))]" />
+    <field name="domain_force">[('company_id','in',user.company_ids.ids)]</field>
+    <field name="perm_unlink" eval="1" />
+    <field name="perm_write" eval="1" />
+    <field name="perm_read" eval="1" />
+    <field name="perm_create" eval="1" />
+</record>
+
+<record id="rma_supplier_all_rule" model="ir.rule">
+    <field name="name">RMA Supplier - Responsible to all data</field>
+    <field name="model_id" ref="model_rma_supplier" />
+    <field name="groups" eval="[(4, ref('rma_supplier_all_group'))]" />
+    <field name="domain_force">[(1,'=',1)]</field>
+    <field name="perm_unlink" eval="1" />
+    <field name="perm_write" eval="1" />
+    <field name="perm_read" eval="1" />
+    <field name="perm_create" eval="1" />
+</record>
+</odoo>

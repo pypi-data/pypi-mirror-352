@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2023 OpenSynergy Indonesia-->
+<!--Copyright 2023 PT. Simetri Sinergi Indonesia-->
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+<odoo>
+    <record id="rma_operation_view_tree" model="ir.ui.view">
+        <field name="name">Operations - Tree</field>
+        <field name="model">rma_operation</field>
+        <field name="mode">primary</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_tree"
+        />
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="rma_operation_view_search" model="ir.ui.view">
+        <field name="name">Operations - Search</field>
+        <field name="model">rma_operation</field>
+        <field name="mode">primary</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="rma_operation_view_form" model="ir.ui.view">
+        <field name="name">Operations - Form</field>
+        <field name="model">rma_operation</field>
+        <field name="mode">primary</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_form"
+        />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="direction" />
+                </xpath>
+                <xpath expr="//page[1]" position="before">
+                    <page name="policy" string="Policy">
+                        <group name="policy1" colspan="4" col="2">
+                            <field name="receipt_policy_id" />
+                            <field name="delivery_policy_id" />
+                            <field name="rma_supplier_policy_id" />
+                        </group>
+                    </page>
+                    <page name="route_template" string="Route Template">
+                        <group name="route_template1" colspan="4" col="2">
+                            <field name="default_route_template_id" />
+                            <field
+                                name="allowed_route_template_ids"
+                                widget="many2many_tags"
+                            />
+                        </group>
+                    </page>
+                    <page name="source_picking" string="Source Picking">
+                        <group
+                            name="source_picking_type_category_1"
+                            col="2"
+                            colspan="4"
+                            string="Picking Type Category"
+                        >
+                            <field
+                                name="source_picking_type_category_selection_method"
+                                string="Selection Method"
+                            />
+                            <field
+                                name="source_picking_type_category_ids"
+                                attrs="{'invisible':[('source_picking_type_category_selection_method','!=','manual')]}"
+                                string="Picking Type Categories"
+                            />
+                            <field
+                                name="source_picking_type_category_domain"
+                                string="Domain"
+                                widget="domain"
+                                options="{'model': 'picking_type_category', 'in_dialog': True}"
+                                attrs="{'invisible':[('source_picking_type_category_selection_method','!=','domain')]}"
+                            />
+                            <field
+                                name="source_picking_type_category_python_code"
+                                string="Python Code"
+                                widget="ace"
+                                attrs="{'invisible':[('source_picking_type_category_selection_method','!=','code')]}"
+                            />
+                        </group>
+                        <group
+                            name="source_picking_type_1"
+                            col="2"
+                            colspan="4"
+                            string="Picking Type"
+                        >
+                            <field
+                                name="source_picking_type_selection_method"
+                                string="Selection Method"
+                            />
+                            <field
+                                name="source_picking_type_ids"
+                                string="Picking Types"
+                                attrs="{'invisible':[('source_picking_type_selection_method','!=','manual')]}"
+                            />
+                            <field
+                                name="source_picking_type_domain"
+                                string="Domain"
+                                widget="domain"
+                                options="{'model': 'stock.picking.type', 'in_dialog': True}"
+                                attrs="{'invisible':[('source_picking_type_selection_method','!=','domain')]}"
+                            />
+                            <field
+                                name="source_picking_type_python_code"
+                                string="Python Code"
+                                widget="ace"
+                                attrs="{'invisible':[('source_picking_type_selection_method','!=','code')]}"
+                            />
+                        </group>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="rma_operation_action" model="ir.actions.act_window">
+        <field name="name">RMA Operations</field>
+        <field name="res_model">rma_operation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="rma_operation_menu"
+        name="Operations"
+        parent="menu_rma_config"
+        action="rma_operation_action"
+        groups="rma_operation_group"
+        sequence="10"
+    />
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2023 OpenSynergy Indonesia-->
+<!--Copyright 2023 PT. Simetri Sinergi Indonesia-->
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+<odoo>
+    <record id="rma_supplier_view_tree" model="ir.ui.view">
+        <field name="name">RMA Suppliers - Tree</field>
+        <field name="model">rma_supplier</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="rma_mixin_view_tree" />
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="rma_supplier_view_search" model="ir.ui.view">
+        <field name="name">RMA Suppliers - Search</field>
+        <field name="model">rma_supplier</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="rma_mixin_view_search" />
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="rma_supplier_view_form" model="ir.ui.view">
+        <field name="name">RMA Suppliers - Form</field>
+        <field name="model">rma_supplier</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="rma_mixin_view_form" />
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="rma_supplier_action" model="ir.actions.act_window">
+        <field name="name">RMA Suppliers</field>
+        <field name="res_model">rma_supplier</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="rma_supplier_menu"
+        name="RMA Suppliers"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="rma_supplier_action"
+        groups="rma_supplier_viewer_group"
+        sequence="180"
+    />
+</odoo>

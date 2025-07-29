@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+<record id="select_rma_source_picking_view_form" model="ir.ui.view">
+    <field name="name">Select RMA Source Picking</field>
+    <field name="model">select_rma_source_picking</field>
+    <field name="arch" type="xml">
+        <form>
+            <group name="group_1" colspan="4" col="2">
+                <field name="model_id" invisible="1" />
+                <field name="order_id" invisible="1" />
+                <field
+                        name="allowed_stock_picking_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+                <field
+                        name="picking_id"
+                        domain="[('id','in',allowed_stock_picking_ids)]"
+                        required="1"
+                    />
+            </group>
+            <button
+                    name="action_reload_detail"
+                    type="object"
+                    string="Detail"
+                    icon="fa-refresh"
+                    class="oe_highlight"
+                />
+            <field name="detail_ids">
+
+                <tree editable="top" create="0" delete="0">
+                    <field name="stock_valuation_layer_id" invisible="1" />
+                    <field name="product_id" />
+                    <field name="origin_qty" />
+                    <field name="unit_cost" />
+                    <field name="rma_qty" />
+                </tree>
+            </field>
+            <footer>
+                <button
+                        string="Confirm"
+                        name="action_confirm"
+                        type="object"
+                        class="oe_highlight"
+                        confirm="Are you sure?"
+                    />
+                or
+                <button string="Cancel" class="oe_link" special="cancel" />
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="select_rma_source_picking_action" model="ir.actions.act_window">
+    <field name="name">Select RMA Source Picking</field>
+    <field name="res_model">select_rma_source_picking</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="select_rma_source_picking_view_form" />
+    <field name="target">new</field>
+</record>
+
+</odoo>

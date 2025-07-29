@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<data>
+<record id="rma_route_template_demo1" model="rma_route_template">
+    <field name="name">Receive and Replace From San Fransisco - (test)</field>
+    <field name="code">X001</field>
+    <field name="active" eval="1" />
+    <field name="location_id" ref="stock.stock_location_stock" />
+    <field name="outbound_route_id" ref="stock_route_demo1" />
+    <field name="outbound_warehouse_id" ref="stock.warehouse0" />
+    <field name="inbound_route_id" ref="stock_route_demo2" />
+    <field name="inbound_warehouse_id" ref="stock.warehouse0" />
+</record>
+
+</data>
+</odoo>

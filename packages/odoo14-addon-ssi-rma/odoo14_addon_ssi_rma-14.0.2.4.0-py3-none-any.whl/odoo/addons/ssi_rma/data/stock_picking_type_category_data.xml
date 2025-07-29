@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<data>
+<record id="picking_category_cri" model="picking_type_category">
+    <field name="name">Customer RMA In</field>
+    <field name="code">CRI</field>
+    <field name="direction">incoming</field>
+    <field
+                name="default_source_location_type_id"
+                ref="ssi_stock.location_type_customer"
+            />
+    <field name="default_destination_location_type_id" ref="location_type_rma" />
+    <field
+                name="allowed_source_location_type_ids"
+                eval="[(6, 0, [ref('ssi_stock.location_type_customer')])]"
+            />
+    <field
+                name="allowed_destination_location_type_ids"
+                eval="[(6, 0, [ref('location_type_rma')])]"
+            />
+</record>
+
+<record id="picking_category_cro" model="picking_type_category">
+    <field name="name">Customer RMA Out</field>
+    <field name="code">CRO</field>
+    <field name="direction">outgoing</field>
+    <field name="default_source_location_type_id" ref="location_type_rma" />
+    <field
+                name="default_destination_location_type_id"
+                ref="ssi_stock.location_type_customer"
+            />
+    <field
+                name="allowed_source_location_type_ids"
+                eval="[(6, 0, [ref('location_type_rma')])]"
+            />
+    <field
+                name="allowed_destination_location_type_ids"
+                eval="[(6, 0, [ref('ssi_stock.location_type_customer')])]"
+            />
+</record>
+
+<record id="picking_category_sri" model="picking_type_category">
+    <field name="name">Supplier RMA In</field>
+    <field name="code">SRI</field>
+    <field name="direction">incoming</field>
+    <field
+                name="default_source_location_type_id"
+                ref="ssi_stock.location_type_supplier"
+            />
+    <field name="default_destination_location_type_id" ref="location_type_rma" />
+    <field
+                name="allowed_source_location_type_ids"
+                eval="[(6, 0, [ref('ssi_stock.location_type_supplier')])]"
+            />
+    <field
+                name="allowed_destination_location_type_ids"
+                eval="[(6, 0, [ref('location_type_rma')])]"
+            />
+</record>
+
+<record id="picking_category_sro" model="picking_type_category">
+    <field name="name">Supplier RMA Out</field>
+    <field name="code">SRO</field>
+    <field name="direction">outgoing</field>
+    <field name="default_source_location_type_id" ref="location_type_rma" />
+    <field
+                name="default_destination_location_type_id"
+                ref="ssi_stock.location_type_supplier"
+            />
+    <field
+                name="allowed_source_location_type_ids"
+                eval="[(6, 0, [ref('location_type_rma')])]"
+            />
+    <field
+                name="allowed_destination_location_type_ids"
+                eval="[(6, 0, [ref('ssi_stock.location_type_supplier')])]"
+            />
+</record>
+
+</data>
+</odoo>

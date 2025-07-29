@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2023 OpenSynergy Indonesia-->
+<!--Copyright 2023 PT. Simetri Sinergi Indonesia-->
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+<odoo>
+    <record id="rma_route_template_view_tree" model="ir.ui.view">
+        <field name="name">rma_route_template - Tree</field>
+        <field name="model">rma_route_template</field>
+        <field name="mode">primary</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_tree"
+        />
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="rma_route_template_view_search" model="ir.ui.view">
+        <field name="name">rma_route_template - Search</field>
+        <field name="model">rma_route_template</field>
+        <field name="mode">primary</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="rma_route_template_view_form" model="ir.ui.view">
+        <field name="name">rma_route_template - Form</field>
+        <field name="model">rma_route_template</field>
+        <field name="mode">primary</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_form"
+        />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="location_id" />
+                    <field name="partner_location_id" />
+                    <field name="customer_to_supplier" />
+                    <field name="supplier_to_customer" />
+                </xpath>
+                <xpath expr="//page[1]" position="before">
+                    <page name="inbound" string="Inbound">
+                        <group name="inbound1" colspan="4" col="4">
+                            <field name="inbound_route_id" />
+                            <field name="inbound_warehouse_id" />
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[1]" position="before">
+                    <page name="outbound" string="Outbound">
+                        <group name="outbound1" colspan="4" col="4">
+                            <field name="outbound_route_id" />
+                            <field name="outbound_warehouse_id" />
+                        </group>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="rma_route_template_action" model="ir.actions.act_window">
+        <field name="name">RMA Route Templates</field>
+        <field name="res_model">rma_route_template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="rma_route_template_menu"
+        name="Route Templates"
+        parent="menu_rma_config"
+        action="rma_route_template_action"
+        groups="rma_route_template_group"
+        sequence="30"
+    />
+</odoo>

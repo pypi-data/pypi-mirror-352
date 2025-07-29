@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2023 OpenSynergy Indonesia-->
+<!--Copyright 2023 PT. Simetri Sinergi Indonesia-->
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+<odoo>
+    <record id="rma_customer_view_tree" model="ir.ui.view">
+        <field name="name">RMA Customers - Tree</field>
+        <field name="model">rma_customer</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="rma_mixin_view_tree" />
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="rma_customer_view_search" model="ir.ui.view">
+        <field name="name">RMA Customers - Search</field>
+        <field name="model">rma_customer</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="rma_mixin_view_search" />
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="rma_customer_view_form" model="ir.ui.view">
+        <field name="name">RMA Customers - Form</field>
+        <field name="model">rma_customer</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="rma_mixin_view_form" />
+        <field name="arch" type="xml">
+            <data>
+            </data>
+        </field>
+    </record>
+
+    <record id="rma_customer_action" model="ir.actions.act_window">
+        <field name="name">RMA Customers</field>
+        <field name="res_model">rma_customer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="rma_customer_menu"
+        name="RMA Customers"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="rma_customer_action"
+        groups="rma_customer_viewer_group"
+        sequence="180"
+    />
+</odoo>

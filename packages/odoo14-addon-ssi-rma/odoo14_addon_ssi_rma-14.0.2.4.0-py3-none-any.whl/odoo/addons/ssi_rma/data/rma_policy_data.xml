@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<data>
+<!-- All -->
+<record id="rma_policy_no" model="rma_policy">
+    <field name="name">Not Required</field>
+    <field name="code">T001</field>
+    <field name="active" eval="1" />
+    <field name="rma_type">both</field>
+</record>
+
+<record id="rma_policy_ordered_received" model="rma_policy">
+    <field name="name">Based on Ordered - Received Quantities</field>
+    <field name="code">T002</field>
+    <field name="active" eval="1" />
+    <field name="rma_type">both</field>
+</record>
+<record id="rma_policy_rule_ordered_received_1" model="rma_policy_rule">
+    <field name="sequence" eval="1" />
+    <field name="operator">+</field>
+    <field name="policy_field_id" ref="rma_policy_field_ordered" />
+    <field name="policy_id" ref="rma_policy_ordered_received" />
+</record>
+<record id="rma_policy_rule_ordered_received_2" model="rma_policy_rule">
+    <field name="sequence" eval="2" />
+    <field name="operator">-</field>
+    <field name="policy_field_id" ref="rma_policy_field_received" />
+    <field name="policy_id" ref="rma_policy_ordered_received" />
+</record>
+
+<record id="rma_policy_delivered_received" model="rma_policy">
+    <field name="name">Based on Delivered - Received Quantities</field>
+    <field name="code">T003</field>
+    <field name="active" eval="1" />
+    <field name="rma_type">both</field>
+</record>
+<record id="rma_policy_rule_delivered_received_1" model="rma_policy_rule">
+    <field name="sequence" eval="1" />
+    <field name="operator">+</field>
+    <field name="policy_field_id" ref="rma_policy_field_delivered" />
+    <field name="policy_id" ref="rma_policy_delivered_received" />
+</record>
+<record id="rma_policy_rule_delivered_received_2" model="rma_policy_rule">
+    <field name="sequence" eval="2" />
+    <field name="operator">-</field>
+    <field name="policy_field_id" ref="rma_policy_field_received" />
+    <field name="policy_id" ref="rma_policy_delivered_received" />
+</record>
+
+<record id="rma_policy_ordered_delivered" model="rma_policy">
+    <field name="name">Based on Ordered - Delivered Quantities</field>
+    <field name="code">T004</field>
+    <field name="active" eval="1" />
+    <field name="rma_type">both</field>
+</record>
+<record id="rma_policy_rule_ordered_delivered_1" model="rma_policy_rule">
+    <field name="sequence" eval="1" />
+    <field name="operator">+</field>
+    <field name="policy_field_id" ref="rma_policy_field_ordered" />
+    <field name="policy_id" ref="rma_policy_ordered_delivered" />
+</record>
+<record id="rma_policy_rule_ordered_delivered_2" model="rma_policy_rule">
+    <field name="sequence" eval="2" />
+    <field name="operator">-</field>
+    <field name="policy_field_id" ref="rma_policy_field_delivered" />
+    <field name="policy_id" ref="rma_policy_ordered_delivered" />
+</record>
+<record id="rma_policy_received_delivered" model="rma_policy">
+    <field name="name">Based on Received - Delivered Quantities</field>
+    <field name="code">T005</field>
+    <field name="active" eval="1" />
+    <field name="rma_type">both</field>
+</record>
+<record id="rma_policy_rule_received_delivered_1" model="rma_policy_rule">
+    <field name="sequence" eval="1" />
+    <field name="operator">+</field>
+    <field name="policy_field_id" ref="rma_policy_field_received" />
+    <field name="policy_id" ref="rma_policy_received_delivered" />
+</record>
+<record id="rma_policy_rule_received_delivered_2" model="rma_policy_rule">
+    <field name="sequence" eval="2" />
+    <field name="operator">-</field>
+    <field name="policy_field_id" ref="rma_policy_field_delivered" />
+    <field name="policy_id" ref="rma_policy_received_delivered" />
+</record>
+
+<!-- RMA Supplier -->
+<record id="rma_policy_rma_delivered" model="rma_policy">
+    <field name="name">Based on in RMA Supplier - Delivered Quantities</field>
+    <field name="code">T006</field>
+    <field name="active" eval="1" />
+    <field name="rma_type">customer</field>
+</record>
+<record id="rma_policy_rule_rma_delivered_1" model="rma_policy_rule">
+    <field name="sequence" eval="1" />
+    <field name="operator">+</field>
+    <field name="policy_field_id" ref="rma_policy_field_rma_supplier" />
+    <field name="policy_id" ref="rma_policy_rma_delivered" />
+</record>
+<record id="rma_policy_rule_rma_delivered_2" model="rma_policy_rule">
+    <field name="sequence" eval="1" />
+    <field name="operator">-</field>
+    <field name="policy_field_id" ref="rma_policy_field_delivered" />
+    <field name="policy_id" ref="rma_policy_rma_delivered" />
+</record>
+</data>
+</odoo>

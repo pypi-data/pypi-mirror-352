@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<data>
+<record id="location_type_rma" model="location_type">
+    <field name="name">RMA</field>
+    <field name="code">RMA</field>
+    <field name="usage">internal</field>
+    <field name="parent_location_type_id" ref="ssi_stock.location_type_root" />
+</record>
+</data>
+</odoo>
