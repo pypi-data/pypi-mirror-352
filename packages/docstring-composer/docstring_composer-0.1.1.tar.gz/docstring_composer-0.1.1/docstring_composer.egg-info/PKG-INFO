@@ -1,0 +1,98 @@
+Metadata-Version: 2.4
+Name: docstring-composer
+Version: 0.1.1
+Summary: A package to convert schema-based docstrings to different language formats
+Author-email: Suman Saurabh <ss.sumansaurabh92@gmail.com>
+License: MIT
+Project-URL: Homepage, https://github.com/sumansaurabh/docstring-composer
+Project-URL: Issues, https://github.com/sumansaurabh/docstring-composer/issues
+Project-URL: Documentation, https://github.com/sumansaurabh/docstring-composer#readme
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Documentation
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pydantic>=1.8.0
+Requires-Dist: click>=8.0.0
+Requires-Dist: jinja2>=3.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=6.0.0; extra == "dev"
+Requires-Dist: black>=21.5b2; extra == "dev"
+Requires-Dist: isort>=5.9.1; extra == "dev"
+Requires-Dist: flake8>=3.9.2; extra == "dev"
+Requires-Dist: mypy>=0.812; extra == "dev"
+Provides-Extra: test
+Requires-Dist: pytest>=6.0.0; extra == "test"
+Dynamic: license-file
+
+# Docstring Composer
+
+A Python package that converts schema-based docstrings to different language formats, including:
+
+- Google-style docstrings for Python
+- Javadoc for Java
+- JSDoc for JavaScript/TypeScript
+- And more...
+
+## Installation
+
+```bash
+pip install docstring-composer
+```
+
+## Usage
+
+### Command Line
+
+```bash
+# Convert a docstring schema file to a specific language format
+docstring-composer convert --schema input.json --language python --style google --output output.py
+
+# or pipe from stdin
+cat input.json | docstring-composer convert --language java
+```
+
+### Python API
+
+```python
+from docstring_composer import DocstringComposer
+
+# Create a composer instance
+composer = DocstringComposer()
+
+# Convert a docstring schema to a specific language format
+docstring_schema = {...}  # Your docstring schema as a dictionary
+result = composer.convert(
+    schema=docstring_schema, 
+    language="python", 
+    style="google"
+)
+print(result)
+```
+
+## Supported Languages and Styles
+
+- Python: "google", "numpy", "sphinx", "epydoc", "rest"
+- Java: "javadoc"
+- JavaScript/TypeScript: "jsdoc", "typedoc"
+- C#: "xmldoc"
+- Ruby: "yard"
+- Kotlin: "kdoc"
+- C: "doxygen"
+- C++: "doxygen"
+- PHP: "phpdoc"
+- Go: "godoc"
+
+## License
+
+MIT License
