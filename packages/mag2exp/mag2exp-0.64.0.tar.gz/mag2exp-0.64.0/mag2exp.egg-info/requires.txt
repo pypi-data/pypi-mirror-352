@@ -1,0 +1,14 @@
+oommfc>=0.66.0
+numpy>=1.19
+scipy>=1.6
+
+[dev]
+build
+invoke
+nbval
+pre-commit
+pytest-cov
+twine
+
+[dev:python_version < "3.11"]
+tomli
