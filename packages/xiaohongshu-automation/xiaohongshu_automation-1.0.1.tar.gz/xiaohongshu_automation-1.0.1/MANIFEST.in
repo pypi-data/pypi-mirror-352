@@ -1,0 +1,25 @@
+include README.md
+include LICENSE
+include TIMEOUT_TROUBLESHOOTING.md
+include requirements.txt
+include pyproject.toml
+
+# 包含Python源代码
+recursive-include . *.py
+
+# 包含工具和适配器目录
+recursive-include tools *.py
+recursive-include adapters *.py
+
+# 排除不需要的文件和目录
+global-exclude *.pyc
+global-exclude __pycache__
+global-exclude .git*
+global-exclude *.log
+global-exclude .vscode/*
+global-exclude cookies/*
+global-exclude pic/*
+exclude ngrok.exe
+exclude test_*.py
+exclude .gitattributes
+exclude xhs.code-workspace 
