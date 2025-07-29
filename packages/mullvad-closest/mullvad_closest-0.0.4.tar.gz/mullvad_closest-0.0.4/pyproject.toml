@@ -1,0 +1,18 @@
+[tool.ruff]
+line-length = 120
+
+[tool.mypy]
+check_untyped_defs = true
+show_none_errors = true
+warn_return_any = true
+warn_unused_ignores = true
+show_column_numbers = true
+strict_optional = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "DEBUG"
+log_cli_format = "%(asctime)s.%(msecs)03d %(levelname)s\t%(name)s - %(message)s"
+log_cli_date_format = "%Y-%m-%dT%H:%M:%S"
