@@ -1,0 +1,75 @@
+name: Tests and Examples
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'  # Every day at 00:00 UTC
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [3.11, 3.12]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Conda with Mamba
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          use-mamba: true
+          auto-activate-base: false
+          miniforge-variant: Miniforge3
+
+      - name: Create environment
+        run: |
+          mamba env create -f .github/workflows/conda_envs/python${{ matrix.python-version }}.yml
+          mamba run -n plaid_python${{ matrix.python-version }} pip install -e .
+
+      - name: Run tests on Unix
+        if: runner.os != 'Windows'
+        run: |
+          mamba run -n plaid_python${{ matrix.python-version }} pytest tests --cov=src --cov-report=xml --cov-report=term
+
+      - name: Run tests on Windows
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          mamba run -n plaid_python${{ matrix.python-version }} pytest tests
+
+      - name: Run examples on Unix
+        if: runner.os != 'Windows'
+        run: |
+          cd examples
+          mamba run -n plaid_python${{ matrix.python-version }} bash run_examples.sh
+
+      - name: Run examples on Windows
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          cd examples
+          mamba run -n plaid_python${{ matrix.python-version }} run_examples.bat
+
+      - name: Upload coverage to Codecov (Linux only)
+        if: runner.os == 'Linux'
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          name: python-${{ matrix.python-version }}
+          verbose: true
+
+    #   - name: Set up Miniconda
+    #     uses: conda-incubator/setup-miniconda@v2
+    #     with:
+    #       miniforge-variant: Miniforge3
+    #       miniforge-version: latest
+    #       use-mamba: true
+    #       auto-activate-base: false
+    #       auto-update-conda: true
+    #       activate-environment: plaid_python${{ matrix.python-version }}
+    #       environment-file: .github/workflows/conda_envs/python${{ matrix.python-version }}.yml
