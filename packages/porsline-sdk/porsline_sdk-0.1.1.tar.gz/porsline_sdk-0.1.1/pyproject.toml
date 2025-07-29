@@ -1,0 +1,19 @@
+[project]
+name = "porsline-sdk"
+version = "0.1.1"
+description = "A lightweight SDK for interacting with Porsline forms and responses"
+authors = [{ name = "Matin Khosravi", email = "matinkhosravi97@gmail.com" }]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "requests",
+    "jdatetime"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/matinkhosravi/porsline-sdk"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
