@@ -1,0 +1,226 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs", "nipreps-versions"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nireports"
+description = "NiReports - The Visual Report System (VRS) of NiPreps"
+readme = "README.rst"
+authors = [{name = "The NiPreps Developers", email = "nipreps@gmail.com"}]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+license = "Apache-2.0"
+requires-python = ">=3.10"
+dependencies = [
+    "acres >= 0.2",
+    "matplotlib >= 3.5",
+    "nibabel >= 3.0.1",
+    "nilearn >= 0.8",
+    "nipype >= 1.8.5",
+    "numpy >= 1.20",
+    "pandas >= 1.2",
+    "pybids >= 0.15.1",
+    "pyyaml >= 5.4",
+    "seaborn >= 0.13",
+    "templateflow >= 23.1",
+    "lxml >= 4.6",  # required by vendored svgutils
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/nipreps/nireports"
+NiPreps = "https://www.nipreps.org/"
+
+
+[project.optional-dependencies]
+doc = [
+    "furo",
+    "pydot >= 1.2.3",
+    "pydotplus",
+    "sphinx",
+    "sphinxcontrib-apidoc",
+    "sphinxcontrib-napoleon",
+]
+
+dev = [
+    "ruff",
+    "pre-commit",
+]
+
+test = [
+    "coverage[toml] >=5.2.1",
+    "packaging",
+    "pytest >= 6",
+    "pytest-cov >= 2.11",
+    "pytest-env",
+    "pytest-xdist >= 2.5",
+    "sphinx >= 6",
+]
+types = [
+    "pandas-stubs",
+    "scipy-stubs",
+    "types-jinja2",
+    "types-pyyaml",
+    "pytest",
+    "lxml-stubs",
+]
+
+# Aliases
+docs = ["nireports[doc]"]
+tests = ["nireports[test]"]
+all = ["nireports[doc,dev,test]"]
+
+#
+# Hatch configurations
+#
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.sdist]
+exclude = [".git_archival.txt"]  # No longer needed in sdist
+
+[tool.hatch.build.targets.wheel]
+packages = ["nireports"]
+exclude = [
+    "nireports/tests/data",  # Large test data directory
+    "nireports/assembler/data/tests",  # Large test data directory
+]
+
+##  The following two sections configure setuptools_scm in the hatch way
+
+[tool.hatch.version]
+validate-bump = true
+source = "vcs"
+raw-options = { version_scheme = "nipreps-calver" }
+
+[tool.hatch.build.hooks.vcs]
+version-file = "nireports/_version.py"
+
+#
+# Developer tool configurations
+#
+
+[tool.ruff]
+line-length = 99
+target-version = "py39"
+exclude = [
+  ".eggs",
+  ".git",
+  ".hg",
+  ".mypy_cache",
+  ".tox",
+  ".venv",
+  "venv",
+  "_build",
+  "build",
+  "dist",
+  "nireports/tests/data/**",
+  "nireports/assembler/data/tests/work/**",
+  "nireports/assembler/data/tests/crashfile.txt",
+  "nireports/assembler/data/**/*.tpl",
+]
+
+[tool.ruff.lint]
+select = [
+  "F",
+  "E",
+  "C",
+  "W",
+  "B",
+  "I",
+  "SIM",
+]
+ignore = [
+  "E203",
+  "B019",
+  "SIM108",
+  "C901",
+]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "double"
+
+[tool.ruff.lint.extend-per-file-ignores]
+"*/__init__.py" = ["F401"]
+"docs/conf.py" = ["E265"]
+"/^\\s*\\.\\. _.*?: http/" = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ruff.lint.isort]
+known-first-party=["nireports"]
+
+[tool.pytest.ini_options]
+minversion = "6"
+testpaths = ["nireports"]
+log_cli_level = "INFO"
+xfail_strict = true
+norecursedirs = [".git"]
+addopts = [
+  "-svx",
+  "-ra",
+  "--strict-config",
+  "--strict-markers",
+  "--doctest-modules",
+  # Config pytest-cov
+  "--cov=nireports",
+  "--cov-report=xml",
+  "--cov-config=pyproject.toml",
+]
+doctest_optionflags = "ALLOW_UNICODE NORMALIZE_WHITESPACE ELLIPSIS"
+env = "PYTHONHASHSEED=0"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore:.*bool will be deprecated in a future version.*:PendingDeprecationWarning",
+]
+junit_family = "xunit2"
+
+
+[tool.coverage.run]
+branch = true
+omit = [
+    '*/tests/*',
+    '*/__init__.py',
+    '*/conftest.py',
+    'nireports/_version.py'
+]
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+    'raise NotImplementedError',
+    'warnings\.warn',
+]
+
+[tool.codespell]
+skip = "*/data/*,*/docs/_build/*"
+ignore-words-list = "objekt"
+
+[tool.check-wheel-contents]
+ignore = [
+  "W002",
+]
+
+[[tool.mypy.overrides]]
+module = [
+  "nipype.*",
+  "seaborn",
+  "nilearn.*",
+  "templateflow.*",
+  "bids.*",
+  "pylab",
+  "mpl_toolkits.*",
+  "nitransforms.*",
+  "IPython.*",
+]
+ignore_missing_imports = true

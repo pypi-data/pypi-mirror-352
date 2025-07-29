@@ -1,0 +1,119 @@
+Metadata-Version: 2.4
+Name: nireports
+Version: 25.2.0
+Summary: NiReports - The Visual Report System (VRS) of NiPreps
+Project-URL: Homepage, https://github.com/nipreps/nireports
+Project-URL: NiPreps, https://www.nipreps.org/
+Author-email: The NiPreps Developers <nipreps@gmail.com>
+License-Expression: Apache-2.0
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Image Recognition
+Requires-Python: >=3.10
+Requires-Dist: acres>=0.2
+Requires-Dist: lxml>=4.6
+Requires-Dist: matplotlib>=3.5
+Requires-Dist: nibabel>=3.0.1
+Requires-Dist: nilearn>=0.8
+Requires-Dist: nipype>=1.8.5
+Requires-Dist: numpy>=1.20
+Requires-Dist: pandas>=1.2
+Requires-Dist: pybids>=0.15.1
+Requires-Dist: pyyaml>=5.4
+Requires-Dist: seaborn>=0.13
+Requires-Dist: templateflow>=23.1
+Provides-Extra: all
+Requires-Dist: coverage[toml]>=5.2.1; extra == 'all'
+Requires-Dist: furo; extra == 'all'
+Requires-Dist: packaging; extra == 'all'
+Requires-Dist: pre-commit; extra == 'all'
+Requires-Dist: pydot>=1.2.3; extra == 'all'
+Requires-Dist: pydotplus; extra == 'all'
+Requires-Dist: pytest-cov>=2.11; extra == 'all'
+Requires-Dist: pytest-env; extra == 'all'
+Requires-Dist: pytest-xdist>=2.5; extra == 'all'
+Requires-Dist: pytest>=6; extra == 'all'
+Requires-Dist: ruff; extra == 'all'
+Requires-Dist: sphinx; extra == 'all'
+Requires-Dist: sphinx>=6; extra == 'all'
+Requires-Dist: sphinxcontrib-apidoc; extra == 'all'
+Requires-Dist: sphinxcontrib-napoleon; extra == 'all'
+Provides-Extra: dev
+Requires-Dist: pre-commit; extra == 'dev'
+Requires-Dist: ruff; extra == 'dev'
+Provides-Extra: doc
+Requires-Dist: furo; extra == 'doc'
+Requires-Dist: pydot>=1.2.3; extra == 'doc'
+Requires-Dist: pydotplus; extra == 'doc'
+Requires-Dist: sphinx; extra == 'doc'
+Requires-Dist: sphinxcontrib-apidoc; extra == 'doc'
+Requires-Dist: sphinxcontrib-napoleon; extra == 'doc'
+Provides-Extra: docs
+Requires-Dist: furo; extra == 'docs'
+Requires-Dist: pydot>=1.2.3; extra == 'docs'
+Requires-Dist: pydotplus; extra == 'docs'
+Requires-Dist: sphinx; extra == 'docs'
+Requires-Dist: sphinxcontrib-apidoc; extra == 'docs'
+Requires-Dist: sphinxcontrib-napoleon; extra == 'docs'
+Provides-Extra: test
+Requires-Dist: coverage[toml]>=5.2.1; extra == 'test'
+Requires-Dist: packaging; extra == 'test'
+Requires-Dist: pytest-cov>=2.11; extra == 'test'
+Requires-Dist: pytest-env; extra == 'test'
+Requires-Dist: pytest-xdist>=2.5; extra == 'test'
+Requires-Dist: pytest>=6; extra == 'test'
+Requires-Dist: sphinx>=6; extra == 'test'
+Provides-Extra: tests
+Requires-Dist: coverage[toml]>=5.2.1; extra == 'tests'
+Requires-Dist: packaging; extra == 'tests'
+Requires-Dist: pytest-cov>=2.11; extra == 'tests'
+Requires-Dist: pytest-env; extra == 'tests'
+Requires-Dist: pytest-xdist>=2.5; extra == 'tests'
+Requires-Dist: pytest>=6; extra == 'tests'
+Requires-Dist: sphinx>=6; extra == 'tests'
+Provides-Extra: types
+Requires-Dist: lxml-stubs; extra == 'types'
+Requires-Dist: pandas-stubs; extra == 'types'
+Requires-Dist: pytest; extra == 'types'
+Requires-Dist: scipy-stubs; extra == 'types'
+Requires-Dist: types-jinja2; extra == 'types'
+Requires-Dist: types-pyyaml; extra == 'types'
+Description-Content-Type: text/x-rst
+
+
+.. image:: https://img.shields.io/pypi/v/nireports.svg
+  :target: https://pypi.python.org/pypi/nireports/
+  :alt: Latest Version
+.. image:: https://img.shields.io/badge/License-Apache_2.0-blue.svg
+  :target: https://github.com/nipreps/eddymotion/blob/main/LICENSE
+  :alt: License
+.. image:: https://readthedocs.org/projects/nireports/badge/?version=latest
+  :target: https://nireports.readthedocs.io/en/latest/?badge=latest
+  :alt: Documentation Status
+.. image:: https://circleci.com/gh/nipreps/nireports/tree/main.svg?style=shield
+  :target: https://circleci.com/gh/nipreps/nireports/tree/main
+  :alt: Testing
+.. image:: https://github.com/nipreps/nireports/actions/workflows/build_test_deploy.yml/badge.svg
+  :target: https://github.com/nipreps/nireports/actions/workflows/build_test_deploy.yml
+  :alt: Build-Test-Deploy
+.. image:: https://codecov.io/gh/nipreps/nireports/branch/main/graph/badge.svg?token=OPH6D32GWN
+  :target: https://codecov.io/gh/nipreps/nireports
+
+*NiReports*: the *NiPreps*' reporting and visualization tools
+=============================================================
+
+*NiReports* contains the two main components of the *visual reporting system* of *NiPreps*:
+
+* **Reportlets**: visualizations for assessing the quality of a particular processing step within the neuroimaging pipeline.
+  Typically, reportlets show brain mosaics perhaps with contours and/or segmentations.
+  They can be *dynamic* and flicker between two different *states* to help assess the accuracy of image registrations.
+  However, the reportlets are not limited to brain mosaics, and can contain correlation plots, BOLD fMRI *carpetplots*, etc.
+* **Assembler**: end-user *NiPreps* write out reportlets to a predetermined folder, which is then queried by the assembler using *PyBIDS*.
+  The assembler follows a *report specification* in YAML format, which states the query to find specific reportlets and their corresponding metadata and text annotations.
+  As a result, one HTML file with a concatenation of reportlets is produced.
