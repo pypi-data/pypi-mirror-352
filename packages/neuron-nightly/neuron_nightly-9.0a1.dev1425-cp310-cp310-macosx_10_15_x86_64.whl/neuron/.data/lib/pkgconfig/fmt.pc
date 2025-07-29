@@ -1,0 +1,11 @@
+prefix=/var/folders/w2/pwdgqcw57kq1wsjmr5y8sft80000gn/T/tmp2a4rz16o/wheel/platlib
+exec_prefix=/var/folders/w2/pwdgqcw57kq1wsjmr5y8sft80000gn/T/tmp2a4rz16o/wheel/platlib
+libdir=${exec_prefix}/neuron/.data//lib
+includedir=${prefix}/neuron/.data//include
+
+Name: fmt
+Description: A modern formatting library
+Version: 11.0.2
+Libs: -L${libdir} -lfmt
+Cflags: -I${includedir}
+
