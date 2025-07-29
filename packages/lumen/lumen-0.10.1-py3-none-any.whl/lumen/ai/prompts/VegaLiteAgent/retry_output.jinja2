@@ -1,0 +1,22 @@
+{% extends 'LumenBaseAgent/retry_output.jinja2' %}
+
+{% block instructions %}
+{{ super() }}
+
+- For overlays, keep the data reference at the top level and use encoding inside the layer
+{% endblock %}
+
+
+{%- block examples -%}
+For overlays:
+```{{ language }}
+spec:
+  data:
+    name: <TABLE_NAME>
+  layer:
+    - encoding:
+      # main data referencing table
+    - data:
+      # other data
+```
+{%- endblock -%}

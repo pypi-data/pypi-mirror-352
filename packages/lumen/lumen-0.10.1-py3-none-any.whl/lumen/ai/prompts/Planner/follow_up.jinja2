@@ -1,0 +1,60 @@
+{% extends 'Actor/main.jinja2' %}
+
+{%- block instructions %}
+You need to determine if the user's current query is a follow-up question related to the previous dataset in memory and whether the existing context is sufficient to answer it.
+
+Examine:
+1. The current user query
+2. The previous query stored in vector_metaset
+3. The currently selected columns in memory
+
+Rules:
+- Answer YES if the current query is clearly a follow-up that can be answered using the data already in memory (vector_metaset)
+- Answer NO if:
+  - The query appears to be about a different topic entirely
+  - The query requires different data or columns not present in the current memory
+  - The user is explicitly asking for new data or refreshed information
+  - The query contains explicit instructions to run a new search or query
+
+Ground your reasoning in specific elements of both the current query and previously selected columns.
+{%- endblock -%}
+
+{% block examples %}
+# Examples
+
+✅ FOLLOW-UP (YES):
+User query: "Can you create a time series?"
+Data in memory: Annual revenue data with time and dollars columns
+-> YES (query is asking to visualize the existing time-based data already in memory)
+
+✅ FOLLOW-UP (YES):
+User query: "Show only the last 3 months"
+Data in memory: Data with time column extending to the last 3 months
+-> YES (can be done with existing data)
+
+❌ NOT FOLLOW-UP (NO):
+User query: "What's the total capacity?"
+Data in memory: Only revenue data
+-> NO (explicitly asking for new/refreshed data)
+{% endblock %}
+
+{% block context -%}
+{%- if 'vector_metaset' in memory and memory.get('vector_metaset').selected_columns %}
+📃 Selected columns:
+{{ memory['vector_metaset'].selected_columns }}
+From query: "{{ memory['vector_metaset'].query }}"
+{%- endif %}
+
+{%- if 'sql' in memory %}
+🗃️ Current SQL:
+```sql
+{{ memory['sql'] }}
+```
+{%- endif %}
+
+{%- if 'data' in memory %}
+📊 Data summary:
+{{ memory['data'] }}
+{%- endif %}
+
+{%- endblock -%}
