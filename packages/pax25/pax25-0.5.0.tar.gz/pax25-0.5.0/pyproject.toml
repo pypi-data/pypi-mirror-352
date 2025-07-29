@@ -1,0 +1,102 @@
+# pyproject.toml file, now the standard for Python packaging.
+# For a tutorial on the basics of this file, see https://packaging.python.org/en/latest/tutorials/packaging-projects/
+#
+# This configuration allows not only for local installation but also inclusion of the
+# package in repositories-- chiefly, PyPi: https://pypi.org/
+# As of writing, the package is not yet submitted, but it will be.
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+dynamic = ["version"]
+name = "pax25"
+authors = [
+    { name="Fox Piacenti", email="fox@artconomy.com" },
+    { name="Lion Templin", email="lion@lion.fm" },
+]
+description = "A complete AX.25 stack and application library."
+readme = "README.md"
+requires-python = ">=3.13"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pyserial~=3.5"
+]
+
+[project.optional-dependencies]
+dev = [
+    "flaky~=3.8.1",
+    "mypy~=1.15.0",
+    "pytest~=8.3.4",
+    "pytest-asyncio~=0.25.0",
+    "pytest-cov~=6.0.0",
+    "pytest-xdist~=3.6.1",
+    "ruff~=0.11.2",
+    "time_machine~=2.16.0",
+    "types-pyserial~=3.5.0",
+]
+
+docs = [
+    "mkapi~=3.0.22",
+    "mkdocs~=1.6.1",
+    "mkdocs-material~=9.5.48",
+    "mkdocstrings[python]~=0.27.0",
+]
+dist = [
+    "build~=1.2.2",
+    "twine~=6.0.1",
+]
+
+[project.urls]
+# We'll probably move this somewhere else, but putting these placeholders in for now.
+"Homepage" = "https://gitlab.com/FoxyFoxie/pax25"
+"Bug Tracker" = "https://gitlab.com/FoxyFoxie/pax25/-/issues"
+
+# Source distribution. We don't have compiled source files, so this is the only
+# build we provide.
+[tool.hatch.build.targets.sdist]
+packages = ["pax25"]
+include = [
+    "pax25/**/*.py",
+]
+exclude = [
+    "pax25/**/tests/**",
+]
+
+[tool.hatch.version]
+path = "pax25/__init__.py"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.mypy]
+mypy_path = ["stubs"]
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+
+[tool.pytest.ini_options]
+# Bump this number as we make progress so that we can ratchet up this standard.
+addopts = '-n auto --cov=pax25 --cov-report html --cov-report term --cov-fail-under=95'
+
+# TODO: Remove this line once pytest-asyncio marks the scope of this fixture upstream. See:
+# https://github.com/pytest-dev/pytest-asyncio/issues/924
+asyncio_default_fixture_loop_scope = "function"
