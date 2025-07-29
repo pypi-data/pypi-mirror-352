@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+
+{% block title %}系统状态{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📊 系统状态</h1>
+    <p class="page-subtitle">查看MCP Feedback Collector系统信息</p>
+</div>
+
+<div class="page-content">
+    <!-- 系统状态卡片 -->
+    <div class="card">
+        <div class="card-header">📊 系统状态</div>
+        <div class="status-grid">
+            <div class="status-item">
+                <span class="status-label">版本:</span>
+                <span class="status-value">{{ system_info.version }}</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">界面模式:</span>
+                <span class="status-value">{{ system_info.interface_mode }}</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">GUI支持:</span>
+                <span class="status-value {% if system_info.gui_available %}status-success{% else %}status-error{% endif %}">
+                    {% if system_info.gui_available %}✅ 可用{% else %}❌ 不可用{% endif %}
+                </span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Web支持:</span>
+                <span class="status-value {% if system_info.web_available %}status-success{% else %}status-error{% endif %}">
+                    {% if system_info.web_available %}✅ 可用{% else %}❌ 不可用{% endif %}
+                </span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">AI聊天:</span>
+                <span class="status-value {% if system_info.chat_enabled %}status-success{% else %}status-warning{% endif %}">
+                    {% if system_info.chat_enabled %}✅ 已启用{% else %}⚠️ 已禁用{% endif %}
+                </span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">API密钥:</span>
+                <span class="status-value {% if system_info.has_api_key %}status-success{% else %}status-warning{% endif %}">
+                    {% if system_info.has_api_key %}✅ 已配置{% else %}⚠️ 未配置{% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- API配置信息 -->
+    {% if system_info.chat_enabled %}
+    <div class="card">
+        <div class="card-header">⚙️ API配置</div>
+        <div class="config-info">
+            <div class="config-item">
+                <span class="config-label">API端点:</span>
+                <span class="config-value">{{ system_info.api_base_url }}</span>
+            </div>
+            <div class="config-item">
+                <span class="config-label">API密钥:</span>
+                <span class="config-value">{{ system_info.api_key_display if system_info.api_key_display else '未配置' }}</span>
+            </div>
+            <div class="config-item">
+                <span class="config-label">AI模型:</span>
+                <span class="config-value">{{ system_info.default_model if system_info.default_model else '未配置' }}</span>
+            </div>
+            {% if system_info.web_config %}
+            <div class="config-item">
+                <span class="config-label">Web服务:</span>
+                <span class="config-value">{{ system_info.web_config.host }}:{{ system_info.web_config.port }}</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        {% if not system_info.has_api_key %}
+        <div class="api-key-hint">
+            <p>⚠️ 需要API密钥来使用AI聊天功能</p>
+            <a href="https://api.ssopen.top/" target="_blank" class="btn btn-primary">
+                🔑 获取API密钥
+            </a>
+        </div>
+        {% else %}
+        <div class="api-key-hint">
+            <p>✅ API密钥已配置，AI聊天功能可用</p>
+            <a href="https://api.ssopen.top/" target="_blank" class="btn btn-secondary">
+                🔑 管理API密钥
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- 功能导航卡片 -->
+    <div class="card">
+        <div class="card-header">🚀 功能导航</div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3 class="feature-title">AI工作汇报</h3>
+                <p class="feature-description">
+                    AI完成工作后向用户汇报，收集用户反馈意见。
+                    支持文字和图片反馈，拖拽上传等功能。
+                </p>
+                <a href="/" class="btn btn-primary">进入反馈收集</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3 class="feature-title">AI智能聊天</h3>
+                <p class="feature-description">
+                    与AI进行多模态智能对话，支持文字和图片交互。
+                    实时流式响应，完整的聊天体验。
+                </p>
+                <a href="/chat" class="btn btn-primary">进入AI聊天</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 使用说明 -->
+    <div class="card">
+        <div class="card-header">📖 使用说明</div>
+        <div class="usage-guide">
+            <h4>🎯 反馈收集功能</h4>
+            <ul>
+                <li>查看AI工作汇报内容</li>
+                <li>输入文字反馈（可选）</li>
+                <li>上传图片反馈（支持拖拽、粘贴、文件选择）</li>
+                <li>提交反馈或取消操作</li>
+            </ul>
+            
+            <h4>🤖 AI聊天功能</h4>
+            <ul>
+                <li>发送文字消息与AI对话</li>
+                <li>上传图片进行多模态聊天</li>
+                <li>实时查看AI流式回复</li>
+                <li>管理聊天记录（清空等）</li>
+            </ul>
+            
+            <h4>⌨️ 快捷操作</h4>
+            <ul>
+                <li><kbd>Ctrl+V</kbd> - 粘贴图片</li>
+                <li><kbd>Enter</kbd> - 发送消息</li>
+                <li><kbd>Esc</kbd> - 取消操作</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .status-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    
+    .status-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #2a2a2a;
+        border-radius: 6px;
+    }
+    
+    .status-label {
+        font-weight: 500;
+        color: #cccccc;
+    }
+    
+    .status-value {
+        font-weight: bold;
+    }
+    
+    .status-success {
+        color: #4CAF50;
+    }
+    
+    .status-warning {
+        color: #ff9800;
+    }
+    
+    .status-error {
+        color: #f44336;
+    }
+    
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    
+    .feature-card {
+        background-color: #2a2a2a;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .feature-icon {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+    
+    .feature-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 10px;
+    }
+    
+    .feature-description {
+        color: #cccccc;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    
+    .config-info {
+        margin-bottom: 15px;
+    }
+    
+    .config-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #333333;
+    }
+    
+    .config-item:last-child {
+        border-bottom: none;
+    }
+    
+    .config-label {
+        font-weight: 500;
+        color: #cccccc;
+    }
+    
+    .config-value {
+        font-family: monospace;
+        color: #e0e0e0;
+    }
+    
+    .api-key-hint {
+        background-color: #2a2a2a;
+        border-radius: 6px;
+        padding: 15px;
+        text-align: center;
+    }
+    
+    .usage-guide h4 {
+        color: #ffffff;
+        margin: 20px 0 10px 0;
+        font-size: 16px;
+    }
+    
+    .usage-guide h4:first-child {
+        margin-top: 0;
+    }
+    
+    .usage-guide ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    
+    .usage-guide li {
+        padding: 5px 0;
+        color: #cccccc;
+        position: relative;
+        padding-left: 20px;
+    }
+    
+    .usage-guide li:before {
+        content: "•";
+        color: #0078d4;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+    }
+    
+    kbd {
+        background-color: #404040;
+        border: 1px solid #555555;
+        border-radius: 3px;
+        color: #ffffff;
+        font-family: monospace;
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+</style>
+{% endblock %}
