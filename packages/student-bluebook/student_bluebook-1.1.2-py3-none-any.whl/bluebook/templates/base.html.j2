@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluebook</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/book.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+<p><a href="{{url_for('root')}}"><img src="{{ url_for('static', filename='images/book.svg') }}" width="100" height="120"></a></p>
+<h1>Student Bluebook: {{exams['current_exam']['name']}}</h1>
+<p>Instantly generate multiple-choice questions to sharpen your <em>{{exams['current_exam']['name']}}</em> skills - just at the press of a button!</p>
+<div id='exam-selector' style="max-width: 300px; display: none;">
+    <form class="control-button-form" action="{{url_for('set_exam')}}" method="POST">
+        <select class="question-dropdown" id="exam-id" name="exam-id">
+            {% for exam in exams['exam_list'] %}
+                {% if exam['id'] == exams['current_exam']['id']%}<option value="{{exam['id']}}">{{ exam['name'] }}</option>{%endif%}
+            {% endfor %}
+            {% for exam in exams['exam_list'] %}
+                {% if exam['id'] != exams['current_exam']['id']%}<option value="{{exam['id']}}">{{ exam['name'] }}</option>{%endif%}
+            {% endfor %}
+        </select>
+        <div class="button-row" style="justify-content: center;margin-top: 10px;">
+            <input type="submit" class="subtle-blue-btn" name="exam-submit-button" id="exam-submit-button" class="exam-submit-button" value="Set exam">
+            <button class="subtle-blue-btn" formmethod="GET" formaction="{{url_for('exam_constructor')}}">Constructor</button>
+        </div>
+    </form>
+</div>
+{% if session['TOKEN_PRESENT'] %}
+{% endif %}
+<div class="control-panel">
+    <form class="control-panel-form" action="{{url_for('generate')}}" method="POST">
+        <label for="num_of_questions">Number of questions:</label>
+        <select name="num_of_questions" id="num_of_questions" class="question-dropdown">
+            <option value="{{session['latest_num']}}">{{session['latest_num']}}</option>
+            {% if session['latest_num'] != "2"%}<option value="2">2</option>{%endif%}
+            {% if session['latest_num'] != "5"%}<option value="5">5</option>{%endif%}
+            {% if session['latest_num'] != "10"%}<option value="10">10</option>{%endif%}
+            {% if session['latest_num'] != "20"%}<option value="20">20</option>{%endif%}
+        </select>
+        <label for="additional_request" style="padding-top: 10px;">Topic to focus on (90 characters max):</label>
+        {% if saved_topics['size'] %}
+            <select name="additional_request_preset" id="additional_request_preset" class="question-dropdown">
+                <option value="">new topic</option>
+                {% for topic in saved_topics['requests'] %}
+                    <option value="{{topic['request']}}">{{topic['request']}}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+        <input type="text" name="additional_request" id="additional_request" style="display: block;margin-top: 10px;">
+        <div class="button-row">
+            <input type="submit" value="Generate" class="subtle-blue-btn">
+            {% if saved_topics['size'] %}
+                <input type="submit" name="remove-saved-topic-button" id="remove-saved-topic-button" value="Delete saved topic" formaction="{{url_for('remove_saved_topic')}}" class="subtle-blue-btn">
+            {% endif %}
+        </div>
+    </form>
+        <div class="control-panel-row">
+                <form class="control-button-form" action="{{url_for('saved_questions')}}" method="GET">
+                    <button type="submit" class="subtle-blue-btn">Saved</button>
+                </form>
+            {% if session['TOKEN_PRESENT'] %}
+                <form class="control-button-form" action="{{url_for('clear_token')}}" method="POST">
+                    <input type="submit" value="Clear Token" class="subtle-blue-btn">
+                </form>
+            {% endif %}
+                <form class="control-button-form" action="{{url_for('clear_persistent_storage')}}" method="POST">
+                    <input type="submit" value="Clear Memory" class="subtle-blue-btn">
+                </form>
+            {% if session['submitted'] %}
+                <form class="control-button-form" action="{{url_for('wipe_questions')}}" method="POST">
+                    <input type="submit" value="Wipe Questions" class="subtle-blue-btn">
+                </form>
+            {% endif %}
+                <button id='exam-selector-button' class="subtle-blue-btn" onclick="examSelectorPressed()">Show exams</button>
+        </div>
+</div>
+{% block content %}
+{% endblock content %}
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const presetSelect = document.getElementById('additional_request_preset');
+        const textboxContainer = document.getElementById('additional_request');
+
+        function toggleTextbox() {
+            if (presetSelect.value === '' || presetSelect.value === 'using textbox below') {
+                textboxContainer.style.display = 'block';
+            } else {
+                textboxContainer.style.display = 'none';
+            }
+        }
+
+        // Initial check on load
+        toggleTextbox();
+
+        // On dropdown change
+        presetSelect.addEventListener('change', toggleTextbox);
+    });
+
+    document.addEventListener('DOMContentLoaded', function (){
+        const presetSelect = document.getElementById('additional_request_preset');
+        const removeTopicButton = document.getElementById('remove-saved-topic-button');
+
+        function toggleRemoveTopicButton() {
+            if (presetSelect.value === '' || presetSelect.value === 'new topic') {
+                removeTopicButton.style.display = 'none';
+            } else {
+                removeTopicButton.style.display = 'block';
+            }
+        }
+
+        // Initial check on load
+        toggleRemoveTopicButton();
+
+        // On dropdown change
+        presetSelect.addEventListener('change', toggleRemoveTopicButton);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const switchExamButton = document.getElementById('exam-submit-button');
+        const examSelect = document.getElementById('exam-id');
+
+        function examSelectButtonText() {
+            if (examSelect.value === "{{exams['current_exam']['id']}}") {
+                switchExamButton.value = 'Save state';
+            } else {
+                switchExamButton.value = 'Switch exam';
+            }
+        }
+
+        // Initial check on load
+        examSelectButtonText();
+
+        // On dropdown change
+        examSelect.addEventListener('change', examSelectButtonText);
+    });
+
+    function examSelectorPressed() {
+            const examSelector = document.getElementById('exam-selector');
+            const examSelectorButton = document.getElementById('exam-selector-button');
+            if (examSelector.style.display === 'none') {
+                examSelector.style.display = 'block';
+                examSelectorButton.textContent  = 'Hide exams'
+            } else {
+                examSelector.style.display = 'none';
+                examSelectorButton.textContent  = 'Show exams'
+            }
+        }
+</script>
+</body>
