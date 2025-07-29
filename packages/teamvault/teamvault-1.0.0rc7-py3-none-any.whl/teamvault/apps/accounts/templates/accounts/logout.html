@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block navbar %}{% endblock %}
+{% block title %}{% trans "Logout" %}{% endblock %}
+
+{% block super_content %}
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="text-center border rounded-5 bg-body shadow p-5" style="width: 25rem">
+            <div class="mb-2">
+                <span class="fs-1 text-body ">Team</span><span class="fs-1 text-accent">Vault</span>
+            </div>
+            <div class="mb-4">
+                <span>{% trans "Logged out." %}</span>
+            </div>
+            <a href="{% url 'accounts.login' %}">{% trans "Log in again?" %}</a>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}{% endblock %}

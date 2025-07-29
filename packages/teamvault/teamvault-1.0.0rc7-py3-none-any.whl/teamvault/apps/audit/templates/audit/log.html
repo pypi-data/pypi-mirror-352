@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load i18n %}
+{% load static %}
+{% load smart_pagination %}
+{% block title %}{% trans "Audit log" %}{% endblock %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+            <div class="row mb-3">
+                <h2>
+                    {% translate "Audit log" %}
+                </h2>
+            </div>
+            <div class="m-2">
+                {% include 'helpers/filter.html' %}
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            <table class="table table-hover">
+                                <thead class="fs-5">
+                                <tr>
+                                    <td>{% translate "Time" %}</td>
+                                    <td>{% translate "Actor" %}</td>
+                                    <td>{% translate "User" %}</td>
+                                    <td>{% translate "Secret" %}</td>
+                                    <td>{% translate "Message" %}</td>
+                                    <td>{% translate "Category" %}</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for entry in log_entries %}
+                                    <tr>
+                                        <td>{{ entry.time|date:"Y-m-d H:i:s e" }}</td>
+                                        <td>{% if entry.actor %}{{ entry.actor.username }}{% endif %}</td>
+                                        <td>{{ entry.user|default_if_none:'' }}</td>
+                                        <td>{% if entry.secret %}
+                                            <a href="{{ entry.secret.get_absolute_url }}">{{ entry.secret.name }}</a>{% endif %}
+                                        </td>
+                                        <td>
+                                            {{ entry.message }}
+                                            {% if entry.reason %}
+                                                <br>{% translate "Reason" %}: {{ entry.reason }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ entry.category }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include "pagination.html" %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block additionalJS %}
+    <script>
+        $("#id_actor").select2({
+            dropdownParent: document.getElementById('filter-modal'),
+            placeholder: "{% translate "Actor" %}",
+            allowClear: true,
+        });
+        $("#id_user").select2({
+            dropdownParent: document.getElementById('filter-modal'),
+            placeholder: "{% translate "User" %}",
+            allowClear: true,
+        });
+        $("#id_secret").select2({
+            dropdownParent: document.getElementById('filter-modal'),
+            multiple: false,
+            placeholder: "{% translate "Secret" %}",
+            allowClear: true,
+            delay: 250,
+            minimumInputLength: 3,
+            ajax: {
+                url: '{% url "secrets.secret-search" %}',
+                dataType: "json",
+                data: function ({term}) {
+                    return {
+                        q: term
+                    };
+                },
+                processResults: function (data) {
+                    let results = []
+                    data.results.forEach(item => results.push({
+                        id: item['hashid'],
+                        text: item['name']
+                    }))
+                    return {
+                        count: data.count,
+                        results: results
+                    };
+                }
+            }
+        });
+    </script>
+{% endblock %}

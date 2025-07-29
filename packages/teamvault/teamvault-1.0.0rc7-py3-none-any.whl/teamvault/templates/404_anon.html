@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block navbar %}{% endblock %}
+{% block title %}{% trans "Logout" %}{% endblock %}
+{% block content %}
+	<div class="login-wrapper">
+		<div class="logout">
+			<div class="login-icon">{% trans "404" %}</div>
+			{% trans "Page not found." %}&nbsp;
+			<a href="{% url 'accounts.login' %}">{% trans "Log in" %}</a>
+		</div>
+	</div>
+{% endblock %}
+{% block footer %}{% endblock %}
