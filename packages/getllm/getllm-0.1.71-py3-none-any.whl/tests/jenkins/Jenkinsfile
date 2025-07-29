@@ -1,0 +1,110 @@
+pipeline {
+    agent {
+        docker {
+            image 'python:3.10-slim'
+            args '-v ${WORKSPACE}:/app -w /app'
+        }
+    }
+    
+    environment {
+        MOCK_MODE = '--mock'
+        TEST_DIR = '/tmp/getllm_test'
+    }
+    
+    stages {
+        stage('Przygotowanie') {
+            steps {
+                sh 'mkdir -p ${TEST_DIR}'
+                sh 'pip install -e .'
+            }
+        }
+        
+        stage('Test instalacji getLLM') {
+            steps {
+                sh 'which getllm || (echo "getLLM nie jest zainstalowany" && exit 1)'
+            }
+        }
+        
+        stage('Test wyszukiwania modeli Hugging Face') {
+            steps {
+                script {
+                    sh '''
+                        echo "search-hf" > ${TEST_DIR}/input.txt
+                        echo "bielik" >> ${TEST_DIR}/input.txt
+                        echo "exit" >> ${TEST_DIR}/input.txt
+                        cat ${TEST_DIR}/input.txt | getllm ${MOCK_MODE} -i > ${TEST_DIR}/hf_search_result.log
+                    '''
+                    
+                    def searchOutput = sh(script: 'cat ${TEST_DIR}/hf_search_result.log', returnStdout: true).trim()
+                    if (!searchOutput.toLowerCase().contains('bielik')) {
+                        error "Nie znaleziono modeli Bielik w wyszukiwaniu Hugging Face"
+                    }
+                }
+            }
+        }
+        
+        stage('Test wyszukiwania Ollama z fallbackiem do Hugging Face') {
+            steps {
+                script {
+                    sh '''
+                        echo "search-ollama" > ${TEST_DIR}/input2.txt
+                        echo "bie" >> ${TEST_DIR}/input2.txt
+                        echo "exit" >> ${TEST_DIR}/input2.txt
+                        cat ${TEST_DIR}/input2.txt | getllm ${MOCK_MODE} -i > ${TEST_DIR}/ollama_search_result.log
+                    '''
+                    
+                    def searchOutput = sh(script: 'cat ${TEST_DIR}/ollama_search_result.log', returnStdout: true).trim()
+                    if (!searchOutput.contains('Searching Hugging Face GGUF models')) {
+                        error "Wyszukiwanie w Ollama nie uruchomiło fallbacku do Hugging Face"
+                    }
+                }
+            }
+        }
+        
+        stage('Test generowania kodu') {
+            steps {
+                script {
+                    sh 'getllm ${MOCK_MODE} "Write a hello world program in Python" > ${TEST_DIR}/code_gen_result.log'
+                    
+                    def codeOutput = sh(script: 'cat ${TEST_DIR}/code_gen_result.log', returnStdout: true).trim()
+                    if (!codeOutput.contains('print')) {
+                        error "Generowanie kodu nie utworzyło kodu Python"
+                    }
+                }
+            }
+        }
+        
+        stage('Sprawdzenie plików cache') {
+            steps {
+                script {
+                    def homeDir = sh(script: 'echo $HOME', returnStdout: true).trim()
+                    def hfCachePath = "${homeDir}/.getllm/models/huggingface_models.json"
+                    def ollamaCachePath = "${homeDir}/.getllm/models/ollama_models.json"
+                    def metadataPath = "${homeDir}/.getllm/models/models_metadata.json"
+                    
+                    sh "test -f ${hfCachePath} || (echo 'Plik cache Hugging Face nie istnieje' && exit 1)"
+                    sh "test -f ${ollamaCachePath} || (echo 'Plik cache Ollama nie istnieje' && exit 1)"
+                    sh "test -f ${metadataPath} || (echo 'Plik metadanych nie istnieje' && exit 1)"
+                    
+                    // Sprawdź czy cache Hugging Face zawiera modele Bielik
+                    def grepResult = sh(script: "grep -i 'bielik' ${hfCachePath} || true", returnStdout: true).trim()
+                    if (grepResult.isEmpty()) {
+                        error "Nie znaleziono modeli Bielik w cache Hugging Face"
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            sh 'rm -rf ${TEST_DIR}'
+        }
+        success {
+            echo 'Wszystkie testy zakończone pomyślnie!'
+        }
+        failure {
+            echo 'Testy nie powiodły się!'
+        }
+    }
+}

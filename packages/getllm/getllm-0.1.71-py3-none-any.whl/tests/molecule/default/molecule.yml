@@ -1,0 +1,23 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: python:3.10-slim
+    pre_build_image: true
+    volumes:
+      - ${MOLECULE_PROJECT_DIRECTORY}:/app
+    command: bash
+provisioner:
+  name: ansible
+  playbooks:
+    converge: converge.yml
+    verify: verify.yml
+verifier:
+  name: testinfra
+  directory: ./tests/
+  options:
+    v: true
+    s: true

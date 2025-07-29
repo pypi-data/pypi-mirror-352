@@ -1,0 +1,91 @@
+---
+# Ansible playbook for end-to-end testing of getllm
+- name: Test getllm functionality
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  
+  vars:
+    getllm_path: "{{ playbook_dir }}/../../getllm-cli"
+    test_dir: "/tmp/getllm_e2e_test"
+    mock_mode: "--mock"
+  
+  tasks:
+    - name: Create test directory
+      file:
+        path: "{{ test_dir }}"
+        state: directory
+        mode: '0755'
+    
+    - name: Check if getllm-cli exists
+      stat:
+        path: "{{ getllm_path }}"
+      register: getllm_stat
+    
+    - name: Fail if getllm-cli does not exist
+      fail:
+        msg: "getllm-cli not found at {{ getllm_path }}"
+      when: not getllm_stat.stat.exists
+    
+    - name: Make getllm-cli executable
+      file:
+        path: "{{ getllm_path }}"
+        mode: '0755'
+    
+    - name: Test getllm list available models
+      command: "{{ getllm_path }} {{ mock_mode }} -i"
+      args:
+        chdir: "{{ test_dir }}"
+      environment:
+        PYTHONIOENCODING: "utf-8"
+        PYTHONUNBUFFERED: "1"
+      register: list_models_result
+      failed_when: list_models_result.rc != 0 or 'Available models' not in list_models_result.stdout
+    
+    - name: Test getllm search Hugging Face models
+      shell: |
+        echo "search-hf" > input.txt
+        echo "bielik" >> input.txt
+        echo "exit" >> input.txt
+        cat input.txt | {{ getllm_path }} {{ mock_mode }} -i
+      args:
+        chdir: "{{ test_dir }}"
+      environment:
+        PYTHONIOENCODING: "utf-8"
+        PYTHONUNBUFFERED: "1"
+      register: search_hf_result
+      failed_when: >
+        search_hf_result.rc != 0 or 
+        ('bielik' not in search_hf_result.stdout and 'Bielik' not in search_hf_result.stdout and 'No models found' not in search_hf_result.stdout)
+    
+    - name: Test getllm search Ollama models
+      shell: |
+        echo "search-ollama" > input.txt
+        echo "code" >> input.txt
+        echo "exit" >> input.txt
+        cat input.txt | {{ getllm_path }} {{ mock_mode }} -i
+      args:
+        chdir: "{{ test_dir }}"
+      environment:
+        PYTHONIOENCODING: "utf-8"
+        PYTHONUNBUFFERED: "1"
+      register: search_ollama_result
+      failed_when: >
+        search_ollama_result.rc != 0 or 
+        ('code' not in search_ollama_result.stdout and 'No models found' not in search_ollama_result.stdout)
+    
+    - name: Test getllm direct code generation
+      command: "{{ getllm_path }} {{ mock_mode }} 'Write a hello world program in Python'"
+      args:
+        chdir: "{{ test_dir }}"
+      environment:
+        PYTHONIOENCODING: "utf-8"
+        PYTHONUNBUFFERED: "1"
+      register: generate_code_result
+      failed_when: generate_code_result.rc != 0 or 'print(' not in generate_code_result.stdout
+    
+    - name: Clean up test directory
+      file:
+        path: "{{ test_dir }}"
+        state: absent
+      when: true  # Always clean up, even if tests fail

@@ -1,0 +1,66 @@
+name: getLLM Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test_getllm:
+    runs-on: ubuntu-latest
+    env:
+      MOCK_MODE: --mock
+      TEST_DIR: /tmp/getllm_test
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Konfiguracja Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Przygotowanie środowiska testowego
+      run: |
+        mkdir -p $TEST_DIR
+        pip install -e .
+    
+    - name: Sprawdzenie instalacji getLLM
+      run: |
+        which getllm || (echo "getLLM nie jest zainstalowany" && exit 1)
+    
+    - name: Test wyszukiwania modeli Bielik w Hugging Face
+      run: |
+        echo "search-hf" > $TEST_DIR/input.txt
+        echo "bielik" >> $TEST_DIR/input.txt
+        echo "exit" >> $TEST_DIR/input.txt
+        cat $TEST_DIR/input.txt | getllm $MOCK_MODE -i > $TEST_DIR/hf_search_result.log
+        cat $TEST_DIR/hf_search_result.log
+        grep -i "bielik" $TEST_DIR/hf_search_result.log || (echo "Nie znaleziono modeli Bielik w wyszukiwaniu Hugging Face" && exit 1)
+    
+    - name: Test wyszukiwania Ollama z fallbackiem do Hugging Face
+      run: |
+        echo "search-ollama" > $TEST_DIR/input2.txt
+        echo "bie" >> $TEST_DIR/input2.txt
+        echo "exit" >> $TEST_DIR/input2.txt
+        cat $TEST_DIR/input2.txt | getllm $MOCK_MODE -i > $TEST_DIR/ollama_search_result.log
+        cat $TEST_DIR/ollama_search_result.log
+        grep "Searching Hugging Face GGUF models" $TEST_DIR/ollama_search_result.log || (echo "Wyszukiwanie w Ollama nie uruchomiło fallbacku do Hugging Face" && exit 1)
+    
+    - name: Test generowania kodu
+      run: |
+        getllm $MOCK_MODE "Write a hello world program in Python" > $TEST_DIR/code_gen_result.log
+        cat $TEST_DIR/code_gen_result.log
+        grep "print" $TEST_DIR/code_gen_result.log || (echo "Generowanie kodu nie utworzyło kodu Python" && exit 1)
+    
+    - name: Sprawdzenie plików cache
+      run: |
+        test -f ~/.getllm/models/huggingface_models.json || (echo 'Plik cache Hugging Face nie istnieje' && exit 1)
+        test -f ~/.getllm/models/ollama_models.json || (echo 'Plik cache Ollama nie istnieje' && exit 1)
+        test -f ~/.getllm/models/models_metadata.json || (echo 'Plik metadanych nie istnieje' && exit 1)
+        grep -i "bielik" ~/.getllm/models/huggingface_models.json || (echo "Nie znaleziono modeli Bielik w cache Hugging Face" && exit 1)
+    
+    - name: Czyszczenie po testach
+      if: always()
+      run: rm -rf $TEST_DIR

@@ -1,0 +1,76 @@
+version: 2.1
+
+jobs:
+  test_getllm:
+    docker:
+      - image: cimg/python:3.10
+    working_directory: ~/repo
+    environment:
+      MOCK_MODE: "--mock"
+      TEST_DIR: "/tmp/getllm_test"
+    steps:
+      - checkout
+      
+      # Przygotowanie środowiska
+      - run:
+          name: Przygotowanie środowiska testowego
+          command: |
+            mkdir -p $TEST_DIR
+            pip install -e .
+      
+      # Test instalacji getLLM
+      - run:
+          name: Sprawdzenie instalacji getLLM
+          command: |
+            which getllm || (echo "getLLM nie jest zainstalowany" && exit 1)
+      
+      # Test wyszukiwania modeli Hugging Face
+      - run:
+          name: Test wyszukiwania modeli Bielik w Hugging Face
+          command: |
+            echo "search-hf" > $TEST_DIR/input.txt
+            echo "bielik" >> $TEST_DIR/input.txt
+            echo "exit" >> $TEST_DIR/input.txt
+            cat $TEST_DIR/input.txt | getllm $MOCK_MODE -i > $TEST_DIR/hf_search_result.log
+            cat $TEST_DIR/hf_search_result.log
+            grep -i "bielik" $TEST_DIR/hf_search_result.log || (echo "Nie znaleziono modeli Bielik w wyszukiwaniu Hugging Face" && exit 1)
+      
+      # Test wyszukiwania Ollama z fallbackiem do Hugging Face
+      - run:
+          name: Test wyszukiwania Ollama z fallbackiem do Hugging Face
+          command: |
+            echo "search-ollama" > $TEST_DIR/input2.txt
+            echo "bie" >> $TEST_DIR/input2.txt
+            echo "exit" >> $TEST_DIR/input2.txt
+            cat $TEST_DIR/input2.txt | getllm $MOCK_MODE -i > $TEST_DIR/ollama_search_result.log
+            cat $TEST_DIR/ollama_search_result.log
+            grep "Searching Hugging Face GGUF models" $TEST_DIR/ollama_search_result.log || (echo "Wyszukiwanie w Ollama nie uruchomiło fallbacku do Hugging Face" && exit 1)
+      
+      # Test generowania kodu
+      - run:
+          name: Test generowania kodu
+          command: |
+            getllm $MOCK_MODE "Write a hello world program in Python" > $TEST_DIR/code_gen_result.log
+            cat $TEST_DIR/code_gen_result.log
+            grep "print" $TEST_DIR/code_gen_result.log || (echo "Generowanie kodu nie utworzyło kodu Python" && exit 1)
+      
+      # Sprawdzenie plików cache
+      - run:
+          name: Sprawdzenie plików cache
+          command: |
+            test -f ~/.getllm/models/huggingface_models.json || (echo 'Plik cache Hugging Face nie istnieje' && exit 1)
+            test -f ~/.getllm/models/ollama_models.json || (echo 'Plik cache Ollama nie istnieje' && exit 1)
+            test -f ~/.getllm/models/models_metadata.json || (echo 'Plik metadanych nie istnieje' && exit 1)
+            grep -i "bielik" ~/.getllm/models/huggingface_models.json || (echo "Nie znaleziono modeli Bielik w cache Hugging Face" && exit 1)
+      
+      # Czyszczenie po testach
+      - run:
+          name: Czyszczenie po testach
+          command: rm -rf $TEST_DIR
+          when: always
+
+workflows:
+  version: 2
+  test_workflow:
+    jobs:
+      - test_getllm
