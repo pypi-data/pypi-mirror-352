@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools"]                             
+build-backend = "setuptools.build_meta"               
+
+[project]
+name = "tasky-cli" 
+version = "0.5.0"    
+authors = [
+	{ name="espehon", email="espehon@gmail.com" }   
+]
+
+description = "A to-do list CLI that's heavily inspired by klaudiosinani's taskbook (JavaScript)."     
+readme = "README.md"                                  
+requires-python = ">=3.10"                         
+dependencies = [                                
+	"colorama >= 0.4.6",
+	"python-dateutil >= 2.9.0",
+	"questionary >= 2.1.0"
+]
+
+classifiers = [                                
+	"Programming Language :: Python :: 3",        
+	"Development Status :: 5 - Production/Stable",           
+	"Environment :: Console",
+	"License :: OSI Approved :: MIT License",
+	"Operating System :: OS Independent",
+	"Topic :: Utilities"
+]
+
+[project.scripts]                          
+ts = "tasky_cli.tasky:tasky"               
+
+[project.urls]
+"Homepage" = "https://github.com/espehon/tasky-cli"            
+"Bug Tracker" = "https://github.com/espehon/tasky-cli/issues"  
