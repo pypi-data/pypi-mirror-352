@@ -1,0 +1,200 @@
+Metadata-Version: 2.4
+Name: invert4geom
+Version: 1.0.0
+Summary: Constrained gravity inversion to recover the geometry of a density contrast.
+Author-email: Matt Tankersley <matt.d.tankersley@gmail.com>
+License: Copyright 2023 Matt Tankersley
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of
+        this software and associated documentation files (the "Software"), to deal in
+        the Software without restriction, including without limitation the rights to
+        use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+        of the Software, and to permit persons to whom the Software is furnished to do
+        so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/mdtanker/invert4geom
+Project-URL: Documentation, https://invert4geom.readthedocs.io/
+Project-URL: Bug Tracker, https://github.com/mdtanker/invert4geom/issues
+Project-URL: Discussions, https://github.com/mdtanker/invert4geom/discussions
+Project-URL: Changelog, https://invert4geom.readthedocs.io/en/latest/changelog.html
+Keywords: inversion,gravity,geometry,density,Moho,sediment,geophysics,geology,geoscience
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering
+Classifier: Typing :: Typed
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: xarray
+Requires-Dist: verde
+Requires-Dist: rioxarray
+Requires-Dist: pykdtree
+Requires-Dist: xrft
+Requires-Dist: harmonica>=0.7
+Requires-Dist: polartoolkit
+Requires-Dist: numba
+Requires-Dist: scipy
+Requires-Dist: numba_progress
+Requires-Dist: tqdm
+Requires-Dist: pygmt
+Requires-Dist: dask
+Requires-Dist: deprecation
+Requires-Dist: pooch
+Requires-Dist: scikit-learn
+Requires-Dist: optuna>=3.6.0
+Requires-Dist: torch
+Requires-Dist: joblib
+Requires-Dist: psutil
+Requires-Dist: pyvista
+Requires-Dist: trame
+Requires-Dist: ipywidgets
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: ipython
+Requires-Dist: plotly
+Provides-Extra: uncert
+Requires-Dist: UQpy>=4.1.7; extra == "uncert"
+Provides-Extra: synth
+Requires-Dist: xesmf; extra == "synth"
+Provides-Extra: test
+Requires-Dist: pytest>=6; extra == "test"
+Requires-Dist: pytest-cov>=3; extra == "test"
+Requires-Dist: deepdiff; extra == "test"
+Provides-Extra: docs
+Requires-Dist: sphinx>=4.0; extra == "docs"
+Requires-Dist: sphinx-book-theme>=0.3; extra == "docs"
+Requires-Dist: nbsphinx; extra == "docs"
+Requires-Dist: nbconvert; extra == "docs"
+Requires-Dist: sphinxcontrib-bibtex; extra == "docs"
+Requires-Dist: myst_parser; extra == "docs"
+Requires-Dist: sphinx_copybutton; extra == "docs"
+Requires-Dist: sphinx_autoapi; extra == "docs"
+Requires-Dist: sphinx_autodoc_typehints; extra == "docs"
+Requires-Dist: sphinx_design; extra == "docs"
+Provides-Extra: dev
+Requires-Dist: invert4geom[docs,synth,test,uncert]; extra == "dev"
+Requires-Dist: nox; extra == "dev"
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: pylint>=3.2; extra == "dev"
+Requires-Dist: python-semantic-release>=8; extra == "dev"
+Requires-Dist: ipykernel; extra == "dev"
+Requires-Dist: jupyterlab; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pathspec; extra == "dev"
+Provides-Extra: all
+Requires-Dist: invert4geom[dev,docs,synth,test,uncert]; extra == "all"
+Dynamic: license-file
+
+<h1 align="center">Invert4geom</h1>
+<h2 align="center">3D geometric gravity inversions
+</h2>
+
+<p align="center">
+<a href="https://invert4geom.readthedocs.io"><strong>Documentation Link</strong></a>
+</p>
+
+<!-- SPHINX-START-proj-desc -->
+
+**Invert4geom** is a Python library for performing 3D geometric gravity inversions, where the aim is to recover the geometry of a density contrast.
+
+Typical use cases include modeling the topography of the Moho, the sediment-basement contact, or bathymetry.
+These density contrasts are represented by a layer of vertical right-rectangular prisms.
+Since we use vertical prisms, they don't take the curvature of the Earth into account.
+For large-scale applications, such as continental studies, it would be better to use tesseroids instead of prisms.
+
+See the [overview](overview.md) for further description of this package and what it can be used for.
+
+<!-- SPHINX-END-proj-desc -->
+
+<!-- SPHINX-START-badges -->
+
+<p align="center">
+<a href="https://mybinder.org/v2/gh/mdtanker/invert4geom/main">
+ <img src="https://mybinder.org/badge_logo.svg" alt="Binder link"></a>
+ </p>
+
+<p align="center">
+<a href=https://pypi.org/project/invert4geom/>
+<img src="https://img.shields.io/pypi/v/invert4geom?style=flat-square"
+alt="Latest version on PyPI"/></a>
+<a href=https://github.com/conda-forge/invert4geom-feedstock>
+<img src="https://img.shields.io/conda/vn/conda-forge/invert4geom.svg?style=flat-square"
+alt="Latest version on conda-forge"/></a>
+<a href="https://codecov.io/gh/mdtanker/invert4geom"><img src="https://img.shields.io/codecov/c/github/mdtanker/invert4geom/main.svg?style=flat-square" alt="Test coverage status"/></a>
+</p>
+
+<p align="center">
+<a href="https://pypi.org/project/invert4geom/"><img src="https://img.shields.io/pypi/pyversions/invert4geom?style=flat-square" alt="Compatible Python versions."/></a>
+<a href="https://zenodo.org/doi/10.5281/zenodo.11951924"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.12547952.svg?style=flat-square" alt="Zenodo DOI"/></a>
+<a href='https://readthedocs.org/projects/invert4geom/'><img src='https://readthedocs.org/projects/invert4geom/badge/?version=latest&style=flat-square' alt='Documentation Status' /></a>
+ </p>
+
+<!-- SPHINX-END-badges -->
+
+![](docs/figures/cover_fig.png)
+
+## Disclaimer
+
+<p align="center">
+🚨 **Ready for daily use but still changing.** 🚨
+</p>
+
+This means that we are still adding a lot of new features and sometimes we make changes to the ones we already have while we try to improve the software based on users' experience, test new ideas, make better design decisions, etc.
+Some of these changes could be **backwards incompatible**.
+Keep that in mind before you update Invert4Geom to a new major version (i.e. from `v1.0.0` to `v2.0.0`) and always check the [Changelog](https://github.com/mdtanker/invert4geom/blob/main/CHANGELOG.md) for `BREAKING CHANGES` and how to update your code appropriately.
+
+I welcome any feedback, ideas, or contributions!
+Please contact us on the [GitHub discussions page](https://github.com/mdtanker/invert4geom/discussions) or submit an [issue on GitHub](https://github.com/mdtanker/invert4geom/issues) for problems or feature ideas.
+
+<!-- SPHINX-START-long-desc -->
+
+#### What _Invert4Geom_ is for:
+
+- invert **gravity** data to recover the topography of a density contrast
+- use with **gridded** gravity data
+- discretization using _vertical right-rectangular prisms_
+- performing regional-residual separation
+- stochastic uncertainty analysis of inversion results
+- basic visualization tools
+
+#### What _Invert4Geom_ is **NOT** for:
+
+- performing parameter-estimation inversions (i.e. recovering density values) -> see [SimPEG](https://simpeg.xyz/) or [pyGIMLi](https://www.pygimli.org/index.html)
+- a point-and-click GUI -> see [Geosoft/Seequent Oasis Montaj](https://www.seequent.com/products-solutions/geosoft-oasis-montaj/) or [MiraGeoscience VPmg](https://www.mirageoscience.com/mining-industry-software/geoscience-analyst-pro-geophysics/)
+- a ready-to-use inversion with minimal user input
+- use with discrete (un-gridded) gravity data -> see [Harmonica](https://www.fatiando.org/harmonica/latest/index.html) for gridding your data
+- for processing gravity data -> see [Harmonica](https://www.fatiando.org/harmonica/latest/index.html) for gravity processing tools
+- for use with tesseroids, or non-regular grids (raise an issue request if you want this implemented!)
+- publication-quality visualization -> see [PyGMT](https://www.pygmt.org/dev/index.html) for plotting tools
+
+<!-- SPHINX-END-long-desc -->
+
+## How to contribute
+I welcome all forms of contribution! If you have any questions, comments or suggestions, please open a [discussion](https://github.com/mdtanker/invert4geom/discussions/new/choose) or [issue (feature request)](https://github.com/mdtanker/invert4geom/issues/new/choose)!
+
+Also, please feel free to share how you're using Invert4Geom, I'd love to know.
+
+Please, read our [Contributor Guide](https://invert4geom.readthedocs.io/en/latest/contributing.html) to learn how you can contribute to the project.
