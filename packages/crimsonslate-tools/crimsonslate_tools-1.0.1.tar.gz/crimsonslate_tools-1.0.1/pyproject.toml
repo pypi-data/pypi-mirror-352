@@ -1,0 +1,83 @@
+[project]
+name = "crimsonslate-tools"
+description = "Django project dev tools by crimsonslate"
+version = "1.0.1"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.13"
+authors = [
+        { name = "Blake Nall", email = "dev@darthnall.com"  },
+        { name = "Constantine Kapatos", email = "kapatos.constantine@gmail.com"  },
+
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "django>=5.2.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/crimsonslate/tools"
+Repository = "https://github.com/crimsonslate/tools"
+Documentation = "https://crimsonslate-tools.readthedocs.io/en/latest"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["crimsonslate_tools"]
+
+[tool.pyright]
+strictListInference = false
+strictDictionaryInference = false
+strictSetInference = false
+typeCheckingMode = "basic"
+
+[tool.ruff]
+indent-width = 4
+line-length = 88
+target-version = "py313"
+exclude = [
+        ".git",
+        ".gitignore",
+        ".venv",
+        "venv",
+        ".vscode",
+        "__pycache__",
+        "node_modules",
+        "site-packages",
+        "dist",
+        "build",
+]
+
+[tool.ruff.lint]
+extend-per-file-ignores = {"*/migrations/*.py" = ["E501"]}
+fixable = [ "ALL" ]
+ignore = ["DJ001", "F821"]
+unfixable = []
+select = [
+        "DJ",
+        "E4",
+        "E7",
+        "E9",
+        "F",
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+indent-style = "space"
+line-ending = "auto"
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[dependency-groups]
+dev = [
+    "autoclasstoc>=1.7.0",
+    "sphinx>=8.2.3",
+    "sphinx-rtd-theme>=3.0.2",
+]
