@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "context-portal-mcp"
+version = "0.2.4"
+authors = [
+  { name="Scott McLeod", email="contextportal@gmail.com" },
+]
+description = "A Model Context Protocol (MCP) server for managing structured project context."
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic",
+    "mcp[cli]",
+    "sentence-transformers",
+    "chromadb",
+    "alembic", # Added for database migrations
+]
+
+[project.urls]
+"Homepage" = "https://github.com/GreatScottyMac/context-portal" 
+
+[project.scripts]
+conport-mcp = "context_portal_mcp.main:cli_entry_point" 
+
+[tool.setuptools.packages.find]
+where = ["src"] 
+
+[tool.setuptools.package-data]
+"context_portal_mcp" = ["templates/**/*"]
+
+[tool.setuptools]
+include-package-data = true # Include data files specified in MANIFEST.in or package_data
