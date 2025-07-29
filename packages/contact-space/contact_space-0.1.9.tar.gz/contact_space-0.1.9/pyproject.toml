@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "contact_space"
+version = "0.1.09"
+description = "SDK to interact with the ContactSpace REST API"
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.7"
+authors = [
+  { name="George Burns", email="mrgeorgegburns@gmail.com" }
+]
+
+dependencies = [
+  "requests",
+  "pandas",
+  "python-dateutil"
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
