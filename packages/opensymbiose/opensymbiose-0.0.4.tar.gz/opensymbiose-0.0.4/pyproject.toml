@@ -1,0 +1,53 @@
+[project]
+name = "opensymbiose"
+version = "0.0.4"
+description = "OpenSymbiose is an open-source biotechnology / biology research AI agent designed to support researcher."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Corentin Meyer", email = "contact@cmeyer.fr" },
+]
+maintainers = [
+    { name = "Corentin Meyer", email = "contact@cmeyer.fr" }
+]
+dependencies = [
+    "biopython>=1.85",
+    "bioservices>=1.12.1",
+    "gradio>=5.31.0",
+    "mistralai>=1.8.0",
+    "python-dotenv>=1.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/lambda-science/OpenSymbiose"
+Documentation = "https://lambda-science.github.io/OpenSymbiose/"
+Repository = "https://github.com/lambda-science/OpenSymbiose"
+Issues = "https://github.com/lambda-science/OpenSymbiose/issues"
+
+[dependency-groups]
+dev = [
+    "ruff",
+    "pytest",
+    "pytest-cov",
+    "ty",
+    "pre-commit",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/opensymbiose"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+opensymbiose = "opensymbiose.gradio.app:demo.launch"
+
+[tool.ruff]
+target-version = "py313"
+
+[tool.coverage.run]
+omit = ["tests/*"]
