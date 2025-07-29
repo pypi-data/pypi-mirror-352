@@ -1,0 +1,97 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "another-ayx-python-sdk"
+dynamic = ["version"]
+description = "Python SDK for Alteryx Plugin Development and Testing"
+readme = "README.md"
+authors = [
+    {name = "Jupiter Bakakeu", email = "jupiter.bakakeu@gmail.com"}
+]
+maintainers = [
+    {name = "Jupiter Bakakeu", email = "jupiter.bakakeu@gmail.com"}
+]
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Testing",
+    "Environment :: Console",
+]
+dependencies = [
+    "pydantic",
+    "packaging",
+    "setuptools>=65.5.0",
+    "pyarrow",
+    "xmltodict",
+    "pyyaml",
+    "requests",
+    "another-ayx-plugin-cli==1.2.3",
+    "typing-extensions",
+    "pypac",
+    "pandas",
+    "numpy",
+    "deprecation",
+    "grpcio",
+    "grpcio-tools",   
+    "protobuf",
+    "psutil", 
+    "Click",
+    "python-dateutil",
+    "pytz",
+    "six",
+    "typer",
+    "wincertstore"
+]
+
+[project.optional-dependencies]
+dev = [
+    # List your dev dependencies here
+    "pytest",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8",
+    "mypy",
+]
+
+[project.urls]
+Homepage = "https://github.com/jupiterbak/another-ayx-python-sdk"
+Repository = "https://github.com/jupiterbak/another-ayx-python-sdk.git"
+
+[project.scripts]
+another-ayx-python-sdk = "another_ayx_python_sdk.__main__:main"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+exclude = ["tests*", "docs*", "__pycache__", "**/__pycache__", "**/*.pyc", "**/__pycache__/"]
+
+[tool.setuptools.package-data]
+another_ayx_python_sdk = [
+    "assets/*",
+    "cli/*",
+    "core/**/*",
+    "docs/**/*",
+    "examples/**/*",
+    "providers/**/*",
+    "test_harness/**/*",
+    "providers/amp_provider/resources/generated/*",
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "another_ayx_python_sdk.version.version"}
