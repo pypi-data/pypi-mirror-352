@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "auviknetworks"
+version = "1.0.2"
+authors = [
+  { name="Tosch Data Solutions", email="data@tosch.nl" },
+  { name="Jelle Blom", email="jb@tosch.nl"}
+]
+description = "Tosch Automatisering Auvik Networks libary"
+readme = "README.md"
+License = {file = "license.txt"}
+requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.32.3",
+    "pandas>=2.2.2",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: Python Software Foundation License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
