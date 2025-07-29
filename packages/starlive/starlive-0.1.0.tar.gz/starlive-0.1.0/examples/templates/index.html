@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StarLive Demo - Universal Hypermedia</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: white;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      .tech-indicator {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        margin-top: 1rem;
+        font-weight: bold;
+      }
+
+      .main-content {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .tabs {
+        display: flex;
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      .tab {
+        flex: 1;
+        padding: 1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        border-bottom: 3px solid transparent;
+      }
+
+      .tab:hover {
+        background: #e9ecef;
+      }
+
+      .tab.active {
+        background: white;
+        border-bottom-color: #667eea;
+        font-weight: bold;
+      }
+
+      .tab-content {
+        display: none;
+        padding: 2rem;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+
+      .form-group input[type="text"] {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input[type="text"]:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+      }
+
+      .btn-primary {
+        background: #667eea;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #5a6fd8;
+        transform: translateY(-2px);
+      }
+
+      .btn-danger {
+        background: #dc3545;
+        color: white;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+      }
+
+      .btn-danger:hover {
+        background: #c82333;
+      }
+
+      .items-list {
+        margin-top: 2rem;
+      }
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .item:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+      }
+
+      .item span {
+        flex: 1;
+      }
+
+      .error {
+        color: #dc3545;
+        background: #f8d7da;
+        padding: 0.75rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+      }
+
+      .notification {
+        background: #d4edda;
+        color: #155724;
+        padding: 0.75rem;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        border-left: 4px solid #28a745;
+      }
+
+      .push-result {
+        background: #cce7ff;
+        color: #004085;
+        padding: 0.75rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+      }
+
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .comparison-card {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+      }
+
+      .comparison-card h3 {
+        color: #667eea;
+        margin-bottom: 1rem;
+      }
+
+      .feature-list {
+        list-style: none;
+      }
+
+      .feature-list li {
+        padding: 0.25rem 0;
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .feature-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #28a745;
+        font-weight: bold;
+      }
+
+      @media (max-width: 768px) {
+        .tabs {
+          flex-direction: column;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .container {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>StarLive Demo</h1>
+        <p>Universal Hypermedia System - Works with Both HTMX and Turbo</p>
+        <div id="tech-indicator" class="tech-indicator">
+          Detecting Technology...
+        </div>
+      </div>
+
+      <div class="main-content">
+        <div class="tabs">
+          <button class="tab active" onclick="showTab('basic')">
+            Basic CRUD
+          </button>
+          <button class="tab" onclick="showTab('realtime')">
+            Real-time Updates
+          </button>
+          <button class="tab" onclick="showTab('comparison')">
+            Technology Comparison
+          </button>
+        </div>
+
+        <div id="basic" class="tab-content active">
+          <h2>Basic CRUD Operations</h2>
+          <p>
+            Add and remove items using hypermedia requests. Works with both HTMX
+            and Turbo automatically!
+          </p>
+
+          <div id="error-message"></div>
+
+          <form
+            hx-post="/items"
+            hx-target="#items-list"
+            hx-swap="afterbegin"
+            hx-on:htmx:responseError="document.getElementById('error-message').innerHTML = event.detail.xhr.responseText; this.reset();"
+            hx-on::after-request="if (event.detail.successful) { this.reset(); document.getElementById('error-message').innerHTML = ''; }"
+            data-turbo-method="post"
+            action="/items"
+            method="post"
+          >
+            <div class="form-group">
+              <label for="item-input">Item Name:</label>
+              <input
+                type="text"
+                id="item-input"
+                name="item"
+                placeholder="Enter item name..."
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Add Item</button>
+          </form>
+
+          <div id="items-list" class="items-list">
+            <!-- Items will be added here dynamically -->
+          </div>
+        </div>
+
+        <div id="realtime" class="tab-content">
+          <h2>Real-time Updates</h2>
+          <p>
+            Test WebSocket push notifications that work with both HTMX and
+            Turbo!
+          </p>
+
+          <button
+            class="btn btn-primary"
+            onclick="fetch('/push', {method: 'POST'}).then(r => r.text()).then(t => { const result = document.getElementById('push-result'); result.innerHTML = t; result.style.display = 'block'; })"
+          >
+            Send Update to All Clients
+          </button>
+
+          <div id="push-result" class="push-result"></div>
+
+          <div id="notifications">
+            <!-- Real-time notifications will appear here -->
+          </div>
+        </div>
+
+        <div id="comparison" class="tab-content">
+          <h2>Technology Comparison</h2>
+          <p>
+            StarLive automatically detects and supports both HTMX and Turbo,
+            providing a universal API.
+          </p>
+
+          <div class="comparison-grid">
+            <div class="comparison-card">
+              <h3>HTMX Support</h3>
+              <ul class="feature-list">
+                <li>Automatic request detection via HX-Request header</li>
+                <li>Support for all HTMX swap methods</li>
+                <li>WebSocket integration for real-time updates</li>
+                <li>Form validation and error handling</li>
+                <li>Progressive enhancement</li>
+              </ul>
+            </div>
+
+            <div class="comparison-card">
+              <h3>Turbo Support</h3>
+              <ul class="feature-list">
+                <li>Turbo Stream response generation</li>
+                <li>Automatic detection via Accept headers</li>
+                <li>Frame-based updates</li>
+                <li>Real-time stream delivery</li>
+                <li>SPA-like navigation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- StarLive Scripts - Automatically includes both HTMX and Turbo -->
+    {{ starlive_scripts() | safe }}
+
+    <script>
+      // Tab switching functionality
+      function showTab(tabName) {
+        // Hide all tab contents
+        document.querySelectorAll(".tab-content").forEach((content) => {
+          content.classList.remove("active");
+        });
+
+        // Remove active class from all tabs
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        // Show selected tab content
+        document.getElementById(tabName).classList.add("active");
+
+        // Add active class to clicked tab
+        event.target.classList.add("active");
+      }
+
+      // Technology detection
+      function updateTechIndicator() {
+        const indicator = document.getElementById("tech-indicator");
+
+        if (typeof htmx !== "undefined" || typeof Turbo !== "undefined") {
+          indicator.textContent = "HTMX/Turbo Loaded";
+          indicator.style.background = "rgba(52, 144, 220, 0.8)";
+        } else {
+          indicator.textContent = "No Hypermedia Library Detected";
+          indicator.style.background = "rgba(108, 117, 125, 0.8)";
+        }
+      }
+
+      // Update indicator when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        // Wait a bit for scripts to load
+        setTimeout(updateTechIndicator, 100);
+      });
+
+      // Handle form submission for non-hypermedia fallback
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        if (
+          form &&
+          typeof htmx === "undefined" &&
+          typeof Turbo === "undefined"
+        ) {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            fetch("/items", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) => response.text())
+              .then((html) => {
+                const itemsList = document.getElementById("items-list");
+                itemsList.insertAdjacentHTML("beforeend", html);
+                form.reset();
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          });
+        }
+      });
+
+      // Show push result element when button is clicked
+      document.addEventListener("click", function (e) {
+        if (e.target.textContent.includes("Send Update")) {
+          const pushResult = document.getElementById("push-result");
+          pushResult.style.display = "block";
+        }
+      });
+
+      // Handle HTMX events for form clearing
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof htmx !== "undefined") {
+          // Listen for the clearForm trigger from HTMX responses
+          document.body.addEventListener("clearForm", function (event) {
+            const itemInput = document.getElementById("item-input");
+            const errorMessage = document.getElementById("error-message");
+            if (itemInput) itemInput.value = "";
+            if (errorMessage) errorMessage.innerHTML = "";
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
