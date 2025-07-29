@@ -1,0 +1,1 @@
+FwtTools is a library that implements tools for building your own wavelets and performing fast wavelet transform
