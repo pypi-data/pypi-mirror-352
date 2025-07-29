@@ -1,0 +1,80 @@
+# MCP YouTube Info Server
+
+このプロジェクトは、Model Context Protocol (MCP) を使用して YouTube 動画の情報を取得するサーバー実装です。FastMCP フレームワークを使用して、YouTube の動画情報を取得する機能を提供します。
+
+## Available Tools
+
+### thumbnail
+
+YouTube 動画のサムネイル画像の URL を取得します。
+
+- video_id (string, required): YouTube 動画 ID
+  - 戻り値: サムネイル画像の URL
+
+### metainfo
+
+YouTube 動画のメタ情報を取得します。
+
+- video_id (string, required): YouTube 動画 ID
+  - 戻り値: タイトル、説明、視聴回数、投稿日時などのメタ情報を含む JSON
+
+## インストール
+
+### uv の使用（推奨）
+
+uv を使用する場合、特別なインストールは必要ありません。`uvx` を使用して直接 `mcp-server-youtube-info` を実行できます。
+
+### PIP の使用
+
+または、pip を使用して `mcp-server-youtube-info` をインストールすることもできます：
+
+```
+pip install mcp-server-youtube-info
+```
+
+インストール後、以下のようにスクリプトとして実行できます：
+
+```
+mcp-server-youtube-info
+```
+
+### コマンドラインオプション
+
+サーバーの実行時に以下のオプションを指定できます：
+
+- `--sse`: SSE トランスポートの有効化
+
+  - 選択肢: `on`, `off`
+  - デフォルト: `off`
+  - 説明: "on"に設定すると SSE トランスポートが有効になります
+
+- `--host`: サーバーをバインドするホスト
+
+  - デフォルト: `localhost`
+  - 説明: サーバーをバインドするホストアドレスを指定します
+
+- `--port`: サーバーをバインドするポート
+
+  - タイプ: 整数
+  - デフォルト: `8000`
+  - 説明: サーバーをバインドするポート番号を指定します
+
+- `--log-level`: ログレベルの設定
+  - 選択肢: `debug`, `info`, `warning`, `error`
+  - デフォルト: `info`
+  - 説明:
+    - debug: 詳細なデバッグ情報
+    - info: 一般的な実行情報（デフォルト）
+    - warning: 実行に影響しない潜在的な問題
+    - error: 実行中に発生したエラー
+
+## 開発
+
+このプロジェクトは、YouTube の動画情報を取得するための MCP サーバーを提供します。新しい機能を追加する場合は、`server.py` に実装を追加してください。
+
+開発時には、以下のコマンドを実行することで、開発中のスクリプトの動作を検証できます。
+
+```
+pip install -e .
+mcp-server-youtube-info
+```
