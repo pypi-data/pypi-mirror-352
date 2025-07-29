@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<data>
+<record id="rma_policy_ordered_refunded" model="rma_policy">
+    <field name="name">Based on Ordered - Refunded Quantities</field>
+    <field name="code">T007</field>
+    <field name="active" eval="1" />
+    <field name="rma_type">both</field>
+</record>
+<record id="rma_policy_rule_ordered_refunded_1" model="rma_policy_rule">
+    <field name="sequence" eval="1" />
+    <field name="operator">+</field>
+    <field name="policy_field_id" ref="ssi_rma.rma_policy_field_ordered" />
+    <field name="policy_id" ref="rma_policy_ordered_refunded" />
+</record>
+<record id="rma_policy_rule_ordered_refunded_2" model="rma_policy_rule">
+    <field name="sequence" eval="2" />
+    <field name="operator">-</field>
+    <field name="policy_field_id" ref="rma_policy_field_refund" />
+    <field name="policy_id" ref="rma_policy_ordered_refunded" />
+</record>
+
+<record id="rma_policy_delivered_refunded" model="rma_policy">
+    <field name="name">Based on Delivered - Received Quantities</field>
+    <field name="code">T008</field>
+    <field name="active" eval="1" />
+    <field name="rma_type">both</field>
+</record>
+<record id="rma_policy_rule_delivered_refunded_1" model="rma_policy_rule">
+    <field name="sequence" eval="1" />
+    <field name="operator">+</field>
+    <field name="policy_field_id" ref="ssi_rma.rma_policy_field_delivered" />
+    <field name="policy_id" ref="rma_policy_delivered_refunded" />
+</record>
+<record id="rma_policy_rule_delivered_refunded_2" model="rma_policy_rule">
+    <field name="sequence" eval="2" />
+    <field name="operator">-</field>
+    <field name="policy_field_id" ref="rma_policy_field_refund" />
+    <field name="policy_id" ref="rma_policy_delivered_refunded" />
+</record>
+
+<record id="rma_policy_received_refunded" model="rma_policy">
+    <field name="name">Based on Received - Refunded Quantities</field>
+    <field name="code">T009</field>
+    <field name="active" eval="1" />
+    <field name="rma_type">both</field>
+</record>
+<record id="rma_policy_rule_received_refunded_1" model="rma_policy_rule">
+    <field name="sequence" eval="1" />
+    <field name="operator">+</field>
+    <field name="policy_field_id" ref="ssi_rma.rma_policy_field_received" />
+    <field name="policy_id" ref="rma_policy_received_refunded" />
+</record>
+<record id="rma_policy_rule_received_refunded_2" model="rma_policy_rule">
+    <field name="sequence" eval="2" />
+    <field name="operator">-</field>
+    <field name="policy_field_id" ref="rma_policy_field_refund" />
+    <field name="policy_id" ref="rma_policy_received_refunded" />
+</record>
+</data>
+</odoo>
