@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=42", "wheel", "colorama", "datetime"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "debugmes"
+version = "0.1"
+authors = [
+    {name = "relyadev", email = "relyadev@gmail.com"},
+]
+description = "A library for debug messages"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords = ["debug", "messages", "style"]
