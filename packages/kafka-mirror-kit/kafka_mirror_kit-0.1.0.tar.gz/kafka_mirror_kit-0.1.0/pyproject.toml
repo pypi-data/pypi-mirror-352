@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=75.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kafka-mirror-kit"
+version = "0.1.0"
+authors = [
+    { name = "Gianluigi De Marco", email = "dem.gianluigi@gmail.com" },
+]
+description = "to deploy and orchestrate geo-replicated Apache Kafka clusters using Apache MirrorMaker 2."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+keywords = ["kafka", "mirrorMaker2", "python"]
+classifiers = [# https://pypi.org/classifiers/
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "click>=8.0.0",
+    "kafka-python>=2.0.0",
+    "pytest>=7.0.0"
+]
+
+[project.urls] # Link utili
+"Homepage" = "https://github.com/dmgiangi/kafka-mirror-kit"
+"Bug Tracker" = "https://github.com/dmgiangi/kafka-mirror-kit/issues"
+
+[project.scripts]
+kmk = "kafka_mirror_kit.cli.kmk_cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
