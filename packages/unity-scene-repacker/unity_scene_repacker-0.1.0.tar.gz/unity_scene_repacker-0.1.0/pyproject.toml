@@ -1,0 +1,32 @@
+[project]
+name = "unity-scene-repacker"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Jakob Hellermann", email = "jakob.hellermann@protonmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = ["UnityPy==1.22.5"]
+license = "MIT"
+
+[project.urls]
+homepage = "https://github.com/jakobhellermann/unity-scene-repacker"
+
+
+[project.scripts]
+unity-asset-repacker = "unity_scene_repacker.cli:main"
+
+[build-system]
+requires = ["flit_core >=3.12,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.sdist]
+include = ["src/unity_scene_repacker/data/*"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
