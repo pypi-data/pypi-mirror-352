@@ -1,0 +1,43 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "sphinx_localtime"
+
+[project]
+name = "sphinx-localtime"
+authors = [{name = "Richard Darst"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+# https://pypi.org/classifiers/
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    ]
+#keywords = ["sphinx-extension"]
+requires-python = ">=3.6"
+dynamic = ["version", "description"]
+dependencies = [
+    "Sphinx>=4",  # Oldest version I have tested but it probably works with older
+    "python-dateutil",
+    "pytz",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+]
+
+
+#[project.urls]
+#Repository = "https://example.com/"
+#Documentation = "https://example.com/"
+
+
+# https://flit.pypa.io/en/latest/upload.html
+# flit build
+# You need to configure a .pypirc file for test upload, or use environment variables:
+# https://flit.pypa.io/en/latest/upload.html#using-pypirc
+# flit publish --repository testpypi
+# or:   FLIT_INDEX_URL=https://test.pypi.org/legacy/ FLIT_USERNAME=xxx and FLIT_PASSWORD=xxx flit publish
+# flit publish
