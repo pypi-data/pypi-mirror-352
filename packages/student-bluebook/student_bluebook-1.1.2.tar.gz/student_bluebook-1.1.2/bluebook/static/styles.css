@@ -1,0 +1,282 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header Styling */
+h1 {
+    color: #333;
+    font-size: 32px;
+    margin-top: 10px;
+}
+
+/* Form Container */
+div {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 70%;
+    max-width: 600px;
+}
+
+/* Form Styling */
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 0;
+    gap: 10px;
+    background: none;
+    padding: 0;
+    border-radius: none;
+    box-shadow: none;
+    margin-top: none;
+}
+
+.control-panel-form {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.control-panel-row {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    margin-top: 0;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+.control-button-form{
+    width: auto;
+}
+
+/* Individual Question Block */
+.question-block {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Standardized answer form size */
+#answerForm {
+    width: 90%;
+    max-width: 600px;
+}
+
+/* Question Text */
+.question-block strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Answer Choices */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Radio Buttons */
+input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* Submit Button */
+.submit-answers-button {
+    align-self: center;
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.submit-answers-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    div {
+        width: 90%;
+    }
+
+    form {
+        width: 100%;
+    }
+}
+
+/* Question Block Styling */
+.question-block {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Correct Answer Highlight */
+.correct-answer {
+    color: green;
+    font-weight: bold;
+    border-left: 5px solid green;
+    padding-left: 10px;
+}
+
+/* Incorrect Answer Highlight */
+.incorrect-answer {
+    color: red;
+    font-weight: bold;
+    border-left: 5px solid red;
+    padding-left: 10px;
+}
+
+/* Incorrect Answer Highlight */
+.study-recommendation {
+    color: rgb(196, 145, 51);
+    font-weight: bold;
+    border-left: 5px solid rgb(196, 145, 51);
+    padding-left: 10px;
+}
+
+/* User Choice */
+.user-choice {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Explanation Text */
+.explanation {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+}
+
+/* Brings uniform spacing */
+p {
+    margin: 5px 0;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .question-block {
+        width: 100%;
+    }
+}
+
+/* Statistics Summary Styling */
+.statistics {
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    padding: 20px;
+    width: 60%;
+    max-width: 500px;
+    margin: 20px auto;
+    margin-bottom: 0px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.statistics .correct {
+    color: #28a745;
+}
+
+.statistics .incorrect {
+    color: #dc3545;
+}
+
+.subtle-blue-btn {
+    background-color: #e6f0fa;
+    color: #003366;
+    border: 1px solid #cce0f5;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: none;
+    margin: 0 6px;
+    appearance: none; /* makes sure browsers don’t override style */
+    -webkit-appearance: none;
+  }
+  
+  .subtle-blue-btn:hover {
+    background-color: #d4e6f9;
+    box-shadow: 0 1px 3px rgba(0, 51, 102, 0.1);
+  }
+  
+  .subtle-blue-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.3);
+  }
+  
+  .question-dropdown {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.question-dropdown:focus {
+  border-color: #007bff;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.button-row {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    margin-top: 0;
+    width: auto;
+    display: flex;
+    margin-top: 25px;
+}
