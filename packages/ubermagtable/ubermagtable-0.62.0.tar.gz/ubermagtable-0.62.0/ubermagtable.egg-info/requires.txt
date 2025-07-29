@@ -1,0 +1,15 @@
+ubermagutil>=0.64.0
+pandas>=1.1
+matplotlib>=3.3
+ipywidgets>=7.5
+
+[dev]
+build
+invoke
+nbval
+pre-commit
+pytest-cov
+twine
+
+[dev:python_version < "3.11"]
+tomli
