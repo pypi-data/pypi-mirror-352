@@ -1,0 +1,1 @@
+from chichat import app
