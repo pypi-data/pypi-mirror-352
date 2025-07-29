@@ -1,0 +1,70 @@
+// orlang/grammar.lark
+?start: statement+
+
+?statement: var_decl
+          | assignment
+          | print_stmt
+          | if_stmt
+          | while_stmt
+          | for_stmt   
+          | COMMENT
+          | MULTILINE_COMMENT
+
+block: "{" statement* "}"
+
+SEMICOLON: ";"
+
+var_decl: "bakka" IDENTIFIER "=" expr SEMICOLON
+var_decl_nosemi: "bakka" IDENTIFIER "=" expr
+
+// define a “bare” assignment‐expression (no trailing ;)
+assign_expr: IDENTIFIER "=" expr
+
+// now you can use it:
+assignment: assign_expr SEMICOLON
+
+print_stmt: "barreessi" expr SEMICOLON
+
+if_stmt: "yoo" "(" expr ")" block ("kanbiroo" block)?
+while_stmt: "yeroo" "(" expr ")" block
+
+for_stmt: "hama" "(" for_init SEMICOLON expr SEMICOLON for_update ")" block
+
+for_init: "bakka" IDENTIFIER "=" expr              -> for_var_decl
+        | assign_expr                             -> for_assignment
+        |                                          -> for_init_empty
+
+for_update: assign_expr                                -> for_update
+
+?expr: expr "fi" expr         -> and_expr
+     | expr "ykn" expr        -> or_expr
+     | expr "==" expr         -> eq
+     | expr "!=" expr         -> neq
+     | expr ">"  expr         -> gt
+     | expr "<"  expr         -> lt
+     | expr ">=" expr         -> gte
+     | expr "<=" expr         -> lte
+     | expr "+"  expr         -> add
+     | expr "-"  expr         -> sub
+     | expr "*"  expr         -> mul
+     | expr "/"  expr         -> div
+     | atom
+
+?atom: NUMBER           -> number
+     | STRING           -> string
+     | "dhugaa"         -> true
+     | "soba"           -> false
+     | "duwwaa"         -> null
+     | IDENTIFIER       -> var
+     | "(" expr ")"
+
+COMMENT: /\/\/[^\n]*/
+MULTILINE_COMMENT: /\/\*(.|\n)*?\*\//
+
+%import common.CNAME -> IDENTIFIER
+%import common.NUMBER
+%import common.ESCAPED_STRING -> STRING
+%import common.WS
+%ignore WS
+%ignore COMMENT
+%ignore MULTILINE_COMMENT
