@@ -1,0 +1,468 @@
+{# Jinja2 template for storage/persistence functionality #}
+import json
+import os
+import time
+import threading
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Set, Union
+
+# Configure path for persistent storage
+STORAGE_DIR = Path("mock_data")
+
+# Ensure the storage directory exists
+STORAGE_DIR.mkdir(exist_ok=True)
+
+# Mutex for thread-safe file operations
+file_mutex = threading.Lock()
+
+class MockStorage:
+    """
+    A simple storage utility class that provides persistence for mock API data.
+    This allows mock APIs to maintain state between requests, simulating a database.
+    Data is stored in JSON files in the mock_data directory.
+    """
+    
+    def __init__(self, collection: str):
+        """
+        Initialize the storage for a specific collection.
+        
+        Args:
+            collection: The name of the collection/entity type (e.g., "users", "products")
+        """
+        self.collection = collection
+        self.file_path = STORAGE_DIR / f"{collection}.json"
+        self._ensure_collection_exists()
+    
+    def _ensure_collection_exists(self) -> None:
+        """Ensure the collection file exists with valid JSON structure."""
+        if not self.file_path.exists():
+            with file_mutex:
+                with open(self.file_path, "w") as f:
+                    json.dump({"items": [], "last_updated": time.time()}, f)
+    
+    def _read_collection(self) -> Dict[str, Any]:
+        """Read the entire collection from disk."""
+        with file_mutex:
+            try:
+                with open(self.file_path, "r") as f:
+                    return json.load(f)
+            except (json.JSONDecodeError, FileNotFoundError):
+                # If file is corrupted or missing, initialize it
+                data = {"items": [], "last_updated": time.time()}
+                with open(self.file_path, "w") as f:
+                    json.dump(data, f)
+                return data
+    
+    def _write_collection(self, data: Dict[str, Any]) -> None:
+        """Write the entire collection to disk."""
+        with file_mutex:
+            # Update the last_updated timestamp
+            data["last_updated"] = time.time()
+            with open(self.file_path, "w") as f:
+                json.dump(data, f, indent=2)
+    
+    def get_all(self) -> List[Dict[str, Any]]:
+        """
+        Get all items in the collection.
+        
+        Returns:
+            List of all items
+        """
+        data = self._read_collection()
+        return data["items"]
+    
+    def get_by_id(self, item_id: str) -> Optional[Dict[str, Any]]:
+        """
+        Get an item by its ID.
+        
+        Args:
+            item_id: The ID of the item to retrieve
+        
+        Returns:
+            The item if found, None otherwise
+        """
+        items = self.get_all()
+        for item in items:
+            if item.get("id") == item_id:
+                return item
+        return None
+    
+    def query(self, filters: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """
+        Query items with simple filters.
+        
+        Args:
+            filters: Dictionary of field-value pairs to match
+        
+        Returns:
+            List of items matching all filters
+        """
+        items = self.get_all()
+        results = []
+        
+        for item in items:
+            matches = True
+            for key, value in filters.items():
+                if key not in item or item[key] != value:
+                    matches = False
+                    break
+            
+            if matches:
+                results.append(item)
+        
+        return results
+    
+    def create(self, item: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Create a new item in the collection.
+        
+        Args:
+            item: The item to create
+        
+        Returns:
+            The created item with assigned ID
+        """
+        data = self._read_collection()
+        
+        # Generate an ID if none is provided
+        if "id" not in item:
+            # Simple ID generation - timestamp + count
+            item["id"] = f"{int(time.time())}_{len(data['items']) + 1}"
+        
+        # Add created_at timestamp if not present
+        if "created_at" not in item:
+            item["created_at"] = time.time()
+        
+        # Add the item to the collection
+        data["items"].append(item)
+        self._write_collection(data)
+        
+        return item
+    
+    def update(self, item_id: str, updates: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """
+        Update an existing item by ID.
+        
+        Args:
+            item_id: ID of the item to update
+            updates: Dictionary of fields to update
+        
+        Returns:
+            The updated item if found, None otherwise
+        """
+        data = self._read_collection()
+        
+        for i, item in enumerate(data["items"]):
+            if item.get("id") == item_id:
+                # Update the item
+                data["items"][i] = {**item, **updates, "updated_at": time.time()}
+                self._write_collection(data)
+                return data["items"][i]
+        
+        return None
+    
+    def delete(self, item_id: str) -> bool:
+        """
+        Delete an item by ID.
+        
+        Args:
+            item_id: ID of the item to delete
+        
+        Returns:
+            True if the item was deleted, False if not found
+        """
+        data = self._read_collection()
+        
+        initial_count = len(data["items"])
+        data["items"] = [item for item in data["items"] if item.get("id") != item_id]
+        
+        if len(data["items"]) < initial_count:
+            self._write_collection(data)
+            return True
+        
+        return False
+    
+    def delete_all(self) -> int:
+        """
+        Delete all items in the collection.
+        
+        Returns:
+            Number of items deleted
+        """
+        data = self._read_collection()
+        count = len(data["items"])
+        data["items"] = []
+        self._write_collection(data)
+        return count
+    
+    def count(self) -> int:
+        """
+        Count items in the collection.
+        
+        Returns:
+            Number of items in the collection
+        """
+        data = self._read_collection()
+        return len(data["items"])
+    
+    def exists(self, item_id: str) -> bool:
+        """
+        Check if an item exists by ID.
+        
+        Args:
+            item_id: ID to check
+        
+        Returns:
+            True if the item exists, False otherwise
+        """
+        return self.get_by_id(item_id) is not None
+    
+    def get_last_updated(self) -> float:
+        """
+        Get the timestamp of the last update to the collection.
+        
+        Returns:
+            Unix timestamp of the last update
+        """
+        data = self._read_collection()
+        return data.get("last_updated", 0)
+
+
+class StorageManager:
+    """
+    A manager class for working with multiple collections.
+    """
+    
+    def __init__(self):
+        """Initialize the storage manager."""
+        self.storage_dir = STORAGE_DIR
+    
+    def get_collection_names(self) -> List[str]:
+        """
+        Get the names of all collections.
+        
+        Returns:
+            List of collection names
+        """
+        return [f.stem for f in self.storage_dir.glob("*.json")]
+    
+    def create_collection(self, name: str) -> bool:
+        """
+        Create a new collection.
+        
+        Args:
+            name: Name of the collection to create
+            
+        Returns:
+            True if collection was created, False if it already exists
+        """
+        file_path = self.storage_dir / f"{name}.json"
+        if file_path.exists():
+            return False
+            
+        with file_mutex:
+            with open(file_path, "w") as f:
+                json.dump({"items": [], "last_updated": time.time()}, f)
+        return True
+    
+    def delete_collection(self, name: str) -> bool:
+        """
+        Delete a collection.
+        
+        Args:
+            name: Name of the collection to delete
+            
+        Returns:
+            True if collection was deleted, False if not found
+        """
+        file_path = self.storage_dir / f"{name}.json"
+        if not file_path.exists():
+            return False
+            
+        with file_mutex:
+            file_path.unlink()
+        return True
+    
+    def collection_exists(self, name: str) -> bool:
+        """
+        Check if a collection exists.
+        
+        Args:
+            name: Name of the collection to check
+            
+        Returns:
+            True if collection exists, False otherwise
+        """
+        file_path = self.storage_dir / f"{name}.json"
+        return file_path.exists()
+    
+    def get_collection_stats(self, name: str) -> Dict[str, Any]:
+        """
+        Get statistics for a collection.
+        
+        Args:
+            name: Name of the collection
+            
+        Returns:
+            Dictionary with collection statistics
+        """
+        if not self.collection_exists(name):
+            return {
+                "name": name,
+                "exists": False,
+                "count": 0,
+                "last_updated": None
+            }
+            
+        storage = MockStorage(name)
+        return {
+            "name": name,
+            "exists": True,
+            "count": storage.count(),
+            "last_updated": storage.get_last_updated()
+        }
+    
+    def get_all(self, collection_name: str) -> List[Dict[str, Any]]:
+        """
+        Get all items from a collection.
+        
+        Args:
+            collection_name: Name of the collection
+            
+        Returns:
+            List of items in the collection
+        """
+        storage = MockStorage(collection_name)
+        return storage.get_all()
+    
+    def get_by_id(self, collection_name: str, item_id: str) -> Optional[Dict[str, Any]]:
+        """
+        Get an item by ID from a collection.
+        
+        Args:
+            collection_name: Name of the collection
+            item_id: ID of the item
+            
+        Returns:
+            The item if found, None otherwise
+        """
+        storage = MockStorage(collection_name)
+        return storage.get_by_id(item_id)
+    
+    def insert(self, collection_name: str, item: Dict[str, Any]) -> str:
+        """
+        Insert an item into a collection.
+        
+        Args:
+            collection_name: Name of the collection
+            item: The item to insert
+            
+        Returns:
+            ID of the inserted item
+        """
+        storage = MockStorage(collection_name)
+        result = storage.create(item)
+        return result["id"]
+    
+    def update(self, collection_name: str, item_id: str, updates: Dict[str, Any]) -> bool:
+        """
+        Update an item in a collection.
+        
+        Args:
+            collection_name: Name of the collection
+            item_id: ID of the item to update
+            updates: The updates to apply
+            
+        Returns:
+            True if updated, False if not found
+        """
+        storage = MockStorage(collection_name)
+        result = storage.update(item_id, updates)
+        return result is not None
+    
+    def delete(self, collection_name: str, item_id: str) -> bool:
+        """
+        Delete an item from a collection.
+        
+        Args:
+            collection_name: Name of the collection
+            item_id: ID of the item to delete
+            
+        Returns:
+            True if deleted, False if not found
+        """
+        storage = MockStorage(collection_name)
+        return storage.delete(item_id)
+    
+    def clear_collection(self, collection_name: str) -> int:
+        """
+        Delete all items from a collection.
+        
+        Args:
+            collection_name: Name of the collection
+            
+        Returns:
+            Number of items deleted
+        """
+        storage = MockStorage(collection_name)
+        return storage.delete_all()
+
+
+def get_storage_stats() -> Dict[str, Any]:
+    """
+    Get statistics about all collections.
+    
+    Returns:
+        Dictionary with storage statistics
+    """
+    manager = StorageManager()
+    collection_names = manager.get_collection_names()
+    
+    collections = []
+    total_items = 0
+    
+    for name in collection_names:
+        stats = manager.get_collection_stats(name)
+        collections.append(stats)
+        total_items += stats["count"]
+    
+    return {
+        "collection_count": len(collections),
+        "total_items": total_items,
+        "collections": collections,
+        "storage_dir": str(STORAGE_DIR)
+    }
+
+
+def get_collections() -> List[Dict[str, Any]]:
+    """
+    Get information about all collections.
+    
+    Returns:
+        List of collection information
+    """
+    manager = StorageManager()
+    collection_names = manager.get_collection_names()
+    
+    return [
+        {
+            "name": name,
+            "count": manager.get_collection_stats(name)["count"],
+            "last_updated": manager.get_collection_stats(name)["last_updated"]
+        }
+        for name in collection_names
+    ]
+
+
+# Helper function to get a storage instance for a collection
+def get_storage(collection: str) -> MockStorage:
+    """
+    Get a storage instance for the specified collection.
+    
+    Args:
+        collection: Name of the collection
+    
+    Returns:
+        MockStorage instance for the collection
+    """
+    return MockStorage(collection)
