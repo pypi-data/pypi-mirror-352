@@ -1,0 +1,35 @@
+Metadata-Version: 2.1
+Name: fluaaiagentsdk
+Version: 1.0.9
+Summary: SDK para integração com agentes da plataforma FluaAI
+Home-page: https://github.com/GabrielFragaM/fluaai-agent-sdk
+Author: Gabriel Fraga
+Author-email: gabriellff130@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: aiohttp>=3.8.0
+Requires-Dist: typing-extensions>=4.0.0
+
+
+# SDK de Agentes Fluaai
+
+SDK em Python para interagir com a API de Agentes da Fluaai, oferecendo integração simples com LLMs e operadores, suporte a streaming, e respostas estruturadas em classes tipadas.
+
+## Funcionalidades
+
+- Invocação de agentes LLM e Operador
+- Streaming em tempo real de respostas
+- Tratamento consistente de diferentes engines
+- Respostas tipadas com classes ou compatíveis com JSON
+- Suporte a ferramentas e processamento de conversas
+
+*1.0.9 - New Parameter debug
+*1.0.8 - Fix :)
+*1.0.7 - Refactor
+*1.0.6 - Fix & Simplificação das variáveis dinâmicas.
+*1.0.5 - Atualização de serviço.
+*1.0.4 - Introdução das variáveis dinâmicas (dynamic_variables).
+*1.0.3 - Suporte a identificação de "channel" para registro de monitoramento dos seus agentes!
