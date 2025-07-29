@@ -1,0 +1,48 @@
+PROJECT_NAME           = "splinepy"
+PROJECT_BRIEF          = "Library for Bezier, Rational Bezier, BSpline and NURBS of arbitrary dimensions and degrees"
+OUTPUT_DIRECTORY       = ./build/doxy
+ALWAYS_DETAILED_SEC    = YES
+FULL_PATH_NAMES        = NO
+QT_AUTOBRIEF           = YES
+MULTILINE_CPP_IS_BRIEF = YES
+TAB_SIZE               = 2
+TOC_INCLUDE_HEADINGS   = 0
+DISTRIBUTE_GROUP_DOC   = YES
+INLINE_GROUPED_CLASSES = YES
+NUM_PROC_THREADS       = 0
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+HIDE_SCOPE_NAMES       = YES
+SORT_MEMBERS_CTORS_1ST = YES
+WARNINGS               = YES
+WARN_NO_PARAMDOC       = YES
+WARN_LOGFILE           = doxygen_warnings.txt
+INPUT                  = ../include/splinepy \
+                         ../src \
+                         ./markdown/cpp_readme.md
+RECURSIVE              = YES
+EXCLUDE_PATTERNS       = */tests/* \
+                         */data/* \
+                         */install/* \
+                         */build/* \
+                         */docs/* \
+                         */bin/* \
+                         */examples/* \
+                         */third_party/* \
+                         *.dox
+EXAMPLE_RECURSIVE      = YES
+USE_MDFILE_AS_MAINPAGE = ./markdown/cpp_readme.md
+SOURCE_BROWSER         = YES
+USE_MATHJAX            = YES
+MATHJAX_RELPATH        = https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/
+GENERATE_LATEX         = NO
+LATEX_CMD_NAME         = latex
+EXTRA_PACKAGES         = {amsmath} \
+                         {amssymb}
+GENERATE_XML           = YES
+XML_OUTPUT             = ./doxygen_xml
+XML_PROGRAMLISTING     = YES
+INCLUDE_PATH           = ../
+UML_LOOK               = YES
+TEMPLATE_RELATIONS     = YES

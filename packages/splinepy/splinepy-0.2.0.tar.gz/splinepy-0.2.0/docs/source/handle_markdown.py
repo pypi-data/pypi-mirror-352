@@ -1,0 +1,254 @@
+"""Handles the processing of markdown files.
+
+This script is used to process the markdown files in the project that are also
+reused in the documentation. The script will replace the relative links in the
+markdown files with relative links that are correct when the documentation is
+built.
+
+The paths change since the documentation is built from the docs folder and not
+from the root of the project.
+
+Author: Clemens Fricke
+"""
+
+import argparse
+import os
+import pathlib
+import re
+import warnings
+from typing import List, Tuple
+
+# Path to this file.
+file_path = os.path.abspath(os.path.dirname(__file__))
+original_cwd = os.getcwd()
+repo_root = str(pathlib.Path(__file__).resolve()).split("docs")[0]
+os.chdir(repo_root)
+
+
+def get_markdown_links(line: str) -> str:
+    """Get the markdown links from a string.
+
+    Args:
+        line (str): text.
+
+    Returns:
+        str: Markdown links.
+    """
+    possible = re.findall(r"\[(.*?)\]\((.*?)\)", line)
+    return possible if possible else ""
+
+
+def get_special_links(line: str) -> List[Tuple[str, str]]:
+    """Get the special links from a string.
+
+    Args:
+        line (str): text.
+
+    Returns:
+        List[tuple[str, str]]: Special links.
+    """
+
+    possible = [
+        x[::-1]
+        for x in re.findall(r"<img src=\"(.*?)\".*title=\"(.*?)\">", line)
+    ]
+    return possible if possible else ""
+
+
+def get_github_path_from(link):
+    """Substitute the path to the github repository.
+
+    This will expand the link to the github repository. This is used to create
+    pages that are independent of the documentation. Like for the long
+    description on PyPI. Normally we try to use relative links in the files
+    to guarantee that the documentation is also available offline. But for
+    the long description on PyPI we need to use absolute links to an online
+    repository like the github raw files.
+
+    Args:
+        link (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    return str(pathlib.Path(link).resolve()).replace(
+        repo_root, "https://raw.githubusercontent.com/tataratat/splinepy/main/"
+    )
+
+
+def get_common_parent(path1: str, path2: str) -> str:
+    """Get the common parent of two paths.
+
+    Args:
+        path1 (str): Path 1.
+        path2 (str): Path 2.
+
+    Returns:
+        str: Common parent path.
+    """
+    path1 = pathlib.Path(path1).resolve().parent
+    path2 = pathlib.Path(path2).resolve()
+    steps_back = 0
+    while path1.is_relative_to(path2) is False:
+        path2 = path2.parent
+        steps_back += 1
+    return path2, steps_back
+
+
+# Folder to save the processed markdown files to.
+folder_to_save_to = os.path.join(repo_root, "docs/md/")
+
+# List of markdown files that are used in the documentation.
+markdown_files = [
+    pathlib.Path("README.md").resolve(),
+    pathlib.Path("CONTRIBUTING.md").resolve(),
+    pathlib.Path("docs/markdown/spline_intro.md").resolve(),
+    pathlib.Path("docs/markdown/spline_plotting.md").resolve(),
+]
+
+# List of explicit link substitutions.
+link_substitutions = {
+    "docs/markdown/spline_plotting.md": "spline_intro.html#creating-and-plotting-splines"  # noqa E501
+}
+
+
+def process_file(
+    file: str, relative_links: bool = True, return_content: bool = False
+):
+    """Process a markdown file.
+
+    This function will process a markdown file. It will replace all relative
+    links with links that are correct when the documentation is built.
+    If relative_links is True, the links will be relative to the documentation
+    folder. If relative_links is False, the links will be absolute links to
+    the github repository.
+
+    Args:
+        file (str): Path to the markdown file.
+        relative_links (bool, optional):
+            Generate relative links. Defaults to True.
+        return_content (bool, optional):
+            Return the content instead of saving it. Defaults to False.
+
+    Returns:
+        str: Content of the markdown file. Only if return_content is True.
+    """
+    content = ""
+    # read in the content of the markdown file
+    with open(file) as f:
+        # content = f.read()
+        os.chdir(os.path.dirname(file)) if os.path.dirname(file) else None
+        for line in f:
+            # get all links from the markdown file
+            links = get_markdown_links(line)
+            for item in links:
+                if not item[1].strip():
+                    warnings.warn(
+                        f"Empty link in `{file}`. Link name `{item[0]}` link path "
+                        f"`{item[1]}`. Will ignore link.",
+                        stacklevel=3,
+                    )
+                    continue
+                if item[1].startswith(
+                    ("http", "#")
+                ):  # skip http links and anchors
+                    if "badge" in item[1]:
+                        continue
+                    line = line.replace(  # noqa: PLW2901
+                        f"[{item[0]}]({item[1]})",
+                        f"<a href='{item[1]}'>{item[0]}</a>",
+                    )
+                    continue
+                elif item[1] in link_substitutions:
+                    if relative_links:
+                        line = line.replace(  # noqa: PLW2901
+                            f"[{item[0]}]({item[1]})",
+                            f"<a href='{link_substitutions[item[1]]}'>{item[0]}</a>",
+                        )
+                        continue
+                    else:
+                        line = line.replace(  # noqa: PLW2901
+                            f"[{item[0]}]({item[1]})",
+                            "See documentation for examples.",
+                        )
+                elif not relative_links:  # generate links to github repo
+                    new_path = get_github_path_from(
+                        pathlib.Path(item[1]).resolve()
+                    )
+                else:  # generate relative links
+                    common_sub_path, steps_back = get_common_parent(
+                        item[1], folder_to_save_to
+                    )
+                    new_path = "../" * steps_back + str(
+                        pathlib.Path(item[1])
+                        .resolve()
+                        .relative_to(common_sub_path)
+                    )
+                line = line.replace(item[1], str(new_path))  # noqa: PLW2901
+
+            # super special links (just special images) that the sphinx markdown
+            # parser won't correctly handle since they are in html tags.
+            special_links = get_special_links(line)
+            for item in special_links:
+                if not item[0].strip():
+                    warnings.warn(
+                        f"Empty link in `{file}`. Link name `{item[1]}` link path "
+                        f"`{item[0]}`. Will ignore link.",
+                        stacklevel=3,
+                    )
+                    continue
+                if item[0].startswith("http"):  # skip http links and anchors
+                    continue
+                elif not relative_links:  # generate links to github repo
+                    new_path = get_github_path_from(
+                        pathlib.Path(item[1]).resolve()
+                    )
+                else:
+                    # just link to static folder in docs
+                    new_path = "_static/" + str(pathlib.Path(item[1]).name)
+                line = line.replace(item[1], str(new_path))  # noqa: PLW2901
+            content += f"{line}"
+
+    os.chdir(original_cwd)
+
+    if return_content:
+        return content
+
+    with open(
+        os.path.join(folder_to_save_to, os.path.basename(file)), "w"
+    ) as f:
+        f.write(content)
+
+
+def prepare_file_for_PyPI():
+    """Prepare the README file for PyPI.
+
+    This function will prepare the README file for PyPI. It will replace all
+    relative links with absolute links to the github repository.
+
+    Args:
+        file (str): Path to the README file.
+    """
+    content = process_file(
+        "README.md", relative_links=False, return_content=True
+    )
+    with open("README.md", "w") as f:
+        f.write(content)
+
+
+if __name__ == "__main__":
+    # python handle_markdown -> docs
+    # python handle_markdown -b -> PyPI
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-b", "--build", action="store_true")
+    args = parser.parse_args()
+    if args.build:
+        print("Preparing README for PyPI.")  # noqa: T201
+        prepare_file_for_PyPI()
+        exit()  # noqa: PLR1722
+    print("Processing markdown files.")  # noqa: T201
+    os.chdir(repo_root)
+    os.makedirs(folder_to_save_to, exist_ok=True)
+    # Process all markdown files
+    for file in markdown_files:
+        process_file(file)

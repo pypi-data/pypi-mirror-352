@@ -1,0 +1,118 @@
+name: test wheels and artifact up/downloads
+
+on:
+  pull_request
+
+jobs:
+  macos_wheel:
+    runs-on: macos-13
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - name: build wheels
+      uses: pypa/cibuildwheel@v2.23.2
+      env:
+        CIBW_ARCHS: native
+        CIBW_BUILD: "cp313-*"
+        SPLINEPY_GITHUB_ACTIONS_BUILD: True
+        SKBUILD_INSTALL_COMPONENTS: PythonModule
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: wheels-macos-13
+        path: ./wheelhouse/*.whl
+        retention-days: 1
+
+  macos_wheel-m1:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - name: build wheels
+      uses: pypa/cibuildwheel@v2.23.2
+      env:
+        CIBW_ARCHS: native
+        CIBW_BUILD: "cp313-*"
+        SPLINEPY_GITHUB_ACTIONS_BUILD: True
+        SKBUILD_INSTALL_COMPONENTS: PythonModule
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: wheels-macos
+        path: ./wheelhouse/*.whl
+        retention-days: 1
+
+  linux_wheel:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - name: build wheels
+      uses: pypa/cibuildwheel@v2.23.2
+      env:
+        CIBW_ARCHS: native
+        CIBW_BUILD: "cp313-*many*"
+        SPLINEPY_GITHUB_ACTIONS_BUILD: True
+        SKBUILD_INSTALL_COMPONENTS: PythonModule
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: wheels-linux
+        path: ./wheelhouse/*.whl
+        retention-days: 1
+
+  windows_wheel:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - name: build wheels
+      uses: pypa/cibuildwheel@v2.23.2
+      env:
+        CIBW_ARCHS: native
+        CIBW_BUILD: "cp313-*"
+        SPLINEPY_GITHUB_ACTIONS_BUILD: True
+        SKBUILD_INSTALL_COMPONENTS: PythonModule
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: wheels-windows
+        path: ./wheelhouse/*.whl
+        retention-days: 1
+
+  source_dist:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Build sdist
+      run: pipx run build --sdist
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: wheels-source
+        path: ./dist/*
+        retention-days: 1
+
+
+  try_download_artifact:
+    needs: [macos_wheel, macos_wheel-m1, linux_wheel, windows_wheel, source_dist]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: wheels-*
+          merge-multiple: true
+          path: dist

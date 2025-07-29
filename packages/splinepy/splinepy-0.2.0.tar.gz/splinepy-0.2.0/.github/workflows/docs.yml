@@ -1,0 +1,53 @@
+name: docs
+
+on:
+  push
+
+jobs:
+  minimal_explicit_build_and_docs:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: install dependencies
+      run: |
+        sudo apt-get install graphviz doxygen
+
+    - name: doxygen
+      run: |
+        cd docs
+        mkdir build
+        doxygen Doxyfile
+
+    - name: Set up  python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: build splinepy linux
+      run: pip install ".[test]" -v --config-settings=cmake.args=-DSPLINEPY_MORE=OFF
+
+    - name: test
+      run: |
+        pytest
+
+
+    - name: sphinx
+      run: |
+        pip install -r ./docs/requirements.txt
+        python docs/source/handle_markdown.py
+        python docs/markdown/extra_docs.py
+        sphinx-build -W -b html docs/source docs/build
+
+    - name: deploy docs only if it is pushed to main
+      uses: peaceiris/actions-gh-pages@v4
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      with:
+        #publish_branch: gh-pages
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/build
+        force_orphan: true
