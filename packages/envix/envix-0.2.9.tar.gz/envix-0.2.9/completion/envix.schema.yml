@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yassun4dev/cmdcomp/main/docs/config.schema.json
+cmdcomp:
+  version: '2'
+app:
+  name: envix
+root:
+  subcommands:
+    inject:
+      arguments:
+        --config-file: &config-file
+          type: file
+          alias: --file
+        --config-name: &config-name
+          type: command
+          alias: --config
+          execute: envix config list
+        --clear-environments: &clear-environments
+          type: flag
+    export:
+      arguments:
+        --config-file: *config-file
+        --config-name: *config-name
+        --output-file:
+          type: file
+          alias: -o
+        --format:
+          - dotenv
+          - json
+    config:
+      subcommands:
+        list:
+        edit:
+          arguments:
+            1: *config-name
+        schema:

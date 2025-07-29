@@ -1,0 +1,273 @@
+{
+  "$defs": {
+    "ConfigV1": {
+      "additionalProperties": false,
+      "properties": {
+        "envix": {
+          "$ref": "#/$defs/EnvixV1",
+          "description": "Envix settings"
+        },
+        "includes": {
+          "description": "List of envix config paths to include",
+          "items": {
+            "format": "path",
+            "type": "string"
+          },
+          "title": "Includes",
+          "type": "array"
+        },
+        "envs": {
+          "description": "List of environment variables settings",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/RawEnvsV1"
+              },
+              {
+                "$ref": "#/$defs/FileEnvsV1"
+              },
+              {
+                "$ref": "#/$defs/LocalEnvsV1"
+              },
+              {
+                "$ref": "#/$defs/GoogleCloudSecretManagerEnvsV1"
+              }
+            ]
+          },
+          "title": "Envs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "envix"
+      ],
+      "title": "ConfigV1",
+      "type": "object"
+    },
+    "EnvixV1": {
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": 1,
+          "enum": [
+            1
+          ],
+          "title": "envix version.",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version"
+      ],
+      "title": "EnvixV1",
+      "type": "object"
+    },
+    "FileEnvsV1": {
+      "additionalProperties": false,
+      "description": "Environment variables read from a file.",
+      "properties": {
+        "type": {
+          "const": "File",
+          "description": "Environment variable settings to be read from a file.",
+          "enum": [
+            "File"
+          ],
+          "title": "File environment variables.",
+          "type": "string"
+        },
+        "items": {
+          "description": "Environment variables to be read from the file.",
+          "patternProperties": {
+            "^[A-Z_]+$": {
+              "format": "path",
+              "type": "string"
+            }
+          },
+          "title": "Environment variables",
+          "type": "object"
+        },
+        "overwrite": {
+          "default": true,
+          "description": "Whether to overwrite existing environment variables.",
+          "title": "overwrite existing environment variables.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "items"
+      ],
+      "title": "FileEnvsV1",
+      "type": "object"
+    },
+    "GoogleCloudSecretManagerEnvsV1": {
+      "additionalProperties": false,
+      "description": "Google Cloud Secret Manager environment variables.",
+      "properties": {
+        "type": {
+          "const": "GoogleCloudSecretManager",
+          "enum": [
+            "GoogleCloudSecretManager"
+          ],
+          "title": "Google Cloud Secret Manager environment variables.",
+          "type": "string"
+        },
+        "project_id": {
+          "title": "Google Cloud Platform project ID.",
+          "type": "string"
+        },
+        "items": {
+          "patternProperties": {
+            "^[A-Z_]+$": {
+              "anyOf": [
+                {
+                  "examples": [
+                    "secrets/456/versions/789"
+                  ],
+                  "pattern": "secrets/\\w+/versions/([0-9]+|latest)",
+                  "title": "Name of the secret whose value is to be read.",
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/$defs/GoogleCloudSecretManagerSecret"
+                }
+              ]
+            }
+          },
+          "title": "Items",
+          "type": "object"
+        },
+        "overwrite": {
+          "default": true,
+          "description": "Whether to overwrite existing environment variables.",
+          "title": "overwrite existing environment variables.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "project_id",
+        "items"
+      ],
+      "title": "GoogleCloudSecretManagerEnvsV1",
+      "type": "object"
+    },
+    "GoogleCloudSecretManagerSecret": {
+      "properties": {
+        "secret_id": {
+          "title": "Secret Id",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "const": "latest",
+              "enum": [
+                "latest"
+              ],
+              "type": "string"
+            }
+          ],
+          "default": "latest",
+          "title": "Version"
+        }
+      },
+      "required": [
+        "secret_id"
+      ],
+      "title": "GoogleCloudSecretManagerSecret",
+      "type": "object"
+    },
+    "LocalEnvsV1": {
+      "additionalProperties": false,
+      "description": "Local environment variables to be read from the machine's user environments.",
+      "properties": {
+        "type": {
+          "const": "Local",
+          "description": "Environment variables to be read from the local machine user environments.",
+          "enum": [
+            "Local"
+          ],
+          "title": "Local environment variables.",
+          "type": "string"
+        },
+        "items": {
+          "anyOf": [
+            {
+              "patternProperties": {
+                "^[A-Z_]+$": {
+                  "pattern": "^\\$[A-Z_]+$",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "items": {
+                "pattern": "^[A-Z_]+$",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "title": "List of environment variable names to be read from local."
+        },
+        "overwrite": {
+          "default": true,
+          "description": "Whether to overwrite existing environment variables.",
+          "title": "overwrite existing environment variables.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "items"
+      ],
+      "title": "LocalEnvsV1",
+      "type": "object"
+    },
+    "RawEnvsV1": {
+      "additionalProperties": false,
+      "description": "Raw environment variables directly specified in the configuration.",
+      "properties": {
+        "type": {
+          "const": "Raw",
+          "description": "Environment variable settings to be written directly in the configuration file.",
+          "enum": [
+            "Raw"
+          ],
+          "title": "Raw environment variables.",
+          "type": "string"
+        },
+        "items": {
+          "description": "A dictionary of environment variable names and values to be written directly.",
+          "patternProperties": {
+            "^[A-Z_]+$": {
+              "type": "string"
+            }
+          },
+          "title": "environment variable items.",
+          "type": "object"
+        },
+        "overwrite": {
+          "default": true,
+          "description": "Whether to overwrite existing environment variables.",
+          "title": "overwrite existing environment variables.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "items"
+      ],
+      "title": "RawEnvsV1",
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/ConfigV1",
+  "title": "Config"
+}

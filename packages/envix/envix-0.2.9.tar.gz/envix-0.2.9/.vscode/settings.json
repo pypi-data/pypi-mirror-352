@@ -1,0 +1,57 @@
+{
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true,
+    "files.insertFinalNewline": true,
+    "editor.useTabStops": true,
+    "editor.trimAutoWhitespace": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.comments.insertSpace": true,
+    "python.analysis.addImport.exactMatchOnly": false,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.completeFunctionParens": false,
+    "python.analysis.extraPaths": [],
+    "python.analysis.importFormat": "absolute",
+    "python.analysis.indexing": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.globalModuleInstallation": true,
+    "python.testing.pytestEnabled": true,
+    "yaml.format.singleQuote": true,
+    "yaml.schemas": {
+        "./schemas/config.json": [
+            "envix*.yml",
+            "envix*.yaml"
+        ]
+    },
+    "shellformat.flag": "-ln=posix -bn -ci -sr",
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.ruff": "explicit",
+        },
+        "editor.tabSize": 4,
+        "editor.rulers": [
+            88
+        ],
+        "editor.defaultFormatter": "charliermarsh.ruff",
+    },
+    "[shellscript]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+    },
+    "[markdown]": {
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.unicodeHighlight.invisibleCharacters": false,
+        "diffEditor.ignoreTrimWhitespace": false,
+        "files.trimTrailingWhitespace": false,
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        }
+    },
+    "[yaml]": {
+        "editor.tabSize": 2
+    }
+}
