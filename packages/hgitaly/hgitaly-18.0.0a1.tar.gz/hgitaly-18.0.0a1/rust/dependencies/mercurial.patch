@@ -1,0 +1,39 @@
+diff -r 9b285d51e4b6 rust/hg-core/Cargo.toml
+--- a/rust/hg-core/Cargo.toml	Tue Mar 25 02:29:14 2025 +0100
++++ b/rust/hg-core/Cargo.toml	Wed Mar 26 12:36:29 2025 +0100
+@@ -5,9 +5,6 @@
+ description = "Mercurial pure Rust core library, with no assumption on Python bindings (FFI)"
+ edition = "2021"
+ 
+-[lints]
+-workspace = true
+-
+ [lib]
+ name = "hg"
+ 
+diff -r 9b285d51e4b6 rust/hg-core/src/requirements.rs
+--- a/rust/hg-core/src/requirements.rs	Tue Mar 25 02:29:14 2025 +0100
++++ b/rust/hg-core/src/requirements.rs	Wed Mar 26 12:36:29 2025 +0100
+@@ -82,6 +82,7 @@
+     GENERALDELTA_REQUIREMENT,
+     SHARED_REQUIREMENT,
+     SHARESAFE_REQUIREMENT,
++    LARGEFILES_REQUIREMENT,
+     SPARSEREVLOG_REQUIREMENT,
+     RELATIVE_SHARED_REQUIREMENT,
+     REVLOG_COMPRESSION_ZSTD,
+@@ -174,6 +175,14 @@
+ #[allow(unused)]
+ pub const RELATIVE_SHARED_REQUIREMENT: &str = "relshared";
+ 
++/// Denotes that current repository contains files managed with the
++/// `largefiles` extension. In the context of hg-core it is not a promise
++/// that largefiles are implemented in Rust, rather that they will not harm
++/// and that downstream code such as `RHGitaly are expected to do the right
++/// thing, even if that means fallbacking to a Python implementation.
++#[allow(unused)]
++pub const LARGEFILES_REQUIREMENT: &str = "largefiles";
++
+ /// A repository with share implemented safely. The repository has different
+ /// store and working copy requirements i.e. both `.hg/requires` and
+ /// `.hg/store/requires` are present.

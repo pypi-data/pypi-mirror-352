@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package hgitaly;
+
+import "lint.proto";
+import "shared.proto";
+import "repository.proto";
+
+// Methods working on auxiliary Git repositories
+//
+// The auxiliary Git repositories are mostly meant to support mirroring
+// to external Git services.
+// These are set aside so that Gitaly does not handle them.
+service MercurialAuxGitService {
+  rpc AuxGitCreateBundle(.gitaly.CreateBundleRequest) returns (stream .gitaly.CreateBundleResponse) {
+    option (.gitaly.op_type) = {
+      op: ACCESSOR
+    };
+  }
+
+  rpc AuxGitCreateFromBundle(stream .gitaly.CreateRepositoryFromBundleRequest) returns (.gitaly.CreateRepositoryFromBundleResponse) {
+    option (.gitaly.op_type) = {
+      op: MUTATOR
+    };
+  }
+
+  rpc AuxGitRepositorySize(.gitaly.RepositorySizeRequest) returns (.gitaly.RepositorySizeResponse) {
+    option (.gitaly.op_type) = {
+      op: MUTATOR
+    };
+  }
+
+}
