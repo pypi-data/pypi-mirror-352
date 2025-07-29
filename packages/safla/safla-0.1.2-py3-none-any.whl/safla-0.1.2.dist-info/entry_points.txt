@@ -1,0 +1,9 @@
+[console_scripts]
+safla = safla.cli:main
+safla-install = safla.installer:main
+
+[safla.plugins]
+mcp = safla.core.mcp_orchestration:MCPOrchestrator
+memory = safla.core.hybrid_memory:HybridMemoryArchitecture
+metacognitive = safla.core.meta_cognitive_engine:MetaCognitiveEngine
+safety = safla.core.safety_validation:SafetyValidationFramework
