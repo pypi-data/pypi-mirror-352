@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: gangplank
+Version: 0.1.6
+Summary: Prometheus metrics collectors for Keras
+Project-URL: Homepage, https://github.com/hammingweight/gangplank
+Project-URL: Issues, https://github.com/hammingweight/gangplank/issues
+Author-email: Carl Meijer <hammingweight@gmail.com>
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: keras
+Requires-Dist: prometheus-client
+Provides-Extra: jax
+Requires-Dist: jax; extra == 'jax'
+Provides-Extra: tensorflow
+Requires-Dist: tensorflow; extra == 'tensorflow'
+Provides-Extra: torch
+Requires-Dist: torch; extra == 'torch'
+Description-Content-Type: text/markdown
+
+# gangplank
