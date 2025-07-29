@@ -1,0 +1,19 @@
+.. AUTO-GENERATED FILE -- DO NOT EDIT!
+
+Module: :mod:`utils.decorators`
+===============================
+.. automodule:: IPython.utils.decorators
+
+.. currentmodule:: IPython.utils.decorators
+
+3 Functions
+-----------
+
+.. autofunction:: IPython.utils.decorators.flag_calls
+
+
+.. autofunction:: IPython.utils.decorators.undoc
+
+
+.. autofunction:: IPython.utils.decorators.sphinx_options
+
