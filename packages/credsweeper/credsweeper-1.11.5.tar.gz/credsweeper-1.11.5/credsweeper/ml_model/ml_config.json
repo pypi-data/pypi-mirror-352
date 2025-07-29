@@ -1,0 +1,568 @@
+{
+    "char_set": "\u001b\t\n\r !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
+    "thresholds": {
+        "lowest": 0.22917,
+        "low": 0.35739,
+        "medium": 0.62204,
+        "high": 0.79791,
+        "highest": 0.92996
+    },
+    "features": [
+        {
+            "type": "EntropyEvaluation",
+            "kwargs": {}
+        },
+        {
+            "type": "LengthOfAttribute",
+            "kwargs": {
+                "attribute": "line"
+            }
+        },
+        {
+            "type": "LengthOfAttribute",
+            "kwargs": {
+                "attribute": "variable"
+            }
+        },
+        {
+            "type": "LengthOfAttribute",
+            "kwargs": {
+                "attribute": "value"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "Bash variable",
+            "kwargs": {
+                "pattern": "^\\$([A-Za-z_][0-9A-Za-z_]*|\\{[A-Za-z_][0-9A-Za-z_]*\\})",
+                "attribute": "value"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "PossibleComment replacing",
+            "kwargs": {
+                "pattern": "^\\s*(#|\\*|/\\*|//|--\\s)",
+                "attribute": "value"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "Example pattern",
+            "kwargs": {
+                "pattern": "^<[\\w\\s.-]*>",
+                "attribute": "value"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "Repeated symbol",
+            "kwargs": {
+                "pattern": ".*(?:(\\S)(\\S))((\\1.)|(.\\2)){7,}",
+                "attribute": "value"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "SHA marker",
+            "kwargs": {
+                "pattern": ".*(?i:sha)[_-]?(224|256|384|512)",
+                "attribute": "value"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "camelStyle naming detection",
+            "kwargs": {
+                "pattern": "^[a-z][a-z]{1,16}[0-9]*([A-Z]([a-z]{1,16}[0-9]*|[0-9]{1,16})){1,8}$",
+                "attribute": "value"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "PascalStyle naming detection",
+            "kwargs": {
+                "pattern": "^([A-Z]([a-z]{1,16}[0-9]*|[0-9]{1,16})){1,8}$",
+                "attribute": "value"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "UPPERCASE naming detection",
+            "kwargs": {
+                "pattern": "^(_+[0-9]{1,16}|_*[A-Z]{1,16}[0-9]*)(_+([0-9]{1,16}|[A-Z]{1,16}[0-9]*)){1,8}_*$",
+                "attribute": "value"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "lowercase naming detection",
+            "kwargs": {
+                "pattern": "^(_+[0-9]{1,16}|_*[a-z]{1,16}[0-9]*)(_+([0-9]{1,16}|[a-z]{1,16}[0-9]*)){1,8}_*$",
+                "attribute": "value"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "VariableNotAllowedPatternCheck",
+            "kwargs": {
+                "pattern": "(^(@|<|\\{\\{))|([!><+*/^|)](\\s)?$)",
+                "attribute": "variable"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "VariableNotAllowedNameCheck",
+            "kwargs": {
+                "pattern": "(?i:(filters?|pub(lic)?)_?key)",
+                "attribute": "variable"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "VariableNotAllowedNameCheck",
+            "kwargs": {
+                "pattern": "(?i:(id|size|name|type|manager)$)",
+                "attribute": "variable"
+            }
+        },
+        {
+            "type": "SearchInAttribute",
+            "comment": "PWD invocation",
+            "kwargs": {
+                "pattern": "(?i:(^\\$pwd$)|(^\\$\\{#?pwd[^}]*\\}$)|(^\\$\\(pwd\\)$)|(^`pwd`$))",
+                "attribute": "variable"
+            }
+        },
+        {
+            "type": "WordInVariable",
+            "kwargs": {
+                "words": [
+                    " ",
+                    "/",
+                    "_at",
+                    "_id",
+                    "_len",
+                    "access",
+                    "cache",
+                    "client",
+                    "control",
+                    "encrypted",
+                    "example",
+                    "expire",
+                    "fake",
+                    "file",
+                    "filter",
+                    "fingerprint",
+                    "hash",
+                    "key",
+                    "label",
+                    "length",
+                    "manager",
+                    "mock",
+                    "name",
+                    "native",
+                    "obj",
+                    "option",
+                    "p/w",
+                    "parameter",
+                    "pass",
+                    "path",
+                    "project",
+                    "public",
+                    "pw",
+                    "secret",
+                    "size",
+                    "space",
+                    "status",
+                    "sword",
+                    "temp",
+                    "test",
+                    "thumbprint",
+                    "time",
+                    "timestamp",
+                    "title",
+                    "token",
+                    "type",
+                    "uniq",
+                    "valid",
+                    "view"
+                ]
+            }
+        },
+        {
+            "type": "WordInValue",
+            "kwargs": {
+                "words": [
+                    " ",
+                    "$(",
+                    "${",
+                    "(",
+                    "->",
+                    ".",
+                    "...",
+                    "123",
+                    "<",
+                    ">",
+                    "[",
+                    "_id",
+                    "abc",
+                    "allow",
+                    "bar",
+                    "disable",
+                    "changeme",
+                    "example",
+                    "fake",
+                    "file",
+                    "foo",
+                    "min",
+                    "mock",
+                    "my",
+                    "nil",
+                    "pass",
+                    "passwd",
+                    "password",
+                    "pswd",
+                    "public",
+                    "pwd",
+                    "test",
+                    "xxx",
+                    "xyz"
+                ]
+            }
+        },
+        {
+            "type": "WordInPreamble",
+            "kwargs": {
+                "words": [
+                    "$",
+                    "%2",
+                    "%3",
+                    "&",
+                    "&amp;",
+                    "(",
+                    "->",
+                    ".",
+                    "://",
+                    "?",
+                    "@",
+                    "[",
+                    "approval",
+                    "assert",
+                    "case",
+                    "circle",
+                    "equal",
+                    "example",
+                    "expect",
+                    "false",
+                    "height",
+                    "image",
+                    "line",
+                    "media",
+                    "nil",
+                    "none",
+                    "null",
+                    "pass",
+                    "password",
+                    "path",
+                    "pwd",
+                    "sqa",
+                    "test",
+                    "true",
+                    "undefined",
+                    "unit",
+                    "width"
+                ]
+            }
+        },
+        {
+            "type": "WordInTransition",
+            "kwargs": {
+                "words": [
+                    "%2",
+                    "%3",
+                    "&",
+                    "(",
+                    "->",
+                    ".",
+                    "?",
+                    "@",
+                    "[",
+                    "bearer",
+                    "equal",
+                    "example",
+                    "expect",
+                    "line",
+                    "media",
+                    "pass",
+                    "password",
+                    "path",
+                    "test",
+                    "unit"
+                ]
+            }
+        },
+        {
+            "type": "WordInPostamble",
+            "kwargs": {
+                "words": [
+                    "$",
+                    "%2",
+                    "%3",
+                    "&",
+                    "&amp;",
+                    "(",
+                    "->",
+                    ".",
+                    "://",
+                    "?",
+                    "@",
+                    "[",
+                    "assert",
+                    "case",
+                    "circle",
+                    "equal",
+                    "example",
+                    "expect",
+                    "false",
+                    "height",
+                    "image",
+                    "line",
+                    "media",
+                    "nil",
+                    "none",
+                    "null",
+                    "pass",
+                    "passwd",
+                    "password",
+                    "path",
+                    "pwd",
+                    "sqa",
+                    "test",
+                    "true",
+                    "undefined",
+                    "unit",
+                    "width"
+                ]
+            }
+        },
+        {
+            "type": "WordInPath",
+            "kwargs": {
+                "words": [
+                    "/conf",
+                    "/dist-packages/",
+                    "/example",
+                    "/record",
+                    "/script",
+                    "/site-packages/",
+                    "/src/",
+                    "/test",
+                    "/tool",
+                    "/usr/local/lib/python",
+                    "/assets/"
+                ]
+            }
+        },
+        {
+            "type": "MorphemeDense"
+        },
+        {
+            "type": "HasHtmlTag"
+        },
+        {
+            "type": "IsSecretNumeric"
+        },
+        {
+            "type": "FileExtension",
+            "kwargs": {
+                "extensions": [
+                    "",
+                    ".1",
+                    ".adoc",
+                    ".asciidoc",
+                    ".axaml",
+                    ".bash",
+                    ".bat",
+                    ".bats",
+                    ".bazel",
+                    ".bin",
+                    ".build",
+                    ".bundle",
+                    ".bzl",
+                    ".c",
+                    ".cc",
+                    ".cf",
+                    ".cjs",
+                    ".cljc",
+                    ".cmd",
+                    ".cmm",
+                    ".cnf",
+                    ".coffee",
+                    ".conf",
+                    ".config",
+                    ".cpp",
+                    ".crt",
+                    ".cs",
+                    ".csp",
+                    ".csv",
+                    ".dist",
+                    ".doc",
+                    ".dockerfile",
+                    ".eex",
+                    ".env",
+                    ".erb",
+                    ".erl",
+                    ".ex",
+                    ".example",
+                    ".exs",
+                    ".ext",
+                    ".fsproj",
+                    ".g4",
+                    ".gml",
+                    ".gni",
+                    ".go",
+                    ".golden",
+                    ".gradle",
+                    ".groovy",
+                    ".h",
+                    ".haml",
+                    ".hs",
+                    ".html",
+                    ".idl",
+                    ".iml",
+                    ".in",
+                    ".inc",
+                    ".ini",
+                    ".j",
+                    ".j2",
+                    ".java",
+                    ".jenkinsfile",
+                    ".js",
+                    ".json",
+                    ".jsp",
+                    ".jsx",
+                    ".ks",
+                    ".kt",
+                    ".kts",
+                    ".las",
+                    ".ldif",
+                    ".ldml",
+                    ".less",
+                    ".libsonnet",
+                    ".lkml",
+                    ".lock",
+                    ".log",
+                    ".lua",
+                    ".m",
+                    ".manifest",
+                    ".markerb",
+                    ".md",
+                    ".mdx",
+                    ".mjs",
+                    ".mk",
+                    ".ml",
+                    ".mlir",
+                    ".mod",
+                    ".moo",
+                    ".ndjson",
+                    ".nix",
+                    ".nolint",
+                    ".odd",
+                    ".onnx",
+                    ".oracle",
+                    ".pan",
+                    ".patch",
+                    ".php",
+                    ".pl",
+                    ".pm",
+                    ".po",
+                    ".pod",
+                    ".postinst",
+                    ".pp",
+                    ".ppk",
+                    ".proj",
+                    ".properties",
+                    ".proto",
+                    ".ps1",
+                    ".purs",
+                    ".pxd",
+                    ".py",
+                    ".pyx",
+                    ".r",
+                    ".rake",
+                    ".rb",
+                    ".re",
+                    ".red",
+                    ".resx",
+                    ".rexx",
+                    ".rnh",
+                    ".rrc",
+                    ".rs",
+                    ".rsp",
+                    ".rst",
+                    ".rules",
+                    ".sample",
+                    ".sbt",
+                    ".scala",
+                    ".secrets",
+                    ".sh",
+                    ".snap",
+                    ".sql",
+                    ".storyboard",
+                    ".strings",
+                    ".sty",
+                    ".t",
+                    ".td",
+                    ".tdf",
+                    ".template",
+                    ".test",
+                    ".testsettings",
+                    ".tf",
+                    ".tfstate",
+                    ".tfvars",
+                    ".tl",
+                    ".tmpl",
+                    ".token",
+                    ".toml",
+                    ".travis",
+                    ".ts",
+                    ".tsx",
+                    ".txt",
+                    ".var",
+                    ".vue",
+                    ".xaml",
+                    ".xib",
+                    ".xml",
+                    ".yaml",
+                    ".yml",
+                    ".zsh"
+                ]
+            }
+        },
+        {
+            "type": "RuleName",
+            "kwargs": {
+                "rule_names": [
+                    "API",
+                    "Auth",
+                    "CMD ConvertTo-SecureString",
+                    "CMD Password",
+                    "CMD Secret",
+                    "CMD Token",
+                    "Certificate",
+                    "Credential",
+                    "Github Old Token",
+                    "Key",
+                    "Nonce",
+                    "Password",
+                    "SQL Password",
+                    "Salt",
+                    "Secret",
+                    "Token",
+                    "URL Credentials"
+                ]
+            }
+        }
+    ]
+}
