@@ -1,0 +1,352 @@
+Metadata-Version: 2.4
+Name: digi_solver
+Version: 0.1.4
+Summary: A Python package for digital electronics problem solving, including K-maps, number conversions, and more.
+Home-page: https://github.com/19uez
+Author: 19uez
+Author-email: phaman5109@gmail.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Education
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: ==3.8
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: openpyxl
+Requires-Dist: Pillow
+Requires-Dist: requests
+Requires-Dist: colorclass
+Requires-Dist: terminaltables
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# DigiSolver: Your Comprehensive Digital Electronics Toolkit
+
+`DigiSolver` is a Python package consolidating a suite of tools designed to assist with various digital electronics problems and coursework. It brings together functionalities for Karnaugh map (K-map) simplification, signed binary number conversions, general numerical base conversions, and logic gate image processing.
+
+This package is ideal for students, educators, and hobbyists working on digital logic assignments or projects.
+
+## Features
+
+`DigiSolver` includes the following integrated sub-packages:
+
+*   **`ncalc_python`**: 
+    *   A command-line tool for number base conversions (ASCII, Binary, Octal, Decimal, Hexadecimal).
+    *   Supports direct value input or batch processing from a file.
+    *   Can display step-by-step solutions for conversions, including LaTeX output.
+    *   Results can be exported to a CSV file.
+    *   **Inputs**:
+        *   Command-line arguments: Value to convert, input base, output base(s), flags for steps/LaTeX/file input/CSV output.
+        *   Optional input file (`.txt`): Each line containing `value [input_base] [output_base]`.
+    *   **Outputs**:
+        *   Console: Converted value(s), optional step-by-step solution (plain text or LaTeX).
+        *   Optional CSV file: Containing original values, input bases, output bases, and converted results.
+*   **`signed_binary_conversion`**: 
+    *   Handles conversions between decimal and signed binary numbers (Sign-Magnitude, One's Complement, Two's Complement).
+    *   Provides detailed LaTeX solutions for each conversion step.
+    *   Includes a feature to auto-generate datasets for testing, including overflow cases, and saves them to CSV.
+    *   **Inputs (CLI `sbn_converter`)**:
+        *   `manual` mode: Conversion direction (decimal-to-binary or binary-to-decimal), representation type (Sign-Magnitude, One's, Two's), input value, bit length.
+        *   `gen-d2b`/`gen-b2d` modes: Number of problems (count), bit length, type filter.
+        *   `gen-overflow` mode: Number of problems (count), bit length.
+        *   Output CSV filename.
+    *   **Outputs (CLI `sbn_converter`)**:
+        *   Console: Progress messages, summary.
+        *   CSV file(s): Detailed conversion results or generated datasets. Each row typically includes the original value, target type, bit length, converted value, and LaTeX solution.
+    *   **Inputs (Library functions)**:
+        *   `decimal_to_binary` functions (e.g., `signedMagnitude`, `onesComplement`, `twosComplement`): Decimal number (integer or string).
+        *   `binary_to_decimal` functions (e.g., `signedMagnitude_re`): Binary string.
+        *   Solution generation functions (e.g., `get_twos_complement_solution`): Decimal value, bit length.
+    *   **Outputs (Library functions)**:
+        *   Conversion functions: String representing the converted binary or decimal value. Some may print steps to console.
+        *   Solution functions: String containing LaTeX formatted solution steps.
+*   **`kmap_tool`**: 
+    *   **K-map Generator/Solver (`gen_kmap.py`)**: Generates random K-map problems for 3 to 6 variables, solves them using the Quine-McCluskey algorithm, and can format the problem and solution (including K-map table and groups) in LaTeX.
+        *   **Inputs (CLI `kmap_generator` - *if entry point defined*)**:
+            *   `generate` mode: Number of variables, number of problems to generate, output basename for files.
+            *   `solve` mode: Input file path (e.g., `.txt` or `.csv` containing minterms/dontcares), output basename.
+        *   **Outputs (CLI `kmap_generator`)**:
+            *   Console: Progress, summary of generated/solved problems.
+            *   Output files (e.g., `.csv`, `.tex`, `.pdf`): Generated K-map problems, solved K-map tables, grouped minterms, minimized Boolean expressions, and LaTeX source/PDF.
+        *   **Inputs (Library `gen_kmap.py` functions)**:
+            *   `generate_kmap_problem()`: Number of variables.
+            *   `solve_kmap_problem()`: Dictionary containing `num_vars`, `minterms`, `dontcares`, `variables`.
+            *   `generate_latex()`: Dictionary containing formatted problem/solution data.
+        *   **Outputs (Library `gen_kmap.py` functions)**:
+            *   `generate_kmap_problem()`: Dictionary with problem details.
+            *   `solve_kmap_problem()`: Dictionary with solved data including minimized expression and groups.
+            *   `format_result()`: Dictionary structured for display or CSV output.
+            *   `generate_latex()`: Tuple of strings (LaTeX input, LaTeX solution steps, LaTeX output function).
+    *   **Quine-McCluskey Solver (`QuineMcCluskey/qmccluskey.py`)**: A standalone Quine-McCluskey algorithm implementation that can minimize Boolean functions given minterms and don't-cares.
+        *   **Inputs (CLI `qmc_solver` - *if entry point defined*)**:
+            *   Minterms (comma-separated string or list).
+            *   Don't-cares (optional, comma-separated string or list).
+            *   Variable names (optional, comma-separated string or list).
+        *   **Outputs (CLI `qmc_solver`)**:
+            *   Console: Minimized Boolean expression(s), prime implicants table, essential prime implicants.
+        *   **Inputs (Library `QM` class)**:
+            *   `minterms` (list of ints).
+            *   `dcares` (list of ints).
+            *   `chars` (list of strings for variable names).
+        *   **Outputs (Library `QM.minimize()`)**:
+            *   List of strings, where each string is a minimized Boolean expression.
+            *   `QM.procedure` attribute contains the step-by-step string representation of the QM process.
+*   **`lo_gateimg_tool`**: 
+    *   A tool for processing or generating images related to logic gates or digital circuits. 
+    *   *(Please provide more specific details about its capabilities, e.g., \"Parses a netlist to generate a circuit diagram image,\" or \"Converts hand-drawn circuits to a digital format using image processing.\")*
+    *   **Inputs**: *(Please specify: e.g., Netlist file path, image file path, configuration parameters)*
+    *   **Outputs**: *(Please specify: e.g., Generated image file (PNG, SVG), analysis report, textual description of circuit)*
+
+## Installation
+
+To install `DigiSolver`, you can clone the repository and install it in editable mode for development, or install it directly using pip once it's packaged.
+
+**1. Standard installation (once packaged or from PyPI in the future):**
+```bash
+# pip install digi_solver
+```
+
+## Basic Usage
+
+After installation, you can use the command-line tools or import modules into your Python scripts.
+
+### Command-Line Tools
+
+`DigiSolver` provides the following commands (if defined in `setup.py` and their respective main functions are correctly implemented):
+
+*   **`ncalc` (from `ncalc_python`):**
+    ```bash
+    # Convert a decimal value to all other bases with steps
+    ncalc 123 -s 
+
+    # Convert a hexadecimal value to binary and octal, showing LaTeX steps
+    ncalc FF -i hex -o bin,oct -s -l
+
+    # Process conversions from a file and save results to CSV
+    ncalc -f input_conversions.txt -csv results.csv
+    ```
+    *File format for `input_conversions.txt` (each line: `value [input_base] [output_base]`):*
+    ```
+    100 dec bin # Convert decimal 100 to binary
+    A1 hex all  # Convert hexadecimal A1 to all bases
+    77 oct dec
+    ```
+
+*   **`sbn_converter` (from `signed_binary_conversion`):**
+    ```bash
+    # Manually convert decimal -25 to 8-bit Two's Complement
+    sbn_converter manual --direction d --type 2 --value -25 --bit-length 8 --output manual_sbn_results.csv
+
+    # Manually convert 8-bit binary 11100111 from Signed Magnitude to decimal
+    sbn_converter manual --direction b --type s --value 11100111 --bit-length 8 --output manual_sbn_results.csv
+
+    # Generate a dataset of 50 8-bit decimal to Two's Complement conversions
+    sbn_converter gen-d2b --count 50 --bit-length 8 --type-filter 2 --output d2b_twos_comp_dataset.csv
+
+    # Generate 20 overflow cases for 4-bit numbers
+    sbn_converter gen-overflow --count 20 --bit-length 4 --output overflow_4bit_tests.csv
+    ```
+
+*   **`kmap_generator` (from `kmap_tool.gen_kmap` - *ensure `main_kmap_generator_cli` is defined*):**
+    ```bash
+    # Generate 5 K-map problems for 4 variables
+    # kmap_generator --mode generate --gen_num_vars 4 --num_problems 5 --output_basename kmap_4var_probs
+
+    # Solve K-map problems from a file
+    # kmap_generator --mode solve --input_file my_kmap_functions.txt --output_basename solved_kmaps
+    ```
+
+*   **`qmc_solver` (from `kmap_tool.QuineMcCluskey.qmccluskey` - *ensure `main_qmc_cli` is defined*):**
+    ```bash
+    # Solve a K-map with minterms and don't cares
+    # qmc_solver -m 0,1,4,5,7 -d 2,6 -v a,b,c
+    ```
+
+### Using as a Python Library
+
+You can also import specific modules and functions into your Python scripts for more granular control or integration into other applications.
+
+**1. `ncalc_python` - Number Base Conversions**
+
+```python
+from digi_solver.ncalc_python.conversions import (
+    decimal_to_binary, binary_to_decimal,
+    decimal_to_hexadecimal, hexadecimal_to_octal
+)
+from digi_solver.ncalc_python.step_generator import (
+    decimal_to_binary_steps_latex,
+    hexadecimal_to_decimal_steps
+)
+
+# Direct conversions
+dec_val = "123"
+bin_val = decimal_to_binary(dec_val)
+print(f"{dec_val} (decimal) = {bin_val} (binary)")
+
+hex_val = "FACE"
+dec_from_hex = hexadecimal_to_decimal(hex_val)
+print(f"{hex_val} (hexadecimal) = {dec_from_hex} (decimal)")
+
+oct_from_hex = hexadecimal_to_octal(hex_val) # via binary
+print(f"{hex_val} (hexadecimal) = {oct_from_hex} (octal)")
+
+# Get plain text steps
+steps_plain, result_plain = hexadecimal_to_decimal_steps("A5")
+print(f"\nSteps to convert A5 (hex) to decimal:")
+for step in steps_plain:
+    print(step)
+print(f"Result: {result_plain}")
+
+# Get LaTeX steps
+latex_steps, result_latex = decimal_to_binary_steps_latex("26")
+print(f"\nLaTeX steps for 26 (decimal) to binary:\n{latex_steps}")
+# The result_latex variable also holds the final binary string: "11010"
+```
+
+**2. `signed_binary_conversion` - Signed Number Conversions**
+
+```python
+from digi_solver.signed_binary_conversion.decimal_to_binary import signedMagnitude, onesComplement, twosComplement
+from digi_solver.signed_binary_conversion.binary_to_decimal import signedMagnitude_re, onesComplement_re, twosComplement_re
+from digi_solver.signed_binary_conversion.solutions.d2b_solutions import get_signed_magnitude_solution, get_twos_complement_solution
+from digi_solver.signed_binary_conversion.solutions.b2d_solutions import get_onescomplement_re_solution
+
+# --- Decimal to Signed Binary (Raw Conversion - might assume fixed bit length like 8-bit based on original funcs) ---
+# Note: These direct conversion functions might have implicit bit-length assumptions (e.g., 8-bit).
+# For explicit bit-length control and detailed LaTeX, use the solution generation functions.
+decimal_input = -25
+sm_binary = signedMagnitude(decimal_input) # Original function, may print intermediate steps
+print(f"Signed Magnitude of {decimal_input} (raw): {sm_binary}")
+
+oc_binary = onesComplement(decimal_input) # Original function
+print(f"One's Complement of {decimal_input} (raw): {oc_binary}")
+
+tc_binary = twosComplement(decimal_input) # Original function
+print(f"Two's Complement of {decimal_input} (raw): {tc_binary}")
+
+# --- Decimal to Signed Binary (Detailed LaTeX Solutions) ---
+bit_len = 8
+dec_val_for_sol = -60
+sm_solution_latex = get_signed_magnitude_solution(dec_val_for_sol, bit_len)
+# print(f"\nLaTeX solution for {dec_val_for_sol} to {bit_len}-bit Signed Magnitude:\n{sm_solution_latex}")
+
+tc_solution_latex = get_twos_complement_solution(33, bit_len)
+# print(f"\nLaTeX solution for 33 to {bit_len}-bit Two's Complement:\n{tc_solution_latex}")
+
+# --- Signed Binary to Decimal (Raw Conversion) ---
+binary_input_sm = "10011001" # Example: -25 in 8-bit Signed Magnitude
+dec_from_sm = signedMagnitude_re(binary_input_sm)
+print(f"{binary_input_sm} (Signed Mag) = {dec_from_sm} (decimal)")
+
+binary_input_oc = "11100110" # Example: -25 in 8-bit One's Complement
+dec_from_oc = onesComplement_re(binary_input_oc)
+print(f"{binary_input_oc} (One's Comp) = {dec_from_oc} (decimal)")
+
+# --- Signed Binary to Decimal (Detailed LaTeX Solutions) ---
+binary_input_for_sol = "11110000" # Example: -16 in 8-bit One's Complement
+oc_re_solution_latex = get_onescomplement_re_solution(binary_input_for_sol)
+# print(f"\nLaTeX solution for {binary_input_for_sol} (One's Comp) to decimal:\n{oc_re_solution_latex}")
+```
+
+**3. `kmap_tool` - Karnaugh Map Simplification**
+
+```python
+# --- Using gen_kmap.py functionalities ---
+from digi_solver.kmap_tool.gen_kmap import (
+    generate_kmap_problem, 
+    solve_kmap_problem, 
+    format_result,
+    generate_latex # To get full LaTeX solution string
+)
+
+# Generate a random 4-variable K-map problem
+problem_details = generate_kmap_problem(num_vars=4)
+print(f"\nGenerated K-Map Problem (4 vars):")
+print(f"  Minterms: {problem_details['minterms']}")
+print(f"  Don't Cares: {problem_details['dontcares']}")
+
+# Solve it
+solved_data = solve_kmap_problem(problem_details)
+
+# Format for display (similar to CSV output structure)
+formatted_display = format_result(solved_data, id=1) # id is just for the 'Case 1' label
+print(f"  Input String: {formatted_display['Input']}")
+print(f"  Solved Function: {formatted_display['Result']}")
+print(f"  Groups Found:\n{formatted_display['Groups']}")
+
+# Generate full LaTeX solution for a problem
+# (Requires the structure from format_result or a similar dict)
+latex_input, latex_solution_steps, latex_output_function = generate_latex(formatted_display)
+# print(f"\nFull LaTeX Solution for the generated problem:\n{latex_solution_steps}")
+
+# --- Using QuineMcCluskey directly ---
+from digi_solver.kmap_tool.QuineMcCluskey.core.qm.qm import QM
+
+minterms_list = [0, 1, 4, 5, 7]
+dontcares_list = [2, 6]
+variables_list = ['a', 'b', 'c']
+
+qm_solver = QM(minterms=minterms_list, dcares=dontcares_list, chars=variables_list)
+solutions = qm_solver.minimize() # Returns a list of possible minimized expressions
+
+print(f"\nQuine-McCluskey Direct Solution(s) for m({minterms_list}), d({dontcares_list}):")
+if solutions and solutions[0]:
+    for sol_expr in solutions:
+        print(f"  f({','.join(variables_list)}) = {sol_expr}")
+else:
+    print("  No simplified expression or function is always 0.")
+
+# To see the step-by-step procedure from QM:
+# print(qm_solver.procedure)
+```
+
+**4. `lo_gateimg_tool` - Logic Gate Image Processing**
+
+```python
+This is a placeholder. Please replace with actual usage examples.
+from digi_solver.lo_gateimg_tool import some_image_processor, some_netlist_parser
+
+Example: Assuming a function to parse a netlist file and generate an image
+try:
+    circuit_image = some_netlist_parser.render_circuit("path/to/your/netlist.txt", "output_circuit.png")
+    if circuit_image:
+        print(f"Circuit image saved to {circuit_image}")
+except Exception as e:
+    print(f"Error processing netlist: {e}")
+
+Example: Assuming a function to analyze a logic gate image
+try:
+    analysis_result = some_image_processor.analyze_gate_image("path/to/gate_image.jpg")
+    print(f"Image Analysis Result: {analysis_result}")
+except Exception as e:
+    print(f"Error analyzing image: {e}")
+```
+
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute, please fork the repository, make your changes, and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
+
+(You can add more details about your contribution process, coding standards, etc.)
+
+## License
+
+This project is licensed under the MIT License - see the `LICENSE` file (if you add one) for details.
+
+---
