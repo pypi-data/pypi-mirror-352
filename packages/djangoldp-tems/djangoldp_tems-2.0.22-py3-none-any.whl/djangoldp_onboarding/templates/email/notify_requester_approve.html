@@ -1,0 +1,85 @@
+{% load static %}
+<html>
+  <head>
+    {% include './styling.html' %}
+  </head>
+  <body>
+  <header>
+    <img class="logo" src="{{ base_url }}/static/images/tems-logo-black.png" alt="tems logo">
+  </header>
+  <div class="email-body">
+    <div class="margin-bottom-1200">
+      <p class="no-padding">Hi {{ fullname }},
+      </p>
+    </div>
+    <div class="margin-bottom-1200">
+      <h1>Welcome to TEMS
+        <br>Your Wallet is Ready</h1>
+      <p>Welcome to TEMS! As part of your account setup, we’ve automatically created a secure wallet for your organisation.</p>
+    </div>
+
+    <div class="margin-bottom-1200">
+      <h2 class="margin-bottom-400">Why is this important?</h2>
+      <table>
+        <tr>
+          <td class="small-padding text-center">
+            <img class="check" src="{{ base_url }}/static/images/ci--check.png" alt="checkmark" />
+          </td>
+          <td class="large-padding">
+            <p class="no-padding">
+              Lorem ipsum dolor sit amet consectetur. Est nulla ornare consequat tellus nullam. Duis elementum non nisi ac.
+            </p>  
+          </td>
+          <td class="small-padding text-center">
+            <img class="check" src="{{ base_url }}/static/images/ci--check.png" alt="checkmark" />
+          </td>
+          <td>
+            <p class="no-padding">
+              Lorem ipsum dolor sit amet consectetur. Est nulla ornare consequat tellus nullam. Duis elementum non nisi ac.
+            </p>  
+          </td>
+        </tr>
+        <tr>
+          <td class="small-padding">
+            <img class="check" src="{{ base_url }}/static/images/ci--check.png" alt="checkmark" />
+          </td>
+          <td class="large-padding">
+            <p class="no-padding">
+              Lorem ipsum dolor sit amet consectetur. Est nulla ornare consequat tellus nullam. Duis elementum non nisi ac.
+            </p>  
+          </td>
+          <td class="small-padding">
+            <img class="check" src="{{ base_url }}/static/images/ci--check.png" alt="checkmark" />
+          </td>
+          <td>
+            <p class="no-padding">
+              Lorem ipsum dolor sit amet consectetur. Est nulla ornare consequat tellus nullam. Duis elementum non nisi ac.
+            </p>  
+          </td>
+        </tr>
+        
+      </table>
+    </div>
+    <div class="margin-bottom-1200">
+      <h2>How to get started?</h2>
+      <p>Lorem ipsum dolor sit amet consectetur. Morbi vitae sed a bibendum purus sollicitudin diam. Eleifend accumsan id tellus feugiat. Sed vitae.
+
+      </p>
+    </div>
+    <div class="margin-bottom-1200">
+      <button>Go to My Wallet</button>
+    </div>
+
+
+    <div>
+      <h2>Need help?</h2>
+      <p>Check out our <a href="" target="_blank">Wallet Guide</a> or contact <a href="mailto:support@tems.com">support@tems.com</a> or any questions.</p>
+    </div>
+  </div>
+  </body>
+  <footer>
+    <p>This email was sent to <a href="mailto:{{ email }}">{{ email }}</a> Lorem ipsum dolor sit amet consectetur. Vitae semper at quam gravida in libero.
+    <br><br>© {% now "Y" %} Vitae semper at quam gravida in libero. </p>
+  </footer>
+  <p class="text-center">Get to know <a href="" target="_blank" rel="noopener noreferrer">TEMS</a>, <a href="" target="_blank" rel="noopener noreferrer">Governance</a>, <a href="" target="_blank" rel="noopener noreferrer">Policies</a>, <a href="" target="_blank" rel="noopener noreferrer">Offers</a></p>
+</html>
