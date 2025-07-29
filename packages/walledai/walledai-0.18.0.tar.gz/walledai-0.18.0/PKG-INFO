@@ -1,0 +1,145 @@
+Metadata-Version: 2.4
+Name: walledai
+Version: 0.18.0
+Summary: A Python SDK for interacting with Walled AI
+Author-email: Walled AI <rishabh@walled.ai>
+License: MIT License
+        
+        Copyright (c) 2025 Walled AI
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests>=2.25.1
+Requires-Dist: typing_extensions>=4.0.0
+Dynamic: license-file
+
+# Walled AI SDK
+
+A Python SDK for interacting with Walled AI.
+
+## Installation
+```sh
+pip install walledai
+```
+## Usage
+
+```python
+from walledai import WalledProtect
+# Initialise the client 
+client = WalledProtect("your_api_key",retries=3)# retries is optional
+```
+## Walled Protect
+
+```python
+response = client.guardrail(
+    text="Hello , How are you", 
+    greetings_list=["generalgreetings"], 
+    text_type="prompt", 
+    generic_safety_check=True
+)
+print(response)
+```
+
+
+Processes the text using Walled AI's protection mechanisms.
+
+#### Parameters:
+- **`text`** (*str*, required): The input text to be processed.
+- **`greetings_list`** (*list of str*, optional): A list of predefined greetings categories.
+- **`text_type`** (*str*, optional): Type of text being processed. Defaults to `"prompt"`.
+- **`generic_safety_check`** (*bool*, optional): Whether to apply a general safety filter. Defaults to `True`.
+
+#### Example Usage:
+```python
+response = client.guardrail(
+    text="Hello , How are you", 
+    greetings_list=["generalgreetings"], 
+    text_type="prompt", 
+    generic_safety_check=True
+)
+print(response)
+```
+
+### Example Responses
+The response returned by the guardrail method is a dictionary.
+#### Successful Response
+```python
+{
+    "success": true,
+    "data": {
+        "safety": [{ "safety": "generic", "isSafe": true, "score": 5 }],
+        "compliance": [],
+        "pii": [],
+        "greetings": [{ "greeting_type": "generalgreetings", "isPresent": true }]
+    }
+}
+```
+
+#### Error Response
+If an error occurs, the SDK will retry the request up to the specified number of retries (`retries` parameter in `WalledProtect`) or default retry number. If the retries are exhausted, it will return an error response.
+```python
+{
+    "success": false,
+    "error": "Invalid API key provided."
+}
+```
+## PII
+
+Processes the text using Walled AI's PII mechanisms.
+
+#### Parameters:
+- **`text`** (*str*, required): The input text to be processed.
+
+#### Example Usage:
+```python
+response = client.pii(
+    text="Hello , How are you Henry", 
+)
+print(response)
+```
+
+### Example Responses
+The response returned by the guardrail method is a dictionary.
+#### Successful Response
+```python
+{
+    "success": true,
+    "data": {
+        "success": true,
+        "remark": "Success! one attempt",
+        "input": "Hi my name is Henry",
+        "masked_text": "Hello my name is PN1",
+        "mapping": {
+            "PNA1": "indranil"
+        }
+    }
+}
+```
+
+#### Error Response
+If an error occurs, the SDK will retry the request up to the specified number of retries (`retries` parameter in `WalledProtect`) or default retry number. If the retries are exhausted, it will return an error response.
+```python
+{
+    "success": false,
+    "error": "Invalid API key provided."
+}
+```
