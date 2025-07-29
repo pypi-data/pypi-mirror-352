@@ -1,0 +1,69 @@
+"""Características de similaridade
+entre textos baseadas no BERT.
+"""
+
+from dataclasses import dataclass
+
+from sentence_transformers import SentenceTransformer
+from sentence_transformers.util import cos_sim
+
+from aibox.nlp.core import FeatureExtractor
+from aibox.nlp.features.utils import DataclassFeatureSet
+
+
+@dataclass(frozen=True)
+class BERTSimilarityFeatures(DataclassFeatureSet):
+    """Características de similaridade.
+
+    :param bert_similarity_cosine: similaridade cosseno
+        entre os embeddings do BERT para dois textos.
+    """
+
+    bert_similarity_cosine: float
+
+
+class BERTSimilarityExtractor(FeatureExtractor):
+    """Extrator de similaridade entre textos baseado
+    nos Embeddings do BERT.
+
+    :param reference_text: texto de referência para
+        calcular similaridade.
+    :param bert_model: modelo do BERT a ser adotado.
+    :param device: dispositivo a ser utilizado.
+
+    Exemplo de uso em
+    :py:class:`~aibox.nlp.core.feature_extractor.FeatureExtractor`
+    """
+
+    def __init__(
+        self,
+        reference_text: str,
+        bert_model: SentenceTransformer = None,
+        device: str = "cpu",
+    ) -> None:
+        if bert_model is None:
+            model_name = "neuralmind/bert-base-portuguese-cased"
+            bert_model = SentenceTransformer(model_name, device=device)
+        self._model = bert_model
+        self._ref_text = reference_text
+        self._ref_embdedings = self._model.encode(
+            [reference_text.lower()], convert_to_tensor=True
+        )
+
+    @property
+    def reference_text(self) -> str:
+        return self._ref_text
+
+    @reference_text.setter
+    def reference_text(self, value: str) -> str:
+        self._ref_text = value
+        self._ref_embdedings = self._model.encode(
+            [self._ref_text.lower()], convert_to_tensor=True
+        )
+
+    def extract(self, text: str, **kwargs) -> BERTSimilarityFeatures:
+        del kwargs
+
+        embeddings = self._model.encode([text.lower()], convert_to_tensor=True)
+        similarity = cos_sim(embeddings, self._ref_embdedings).item()
+        return BERTSimilarityFeatures(bert_similarity_cosine=similarity)
