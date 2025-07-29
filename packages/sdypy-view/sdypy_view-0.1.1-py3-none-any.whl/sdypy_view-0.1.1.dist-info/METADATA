@@ -1,0 +1,181 @@
+Metadata-Version: 2.4
+Name: sdypy-view
+Version: 0.1.1
+Summary: Visualization of SDyPy models and results
+Project-URL: homepage, https://github.com/sdypy/sdypy-view
+Project-URL: documentation, https://github.com/sdypy/sdypy-view
+Project-URL: source, https://github.com/sdypy/sdypy-view
+Author-email: "Klemen Zaletelj, Janko Slavič et al." <janko.slavic@fs.uni-lj.si>
+Maintainer-email: "Klemen Zaletelj, Janko Slavič et al." <klemen.zaletelj@fs.uni-lj.si>
+License-Expression: MIT
+Keywords: 2D,3D,FEM,Visualization
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.10
+Requires-Dist: imageio
+Requires-Dist: meshio
+Requires-Dist: numpy>=1.14.3
+Requires-Dist: pylump
+Requires-Dist: pyperclip
+Requires-Dist: pyqt5
+Requires-Dist: pyvista
+Requires-Dist: pyvistaqt
+Requires-Dist: scipy>=1.1.0
+Requires-Dist: tqdm>=4.23.4
+Provides-Extra: dev
+Requires-Dist: build; extra == 'dev'
+Requires-Dist: pytest; extra == 'dev'
+Requires-Dist: sphinx; extra == 'dev'
+Requires-Dist: sphinx-copybutton>=0.5.2; extra == 'dev'
+Requires-Dist: sphinx-rtd-theme; extra == 'dev'
+Requires-Dist: twine; extra == 'dev'
+Requires-Dist: wheel; extra == 'dev'
+Description-Content-Type: text/x-rst
+
+SDyPy-view project
+==================
+
+The ``Plotter3D`` is a wrapper around the ``pyvista.BackgroundPlotter`` with some added functionality around
+convenient simplifications for use in structural dynamics.
+
+Basic usage
+-----------
+
+.. code-block:: python
+
+    import sdypy as sd
+
+    nodes = ... # Finite element nodes
+    elements ... # Finite elements
+
+    plotter = sd.view.Plotter3D(nodes, elements)
+    plotter.add_fem_mesh(nodes, elements)
+    plotter.show(show_grid=True, show_axes=True)
+
+To animate a mode shape:
+
+.. code-block:: python
+
+    mode_shape = ... # Shape (n_nodes, 3)
+
+    plotter = sd.view.Plotter3D(nodes, elements)
+    plotter.add_fem_mesh(nodes, elements, animate=mode_shape)
+
+To animate according to a time history:
+
+.. code-block:: python
+
+    time_history = ... # Shape (n_nodes, 3, n_timesteps)
+
+    plotter = sd.view.Plotter3D(nodes, elements)
+    plotter.add_fem_mesh(nodes, elements, animate=time_history)
+
+To color the mesh according to a norm of the ``mode_shape``:
+
+.. code-block:: python
+
+    plotter = sd.view.Plotter3D(nodes, elements)
+    plotter.add_fem_mesh(nodes, elements, animate=mode_shape, field="norm")
+
+Here, if ``field="norm"`` is passed, the mesh will be colored according to the
+norm of the ``mode_shape`` (or more generally, according to the norm of the ``animate`` argument).
+To color the mesh according to an arbitrary field, the ``field`` argument must be of shape ``(n_nodes, n_timesteps)``. 
+
+Animation
+---------
+
+The ``Plotter3D`` class also enables the user to animate the mesh. There are two way to animate the FEM mesh or points:
+
+- By passing a 3D array of shape ``(n_nodes, 3, n_timesteps)`` to the ``animate`` argument. The points/nodes will be animated according to the time history.
+- By passing a 2D array of shape ``(n_nodes, 3)`` to the ``animate`` argument. The ``animate`` defines the maximum displacement of the nodes. The animation is interpolated with a sine function.
+
+The ``animate`` argument can also have the following shapes:
+
+- ``(n_nodes*3)``: The ``Plotter3D`` will automatically convert this to ``(n_nodes, 3)``.
+- ``(n_nodes*3, n_timesteps)``: The ``Plotter3D`` will automatically convert this to ``(n_nodes, 3, n_timesteps)``.
+- ``(n_nodes*N)``: The ``Plotter3D`` will automatically convert this to ``(n_nodes, 3)``, where ``N`` is an arbitrary number. Only the first 3 columns are used. This is useful when animating e.g. a mode shape of a shell (each node has 6 DOF).
+- ``(n_nodes*N, n_timesteps)``: The ``Plotter3D`` will automatically convert this to ``(n_nodes, 3, n_timesteps)``. Similar to previous point, but with time history.
+
+The ``n_frames`` is set to 100 by default, but can be changed to alter the number of frames per one iteration. When providing the time history, the ``n_frames`` should match the last dimension of the ``animate`` argument.
+
+Here is an example of animating a mode shape:
+
+.. code-block:: python
+
+    import sdypy as sd
+
+    nodes = ... # Finite element nodes (n_nodes, 3)
+    elements ... # Finite elements (n_elements, n_nodes_per_element)
+    mode_shape = ... # Mode shape (n_nodes, 3)
+
+    plotter = sd.view.Plotter3D(nodes, elements)
+    plotter.add_fem_mesh(nodes, elements, animate=mode_shape, field="norm")
+
+    plotter.configure_animation(interval=20) # To adjust the interval and camera position
+    plotter.start_animation() # Optional. To immediately start the animation. Otherwise, the controls are available in the plotter.
+    plotter.show()
+
+Recording a GIF
+---------------
+
+To record a GIF, the ``configure_gif_recorder`` method must be called. Example:
+
+.. code-block:: python
+
+    import sdypy as sd
+
+    nodes = ... # Finite element nodes (n_nodes, 3)
+    elements ... # Finite elements (n_elements, n_nodes_per_element)
+    mode_shape = ... # Mode shape (n_nodes, 3)
+
+    plotter = sd.view.Plotter3D(nodes, elements)
+    
+    plotter.gif_recorder("mode_shape.gif") # MUST BE CALLED BEFORE THE ANIMATION STARTS
+
+    plotter.add_fem_mesh(nodes, elements, animate=mode_shape, field="norm")
+
+    plotter.configure_gif_recorder('mode_shape.gif', fps=30) # Configure the GIF recorder
+    
+    plotter.show()
+
+The recording will start on pressing the "Record" button in the toolbar. Alternatively, the
+``configure_gif_recorder`` can be called like this:
+
+.. code-block:: python
+
+    plotter.configure_gif_recorder('mode_shape.gif', fps=30, start_on_play=True)
+
+This will start the recording when the animation starts. To start the animation, call the ``start_animation`` method
+or press the "Play" button in the toolbar.
+
+The recording will last for 1 iteration of the animation.
+
+Adding custom toolbar buttons
+-----------------------------
+
+To add custom toolbar commands, use the ``configure_toolbar`` method. Example:
+
+.. code-block:: python
+
+    import sdypy as sd
+
+    nodes = ... # Finite element nodes (n_nodes, 3)
+    elements ... # Finite elements (n_elements, n_nodes_per_element)
+    mode_shape = ... # Mode shape (n_nodes, 3)
+
+    plotter = sd.view.Plotter3D(nodes, elements)
+    plotter.add_fem_mesh(nodes, elements, animate=mode_shape, field="norm")
+
+    def custom_command():
+        print("Custom command")
+
+    toolbar_actions = {
+        "Custom command": custom_command
+    }
+
+    plotter.configure_toolbar(toolbar_actions)
+
+    plotter.show()
