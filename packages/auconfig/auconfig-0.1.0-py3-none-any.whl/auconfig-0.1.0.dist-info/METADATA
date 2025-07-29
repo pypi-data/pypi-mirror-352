@@ -1,0 +1,37 @@
+Metadata-Version: 2.3
+Name: auconfig
+Version: 0.1.0
+Summary: Framework para pipelines de procesamiento de datos con Spark
+License: MIT
+Author: Faustino Lopez Ramos
+Author-email: faustinolopezramos@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: loguru (>=0.7.0,<0.8.0)
+Requires-Dist: pyyaml (>=6.0.1,<7.0.0)
+Description-Content-Type: text/markdown
+
+# AU_DATA Framework
+
+A Python framework for building Spark-based data processing pipelines with support for both local and Databricks environments.
+
+## Features
+
+- Unified Spark session management (local/Databricks)
+- YAML-based configuration system
+- Pipeline/node configuration validation
+- Environment-aware path resolution
+- Automatic fallback mechanisms
+
+## Installation
+
+### From PyPI (recommended)
+```bash
+pip install auconfig
