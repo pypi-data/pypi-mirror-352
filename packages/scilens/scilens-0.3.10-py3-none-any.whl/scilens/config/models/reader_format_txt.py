@@ -1,0 +1,5 @@
+_A=None
+from pydantic import BaseModel,Field
+class ReaderTxtReportLines(BaseModel):pre:int=Field(default=0,description="Nombre de ligne avant l'erreur à présenter avec le message d'erreur.");post:int=Field(default=0,description="Nombre de ligne après l'erreur à présenter avec le message d'erreur.")
+class ReaderTxtIgnoreConfig(BaseModel):pattern:str=Field(default='',description='Motif de chaîne à ignorer.');pre:int=Field(default=0,description='Nombre de ligne supplémentaires à ignorer avant.');post:int=Field(default=0,description='Nombre de ligne supplémentaires à ignorer après.')
+class ReaderTxtConfig(BaseModel):error_rule_patterns:list[str]|_A=Field(default=_A,description='Liste de motifs de chaîne à vérifier. Si un motif est trouvé, génère une erreur. Ex: `["NaN", "infinity"]`');ignore:dict[str,list[ReaderTxtIgnoreConfig]]|_A=Field(default=_A,description='Ignore les lignes d\'un fichier selon un motif. Ex: `{"path": [{"pattern": "NaN", "pre": 0, "post": 0}]}`');report_lines:dict[str,ReaderTxtReportLines]|_A=Field(default=_A,description='Nombre de lignes à reporter avant et après une erreur. Ex: `{"path": {"pre": 0, "post": 0}`')
