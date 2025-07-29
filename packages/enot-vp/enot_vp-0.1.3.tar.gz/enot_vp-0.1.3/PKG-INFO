@@ -1,0 +1,48 @@
+Metadata-Version: 2.4
+Name: enot-vp
+Version: 0.1.3
+Summary: ENOT video processor package for iterating over video frames easily.
+Project-URL: Repository, https://github.com/Ruhrozz/enot-vp.git
+Author-email: Malofeev Ivan <ruhrozz@bk.ru>
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.9
+Requires-Dist: av>=14.4.0
+Requires-Dist: numpy>=2.0.2
+Description-Content-Type: text/markdown
+
+# ENOT Video Processor
+
+Package for processing video with `pyav` package.
+Provides methods for reading from video and writing modified video frames.
+
+# Examples
+
+Reading
+
+```
+from enot_vp import VideoProcessor
+from ultralytics import YOLO
+
+model = YOLO(MODEL_PATH)
+
+with VideoProcessor(input_video=VIDEO_PATH) as vp:
+    for frame in vp:
+        ndarray = model(frame.to_image(), imgsz=1600, verbose=False)[0].plot()[..., ::-1]
+```
+
+Modification
+
+```
+from enot_vp import VideoProcessor
+from ultralytics import YOLO
+
+model = YOLO(MODEL_PATH)
+
+with VideoProcessor(input_video=VIDEO_PATH, output_video=OUTPUT_VIDEO_PATH) as vp:
+    for frame in vp:
+        ndarray = model(frame.to_image(), imgsz=1600, verbose=False)[0].plot()[..., ::-1]
+        vp.put(ndarray)
+```
