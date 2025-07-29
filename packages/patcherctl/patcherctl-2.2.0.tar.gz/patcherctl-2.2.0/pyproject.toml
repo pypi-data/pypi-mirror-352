@@ -1,0 +1,134 @@
+[project]
+name = "patcherctl"
+dynamic = ["readme", "version"]
+description = "Fetch patch management data from Jamf Pro to generate comprehensive reports in both Excel and PDF formats"
+keywords = ["jamf", "pro", "jss", "patch", "macOS"]
+license = { file = "LICENSE.txt" }
+authors = [
+  { name = "Andrew Lerman" },
+  { name = "Chris Ball" },
+  { email = "info@liquidzoo.io" },
+]
+maintainers = [
+  { name = "Andrew Lerman" },
+  { name = "Chris Ball" },
+]
+requires-python = ">=3.10"
+dependencies = [
+  "asyncclick>=8.1.7.2",
+  "fpdf2>=2.7.8",
+  "keyring>=24.3.1",
+  "openpyxl>=3.1.2",
+  "pandas>=2.2.0",
+  "pyarrow>=15.0.0",
+  "pydantic>=2.7.4",
+  "rapidfuzz>=3.12.1",
+]
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Intended Audience :: System Administrators",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: Developers",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Topic :: Documentation",
+  "License :: OSI Approved :: Apache Software License"
+]
+
+
+[project.urls]
+Homepage = "https://patcher.liquidzoo.io"
+Documentation = "https://patcher.liquidzoo.io"
+Repository = "https://github.com/liquidz00/Patcher"
+Issues = "https://github.com/liquidz00/Patcher/issues/new?assignees=&labels=bug&projects=&template=issue.md&title=%5BISSUE%5D+Your+Issue+Title"
+
+[project.scripts]
+patcherctl = "patcher.cli:cli"
+
+[project.optional-dependencies]
+dev = [
+  "black>=24.3.0",
+  "build",
+  "pytest>=8.2.2",
+  "pytest-asyncio>=0.23.5",
+  "pytest-cov>=4.0.0",
+  "pytest-mock>=3.14.0",
+  "ruff>=0.5.1",
+]
+docs = [
+  "autodoc-pydantic",
+  "myst-parser",
+  "pydata-sphinx-theme",
+  "sphinx>=7.3.7",
+  "sphinx-design",
+  "sphinx-copybutton",
+  "sphinx-togglebutton",
+]
+all = ["patcherctl[dev]", "patcherctl[docs]"]
+
+[build-system]
+requires = [
+  "setuptools >= 61",
+  "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+
+[tool.setuptools.package-data]
+"patcher" = ["templates/*.html"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "patcher.__about__.__version__" }
+readme = { file = ["README.md"], content-type = "text/markdown" }
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "E101",
+  "F401",
+  "F403",
+  "I001",
+  "N801",
+  "N802",
+  "N806"
+]
+per-file-ignores = {"utils/animation.py" = ["F403"]}
+ignore = ["E722"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
+minversion = "6.0"
+addopts = [
+  "--durations=5",
+  "--color=yes",
+  "--cov=src",
+  "--cov-report=html:coverage/htmlcov",
+  "--cov-report=term-missing",
+]
+testpaths = ["./tests"]
+filterwarnings = [
+  "ignore::DeprecationWarning",
+  "ignore::RuntimeWarning",
+]
+
+[tool.coverage.run]
+omit = ["tests/*"]
+
+
