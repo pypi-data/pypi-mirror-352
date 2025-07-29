@@ -1,0 +1,35 @@
+---
+repository: ""
+ssh_key: ""
+prefix: ""
+passphrase: ""
+mount_point: "/mnt"
+
+borg_create_backup_dirs:
+  - "/"
+
+borg_create_excludes:
+  - ".cache"
+
+borg_create_arguments:
+  - "--one-file-system"
+  - "--compression=lz4"
+
+borg_prune_arguments:
+  - "--keep-last 10"
+  - "--dry-run"
+
+cron_commands:
+- "create"
+- "prune"
+- "compact"
+
+state_commands:
+- "create"
+- "prune"
+
+# https://borgbackup.readthedocs.io/en/stable/usage/general.html#environment-variables
+envs:
+  "BORG_RELOCATED_REPO_ACCESS_IS_OK": "yes"
+
+borg_binary: "/usr/bin/borg"
