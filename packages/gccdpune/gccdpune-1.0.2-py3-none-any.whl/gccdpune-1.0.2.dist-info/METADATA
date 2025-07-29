@@ -1,0 +1,55 @@
+Metadata-Version: 2.4
+Name: gccdpune
+Version: 1.0.2
+Summary: Interactive CLI for Google Cloud Community Day Pune 2025
+Home-page: https://github.com/Gitesh08/gccdpune
+Author: Gitesh Mahadik
+Author-email: gmahadik8080@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: colorama>=0.4.6
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# GCCD Pune 2025 Interactive CLI
+🌩️ Welcome to the Google Cloud Community Day Pune 2025 CLI! Explore the event with this interactive tool.
+
+## Install
+```bash
+pip install gccdpune
+```
+
+## Usage
+
+Get a hint:
+```bash
+gccdpune --date
+Hint: Clouds part in Pune, day is a dozen!
+Guess the date with: `gccdpune DD-MM-YY` (e.g., `gccdpune 12-06-25`)
+```
+Guess the date:
+```bash
+gccdpune 12-06-25
+Wrong guess! Hint: The month is a prime number!
+Try again with: `gccdpune DD-MM-YY`
+```
+Venue info:
+```bash
+gccdpune --venue
+```
+See commands:
+```bash
+gccdpune --help
+```
