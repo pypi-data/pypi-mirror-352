@@ -1,0 +1,210 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #00000000;
+    color: #000000;
+}
+
+.null-frame {
+    border: none;
+    margin: 10px;
+    margin-top: 5px;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Align items vertically */
+    align-items: flex-start;
+    margin-bottom: 10px;
+    padding-top: 0px; /* Adjust padding to create space for the function header */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+
+}
+
+.green {
+    border-color: green !important;
+    color: green !important;
+}
+
+.blue {
+    border-color: #143aa1 !important;
+    color: #143aa1 !important;
+}
+.function-frame {
+    border: 3px solid #143aa1;
+    margin: 10px;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Align items vertically */
+    align-items: flex-start;
+    padding-top: 5px; /* Adjust padding to create space for the function header */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+.frame-label {
+    position: absolute;
+    top: -12px; /* Adjust this value to position the label on the border */
+    left: 15%;
+    transform: translateX(-50%);
+    padding: 0px;
+    margin: 0px;
+    border-radius: 4px;
+    white-space: nowrap;
+    background-color: #e4e2e2;
+}
+
+/* First function frame */
+.function-frame:first-child {
+    border: 3px solid #129432;
+    color: #129432;
+}
+
+
+.stack-cell {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    width: 98%;
+    margin: 2px;
+    padding: 0px;
+    color: #666;
+    border: 2px solid #2b385c;
+    background-color: #ffffff;
+    border-right: 0px;
+}
+
+.stack-word-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0px;
+}
+.stack-word {
+    border-bottom: 1px solid #b3b3b3;
+    border-right: 2px solid #2b385c;
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+    text-align: left;
+    background-color: #a9b9de;
+}
+
+.function-frame:first-child  .stack-word {
+    background-color: #b3e6b3;
+}
+
+
+.address {
+    /*monospace font*/
+    font: 0.9em monospace;
+    color: #555;
+    position: relative; /* Change from absolute to relative */
+    left: -160px; /* Position the address 120px to the left of the word */
+    white-space: nowrap;
+    text-align: right;
+}
+
+.stack-word ~ .null{
+    background-color: #b3b3b3 !important; 
+    border-right: 3px dotted #2b385c;
+    height: 1;
+}
+
+.null{
+    background-color: #b3b3b3 !important;
+}
+
+
+
+.stack-word ~ .null > .address{
+    display: none;
+}
+
+.stack-word > .value{
+    font-size: 0.9em;
+    color: #555;
+    position: relative; /* Change from absolute to relative */
+    text-align: left;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.null-frame .stack-cell{
+    border: 2px solid #666
+}
+
+.cell-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background-color: #5b73b4;
+    color: #000;
+    /* box sizing */
+    border-right: 2px solid #2b385c;
+    font-size: 0.8em;
+    overflow-x: hidden;
+    margin: 0px;
+    z-index: 1000;
+}
+.word-note {
+    font-style: italic;
+    color: red;
+    position: absolute;
+    left: 375px; /* Adjust this value based on your layout */
+    white-space: nowrap;
+    text-align: left;
+}
+.word-note::before {
+    content: '←';
+    margin-right: 5px;
+}
+
+
+.stack {
+    max-width: 400px;
+    margin-left: 100px;
+    background-color: #e4e2e2;
+    padding: 5px ;
+    border-radius: 5px;
+    border: 1px solid #666;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+.pointer{
+    display: none;
+}
+.end-of-stack {
+    background-color: #b3b3b3;
+    height: 1px;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: center; /* Center the content */
+    align-items: center; /* Center the content vertically */
+    position: relative;
+}
+
+.end-of-stack .address {
+    color: #555;
+    position: relative;
+    left: -245px;
+    top: 2px;
+}
+
+.arg-mark{
+    background-color: #30b652;
+    border: 2px solid #147d2e;
+    color: #ffffff;
+    display: flex;
+    justify-content: center; /* Center the content */
+    align-items: center; /* Center the content vertically */
+    position: relative;
+    right: -50px;
+    font: 0.8em monospace;
+    text-align: left;
+
+}
+
+
+.hidden{
+    display: none;
+}
