@@ -1,0 +1,109 @@
+# fies
+
+下の方に日本語の説明があります
+
+## Overview
+- A tool to easily read and write json files, YAML files, pickle files, binary files, csv files and plain text files.
+
+## Usage
+```python
+import fies
+
+# Save json file
+fies["./test.json"] = {"hoge": 23, "dummy_data": "fuga"}
+
+# Read json file
+print(fies["./test.json"])	# -> {'hoge': 23, 'dummy_data': 'fuga'}
+
+# Save plain text file
+fies["./test.txt"] = "hogehoge"
+
+# Read plain text file
+print(fies["./test.txt"])	# -> hogehoge
+
+# Save pickle file
+fies["./test.pickle"] = [("hoge", 23), 5.7]
+
+# Read pickle file
+print(fies["./test.pickle"])	# -> [('hoge', 23), 5.7]
+
+# Save csv file
+fies["./test.csv"] = [
+	["hoge", "fuga"],
+	[23, True],	# Numbers and bool types will be automatically converted to strings.
+	['Hey, "Escape" man!\n']	# Any line breaks, commas, or double quotation marks will be automatically escaped.
+]
+
+# Save YAML file
+fies["./test.yml", "yaml"] = {"hoge": {"fuga": 13, 77: [1,2]}}
+
+# Checking if a file exists
+print("test.pickle" in fies)	# -> True
+print("hoge.txt" in fies["input_dir"])	# -> True
+```
+
+## Advanced usage
+```python
+# Save binary file
+fies["./test.bin", "binary"] = b"hoge"
+
+# format-specified save
+fies["./test.myext", "json"] = {"hoge": 23, "dummy_data": "fuga"}
+
+# Recursive Enumeration of Files (Returns a list of absolute paths)
+print(fies["./input_dir/"].all())
+print(fies["./input_dir/"].rec())	# This notation works the same as above
+```
+
+## 概要
+- jsonファイル, YAMLファイル, pickleファイル, バイナリファイル, csvファイル, プレーンテキストのファイルを簡単に読み書きできるツールです。
+
+## 使い方
+```python
+import fies
+
+# jsonファイル保存
+fies["./test.json"] = {"hoge": 23, "dummy_data": "fuga"}
+
+# jsonファイル読み込み
+print(fies["./test.json"])	# -> {'hoge': 23, 'dummy_data': 'fuga'}
+
+# プレーンテキストファイル書き出し
+fies["./test.txt"] = "hogehoge"
+
+# プレーンテキストファイル読み込み
+print(fies["./test.txt"])	# -> hogehoge
+
+# pickleファイル書き出し
+fies["./test.pickle"] = [("hoge", 23), 5.7]
+
+# pickleファイル読み込み
+print(fies["./test.pickle"])	# -> [('hoge', 23), 5.7]
+
+# csvファイル書き出し
+fies["./test.csv"] = [
+	["hoge", "fuga"],
+	[23, True],	# 数値や真理値型のものは文字列に変換される
+	['Hey, "Escape" man!\n']	# 改行やカンマ、ダブルクオーテーションがある場合は自動的にエスケープされる
+]
+
+# yamlファイル書き出し
+fies["./test.yml", "yaml"] = {"hoge": {"fuga": 13, 77: [1,2]}}
+
+# ファイルの存在確認
+print("test.pickle" in fies)	# -> True
+print("hoge.txt" in fies["input_dir"])	# -> True
+```
+
+## 発展的な使い方
+```python
+# バイナリファイル書き出し
+fies["./test.bin", "binary"] = b"hoge"
+
+# フォーマット指定書き出し
+fies["./test.myext", "json"] = {"hoge": 23, "dummy_data": "fuga"}
+
+# ファイルの再帰的列挙 (絶対パスのリストが返る)
+print(fies["./input_dir/"].all())
+print(fies["./input_dir/"].rec())	# この書き方でも上記と同様
+```
