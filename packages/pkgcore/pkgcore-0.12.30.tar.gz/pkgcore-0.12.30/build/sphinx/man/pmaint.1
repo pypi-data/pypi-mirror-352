@@ -1,0 +1,330 @@
+.\" Man page generated from reStructuredText.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "PMAINT" "1" "Jun 02, 2025" "0.12.30" "pkgcore"
+.SH NAME
+pmaint \- Wrapper for running commandline scripts.
+.SH SYNOPSIS
+.sp
+pmaint [\-h] [\-\-version] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [\-\-config CONFIG_PATH] {sync,copy,regen,env\-update,eclass} ...
+.SH BASE OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \X'tty: link https://docs.python.org/3/using/cmdline.html#cmdoption-version'\fI\%\-\-version\fP\X'tty: link'
+Show this program\(aqs version information and exit.
+.sp
+When running from within a git repo or a version
+installed from git the latest commit hash and date will
+be shown.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SH CONFIG OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-\-config CONFIG_PATH\fP
+The path to a custom pkgcore config file or portage
+config directory can be given to override loading the
+default system config.
+.sp
+Alternatively, an argument of \(aqfalse\(aq or \(aqno\(aq will skip
+loading the system config entirely if one exists.
+.UNINDENT
+.SH SUBCOMMANDS
+.sp
+general system maintenance
+.SS pmaint sync \- synchronize a local repository with its defined remote
+.SS Synopsis
+.sp
+pmaint sync [\-h] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [\-f] [repo ...]
+.SS Positional Arguments
+.INDENT 0.0
+.TP
+.B \fBrepo\fP
+repo(s) to sync
+.UNINDENT
+.SS Options
+.INDENT 0.0
+.TP
+.B \fB\-f, \-\-force\fP
+force syncing to occur regardless of staleness checks
+.UNINDENT
+.SS Base Options
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SS pmaint copy \- copy binpkgs between repos; primarily useful for quickpkging a livefs pkg
+.SS Synopsis
+.sp
+pmaint copy [\-\-domain DOMAIN] [\-h] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [\-s SOURCE_REPO] [\-i] target_repo query [query ...]
+.SS Positional Arguments
+.INDENT 0.0
+.TP
+.B \fBtarget_repo\fP
+repository to add packages to
+.TP
+.B \fBquery\fP
+packages matching any of these restrictions will be selected for copying
+.UNINDENT
+.SS Config Options
+.INDENT 0.0
+.TP
+.B \fB\-\-domain DOMAIN\fP
+custom pkgcore domain to use for this operation
+.UNINDENT
+.SS Base Options
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SS Subcommand Options
+.INDENT 0.0
+.TP
+.B \fB\-s, \-\-source\-repo SOURCE_REPO\fP
+copy strictly from the supplied repository; else it copies from wherever a match is found
+.TP
+.B \fB\-i, \-\-ignore\-existing\fP
+if a matching pkg already exists in the target, don\(aqt update it
+.UNINDENT
+.SS pmaint regen \- regenerate repository caches
+.SS Synopsis
+.sp
+pmaint regen [\-\-domain DOMAIN] [\-h] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [\-\-disable\-eclass\-caching] [\-t THREADS] [\-\-force] [\-\-dir CACHE_DIR] [\-\-rsync] [\-\-use\-local\-desc] [\-\-pkg\-desc\-index] [repo ...]
+.SS Positional Arguments
+.INDENT 0.0
+.TP
+.B \fBrepo\fP
+repo(s) to regenerate caches for
+.UNINDENT
+.SS Config Options
+.INDENT 0.0
+.TP
+.B \fB\-\-domain DOMAIN\fP
+custom pkgcore domain to use for this operation
+.UNINDENT
+.SS Base Options
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SS Subcommand Options
+.INDENT 0.0
+.TP
+.B \fB\-\-disable\-eclass\-caching\fP
+.INDENT 7.0
+.TP
+.B For regen operation, pkgcore internally turns on an optimization that
+caches eclasses into individual functions thus parsing the eclass only
+twice max per EBD processor. Disabling this optimization via this
+option results in ~2x slower regeneration. Disable it only if you
+suspect the optimization is somehow causing issues.
+.UNINDENT
+.TP
+.B \fB\-t, \-\-threads THREADS\fP
+Number of threads to use for regeneration, defaults to using all
+available processors.
+.TP
+.B \fB\-\-force\fP
+force regeneration to occur regardless of staleness checks or repo settings
+.TP
+.B \fB\-\-dir CACHE_DIR\fP
+use separate directory to store repository caches
+.TP
+.B \fB\-\-rsync\fP
+perform actions necessary for rsync repos (update metadata/timestamp.chk)
+.TP
+.B \fB\-\-use\-local\-desc\fP
+update local USE flag description cache (profiles/use.local.desc)
+.TP
+.B \fB\-\-pkg\-desc\-index\fP
+update package description cache (metadata/pkg_desc_index)
+.UNINDENT
+.SS pmaint env\-update \- update env.d and ldconfig
+.SS Synopsis
+.sp
+pmaint env\-update [\-\-domain DOMAIN] [\-h] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [\-\-skip\-ldconfig]
+.SS Config Options
+.INDENT 0.0
+.TP
+.B \fB\-\-domain DOMAIN\fP
+custom pkgcore domain to use for this operation
+.UNINDENT
+.SS Base Options
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SS Subcommand Options
+.INDENT 0.0
+.TP
+.B \fB\-\-skip\-ldconfig\fP
+do not update etc/ldso.conf and ld.so.cache
+.UNINDENT
+.SS pmaint eclass \- generate eclass docs
+.SS Synopsis
+.sp
+pmaint eclass [\-\-domain DOMAIN] [\-h] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [\-\-dir OUTPUT_DIR] [\-o OUTPUT_FORMAT] [\-f {rst,man,html,devbook}] [\-r REPO] [eclasses ...]
+.SS Positional Arguments
+.INDENT 0.0
+.TP
+.B \fBeclasses\fP
+eclasses to target
+.UNINDENT
+.SS Config Options
+.INDENT 0.0
+.TP
+.B \fB\-\-domain DOMAIN\fP
+custom pkgcore domain to use for this operation
+.UNINDENT
+.SS Base Options
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SS Subcommand Options
+.INDENT 0.0
+.TP
+.B \fB\-\-dir OUTPUT_DIR\fP
+output directory
+.TP
+.B \fB\-o, \-\-output OUTPUT_FORMAT\fP
+Output file name format. Defaults to \fB{eclass}.eclass.{format}\fP\&. You
+can use \fB{eclass}\fP and \fB{format}\fP placeholders to customize the
+output file name. The filename can have path separator, for example:
+\fB{eclass}/{eclass}.eclass.{format}\fP\&.
+.TP
+.B \fB\-f, \-\-format {rst,man,html,devbook}\fP
+output format
+.TP
+.B \fB\-r, \-\-repo REPO\fP
+Target repository to search for eclasses. If no repo is specified the default repo is used.
+.UNINDENT
+.SH AUTHOR
+Michał Górny <mgorny@gentoo.org>, Tim Harder <radhermit@gmail.com>, Brian Harring <ferringb@gmail.com>, Arthur Zamarin <arthurzam@gentoo.org>, Marien Zwart
+.SH COPYRIGHT
+2006-2022, pkgcore contributors
+.\" Generated by docutils manpage writer.
+.

@@ -1,0 +1,330 @@
+.\" Man page generated from reStructuredText.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "PMERGE" "1" "Jun 02, 2025" "0.12.30" "pkgcore"
+.SH NAME
+pmerge \- Wrapper for running commandline scripts.
+.SH SYNOPSIS
+.sp
+pmerge [\-h] [\-\-version] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [\-\-config CONFIG_PATH] [\-\-domain DOMAIN] [\-u | \-d | \-C | \-\-clean | \-\-list\-sets] [\-p] [\-a] [\-f] [\-1] [\-D] [\-N] [\-i] [\-\-with\-bdeps] [\-O] [\-o] [\-n] [\-b] [\-k] [\-K] [\-S] [\-e] [\-x TARGET[,TARGET,...]] [\-\-ignore\-failures] [\-\-force] [\-\-preload\-vdb\-state] [\-\-quiet\-repo\-display] [\-F FORMATTER] [\-\-pdb\-intercept TARGET[,TARGET,...]] [\-\-disable\-resolver\-target\-sorting] [TARGET ...]
+.SH DESCRIPTION
+.sp
+pmerge is the main command\-line utility for merging and unmerging packages on a
+system. It provides an interface to install, update, and uninstall ebuilds from
+source or binary packages.
+.SH PORTAGE COMPATIBILITY
+.sp
+With regards to portage compatibility, pmerge provides much of the same
+functionality that \fBemerge\fP(1) does. In general, it should be possible to use
+both pmerge and emerge on the same system in a sane fashion. For example,
+pmerge can be used to install packages and then emerge should be able to
+upgrade or uninstall them, or vice versa. Also, binary packages created using
+pmerge should be able to be installed properly using emerge. Any major
+compatibility issue that arises when trying to use both package managers is
+probably a bug and should be reported.
+.sp
+In terms of option naming, pmerge tries to remain somewhat compatible to
+portage so running \fBpmerge \-1av\fP should work the same as \fBemerge \-1av\fP when
+using portage. However, pmerge doesn\(aqt implement nearly the same amount of
+options that portage provides so many of the more obscure ones are missing. In
+addition, pmerge defaults to a portage compatible output format that closely
+matches the default colors and output structure that portage uses.
+.SH POSITIONAL ARGUMENTS
+.INDENT 0.0
+.TP
+.B \fBTARGET\fP
+Various target arguments are supported including the following:
+.INDENT 7.0
+.TP
+.B atom
+An extended atom syntax is supported, see the related section
+in pkgcore(5).
+.TP
+.B package set
+Used to define lists of packages, the syntax used for these is
+@pkgset. For example, the @system and @world package sets are
+supported.
+.TP
+.B extended globbing
+Globbing package names or atoms allows for use cases such as
+\fB\(aqfar*\(aq\fP (merge every package starting with \(aqfar\(aq),
+\fB\(aqdev\-python/*::gentoo\(aq\fP (merge every package in the dev\-python
+category from the gentoo repo), or even \(aq*\(aq (merge everything).
+.UNINDENT
+.sp
+Also, the target \(aq\-\(aq allows targets to be read from standard input.
+.UNINDENT
+.SH BASE OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \X'tty: link https://docs.python.org/3/using/cmdline.html#cmdoption-version'\fI\%\-\-version\fP\X'tty: link'
+Show this program\(aqs version information and exit.
+.sp
+When running from within a git repo or a version
+installed from git the latest commit hash and date will
+be shown.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SH CONFIG OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-\-config CONFIG_PATH\fP
+The path to a custom pkgcore config file or portage
+config directory can be given to override loading the
+default system config.
+.sp
+Alternatively, an argument of \(aqfalse\(aq or \(aqno\(aq will skip
+loading the system config entirely if one exists.
+.TP
+.B \fB\-\-domain DOMAIN\fP
+custom pkgcore domain to use for this operation
+.UNINDENT
+.SH OPERATIONS
+.INDENT 0.0
+.TP
+.B \fB\-u, \-\-upgrade\fP
+Try to upgrade specified targets to the latest visible version. Note
+that altered package visibility due to keywording or masking can often
+hide the latest versions of packages, especially for stable
+configurations.
+.TP
+.B \fB\-d, \-\-downgrade\fP
+Try to downgrade specified targets to a lower visible version
+compared to what\(aqs currently installed.
+.sp
+Useful for reverting to the previously installed package version;
+however, note that the \-O/\-\-nodeps option is generally used with this
+otherwise lots of downgrades will be pulled into the resolved deptree.
+.TP
+.B \fB\-C, \-\-unmerge\fP
+Target packages for unmerging from the system.
+.sp
+WARNING: This does not ask for user confirmation for any targets so
+it\(aqs possible to quickly break a system.
+.TP
+.B \fB\-\-clean\fP
+Remove installed packages that aren\(aqt referenced by any target packages
+or sets. This defaults to using the world and system sets if no targets
+are specified.
+.sp
+Use with \fIcaution\fP, this option used incorrectly can render your system
+unusable. Note that this implies \-\-deep.
+.TP
+.B \fB\-\-list\-sets\fP
+display the list of available package sets
+.UNINDENT
+.SH RESOLVER OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-p, \-\-pretend\fP
+Resolve package dependencies and display the results without performing
+any merges.
+.TP
+.B \fB\-a, \-\-ask\fP
+Perform the dependency resolution, but ask for user confirmation before
+beginning the fetch/build/merge process. The choice defaults to yes so
+pressing the \(dqEnter\(dq key will trigger acceptance.
+.TP
+.B \fB\-f, \-\-fetchonly\fP
+Only perform fetching of all targets from SRC_URI based on the current
+USE configuration.
+.TP
+.B \fB\-1, \-\-oneshot\fP
+Build and merge packages normally, but do not add any targets to the
+world file. Note that this is forcibly enabled if a package set is
+specified.
+.TP
+.B \fB\-D, \-\-deep\fP
+Force dependency resolution across the entire dependency tree for all
+specified targets.
+.TP
+.B \fB\-N, \-\-newuse\fP
+Include installed packages with USE flag changes in the list of viable
+targets for rebuilding.
+.sp
+USE flag changes include flags being added, removed, enabled, or
+disabled with regards to a package. USE flag changes can occur via
+ebuild alterations, profile updates, or local configuration
+modifications.
+.sp
+Note that this option implies \-1/\-\-oneshot.
+.TP
+.B \fB\-i, \-\-ignore\-cycles\fP
+Ignore dependency cycles if they\(aqre found to be unbreakable; for
+example: a depends on b, and b depends on a, with neither built.
+.TP
+.B \fB\-\-with\-bdeps\fP
+Pull in build time dependencies for built packages during dependency
+resolution, by default they\(aqre ignored.
+.TP
+.B \fB\-O, \-\-nodeps\fP
+Build and merge packages without resolving any dependencies.
+.TP
+.B \fB\-o, \-\-onlydeps\fP
+Build and merge only the dependencies for the packages specified.
+.TP
+.B \fB\-n, \-\-noreplace\fP
+Skip packages that are already installed. By default when running
+without this option, any specified target packages will be remerged
+regardless of if they are already installed.
+.TP
+.B \fB\-b, \-\-buildpkg\fP
+Force binary packages to be built for all merged packages.
+.TP
+.B \fB\-k, \-\-usepkg\fP
+Binary packages are preferred over ebuilds when performing dependency
+resolution.
+.TP
+.B \fB\-K, \-\-usepkgonly\fP
+Only binary packages are considered when performing dependency
+resolution.
+.TP
+.B \fB\-S, \-\-source\-only\fP
+Only ebuilds are considered when performing dependency
+resolution.
+.TP
+.B \fB\-e, \-\-empty\fP
+Force all targets and their dependencies to be rebuilt.
+.TP
+.B \fB\-x, \-\-exclude TARGET[,TARGET,...]\fP
+Comma\-separated list of targets to pretend are installed.
+.sp
+This supports extended package globbing, e.g. \fB\(aqdev\-python/*\(aq\fP
+equates to faking the entire dev\-python category is installed.
+.TP
+.B \fB\-\-ignore\-failures\fP
+Skip failures during the following phases: sanity checks
+(pkg_pretend), fetching, dep resolution, and (un)merging.
+.TP
+.B \fB\-\-force\fP
+Force (un)merging on the livefs (vdb), regardless of if it\(aqs frozen.
+.TP
+.B \fB\-\-preload\-vdb\-state\fP
+Preload the installed package database which causes the resolver to
+work with a complete graph, thus disallowing actions that conflict with
+installed packages. If disabled, it\(aqs possible for the requested action
+to conflict with already installed dependencies that aren\(aqt involved in
+the graph of the requested operation.
+.UNINDENT
+.SH OUTPUT OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-\-quiet\-repo\-display\fP
+In the package merge list display, suppress ::repo output and instead
+use index numbers to indicate which repos packages come from.
+.TP
+.B \fB\-F, \-\-formatter FORMATTER\fP
+Select an output formatter to use for text formatting of \-\-pretend or
+\-\-ask output, currently available formatters include the following:
+basic, pkgcore, portage, and portage\-verbose.
+.sp
+The basic formatter is the nearest to simple text output and is
+intended for scripting while the portage/portage\-verbose formatter
+closely emulates portage output and is used by default.
+.UNINDENT
+.SH RESOLVER DEBUGGING OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-\-pdb\-intercept TARGET[,TARGET,...]\fP
+Comma\-seperated list of targets to trigger a pdb.set_trace() within resolver code for investigation.
+.sp
+This is primarily used for debugging resolver implementation, being able to walk through
+what it has decided and why.
+.TP
+.B \fB\-\-disable\-resolver\-target\-sorting\fP
+Resolution of package dependencies can grossly vary depending on which nodes you start from.
+.sp
+Pmerge by default sorts the targets it\(aqs asked to resolve; this in turn stabilizes the resolvers
+output.  This option allows disabling that sort.
+.sp
+This should be only used if you\(aqre debugging the resolver and wish to effectively fuzz the resolvers
+ability to find solutions; for a properly working resolver if a solution can be found, it \fImust\fP
+be found.  If a solution can\(aqt be found, then this flag should also result in no solution found.
+.sp
+Any deviation from this is a bug in the resolver and should be reported.
+.UNINDENT
+.SH EXAMPLE USAGE
+.sp
+Merge pkgcore from the gentoo repo:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+pmerge sys\-apps/pkgcore::gentoo
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Output a simple list of package atoms that would be updated for a global
+update:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+pmerge \-uDp \-\-formatter basic @world
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Force new binpkgs to be built for the entire system set using a custom
+configuration directory:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+pmerge \-uDSeb \-\-config /home/foo/portage @system
+.EE
+.UNINDENT
+.UNINDENT
+.SH SEE ALSO
+.sp
+\fBemerge\fP(1)
+.SH AUTHOR
+Michał Górny <mgorny@gentoo.org>, Tim Harder <radhermit@gmail.com>, Brian Harring <ferringb@gmail.com>, Arthur Zamarin <arthurzam@gentoo.org>, Marien Zwart
+.SH COPYRIGHT
+2006-2022, pkgcore contributors
+.\" Generated by docutils manpage writer.
+.

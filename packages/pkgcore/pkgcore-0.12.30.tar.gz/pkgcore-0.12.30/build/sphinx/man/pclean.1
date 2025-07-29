@@ -1,0 +1,347 @@
+.\" Man page generated from reStructuredText.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "PCLEAN" "1" "Jun 02, 2025" "0.12.30" "pkgcore"
+.SH NAME
+pclean \- Wrapper for running commandline scripts.
+.SH SYNOPSIS
+.sp
+pclean [\-h] [\-\-version] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [\-\-config CONFIG_PATH] [\-\-domain DOMAIN] {config,dist,pkg,tmp} ...
+.SH BASE OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \X'tty: link https://docs.python.org/3/using/cmdline.html#cmdoption-version'\fI\%\-\-version\fP\X'tty: link'
+Show this program\(aqs version information and exit.
+.sp
+When running from within a git repo or a version
+installed from git the latest commit hash and date will
+be shown.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SH CONFIG OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-\-config CONFIG_PATH\fP
+The path to a custom pkgcore config file or portage
+config directory can be given to override loading the
+default system config.
+.sp
+Alternatively, an argument of \(aqfalse\(aq or \(aqno\(aq will skip
+loading the system config entirely if one exists.
+.TP
+.B \fB\-\-domain DOMAIN\fP
+custom pkgcore domain to use for this operation
+.UNINDENT
+.SH SUBCOMMANDS
+.sp
+cleaning applets
+.SS pclean config \- remove config file settings
+.SS Synopsis
+.sp
+pclean config [\-p] [\-x EXCLUDE] [\-X EXCLUDE_FILE] [\-S PKGSET] [\-h] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [TARGET ...]
+.SS Generic Cleaning Options
+.INDENT 0.0
+.TP
+.B \fBTARGET\fP
+packages to target for cleaning
+.TP
+.B \fB\-p, \-\-pretend\fP
+dry run without performing any changes
+.TP
+.B \fB\-x, \-\-exclude EXCLUDE\fP
+list of packages to exclude from removal
+.TP
+.B \fB\-X, \-\-exclude\-file EXCLUDE_FILE\fP
+path to exclusion file
+.TP
+.B \fB\-S, \-\-pkgsets PKGSET\fP
+list of pkgsets to include or exclude from removal
+.UNINDENT
+.SS Base Options
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SS pclean dist \- remove distfiles
+.SS Synopsis
+.sp
+pclean dist [\-p] [\-x EXCLUDE] [\-X EXCLUDE_FILE] [\-S PKGSET] [\-m TIME] [\-s SIZE] [\-I] [\-E] [\-f] [\-r REPO] [\-h] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [TARGET ...]
+.SS Generic Cleaning Options
+.INDENT 0.0
+.TP
+.B \fBTARGET\fP
+packages to target for cleaning
+.TP
+.B \fB\-p, \-\-pretend\fP
+dry run without performing any changes
+.TP
+.B \fB\-x, \-\-exclude EXCLUDE\fP
+list of packages to exclude from removal
+.TP
+.B \fB\-X, \-\-exclude\-file EXCLUDE_FILE\fP
+path to exclusion file
+.TP
+.B \fB\-S, \-\-pkgsets PKGSET\fP
+list of pkgsets to include or exclude from removal
+.UNINDENT
+.SS File Cleaning Options
+.INDENT 0.0
+.TP
+.B \fB\-m, \-\-modified TIME\fP
+Don\(aqt remove files that have been modified since a given time. For
+example, to skip files newer than a year use \(dq1y\(dq as an argument to this
+option.  this option.
+.sp
+Supported units are y, m, w, and d, and s representing years, months,
+weeks, days, and seconds, respectively.
+.TP
+.B \fB\-s, \-\-size SIZE\fP
+Don\(aqt remove files bigger than a given size.  For example, to skip
+files larger than 100 megabytes use \(dq100M\(dq as an argument to this
+option.
+.sp
+Supported units are B, K, M, and G representing bytes, kilobytes,
+megabytes, and gigabytes, respectively.
+.UNINDENT
+.SS Repo Cleaning Options
+.INDENT 0.0
+.TP
+.B \fB\-I, \-\-installed\fP
+skip files for packages that are currently installed
+.TP
+.B \fB\-E, \-\-exists\fP
+skip files for packages that relate to ebuilds in the tree
+.TP
+.B \fB\-f, \-\-fetch\-restricted\fP
+skip fetch\-restricted files
+.TP
+.B \fB\-r, \-\-repo REPO\fP
+Target repository to search for matches. If no repo is specified all
+relevant repos are used.
+.UNINDENT
+.SS Base Options
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SS pclean pkg \- remove binpkgs
+.SS Synopsis
+.sp
+pclean pkg [\-p] [\-x EXCLUDE] [\-X EXCLUDE_FILE] [\-S PKGSET] [\-m TIME] [\-s SIZE] [\-I] [\-E] [\-f] [\-r REPO] [\-\-source\-repo REPO] [\-b] [\-c CHANGED] [\-h] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [TARGET ...]
+.SS Generic Cleaning Options
+.INDENT 0.0
+.TP
+.B \fBTARGET\fP
+packages to target for cleaning
+.TP
+.B \fB\-p, \-\-pretend\fP
+dry run without performing any changes
+.TP
+.B \fB\-x, \-\-exclude EXCLUDE\fP
+list of packages to exclude from removal
+.TP
+.B \fB\-X, \-\-exclude\-file EXCLUDE_FILE\fP
+path to exclusion file
+.TP
+.B \fB\-S, \-\-pkgsets PKGSET\fP
+list of pkgsets to include or exclude from removal
+.UNINDENT
+.SS File Cleaning Options
+.INDENT 0.0
+.TP
+.B \fB\-m, \-\-modified TIME\fP
+Don\(aqt remove files that have been modified since a given time. For
+example, to skip files newer than a year use \(dq1y\(dq as an argument to this
+option.  this option.
+.sp
+Supported units are y, m, w, and d, and s representing years, months,
+weeks, days, and seconds, respectively.
+.TP
+.B \fB\-s, \-\-size SIZE\fP
+Don\(aqt remove files bigger than a given size.  For example, to skip
+files larger than 100 megabytes use \(dq100M\(dq as an argument to this
+option.
+.sp
+Supported units are B, K, M, and G representing bytes, kilobytes,
+megabytes, and gigabytes, respectively.
+.UNINDENT
+.SS Repo Cleaning Options
+.INDENT 0.0
+.TP
+.B \fB\-I, \-\-installed\fP
+skip files for packages that are currently installed
+.TP
+.B \fB\-E, \-\-exists\fP
+skip files for packages that relate to ebuilds in the tree
+.TP
+.B \fB\-f, \-\-fetch\-restricted\fP
+skip fetch\-restricted files
+.TP
+.B \fB\-r, \-\-repo REPO\fP
+Target repository to search for matches. If no repo is specified all
+relevant repos are used.
+.UNINDENT
+.SS Binpkg Cleaning Options
+.INDENT 0.0
+.TP
+.B \fB\-\-source\-repo REPO\fP
+remove binpkgs with matching source repo
+.TP
+.B \fB\-b, \-\-bindist\fP
+only remove binpkgs that restrict distribution
+.TP
+.B \fB\-c, \-\-changed CHANGED\fP
+comma separated list of package attributes to check for ebuild changes
+.UNINDENT
+.SS Base Options
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SS pclean tmp \- remove tmpdir entries
+.SS Synopsis
+.sp
+pclean tmp [\-p] [\-x EXCLUDE] [\-X EXCLUDE_FILE] [\-S PKGSET] [\-h] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [\-a] [TARGET ...]
+.SS Generic Cleaning Options
+.INDENT 0.0
+.TP
+.B \fBTARGET\fP
+packages to target for cleaning
+.TP
+.B \fB\-p, \-\-pretend\fP
+dry run without performing any changes
+.TP
+.B \fB\-x, \-\-exclude EXCLUDE\fP
+list of packages to exclude from removal
+.TP
+.B \fB\-X, \-\-exclude\-file EXCLUDE_FILE\fP
+path to exclusion file
+.TP
+.B \fB\-S, \-\-pkgsets PKGSET\fP
+list of pkgsets to include or exclude from removal
+.UNINDENT
+.SS Base Options
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SS Tmpfile Options
+.INDENT 0.0
+.TP
+.B \fB\-a, \-\-all\fP
+Force the entire tmpdir to be wiped. Note that this overrides any
+restrictions that have been specified.
+.UNINDENT
+.SH AUTHOR
+Michał Górny <mgorny@gentoo.org>, Tim Harder <radhermit@gmail.com>, Brian Harring <ferringb@gmail.com>, Arthur Zamarin <arthurzam@gentoo.org>, Marien Zwart
+.SH COPYRIGHT
+2006-2022, pkgcore contributors
+.\" Generated by docutils manpage writer.
+.

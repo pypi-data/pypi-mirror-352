@@ -1,0 +1,461 @@
+'\" t
+.\" Man page generated from reStructuredText.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "PQUERY" "1" "Jun 02, 2025" "0.12.30" "pkgcore"
+.SH NAME
+pquery \- Wrapper for running commandline scripts.
+.SH SYNOPSIS
+.sp
+pquery [\-h] [\-\-version] [\-\-debug] [\-q] [\-v] [\-\-color BOOLEAN] [\-\-config CONFIG_PATH] [\-\-domain DOMAIN] [\-\-raw] [\-\-unfiltered] [\-\-virtuals {only,disable}] [\-r REPO | \-E | \-B | \-I | \-A] [\-\-all] [\-\-has\-use has_use] [\-\-license license] [\-\-live] [\-\-non\-live] [\-\-revdep REVDEP] [\-\-revdep\-pkgs REVDEP_PKGS] [\-\-restrict\-revdep restrict_revdep] [\-\-restrict\-revdep\-pkgs restrict_revdep_pkgs] [\-S description] [\-\-eapi eapi] [\-\-owns owns] [\-\-owns\-re owns_re] [\-\-maintainer maintainer] [\-\-maintainer\-name maintainer_name] [\-\-maintainer\-email maintainer_email] [\-\-environment\-re environment_re] [\-\-pkgset pkgset] [\-u] [\-1] [\-a] [\-\-cpv] [\-R] [\-\-slot] [\-n | \-\-min | \-\-max] [\-\-blame] [\-\-size] [\-\-contents] [\-\-highlight\-dep HIGHLIGHT_DEP] [\-\-print\-revdep PRINT_REVDEP] [\-F format] [\-\-attr attribute] [\-\-force\-attr attribute] [\-\-one\-attr attribute | \-\-force\-one\-attr attribute] [TARGET ...]
+.SH DESCRIPTION
+.sp
+pquery is used to extract various kinds of information about either installed
+or uninstalled packages. From an overall usage standpoint it is similar to
+equery, but it can do things equery cannot do and is a bit more flexible.
+.sp
+What pquery does is select packages from one or more repos that match
+a boolean combination of restrictions, then print selected information about
+those packages. It is important to understand that the information printing and
+repo selection options are almost completely separate from the
+restriction options. The only exception to that is that restrictions on
+contents automatically select the vdb (installed packages) repo, since
+running them on source repos makes no sense.
+.SH BASE OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-h, \-\-help\fP
+Show this help message and exit. To get more
+information see the related man page.
+.TP
+.B \X'tty: link https://docs.python.org/3/using/cmdline.html#cmdoption-version'\fI\%\-\-version\fP\X'tty: link'
+Show this program\(aqs version information and exit.
+.sp
+When running from within a git repo or a version
+installed from git the latest commit hash and date will
+be shown.
+.TP
+.B \fB\-\-debug\fP
+Enable debug checks and show verbose debug output.
+.TP
+.B \fB\-q, \-\-quiet\fP
+Suppress non\-error, informational messages.
+.TP
+.B \fB\-v, \-\-verbose\fP
+Increase the verbosity of various output.
+.TP
+.B \fB\-\-color BOOLEAN\fP
+Toggle colored output support. This can be used to forcibly
+enable color support when piping output or other situations
+where stdout is not a tty.
+.UNINDENT
+.SH CONFIG OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-\-config CONFIG_PATH\fP
+The path to a custom pkgcore config file or portage
+config directory can be given to override loading the
+default system config.
+.sp
+Alternatively, an argument of \(aqfalse\(aq or \(aqno\(aq will skip
+loading the system config entirely if one exists.
+.TP
+.B \fB\-\-domain DOMAIN\fP
+custom pkgcore domain to use for this operation
+.UNINDENT
+.SH REPOSITORY MATCHING OPTIONS
+.sp
+options controlling which repos to inspect
+.INDENT 0.0
+.TP
+.B \fB\-\-raw\fP
+Disable configuration filtering that forces raw dependencies to be
+used, rather than the dependencies rendered via your USE configuration.
+Primarily useful for people who need to look under the hood\- ebuild
+devs, PM tool authors, etc. Note this option ignores \-\-domain if is
+specified.
+.TP
+.B \fB\-\-unfiltered\fP
+Disable all package filtering mechanisms such as ACCEPT_KEYWORDS,
+ACCEPT_LICENSE, and package.mask.
+.TP
+.B \fB\-\-virtuals {only,disable}\fP
+This option requires one of two arguments, either \(aqonly\(aq or \(aqdisable\(aq,
+which causes only virtuals to be matched or disables virtuals matching
+entirely, respectively.
+.sp
+By default, virtuals are included during matching.
+.TP
+.B \fB\-r, \-\-repo REPO\fP
+Select the repo to search in for matches. This includes all the
+configured repos in repos.conf as well as the special keywords binpkg,
+provided, and vdb that search the configured binary package repo,
+package.provided, and installed packages, respectively.
+.sp
+By default, all configured repos except the vdb will be searched when
+this option isn\(aqt specified.
+.TP
+.B \fB\-E, \-\-ebuild\-repos\fP
+Search within all ebuild repos, all non\-ebuild repos are skipped.
+.TP
+.B \fB\-B, \-\-binary\-repos\fP
+Search within all binary repos, all non\-binary repos are skipped.
+.TP
+.B \fB\-I, \-\-installed\fP
+Search within installed packages (alias for \(aq\-\-repo vdb\(aq).
+.TP
+.B \fB\-A, \-\-all\-repos\fP
+Search all available repos including the vdb.
+.UNINDENT
+.SH PACKAGE MATCHING OPTIONS
+.sp
+Each option specifies a restriction packages must match. Specifying
+the same option twice means \(dqor\(dq unless stated otherwise. Specifying
+multiple types of restrictions means \(dqand\(dq unless stated otherwise.
+.INDENT 0.0
+.TP
+.B \fBTARGET\fP
+extended atom matching of pkgs
+.TP
+.B \fB\-\-all\fP
+Match all packages which is equivalent to \(dqpquery 
+.nf
+*
+.fi
+\(dq. Note that if no
+query options are specified, this option is enabled.
+.TP
+.B \fB\-\-has\-use has_use\fP
+exact string match on a USE flag
+.TP
+.B \fB\-\-license license\fP
+exact match on a license
+.TP
+.B \fB\-\-live\fP
+match packages which are have PROPERTIES=\(dqlive\(dq
+.TP
+.B \fB\-\-non\-live\fP
+match packages which are don\(aqt have PROPERTIES=\(dqlive\(dq
+.TP
+.B \fB\-\-revdep REVDEP\fP
+An alias for \(aq\-\-restrict\-revdep atom \-\-print\-revdep atom\(aq, but note
+that \-\-print\-revdep is slow so use \-\-restrict\-revdep if you just need a
+list.
+.TP
+.B \fB\-\-revdep\-pkgs REVDEP_PKGS\fP
+An alias for \(aq\-\-restrict\-revdep\-pkgs atom \-\-print\-revdep atom\(aq, but
+note that \-\-print\-revdep is slow so use \-\-restrict\-revdep if you just
+need a list.
+.TP
+.B \fB\-\-restrict\-revdep restrict_revdep\fP
+dependency on an atom
+.TP
+.B \fB\-\-restrict\-revdep\-pkgs restrict_revdep_pkgs\fP
+dependency on pkgs that match a specific atom
+.TP
+.B \fB\-S, \-\-description description\fP
+regexp search on description and longdescription
+.TP
+.B \fB\-\-eapi eapi\fP
+match packages using a given EAPI
+.TP
+.B \fB\-\-owns owns\fP
+exact match on an owned file/dir
+.TP
+.B \fB\-\-owns\-re owns_re\fP
+like \(dqowns\(dq but using a regexp for matching
+.TP
+.B \fB\-\-maintainer maintainer\fP
+regex to search for maintainers
+.TP
+.B \fB\-\-maintainer\-name maintainer_name\fP
+comma\-separated list of maintainer name regexes to search for
+.TP
+.B \fB\-\-maintainer\-email maintainer_email\fP
+comma\-separated list of maintainer email regexes to search for
+.TP
+.B \fB\-\-environment\-re environment_re\fP
+regexp search of lines in environment.bz2
+.TP
+.B \fB\-\-pkgset pkgset\fP
+find packages that match the given package set (world for example)
+.TP
+.B \fB\-u, \-\-upgrade\fP
+match installed packages without best slotted version
+.UNINDENT
+.SH OUTPUT OPTIONS
+.INDENT 0.0
+.TP
+.B \fB\-1, \-\-first\fP
+stop when first match is found
+.TP
+.B \fB\-a, \-\-atom\fP
+Output valid package atoms, e.g. =cat/pkg\-3 instead of cat/pkg\-3.
+.sp
+Note that this option implies \-\-cpv and has no effect if used with
+\-\-no\-version.
+.TP
+.B \fB\-\-cpv\fP
+Display output in the format of \(aqcategory/package\-version\(aq which is
+done by default, this option forces the output format if another output
+option (such as \-\-contents) alters it.
+.TP
+.B \X'tty: link https://docs.python.org/3/using/cmdline.html#cmdoption-R'\fI\%\-R\fP\X'tty: link'
+print the repo of the package
+.TP
+.B \fB\-\-slot\fP
+print the slot of the package
+.TP
+.B \fB\-n, \-\-no\-version\fP
+collapse multiple matching versions together
+.TP
+.B \fB\-\-min\fP
+show only the lowest version for each package
+.TP
+.B \fB\-\-max\fP
+show only the highest version for each package
+.TP
+.B \fB\-\-blame\fP
+shorthand for \-\-attr maintainers
+.TP
+.B \fB\-\-size\fP
+display size of all files owned by the package
+.TP
+.B \fB\-\-contents\fP
+list files owned by the package
+.TP
+.B \fB\-\-highlight\-dep HIGHLIGHT_DEP\fP
+highlight dependencies matching this atom
+.TP
+.B \fB\-\-print\-revdep PRINT_REVDEP\fP
+print what condition(s) trigger a dep
+.TP
+.B \fB\-F, \-\-format format\fP
+Use the given format string to print package attributes. The format
+uses standard Python format string syntax (see \X'tty: link https://docs.python.org/3/library/string.html#formatspec'\fI\%Format Specification Mini\-Language\fP\X'tty: link' for
+details), with the all attributes of \fB\-\-attr\fP\&.
+.TP
+.B \fB\-\-attr attribute\fP
+Print the given attribute\(aqs value. This option can be specified
+multiple times.
+.sp
+Valid attributes: \fBall\fP, \fBalldepends\fP, \fBallmetadata\fP, \fBbdepend\fP, \fBcategory\fP, \fBcbuild\fP, \fBchost\fP, \fBctarget\fP, \fBdefined_phases\fP, \fBdepend\fP, \fBdescription\fP, \fBdistfiles\fP, \fBeapi\fP, \fBenvironment\fP, \fBfetchables\fP, \fBfiles\fP, \fBfullver\fP, \fBhomepage\fP, \fBidepend\fP, \fBinherited\fP, \fBiuse\fP, \fBkeywords\fP, \fBlicense\fP, \fBlongdescription\fP, \fBmaintainers\fP, \fBpackage\fP, \fBpath\fP, \fBpdepend\fP, \fBproperties\fP, \fBraw_alldepends\fP, \fBraw_bdepend\fP, \fBraw_depend\fP, \fBraw_idepend\fP, \fBraw_pdepend\fP, \fBraw_rdepend\fP, \fBrdepend\fP, \fBrepo\fP, \fBrequired_use\fP, \fBrestrict\fP, \fBrevision\fP, \fBslot\fP, \fBsource_repository\fP, \fBsubslot\fP, \fBuris\fP, \fBuse\fP, \fBversion\fP
+.TP
+.B \fB\-\-force\-attr attribute\fP
+.INDENT 7.0
+.TP
+.B Like \-\-attr but accepts any string as attribute name instead
+of only explicitly supported names.
+.UNINDENT
+.TP
+.B \fB\-\-one\-attr attribute\fP
+Print the given attribute\(aqs value, while suppressing all other output.
+All attributes of \fB\-\-attr\fP are accepted.
+.TP
+.B \fB\-\-force\-one\-attr attribute\fP
+like \-\-one\-attr but accepts any string as attribute name instead of only explicitly supported names
+.UNINDENT
+.SH USAGE
+.sp
+Another switch that could do with some extra explanation is \fB\-\-raw\fP\&.
+Specifying \fB\-\-raw\fP makes your configuration not affect the results. Example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+$ pquery \-\-attr alldepends sys\-apps/dbus \-\-max \-v
+* sys\-apps/dbus\-0.62\-r1
+    description: A message bus system, a simple way for applications to talk
+                 to each other
+    homepage: http://dbus.freedesktop.org/
+    depends: >=dev\-libs/glib\-2.6 || ( ( x11\-libs/libXt x11\-libs/libX11 )
+                 virtual/x11 ) >=x11\-libs/gtk+\-2.6 >=dev\-lang/python\-2.4
+                 >=dev\-python/pyrex\-0.9.3\-r2 >=dev\-libs/expat\-1.95.8
+                 dev\-util/pkgconfig sys\-devel/automake
+                 >=sys\-devel/autoconf\-2.59 sys\-devel/libtool
+    rdepends: >=dev\-libs/glib\-2.6 || ( ( x11\-libs/libXt x11\-libs/libX11 )
+                 virtual/x11 ) >=x11\-libs/gtk+\-2.6 >=dev\-lang/python\-2.4
+                 >=dev\-python/pyrex\-0.9.3\-r2 >=dev\-libs/expat\-1.95.8
+    post_rdepends:
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+This is the highest unmasked package on the system. Also notice there are no
+references to USE flags or qt in the dependencies. That is because qt is not in
+USE for this configuration, so those dependencies do not apply.:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+$ pquery \-\-attr alldepends sys\-apps/dbus \-\-max \-v \-\-raw
+* sys\-apps/dbus\-0.91
+    description: Meta package for D\-Bus
+    homepage: http://dbus.freedesktop.org/
+    depends:
+    rdepends: >=sys\-apps/dbus\-core\-0.91 python? (
+                 >=dev\-python/dbus\-python\-0.71 ) qt3? (
+                 >=dev\-libs/dbus\-qt3\-old\-0.70 ) gtk? (
+                 >=dev\-libs/dbus\-glib\-0.71 ) !<sys\-apps/dbus\-0.91
+    post_rdepends:
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+This version is in \fBpackage.mask\fP, and we can see the use\-conditional flags now.
+.sp
+The \fB\-\-verbose\fP or \fB\-v\fP flag tries to print human\-readable output (although
+some things like the formatting of depend strings need some improvement).
+Without \fB\-v\fP the output is usually a single line per package in a hopefully
+machine\-parseable format (usable in pipelines). There are some extras like
+\fB\-\-atom\fP meant for shell pipeline use. If you have some useful shell pipeline
+in mind that pquery\(aqs output could be better formatted for please open an issue.
+.sp
+Adding short options is planned but there are some features to add first (want
+most of the features in place to avoid name clashes).
+.SH EXAMPLES
+.TS
+box center;
+l|l|l.
+T{
+Other tool
+T}	T{
+pquery
+T}	T{
+Comments
+T}
+_
+T{
+\fBequery belongs /bin/ls\fP
+T}	T{
+\fBpquery \-\-owns /bin/ls\fP
+T}	T{
+T}
+_
+T{
+\fBequery check\fP
+T}	T{
+not implemented (yet?)
+T}	T{
+T}
+_
+T{
+\fBequery depends python\fP
+T}	T{
+\fBpquery \-I \-\-revdep dev\-lang/python\fP
+T}	T{
+omitting \fB\-I\fP makes it equivalent to \fBequery depends \-a\fP
+T}
+_
+T{
+\fBequery depgraph\fP
+T}	T{
+not implemented (yet?)
+T}	T{
+T}
+_
+T{
+\fBequery files python\fP
+T}	T{
+\fBpquery \-\-contents python\fP
+T}	T{
+\fB\-\-contents\fP is an output option, can be combined with any restriction
+T}
+_
+T{
+\fBequery hasuse python\fP
+T}	T{
+\fBpquery \-I \-\-has\-use python\fP
+T}	T{
+T}
+_
+T{
+\fBequery list python\fP
+T}	T{
+\fBpquery \-I \(aq*python*\(aq\fP
+T}	T{
+this is in ExtendedAtomSyntax
+T}
+_
+T{
+\fBequery size python\fP
+T}	T{
+\fBpquery \-\-size python\fP
+T}	T{
+T}
+_
+T{
+\fBequery uses python\fP
+T}	T{
+\fBpquery \-\-attr use python\fP
+T}	T{
+less information, but is an output option so mixes with any restriction
+T}
+_
+T{
+\fBemerge \-s python\fP
+T}	T{
+\fBpquery \-vn \(aq*python*\(aq\fP
+T}	T{
+T}
+_
+T{
+\fBemerge \-S python\fP
+T}	T{
+\fBpquery \-vnS python\fP
+T}	T{
+searches through longdescription (from metadata.xml) too
+T}
+_
+T{
+no equivalent
+T}	T{
+\fBpquery \-\-license GPL\-2 \-I\fP
+T}	T{
+list all installed GPL\-2 packages
+T}
+_
+T{
+no equivalent
+T}	T{
+\fBpquery \-\-maintainer radhermit\fP
+T}	T{
+list all packages that are maintained by radhermit
+T}
+.TE
+.sp
+It can also do some things equery/emerge do not let you do, like restricting
+based on maintainer or herd and printing various other package attributes. See
+\fB\-\-help\fP for those. If you miss a query open an issue.
+.SH AUTHOR
+Michał Górny <mgorny@gentoo.org>, Tim Harder <radhermit@gmail.com>, Brian Harring <ferringb@gmail.com>, Arthur Zamarin <arthurzam@gentoo.org>, Marien Zwart
+.SH COPYRIGHT
+2006-2022, pkgcore contributors
+.\" Generated by docutils manpage writer.
+.
