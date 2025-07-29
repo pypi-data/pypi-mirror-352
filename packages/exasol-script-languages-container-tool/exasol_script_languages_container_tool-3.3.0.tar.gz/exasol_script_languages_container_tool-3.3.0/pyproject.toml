@@ -1,0 +1,90 @@
+[project]
+name = "exasol-script-languages-container-tool"
+version = "3.3.0"
+description = "Script Languages Container Tool"
+keywords = ['exasol', 'udf', 'script-languages']
+
+readme = 'README.md'  # Markdown files are supported
+license = "MIT"
+
+authors = [
+    { name = "Torsten Kilias", email = "Torsten Kilias <torsten.kilias@exasol.com>" },
+    { name = "Thomas Uebensee", email = "Thomas Uebensee <ext.thomas.uebensee@exasol.com>"}
+]
+
+[tool.poetry]
+
+requires-poetry = ">=2.1.0"
+
+packages = [
+    {include = "README.md"},
+    {include = "LICENSE"},
+    {include = "exasol"},
+]
+
+
+[project.urls]
+repository = "https://github.com/exasol/script-languages-container-tool"
+homepage = "https://github.com/exasol/script-languages-container-tool"
+documentation = "https://github.com/exasol/script-languages-container-tool"
+source = "https://github.com/exasol/script-languages-container-tool"
+issues = "https://github.com/exasol/script-languages-container-tool/issues"
+
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4"
+importlib_metadata = ">=4.6.0"
+importlib-resources = ">=6.4.0"
+networkx = "^3.3.0"
+exasol-integration-test-docker-environment = "^4.1.0"
+exasol-bucketfs="^1.0.1"
+pydantic="^2.10.2"
+jsonschema="^4.23.0"
+
+[build-system]
+requires = ["poetry_core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+toml = ">=0.10.2"
+configobj = "^5.0.8" # moved to dev dependencie so security alert does not propagate further up
+exasol-toolbox = "^1.0.1"
+
+
+[tool.poetry.scripts]
+exaslct = 'exasol.slc.tool.main:main'
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+
+testpaths = [
+    "test"
+]
+
+[[tool.mypy.overrides]]
+module = ["luigi.*", "docker.*", "humanfriendly", "configobj", "toml"]
+ignore_missing_imports = true
+
+[tool.black]
+line-length = 88
+verbose = false
+include = "\\.pyi?$"
+
+[tool.isort]
+profile = "black"
+
+[tool.pylint.'MESSAGES CONTROL']
+max-line-length = 120
+disable = """
+    W,R,C,
+    duplicate-code,
+    missing-class-docstring,
+    missing-module-docstring,
+    missing-function-docstring,
+    too-many-ancestors,
+    broad-exception-raised,
+    broad-exception-caught,
+    consider-using-f-string,
+    useless-parent-delegation
+"""
