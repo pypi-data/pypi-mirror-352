@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "context-configuration"
+version = "0.0.1"
+description = "Configuration management emulating Springs configuration management based on profiles and annotations."
+requires-python = ">=3.9"
+dependencies = [
+    "PyYAML == 6.0.2",
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+
+    # Indicate who your project is intended for
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+
+    # Specify the Python versions you support here.
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest == 7.4",
+    "pytest-mock == 3.11.1",
+    "pytest-cov == 4.1.0",
+    "coverage == 7.4.1",
+]
+
+[project.urls]
+"Homepage" = "https://coding-on-my-mind.com"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "./src/context_configuration"
+]
+addopts = [
+    "--import-mode=importlib",
+]

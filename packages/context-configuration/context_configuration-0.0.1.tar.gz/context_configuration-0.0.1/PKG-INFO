@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: context-configuration
+Version: 0.0.1
+Summary: Configuration management emulating Springs configuration management based on profiles and annotations.
+Project-URL: Homepage, https://coding-on-my-mind.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.9
+License-File: LICENSE
+Requires-Dist: PyYAML==6.0.2
+Provides-Extra: dev
+Requires-Dist: pytest==7.4; extra == "dev"
+Requires-Dist: pytest-mock==3.11.1; extra == "dev"
+Requires-Dist: pytest-cov==4.1.0; extra == "dev"
+Requires-Dist: coverage==7.4.1; extra == "dev"
+Dynamic: license-file
