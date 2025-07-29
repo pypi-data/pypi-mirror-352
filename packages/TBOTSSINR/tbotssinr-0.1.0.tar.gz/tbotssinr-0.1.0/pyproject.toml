@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "TBOTSSINR"  # ⚠️ PyPI에 이미 없는 고유한 이름이어야 함!
+version = "0.1.0"
+description = "A test package for learning PyPI uploads"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [{name = "ashlee0410", email = "lhuntion@naver.com"}]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ashlee-arch/my-first-pypi-test"
