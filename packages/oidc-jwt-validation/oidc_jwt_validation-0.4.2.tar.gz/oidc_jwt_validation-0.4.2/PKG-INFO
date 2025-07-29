@@ -1,0 +1,26 @@
+Metadata-Version: 2.4
+Name: oidc-jwt-validation
+Version: 0.4.2
+Summary: Oidc JWT Token validation
+Home-page: https://github.com/AxaGuilDEv/oidc-jwt-validation
+Author: Axa_france
+Author-email: guillaume.chervet@axa.fr, guillaume.thomas@axa.fr
+Platform: POSIX
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+License-File: LICENSE
+Requires-Dist: python-jose>=3.5.0
+Requires-Dist: aiohttp>=3.12.0
+Requires-Dist: starlette>=0.46.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: platform
+Dynamic: requires-dist
+Dynamic: summary
+
+You can use the Authentication class as a FastAPI Dependency, in order to validate the oidc token given in http headers :)
