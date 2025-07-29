@@ -1,0 +1,35 @@
+:root {
+    --bs-body-bg: #f3f8e9 !important;
+    --bs-body-bg-rgb: 243, 248, 233 !important;
+    --bs-body-color: #474747 !important;
+    --bs-body-color-rgb: 71, 71, 71 !important;
+}
+
+
+body {
+    min-width: 400px;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input[type="email"].form-control:focus,
+.form-signin input[type="password"].form-control:focus {
+    box-shadow: none !important;
+}
+
+.form-control,
+.form-floating > .form-control:focus ~ label::after {
+    background-color: var(--bs-white) !important;
+}
+
+.app-signin-panel {
+    min-width: 370px;
+    max-width: 400px;
+}
+
+.app-logo-card {
+    height: 230px !important;
+    width: 300px !important;
+}

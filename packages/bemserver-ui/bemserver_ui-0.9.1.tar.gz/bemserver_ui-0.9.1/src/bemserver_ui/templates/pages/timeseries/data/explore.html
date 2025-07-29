@@ -1,0 +1,187 @@
+{% import "macros/components/ts_selector.html" as mac_ts_selector %}
+{% extends "pages/base.html" %}
+
+{% set title = "Explore timeseries data" %}
+
+{% if tz_name is not defined %}
+    {% set tz_name = g.campaign_ctxt.tz_name %}
+{% endif %}
+
+{% block main_content %}
+{{ super() -}}
+<div class="container-fluid">
+    <div class="row align-items-end mb-3">
+        <div class="col">
+            <input type="hidden" id="timeseries" value="{{ timeseries_ids }}">
+            <div class="row d-xl-flex d-grid mb-2">
+                <div class="col-auto">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Period</span>
+                        <select id="periodType" class="form-select form-select-sm" aria-label="Select a period" required>
+                            {% for x in period_types %}
+                            <option value="{{ x.id }}"{% if x.id == period_type %} selected{% endif %}>{{ x.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div id="periodCustom" class="col-auto d-xl-flex d-grid py-2 py-xl-0 gap-2 d-none invisible">
+                    <div is="app-datetime-picker" id="start_datetime" title="From" date="{{ period_start.date().isoformat() }}" time="{{ period_start.time().isoformat()[:5] }}" max="{{ period_end.date().isoformat() }}" tzname="{{ tz_name }}"></div>
+                    <div is="app-datetime-picker" id="end_datetime" title="Until" date="{{ period_end.date().isoformat() }}" time="{{ period_end.time().isoformat()[:5] }}" min="{{ period_start.date().isoformat() }}" tzname="{{ tz_name }}"></div>
+                </div>
+            </div>
+            <div class="row d-lg-flex d-grid">
+                <div class="col-auto pb-2 pb-lg-0">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Aggregation mode</span>
+                        <select class="form-select" id="agg" name="agg" aria-label="Select an aggregation mode">
+                            {% for x in agg_types %}
+                            <option value="{{ x.id }}"{% if agg is none and x.id == "none" or agg == x.id %} selected{% endif %}>{{ x.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div is="app-ts-bucket-width" id="bucket" class="d-none invisible" title="Duration" unit="{{ bucket_width_unit }}" value="{{ bucket_width_value }}" disabled="true"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <button title="Chart settings" class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#chartSettingsPanel" aria-controls="chartSettingsPanel"><i class="bi bi-gear"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="chartContainer" class="border border-1 rounded bg-white p-2" style="height: 600px;"></div>
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-end bg-light border-0 rounded-start shadow app-chart-settings-panel" tabindex="-1" id="chartSettingsPanel" aria-labelledby="chartSettingsPanelLabel">
+        <div class="offcanvas-header">
+            <h4 class="offcanvas-title" id="chartSettingsPanelLabel"><i class="bi bi-gear"></i> Chart settings</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="row mb-2">
+                <div class="col-auto">
+                    <h5 class="text-secondary">Data series<span id="seriesCount" class="ms-1"></span></h5>
+                </div>
+                <div class="col-auto">
+                    <a id="chartSeriesBtnAdd" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#selectTimeseries"><i class="bi bi-plus-circle"></i> Add series</a>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="table-responsive d-none invisible">
+                        <table id="chartSeriesContainer" class="table table-sm table-borderless caption-top">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Color</th>
+                                    <th scope="col" class="w-25">Name</th>
+                                    <th scope="col">Y-axis</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Style</th>
+                                    <th scope="col"><button id="removeAllSeriesBtn" class="btn btn-sm btn-outline-danger d-none invisible" title="Remove all series"><i class="bi bi-trash"></i></button></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <h5 class="text-secondary">Extra settings</h5>
+            <div class="row mb-2">
+                <div class="col-auto">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Timeseries data state</span>
+                        <select id="data_states" class="form-select" aria-label="Select a timeseries data state" required>
+                            {% for x in data_states %}
+                            <option value="{{ x.id }}"{% if x.id == data_state_id %} selected{% endif %}>{{ x.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-auto">
+                    <div is="app-timezone-picker" id="timezonePicker" title="Timezone" tzname="{{ tz_name }}" required>
+                        <div is="app-spinner"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-auto d-flex align-items-center gap-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="weekendPeriodSwitch"{% if show_weekend_periods == 1 %} checked{% endif %}>
+                        <label class="form-check-label text-nowrap" for="weekendPeriodSwitch">Show weekend periods</label>
+                    </div>
+                    <div>
+                        <input id="weekendPeriodColor" type="color" class="form-control form-control-sm" aria-label="Select a color" style="width: 40px;" value="#999999" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto d-flex align-items-center gap-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="nightPeriodSwitch"{% if show_night_periods == 1 %} checked{% endif %}>
+                        <label class="form-check-label text-nowrap" for="nightPeriodSwitch">Show night periods</label>
+                    </div>
+                    <div>
+                        <input id="nightPeriodColor" type="color" class="form-control form-control-sm" aria-label="Select a color" style="width: 40px;" value="#5b6b9f" disabled>
+                    </div>
+                </div>
+                <div class="col-auto offset-1">
+                    <div class="d-flex gap-2">
+                        <div is="app-datetime-picker" id="nightStartTime" title="From" mode="time" time="{{ night_start_time.isoformat()[:5] }}" tzname="{{ tz_name }}"{% if show_night_periods == 0 %} disabled{% endif %}></div>
+                        <div is="app-datetime-picker" id="nightEndTime" title="Until" mode="time" time="{{ night_end_time.isoformat()[:5] }}" tzname="{{ tz_name }}"{% if show_night_periods == 0 %} disabled{% endif %}></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="selectTimeseries" data-bs-keyboard="true" tabindex="-1" aria-labelledby="selectTimeseriesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="selectTimeseriesLabel">Add data series</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-4">
+                    <div class="col">
+                        {% filter indent(width=16, first=False) %}
+                        {{ mac_ts_selector.render_ts_selector(element_id="tsSelectorExplore", filters={"extend": True}, is_modal=False) -}}
+                        {% endfilter %}
+                    </div>
+                </div>
+                <h5>Default series settings</h5>
+                <div class="row gx-5">
+                    <div class="col-auto">
+                        <h6 class="fw-bold">Y-axis position</h6>
+                        <div id="selectTimeseriesYAxisPositionContainer">
+                            <div is="app-spinner"></div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <h6 class="fw-bold">Series type</h6>
+                        <div id="selectTimeseriesSeriesTypeContainer">
+                            <div is="app-spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-end gap-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="selectedTimeseriesSaveBtn" type="button" class="btn btn-sm btn-primary" disabled><i class="bi bi-plus-circle"></i> Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block body_scripts %}
+{{ super() -}}
+{% filter indent(width=8, first=True) %}
+<script type="module" src="{{ url_for('static', filename='scripts/modules/views/timeseries/data/explore.js') }}" defer></script>
+{% endfilter %}
+{% endblock body_scripts %}

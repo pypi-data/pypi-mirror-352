@@ -1,0 +1,114 @@
+{% extends "pages/base.html" %}
+
+{% set title = "User accounts" %}
+
+{% block main_toolbar %}
+{{ super() -}}
+{% filter indent(width=20, first=True) %}
+<a href="{{ url_for('users.create') }}" class="btn btn-sm btn-outline-primary text-nowrap" title="Add a new user"><i class="bi bi-plus-circle"></i> Add</a>
+{% endfilter %}
+{% endblock main_toolbar %}
+
+{% block main_content %}
+{{ super() -}}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <div class="accordion" id="accordionFilters">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFilters">
+                        <button class="accordion-button{% if not is_filtered %} collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilters" aria-controls="collapseFilters" aria-expanded="{{ is_filtered | lower }}">
+                            <span class="fw-bold text-secondary"><i class="bi bi-funnel"></i> Filters</span>
+                        </button>
+                    </h2>
+                    <div id="collapseFilters" class="accordion-collapse collapse{% if is_filtered %} show{% endif %}" aria-labelledby="headingFilters" data-bs-parent="#accordionFilters">
+                        <div class="accordion-body">
+                            <form id="formFilters" class="d-lg-flex d-grid gap-2" action="{{ url_for(request.endpoint) }}" method="POST">
+                                <select form="formFilters" class="form-select form-select-sm{% if filters['is_admin'] is not none %} border border-info{% endif %}" id="is_admin" name="is_admin" aria-label="Select a filter value">
+                                    {% for val, label in {"None": "Select a role", "True": "Only admin", "False": "Only NOT admin"}.items() %}
+                                    <option value="{{ val }}"{% if val == filters["is_admin"]|string %} selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                                <select form="formFilters" class="form-select form-select-sm{% if filters['is_active'] is not none %} border border-info{% endif %}" id="is_active" name="is_active" aria-label="Select a filter value">
+                                    {% for val, label in {"None": "Select a status", "True": "Only active", "False": "Only inactive"}.items() %}
+                                    <option value="{{ val }}"{% if val == filters["is_active"]|string %} selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button class="btn btn-sm btn-outline-info text-nowrap" type="submit" form="formFilters" title="Apply filters"><i class="bi bi-funnel"></i> Apply</button>
+                                <a class="btn btn-sm btn-outline-secondary text-nowrap" role="button" href="{{ url_for(request.endpoint) }}" title="Remove filters"><i class="bi bi-eraser"></i> Remove</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <input form="formFilters" type="hidden" name="sort" id="sort" value="{{ sort }}">
+                    <label class="form-label text-nowrap text-muted mb-0" for="sort">Sort by</label>
+                    <input type="radio" class="btn-check" name="sort" id="sort_name_asc" autocomplete="off"{% if sort == "+name" %} checked{% endif %}>
+                    <label class="btn btn-sm btn-outline-info" for="sort_name_asc" title="Name alphabetical order"><i class="bi bi-sort-alpha-down"></i> Name</label>
+                    <input type="radio" class="btn-check" name="sort" id="sort_name_desc" autocomplete="off"{% if sort == "-name" %} checked{% endif %}>
+                    <label class="btn btn-sm btn-outline-info" for="sort_name_desc" title="Name reverse alphabetical order"><i class="bi bi-sort-alpha-up"></i> Name</label>
+                    <input type="radio" class="btn-check" name="sort" id="sort_email_asc" autocomplete="off"{% if sort == "+email" %} checked{% endif %}>
+                    <label class="btn btn-sm btn-outline-info" for="sort_email_asc" title="Email alphabetical order"><i class="bi bi-sort-alpha-down"></i> Email</label>
+                    <input type="radio" class="btn-check" name="sort" id="sort_email_desc" autocomplete="off"{% if sort == "-email" %} checked{% endif %}>
+                    <label class="btn btn-sm btn-outline-info" for="sort_email_desc" title="Email reverse alphabetical order"><i class="bi bi-sort-alpha-up"></i> Email</label>
+                </div>
+                <small class="text-nowrap text-muted"><app-items-count first-item="1" last-item="{{ users | length }}" total-count="{{ users | length }}"></app-items-count></small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="list-group">
+                {% for x in users %}
+                <a class="list-group-item list-group-item-action d-flex gap-3 py-3{% if not x.is_active %} text-muted bg-warning bg-opacity-10{% endif %}" href="{{ url_for('users.view', id=x.id) }}" title="View details">
+                    {% if x.id == signed_user.id %}
+                    <i class="bi bi-incognito"></i>
+                    {% else %}
+                    <i class="bi bi-postcard"></i>
+                    {% endif %}
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                            <h6 class="mb-0">
+                                <span class="fw-bold">{{ x.name }}</span>
+                                {% if x.id == signed_user.id %}
+                                <small class="text-nowrap text-success text-opacity-50 fst-italic"><i class="bi bi-arrow-bar-left"></i> This is me!</small>
+                                {% endif %}
+                            </h6>
+                            <p class="text-muted mb-0">{{ x.email }}</p>
+                        </div>
+                        <div class="d-flex flex-column">
+                            {% if x.is_admin %}
+                            <small class="text-nowrap text-black text-opacity-50"><i class="bi bi-lightning-fill text-success text-opacity-75"></i> admin</small>
+                            {% endif %}
+                            {% if not x.is_active %}
+                            <small class="text-nowrap text-danger text-opacity-75"><i class="bi bi-lock-fill"></i> disabled</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block body_scripts %}
+{{ super() -}}
+{% filter indent(width=8, first=True) %}
+<script type="module">
+    import { UsersListView } from "{{ url_for('static', filename='scripts/modules/views/users/list.js') }}";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        let view = new UsersListView();
+        view.mount();
+    });
+</script>
+{% endfilter %}
+{% endblock body_scripts %}
