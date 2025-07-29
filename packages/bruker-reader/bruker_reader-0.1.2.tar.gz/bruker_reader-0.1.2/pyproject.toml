@@ -1,0 +1,28 @@
+[project]
+name = "bruker-reader"
+version = "0.1.2"
+description = "Reader for Bruker FTICR BAF files"
+authors = [
+    { name = "theinfinitegirl", email = "gretchenlynhall@gmail.com" }
+]
+dependencies = [
+    "numpy>=1.26.0",
+    "pandas>=2.1.1",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["hatchling==1.26.3", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bruker_reader"]
+	 
