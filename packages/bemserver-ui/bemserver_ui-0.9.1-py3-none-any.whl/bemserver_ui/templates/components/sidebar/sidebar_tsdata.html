@@ -1,0 +1,27 @@
+{% if g.campaign_ctxt.has_campaign or sidebar_section_plugins | length > 0 %}
+<div class="accordion app-sidebar-accordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="panelHeadingTSData">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelCollapseTSData" aria-expanded="false" aria-controls="panelCollapseTSData">
+                <span class="app-sidebar-heading"><i class="bi bi-clock-history me-2"></i>Timeseries data</span>
+            </button>
+        </h2>
+        <div id="panelCollapseTSData" class="accordion-collapse collapse" aria-labelledby="panelHeadingTSData">
+            <div class="accordion-body">
+                <ul class="nav nav-pills flex-column gap-1">
+                    {% filter indent(width=20, first=True) %}
+                    {% if g.campaign_ctxt.has_campaign %}
+                    {{- mac_sidebar.render_nav_item("Explore", url_for("timeseries.data.explore"), "Explore timeseries data", ["bi", "bi-bar-chart-line"]) -}}
+                    {{- mac_sidebar.render_nav_item("Compare data states", url_for("timeseries.data.compare_states"), "Compare timeseries data states", ["bi", "bi-bookmarks"]) -}}
+                    {{- mac_sidebar.render_nav_item("Completeness", url_for("timeseries.data.completeness"), "Timeseries data completeness", ["bi", "bi-pie-chart"]) -}}
+                    {% endif %}
+                    {% for sidebar_section_plugin in sidebar_section_plugins %}
+                    {{- mac_sidebar.render_nav_item_from_plugin(sidebar_section_plugin) -}}
+                    {% endfor %}
+                    {% endfilter %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,97 @@
+{% extends "pages/base.html" %}
+
+{% set title = "Create a new campaign" %}
+
+{% block main_content %}
+{{ super() -}}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <form action="{{ url_for('campaigns.create') }}" method="POST">
+                <fieldset>
+                    <legend class="invisible d-none">Campaign informations</legend>
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" minlength="1" maxlength="80" required autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="timezonePicker">Timezone</label>
+                        <div is="app-timezone-picker" id="timezonePicker" input-form-bind="timezone" required>
+                            <div is="app-spinner"></div>
+                        </div>
+                        <input type="hidden" id="timezone" name="timezone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" maxlength="500" rows="3"></textarea>
+                    </div>
+                    <div class="row d-xl-flex d-grid mb-3">
+                        <div class="col pb-3 pb-xl-0">
+                            <label class="form-label" for="start_datetime">From</label>
+                            <div is="app-datetime-picker" id="start_datetime" date-input-form-bind="start_date" time-input-form-bind="start_time">
+                                <div is="app-spinner"></div>
+                            </div>
+                            <input type="hidden" id="start_date" name="start_date">
+                            <input type="hidden" id="start_time" name="start_time">
+                        </div>
+                        <div class="col">
+                            <label class="form-label" for="end_datetime">Until</label>
+                            <div is="app-datetime-picker" id="end_datetime" date-input-form-bind="end_date" time-input-form-bind="end_time">
+                                <div is="app-spinner"></div>
+                            </div>
+                            <input type="hidden" id="end_date" name="end_date">
+                            <input type="hidden" id="end_time" name="end_time">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ url_for('campaigns.list') }}" class="btn btn-sm btn-outline-secondary text-break" title="Cancel">Cancel</a>
+                        <button type="submit" class="btn btn-sm btn-primary text-break" title="Save"><i class="bi bi-save"></i> Save</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block body_scripts %}
+{{ super() -}}
+{% filter indent(width=8, first=True) %}
+<script type="module">
+    import "{{ url_for('static', filename='scripts/modules/components/time/tzPicker.js') }}";
+    import "{{ url_for('static', filename='scripts/modules/components/time/datetimePicker.js') }}";
+    import "{{ url_for('static', filename='scripts/modules/components/spinner.js') }}";
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        let tzPickerElmt = document.getElementById("timezonePicker");
+        let startDatetimePickerElmt = document.getElementById("start_datetime");
+        let endDatetimePickerElmt = document.getElementById("end_datetime");
+
+        startDatetimePickerElmt.tzName = tzPickerElmt.tzName;
+        endDatetimePickerElmt.tzName = tzPickerElmt.tzName;
+
+        tzPickerElmt.addEventListener("tzChange", (event) => {
+            event.preventDefault();
+
+            startDatetimePickerElmt.tzName = event.detail.tzName;
+            endDatetimePickerElmt.tzName = event.detail.tzName;
+        });
+
+        startDatetimePickerElmt.addEventListener("dateChange", (event) => {
+            event.preventDefault();
+
+            endDatetimePickerElmt.dateMin = startDatetimePickerElmt.date;
+        });
+
+        endDatetimePickerElmt.addEventListener("dateChange", (event) => {
+            event.preventDefault();
+
+            startDatetimePickerElmt.dateMax = endDatetimePickerElmt.date;
+        });
+
+    });
+</script>
+{% endfilter %}
+{% endblock body_scripts %}

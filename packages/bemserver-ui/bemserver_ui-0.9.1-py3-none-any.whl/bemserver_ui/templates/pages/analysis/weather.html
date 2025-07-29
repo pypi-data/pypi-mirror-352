@@ -1,0 +1,183 @@
+{% extends "pages/base.html" %}
+
+{% set title = "Weather data" %}
+
+{% block main_toolbar %}
+{{ super() -}}
+{% filter indent(width=20, first=True) %}
+<div class="d-flex gap-2 gap-xl-3">
+    {% if signed_user.is_admin %}
+    <a id="fetchWeatherDataShowModalBtn" class="btn btn-sm btn-outline-secondary text-nowrap" title="Fetch weather data from an external service" data-bs-toggle="modal" data-bs-target="#fetchWeatherDataModal"><i class="bi bi-cloud-download me-1"></i>Fetch weather data</a>
+    {% endif %}
+</div>
+{% endfilter %}
+{% endblock main_toolbar %}
+
+{% block main_content %}
+{{ super() -}}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <div class="accordion" id="accordionParams">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingParams">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseParams" aria-controls="collapseParams" aria-expanded="true">
+                            <span class="fw-bold text-secondary"><i class="bi bi-easel"></i> Analysis parameters</span>
+                        </button>
+                    </h2>
+                    <div id="collapseParams" class="accordion-collapse collapse show" aria-labelledby="headingParams" data-bs-parent="#accordionParams">
+                        <div class="accordion-body">
+                            <div class="row row-cols-1 row-cols-xl-2 g-3 g-xl-4 mb-2">
+                                <div class="col">
+                                    <h5 class="text-secondary"><i class="bi bi-buildings"></i> Sites</h5>
+                                    <app-tree id="sitesTree" icon="bi,bi-dash-square-dotted" icon-collapsed="bi,bi-plus-square" icon-expanded="bi,bi-dash-square-dotted" toolbar="false"></app-tree>
+                                </div>
+                                <div class="col">
+                                    <h5 class="text-secondary"><i class="bi bi-calendar4-range"></i> Period</h5>
+                                    <div class="d-grid gap-2">
+                                        <select id="periodType" class="form-select" aria-label="Select a period" required>
+                                            <option value="Last-Day" selected>Last 24 hours</option>
+                                            <option value="Last-Week">Last 7 days</option>
+                                            <option value="Last-Month">Last 30 days</option>
+                                            <option value="Last-Year">Last 12 months</option>
+                                            <option value="Day-Minute">A day</option>
+                                            <option value="Week-Hourly">A week</option>
+                                            <option value="Month-Hourly">A month</option>
+                                            <option value="Year-Daily">A year</option>
+                                        </select>
+                                        <div class="d-flex gap-2">
+                                            <select id="periodDay" class="form-select d-none invisible" aria-label="Select a period day" required></select>
+                                            <select id="periodMonth" class="form-select d-none invisible" aria-label="Select a period month" required></select>
+                                            <select id="periodYear" class="form-select d-none invisible" aria-label="Select a period year" required></select>
+                                        </div>
+                                        <div class="form-check form-switch" id="forecastWrapper">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="forecastSwitch">
+                                            <label class="form-check-label text-nowrap" for="forecastSwitch">Show forecast (+ {{ forecast_nbdays }} days)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="chartContainer" class="row justify-content-center row-cols-1 row-cols-xxl-2 g-4">
+                <div class="col">
+                    <div class="alert alert-info mb-0 pb-0" role="alert">
+                        <span class="fw-bold"><i class="bi bi-question-diamond"></i> Help</span>
+                        <p>To see the energy consumptions, <span class="fw-bold">select a site </span> in the tree and <span class="fw-bold">choose a period</span>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="tsInfoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tsInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tsInfoModalLabel">Weather parameters timeseries - <span id="tsInfoModalChartName"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs app-tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="current-tab" type="button" data-bs-toggle="tab" data-bs-target="#current-tabcontent" role="tab" aria-controls="current-tabcontent" aria-selected="true">Current</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="forecast-tab" type="button" data-bs-toggle="tab" data-bs-target="#forecast-tabcontent" role="tab" aria-controls="forecast-tabcontent" aria-selected="false">Forecast</button>
+                    </li>
+                </ul>
+                <div class="tab-content app-tab-content overflow-auto border border-top-0 bg-white">
+                    <div class="tab-pane fade show active p-3" id="current-tabcontent" role="tabpanel" aria-labelledby="current-tab"></div>
+                    <div class="tab-pane fade p-3" id="forecast-tabcontent" role="tabpanel" aria-labelledby="forecast-tab"></div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-end gap-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% if signed_user.is_admin %}
+<div class="modal fade" id="fetchWeatherDataModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="fetchWeatherDataModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content placeholder-glow">
+            <div class="modal-header">
+                <div class="d-flex align-items-end gap-3">
+                <h5 class="modal-title" id="fetchWeatherDataModalLabel">Fetch weather data</h5>
+                <span id="fetchWeatherDataSite"></span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="fetchWeatherDataModalBody">
+                <div class="row">
+                    <div class="col">
+                        <div class="alert alert-info border border-info" role="alert">
+                            <i class="bi bi-info-square me-1"></i>
+                            <span>Weather data will be fetched from the <a href="https://oikolab.com/" target="_blank">oikolab</a> web service, using site's latitude/longitude coordinates and weather parameters mapping with timeseries.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-end d-none invisible" id="fetchWeatherDataSiteCoordWarnContainer">
+                    <div class="col">
+                        <div class="alert alert-warning border border-warning py-1" role="alert">
+                            <div class="d-flex justify-content-between align-items-end gap-3">
+                                <div><i class="bi bi-exclamation-triangle me-1"></i><span>Site latitude/longitude coordinates are not defined!</span></div>
+                                <small><a id="fetchWeatherDataEditSiteLnk" role="button" class="link-secondary text-nowrap" title="Edit site" target="_blank"><i class="bi bi-pencil me-1"></i>Edit site</a></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4 mb-3">
+                    <div class="col-2">
+                        <label class="form-label" for="fetchWeatherDataForecastSwitch">Fetch forecast</label>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="fetchWeatherDataForecastSwitch">
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-xl-flex d-grid mb-4">
+                    <div class="col pb-2 pb-xl-0">
+                        <div is="app-datetime-picker" id="fetchWeatherDataDatetimeStart" title="From" time="00:00" tzname="{{ g.campaign_ctxt.tz_name }}" required>
+                            <div is="app-spinner"></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div is="app-datetime-picker" id="fetchWeatherDataDatetimeEnd" title="Until" time="00:00" tzname="{{ g.campaign_ctxt.tz_name }}" required>
+                            <div is="app-spinner"></div>
+                        </div>
+                        <small class="fst-italic text-muted">(excluded from the interval)</small>
+                    </div>
+                </div>
+                <div id="fetchWeatherDataModalParamsContainer"></div>
+            </div>
+            <div class="modal-footer d-flex justify-content-end gap-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="fetchWeatherDataBtn" type="button" class="btn btn-sm btn-primary" disabled><i class="bi bi-cloud-download me-1"></i>Fetch</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock main_content %}
+
+{% block body_scripts %}
+{{ super() -}}
+{% filter indent(width=8, first=True) %}
+<script type="module">
+    import { WeatherExploreView } from "{{ url_for('static', filename='scripts/modules/views/analysis/weather.js') }}";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        let view = new WeatherExploreView("{{ g.campaign_ctxt.tz_name }}", {{ forecast_nbdays }});
+        view.mount();
+    });
+</script>
+{% endfilter %}
+{% endblock body_scripts %}

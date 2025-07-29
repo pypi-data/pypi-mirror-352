@@ -1,0 +1,60 @@
+{% extends "pages/base.html" %}
+
+{% set title = "Timeseries attributes" %}
+
+{% block main_toolbar %}
+{{ super() -}}
+{% filter indent(width=20, first=True) %}
+<a href="{{ url_for('timeseries.properties.create') }}" class="btn btn-sm btn-outline-primary text-nowrap" title="Add a new timeseries attribute"><i class="bi bi-plus-circle"></i> Add</a>
+{% endfilter %}
+{% endblock main_toolbar %}
+
+{% block main_content %}
+{{ super() -}}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive-xl">
+                <table class="table table-sm table-hover table-bordered caption-top">
+                    <caption class="text-end">
+                        <small class="text-nowrap text-mited"><app-items-count first-item="1" last-item="{{ properties | length }}" total-count="{{ properties | length }}"></app-items-count></small>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Unit</th>
+                            <th scope="col">Description</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for prop in properties %}
+                        <tr class="align-middle">
+                            <th scope="row">{{ prop.name }}</th>
+                            <td>{{ prop.value_type }}</td>
+                            <td>{{ prop.unit_symbol }}</td>
+                            <td>
+                                {% if prop.description | length > 80 %}
+                                <abbr title="{{ prop.description | crlf2html }}" class="multiline">{{ prop.description | truncate(80) }}</abbr>
+                                {% else %}
+                                <span class="multiline">{{ prop.description }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center"><a class="btn btn-sm btn-outline-secondary" href="{{ url_for('timeseries.properties.edit', id=prop.id) }}" title="Edit attribute"><i class="bi bi-pencil"></i></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>              
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block body_scripts %}
+{{ super() -}}
+{% filter indent(width=8, first=True) %}
+<script type="module" src="{{ url_for('static', filename='scripts/modules/components/itemsCount.js') }}"></script>
+{% endfilter %}
+{% endblock body_scripts %}

@@ -1,0 +1,73 @@
+{% extends "pages/skeleton.html" %}
+
+{% block head_styles %}
+{{ super() -}}
+{% filter indent(width=8, first=True) %}
+<link rel="stylesheet" media="all" href="{{ url_for('static', filename='styles/app.css') }}">
+{% endfilter %}
+{% endblock head_styles %}
+
+{% block body_content %}
+{{ super() -}}
+{% include "components/header.html" +%}
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        {% filter indent(width=8, first=True) %}
+        {% include "components/sidebar/sidebar.html" %}
+        {% endfilter +%}
+        <main class="col-md-9 ms-sm-auto col-xl-10 px-md-4 pb-4 app-content">
+            {% block main_title %}
+            <div class="d-flex justify-content-start align-items-center gap-4 mb-2">
+                {% if title or subtitle %}
+                <div class="d-lg-flex d-grid gap-lg-3">
+                    {% if title %}
+                    <h1 class="text-nowrap">{{ title }}</h1>
+                    {% endif %}
+                    {% if subtitle %}
+                    <h2 class="align-self-end text-break">{{ subtitle }}</h2>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <div>
+                    {% block main_toolbar %}
+                    {% endblock main_toolbar %}
+                </div>
+            </div>
+            {% endblock main_title %}
+            {% filter indent(width=12, first=True) %}
+            {% block main_content %}
+            {% endblock main_content %}
+            {% endfilter %}
+        </main>
+    </div>
+</div>
+{% endblock body_content %}
+
+{% block body_scripts %}
+{{ super() -}}
+{% filter indent(width=8, first=True) %}
+<script type="module">
+    import { signedUser } from "{{ url_for('static', filename='scripts/modules/signedUserData.js') }}";
+    import { createApp } from "{{ url_for('static', filename='scripts/app.js') }}";
+
+    let options = {
+        signedUser: signedUser,
+        campaignContext: {{ g.campaign_ctxt.toJSON() | tojson }},
+    };
+
+    let app = createApp(options);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        let managers = {
+            "MESSAGE_MANAGER": {},
+            "SIDEBAR": {},
+            "FORM_CONTROLLER": {},
+            "NOTIF_UPDATER": {
+                delay: {{ config.BEMSERVER_UI_NOTIFICATION_UPDATER_DELAY }},
+            },
+        };
+        app.mount(managers);
+    });
+</script>
+{% endfilter %}
+{% endblock body_scripts %}
