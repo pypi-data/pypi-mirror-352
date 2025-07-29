@@ -1,0 +1,37 @@
+ewoks[orange]
+h5py
+numpy
+fabio
+scipy
+imageio
+ewoksdata>=0.2.7
+ewoksorange>=0.7.0rc0
+pint
+silx>=2.2
+scikit-learn
+
+[:python_version < "3.9"]
+pymca<5.9.4,>=5.8.9
+
+[:python_version >= "3.9"]
+pymca>=5.8.9
+
+[dev]
+ewoksfluo[test]
+black>=25
+flake8>=4
+pre-commit
+
+[doc]
+ewoksfluo[test]
+sphinx>=4.5
+sphinx-autodoc-typehints>=1.16
+pydata_sphinx_theme<0.15
+
+[test]
+pytest>=7
+pyqt5
+psutil
+
+[test:python_version < "3.9"]
+importlib_resources

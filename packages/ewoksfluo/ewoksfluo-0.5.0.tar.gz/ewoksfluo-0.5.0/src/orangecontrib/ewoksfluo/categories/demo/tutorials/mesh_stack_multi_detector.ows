@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme version="2.0" title="FluoXAS: multi detector" description="">
+	<nodes>
+		<node id="0" name="Mesh stack (multi detector)" qualified_name="orangecontrib.ewoksfluo.categories.demo.mesh_stack_multi_det.OWMeshStackMultiDetector" project_name="ewoksfluo" version="" title="Mesh stack (multi detector)" position="(-30.0, 586.0)" />
+		<node id="1" name="Fit stack (multi detector)" qualified_name="orangecontrib.ewoksfluo.categories.fit.fit_multi_scan_multi_det.OWFitStackMultiDetector" project_name="ewoksfluo" version="" title="Fit stack (multi detector)" position="(352.0, 342.0)" />
+		<node id="2" name="Pick scans" qualified_name="orangecontrib.ewoksfluo.categories.input.pick_scans.OWPickScans" project_name="ewoksfluo" version="" title="Pick scans" position="(100.0, 332.0)" />
+		<node id="3" name="Sum Fit Results Stack" qualified_name="orangecontrib.ewoksfluo.categories.sum_detectors.sum_results_stack.OWSumXrfResultsStack" project_name="ewoksfluo" version="" title="Sum Fit Results Stack" position="(574.0, 343.0)" />
+		<node id="4" name="Regrid Stack" qualified_name="orangecontrib.ewoksfluo.categories.regrid.regrid_stack.OWRegridStack" project_name="ewoksfluo" version="" title="Regrid Stack" position="(1213.0, 348.0)" />
+		<node id="5" name="Normalize Stack" qualified_name="orangecontrib.ewoksfluo.categories.normalization.norm_results_stack.OWNormalizeXrfResultsStack" project_name="ewoksfluo" version="" title="Normalize Stack" position="(800.0, 349.0)" />
+		<node id="6" name="Raw Counters Stack" qualified_name="orangecontrib.ewoksfluo.categories.raw_counters.extract_counters_stack.OWExtractRawCountersStack" project_name="ewoksfluo" version="" title="Raw Counters Stack" position="(1009.0, 348.0)" />
+	</nodes>
+	<links>
+		<link id="0" source_node_id="0" sink_node_id="2" source_channel="filenames" sink_channel="filenames" enabled="true" source_channel_id="filenames" sink_channel_id="filenames" />
+		<link id="1" source_node_id="0" sink_node_id="2" source_channel="scan_ranges" sink_channel="scan_ranges" enabled="true" source_channel_id="scan_ranges" sink_channel_id="scan_ranges" />
+		<link id="2" source_node_id="2" sink_node_id="1" source_channel="bliss_scan_uris" sink_channel="bliss_scan_uris" enabled="true" source_channel_id="bliss_scan_uris" sink_channel_id="bliss_scan_uris" />
+		<link id="3" source_node_id="0" sink_node_id="1" source_channel="detector_names" sink_channel="detector_names" enabled="true" source_channel_id="detector_names" sink_channel_id="detector_names" />
+		<link id="4" source_node_id="0" sink_node_id="1" source_channel="configs" sink_channel="configs" enabled="true" source_channel_id="configs" sink_channel_id="configs" />
+		<link id="5" source_node_id="1" sink_node_id="3" source_channel="xrf_results_uris" sink_channel="xrf_results_uris" enabled="true" source_channel_id="xrf_results_uris" sink_channel_id="xrf_results_uris" />
+		<link id="6" source_node_id="3" sink_node_id="5" source_channel="xrf_results_uri" sink_channel="xrf_results_uri" enabled="true" source_channel_id="xrf_results_uri" sink_channel_id="xrf_results_uri" />
+		<link id="7" source_node_id="0" sink_node_id="5" source_channel="monitor_name" sink_channel="counter_name" enabled="true" source_channel_id="monitor_name" sink_channel_id="counter_name" />
+		<link id="8" source_node_id="0" sink_node_id="5" source_channel="monitor_normalization_template" sink_channel="counter_normalization_template" enabled="true" source_channel_id="monitor_normalization_template" sink_channel_id="counter_normalization_template" />
+		<link id="9" source_node_id="1" sink_node_id="3" source_channel="bliss_scan_uris" sink_channel="bliss_scan_uris" enabled="true" source_channel_id="bliss_scan_uris" sink_channel_id="bliss_scan_uris" />
+		<link id="10" source_node_id="3" sink_node_id="5" source_channel="bliss_scan_uris" sink_channel="bliss_scan_uris" enabled="true" source_channel_id="bliss_scan_uris" sink_channel_id="bliss_scan_uris" />
+		<link id="11" source_node_id="1" sink_node_id="3" source_channel="detector_names" sink_channel="detector_names" enabled="true" source_channel_id="detector_names" sink_channel_id="detector_names" />
+		<link id="12" source_node_id="1" sink_node_id="3" source_channel="output_root_uri" sink_channel="output_root_uri" enabled="true" source_channel_id="output_root_uri" sink_channel_id="output_root_uri" />
+		<link id="13" source_node_id="3" sink_node_id="5" source_channel="output_root_uri" sink_channel="output_root_uri" enabled="true" source_channel_id="output_root_uri" sink_channel_id="output_root_uri" />
+		<link id="14" source_node_id="5" sink_node_id="6" source_channel="bliss_scan_uris" sink_channel="bliss_scan_uris" enabled="true" source_channel_id="bliss_scan_uris" sink_channel_id="bliss_scan_uris" />
+		<link id="15" source_node_id="5" sink_node_id="6" source_channel="output_root_uri" sink_channel="output_root_uri" enabled="true" source_channel_id="output_root_uri" sink_channel_id="output_root_uri" />
+		<link id="16" source_node_id="5" sink_node_id="6" source_channel="xrf_results_uri" sink_channel="xrf_results_uri" enabled="true" source_channel_id="xrf_results_uri" sink_channel_id="xrf_results_uri" />
+		<link id="17" source_node_id="6" sink_node_id="4" source_channel="xrf_results_uri" sink_channel="xrf_results_uri" enabled="true" source_channel_id="xrf_results_uri" sink_channel_id="xrf_results_uri" />
+		<link id="18" source_node_id="6" sink_node_id="4" source_channel="bliss_scan_uris" sink_channel="bliss_scan_uris" enabled="true" source_channel_id="bliss_scan_uris" sink_channel_id="bliss_scan_uris" />
+		<link id="19" source_node_id="6" sink_node_id="4" source_channel="output_root_uri" sink_channel="output_root_uri" enabled="true" source_channel_id="output_root_uri" sink_channel_id="output_root_uri" />
+		<link id="20" source_node_id="0" sink_node_id="3" source_channel="detector_normalization_template" sink_channel="detector_normalization_template" enabled="true" source_channel_id="detector_normalization_template" sink_channel_id="detector_normalization_template" />
+	</links>
+	<annotations>
+		<text id="0" type="text/plain" rect="(26.0, 150.0, 150.0, 50.0)" font-family="Ubuntu" font-size="16">- File names
+- Scan ranges</text>
+		<text id="1" type="text/plain" rect="(271.0, 143.0, 233.0, 69.0)" font-family="Ubuntu" font-size="16">- Output root URI
+- Detector names
+- PyMca configuration files</text>
+		<text id="2" type="text/plain" rect="(544.0, 144.0, 190.0, 67.0)" font-family="Ubuntu" font-size="16">- Detector normalization template</text>
+		<text id="3" type="text/plain" rect="(812.0, 144.0, 262.0, 54.0)" font-family="Ubuntu" font-size="16">- Counter name
+- Counter normalization template</text>
+		<arrow id="4" start="(76.0, 218.00000000000003)" end="(99.0, 280.0)" fill="#C1272D" />
+		<arrow id="5" start="(338.0, 228.99999999999997)" end="(346.0, 296.0)" fill="#C1272D" />
+		<arrow id="6" start="(597.0000000000001, 224.00000000000003)" end="(583.0000000000001, 294.0)" fill="#C1272D" />
+		<arrow id="7" start="(824.0000000000001, 223.99999999999994)" end="(813.0000000000002, 294.99999999999994)" fill="#C1272D" />
+		<text id="8" type="text/plain" rect="(149.0, 636.0, 150.0, 31.0)" font-family="Ubuntu" font-size="16">Generate test data</text>
+		<arrow id="9" start="(136.0, 644.0)" end="(67.0, 616.0)" fill="#C1272D" />
+	</annotations>
+	<thumbnail />
+	<node_properties>
+		<properties node_id="0" format="literal">{'_ewoks_default_inputs': {'rois': [(100, 200), (300, 600)], 'integral_type': True, 'emission_line_groups': ['Si-K', 'Ca-K', 'Ce-L', 'Fe-K'], 'counting_noise': True, 'nscans': 3, 'shape': (50, 60), 'output_filename': 'raw_data.h5', 'ndetectors': 2, 'energy': 12.0, 'expo_time': 0.1, 'flux': 10000000.0}, '_ewoks_execinfo': {}, '_ewoks_varinfo': {}, 'controlAreaVisible': True, 'default_inputs': {}, 'savedWidgetGeometry': None, '__version__': 1}</properties>
+		<properties node_id="1" format="literal">{'_ewoks_default_inputs': {'fast_fitting': True, 'xrf_spectra_uri_template': 'instrument/{}/data', 'output_root_uri': 'processed_data.h5', 'diagnostics': False, 'figuresofmerit': False, 'energy_uri_template': 'instrument/positioners_start/{}', 'process_uri_template': 'fit/{}', 'energy_multiplier': 2.0}, '_ewoks_execinfo': {}, '_ewoks_varinfo': {}, 'controlAreaVisible': True, 'default_inputs': {}, 'savedWidgetGeometry': None, '__version__': 1}</properties>
+		<properties node_id="2" format="literal">{'_ewoks_default_inputs': {}, '_ewoks_execinfo': {}, '_ewoks_varinfo': {}, 'controlAreaVisible': True, 'default_inputs': {}, 'savedWidgetGeometry': None, '__version__': 1}</properties>
+		<properties node_id="3" format="literal">{'_ewoks_default_inputs': {'output_root_uri': 'processed_data.h5', 'detector_normalization_template': '1./&lt;instrument/{}/live_time&gt;'}, '_ewoks_execinfo': {}, '_ewoks_varinfo': {}, 'controlAreaVisible': True, 'default_inputs': {}, 'savedWidgetGeometry': None, '__version__': 1}</properties>
+		<properties node_id="4" format="literal">{'_ewoks_default_inputs': {'output_root_uri': 'processed_data.h5'}, '_ewoks_execinfo': {}, '_ewoks_varinfo': {}, 'controlAreaVisible': True, 'default_inputs': {}, 'savedWidgetGeometry': None, '__version__': 1}</properties>
+		<properties node_id="5" format="literal">{'_ewoks_default_inputs': {'output_root_uri': 'processed_data.h5', 'counter_normalization_template': 'np.mean(&lt;instrument/{}/data&gt;)/&lt;instrument/{}/data&gt;', 'detector_normalization_template': '1./&lt;instrument/{}/live_time&gt;'}, '_ewoks_execinfo': {}, '_ewoks_varinfo': {}, 'controlAreaVisible': True, 'default_inputs': {}, 'savedWidgetGeometry': None, '__version__': 1}</properties>
+		<properties node_id="6" format="literal">{'_ewoks_default_inputs': {'output_root_uri': 'processed_data.h5'}, '_ewoks_execinfo': {}, '_ewoks_varinfo': {}, 'controlAreaVisible': True, 'default_inputs': {}, 'savedWidgetGeometry': None, '__version__': 1}</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>

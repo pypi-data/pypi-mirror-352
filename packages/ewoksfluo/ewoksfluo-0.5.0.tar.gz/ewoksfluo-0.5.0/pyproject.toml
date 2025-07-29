@@ -1,0 +1,111 @@
+[build-system]
+requires = [
+    "setuptools>=46.4"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+# consider_namespace_packages = true  # for pytest>=8.1
+addopts = "--import-mode=importlib"  # for all pytest versions, pytest-cov needs `pip install -e .`
+
+[project]
+name = "ewoksfluo"
+version = "0.5.0"
+keywords = ['orange3 add-on', 'ewoks']
+authors = [{name = "ESRF", email = "dau-pydev@esrf.fr"}]
+description = "Data processing workflows for X-ray Fluorescence"
+readme = {file = "README.md", content-type = "text/markdown"}
+license = {file = "LICENSE.md"}
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "ewoks[orange]",
+    "h5py",
+    "numpy",
+    "pymca >=5.8.9; python_version >= '3.9'",
+    "pymca >=5.8.9, <5.9.4; python_version < '3.9'",
+    "fabio",
+    "scipy",
+    "imageio",
+    "ewoksdata >=0.2.7",
+    "ewoksorange >= 0.7.0rc0",
+    "pint",
+    "silx >=2.2",
+    "scikit-learn"
+]
+
+[project.urls]
+Homepage = "https://gitlab.esrf.fr/workflow/ewoksapps/ewoksfluo/"
+Documentation = "https://ewoksfluo.readthedocs.io/"
+Repository = "https://gitlab.esrf.fr/workflow/ewoksapps/ewoksfluo/"
+Issues = "https://gitlab.esrf.fr/workflow/ewoksapps/ewoksfluo/issues"
+Changelog = "https://gitlab.esrf.fr/workflow/ewoksapps/ewoksfluo/-/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+test = [
+    "pytest >=7",
+    "pyqt5",
+    "importlib_resources; python_version < '3.9'",
+    "psutil"
+]
+dev = [
+    "ewoksfluo[test]",
+    "black >=25",
+    "flake8 >=4",
+    "pre-commit",
+]
+doc = [
+    "ewoksfluo[test]",
+    "sphinx >=4.5",
+    "sphinx-autodoc-typehints >=1.16",
+    "pydata_sphinx_theme < 0.15",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*"= ['*.ows', '*.png', '*.svg']
+
+[tool.coverage.run]
+omit = ['*/tests/*']
+
+[project.entry-points."orange3.addon"]
+"ewoksfluo" = "orangecontrib.ewoksfluo"
+
+[project.entry-points."orange.widgets"]
+"FLUO" = "orangecontrib.ewoksfluo.categories"
+
+[project.entry-points."orangecanvas.examples"]
+"FLUODEMO" = "orangecontrib.ewoksfluo.categories.demo.tutorials"
+"FLUOFIT" = "orangecontrib.ewoksfluo.categories.fit.tutorials"
+
+[project.entry-points."orange.widgets.tutorials"]
+"FLUODEMO" = "orangecontrib.ewoksfluo.categories.demo.tutorials"
+"FLUOFIT" = "orangecontrib.ewoksfluo.categories.fit.tutorials"
+
+[project.entry-points."orange.canvas.help"]
+"html-index" = "orangecontrib.ewoksfluo:WIDGET_HELP_PATH"
+
+[project.entry-points."ewoks.tasks.class"]
+"ewoksfluo.tasks.*" = "ewoksfluo1"
+"ewoksfluo.tasks.*.*" = "ewoksfluo2"
+
+[tool.mypy]
+python_version = "3.8"
+
+[tool.mypy-h5py."*"]
+ignore_missing_imports = "True"
+
+[tool.mypy-PyMca5."*"]
+ignore_missing_imports = "True"
+
+[tool.mypy-setuptools."*"]
+ignore_missing_imports = "True"
