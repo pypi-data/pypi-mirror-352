@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tools4sci"
+version = "0.0.1.4"
+description = "Utility functions for quantitative analysis in science."
+authors = [{name = "Diogo Ferrari", email = "diogoferrari@gmail.com"}]
+maintainers = [{name = "Diogo Ferrari", email = "diogoferrari@gmail.com"}]
+license = "MIT"
+license-files = ["LICENSE"]
+readme = "README.md"
+requires-python = ">=3.6"
+keywords = [
+	 "Utilities", "Data analysis", "Research"
+	 ]
+classifiers = [
+	    "Development Status :: 4 - Beta",
+	    "Intended Audience :: Science/Research",
+	    "Topic :: Scientific/Engineering"
+]
+dependencies = [
+	 "altair",
+	 "ghostscript",
+	 "pandas",
+	 "plotnine",
+	 "polars",
+	 "tidypolars4sci",
+	 "typing",
+	 "xlsxwriter",
+	 "vl-convert-python",
+]
+
+[tool.setuptools.package-data]
+tidypolars4sci.data = ["*.csv", "*.rda"]
+
+[project.urls]
+Homepage = "https://github.com/DiogoFerrari/tools4sci"
+Documentation = "https://github.com/DiogoFerrari/tools4sci"
+Changelog = "https://github.com/DiogoFerrari/tools4sci/blob/master/CHANGELOG.md"
+Issues = "https://github.com/DiogoFerrari/tools4sci/issues/"
