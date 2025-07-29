@@ -1,0 +1,15 @@
+---
+name: Disperse configuration
+
+"on":
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jelmer/action-disperse-validate@v2

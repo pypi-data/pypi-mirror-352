@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=61.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dissolve"
+description = "Automatically replace use of deprecated APIs"
+readme = "README.rst"
+authors = [{name = "Jelmer Vernooĳ", email = "jelmer@jelmer.uk"}]
+license = {text = "Apachev2 or later"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Operating System :: POSIX",
+]
+urls = {Homepage = "https://github.com/jelmer/dissolve/"}
+requires-python = ">=3.9"
+dependencies = ["packaging"]
+dynamic = ["version"]
+
+[project.scripts]
+dissolve = "dissolve.__main__:main"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages]
+find = {namespaces = false}
+
+[tool.setuptools.dynamic]
+version = {attr = "dissolve.__version__"}
+
+[project.optional-dependencies]
+testing = ["pytest"]
+dev = [
+    "ruff==0.11.11",
+    "mypy==1.15.0"
+]
+
+[tool.ruff.lint]
+select = [
+    "ANN",
+    "D",
+    "E",
+    "F",
+    "I",
+    "PIE",
+    "UP",
+    "RSE",
+    "RUF",
+]
+ignore = [
+    "ANN001",
+    "ANN002",
+    "ANN003",
+    "ANN201",
+    "ANN202",
+    "ANN204",
+    "ANN205",
+    "ANN206",
+    "ANN401",
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D107",
+    "D204",
+    "D205",
+    "D417",
+    "E501",  # line too long
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+
