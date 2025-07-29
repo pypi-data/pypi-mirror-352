@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "coffee_maker"
+version = "0.0.15"
+description = "An agent that roast, grind, brew and serve your coffee. or not..."
+authors = ["Bobain and some code agents"]
+license = "Apache 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+mcp = {extras = ["cli"], version = "1.9.0"}
+smolagents = {extras = ["mcp"], version = "^1.16.1"}
+gradio = {extras = ["mcp"], version = "^5.31.0"}
+
+pubmedmcp = "^0.1.3"
+python-dotenv = "^1.1.0"
+duckduckgo-search = "^8.0.2"
+pyttsx3 = "^2.98"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+pytest-cov = "^6.0"
+
+
+[tool.poetry.urls]
+"Homepage" = "https://github.com/Bobain/MonolithicCoffeeMakerAgent"
+"Repository" = "https://github.com/Bobain/MonolithicCoffeeMakerAgent"
+"Bug Tracker" = "https://github.com/Bobain/MonolithicCoffeeMakerAgent/issues"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
