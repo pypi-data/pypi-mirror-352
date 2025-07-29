@@ -1,0 +1,18 @@
+- Poisson S:
+    func: poisson_evaluations.spatial_test
+    plot_func: plot_poisson_consistency_test
+    plot_args:
+        title: S-test
+        xlabel: Spatial Log-Likelihood
+        title_fontsize: 16
+    plot_kwargs:
+        one_sided_lower: True
+- Poisson T:
+    func: poisson_evaluations.paired_t_test
+    plot_func: plot_comparison_test
+    ref_model: TEAM@N10L11
+    plot_args:
+      title: T-test
+- Matrix T:
+    func: vector_poisson_t_w_test
+    plot_func: plot_matrix_comparative_test

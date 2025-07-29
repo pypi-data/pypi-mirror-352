@@ -1,0 +1,25 @@
+- Poisson_S:
+    func: poisson_evaluations.spatial_test
+    plot_func: plot_poisson_consistency_test
+    plot_kwargs:
+      one_sided_lower: True
+    plot_args:
+      title: S-test
+      title_fontsize: 16
+      xlabel: Spatial log-likelihood
+      linewidth: 0.5
+      capsize: 0
+
+
+- Sequential_LL:
+    func: sequential_likelihood
+    plot_func: plot_sequential_likelihood
+    plot_args:
+      title: Cumulative Log-Likelihood
+      ylabel: Log-Likelihood
+      titlesize: 14
+      linewidth: 0.5
+      linestyles: '-.'
+      markers: 'o'
+      markersize: 1
+

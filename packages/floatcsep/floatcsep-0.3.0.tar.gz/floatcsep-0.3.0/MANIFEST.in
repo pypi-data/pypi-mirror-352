@@ -1,0 +1,25 @@
+include README.md
+include CODE_OF_CONDUCT.md
+include requirements.txt
+include requirements_dev.txt
+include environment.yml
+include setup.py
+include setup.cfg
+include pyproject.toml
+include LICENSE
+include CREDITS.md
+include CONTRIBUTING.md
+
+graft floatcsep
+graft tests
+graft docs
+prune build
+prune docs/_build
+prune docs/referenced/generated
+
+global-exclude .git*
+global-exclude *.pyc
+global-exclude *.html
+global-exclude *.so
+global-exclude *~
+global-exclude .DS_Store
