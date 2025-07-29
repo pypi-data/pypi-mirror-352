@@ -1,0 +1,92 @@
+Metadata-Version: 2.4
+Name: pdfwerks
+Version: 0.1.3
+Summary: A Python PDF Toolkit packaged with multiple tools for PDF manipulation
+Author-email: Adithya Menon R <adukottan@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2025 Adithya Menon R
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Repository, https://github.com/adithya-menon-r/PDF-Toolkit.git
+Keywords: pdf,toolkit,pdfwerks,tui,cli,python,pdf-management
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: rich>=10.0.0
+Requires-Dist: prompt_toolkit>=3.0.0
+Requires-Dist: pypdf>=5.0.0
+Requires-Dist: pyperclip>=1.8.0
+Dynamic: license-file
+
+# PDFwerks
+
+PDFwerks is a lightweight yet comprehensive, command-line tool for working with PDFs. It provides essential PDF manipulation tools all in one easy to use package. All operations are performed locally on your machine, ensuring your sensitive documents stay secure and private. With PDFwerks, you can finally say goodbye to uploading your documents to shady websites or paying for basic PDF operations.
+
+Finally got it published to **PyPI**! [Check it out on PyPI.](https://pypi.org/project/pdfwerks)
+
+> ⚠️ Note: It is published under the name - **pdfwerks**. This is because PyPI rejected pdf-toolkit as a project name.
+
+## Installation & Usage
+You can now install **PDFwerks** using `pip`:
+```bash
+pip install pdfwerks
+```
+
+Once installed, run the tool from your terminal with:
+```bash
+pdfwerks
+```
+
+> Note: This project is still a work in progress. Currently, only the **`Merge PDFs`** tool is available. More tools and features like CLA based usage are in the works. 
+
+## For Developers
+If you want to test, contribute or customize the tool locally:
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/adithya-menon-r/PDF-Toolkit.git
+    cd PDF-Toolkit
+    ```
+
+2. Create a virtual environment and activate it:
+
+    ```bash
+    python -m venv .venv
+    .venv\Scripts\activate    # On Linux/Mac: source .venv/bin/activate
+    ```
+
+3. Install dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. Install the package in editable mode:
+
+    ```bash
+    pip install -e .
+    ```
+
+You can now make changes to the code and test them without reinstalling.
+
+## License
+This project is licensed under the [MIT LICENSE](LICENSE)
