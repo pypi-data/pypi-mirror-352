@@ -1,0 +1,18 @@
+[project]
+name = "hungovercoders_template_python_package"
+version = "0.1.0"
+description = "This is a template for a Python package created by Hungover Coders."
+license = { file = "LICENSE" }
+readme = "README.md"
+authors = [
+    { name = "dataGriff", email = "info@hungovercoders.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+hungovercoders-template-hello = "hungovercoders_template_python_package.greetings:hello_cli"
