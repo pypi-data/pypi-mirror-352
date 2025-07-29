@@ -1,0 +1,102 @@
+Metadata-Version: 2.4
+Name: prompta
+Version: 0.2.10
+Summary: A powerful CLI tool for managing and versioning prompts across projects
+Author-email: Ekky Armandi <me@ekky.dev>
+License: MIT License
+        
+        Copyright (c) 2025 Ekky Armandi
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/ekkyarmandi/prompta
+Project-URL: Bug Tracker, https://github.com/ekkyarmandi/prompta/issues
+Project-URL: Source Code, https://github.com/ekkyarmandi/prompta
+Keywords: prompts,rules,ai,llm,context,version-control,prompt-management
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development
+Classifier: Topic :: Text Processing
+Classifier: Topic :: Utilities
+Requires-Python: >=3.8.1
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click>=8.0.0
+Requires-Dist: httpx>=0.24.0
+Requires-Dist: rich>=13.0.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: keyring>=24.0.0
+Requires-Dist: tqdm>=4.64.0
+Requires-Dist: pydantic>=2.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: pytest-mock>=3.10.0; extra == "dev"
+Requires-Dist: pytest-click>=1.1.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: responses>=0.23.0; extra == "dev"
+Dynamic: license-file
+
+# Prompta CLI
+
+Prompta is a powerful command-line tool for creating and managing self-hosted prompt management systems.
+
+## Project Management
+
+Create and manage Prompta API server projects:
+
+- **`prompta createproject <name>`** - Create a new Prompta API server project
+- **`prompta migrate`** - Run database migrations (convenience wrapper around Alembic)
+- **`prompta runserver`** - Start development server (convenience wrapper around Uvicorn)
+- **`prompta createsuperuser`** - Create admin users interactively
+
+## Prompt Management
+
+- Create, edit and organise prompt files locally
+- Push and pull prompts to a Prompta server
+- Inspect and test prompts from the terminal
+
+## Flexibility
+
+The prompta commands are convenience wrappers that make common tasks easier. You can always use the underlying tools directly:
+
+- Use **`alembic`** commands directly for advanced migration management
+- Use **`uvicorn app.main:app`** directly for custom server configurations
+- All standard FastAPI, SQLAlchemy, and Alembic workflows are fully supported
+
+```shell
+$ prompta --help
+```
+
+For full documentation see the project's main README in the repository root or visit the project website.
+
+Prompta is written in Python 3.8+ and distributed under the MIT licence.
