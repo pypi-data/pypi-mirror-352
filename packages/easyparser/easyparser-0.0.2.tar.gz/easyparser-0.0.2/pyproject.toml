@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+version = "0.0.2"
+name = "easyparser"
+authors = [
+  { name = "trducng", email = "trungduc1992@gmail.com" },
+  { name = "tadashi", email = "taprosoft@gmail.com" },
+]
+description = "A fast and light-weight library for ingesting and chunking files"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Development Status :: 2 - Pre-Alpha"
+]
+dependencies = [
+  "llm",
+  "click",
+  "numpy",
+  "pypandoc",
+  "tree-sitter",
+  "tqdm",
+
+  # file type identification
+  "magika",
+  "python-magic",
+
+  # Office
+  "python-pptx",
+  "openpyxl",
+
+  # HTML
+  "beautifulsoup4",
+
+  # Markdown
+  "tree-sitter-markdown",
+]
+
+[project.optional-dependencies]
+dev = ["coverage", "pytest", "black", "flake8", "mypy", "isort", "pre-commit", "notebook", "ipython", "build", "twine"]
+pdf = ["pypdfium2", "img2table", "pillow", "rapid-layout", "chunking-pdftext", "opencv-contrib-python"]
+ocr = ["opencv-contrib-python", "rapidocr", "rapid-layout", "pillow"]
+audio  = ["openai-whisper", "pydub"]
+pdf-others = ["docling", "unstructured[pdf]", "sycamore-ai[local-inference]"]
+
+[project.urls]
+Homepage = "https://github.com/easyparser/easyparser"
+Repository = "https://github.com/easyparser/easyparser"
+
+[project.scripts]
+easyparser = "easyparser.cli:easyparser"
+
+[tool.setuptools.packages.find]
+include = ["easyparser", "easyparser.*"]
+
+[tool.isort]
+profile = "black"
