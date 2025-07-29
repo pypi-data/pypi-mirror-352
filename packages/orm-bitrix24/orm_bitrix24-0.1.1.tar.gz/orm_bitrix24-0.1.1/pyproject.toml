@@ -1,0 +1,33 @@
+[project]
+name = "orm-bitrix24"
+version = "0.1.1"
+description = "ORM for Bitrix24 REST API"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fast-bitrix24",
+    "python-dotenv",
+]
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
+
+[project.urls]
+Homepage = "https://github.com/darkClaw921/orm_bitrix24"
+Documentation = "https://github.com/darkClaw921/orm_bitrix24"
+Repository = "https://github.com/darkClaw921/orm_bitrix24.git"
+"Bug Tracker" = "https://github.com/darkClaw921/orm_bitrix24/issues"
+Changelog = "https://github.com/darkClaw921/orm_bitrix24/blob/master/CHANGELOG.md"
+
+
+
+[dependency-groups]
+dev = [
+    "loguru>=0.7.3",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=1.0.0",
+    "pytest-cov>=6.1.1",
+]
