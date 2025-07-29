@@ -1,0 +1,17 @@
+[project]
+name = "weather-mcp-yethu2"
+version = "0.1.1"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "build>=1.2.2.post1",
+    "langchain-google-genai>=2.1.3",
+    "langchain-mcp-adapters>=0.0.9",
+    "langchain-openai>=0.3.14",
+    "langgraph>=0.3.31",
+    "mcp[cli]>=1.6.0",
+]
+
+[project.scripts]
+weather-mcp-yethu2 = "main:main"
