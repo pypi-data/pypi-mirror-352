@@ -1,0 +1,275 @@
+
+# Main
+.commands {
+    margin: 1;
+}
+
+.system-label {
+    margin-left: 1;
+    margin-top: 1;
+}
+
+#system_clock {
+    margin-left: 1;
+    width: 24;
+}
+
+#system_timezone {
+    margin: 1;
+}
+
+# General
+.date-labels {
+    margin: 1;    
+}
+
+.date-fields {
+    margin: 1;
+    max-width: 18;
+}
+
+.modal-buttons {
+    width: 100%;
+}
+
+.single-modal-button {
+    column-span: 2;
+    content-align: center middle;
+    width: 100%;
+}
+
+PanelWelcomeContent {
+    layout: grid;
+    grid-size: 4;
+    grid-columns: 4fr;
+    grid-gutter: 1;
+}
+
+PanelWelcomeMessage {
+    column-span: 2;
+}
+
+PanelWelcomeLogo {
+    column-span: 1;
+}
+
+PanelWelcomeActions {
+    column-span: 1;
+}
+
+
+RvaryScreen {
+    align: center middle;
+    background: rgba(45, 45, 45, 0.75);    
+}
+
+ConfirmationScreen {
+    align: center middle;
+    background: rgba(45, 45, 45, 0.75);
+}
+
+WarningScreen {
+    align: center middle;
+    background: rgba(45, 45, 45, 0.75);
+}
+
+RefreshScreen {
+    align: center middle;
+    background: rgba(45, 45, 45, 0.75);    
+}
+
+#dialog {
+    grid-size: 2;
+    grid-gutter: 1 2;
+    grid-rows: 1fr 3;
+    padding: 0 1;
+    width: 60;
+    height: 14;
+    border: thick $background 80%;
+    background: $surface;
+}
+
+#question {
+    column-span: 2;
+    height: 1fr;
+    width: 1fr;
+    content-align: center middle;
+}
+
+.uacc-select {
+    width: 20;
+    margin-bottom: 1;
+}
+
+.label-generic {
+    margin: 1;
+}
+
+.field-short-generic {
+    width: 16;
+    margin-bottom: 1;
+}
+
+.field-medium-generic {
+    width: 64;
+    margin-bottom: 1;
+}
+
+.field-long-generic {
+    width: 128;
+    margin-bottom: 1;
+}
+
+.generic-checkbox-small {
+    width: 32;
+    margin-bottom: 1;
+}
+
+.generic-checkbox-medium {
+    width: 60;
+    margin-bottom: 1;
+}
+
+.list-view-generic {
+    box-sizing: content-box;
+    height: auto;
+}
+
+.action-button {
+    margin-top: 1;
+    margin-bottom: 1;
+    margin-left: 1;
+    align: center middle;
+}
+
+.installation-data {
+    width: 150;
+    margin-bottom: 1;
+}
+
+# Setropts
+.setropts-warning {
+    margin: 1;
+    max-width: 60;
+}
+
+.setropts-mode-label {
+    margin-left: 1;
+}
+
+# Welcome
+
+.logo-image {
+    max-width: 80;
+    max-height: 80;
+    width: auto;
+    height: auto;
+}
+
+.welcome-suggestion-header {
+    margin-left: 1;
+}
+
+.welcome-suggestion-button {
+    width: 28;
+    margin: 1;
+}
+
+# Audit mode
+.qrcode-image {
+    width: 24;
+    height: auto;
+}
+
+# Dataset panel
+
+# Resource panel
+.class-field {
+    width: 16;
+    max-width: 16;
+    margin-bottom: 1;
+}
+
+.resource-name-field {
+    width: 180;
+    margin-bottom: 1;
+}
+
+# Search panel
+.search-buttons {
+    margin: 1;
+}
+
+.search-switcher {
+    border: panel $primary;
+    height: 1fr;
+}
+
+.search-label {
+    margin: 1;
+}
+
+.search-field {
+    width: 90;
+    margin-bottom: 1;
+}
+
+# Permit panel
+.permit-switcher {
+    border: panel $primary;
+    height: 1fr;
+}
+
+# Analysis panel
+.analysis-confirm {
+    margin: 1;
+}
+
+# User creation/modification panel
+.name {
+    width: 40;
+}
+
+.password {
+    width: 16;
+}
+
+.passphrase {
+    width: 200;
+}
+
+ToggleButton > .toggle--button {
+    display: none;
+}
+
+ToggleButton.-on > .toggle--button {
+    color: $text-success;
+}
+
+# Backout panel
+
+.backout-label {
+    margin: 1;
+}
+
+# Health checker
+
+.selector-health-checks {
+    margin: 1;
+    width: 32;
+}
+
+# Copy panel
+
+.copy-label {
+    margin: 1;
+}
+
+.copy-switcher {
+    border: panel $primary;
+    height: 1fr;
+}
+
+.copy-buttons {
+    margin: 1;
+}

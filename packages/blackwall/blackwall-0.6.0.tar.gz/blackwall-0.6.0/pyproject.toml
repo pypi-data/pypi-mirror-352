@@ -1,0 +1,146 @@
+[project]
+name = "blackwall"
+description = "Blackwall Protocol for mainframe security administration"
+dynamic = ["version"]
+requires-python = ">=3.12"
+dependencies = [
+  "pysear==0.1.1 ; sys_platform=='zos'",
+  "textual>=3.3.0",
+]
+authors = [
+  {name = "Emma Skovgaard"},
+  {name = "Karoline Halberg Rasmussen"}
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["RACF", "security", "mainframe", "zos", "TUI", "SEAR", "ESM"]
+
+classifiers = [    
+  #Application audience and type
+  "Topic :: Security",
+  "Intended Audience :: System Administrators",
+
+  #Status
+  "Development Status :: 3 - Alpha",
+
+  #Application environment
+  "Environment :: Console",
+  "Operating System :: POSIX",
+  "Topic :: System :: Hardware :: Mainframes",
+
+  #Supported python versions
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+
+  "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+images = [
+  "qrcode>=8.1",
+  "textual-image>=0.8.2",
+]
+dev = [
+  "textual-dev>=1.7.0",
+]
+
+[project.scripts]
+blackwall = "blackwall.main:main"
+
+[project.urls]
+Repository = "https://github.com/EmmasBox/blackwall-protocol"
+Source = "https://github.com/EmmasBox/blackwall-protocol"
+Issues = "https://github.com/EmmasBox/blackwall-protocol/issues"
+Pypi = "https://pypi.org/project/blackwall/"
+Documentation = "https://emmasbox.github.io/blackwall-protocol-docs/"
+
+[build-system]
+requires = ["setuptools >= 61.0", "setuptools-scm >= 8.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+[tool.setuptools.package-data]
+blackwall = ["*.css", "*.tcss", "*.md", "*.png"]
+
+[tool.bandit]
+exclude_dirs = [".github", ".git"]
+tests = [
+  "B101",
+  "B102",
+  "B103",
+  "B104",
+  "B105",
+  "B106",
+  "B107",
+  "B108",
+  "B109",
+  "B111",
+  "B113",
+  "B202",
+  "B324",
+  "B501",
+  "B502",
+  "B503",
+  "B504",
+  "B505",
+  "B507",
+  "B604",
+  "B607",
+  "B609",
+  #Blacklist
+  "B302", 
+  "B301", 
+  "B303", 
+  "B312", 
+  "B321", 
+  "B323", 
+  "B304", 
+  "B305",
+  "B401",
+  "B402",
+  "B403",
+  "B405",
+  "B406",
+  "B407",
+  "B408",
+  "B409",
+  "B411",
+  "B412",
+  "B413",
+  "B415",
+]
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+  ".git",
+  ".github",
+]
+
+[tool.ruff.lint]
+# Ruff by default is not very aggressive, only enforcing a few rulesets like E and F.
+# To ensure security and well organized code a bunch more rulesets have been enabled
+select = [
+  "E", 
+  "F", 
+  "B", 
+  "EM", 
+  "SIM", #Comes with suggestions on simplifying things
+  "PTH", #Must use pathlib instead of os
+  "N",  #Checks if code conforms to the PEP8 naming conventions
+  "PLE", 
+  "UP", 
+  "TRY", 
+  "FLY", #Checks for string joins
+  "I",  #Comes with suggestions on organizing imports
+  "COM", #Checks for missing commas and unnecessary 
+  "A", 
+  "C4",
+  "YTT",
+  "ASYNC",
+  ]
+
+# Avoid enforcing dumb rules
+ignore = ["E501","B024"]
