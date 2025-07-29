@@ -1,0 +1,141 @@
+Metadata-Version: 2.1
+Name: astarcloud
+Version: 0.1.8
+Summary: Official Python SDK for the AstarCloud API
+Author-Email: Erik <erik@astarconsulting.no>
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Project-URL: Documentation, https://docs.astarcloud.ai
+Project-URL: Source, https://github.com/ASTAR-CLOUD/astarcloud-sdk
+Requires-Python: >=3.9
+Requires-Dist: httpx>=0.27.0
+Requires-Dist: pydantic>=2.0
+Description-Content-Type: text/markdown
+
+# AstarCloud SDK
+
+Python SDK for the AstarCloud API with support for chat completions and tool calling.
+
+## Installation
+
+```bash
+pip install astarcloud-sdk
+```
+
+## Quick Start
+
+```python
+from AstarCloud import AstarClient
+
+client = AstarClient(api_key="sk-...")
+
+# Basic chat completion
+response = client.create.completion(
+    messages=[{"role": "user", "content": "Hello!"}],
+    model="gpt-4.1"
+)
+
+print(response.choices[0].message.content)
+```
+
+## Tool Calling
+
+The SDK supports tool calling for compatible models (`gpt-4.1`, `gpt-4.1-mini`, `gpt-4.1-nano`, `astar-gpt-4.1`).
+
+### Basic Tool Usage
+
+```python
+from AstarCloud import AstarClient, ToolSpec
+
+client = AstarClient(api_key="sk-...")
+
+# Define a tool
+weather_tool = ToolSpec(
+    function={
+        "name": "get_weather",
+        "description": "Get the current weather in a given location",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "location": {
+                    "type": "string",
+                    "description": "The city and state, e.g. San Francisco, CA"
+                }
+            },
+            "required": ["location"]
+        }
+    }
+)
+
+# Use the tool in a completion
+response = client.create.completion(
+    messages=[{"role": "user", "content": "What's the weather in Paris?"}],
+    model="gpt-4.1",
+    tools=[weather_tool],
+    tool_choice="auto"
+)
+
+# Check if the model wants to call a tool
+if response.choices[0].tool_calls:
+    tool_call = response.choices[0].tool_calls[0]
+    print(f"Tool called: {tool_call.function['name']}")
+    print(f"Arguments: {tool_call.function['arguments']}")
+```
+
+### Bound Tools Client
+
+For convenience, you can create a client with pre-bound tools:
+
+```python
+# Create a client with bound tools
+bound_client = client.bind_tools([weather_tool])
+
+# All completions will automatically include the bound tools
+response = bound_client.create.completion(
+    messages=[{"role": "user", "content": "What's the weather in Tokyo?"}],
+    model="gpt-4.1"
+)
+```
+
+## Streaming
+
+The SDK supports streaming responses:
+
+```python
+for chunk in client.create.completion(
+    messages=[{"role": "user", "content": "Write a story"}],
+    model="gpt-4.1",
+    stream=True
+):
+    if chunk.choices[0].message.content:
+        print(chunk.choices[0].message.content, end="")
+```
+
+## Error Handling
+
+```python
+from AstarCloud import AstarClient
+from AstarCloud._exceptions import APIError, AuthenticationError
+
+try:
+    response = client.create.completion(
+        messages=[{"role": "user", "content": "Hello"}],
+        model="gpt-4.1"
+    )
+except AuthenticationError:
+    print("Invalid API key")
+except APIError as e:
+    print(f"API error: {e}")
+```
+
+## Model Support
+
+### Tool-Compatible Models
+- `gpt-4.1`
+- `gpt-4.1-mini`
+- `gpt-4.1-nano`
+- `astar-gpt-4.1`
+
+Other models can be used for basic completions but do not support tool calling.
