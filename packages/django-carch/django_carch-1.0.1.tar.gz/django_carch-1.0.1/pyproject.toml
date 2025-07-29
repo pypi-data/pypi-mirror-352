@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-carch"
+version = "1.0.1"
+description = "Générateur automatique de projets Django modulaires en Clean Architecture"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name = "Jean Marie Daniel Vianney Guedegbe", email = "tonemail@example.com" }
+]
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["django_carch*"]
+
+[tool.setuptools.package-data]
+"django_carch" = ["bootstrap.md"]
