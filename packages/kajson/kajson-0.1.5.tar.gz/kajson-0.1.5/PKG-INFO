@@ -1,0 +1,66 @@
+Metadata-Version: 2.4
+Name: kajson
+Version: 0.1.5
+Summary: Powerful universal JSON encoder/decoder for Python objects with support for pydantic v2.
+Project-URL: Homepage, https://github.com/pipelex/kajson
+Project-URL: Repository, https://github.com/pipelex/kajson
+Project-URL: Documentation, https://github.com/pipelex/kajson
+Author-email: "Evotis S.A.S." <contact@pipelex.com>
+Maintainer-email: Pipelex staff <oss@pipelex.com>
+License-Expression: Apache-2.0
+License-File: LICENSE
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.9
+Requires-Dist: pydantic==2.10.6
+Provides-Extra: dev
+Requires-Dist: mypy>=1.11.2; extra == 'dev'
+Requires-Dist: pyright==1.1.398; extra == 'dev'
+Requires-Dist: pytest-asyncio>=0.24.0; extra == 'dev'
+Requires-Dist: pytest-pretty==1.2.0; extra == 'dev'
+Requires-Dist: pytest>=8.3.3; extra == 'dev'
+Requires-Dist: ruff>=0.6.8; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# kajson
+
+## Introduction
+
+Powerful universal JSON encoder/decoder for Python objects with support for pydantic v2.
+
+This library is used by [Pipelex](https://github.com/Pipelex/pipelex), the language for reliable LLM pipelines, [check it out](https://github.com/Pipelex/pipelex).
+
+## Installation
+
+### Using pip
+
+```bash
+pip install kajson
+```
+
+### Using poetry
+
+```bash
+poetry add kajson
+```
+
+## Using uv (recommended)
+
+```bash
+uv pip install kajson
+```
+
+## Hat tip
+
+This project is heavily based on code from [unijson](https://github.com/bpietropaoli/unijson) by Bastien Pietropaoli and distributed under the same license, [Apache 2.0](LICENSE).
+
+---
+
+"Pipelex" is a trademark of Evotis S.A.S.
+
+© 2025 Evotis S.A.S.
