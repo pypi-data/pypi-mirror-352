@@ -1,0 +1,18 @@
+[project]
+name = "ifcdate"
+version = "0.1.1"
+description = "Convert dates between Unix, Gregorian, and International Fixed Calendar"
+readme = "README.md"
+authors = [
+    { name = "Fabian Köll", email = "koell.dev@google.com" }
+]
+license = "MIT"
+requires-python = ">=3.8"
+dependencies = []
+
+[project.scripts]
+ifcdate = "ifcdate.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
