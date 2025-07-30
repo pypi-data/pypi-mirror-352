@@ -1,0 +1,60 @@
+
+# Shared objects
+*.o
+*.so
+*.mex
+*.mexa64
+*.mexmaci64
+*.mexw64
+
+# Compiled python
+*.pyc
+*.pyd
+
+# pytest cache
+.cache
+
+#Temporary files
+*~
+
+# Virtual environments
+venv*
+
+# pyat build stuff
+build
+dist
+pyat/at.egg-info
+pyat/prefix
+pyat/integrator-src
+pyat/at/_version.py
+*.egg-info
+.pytest_cache
+.coverage
+
+# dynamic integrator list
+atintegrators/passmethodlist.m
+
+# cmake
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+cmake-build-debug
+cmake-build-release
+.idea/
+
+# Vim
+*.swp
+*.swo
+
+#Local documentation
+doc_html/
+athelp.mat
+
+# C LSP server cache
+.ccls-cache
+
+# octave files
+octave-workspace
+
+# Test dir
+test/

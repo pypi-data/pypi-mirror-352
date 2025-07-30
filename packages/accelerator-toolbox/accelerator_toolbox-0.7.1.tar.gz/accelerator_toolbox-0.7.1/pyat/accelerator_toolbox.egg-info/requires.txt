@@ -1,0 +1,29 @@
+scipy>=1.4.0
+
+[:python_version < "3.9"]
+importlib-resources
+
+[:python_version <= "3.8"]
+numpy<2.0,>=1.16.6
+
+[:python_version >= "3.9"]
+numpy>=1.23.5
+
+[dev]
+pytest>=2.9
+pytest-cov
+flake8
+
+[doc]
+Sphinx~=8.1
+myst-parser
+myst-nb
+pydata-sphinx-theme
+sphinx_design
+sphinx-copybutton
+
+[mpi]
+mpi4py
+
+[plot]
+matplotlib
