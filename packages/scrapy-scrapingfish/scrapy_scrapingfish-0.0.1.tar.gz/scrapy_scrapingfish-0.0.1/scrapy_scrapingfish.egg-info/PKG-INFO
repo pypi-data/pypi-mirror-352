@@ -1,0 +1,48 @@
+Metadata-Version: 2.4
+Name: scrapy-scrapingfish
+Version: 0.0.1
+Summary: A Scrapy downloader middleware for ScrapingFish
+Author-email: Łukasz Żarnowiecki <lukasz.zarnowiecki@narf.ai>
+License-Expression: MIT
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: scrapy>=2.13.0
+Dynamic: license-file
+
+scrapy-scrapingfish
+===================
+
+A Scrapy downloader middleware for ScrapingFish.
+
+
+## Installation
+```bash
+pip install scrapy-scrapingfish
+```
+
+## Configuration
+Add the following to your Scrapy settings `settings.py` file:
+```python
+DOWNLOADER_MIDDLEWARES = {
+    # Adjust priorty as needed
+    'scrapy_scrapingfish.middleware.ScrapingFishProxyMiddleware': 760,
+}
+
+Set your ScrapingFish API key:
+```python
+SCRAPINGFISH_API_KEY = "YOUR_SCRAPINGFISH_API_KEY"
+```
+
+## Supported parameters
+- `SCRAPINGFISH_API_KEY: str` - Your ScrapingFish API key.
+- `SCRAPINGFISH_REQUEST_PARAMS: dict` Additional settings for ScrapingFish requests based on official documentation.
+- `SCRAPINGFISH_TIMEOUT: int` - Timeout for requests in seconds. Default is `90`.

@@ -1,0 +1,31 @@
+[project]
+name = "scrapy-scrapingfish"
+version = "0.0.1"
+description = "A Scrapy downloader middleware for ScrapingFish"
+authors = [
+    { name = "Łukasz Żarnowiecki", email = "lukasz.zarnowiecki@narf.ai" },
+]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.13",
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    # Probably lower
+    "scrapy>=2.13.0",
+]
+
+[dependency-groups]
+dev = [
+    "pylint>=3.3.7",
+    "pytest>=8.3.5",
+    "ruff>=0.11.11",
+]
