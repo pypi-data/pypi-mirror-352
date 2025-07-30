@@ -1,0 +1,11 @@
+[build-system]
+requires = ["flit_core >=3.11,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "database_simple"
+authors = [{name = "MAJHQO", email = "thehqo1337@gmail.com"}]
+license = "MIT"
+license-files = ["LICENSE"]
+dynamic = ["version", "description"]
+requires=["flet>=0.28.3","psycopg2>=2.1.10"]
