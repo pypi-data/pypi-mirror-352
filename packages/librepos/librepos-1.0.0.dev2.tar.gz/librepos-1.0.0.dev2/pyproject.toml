@@ -1,0 +1,49 @@
+[project]
+name = "librepos"
+version = "1.0.0.dev2"
+description = "LibrePOS is an open-source, web-based Point of Sale system for restaurants and mobile food vendors. Built with Flask, MaterializeCSS, and HTMX, it offers product management, order tracking, and user authentication. "
+authors = [
+    { name = "BaezFJ", email = "baezdevs@gmail.com" }
+]
+maintainers = [
+    { name = "BaezFJ", email = "baezdevs@gmail.com" }
+]
+license = { text = "LICENSE" }
+requires-python = ">=3.12"
+dependencies = [
+    "better-profanity>=0.7.0",
+    "email-validator>=2.2.0",
+    "flask>=3.1.1",
+    "flask-login>=0.6.3",
+    "flask-mailman>=1.1.1",
+    "flask-sqlalchemy>=3.1.1",
+    "flask-wtf>=1.2.2",
+    "python-dotenv>=1.0.1",
+    "python-slugify>=8.0.4",
+    "python-usernames>=1.0.0",
+    "pytz>=2025.1",
+    "waitress>=3.0.2",
+]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Framework :: Flask",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Point-Of-Sale"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.401",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.11",
+]
