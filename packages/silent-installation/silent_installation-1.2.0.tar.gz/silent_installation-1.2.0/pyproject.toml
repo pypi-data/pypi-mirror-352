@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "silent-installation"
+authors = [
+    {name = "qun", email = "qun.chen@hexagon.com"}
+]
+description = "install simufact products silently."
+
+requires-python = ">=3.0"
+keywords = ["silent", "install"]
+license = {text = "MIT License"}
+version = "1.2.0"
+readme = "README.md"
+
+[project.scripts]
+silent-installation = "silent_installation:main"
+
+[tool.setuptools]
+py-modules = ["helper", "simufact", "silent_installation"]
