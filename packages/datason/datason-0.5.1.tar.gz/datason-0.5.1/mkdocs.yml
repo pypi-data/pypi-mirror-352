@@ -1,0 +1,208 @@
+# datason Documentation Configuration
+site_name: datason
+site_description: A comprehensive Python package for intelligent serialization that handles complex data types with ease.
+site_author: datason Contributors
+site_url: https://datason.readthedocs.io/
+
+# Repository
+repo_name: danielendler/datason
+repo_url: https://github.com/danielendler/datason
+edit_uri: edit/main/docs/
+
+# Copyright
+copyright: Copyright &copy; 2024 datason Contributors
+
+# Configuration
+theme:
+  name: material
+
+  # Material theme features
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.tabs.link
+    - content.tooltips
+    - header.autohide
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+
+  # Color palette
+  palette:
+    - scheme: default
+      primary: blue
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  # Typography
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+  # Logo and favicon (optional - will use defaults if missing)
+  # logo: assets/logo.png
+  # favicon: assets/favicon.png
+
+# Plugins
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            signature_crossrefs: true
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  # - pymdownx.emoji:
+  #     emoji_index: material.extensions.emoji.twemoji
+  #     emoji_generator: material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: danielendler
+      repo: datason
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Enhanced navigation with organized structure
+nav:
+  - Home: index.md
+  - Features:
+    - Overview: features/index.md
+    - Core Serialization: features/core/index.md
+    - Configuration: features/configuration/index.md
+    - Advanced Types: features/advanced-types/index.md
+    - Date/Time Handling: features/datetime/index.md
+    - Chunked Processing: features/chunked-processing/index.md
+    - Template Deserialization: features/template-deserialization/index.md
+    - ML/AI Integration: features/ml-ai/index.md
+    - Pandas Integration: features/pandas/index.md
+    - Pickle Bridge: features/pickle-bridge/index.md
+    - Performance: features/performance/index.md
+    - Migration Guide: features/migration/index.md
+  - User Guide:
+    - Feature Matrix: FEATURE_MATRIX.md
+    - Benchmarking: BENCHMARKING.md
+  - Development:
+    - Contributing: CONTRIBUTING.md
+    - Core Serialization Strategy: core-serialization-strategy.md
+    - Performance Improvements: performance-improvements.md
+    - Testing & Integration: TESTING_INTEGRATION_IMPROVEMENTS.md
+    - Security: SECURITY.md
+    - Tooling Guide: TOOLING_GUIDE.md
+    - CI/CD Pipeline: CI_PIPELINE_GUIDE.md
+    - CI Performance: CI_PERFORMANCE.md
+    - Pipeline Audit: PIPELINE_AUDIT.md
+    - Plugin Testing: PLUGIN_TESTING.md
+    - Dependabot Setup: DEPENDABOT_GUIDE.md
+    - GitHub Pages: GITHUB_PAGES_SETUP.md
+    - Release Management: RELEASE_MANAGEMENT.md
+    - Build & Deploy: BUILD_PUBLISH.md
+  - Reference:
+    - AI Usage Guide: AI_USAGE_GUIDE.md
+    - Changelog: CHANGELOG.md
+    - Roadmap: ROADMAP.md
+
+# Extra
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/danielendler/datason
+      name: datason on GitHub
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/datason/
+      name: PyPI
+    - icon: fontawesome/solid/book
+      link: https://datason.readthedocs.io/
+      name: Documentation
+
+  generator: false
+
+  # Analytics (update with your tracking ID)
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >-
+            Thanks for your feedback! Help us improve this page by
+            <a href="https://github.com/danielendler/datason/issues/new/?title=[Docs]" target="_blank" rel="noopener">opening an issue</a>.
+
+  # Homepage override
+  homepage: https://github.com/danielendler/datason
+
+# Additional CSS/JS
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
