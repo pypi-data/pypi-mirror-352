@@ -1,0 +1,398 @@
+# Airia Python API Library
+
+[![PyPI version](https://badge.fury.io/py/airia.svg)](https://badge.fury.io/py/airia)
+[![Python versions](https://img.shields.io/pypi/pyversions/airia.svg)](https://pypi.org/project/airia/)
+[![License](https://img.shields.io/pypi/l/airia.svg)](https://pypi.org/project/airia/)
+
+Airia Python API Library that provides a clean and intuitive interface to interact with the Airia AI platform API. The library offers both synchronous and asynchronous clients for maximum flexibility in your applications.
+
+## Features
+
+- **Dual Client Support**: Choose between synchronous (`AiriaClient`) and asynchronous (`AiriaAsyncClient`) implementations
+- **Pipeline Execution**: Easily run AI pipelines with customizable parameters
+- **Gateway Support**: Seamlessly integrate with OpenAI and Anthropic services through Airia gateways
+- **Error Handling**: Comprehensive error handling with custom exceptions
+- **Logging**: Built-in configurable logging with correlation ID support for request tracing
+- **API Key Management**: Flexible API key configuration via parameters or environment variables
+
+## Installation
+
+You can install the package using pip or uv:
+
+<table>
+<tr>
+<th>pip</th>
+<th>uv</th>
+</tr>
+<tr>
+<td>
+
+```bash
+pip install airia
+```
+
+</td>
+<td>
+
+```bash
+uv add airia
+```
+
+</td>
+</tr>
+</table>
+
+### Install with optional dependencies
+
+The package supports optional dependencies for gateway functionality:
+
+<table>
+<tr>
+<th>OpenAI Gateway</th>
+<th>Anthropic Gateway</th>
+<th>All Gateways</th>
+</tr>
+<tr>
+<td>
+
+```bash
+pip install "airia[openai]"
+```
+
+</td>
+<td>
+
+```bash
+pip install "airia[anthropic]"
+```
+
+</td>
+<td>
+
+```bash
+pip install "airia[all]"
+```
+
+</td>
+</tr>
+</table>
+
+### Install with development dependencies
+
+Clone the repository:
+
+```bash
+git clone https://github.com/AiriaLLC/airia-python.git
+cd airia-python
+```
+
+Then, run one of the following commands:
+
+<table>
+<tr>
+<th>pip</th>
+<th>uv</th>
+</tr>
+<tr>
+<td>
+
+```bash
+pip install dependency-groups
+dev=$(python -m dependency_groups dev)
+pip install -e .
+pip install $dev
+```
+
+</td>
+<td>
+
+```bash
+uv sync --frozen --group dev
+```
+
+</td>
+</tr>
+</table>
+
+## Building from Source
+
+First make sure you have already cloned the repository, then run one of the following commands:
+
+<table>
+<tr>
+<th>pip</th>
+<th>uv</th>
+</tr>
+<tr>
+<td>
+
+```bash
+pip install build
+python -m build
+```
+
+</td>
+<td>
+
+```bash
+uv build
+```
+
+</td>
+</tr>
+</table>
+
+This will create both wheel and source distribution in the `dist/` directory.
+
+## Quick Start
+
+### Synchronous Usage
+
+```python
+from airia import AiriaClient
+
+# Initialize client (API key can be passed directly or via AIRIA_API_KEY environment variable)
+client = AiriaClient(api_key="your_api_key")
+
+# Execute a pipeline
+response = client.execute_pipeline(
+    pipeline_id="your_pipeline_id",
+    user_input="Tell me about quantum computing"
+)
+
+print(response.result)
+```
+
+#### Synchronous Streaming
+
+```python
+from airia import AiriaClient
+
+# Initialize client (API key can be passed directly or via AIRIA_API_KEY environment variable)
+client = AiriaClient(api_key="your_api_key")
+
+# Execute a pipeline
+response = client.execute_pipeline(
+    pipeline_id="your_pipeline_id",
+    user_input="Tell me about quantum computing",
+    async_output=True
+)
+
+for c in resp.stream:
+    print(c, end="")
+```
+
+### Asynchronous Usage
+
+```python
+import asyncio
+from airia import AiriaAsyncClient
+
+async def main():
+    # Use async context manager for proper session handling
+    async with AiriaAsyncClient(api_key="your_api_key") as client:
+        response = await client.execute_pipeline(
+            pipeline_id="your_pipeline_id",
+            user_input="Tell me about quantum computing"
+        )
+        print(response.result)
+
+asyncio.run(main())
+```
+
+#### Asynchronous Streaming
+
+```python
+import asyncio
+from airia import AiriaAsyncClient
+
+async def main():
+    # Use async context manager for proper session handling
+    async with AiriaAsyncClient(api_key="your_api_key") as client:
+        response = await client.execute_pipeline(
+            pipeline_id="your_pipeline_id",
+            user_input="Tell me about quantum computing",
+            async_output=True
+        )
+        async for c in resp.stream:
+            print(c, end="")
+
+asyncio.run(main())
+```
+
+## Gateway Usage
+
+Airia provides gateway capabilities for popular AI services like OpenAI and Anthropic, allowing you to use your Airia API key with these services.
+
+### OpenAI Gateway
+
+```python
+from airia import AiriaClient
+
+# Initialize client with OpenAI gateway support
+client = AiriaClient.with_openai_gateway(api_key="your_airia_api_key")
+
+# Use OpenAI's API through Airia's gateway
+response = client.openai.chat.completions.create(
+    model="gpt-4.1-nano",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Hello!"},
+    ]
+)
+
+print(response.choices[0].message.content)
+```
+
+### Anthropic Gateway
+
+```python
+from airia import AiriaClient
+
+# Initialize client with Anthropic gateway support
+client = AiriaClient.with_anthropic_gateway(api_key="your_airia_api_key")
+
+# Use Anthropic's API through Airia's gateway
+response = client.anthropic.messages.create(
+    model="claude-3-5-haiku-20241022",
+    max_tokens=1000,
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+
+print(response.content[0].text)
+```
+
+### Asynchronous Gateway Usage
+
+Both gateways also support asynchronous usage:
+
+```python
+import asyncio
+from airia import AiriaAsyncClient
+
+async def main():
+    # Initialize async client with gateway support
+    client = AiriaAsyncClient.with_openai_gateway(api_key="your_airia_api_key")
+    
+    # Use OpenAI's API asynchronously through Airia's gateway
+    response = await client.openai.chat.completions.create(
+        model="gpt-4.1-nano",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": "Hello!"},
+        ]
+    )
+    
+    print(response.choices[0].message.content)
+
+asyncio.run(main())
+```
+
+## Advanced Usage
+
+### Pipeline Execution with All Options
+
+```python
+response = client.execute_pipeline(
+    pipeline_id="pipeline_id",
+    user_input="Your input text",
+    debug=True,                          # Enable debug mode
+    user_id="user_guid",                 # User identifier 
+    conversation_id="conversation_guid", # Conversation identifier
+    async_output=False,                  # Stream response (async mode)
+    include_tools_response=True,         # Return the initial LLM tool result
+    images=["base64_encoded_image"],     # Include image data
+    files=["base64_encoded_file"],       # Include file data
+    data_source_folders={},              # Data source folders configuration
+    data_source_files={},                # Data source files configuration
+    in_memory_messages=[                 # Context messages for conversation
+        {"role": "user", "message": "Previous message"}
+    ],
+    current_date_time="2025-03-26T21:00:00", # Override current date/time
+    save_history=True,                   # Save to conversation history
+    additional_info=["extra data"],      # Additional metadata
+    prompt_variables={"var1": "value1"}, # Variables for prompt templating
+    correlation_id="request-123",        # Request tracing ID
+    api_version="v2"                     # API version for the request
+)
+```
+
+### Configuring Logging
+
+```python
+import sys
+from airia import configure_logging
+
+# Basic configuration
+logger = configure_logging()
+
+# Advanced configuration
+file_logger = configure_logging(
+    format_string="[{time:YYYY-MM-DD HH:mm:ss}] [{level}] {message}",
+    level="DEBUG",
+    sink="app.log",
+    rotation="10 MB",
+    retention="1 week",
+    include_correlation_id=True
+)
+
+# Console output with custom format
+console_logger = configure_logging(
+    format_string="[{time:HH:mm:ss}] {message}",
+    level="INFO",
+    sink=sys.stdout
+)
+```
+
+## Error Handling
+
+The SDK uses custom exceptions to provide clear error messages:
+
+```python
+from airia import AiriaAPIError
+
+try:
+    response = client.execute_pipeline(
+        pipeline_id="invalid_id",
+        user_input="test"
+    )
+except AiriaAPIError as e:
+    print(f"API error: {e.status_code} - {e.message}")
+```
+
+## Requirements
+
+- Python 3.9 or higher
+- Core dependencies:
+  - requests
+  - aiohttp
+  - loguru
+  - pydantic
+
+- Optional dependencies:
+  - OpenAI gateway: `openai>=1.74.0`
+  - Anthropic gateway: `anthropic>=0.49.0`
+
+## Development
+
+To run tests (make sure you have development dependencies installed):
+
+```bash
+pytest
+```
+
+For testing gateway functionality, install the optional dependencies:
+
+```bash
+# For OpenAI gateway tests
+pip install -e .[openai]
+pytest tests/test_openai_gateway.py
+
+# For Anthropic gateway tests
+pip install -e .[anthropic]
+pytest tests/test_anthropic_gateway.py
+
+# For all tests
+pip install -e .[all]
+pytest
+```
