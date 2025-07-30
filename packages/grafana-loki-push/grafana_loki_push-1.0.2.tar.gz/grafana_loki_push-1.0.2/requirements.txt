@@ -1,0 +1,20 @@
+# Grafana Loki HTTP Push 项目依赖
+# 核心依赖
+requests>=2.31.0          # HTTP客户端库，用于与Loki API通信
+loguru>=0.7.2            # 高级日志库，提供结构化日志记录
+
+# 可选依赖（用于增强功能）
+pyyaml>=6.0.1            # YAML文件解析，用于配置文件处理
+click>=8.1.7             # 命令行界面库（如果需要更高级的CLI）
+python-json-logger>=2.0.7  # JSON格式日志处理
+
+# 开发和测试依赖
+pytest>=7.4.4           # 单元测试框架
+pytest-cov>=4.1.0       # 测试覆盖率报告
+black>=23.12.1           # 代码格式化工具
+flake8>=6.1.0            # 代码风格检查
+mypy>=1.8.0              # 静态类型检查
+
+# 用于构建和打包
+setuptools>=69.0.3       # Python包构建工具
+wheel>=0.42.0            # Python包分发格式
