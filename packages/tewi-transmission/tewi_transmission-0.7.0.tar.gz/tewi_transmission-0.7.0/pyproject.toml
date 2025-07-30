@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tewi-transmission"
+dynamic = ["version"]
+authors = [
+  { name="Anton Larionov", email="anton.larionov.dev@gmail.com" },
+]
+description = "Text-based interface for the Transmission BitTorrent daemon"
+readme = "README.md"
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = [
+  "textual >= 0.83.0, <= 1.0.0",
+  "transmission-rpc >= 7.0.11",
+  "geoip2fast >= 1.2.2",
+  "pyperclip >= 1.9.0"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Communications :: File Sharing"
+]
+keywords = ["transmission", "torrent"]
+
+[tool.setuptools.dynamic]
+version = {attr = "tewi.app.__version__"}
+
+[project.scripts]
+tewi = "tewi.app:cli"
+
+[project.urls]
+"Homepage" = "https://github.com/anlar/tewi"
+"Repository" = "https://github.com/anlar/tewi"
+"Bug Tracker" = "https://github.com/anlar/tewi/issues"
+
