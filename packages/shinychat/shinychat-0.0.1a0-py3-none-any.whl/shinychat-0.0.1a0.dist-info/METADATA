@@ -1,0 +1,36 @@
+Metadata-Version: 2.4
+Name: shinychat
+Version: 0.0.1a0
+Summary: Add your description here
+Project-URL: Homepage, https://posit-dev.github.io/shinychat/
+Project-URL: Documentation, https://posit-dev.github.io/shinychat/pkg/py/
+Project-URL: Repository, https://github.com/posit-dev/shinychat
+Project-URL: Issues, https://github.com/posit-dev/shinychat/issues/
+Project-URL: Changelog, https://github.com/posit-dev/shinychat/blob/main/pkg-py/CHANGELOG.md
+Author-email: Joe Cheng <joe@posit.co>, Carson Sievert <carson@posit.co>, Garrick Aden-Buie <garrick@posit.co>
+License: MIT
+License-File: LICENSE
+Requires-Python: >=3.9
+Requires-Dist: htmltools>=0.6.0
+Requires-Dist: playwright>=1.43.0
+Requires-Dist: shiny>=1.4.0
+Provides-Extra: providers
+Requires-Dist: anthropic; extra == 'providers'
+Requires-Dist: chatlas>=0.6.1; extra == 'providers'
+Requires-Dist: google-generativeai; (python_version >= '3.9') and extra == 'providers'
+Requires-Dist: langchain-core; extra == 'providers'
+Requires-Dist: ollama; extra == 'providers'
+Requires-Dist: openai; extra == 'providers'
+Requires-Dist: tokenizers; extra == 'providers'
+Provides-Extra: test
+Requires-Dist: coverage>=7.8.2; extra == 'test'
+Requires-Dist: faicons; extra == 'test'
+Requires-Dist: ipyleaflet; extra == 'test'
+Requires-Dist: pandas; extra == 'test'
+Requires-Dist: plotly; extra == 'test'
+Requires-Dist: pyright>=1.1.398; extra == 'test'
+Requires-Dist: pytest-playwright>=0.3.0; extra == 'test'
+Requires-Dist: pytest>=6.2.4; extra == 'test'
+Requires-Dist: shinylive; extra == 'test'
+Requires-Dist: shinywidgets; extra == 'test'
+Requires-Dist: tox-uv>=1; extra == 'test'
