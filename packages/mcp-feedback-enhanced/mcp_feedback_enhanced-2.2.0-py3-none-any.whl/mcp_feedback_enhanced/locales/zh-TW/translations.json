@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "language": "zh-TW",
+    "displayName": "繁體中文",
+    "author": "Minidoracat",
+    "version": "1.0.0",
+    "lastUpdate": "2025-01-31"
+  },
+  "app": {
+    "title": "互動式回饋收集",
+    "projectDirectory": "專案目錄",
+    "language": "語言",
+    "settings": "設定",
+    "confirmCancel": "確認取消",
+    "confirmCancelMessage": "確定要取消回饋嗎？所有輸入的內容將會遺失。",
+    "layoutChangeTitle": "界面佈局變更",
+    "layoutChangeMessage": "佈局模式已變更，需要重新載入界面才能生效。\n是否現在重新載入？"
+  },
+  "tabs": {
+    "summary": "📋 AI 摘要",
+    "feedback": "💬 回饋",
+    "command": "⚡ 命令",
+    "language": "⚙️ 設置",
+    "images": "🖼️ 圖片",
+    "about": "ℹ️ 關於"
+  },
+  "about": {
+    "appInfo": "應用程式資訊",
+    "version": "版本",
+    "description": "一個強大的 MCP 伺服器，為 AI 輔助開發工具提供人在回路的互動回饋功能。支援 Qt GUI 和 Web UI 雙介面，並具備圖片上傳、命令執行、多語言等豐富功能。",
+    "projectLinks": "專案連結",
+    "githubProject": "GitHub 專案",
+    "visitGithub": "訪問 GitHub",
+    "contact": "聯繫與支援",
+    "discordSupport": "Discord 支援",
+    "joinDiscord": "加入 Discord",
+    "contactDescription": "如需技術支援、問題回報或功能建議，歡迎透過 Discord 社群或 GitHub Issues 與我們聯繫。",
+    "thanks": "致謝與貢獻",
+    "thanksText": "感謝原作者 Fábio Ferreira (@fabiomlferreira) 創建了原始的 interactive-feedback-mcp 專案。\n\n本增強版本由 Minidoracat 開發和維護，大幅擴展了專案功能，新增了 GUI 介面、圖片支援、多語言能力以及許多其他改進功能。\n\n同時感謝 sanshao85 的 mcp-feedback-collector 專案提供的 UI 設計靈感。\n\n開源協作讓技術變得更美好！"
+  },
+  "feedback": {
+    "title": "您的回饋",
+    "description": "請描述您對 AI 工作結果的想法、建議或需要修改的地方。",
+    "placeholder": "請在這裡輸入您的回饋、建議或問題...\n\n💡 小提示：\n• 按 Ctrl+Enter（支援數字鍵盤）可快速提交回饋\n• 按 Ctrl+V 可直接貼上剪貼簿圖片",
+    "emptyTitle": "回饋內容為空",
+    "emptyMessage": "請先輸入回饋內容再提交。您可以描述想法、建議或需要修改的地方。",
+    "input": "您的回饋"
+  },
+  "summary": {
+    "title": "AI 工作摘要",
+    "description": "以下是 AI 剛才為您完成的工作內容，請檢視並提供回饋。",
+    "testDescription": "以下是 AI 回復的訊息內容，請檢視並提供回饋。"
+  },
+  "command": {
+    "title": "命令執行",
+    "description": "您可以執行命令來驗證結果或收集更多資訊。",
+    "input": "命令",
+    "placeholder": "輸入要執行的命令...",
+    "output": "命令輸出",
+    "outputPlaceholder": "命令輸出將顯示在這裡...",
+    "run": "▶️ 執行",
+    "terminate": "⏹️ 終止"
+  },
+  "images": {
+    "title": "🖼️ 圖片附件（可選）",
+    "select": "選擇文件",
+    "paste": "剪貼板",
+    "clear": "清除",
+    "status": "已選擇 {count} 張圖片",
+    "statusWithSize": "已選擇 {count} 張圖片 (總計 {size})",
+    "dragHint": "🎯 拖拽圖片到這裡 或 按 Ctrl+V/Cmd+V 貼上剪貼簿圖片 (PNG、JPG、JPEG、GIF、BMP、WebP)",
+    "deleteConfirm": "確定要移除圖片 \"{filename}\" 嗎？",
+    "deleteTitle": "確認刪除",
+    "sizeWarning": "圖片文件大小不能超過 1MB",
+    "formatError": "不支援的圖片格式",
+    "paste_images": "📋 從剪貼簿貼上",
+    "paste_failed": "貼上失敗，剪貼簿中沒有圖片",
+    "paste_no_image": "剪貼簿中沒有圖片可貼上",
+    "paste_image_from_textarea": "已將圖片從文字框智能貼到圖片區域",
+    "images_clear": "清除所有圖片"
+  },
+  "settings": {
+    "title": "應用設置",
+    "language": {
+      "title": "語言設置",
+      "selector": "🌐 語言選擇",
+      "description": "選擇您偏好的界面語言。語言變更會立即生效。"
+    },
+    "layout": {
+      "title": "界面佈局",
+      "description": "選擇 AI 摘要和回饋輸入區域的顯示方式",
+      "separateMode": "分離模式",
+      "separateModeDescription": "AI 摘要和回饋分別在不同頁籤",
+      "combinedVertical": "合併模式（垂直布局）",
+      "combinedVerticalDescription": "AI 摘要在上，回饋輸入在下，摘要和回饋在同一頁面",
+      "combinedHorizontal": "合併模式（水平布局）",
+      "combinedHorizontalDescription": "AI 摘要在左，回饋輸入在右，增大摘要可視區域"
+    },
+    "window": {
+      "title": "視窗定位",
+      "alwaysCenter": "總是在主螢幕中心顯示視窗",
+      "alwaysCenterDescription": "建議在多螢幕環境或遇到視窗定位問題時開啟此選項"
+    },
+    "reset": {
+      "title": "重置設定",
+      "description": "清除所有已保存的設定，恢復到預設狀態",
+      "button": "重置設定",
+      "confirmTitle": "確認重置設定",
+      "confirmMessage": "確定要重置所有設定嗎？這將清除所有已保存的偏好設定並恢復到預設狀態。",
+      "successTitle": "重置成功",
+      "successMessage": "所有設定已成功重置為預設值。",
+      "errorTitle": "重置失敗",
+      "errorMessage": "重置設定時發生錯誤：{error}"
+    }
+  },
+  "buttons": {
+    "submit": "提交回饋",
+    "cancel": "取消",
+    "close": "關閉",
+    "clear": "清除",
+    "submitFeedback": "✅ 提交回饋",
+    "selectFiles": "📁 選擇文件",
+    "pasteClipboard": "📋 剪貼板",
+    "clearAll": "✕ 清除",
+    "runCommand": "▶️ 執行"
+  },
+  "status": {
+    "feedbackSubmitted": "回饋已成功提交！",
+    "feedbackCancelled": "已取消回饋。",
+    "timeoutMessage": "等待回饋超時",
+    "errorOccurred": "發生錯誤",
+    "loading": "載入中...",
+    "connecting": "連接中...",
+    "connected": "已連接",
+    "disconnected": "連接中斷",
+    "uploading": "上傳中...",
+    "uploadSuccess": "上傳成功",
+    "uploadFailed": "上傳失敗",
+    "commandRunning": "命令執行中...",
+    "commandFinished": "命令執行完成",
+    "pasteSuccess": "已從剪貼板貼上圖片",
+    "pasteFailed": "無法從剪貼板獲取圖片",
+    "invalidFileType": "不支援的文件類型",
+    "fileTooLarge": "文件過大（最大 1MB）"
+  },
+  "errors": {
+    "title": "錯誤",
+    "warning": "警告",
+    "info": "提示",
+    "interfaceReloadError": "重新載入界面時發生錯誤: {error}",
+    "imageSaveEmpty": "保存的圖片文件為空！位置: {path}",
+    "imageSaveFailed": "圖片保存失敗！",
+    "clipboardSaveFailed": "無法保存剪貼板圖片！",
+    "noValidImage": "剪貼板中沒有有效的圖片！",
+    "noImageContent": "剪貼板中沒有圖片內容！",
+    "emptyFile": "圖片 {filename} 是空文件！",
+    "loadImageFailed": "無法載入圖片 {filename}:\n{error}",
+    "dragInvalidFiles": "請拖拽有效的圖片文件！",
+    "confirmClearAll": "確定要清除所有 {count} 張圖片嗎？",
+    "confirmClearTitle": "確認清除",
+    "fileSizeExceeded": "圖片 {filename} 大小為 {size}MB，超過 1MB 限制！\n建議使用圖片編輯軟體壓縮後再上傳。",
+    "dataSizeExceeded": "圖片 {filename} 數據大小超過 1MB 限制！"
+  },
+  "languageNames": {
+    "zhTw": "繁體中文",
+    "en": "English",
+    "zhCn": "简体中文"
+  },
+  "test": {
+    "qtGuiSummary": "🎯 圖片預覽和視窗調整測試\n\n這是一個測試會話，用於驗證以下功能：\n\n✅ 功能測試項目：\n1. 圖片上傳和預覽功能\n2. 圖片右上角X刪除按鈕\n3. 視窗自由調整大小\n4. 分割器的靈活調整\n5. 各區域的動態佈局\n6. 智能 Ctrl+V 圖片貼上功能\n\n📋 測試步驟：\n1. 嘗試上傳一些圖片（拖拽、文件選擇、剪貼板）\n2. 檢查圖片預覽是否正常顯示\n3. 點擊圖片右上角的X按鈕刪除圖片\n4. 嘗試調整視窗大小，檢查是否可以自由調整\n5. 拖動分割器調整各區域大小\n6. 在文字框內按 Ctrl+V 測試智能貼上功能\n7. 提供任何回饋或發現的問題\n\n請測試這些功能並提供回饋！",
+    "webUiSummary": "測試 Web UI 功能\n\n🎯 **功能測試項目：**\n- Web UI 服務器啟動和運行\n- WebSocket 即時通訊\n- 回饋提交功能\n- 圖片上傳和預覽\n- 命令執行功能\n- 智能 Ctrl+V 圖片貼上\n- 多語言介面切換\n\n📋 **測試步驟：**\n1. 測試圖片上傳（拖拽、選擇檔案、剪貼簿）\n2. 在文字框內按 Ctrl+V 測試智能貼上\n3. 嘗試切換語言（繁中/簡中/英文）\n4. 測試命令執行功能\n5. 提交回饋和圖片\n\n請測試這些功能並提供回饋！"
+  }
+} 

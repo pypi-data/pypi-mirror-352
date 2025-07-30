@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "language": "en",
+    "displayName": "English",
+    "author": "Minidoracat",
+    "version": "1.0.0",
+    "lastUpdate": "2025-01-31"
+  },
+  "app": {
+    "title": "Interactive Feedback Collection",
+    "projectDirectory": "Project Directory",
+    "language": "Language",
+    "settings": "Settings",
+    "confirmCancel": "Confirm Cancel",
+    "confirmCancelMessage": "Are you sure you want to cancel feedback? All input content will be lost.",
+    "layoutChangeTitle": "Interface Layout Change",
+    "layoutChangeMessage": "Layout mode has been changed and requires reloading the interface to take effect.\nReload now?"
+  },
+  "tabs": {
+    "summary": "📋 AI Summary",
+    "feedback": "💬 Feedback",
+    "command": "⚡ Command",
+    "language": "⚙️ Settings",
+    "images": "🖼️ Images",
+    "about": "ℹ️ About"
+  },
+  "about": {
+    "appInfo": "Application Information",
+    "version": "Version",
+    "description": "A powerful MCP server that provides human-in-the-loop interactive feedback functionality for AI-assisted development tools. Supports dual interfaces (Qt GUI and Web UI) with rich features including image upload, command execution, and multi-language support.",
+    "projectLinks": "Project Links",
+    "githubProject": "GitHub Project",
+    "visitGithub": "Visit GitHub",
+    "contact": "Contact & Support",
+    "discordSupport": "Discord Support",
+    "joinDiscord": "Join Discord",
+    "contactDescription": "For technical support, issue reports, or feature suggestions, feel free to contact us through Discord community or GitHub Issues.",
+    "thanks": "Thanks & Contributions",
+    "thanksText": "Special thanks to the original author Fábio Ferreira (@fabiomlferreira) for creating the original interactive-feedback-mcp project.\n\nThis enhanced version is developed and maintained by Minidoracat, who has significantly expanded the project with GUI interface, image support, multi-language capabilities, and many other improvements.\n\nAlso thanks to sanshao85's mcp-feedback-collector project for UI design inspiration.\n\nOpen source collaboration makes technology better!"
+  },
+  "feedback": {
+    "title": "Your Feedback",
+    "description": "Please describe your thoughts, suggestions, or modifications needed for the AI's work.",
+    "placeholder": "Please enter your feedback, suggestions, or questions here...\n\n💡 Tips:\n• Press Ctrl+Enter (numpad supported) to submit quickly\n• Press Ctrl+V to paste images from clipboard",
+    "emptyTitle": "Feedback Content Empty",
+    "emptyMessage": "Please enter feedback content before submitting. You can describe your thoughts, suggestions, or areas that need modification.",
+    "outputPlaceholder": "Command output will appear here..."
+  },
+  "summary": {
+    "title": "AI Work Summary",
+    "description": "Below is the work content that AI has just completed for you. Please review and provide feedback.",
+    "testDescription": "Below is the message content replied by AI. Please review and provide feedback."
+  },
+  "command": {
+    "title": "Command Execution",
+    "description": "You can execute commands to verify results or gather more information.",
+    "placeholder": "Enter command to execute...",
+    "output": "Command Output",
+    "outputPlaceholder": "Command output will appear here...",
+    "run": "▶️ Run",
+    "terminate": "⏹️ Stop"
+  },
+  "images": {
+    "title": "🖼️ Image Attachments (Optional)",
+    "select": "Select Files",
+    "paste": "Clipboard",
+    "clear": "Clear",
+    "status": "{count} images selected",
+    "statusWithSize": "{count} images selected (Total {size})",
+    "dragHint": "🎯 Drag images here or press Ctrl+V/Cmd+V to paste from clipboard (PNG, JPG, JPEG, GIF, BMP, WebP)",
+    "deleteConfirm": "Are you sure you want to remove image \"{filename}\"?",
+    "deleteTitle": "Confirm Delete",
+    "sizeWarning": "Image file size cannot exceed 1MB",
+    "formatError": "Unsupported image format",
+    "paste_images": "📋 Paste from Clipboard",
+    "paste_failed": "Paste failed, no image in clipboard",
+    "paste_no_image": "No image in clipboard to paste",
+    "paste_image_from_textarea": "Image intelligently pasted from text area to image area",
+    "images_clear": "Clear all images"
+  },
+  "language": {
+    "settings": "Language Settings",
+    "selector": "🌐 Language Selection",
+    "description": "Choose your preferred interface language. Language changes take effect immediately."
+  },
+  "settings": {
+    "title": "Application Settings",
+    "language": {
+      "title": "Language Settings",
+      "selector": "🌐 Language Selection",
+      "description": "Choose your preferred interface language. Language changes take effect immediately."
+    },
+    "layout": {
+      "title": "Interface Layout",
+      "description": "Choose the display method for AI summary and feedback input areas",
+      "separateMode": "Separate Mode",
+      "separateModeDescription": "AI summary and feedback are in separate tabs",
+      "combinedVertical": "Combined Mode (Vertical Layout)",
+      "combinedVerticalDescription": "AI summary on top, feedback input below, both on the same page",
+      "combinedHorizontal": "Combined Mode (Horizontal Layout)",
+      "combinedHorizontalDescription": "AI summary on left, feedback input on right, expanding summary viewing area"
+    },
+    "window": {
+      "title": "Window Positioning",
+      "alwaysCenter": "Always show window at primary screen center",
+      "alwaysCenterDescription": "Recommended for multi-monitor setups or when experiencing window positioning issues"
+    },
+    "reset": {
+      "title": "Reset Settings",
+      "description": "Clear all saved settings and restore to default state",
+      "button": "Reset Settings",
+      "confirmTitle": "Confirm Reset Settings",
+      "confirmMessage": "Are you sure you want to reset all settings? This will clear all saved preferences and restore to default state.",
+      "successTitle": "Reset Successful",
+      "successMessage": "All settings have been successfully reset to default values.",
+      "errorTitle": "Reset Failed",
+      "errorMessage": "Error occurred while resetting settings: {error}"
+    }
+  },
+  "buttons": {
+    "submit": "Submit Feedback",
+    "cancel": "Cancel",
+    "close": "Close",
+    "clear": "Clear",
+    "submitFeedback": "✅ Submit Feedback",
+    "selectFiles": "📁 Select Files",
+    "pasteClipboard": "📋 Clipboard",
+    "clearAll": "✕ Clear",
+    "runCommand": "▶️ Run"
+  },
+  "status": {
+    "feedbackSubmitted": "Feedback submitted successfully!",
+    "feedbackCancelled": "Feedback cancelled.",
+    "timeoutMessage": "Feedback timeout",
+    "errorOccurred": "Error occurred",
+    "loading": "Loading...",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
+    "uploading": "Uploading...",
+    "uploadSuccess": "Upload successful",
+    "uploadFailed": "Upload failed",
+    "commandRunning": "Command running...",
+    "commandFinished": "Command finished",
+    "pasteSuccess": "Image pasted from clipboard",
+    "pasteFailed": "Failed to get image from clipboard",
+    "invalidFileType": "Unsupported file type",
+    "fileTooLarge": "File too large (max 1MB)"
+  },
+  "errors": {
+    "title": "Error",
+    "warning": "Warning",
+    "info": "Information",
+    "interfaceReloadError": "Error occurred while reloading interface: {error}",
+    "imageSaveEmpty": "Saved image file is empty! Location: {path}",
+    "imageSaveFailed": "Image save failed!",
+    "clipboardSaveFailed": "Failed to save clipboard image!",
+    "noValidImage": "No valid image in clipboard!",
+    "noImageContent": "No image content in clipboard!",
+    "emptyFile": "Image {filename} is an empty file!",
+    "loadImageFailed": "Failed to load image {filename}:\n{error}",
+    "dragInvalidFiles": "Please drag valid image files!",
+    "confirmClearAll": "Are you sure you want to clear all {count} images?",
+    "confirmClearTitle": "Confirm Clear",
+    "fileSizeExceeded": "Image {filename} size is {size}MB, exceeding 1MB limit!\nRecommend using image editing software to compress before uploading.",
+    "dataSizeExceeded": "Image {filename} data size exceeds 1MB limit!"
+  },
+  "languageSelector": "🌐 Language",
+  "languageNames": {
+    "zhTw": "繁體中文",
+    "en": "English",
+    "zhCn": "简体中文"
+  },
+  "test": {
+    "qtGuiSummary": "🎯 Image Preview and Window Adjustment Test\n\nThis is a test session to verify the following features:\n\n✅ Test Items:\n1. Image upload and preview functionality\n2. Image X delete button in top-right corner\n3. Free window resizing\n4. Flexible splitter adjustment\n5. Dynamic layout of all areas\n6. Smart Ctrl+V image paste functionality\n\n📋 Test Steps:\n1. Try uploading some images (drag & drop, file selection, clipboard)\n2. Check if image preview displays correctly\n3. Click the X button in the top-right corner of images to delete them\n4. Try resizing the window, check if it can be freely adjusted\n5. Drag the splitter to adjust area sizes\n6. Press Ctrl+V in the text box to test smart paste functionality\n7. Provide any feedback or issues found\n\nPlease test these features and provide feedback!",
+    "webUiSummary": "Test Web UI Functionality\n\n🎯 **Test Items:**\n- Web UI server startup and operation\n- WebSocket real-time communication\n- Feedback submission functionality\n- Image upload and preview\n- Command execution functionality\n- Smart Ctrl+V image paste\n- Multi-language interface switching\n\n📋 **Test Steps:**\n1. Test image upload (drag & drop, file selection, clipboard)\n2. Press Ctrl+V in text box to test smart paste\n3. Try switching languages (Traditional Chinese/Simplified Chinese/English)\n4. Test command execution functionality\n5. Submit feedback and images\n\nPlease test these features and provide feedback!"
+  }
+} 
