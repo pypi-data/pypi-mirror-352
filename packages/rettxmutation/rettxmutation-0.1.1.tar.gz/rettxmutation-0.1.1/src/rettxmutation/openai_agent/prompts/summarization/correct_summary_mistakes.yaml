@@ -1,0 +1,11 @@
+name: correct_summary_mistakes
+description: Correct mistakes in genetic report summaries
+input:
+  document_text: The summary text to correct
+  keywords: Keywords that guided the original summary
+  text_analytics: Results from text analytics
+  latest_transcripts: Latest transcript version information
+execution_settings:
+  default:
+    temperature: 0.1
+    max_tokens: 1000
