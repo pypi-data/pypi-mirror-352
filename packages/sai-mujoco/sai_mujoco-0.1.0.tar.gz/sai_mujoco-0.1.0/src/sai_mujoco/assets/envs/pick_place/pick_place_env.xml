@@ -1,0 +1,22 @@
+<mujoco>
+
+    <include file="./envs/pick_place/assets.xml"/>
+
+    <worldbody>
+        <body pos="0.75 0 0" euler="0 0 1.57">
+            <freejoint name="table" />
+            <include file="./envs/pick_place/simpleWoodTable_body.xml" />
+        </body>
+
+        <body name="target" pos="0.75 0 0.68">
+            <site name="target0" pos="0 0 0.4" size="0.03 0.03 0.03" rgba="0 1 0 0.25" type="box"></site>
+        </body>
+
+        <body name="cube_obj" pos="0.75 0 0.68">
+            <freejoint name="object0:joint" />
+            <geom type="box" size="0.03 0.03 0.03" rgba="1.0 0 0 1" mass="0.05"
+                solimp="0.999 0.999 0.001" solref="0.001 1" friction="0.95 0.3 0.1" condim="4" />
+            <site name="object0" pos="0 0 0" size="0.02 0.02 0.02" rgba="1 0 0 1" type="sphere"></site>
+        </body>
+    </worldbody>
+</mujoco>

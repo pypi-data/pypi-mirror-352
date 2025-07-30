@@ -1,0 +1,10 @@
+<mujocoinclude>
+    <!-- Club head -->
+    <body name="head_link" pos="0 0 0">
+        <geom name="head_collision" type="box" size="0.04 0.01 0.03" pos="0 0 0.03" mass="0.02"/>
+        <!-- Grip connection -->
+        <body name="grip_link" pos="0 0 0.11">
+            <geom name="grip_collision" type="cylinder" size="0.01 0.125" pos="0 0 0.05" condim="4" solimp="0.999 0.999 0.001" solref="0.001 1" friction="0.95 0.3 0.1" mass="0.05"/>
+        </body>
+    </body>
+</mujocoinclude>

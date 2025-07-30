@@ -1,0 +1,14 @@
+<mujoco>
+
+    <include file="./robots/cobot/assets.xml"/>
+    <include file="./robots/cobot/actuators.xml"/>
+
+    <worldbody>
+
+        <body name='robot' pos='0.0 0 0.0.0' quat='0.0 0.0 0.0 1.0'>
+            <include file="./robots/cobot/robot.xml"/>
+            <!-- <include file="include_gripper.xml"/> -->
+        </body>
+
+    </worldbody>
+</mujoco>

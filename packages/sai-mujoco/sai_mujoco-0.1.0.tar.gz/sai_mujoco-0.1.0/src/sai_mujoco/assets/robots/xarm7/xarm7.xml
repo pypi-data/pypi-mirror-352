@@ -1,0 +1,11 @@
+<mujoco>
+
+    <include file="./robots/xarm7/assets.xml"/>
+    <include file="./robots/xarm7/actuators.xml"/>
+    
+    <worldbody>
+        <body name='robot' pos='0.0 0.0 0.7' quat='0.0 0.0 0.0 1.0'>
+            <include file="./robots/xarm7/robot.xml"/>
+        </body>
+    </worldbody>
+</mujoco>

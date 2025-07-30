@@ -1,0 +1,15 @@
+<mujoco>
+
+    <include file="./robots/cobot/assets.xml"/>
+    <include file="./robots/cobot/mocap.xml"/>
+
+    <worldbody>
+        <body name='robot' pos='0.0 0 0.0.0' quat='0.0 0.0 0.0 1.0'>
+            <include file="./robots/cobot/robot.xml"/>
+        </body>
+
+        <body mocap="true" name="target_robot" pos="0.7 0.0 0.12236">
+            <site type="sphere" size="0.01" rgba="0 0 1 1" group="1"/>
+        </body>
+    </worldbody>
+</mujoco>

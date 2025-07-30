@@ -1,0 +1,15 @@
+<mujoco>
+
+    <include file="./robots/franka/assets.xml"/>
+    <include file="./robots/franka/actuators.xml"/>
+    
+    <worldbody>
+        <body name='robot' pos='0.0 0.0 0.7' quat='0.0 0.0 0.0 1.0'>
+            <include file="./robots/franka/panda.xml"/>
+        </body>
+
+        <body name="target_robot" pos="0.695 -0.087 0.348" quat="0.69235922  0.24279981 -0.6228822  -0.27148614" mocap="true">
+            <site type="sphere" size="0.01" rgba="0 0 1 1" group="1"/>
+        </body>
+    </worldbody>
+</mujoco>

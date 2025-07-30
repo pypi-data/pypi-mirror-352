@@ -1,0 +1,13 @@
+<mujoco>
+    <sensor>
+        <gyro site="imu" name="gyro"/>
+        <velocimeter site="imu" name="local_linvel"/>
+        <accelerometer site="imu" name="accelerometer"/>
+        <framezaxis objtype="site" objname="imu" name="upvector"/>
+        <framexaxis objtype="site" objname="imu" name="forwardvector"/>
+        <framelinvel objtype="site" objname="imu" name="global_linvel"/>
+        <frameangvel objtype="site" objname="imu" name="global_angvel"/>
+        <framepos objtype="site" objname="imu" name="position"/>
+        <framequat objtype="site" objname="imu" name="orientation"/>
+    </sensor>
+</mujoco>
