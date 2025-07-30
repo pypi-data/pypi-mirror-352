@@ -1,0 +1,72 @@
+Metadata-Version: 2.4
+Name: rnajena-sugar
+Version: 0.9.0
+Summary: A Python framework for bioinformatics
+Author: Tom Eulenfeld
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/rnajena/sugar
+Project-URL: Bug Tracker, https://github.com/rnajena/sugar/issues
+Keywords: bioinformatics,RNA,DNA,sequence,fasta,genbank,stockholm,blast,entrez,index
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Education
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: binarysearchfile
+Requires-Dist: dna_features_viewer_lite
+Requires-Dist: matplotlib
+Requires-Dist: pandas
+Requires-Dist: platformdirs
+Requires-Dist: pytest
+Requires-Dist: requests
+Requires-Dist: seaborn
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license-file
+
+
+## A Python framework for bioinformatics
+
+The sugar project aims to provide a lightweight framework to facilitate rapid application development for bioinformatics.
+
+It thus provides classes and functions for working with DNA and RNA sequences, as well as related annotations, and it provides parsers and writers for various file formats using a plugin interface.
+
+### Installation
+
+Use pip, e.g.
+
+```
+pip install rnajena-sugar
+```
+
+Other installation options are described in the [documentation](https://rnajena-sugar.readthedocs.io/en/latest/src/tutorial_install.html).
+
+Run tests with the `sugar test` command. Note that tests that require an Internet connection are skipped by default, this behavior can be turned off with the `--web` option. Also, depending on the installation and platform, some tests may be skipped or have an expected failure, to see details about the reasons please use the `--verbose` flag.
+
+### Getting started
+
+Read about how to get started in the [tutorial](https://rnajena-sugar.readthedocs.io/en/latest/src/tutorial_install.html) section of the documentation.
+
+```python
+from sugar import read
+seqs = read()  # load example GenBank file
+print(seqs)
+print(seqs[1].fts)  # show features attached to second sequence
+seqs.plot_ftsviewer(show=True)  # plot attached features
+aas = seqs['cds'].translate()
+print(aas)
+aas.write('translated_cds.fasta')
+```
+
+### Documentation and Changelog
+
+Documentation can be found at [Read the Docs](https://rnajena-sugar.readthedocs.io).
+The detailed changelog is available [here](https://github.com/rnajena/sugar/blob/master/CHANGELOG).
+
+### Contributions
+
+Contributions are welcome! -- e.g. report or fix bugs, discuss or add features, improve the documentation.
+See the [CONTRIBUTING.md](https://github.com/rnajena/sugar/blob/master/CONTRIBUTING.md) file for details.

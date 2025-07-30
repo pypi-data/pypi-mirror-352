@@ -1,0 +1,75 @@
+[project]
+name = "rnajena-sugar"
+dynamic = ["readme", "version"]
+authors = [
+    {name = "Tom Eulenfeld"},
+]
+description = "A Python framework for bioinformatics"
+license = "MIT"
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Bio-Informatics"
+]
+keywords = [
+    "bioinformatics", "RNA", "DNA", "sequence",
+    "fasta", "genbank", "stockholm", "blast", "entrez",
+    "index"
+]
+requires-python = ">= 3.11"
+dependencies = [
+  "binarysearchfile",
+  "dna_features_viewer_lite",
+  "matplotlib",
+  "pandas",
+  "platformdirs",
+  "pytest",
+  "requests",
+  "seaborn",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/rnajena/sugar"
+"Bug Tracker" = "https://github.com/rnajena/sugar/issues"
+
+[project.scripts]
+sugar = "sugar.scripts:cli"
+
+[project.entry-points."sugar.io"]
+fasta = "sugar._io.fasta"
+genbank = "sugar._io.genbank"
+stockholm = "sugar._io.stockholm"
+gff = "sugar._io.gff"
+sjson = "sugar._io.sjson"
+
+[project.entry-points."sugar.io.fts"]
+gff = "sugar._io.gff"
+gtf = "sugar._io.gff"
+genbank = "sugar._io.genbank"
+blast = "sugar._io.tab.blast"
+mmseqs = "sugar._io.tab.mmseqs"
+infernal = "sugar._io.tab.infernal"
+tsv = "sugar._io.tab.xsv"
+csv = "sugar._io.tab.xsv"
+sjson = "sugar._io.sjson"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "sugar.__version__"}
+
+[tool.setuptools.package-data]
+"sugar.data.data_gcode" = ["*.*"]
+"sugar.data.data_submat" = ["*"]
+"sugar.data.data_tutorial" = ["*.*"]
+"sugar.imaging.color_schemes" = ["*.json"]
+"sugar.tests" = ["pytest.ini"]
+"sugar.tests.data" = ["*.*"]
+
+[tool.setuptools.exclude-package-data]
+"sugar.data.data_submat" = ["README*"]
+"sugar.data.data_tutorial" = ["README"]
