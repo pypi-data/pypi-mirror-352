@@ -1,0 +1,62 @@
+{
+  "name": "pret-joy",
+  "version": "5.0.0-beta.52",
+  "description": "MUI Joy plugin for Pret",
+  "main": "client/index.js",
+  "repository": "https://github.com/percevalw/pret",
+  "author": "Perceval Wajsbürt <perceval.wajsburt@gmail.com>",
+  "scripts": {
+    "build": "jlpm clean && jupyter labextension build .",
+    "build:dev": "jlpm clean && jupyter labextension build --development True .",
+    "clean": "rm -rf pret/ui/joy/js-extension lib",
+    "prepare": "husky install"
+  },
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/joy": "^5.0.0-beta.52"
+  },
+  "devDependencies": {
+    "@jupyterlab/builder": "^3.6.5",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "file-loader": "^6.2.0",
+    "husky": ">=6",
+    "lint-staged": ">=10",
+    "prettier": "^3.5.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.8.2"
+  },
+  "jupyterlab": {
+    "extension": "client/plugin.ts",
+    "schemaDir": "client/schema",
+    "outputDir": "pret/ui/joy/js-extension",
+    "webpackConfig": "./webpack.jupyter.js",
+    "_build": {
+      "load": "static/remoteEntry.9f4ed9b14112fb78e9ea.js",
+      "extension": "./extension"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  }
+}
