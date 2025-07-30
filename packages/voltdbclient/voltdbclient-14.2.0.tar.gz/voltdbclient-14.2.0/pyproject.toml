@@ -1,0 +1,25 @@
+[build-system]
+requires      = ["setuptools>=75.4.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voltdbclient"
+version = "14.2.0"
+description = "VoltDB python client"
+readme = "README.md"
+authors = [{ name = "Volt Active Data", email = "support@voltactivedata.com" }]
+
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+extras = ["pyjks", "cryptography", "python-gssapi"]
+
+[project.urls]
+Homepage = "https://www.voltactivedata.com/"
