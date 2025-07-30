@@ -1,0 +1,88 @@
+[tool.pytest.ini_options]
+pythonpath = [
+    ".",
+]
+testpaths = [
+    ".",
+    "test",
+]
+# ignore any of these paths
+norecursedirs = [
+
+]
+addopts = [
+]
+
+[tool.poetry]
+name = "mcpf-io-pandas"
+version = "0.1.0-rc3"
+description = "Minimalist Configurable Pipelineing Framework -- Pandas Dataframe based Input/Output Functions"
+authors = [
+    "Karoly Bosa <karoly.bosa@risc-software.at>"
+]
+packages = [
+    { include = "mcpf_io" },
+]
+
+# Keep these depencendies as small as possible.
+# **No** matplotlib, plotly, etc.
+# **No** jupyter, ipython, etc.
+# **No** psycopg2, sqlalchemy etc.
+# These have to be dealt with in separate packages.
+[tool.poetry.dependencies]
+python = "^3.10"
+# NOTE: Retain the relation! These dependencies are supported
+# across major versions.
+pandas = ">=1.4.0"
+pyarrow = ">=7.0.0"
+mcpf-core = "^0.1.0rc3"
+
+[tool.poetry.group.dev.dependencies]
+poethepoet = "^0.19.0"
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+pytest-xdist = "^3.1.0"
+black = "^23.1.0"
+isort = "^5.12.0"
+ruff = "^0.0.259"
+
+[tool.poetry.group.test.dependencies]
+pandas = "1.4.0"
+numpy = "1.21.0"
+pyarrow = "7.0.0"
+openpyxl = "3.0.9"
+
+[tool.ruff]
+line-length = 120
+ignore = ["D207", "D208", "E402", "E501", "E722", "E741", "E731", "F841"]
+
+[tool.isort]
+profile = "black"
+
+[tool.poe.tasks]
+_format = "black ."
+_sort_imports = "isort ."
+_lint = "ruff check --fix ."
+
+_check_format = "black --check ."
+_check_sort_imports = "isort --check ."
+_check_lint = "ruff check ."
+
+# Fake tasks for latest pipeline that didn't exist in former config
+check_licenses = "python3 -c ''"
+
+docs = "mkdocs serve"
+precommit = ["_format", "_sort_imports", "_lint"]
+check = ["_check_format", "_check_sort_imports", "_check_lint"]
+test = "pytest"
+
+# https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
+[tool.black]
+line-length = 120
+
+[build-system]
+requires = ["poetry-core>=1.1.14"]
+build-backend = "poetry.core.masonry.api"
+
+
+
