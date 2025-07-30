@@ -1,0 +1,52 @@
+name: release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build-and-publish:
+    name: Build and publish to PyPI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@6b9c6063abd6010835644d4c2e1bef4cf5cd0fca  # v6.0.1
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install dependencies
+        run: uv sync --locked --all-extras --dev
+
+      - name: Check version consistency
+        env:
+          GITHUB_TAG_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          # Get version from pyproject.toml
+          PACKAGE_VERSION=$(uv version --short)
+          echo "Package version from pyproject.toml: $PACKAGE_VERSION"
+
+          # Get release version from GitHub ref (strip 'v' prefix if present)
+          RELEASE_VERSION=$(echo "$GITHUB_TAG_NAME" | sed 's/^v//')
+          echo "Release version from GitHub: $RELEASE_VERSION"
+
+          # Compare versions
+          if [ "$PACKAGE_VERSION" != "$RELEASE_VERSION" ]; then
+            echo "Error: Version mismatch between GitHub release ($RELEASE_VERSION) and pyproject.toml ($PACKAGE_VERSION)"
+            exit 1
+          fi
+          echo "Versions match: $PACKAGE_VERSION"
+
+      - name: Build
+        run: uv build
+
+      - name: Publish
+        run: uv publish
