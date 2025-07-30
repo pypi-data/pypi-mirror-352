@@ -1,0 +1,45 @@
+Metadata-Version: 2.4
+Name: wagtail-2fa-v6
+Version: 1.0.3
+Summary: Wagtail two-factor auth, updated for Wagtail 6+
+Home-page: https://github.com/ravigupta-art/wagtail-2fa-v6
+Author: ravigupta-art
+Author-email: 52917700+ravigupta-art@users.noreply.github.com
+License: MIT
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 5.2
+Classifier: Framework :: Wagtail
+Classifier: Framework :: Wagtail :: 6
+Classifier: Framework :: Wagtail :: 7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.8
+License-File: LICENSE
+Requires-Dist: Django>=5.2
+Requires-Dist: wagtail>=6.2
+Requires-Dist: django-otp>=0.8.1
+Requires-Dist: qrcode>=6.1
+Requires-Dist: six>=1.14.0
+Provides-Extra: docs
+Requires-Dist: sphinx>=1.4.1; extra == "docs"
+Requires-Dist: sphinx_rtd_theme>=0.4.3; extra == "docs"
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-django; extra == "test"
+Requires-Dist: coverage; extra == "test"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
