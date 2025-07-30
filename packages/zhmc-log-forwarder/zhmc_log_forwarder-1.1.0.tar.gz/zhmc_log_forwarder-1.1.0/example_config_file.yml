@@ -1,0 +1,123 @@
+---
+# Config file for the zhmc_log_forwarder command, in YAML format.
+
+# This is an example config file with all supported config parameters and their
+# descriptions. You need to edit the file for setting at least the hmc_*
+# and syslog_* parameters.
+
+# IP address or hostname of the HMC.
+hmc_host: 10.11.12.13
+
+# HMC userid.
+hmc_user: myuser
+
+# HMC password.
+hmc_password: mypassword
+
+# HMC certificte validation (true, false, path to PEM file)
+hmc_verify_cert: false
+
+# STOMP retry/timeout configuration.
+# null means to use the zhmcclient defaults.
+stomp_retry_timeout_config: {}
+#   connect_timeout: null
+#   connect_retries: null
+#   reconnect_sleep_initial: null
+#   reconnect_sleep_increase: null
+#   reconnect_sleep_max: null
+#   reconnect_sleep_jitter: null
+#   keepalive: null
+#   heartbeat_send_cycle: null
+#   heartbeat_receive_cycle: null
+#   heartbeat_receive_check: null
+
+# Label for the HMC to be used in the log message (as field 'label').
+label: myregion-myzone-myhmc
+
+# Point in time since when past log entries are included:
+# - 'now': Include past log entries since now. This may actually include log
+#   entries from the recent past.
+# - 'all': Include all available past log entries.
+# - A date and time string suitable for Python dateutil.parser. Timezones in
+#   the string are ignored and the local timezone is used instead.
+since: now
+
+# Wait for future log entries.
+future: true
+
+# Destination for any self-log entries:
+# - 'stdout': Standard output.
+# - 'stderr': Standard error.
+selflog_dest: stdout
+
+# Format of any self-log entries, as a format string for Python
+# logging.Formatter objects.
+# See https://docs.python.org/2/library/logging.html#logrecord-attributes for
+# details.
+selflog_format: '%(levelname)s: %(message)s'
+
+# Format for the 'asctime' field of any self-log entries, as a Python
+# datetime.strftime() format string.
+# Invoke with --help-time-format for details.
+selflog_time_format: '%Y-%m-%d %H:%M:%S.%f%z'
+
+# File path of HMC log message file (in YAML format) to be used with the
+# cadf output format. Relative file paths are relative to the directory
+# containing this config file. Default is null, which causes the file
+# provided with the zhmc_log_forwarder package to be used.
+log_message_file: null
+
+# Check data to be included in the generated CADF log records.
+check_data: {}
+
+# List of log forwardings. A log forwarding mainly defines a set of logs to
+# collect, and a destination to forward them to.
+forwardings:
+
+  -
+    # Name of the forwarding (unique within configuration).
+    name: Example forwarding
+
+    # List of HMC logs to include:
+    # - 'security': HMC Security Log.
+    # - 'audit': HMC Audit Log.
+    logs: [security, audit]
+
+    # Destination:
+    # - 'stdout': Standard output.
+    # - 'stderr': Standard error.
+    # - 'syslog': Local or remote system log.
+    dest: stdout
+
+    # IP address or hostname of the syslog server (for syslog destinations).
+    syslog_host: 10.11.12.14
+
+    # Port number of the syslog server (for syslog destinations).
+    syslog_port: 514
+
+    # Port type of the syslog server (for syslog destinations).
+    syslog_porttype: udp
+
+    # Syslog facility name (for syslog destinations).
+    syslog_facility: user
+
+    # Output format of the log records written to the destination:
+    # - 'line': Single line formatted using the line_format config parameter
+    # - 'cadf': CADF format as a JSON string
+    format: line
+
+    # Format for 'line' and 'cadf' output formats, as a Python new-style format
+    # string. Invoke with --help-format-line or --help-format-cadf for details.
+    # Typical setting for 'line' format:
+    line_format: '{time:32} {label} {log:8} {name:12} {id:>4} {user:20} {msg}'
+    # Typical setting for 'cadf' format:
+    # line_format: '{time} {label} {cadf}'
+
+    # Format for the 'time' field in the log message, as a Python
+    # datetime.strftime() format string, or one of: 'iso8601', 'iso8601b',
+    # or 'syslog'.
+    # Invoke with --help-time-format for details.
+    # Typical setting for 'line' format:
+    time_format: 'iso8601'
+    # Typical setting for 'cadf' format:
+    # time_format: 'syslog'
