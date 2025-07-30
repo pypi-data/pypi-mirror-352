@@ -1,0 +1,15 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "wwtiotsdk"
+authors = [{name = "WaterWebTools Aps", email = "info@waterwebtools.com"}]
+readme = "README.md"
+dynamic = ["version", "description"]
+dependencies = [
+    "influxdb3-python", "boto3"
+]
+
+[project.urls]
+Home = "https://www.waterwebtools.com"

@@ -1,0 +1,23 @@
+stages:
+  - publish
+
+.setup_pip_venv:
+  before_script:
+    # Setup venv - not strictly required, but keeps warnings away
+    - python -m venv venv
+    - source venv/bin/activate
+    - pip install --upgrade pip
+
+# Publish the python package to gitlab package registry
+publish:
+  image: python:3.12
+  stage: publish
+  extends: .setup_pip_venv
+  variables:
+    FLIT_USERNAME: "__token__"
+    FLIT_PASSWORD: $PYPI_TOKEN
+  script:
+    - pip install flit
+    - flit publish
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
