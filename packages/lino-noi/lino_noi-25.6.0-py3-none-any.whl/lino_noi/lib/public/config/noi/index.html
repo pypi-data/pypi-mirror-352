@@ -1,0 +1,19 @@
+{% extends "bootstrap3/base.html" %}
+{% set active_page = "" %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+<p>Welcome to the public user interface of the
+<b>{{settings.SITE.title or settings.SITE.verbose_name}}</b> site.</p>
+
+{{ar.show('tickets.Tickets', header_level=2)}}
+
+{% if False %}
+<ul>
+{% for obj in settings.SITE.modules.tickets.Tickets.request() %}
+<li><a href="ticket/{{obj.id}}">{{obj}}</a></li>
+{% endfor %}
+</ul>
+
+{% endif %}
+
+{% endblock %}
