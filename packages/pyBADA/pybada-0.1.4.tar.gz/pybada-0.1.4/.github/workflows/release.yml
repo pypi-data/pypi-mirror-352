@@ -1,0 +1,33 @@
+name: Release new version on PyPi
+
+on:
+  push:
+    tags:
+      - '*'
+  
+jobs:
+  test:
+    name: Build wheel and upload
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+          pip install .[dev]
+
+      - name: Build pyBADA and upload wheel to PyPi
+        run: |
+            export TWINE_USERNAME=__token__
+            export TWINE_PASSWORD=${{ secrets.PYPI_API_TOKEN }}
+            python3 -m build
+            twine upload dist/*
