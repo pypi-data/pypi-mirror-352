@@ -1,0 +1,51 @@
+[project]
+name = "nrf-regtool"
+dynamic = ["version"]
+dependencies = [
+  "intelhex",
+  "svada~=2.2.0",
+]
+optional-dependencies = { cli = ["pydantic>=2.0", "tomlkit"] }
+authors = [{ name = "Nordic Semiconductor ASA" }]
+description = "Generate register content for memory-mapped peripherals."
+license = { file = "LICENSE" }
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Build Tools",
+]
+requires-python = ">=3.10"
+
+[project.urls]
+homepage = "https://www.nordicsemi.com"
+
+[project.scripts]
+nrf-regtool = "nrfregtool.__main__:package_main"
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.sdist]
+packages = ["nrfregtool"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["nrfregtool"]
+
+[tool.tox]
+requires = ["tox>=4.22"]
+env_list = ["pytest"]
+
+[tool.tox.env_run_base]
+description = "run pytest"
+deps = ["build", "pytest", "tomlkit", "intelhex"]
+package = "wheel"
+wheel_build_env = ".pkg"
+
+# Test environment
+[tool.tox.env.pytest]
+commands = [["pytest", "tests", "--strict-markers", "-r", "A"]]
