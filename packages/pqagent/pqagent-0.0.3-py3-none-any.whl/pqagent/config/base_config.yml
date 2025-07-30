@@ -1,0 +1,61 @@
+preprocessor:
+  encoder_type: ordinal #options: onehot, ordinal
+  scaler_type: standardization #options: standardization, minmax
+  train_val_split: 0.7 #percentage of train datasets, rest val
+
+general_training_config:
+  metric: &metric mse #options: mae, mse, huber; also used for loss_fn;
+  metric_goal: &metric_goal min #options: min, max
+
+train_config:
+  param_space:
+    fc_layers:
+      distribution: choice
+      args:
+        - [1]
+    dropout:
+      distribution: choice
+      args:
+        - 0
+    optimizer: #sdg, adam
+      distribution: choice
+      args:
+        - adam
+    learning_rate:
+      distribution: choice
+      args:
+        - 0.1
+  sweep_config:
+    metric: *metric
+    metric_goal: *metric_goal
+    pick_best_model_based_on: &pick_best_model_based_on val #choose if best model should be picked based on performance for train or val dataset
+    search_algorithm: optunasearch
+    loss_function: *metric
+    activation_func: relu #options: relu, leakyrelu;
+    epochs: 20
+    num_of_sweeps: 1
+    verbose: 0 #options: 0-silent, 1-..
+
+retrain_config:
+  param_space:
+    copy_from_base_model: True #if false, manually define param_space as in train_config.param_space
+  sweep_config:
+    metric: *metric
+    metric_goal: *metric_goal
+    pick_best_model_based_on: *pick_best_model_based_on
+    loss_function: *metric
+    epochs: 80
+    verbose: 0
+    num_of_sweeps: 1
+    strategies:
+      freeze_x_layer_groups:
+        last_layer_group_to_freeze: 0
+        learning_rate: Null #to be fixed
+      fine_tune_model:
+        first_layer_to_reset: 0 #first layer index=0; output layer also resetable
+        upper_layer_learning_rate: 0.01
+        lower_layer_learning_rate: 0.001
+      frozen_start_fine_tune_model:
+        learning_rate: Null #to be fixed
+        last_layer_group_to_freeze: 1 #at least output layer must be kept unfrozen (automatically detected)
+        learning_rate_phase_2: 0.01
