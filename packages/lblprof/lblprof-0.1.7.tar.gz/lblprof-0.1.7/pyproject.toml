@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lblprof"
+version = "0.1.7"
+description = "Line by line terminal based profiler"
+authors = [
+  { name="le-codeur-rapide", email="paul.vezia@gmail.com" }
+
+
+  
+]
+readme = "Readme.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "matplotlib>=3.10.1",
+    "virtualenv>=20.30.0",
+    "pandas>=2.0.3",
+    "chromadb>=0.5.23",
+    "ruff>=0.3.0",
+    "pytest>=7.0.0",
+    "black>=24.2.0",
+]
+
+[tool.setuptools]
+packages = ["lblprof"]
+
+[tool.pytest.ini_options]
+testpaths = ["lblprof/tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+log_cli = true
+log_cli_level = "DEBUG"
+addopts = "-v -x"
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
