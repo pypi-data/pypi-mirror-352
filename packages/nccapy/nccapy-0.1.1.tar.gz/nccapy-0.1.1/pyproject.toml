@@ -1,0 +1,82 @@
+[project]
+name = "nccapy"
+authors = [
+  { name="Jon Macey", email="jmacey@bournemouth.ac.uk" },
+]
+description = "nccapy is a python package use for teaching graphics at the NCCA"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = {file = "LICENSE.txt"}
+version = "0.1.1"
+dependencies = [
+    "pillow",
+    "pygame",
+    "numpy",
+    "pytest",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.13",
+    "mkdocstrings[python]>=0.29.1",
+    "ty>=0.0.1a3",
+]
+
+[project.optional-dependencies]
+# For devs / ci
+build = ["build", "hatchling"]
+codegen = ["pytest", "numpy", "ruff"]
+lint = ["ruff", "pre-commit"]
+tests = [
+    "pillow",
+    "pygame",
+    "numpy",
+    "pytest",
+    "pytest-cov",
+    "coverage"
+]
+
+
+[project.urls]
+Homepage = "https://github.com/NCCA/nccapy"
+Issues = "https://github.com/NCCA/nccapy/issues"
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_also = [
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self\\.debug",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc\\.)?abstractmethod",
+    ]
+
+ignore_errors = true
+
+[tool.coverage.html]
+directory = "coverage_html_report"
