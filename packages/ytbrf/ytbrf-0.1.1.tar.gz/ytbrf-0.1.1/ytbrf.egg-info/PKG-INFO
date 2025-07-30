@@ -1,0 +1,186 @@
+Metadata-Version: 2.4
+Name: ytbrf
+Version: 0.1.1
+Summary: A CLI tool to transcribe, summarize and translate YouTube videos
+Home-page: 
+Author: allenlsy
+Author-email: allenlsy@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: yt-dlp>=2023.12.30
+Requires-Dist: typer>=0.9.0
+Requires-Dist: rich>=13.7.0
+Requires-Dist: google-api-python-client>=2.108.0
+Requires-Dist: google-auth-oauthlib>=1.1.0
+Requires-Dist: transformers>=4.36.0
+Requires-Dist: torch>=2.1.0
+Requires-Dist: sentencepiece>=0.1.99
+Requires-Dist: protobuf>=4.25.1
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# ytbrf (YouTube Brief)
+
+A CLI tool that takes a YouTube video link and generates a summary of the video content. The tool can also translate the summary into different languages.
+
+## Features
+
+- Automatic transcript extraction from YouTube (if available)
+- Local audio transcription using Whisper when YouTube transcript is not available
+- AI-powered text summarization
+- Optional translation of summaries
+- Progress bars and rich console output
+- Support for multiple languages
+- Flexible configuration system
+
+## Prerequisites
+
+- Python 3.8 or higher
+- FFmpeg (for audio processing)
+- YouTube API key (for accessing YouTube transcripts)
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/ytbrf.git
+cd ytbrf
+```
+
+2. Install the package:
+```bash
+pip install -e .
+```
+
+3. Set up your YouTube API key:
+```bash
+export YOUTUBE_API_KEY='your_api_key_here'
+```
+
+## Configuration
+
+ytbrf uses a YAML configuration file to customize its behavior. The configuration file can be placed in:
+- Current directory (`config.yaml`)
+- User's config directory (`~/.config/ytbrf/config.yaml`)
+
+### Configuration Options
+
+```yaml
+# Summary settings
+summary:
+  # Relative length of the summary (0.0 to 1.0)
+  ratio: 0.2
+  # Target language for translation (ISO 639-1 code, e.g., 'en', 'es', 'fr')
+  target_language: ""
+
+# Transcription settings
+transcription:
+  # Path to whisper.cpp executable
+  whisper_path: "whisper"
+  # Whisper model to use (tiny, base, small, medium, large)
+  model: "base"
+  # Language to force for transcription (empty for auto-detect)
+  force_language: ""
+
+# Output settings
+output:
+  # Default output directory
+  directory: "."
+  # File naming pattern (available variables: {title}, {id}, {lang})
+  filename_pattern: "{title}-{lang}.txt"
+
+# YouTube settings
+youtube:
+  # YouTube API key (required for transcript download)
+  api_key: ""
+  # Preferred audio quality (best, worst, or specific quality like 192k)
+  audio_quality: "best"
+  # Audio format (mp3, m4a, etc.)
+  audio_format: "mp3"
+
+# Translation settings
+translation:
+  # Translation model to use
+  model: "Helsinki-NLP/opus-mt-{src}-{tgt}"
+  # Whether to translate the full transcript (true) or just the summary (false)
+  translate_full: false
+```
+
+### Default Values
+
+If no configuration file is found, ytbrf will use these default values:
+- Summary ratio: 20% of original length
+- Whisper model: "base"
+- Output directory: current directory
+- Audio format: mp3
+- Translation: disabled by default
+
+## Usage
+
+Basic usage:
+```bash
+ytbrf "https://www.youtube.com/watch?v=VIDEO_ID"
+```
+
+With custom summary ratio (e.g., 30% of original length):
+```bash
+ytbrf "https://www.youtube.com/watch?v=VIDEO_ID" --ratio 0.3
+```
+
+With translation to English:
+```bash
+ytbrf "https://www.youtube.com/watch?v=VIDEO_ID" --translate en
+```
+
+With custom output directory:
+```bash
+ytbrf "https://www.youtube.com/watch?v=VIDEO_ID" --output-dir ./summaries
+```
+
+## Output Files
+
+For a video titled "Example Video", the tool will generate:
+
+- `Example Video.txt` - Full transcript
+- `Example Video-summary-{original_language}.txt` - Summary in original language
+- `Example Video-summary-{target_language}.txt` - Translated summary (if translation requested)
+
+## How It Works
+
+1. The tool first attempts to get the transcript directly from YouTube using the YouTube API
+2. If no transcript is available, it downloads the audio and uses Whisper for local transcription
+3. The transcript is then summarized using a transformer model
+4. If translation is requested, the summary is translated to the target language
+5. All files are saved in the specified output directory
+
+## Supported Languages
+
+The tool supports translation to any language available in the Helsinki-NLP models. Common language codes include:
+
+- `en` - English
+- `es` - Spanish
+- `fr` - French
+- `de` - German
+- `it` - Italian
+- `pt` - Portuguese
+- `ru` - Russian
+- `zh` - Chinese
+- `ja` - Japanese
+- `ko` - Korean
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details. 
