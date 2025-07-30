@@ -1,0 +1,10 @@
+#!python
+
+import argparse as ap
+from spt3g import core
+
+P = ap.ArgumentParser(description="Print spt3g module documentation")
+P.add_argument("module", help="Module name, e.g. 'spt3g.core'")
+args = P.parse_args()
+
+print(core.module_apidoc(args.module))
