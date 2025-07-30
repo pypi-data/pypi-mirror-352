@@ -1,0 +1,55 @@
+name: Python
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-python:
+
+    name: Build python package for ${{ matrix.os }} with Python ${{ matrix.python-version }} via Poetry ${{ matrix.poetry-version }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+        os: [ubuntu-latest, windows-latest]
+        poetry-version: ["latest"]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Act dependencies
+      if: ${{ env.ACT }}
+      run: |
+        apt-get update && apt-get install sudo -y cargo
+    - name: Run poetry image
+      uses: abatilo/actions-poetry@v4
+      with:
+        poetry-version: ${{ matrix.poetry-version }}
+    - name: Ensure lockfile is updated
+      run: |
+        poetry lock
+    - name: Install python dependencies
+      run: |
+        poetry install
+    - name: Build rust package
+      run: |
+        poetry run maturin develop
+    - name: Test with pytest
+      env:
+        PYTEST_ADDOPTS: "--cov read_aconity_layers --cov-report=lcov"
+      run: |
+        poetry run pytest
+
+    - name: Upload coverage to Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: coverage.lcov
