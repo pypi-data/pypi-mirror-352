@@ -1,0 +1,192 @@
+Metadata-Version: 2.4
+Name: wowool-italian
+Version: 3.1.0
+Summary: Wowool NLP italian Package
+Description-Content-Type: text/markdown
+
+# Wowool NLP italian Package
+This package contains the language file and domains for italian.
+To use this package, you need to install the wowool-sdk package and request a license file at info@wowool.com
+
+## Usage
+
+```python
+from wowool.sdk import Pipeline
+from pathlib import Path
+input_text = Path("input.txt").read_text()
+pipeline = Pipeline("italian,entity")
+doc = pipeline(input_text)
+print(doc)
+```
+
+## Domains
+
+### italian-anonymizer.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Address |Captures the Street, City and the complete Address | Via Giacomo 123, 00100 Roma, Italia |
+| City |Name of a City | Roma |
+| Company |Name of a Company | Intesa Sanpaolo, Versace |
+| Country |Name of a Country | Italia |
+| Email |Email address | info@wowool.com |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Massimiliano Fedriga |
+| PersonFam |Surname of a Person. Subannotation of the Person annotation | Netrebkok |
+| PersonGiv |Given name of a Person. Subannotation of the Person annotation | Giorgia |
+| PhoneNr |A phone number | +39 312 345 6789 |
+| Position |Subclass of PersonMention. The professional occupation of a person. | vicepresidente |
+| Street |The name of a street with or without number. | Piazza San Pietro |
+| Url |Url | https://www.wowool.com |
+
+
+### italian-discovery.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Definition |A definition. A sentence that explains what something or someone is. | nord Alagón del Río è un comune spagnolo di 871 abitanti |
+| Descriptor | descriptor is something like 'painter', which will allow us to classify an concept as a Person when it appears in certain definition context. In the sample above 'comune' is the descriptor | Yatafen è un comune dell' Algeria |
+| DescriptorMarker |A DescriptorMarker is a descriptor no matter the context | animali, isola, lingua |
+
+
+### italian-entity.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| City |Name of a City | Napoli |
+| Company |Name of a Company | Corriere della Sera |
+| Country |Name of a Country | Italia, Francia, Cina, Egitto, Messico |
+| Date |Date and Month | 01 novembre 2019 |
+| Email |Email address | info@wowool.com |
+| Event |Something that happens | terremoto |
+| Facility |A building or place that provides a particular service or is used for a particular industry | scuola |
+| GivenName |First name of a Person | Gianna |
+| MoneyAmount |Amount of money | seimila euro |
+| Month |Name of a month | ottobre |
+| Organization |Name of an Organization | Fifa |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Manuel Bortuzzo |
+| PersonMention |A mention of a person in a general way | ragazza, manifestante |
+| Position |Subclass of PersonMention. The professional occupation of a person. | direttore |
+| Url |Url | https://www.wowool.com |
+| WorldRegion |A geographical place, like a continent, a region, a county, etc. | Europa |
+
+
+### italian-contact-info.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Address |Captures the Street, City and the complete Address | Via Aurelia, 831, 00165 Roma |
+| City |Name of a City | Verona, Roma, Atlanta, Cannes |
+| Company |Name of a Company | Airbus, Intesa Sanpaolo |
+| Country |Name of a Country | Cina, Italia, Francia, Bielorussia |
+| Email |Email address | info@wowool.com |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Giorgia Meloni |
+| PersonFam |Surname of a Person. Subannotation of the Person annotation | Pichetto |
+| PersonGiv |Given name of a Person. Subannotation of the Person annotation | Matteo |
+| PhoneNr |A phone number | +39 312 345 6789 |
+| PhoneNrCandidate |A possible phone number, but we do not have enough evidence | 0390 333 1212 |
+| Position |Subclass of PersonMention. The professional occupation of a person. | Segretario generale |
+| Street |The name of a street with or without number. | Piazza San Pietro |
+| Url |Url | https://www.wowool.com |
+
+
+### italian-entity-extended.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Address |Captures the Street, City and the complete Address | Emmastraat 1, 1071 JA Amsterdam |
+| Animal |Names of common animals. | cavallo, cane, lupo |
+| Automobile |A car brand or reference to a car. | Jeep Renegade, Porsche |
+| BaseballTeam |US baseball team | Houston Astros |
+| City |Name of a City | Verona, Firenze, Parigi |
+| Company |Name of a Company | Intesa Sanpaolo, Rai |
+| CurrencyUnit |A currency unit | dollaro, euro, yen |
+| Country |Name of a Country | Stati Uniti, Italia, Slovacchia |
+| Date |Date and Month | 21 marzo 2013 |
+| Drink |Name of a drink | martini, caffè |
+| Email |Email address | info@wowool.com |
+| Event |Something that happens | pandemia, guerra |
+| Facility |A building or place that provides a particular service or is used for a particular industry | prigione, ospedale Santissima Annunziata |
+| Food |Name of food, ingredients as well as dishes | hummus, frutta, formaggio |
+| GivenName |First name of a Person | Gianni |
+| Measure |Unit of measure | 15.000 km |
+| MoneyAmount |Amount of money | 184 mila euro |
+| Month |Name of a month | dicembre |
+| Organization |Name of an Organization | Pd, club rossonero, Unesco |
+| Percent |A percentage | 50%, 2 per cento |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Massimiliano Fedriga |
+| PersonFam |Surname of a Person. Subannotation of the Person annotation | Giorgi |
+| PersonGiv |Given name of a Person. Subannotation of the Person annotation | Fabio |
+| PersonMention |A mention of a person in a general way | vittima, attore, bambino |
+| PhoneNr |Phone number | +39 312 345 6789 |
+| PlaceAdj |Adjective of geographical origin. | italiana, tedesco |
+| Position |Subclass of PersonMention. The professional occupation of a person. | procuratore, viceministro |
+| SoccerTeam |European soccer team | Juventus, Ajax, Bayer Leverkusen |
+| Sports |Sports | tennis, calcio |
+| Street |The name of a street with or without number. | Via Amiterno, 42-60, 00183 Roma |
+| Url |Url | https://www.wowool.com |
+| Vehicle |Name of a vehicle | drone, veicolo, Toyota Yaris |
+| Weapon |Name of a weapon | bomba, missile balistico |
+| WeekDay |Day of the week | mercoledì |
+| WorldRegion |A geographical place, like a continent, a region, a county, etc. | Amazzonia, Europa |
+
+
+### italian-dates.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Date |An attribute will resolve the absolute date from the date that has been set | 23 settembre 2021 |
+| TimePhrase |A phrase expressing time, including dates |  ieri, 20 maggio |
+
+
+### italian-sentiment.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| PositiveSentiment |A positive opinion. | Serbia vince 3-0, momenti più belli |
+| NegativeSentiment |A negative opinion. | attentato più feroce |
+| AdjPos |Positive adjective. | sensibili |
+| AdjNeg |Negative adjective. | feroce |
+| NounPos |Positive Noun. | verità, giustizia |
+| NounNeg |Negative Noun. | violenza |
+
+
+### italian-semantic-theme.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Theme |Theme. | cavallo |
+
+
+### italian-topics.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| TopicCandidate |Possible topics | obiettivo climatico, Marilyn Monroe |
+
+
+### italian-unknown.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| UnknownThing |Unknown concept | Yttrium  |
+
+
+### italian-syntax.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| NP |Noun phrase. | misure restrittive |
+| NPLong |Noun phrases related to each other. | il giro del mondo, una mostra virtuale |
+| PronPhrase |Pronoun phrase. | lui, si |
+| VPInf |Verb phrase in infinitive, in the example: salvare | salvare gli animali selvatici |
+| VP |Verb phrase. | ha conquistato |
+
+
+### italian-event.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Event |An event, in very general terms. | esposizione |
+
+
+

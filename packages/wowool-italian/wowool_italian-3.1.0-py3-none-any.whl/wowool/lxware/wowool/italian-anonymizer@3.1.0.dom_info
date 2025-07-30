@@ -1,0 +1,93 @@
+{
+  "dependencies": [
+    "wowool/italian-entity@3.1.0"
+  ],
+  "concepts": [
+    "Address",
+    "BankAccount",
+    "City",
+    "Company",
+    "Country",
+    "Day",
+    "Date",
+    "Email",
+    "IPAddress",
+    "Month",
+    "MoneyAmount",
+    "Organization",
+    "PersonFam",
+    "PersonGiv",
+    "Person",
+    "PlaceAdj",
+    "PhoneNr",
+    "Position",
+    "Publisher",
+    "Street",
+    "Url",
+    "Year"
+  ],
+  "short_description": "Contact information annotations, such as: Person name, City, Country, Address, PhoneNr, etc.",
+  "examples": [
+    {
+      "concept": "Address",
+      "sample": "Via Giacomo 123, 00100 Roma, Italia",
+      "desc": "Captures the Street, City and the complete Address"
+    },
+    {
+      "concept": "City",
+      "sample": "Roma",
+      "desc": "Name of a City"
+    },
+    {
+      "concept": "Company",
+      "sample": "Intesa Sanpaolo, Versace",
+      "desc": "Name of a Company"
+    },
+    {
+      "concept": "Country",
+      "sample": "Italia",
+      "desc": "Name of a Country"
+    },
+    {
+      "concept": "Email",
+      "sample": "info@wowool.com",
+      "desc": "Email address"
+    },
+    {
+      "concept": "Person",
+      "sample": "Massimiliano Fedriga",
+      "desc": "Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name)"
+    },
+    {
+      "concept": "PersonFam",
+      "sample": "Netrebkok",
+      "desc": "Surname of a Person. Subannotation of the Person annotation"
+    },
+    {
+      "concept": "PersonGiv",
+      "sample": "Giorgia",
+      "desc": "Given name of a Person. Subannotation of the Person annotation"
+    },
+    {
+      "concept": "PhoneNr",
+      "sample": "+39 312 345 6789",
+      "desc": "A phone number"
+    },
+    {
+      "concept": "Position",
+      "sample": "vicepresidente",
+      "desc": "Subclass of PersonMention. The professional occupation of a person."
+    },
+    {
+      "concept": "Street",
+      "sample": "Piazza San Pietro",
+      "desc": "The name of a street with or without number."
+    },
+    {
+      "concept": "Url",
+      "sample": "https://www.wowool.com",
+      "desc": "Url"
+    }
+  ],
+  "instances": true
+}

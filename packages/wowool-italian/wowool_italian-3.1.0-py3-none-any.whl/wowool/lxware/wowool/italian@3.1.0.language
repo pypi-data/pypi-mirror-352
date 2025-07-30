@@ -1,0 +1,40 @@
+{
+  "tokenizer": "wowool/italian@3.1.0.tkz",
+  "postagger": "wowool/italian@3.1.0.postagger",
+  "apostrophe": "wowool/italian@3.1.0.apostrophe",
+  "abbreviations": "wowool/italian@3.1.0.abbrev",
+  "measure": "wowool/italian@3.1.0.measure",
+  "hmm": "wowool/italian@3.1.0.hmm",
+  "morph_chain": [
+    {
+      "file": "wowool/italian@3.1.0.morph",
+      "lookup": "plain"
+    },
+    {
+      "file": "wowool/italian-compound@3.1.0.morph",
+      "lookup": "compound_v2",
+      "transform": "none"
+    },
+    {
+      "file": "wowool/italian-numbers-num-std@3.1.0.morph",
+      "lookup": "compound_numbers",
+      "transform": "none"
+    }
+  ],
+  "property_chain": {
+    "abbrev": [
+      {
+        "file": "wowool/italian-abbreviation@3.1.0.morph",
+        "lookup": "plain"
+      }
+    ]
+  },
+  "not_found": [
+    {
+      "file": "wowool/italian@3.1.0.morph",
+      "lookup": "cleaner",
+      "transform": "none"
+    }
+  ],
+  "short_description": "A language module that enriches words with root forms, part of speech and properties for italian"
+}

@@ -1,0 +1,116 @@
+{
+  "dependencies": [
+    "wowool/italian-syntax@3.1.0"
+  ],
+  "concepts": [
+    "City",
+    "Continent",
+    "Company",
+    "Country",
+    "CurrencyUnit",
+    "WorldRegion",
+    "Address",
+    "Date",
+    "Email",
+    "Event",
+    "Facility",
+    "GivenName",
+    "PersonFam",
+    "PersonGiv",
+    "MoneyAmount",
+    "Measure",
+    "Month",
+    "Organization",
+    "Person",
+    "PersonMention",
+    "Position",
+    "Street",
+    "Url",
+    "WeekDay"
+  ],
+  "short_description": "Named entity annotations, such as: Person, City, Country, Company, Organization, etc.",
+  "examples": [
+    {
+      "concept": "City",
+      "sample": "Napoli",
+      "desc": "Name of a City"
+    },
+    {
+      "concept": "Company",
+      "sample": "Corriere della Sera",
+      "desc": "Name of a Company"
+    },
+    {
+      "concept": "Country",
+      "sample": "Italia, Francia, Cina, Egitto, Messico",
+      "desc": "Name of a Country"
+    },
+    {
+      "concept": "Date",
+      "sample": "01 novembre 2019",
+      "desc": "Date and Month"
+    },
+    {
+      "concept": "Email",
+      "sample": "info@wowool.com",
+      "desc": "Email address"
+    },
+    {
+      "concept": "Event",
+      "sample": "terremoto",
+      "desc": "Something that happens"
+    },
+    {
+      "concept": "Facility",
+      "sample": "scuola",
+      "desc": "A building or place that provides a particular service or is used for a particular industry"
+    },
+    {
+      "concept": "GivenName",
+      "sample": "Gianna",
+      "desc": "First name of a Person"
+    },
+    {
+      "concept": "MoneyAmount",
+      "sample": "seimila euro",
+      "desc": "Amount of money"
+    },
+    {
+      "concept": "Month",
+      "sample": "ottobre",
+      "desc": "Name of a month"
+    },
+    {
+      "concept": "Organization",
+      "sample": "Fifa",
+      "desc": "Name of an Organization"
+    },
+    {
+      "concept": "Person",
+      "sample": "Manuel Bortuzzo",
+      "desc": "Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name)"
+    },
+    {
+      "concept": "PersonMention",
+      "sample": "ragazza, manifestante",
+      "desc": "A mention of a person in a general way"
+    },
+    {
+      "concept": "Position",
+      "sample": "direttore",
+      "desc": "Subclass of PersonMention. The professional occupation of a person."
+    },
+    {
+      "concept": "Url",
+      "sample": "https://www.wowool.com",
+      "desc": "Url"
+    },
+    {
+      "concept": "WorldRegion",
+      "sample": "Europa",
+      "desc": "A geographical place, like a continent, a region, a county, etc."
+    }
+  ],
+  "unknown_things": true,
+  "instances": true
+}

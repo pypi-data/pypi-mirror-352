@@ -1,0 +1,27 @@
+{
+  "tokenizer": "wowool/italian@3.1.0.tkz",
+  "conditions": [
+    {
+      "type": "pos",
+      "value": "Num",
+      "action": "merge"
+    },
+    {
+      "type": "property",
+      "value": "nf",
+      "action": "merge"
+    }
+  ],
+  "morph_chain": [
+    {
+      "file": "wowool/italian-numbers-num-writ@3.1.0.morph",
+      "lookup": "plain"
+    },
+    {
+      "file": "wowool/italian-numbers-num-writ@3.1.0.morph",
+      "lookup": "compound_numbers",
+      "transform": "none"
+    }
+  ],
+  "short_description": "A language module that enriches words with root forms, part of speech and properties for italian-numbers"
+}

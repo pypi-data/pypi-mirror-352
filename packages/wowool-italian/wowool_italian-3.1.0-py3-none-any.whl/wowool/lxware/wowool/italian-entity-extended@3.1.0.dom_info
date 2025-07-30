@@ -1,0 +1,224 @@
+{
+  "dependencies": [
+    "wowool/italian-entity@3.1.0"
+  ],
+  "concepts": [
+    "Address",
+    "Animal",
+    "Automobile",
+    "BaseballTeam",
+    "City",
+    "Company",
+    "Country",
+    "CurrencyUnit",
+    "Date",
+    "District",
+    "Drink",
+    "Email",
+    "Event",
+    "Facility",
+    "Food",
+    "GivenName",
+    "Measure",
+    "MoneyAmount",
+    "Month",
+    "Organization",
+    "Percent",
+    "Person",
+    "PersonFam",
+    "PersonGiv",
+    "PersonMention",
+    "PlaceAdj",
+    "PhoneNr",
+    "Position",
+    "SoccerTeam",
+    "Sports",
+    "Street",
+    "Time",
+    "Url",
+    "Vehicle",
+    "Weapon",
+    "WeekDay",
+    "WorldRegion"
+  ],
+  "short_description": "All annotations in the entity domain plus others, such as Automobile, BaseballTeam, InsuranceCompany or Measure",
+  "examples": [
+    {
+      "concept": "Address",
+      "sample": "Emmastraat 1, 1071 JA Amsterdam",
+      "desc": "Captures the Street, City and the complete Address"
+    },
+    {
+      "concept": "Animal",
+      "sample": "cavallo, cane, lupo",
+      "desc": "Names of common animals."
+    },
+    {
+      "concept": "Automobile",
+      "sample": "Jeep Renegade, Porsche",
+      "desc": "A car brand or reference to a car."
+    },
+    {
+      "concept": "BaseballTeam",
+      "sample": "Houston Astros",
+      "desc": "US baseball team"
+    },
+    {
+      "concept": "City",
+      "sample": "Verona, Firenze, Parigi",
+      "desc": "Name of a City"
+    },
+    {
+      "concept": "Company",
+      "sample": "Intesa Sanpaolo, Rai",
+      "desc": "Name of a Company"
+    },
+    {
+      "concept": "CurrencyUnit",
+      "sample": "dollaro, euro, yen",
+      "desc": "A currency unit"
+    },
+    {
+      "concept": "Country",
+      "sample": "Stati Uniti, Italia, Slovacchia",
+      "desc": "Name of a Country"
+    },
+    {
+      "concept": "Date",
+      "sample": "21 marzo 2013",
+      "desc": "Date and Month"
+    },
+    {
+      "concept": "Drink",
+      "sample": "martini, caff\u00e8",
+      "desc": "Name of a drink"
+    },
+    {
+      "concept": "Email",
+      "sample": "info@wowool.com",
+      "desc": "Email address"
+    },
+    {
+      "concept": "Event",
+      "sample": "pandemia, guerra",
+      "desc": "Something that happens"
+    },
+    {
+      "concept": "Facility",
+      "sample": "prigione, ospedale Santissima Annunziata",
+      "desc": "A building or place that provides a particular service or is used for a particular industry"
+    },
+    {
+      "concept": "Food",
+      "sample": "hummus, frutta, formaggio",
+      "desc": "Name of food, ingredients as well as dishes"
+    },
+    {
+      "concept": "GivenName",
+      "sample": "Gianni",
+      "desc": "First name of a Person"
+    },
+    {
+      "concept": "Measure",
+      "sample": "15.000 km",
+      "desc": "Unit of measure"
+    },
+    {
+      "concept": "MoneyAmount",
+      "sample": "184 mila euro",
+      "desc": "Amount of money"
+    },
+    {
+      "concept": "Month",
+      "sample": "dicembre",
+      "desc": "Name of a month"
+    },
+    {
+      "concept": "Organization",
+      "sample": "Pd, club rossonero, Unesco",
+      "desc": "Name of an Organization"
+    },
+    {
+      "concept": "Percent",
+      "sample": "50%, 2 per cento",
+      "desc": "A percentage"
+    },
+    {
+      "concept": "Person",
+      "sample": "Massimiliano Fedriga",
+      "desc": "Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name)"
+    },
+    {
+      "concept": "PersonFam",
+      "sample": "Giorgi",
+      "desc": "Surname of a Person. Subannotation of the Person annotation"
+    },
+    {
+      "concept": "PersonGiv",
+      "sample": "Fabio",
+      "desc": "Given name of a Person. Subannotation of the Person annotation"
+    },
+    {
+      "concept": "PersonMention",
+      "sample": "vittima, attore, bambino",
+      "desc": "A mention of a person in a general way"
+    },
+    {
+      "concept": "PhoneNr",
+      "sample": "+39 312 345 6789",
+      "desc": "Phone number"
+    },
+    {
+      "concept": "PlaceAdj",
+      "sample": "italiana, tedesco",
+      "desc": "Adjective of geographical origin."
+    },
+    {
+      "concept": "Position",
+      "sample": "procuratore, viceministro",
+      "desc": "Subclass of PersonMention. The professional occupation of a person."
+    },
+    {
+      "concept": "SoccerTeam",
+      "sample": "Juventus, Ajax, Bayer Leverkusen",
+      "desc": "European soccer team"
+    },
+    {
+      "concept": "Sports",
+      "sample": "tennis, calcio",
+      "desc": "Sports"
+    },
+    {
+      "concept": "Street",
+      "sample": "Via Amiterno, 42-60, 00183 Roma",
+      "desc": "The name of a street with or without number."
+    },
+    {
+      "concept": "Url",
+      "sample": "https://www.wowool.com",
+      "desc": "Url"
+    },
+    {
+      "concept": "Vehicle",
+      "sample": "drone, veicolo, Toyota Yaris",
+      "desc": "Name of a vehicle"
+    },
+    {
+      "concept": "Weapon",
+      "sample": "bomba, missile balistico",
+      "desc": "Name of a weapon"
+    },
+    {
+      "concept": "WeekDay",
+      "sample": "mercoled\u00ec",
+      "desc": "Day of the week"
+    },
+    {
+      "concept": "WorldRegion",
+      "sample": "Amazzonia, Europa",
+      "desc": "A geographical place, like a continent, a region, a county, etc."
+    }
+  ],
+  "unknown_things": true,
+  "instances": true
+}
