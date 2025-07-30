@@ -1,0 +1,122 @@
+Metadata-Version: 2.4
+Name: mcp-server-testing
+Version: 0.1.8
+Summary: A test server implementation for Model Context Protocol (MCP)
+Author-email: yareyaredesuyo <yareyaredesuyo@gmail.com>
+License-Expression: MIT
+Keywords: automation,llm,mcp,model-context-protocol
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.10
+Requires-Dist: argparse>=1.4.0
+Requires-Dist: fastmcp>=2.5.2
+Description-Content-Type: text/markdown
+
+# MCP Test Server
+
+This project is a test server implementation for the Model Context Protocol (MCP). It uses the FastMCP framework to provide basic MCP server functionality.
+
+## Available Tools
+
+### greet
+
+A function that receives a name and returns a greeting message.
+
+- `name` (string, required): The name to greet
+  - **Returns**: A string containing the greeting message
+
+## Installation
+
+### Using `uv` (Recommended)
+
+No special installation is required when using `uv`. You can run `mcp-server-testing` directly using `uvx`.
+
+### Using PIP
+
+Alternatively, you can install `mcp-server-testing` using pip:
+
+```
+pip install mcp-server-testing
+```
+
+After installation, you can run the script as follows:
+
+```
+mcp-server-testing
+```
+
+## Configuration
+
+### Configure for Claude.app
+
+Add to your Claude settings:
+
+<details>
+<summary>Using uvx</summary>
+
+```json
+{
+  "mcpServers": {
+    "testing": {
+      "command": "uvx",
+      "args": ["mcp-server-testing"]
+    }
+  }
+}
+```
+
+</details>
+
+### Configure for VS Code
+
+For quick installation, use one of the one-click install buttons below...
+
+[![Install with UV in VS Code](https://img.shields.io/badge/VS_Code-UV-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=testing&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22testing%22%5D%7D)
+
+### Command Line Options
+
+You can specify the following options when running the server:
+
+- `--sse`: Enable SSE transport
+
+  - **Choices**: `on`, `off`
+  - **Default**: `off`
+  - **Description**: Enables SSE transport when set to "on"
+
+- `--host`: Host to bind the server
+
+  - **Default**: `localhost`
+  - **Description**: Specifies the host address the server should bind to
+
+- `--port`: Port to bind the server
+
+  - **Type**: Integer
+  - **Default**: `8000`
+  - **Description**: Specifies the port number for the server to bind to
+
+- `--log-level`: Set the logging level
+
+  - **Choices**: `debug`, `info`, `warning`, `error`
+  - **Default**: `info`
+  - **Description**:
+
+    - `debug`: Detailed debugging information
+    - `info`: General runtime information (default)
+    - `warning`: Potential issues that do not affect execution
+    - `error`: Errors that occur during execution
+
+## Development
+
+This project serves as a basic implementation example of an MCP server. To add new features, implement them in `server.py`.
+
+During development, you can test your scripts with the following commands:
+
+```
+pip install -e .
+mcp-server-testing
+
+```
