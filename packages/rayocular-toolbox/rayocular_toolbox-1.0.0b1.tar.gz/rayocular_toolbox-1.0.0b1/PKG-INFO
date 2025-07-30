@@ -1,0 +1,67 @@
+Metadata-Version: 2.4
+Name: rayocular-toolbox
+Version: 1.0.0b1
+Summary: A Python toolbox for ocular proton therapy planning in RayOcular
+Author: Jan-Willem Beenakker, Lennart Pors, Corné Haasjes
+Maintainer-email: MReye research group <pyrot@mreye.nl>
+License: MIT License
+         
+        Copyright (c) 2025 Beenakker and members of the LUMC-MReye research group
+         
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+         
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+         
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Keywords: Proton therapy,RayOcular,RayStation
+Classifier: Development Status :: 1 - Planning
+Classifier: Programming Language :: Python :: 3
+Requires-Python: <3.9,>=3.6
+Requires-Dist: numpy
+Requires-Dist: pythonnet>=2.5.2
+Description-Content-Type: text/markdown
+
+# pyROT: Python RayOcular Tools
+
+Python RayOcular Tools is a Python library to complement RayOcular, an eye-specific module of RaySearch.
+It currently consists of three parts:
+
+1. `pyROT` itself, which is Python package provides a set of tools to work with eye models in Python. This library is designed to be as vendor-agnostic as possible, allowing it to be used without RaySearch. Interactions with RaySearch are handled through `pyrot.ro_interface`;
+2. `scripts` contains a set of scripts that can be run from within RaySearch and perform common tasks, such as generating eye models. These scripts import the `pyROT` package for all calculations.
+3. `standalone`, as set of Python scripts that can be used without RaySearch, for example to analyse a large set of eye models (still to be added).
+
+In addition, we hope that the pyROT repository will provide a platform to exchange methods and scripts within the ocular Proton Therapy community.
+
+
+## Warranty and liability
+
+The code is provided as is, without any warranty. It is solely intended for research purposes. No warranty is given and
+no rights can be derived from it, as is also stated in the [MIT license](LICENSE).
+
+
+## Contributing
+
+pyROT aims to be a community-driven project and warmly accepts contributions.
+If you want to contribute, please email us (pyrot@mreye.nl), [open a new discussion](https://github.com/MREYE-LUMC/pyROT/discussions) or read the [contribution guidelines](CONTRIBUTING.md) prior to opening a Pull Request.
+
+## Installation
+
+to be added
+
+## Future ideas
+
+- Extend the `pyROT` package with more tools, such as to determine the optimal gazing angle for a given eye model.
+- Extend the unit tests to cover more of the `pyROT` package.
