@@ -1,0 +1,136 @@
+// uv run flowjson --workflowJsonAddress dmr-das.json5 --imagesDirPath $PWD/src/common/images/dmr/das --isDebug
+// TODO 亲密度效果
+[
+  {
+    delay: {
+      next: 2,
+    },
+  },
+  {
+    loop: {},
+    jobs: [
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: '1-queding.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        condition: {
+          image: {
+            position: '2-kaishi.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+        loop: {
+          exitCondition: {
+            image: {
+              includes: ['6-move.png', '7-clear.png'],
+            },
+          },
+        },
+        jobs: [
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: {
+                  uri: '3-skip.png',
+                  confidence: 0.6,
+                },
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: {
+                  uri: '4-skip.png',
+                  confidence: 0.6,
+                },
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: {
+                  uri: '5-x.png',
+                  confidence: 0.7,
+                },
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+        ],
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: '5-x.png',
+              confidence: 0.7,
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: '6-move.png', // 尽量避免鼠标遮挡 7-clear.png
+          },
+        },
+        action: {
+          type: 'moveTo',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: '7-clear.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+    ],
+  },
+]

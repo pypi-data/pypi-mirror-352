@@ -1,0 +1,41 @@
+[project]
+name = "pyautogui-flowjson"
+version = "0.1.1"
+description = "Use json5 for view-based workflows configuration"
+readme = "README.md"
+authors = [
+    { name = "qixiaqi", email = "154809748@qq.com" }
+]
+requires-python = ">=3.9.9"
+dependencies = [
+    "aiofiles~=24.1.0",
+    "aiohttp>=3.11.18",
+    "ddddocr>=1.5.6",
+    "json5~=0.10.0",
+    "numpy~=2.0.2",
+    "opencv-python~=4.11.0.86",
+    "paddleocr>=2.10.0",
+    "paddlepaddle==3.0.0rc1",
+    "pillow>=11.2.1",
+    "pyautogui~=0.9.54",
+    "pydash~=8.0.5",
+    "pynput~=1.8.1",
+    "pyperclip>=1.9.0",
+    "pyscreeze~=1.0.1",
+]
+
+[project.scripts] # 定义了你的 CLI 脚本入口点 <脚本名> = "<模块路径>:<函数名>"
+flowjson = "flowjson:main"
+
+[tool.hatch.build.targets.wheel] # 何时需要显式设置 当代码目录与 [project] name 不一致时。当项目中有多个代码目录，而你只想打包其中一部分时
+# 默认值 优先查找 src/<package_name>/ 如果没有 src/，则查找 ./<package_name>/
+packages = ["src/flowjson"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "setuptools>=80.4.0",
+]

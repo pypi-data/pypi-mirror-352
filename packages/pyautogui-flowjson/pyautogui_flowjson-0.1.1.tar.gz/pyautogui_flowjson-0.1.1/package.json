@@ -1,0 +1,55 @@
+{
+  "name": "@zeroer/mcp-server-pyautogui",
+  "jspy_identifier": "__jspy_identifier__",
+  "version": "0.1.1",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bin": {
+    "mcp-server-pyautogui": "dist/index.stdio.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist",
+    "src",
+    ".python-version",
+    "pyproject.toml",
+    "uv.lock"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "postinstall": "uv sync",
+    "bootstrap": "pnpm i && uv sync",
+    "build:watch": "rm -rf dist && tsc --watch",
+    "build:tar": "rm -rf docker/*.tar.gz && gtar -czvf docker/mcp-server-pyautogui-$npm_package_version.tar.gz --exclude=.git/* --exclude=logs/* --exclude=.venv/* --exclude=node_modules/* --exclude=docker/* ./",
+    "dev:stdio": "ts-node-dev --watch 'src,test' src/index.stdio.ts",
+    "dev:streamable": "ts-node-dev --watch 'src,test' src/index.streamable.ts",
+    "inspector": "npx @modelcontextprotocol/inspector node $npm_package_bin_mcp_server_pyautogui",
+    "start:streamable": "node dist/index.streamable.js",
+    "test": "ts-node-dev --watch 'src,test' test/index.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.10.2",
+    "@zeroer/general-tools": "^1.1.16",
+    "express": "^5.1.0",
+    "winston": "^3.17.0",
+    "python-shell": "^5.0.0",
+    "zod": "^3.24.2",
+    "zod-to-json-schema": "^3.24.5"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/inspector": "^0.10.2",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.0",
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.8.3",
+    "ts-node-dev": "^2.0.0"
+  }
+}

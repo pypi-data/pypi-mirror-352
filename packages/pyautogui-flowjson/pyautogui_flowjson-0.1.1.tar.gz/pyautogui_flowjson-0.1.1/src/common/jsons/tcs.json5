@@ -1,0 +1,141 @@
+// uv run flowjson --workflowJsonAddress tcs.json5 --imagesDirPath $PWD/src/common/images/tcs --isDebug
+[
+  {
+    delay: {
+      next: 0,
+    },
+  },
+  {
+    delay: {
+      next: 0.3,
+    },
+    condition: {
+      image: {
+        position: '1-sousuo-click.png',
+      },
+    },
+    action: {
+      type: 'click',
+    },
+  },
+  {
+    delay: {
+      next: 0.3,
+    },
+    action: {
+      type: 'paste',
+      arguments: ['Manet演示测试队列'],
+    },
+  },
+  {
+    delay: {
+      next: 0.3,
+    },
+    action: {
+      type: 'press',
+      arguments: ['enter'],
+    },
+  },
+  {
+    delay: {
+      next: 0.3,
+    },
+    condition: {
+      image: {
+        position: '2-sh-click.png',
+      },
+    },
+    action: {
+      type: 'click',
+    },
+  },
+  {
+    delay: {
+      pre: 6,
+    },
+    condition: {
+      image: {
+        position: '3-bt-cz.png',
+      },
+    },
+  },
+  // - TODO 提取 Mcp   ocr / 模型ocr （简单的 固定区域ocr 复杂考虑滚动VL模型）
+  // - 调用 Agent（http）得到映射结果 /Users/bytedance/fe/pyautogui-extend/src/common/images/tcs/4-xxjk-click.png
+  {
+    delay: {
+      next: 0,
+    },
+  },
+  {
+    delay: {
+      next: 0.3,
+    },
+    condition: {
+      image: {
+        position: '4-xxjk-click.png',
+      },
+    },
+    action: {
+      type: 'click',
+    },
+  },
+  {
+    condition: {
+      image: {
+        position: '5-shyy-move-y+30.png',
+      },
+    },
+    action: {
+      type: 'moveTo',
+      arguments: {
+        duration: 0.1,
+      },
+    },
+    jobs: [
+      {
+        delay: {
+          pre: 0.3,
+          next: 0.3,
+        },
+        action: {
+          type: 'move',
+          arguments: {
+            xOffset: 0,
+            yOffset: 30,
+            duration: 0.1,
+          },
+        },
+      },
+      {
+        delay: {
+          next: 0.3,
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.3,
+        },
+        action: {
+          type: 'paste',
+          arguments: ['审核原因123'],
+        },
+      },
+    ],
+  },
+  {
+    delay: {
+      next: 0.3,
+    },
+    condition: {
+      image: {
+        position: '6-tj-click.png',
+      },
+    },
+    action: {
+      type: 'click',
+    },
+  },
+]

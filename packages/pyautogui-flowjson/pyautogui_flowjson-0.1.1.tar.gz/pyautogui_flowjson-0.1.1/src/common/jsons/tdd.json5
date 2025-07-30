@@ -1,0 +1,132 @@
+// uv run flowjson --workflowJsonAddress tdd.json5 --imagesDirPath $PWD/src/common/images/tdd --isDebug
+// Workflows
+[
+  {
+    delay: {
+      next: 0.3,
+    },
+    condition: {
+      image: {
+        position: {
+          uri: 'project-icon.png',
+          confidence: 0.99,
+        },
+        includes: ['git-icon.png', 'tree-icon.png', 'docker-icon.png'],
+        excludes: 'health-aide.png',
+      },
+      run: [
+        'print(f"我是run中的code {imageRes[\'isPass\']}")',
+        "imageRes['isPass'] and True",
+      ],
+    },
+    action: {
+      type: 'moveTo',
+      arguments: {
+        duration: 0.1,
+      },
+    },
+  },
+  {
+    delay: {
+      next: 0.3,
+    },
+    // pyautogui.move(0, -100) 在当前鼠标位置基础上，y轴向上移动100像素（即y-100）
+    action: {
+      type: 'move',
+      arguments: {
+        xOffset: 0,
+        yOffset: -100,
+        duration: 0.1,
+      },
+    },
+    loop: {
+      max: 5,
+      exitCondition: {
+        image: {
+          includes: 'health-aide.png',
+        },
+      },
+    },
+    flowMode: 'parallel',
+    jobs: [
+      {
+        // 空任务
+        delay: {
+          pre: 10,
+        },
+      },
+      {
+        delay: {
+          pre: 0.3,
+          // next: 0.3,
+        },
+        condition: {
+          image: {
+            includes: {
+              uri: 'timeline-on.png',
+              confidence: 0.99,
+            },
+          },
+        },
+        // 分支判断
+        jobs: [
+          {
+            delay: {
+              next: 0.3,
+            },
+            condition: {
+              image: {
+                position: 'git-icon.png',
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+          {
+            delay: {
+              next: 0.3,
+            },
+            condition: {
+              image: {
+                position: 'tree-icon.png',
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+        ],
+      },
+      {
+        delay: {
+          pre: 0.3,
+          // next: 0.3,
+        },
+        condition: {
+          image: {
+            includes: {
+              uri: 'timeline-off.png',
+              confidence: 0.99,
+            },
+          },
+        },
+        jobs: [
+          {
+            delay: {
+              next: 0.3,
+            },
+            condition: {
+              image: {
+                position: 'docker-icon.png',
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+        ],
+      },
+    ],
+  },
+]

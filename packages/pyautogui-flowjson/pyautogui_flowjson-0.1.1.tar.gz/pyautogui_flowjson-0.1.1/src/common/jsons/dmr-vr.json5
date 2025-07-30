@@ -1,0 +1,182 @@
+// uv run flowjson --workflowJsonAddress dmr-vr.json5 --imagesDirPath $PWD/src/common/images/dmr/vr --isDebug
+// TODO 亲密度效果
+[
+  {
+    delay: {
+      next: 2,
+    },
+  },
+  {
+    loop: {},
+    jobs: [
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: '2-yes.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: '3-tiaozhan.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: '4-kaishi.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            excludes: ['2-yes.png', '3-tiaozhan.png', '4-kaishi.png'],
+          },
+        },
+        loop: {
+          exitCondition: {
+            image: {
+              includes: ['2-yes.png'],
+              excludes: ['3-tiaozhan.png', '4-kaishi.png'],
+            },
+          },
+        },
+        jobs: [
+          {
+            // skip0.8 => 移动x-135y400
+            delay: {
+              pre: 0.5,
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: {
+                  uri: '1-skip.png',
+                  confidence: 0.6,
+                },
+                excludes: ['2-yes.png', '3-tiaozhan.png', '4-kaishi.png'],
+              },
+            },
+            action: {
+              type: 'click',
+            },
+            jobs: [
+              {
+                delay: {
+                  pre: 0.5,
+                },
+                action: {
+                  type: 'move',
+                  arguments: {
+                    xOffset: -135,
+                    yOffset: 400,
+                  },
+                },
+              },
+            ],
+          },
+          {
+            // 点击
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                excludes: ['2-yes.png', '3-tiaozhan.png', '4-kaishi.png'],
+              },
+            },
+            action: {
+              type: 'click',
+            },
+            jobs: [
+              {
+                delay: {
+                  pre: 0.5,
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+            ],
+          },
+          {
+            // TODO 空格 不灵敏
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                excludes: ['2-yes.png', '3-tiaozhan.png', '4-kaishi.png'],
+              },
+            },
+            action: {
+              type: 'press',
+              arguments: ['spacee'],
+            },
+            jobs: [
+              {
+                delay: {
+                  pre: 0.5,
+                },
+                action: {
+                  type: 'press',
+                  arguments: ['space'],
+                },
+              },
+            ],
+          },
+          {
+            // TODO E 不灵敏
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                excludes: ['2-yes.png', '3-tiaozhan.png', '4-kaishi.png'],
+              },
+            },
+            action: {
+              type: 'press',
+              arguments: ['e'],
+            },
+            jobs: [
+              {
+                delay: {
+                  pre: 0.5,
+                },
+                action: {
+                  type: 'press',
+                  arguments: ['e'],
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+]

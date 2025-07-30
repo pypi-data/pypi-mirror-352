@@ -1,0 +1,207 @@
+// uv run flowjson --workflowJsonAddress dmr-jjc.json5 --imagesDirPath $PWD/src/common/images/dmr/jjc --isDebug
+// TODO 亲密度效果
+[
+  {
+    delay: {
+      next: 2,
+    },
+  },
+  {
+    loop: {},
+    jobs: [
+      {
+        condition: {
+          image: {
+            position: '1-sxds-click.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+        jobs: [
+          {
+            delay: {
+              pre: 0.5,
+              next: 0.5,
+            },
+            action: {
+              type: 'move',
+              arguments: {
+                xOffset: 0,
+                yOffset: -420,
+              },
+            },
+          },
+        ],
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: '2-atk-wx-click.png',
+              confidence: 0.99,
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: '3-hp-wx-click.png',
+              confidence: 0.99,
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: '4-hdl-wx-click.png',
+              confidence: 0.99,
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: '5-kz-click.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+        loop: {
+          exitCondition: {
+            image: {
+              includes: ['1-sxds-click.png'],
+            },
+          },
+        },
+        jobs: [
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: {
+                  uri: '6-gs-click.png',
+                  confidence: 0.99,
+                },
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+          {
+            condition: {
+              image: {
+                position: '7-fz-click.png',
+              },
+            },
+            action: {
+              type: 'moveTo',
+            },
+            jobs: [
+              {
+                // 辅助点击
+                delay: {
+                  pre: 0.5,
+                  next: 0.5,
+                },
+                action: {
+                  type: 'move',
+                  arguments: {
+                    xOffset: -43,
+                    yOffset: 65,
+                  },
+                },
+                jobs: [
+                  {
+                    action: {
+                      type: 'click',
+                    },
+                  },
+                ],
+              },
+              {
+                // 应援点击
+                delay: {
+                  next: 0.5,
+                },
+                action: {
+                  type: 'move',
+                  arguments: {
+                    xOffset: 234,
+                    yOffset: 0,
+                  },
+                },
+                jobs: [
+                  {
+                    action: {
+                      type: 'click',
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: {
+                  uri: '9-hdl-ing-click.png',
+                  confidence: 0.8,
+                },
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: '10-x-click.png',
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+        ],
+      },
+    ],
+  },
+]

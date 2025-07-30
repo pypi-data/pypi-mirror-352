@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# 定义VNC桌面环境​​的初始化行为 使其启动XFCE桌面环境  ~/.vnc/xstartup
+xrdb "$HOME/.Xresources" # 加载 X 资源配置 ​​加载和管理 X11 客户端程序的配置​​（如字体、颜色、窗口边框、鼠标指针等）。
+xsetroot -solid grey # 设置灰色背景
+#x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+#x-window-manager &
+# Fix to make GNOME work
+export XKL_XMODMAP_DISABLE=1 # 避免键盘映射问题
+# /etc/X11/Xsession # 启动默认桌面环境
+startxfce4 & # 添加xfce4为vnc桌面主题

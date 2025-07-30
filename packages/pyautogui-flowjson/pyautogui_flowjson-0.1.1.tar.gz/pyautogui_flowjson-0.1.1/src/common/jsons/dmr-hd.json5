@@ -1,0 +1,70 @@
+// uv run flowjson --workflowJsonAddress dmr-hd.json5 --imagesDirPath $PWD/src/common/images/dmr/hd --isDebug
+// TODO 亲密度效果
+[
+  {
+    delay: {
+      next: 2,
+    },
+  },
+  {
+    loop: {},
+    jobs: [
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: '1-tz.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: '2-skip.png',
+              confidence: 0.6,
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            excludes: ['1-tz.png', '3-wc.png'],
+          },
+        },
+        action: {
+          type: 'press',
+          arguments: ['e'],
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: '3-wc.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+    ],
+  },
+]

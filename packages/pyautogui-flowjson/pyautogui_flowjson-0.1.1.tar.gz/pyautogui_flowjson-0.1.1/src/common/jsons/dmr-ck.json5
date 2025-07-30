@@ -1,0 +1,725 @@
+// uv run flowjson --workflowJsonAddress dmr-ck.json5 --imagesDirPath $PWD/src/common/images/dmr/ck --isDebug
+[
+  {
+    delay: {
+      next: 2,
+    },
+  },
+  {
+    loop: {},
+    jobs: [
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job1/1-1-ck-click.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job1/2-1-mb-move.png',
+          },
+        },
+        action: {
+          type: 'moveTo',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        action: {
+          type: 'move',
+          arguments: {
+            xOffset: -300,
+            yOffset: 130,
+          },
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        action: {
+          type: 'scroll',
+          arguments: [-9999],
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job1/3-1-jbck-click.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job1/4-2-10ck-click.png',
+            includes: ['job1/4-1-jbck-tip-include.png'],
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        loop: {
+          exitCondition: {
+            image: {
+              includes: [
+                'job1/11-1-stash-full-include.png',
+                'job1/11-2-stash-full-no-click.png',
+              ],
+            },
+          },
+        },
+        jobs: [
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: 'job1/5-2-max-click.png',
+                includes: ['job1/5-1-ck-tip-include.png'],
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: 'job1/6-2-yes-click.png',
+                includes: ['job1/6-1-ck-inquire-include.png'],
+              },
+            },
+            action: {
+              type: 'click',
+            },
+            loop: {
+              exitCondition: {
+                image: {
+                  includes: [
+                    'job1/7-2-close-click.png',
+                    'job1/7-1-res-list-include.png',
+                  ],
+                  excludes: 'job1/7-3-manle-exclude.png',
+                },
+              },
+            },
+            jobs: [
+              {
+                delay: {
+                  next: 1,
+                },
+              },
+            ],
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: 'job1/7-2-close-click.png',
+                includes: 'job1/7-1-res-list-include.png',
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: 'job1/8-4-backward-click.png',
+                includes: [
+                  'job1/8-1-ck-res-include.png',
+                  'job1/8-2-0ck-bright-include.png',
+                  'job1/8-3-remain-ckcs-include.png',
+                ],
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: 'job1/2-1-mb-move.png',
+              },
+            },
+            action: {
+              type: 'moveTo',
+            },
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            action: {
+              type: 'move',
+              arguments: {
+                xOffset: -300,
+                yOffset: 130,
+              },
+            },
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            action: {
+              type: 'scroll',
+              arguments: [-9999],
+            },
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: 'job1/3-1-jbck-click.png',
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+          {
+            delay: {
+              next: 0.5,
+            },
+            condition: {
+              image: {
+                position: 'job1/4-2-10ck-click.png',
+                includes: ['job1/4-1-jbck-tip-include.png'],
+              },
+            },
+            action: {
+              type: 'click',
+            },
+          },
+        ],
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job1/11-2-stash-full-no-click.png',
+            includes: ['job1/11-1-stash-full-include.png'],
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: 'job1/12-1-home-click.png',
+              confidence: 0.75,
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 1,
+        },
+        condition: {
+          image: {
+            position: 'job2/1-1-warehouse-click.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job2/2-1-decomposition-click.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job2/3-1-n-unselected-click.png',
+            includes: ['job2/3-2-please-select-include.png'],
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job2/3-3-fj-move.png',
+          },
+        },
+        action: {
+          type: 'moveTo',
+        },
+      },
+      {
+        loop: {
+          exitCondition: {
+            image: {
+              includes: [
+                {
+                  uri: 'job2/7-1-n-selected-include.png',
+                  confidence: 0.99,
+                },
+                'job2/3-2-please-select-include.png',
+              ],
+            },
+          },
+        },
+        jobs: [
+          {
+            condition: {
+              image: {
+                position: 'job2/4-2-yes-click.png',
+                excludes: ['job2/3-2-please-select-include.png'],
+              },
+            },
+            action: {
+              type: 'click',
+            },
+            jobs: [
+              {
+                delay: {
+                  pre: 0.5,
+                  next: 0.5,
+                },
+                action: {
+                  type: 'move',
+                  arguments: {
+                    xOffset: 0,
+                    yOffset: -100,
+                  },
+                },
+              },
+              {
+                delay: {
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: 'job2/4-1-double-yes-click.png',
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  pre: 1,
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: {
+                      uri: 'job2/6-1-breakdown-prompt-click.png',
+                      confidence: 0.8,
+                    },
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: 'job2/2-1-decomposition-click.png',
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: 'job2/3-1-n-unselected-click.png',
+                    includes: ['job2/3-2-please-select-include.png'],
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: 'job2/3-3-fj-move.png',
+                  },
+                },
+                action: {
+                  type: 'moveTo',
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: 'job1/12-1-home-click.png',
+              confidence: 0.75,
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 1,
+        },
+        condition: {
+          image: {
+            position: 'job2/1-1-warehouse-click.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job3/1-1-gouguette-click.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job3/2-1-sell-click.png',
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: 'job3/3-1-n-unselected-click.png',
+              confidence: 0.99,
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: 'job3/3-2-r-unselected-click.png',
+              confidence: 0.99,
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: 'job3/3-3-limit-tip.png',
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: 'job3/3-4-fm-move.png',
+          },
+        },
+        action: {
+          type: 'moveTo',
+        },
+      },
+      {
+        loop: {
+          exitCondition: {
+            image: {
+              includes: [
+                {
+                  uri: 'job3/7-1-n-selected-include.png',
+                  confidence: 0.99,
+                },
+                'job2/3-2-please-select-include.png',
+              ],
+            },
+          },
+        },
+        jobs: [
+          {
+            condition: {
+              image: {
+                position: 'job3/4-2-yes-click.png',
+                excludes: ['job2/3-2-please-select-include.png'],
+              },
+            },
+            action: {
+              type: 'click',
+            },
+            jobs: [
+              {
+                delay: {
+                  pre: 0.5,
+                  next: 0.5,
+                },
+                action: {
+                  type: 'move',
+                  arguments: {
+                    xOffset: 0,
+                    yOffset: -100,
+                  },
+                },
+              },
+              {
+                delay: {
+                  next: 1,
+                },
+                condition: {
+                  image: {
+                    position: 'job2/4-1-double-yes-click.png',
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  next: 1,
+                },
+                condition: {
+                  image: {
+                    position: 'job3/5-1-double-yes-click.png',
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: 'job3/5-2-successfulsale-tip-click.png',
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: 'job3/2-1-sell-click.png',
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: {
+                      uri: 'job3/3-1-n-unselected-click.png',
+                      confidence: 0.99,
+                    },
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: {
+                      uri: 'job3/3-2-r-unselected-click.png',
+                      confidence: 0.99,
+                    },
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: {
+                      uri: 'job3/3-3-limit-tip.png',
+                    },
+                  },
+                },
+                action: {
+                  type: 'click',
+                },
+              },
+              {
+                delay: {
+                  next: 0.5,
+                },
+                condition: {
+                  image: {
+                    position: 'job3/3-4-fm-move.png',
+                  },
+                },
+                action: {
+                  type: 'moveTo',
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        delay: {
+          next: 0.5,
+        },
+        condition: {
+          image: {
+            position: {
+              uri: 'job1/12-1-home-click.png',
+              confidence: 0.75,
+            },
+          },
+        },
+        action: {
+          type: 'click',
+        },
+      },
+    ],
+  },
+]
