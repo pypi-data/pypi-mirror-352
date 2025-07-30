@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# Default database path (adjust as needed)
+# DEFAULT_DATABASE="/path/to/default/database"
+
+# Parse command line arguments
+while getopts "d:" opt; do
+    case $opt in
+        d) DATABASE="$OPTARG" ;;  # Specify database path with -d option
+        *) echo "Usage: $0 [-d database_path]" ; exit 1 ;;
+    esac
+done
+
+# Check if the database path is provided
+if [ -z "$DATABASE" ]; then
+    echo "[❌] Error: Database path is required."
+    echo "Usage: $0 [-d database_path]"
+    exit 1
+fi
+
+# Check if the database path exists
+if [ ! -d "$DATABASE" ]; then
+    echo "[❌] Error: Database directory does not exist: $DATABASE"
+    exit 1
+fi
+
+echo "[🔄] Running ViOTUcluster_Test..."
+# Ensure the result folder exists, even if it doesn't
+rm -rf "$CONDA_PREFIX/ViTest/Res"
+
+# Execute ViOTUcluster_AllinOne command and output directly to terminal
+ViOTUcluster_AllinOne -r "$CONDA_PREFIX/ViTest" -o "$CONDA_PREFIX/ViTest/Res" -d "$DATABASE" -a megahit --con 2>&1
+
+# Check for success message in output
+if grep -q "All basic analysis completed successfully." "$CONDA_PREFIX/ViTest/Res/log.txt"; then
+    echo "[✅] All modules completed successfully."
+else
+    echo "[❌] ViOTUcluster execution failed."
+fi
+
+# Check if /dev/tty exists for interactive prompt
+if [ -c /dev/tty ]; then
+    # Ask if user wants to open the result folder
+    read -p "Press y to open the result folder for inspection: " choice
+    if [ "$choice" == "y" ]; then
+        if command -v xdg-open &> /dev/null; then
+            xdg-open "$CONDA_PREFIX/ViTest/Res"
+        else
+            echo "Cannot open the folder, please open it manually: $CONDA_PREFIX/ViTest/Res"
+        fi
+    fi
+else
+    # If /dev/tty is not available, just end the script
+    echo "[❌] No terminal available for interaction. Ending script."
+fi
+
+echo "[✅] The result folder has been retained for inspection: $CONDA_PREFIX/ViTest/Res"
+exit 0
