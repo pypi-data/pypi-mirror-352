@@ -1,0 +1,95 @@
+[project]
+name = "commonroad-clcs"
+version = "2025.2.0"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.10,<3.14"
+license = { file = "LICENSE.txt" }
+authors = [
+    { name = "Cyber-Physical Systems Group - Technical University of Munich", email = "commonroad@lists.lrz.de" }
+]
+description = "Curvilinear (Frenet) Coordinate System for motion planning."
+keywords = [
+    "autonomous vehicles",
+    "automated driving",
+    "motion planning",
+    "frenet coordinates",
+    "commonroad"
+]
+
+dependencies = [
+    "commonroad-io>=2023.1",
+    "matplotlib>=3.3.3",
+    "numpy>=1.19.2",
+    "omegaconf>=2.1.1",
+    "scipy>=1.4.1",
+    "shapely>=2.0.0",
+    "osqp~=0.6.5",
+]
+
+classifiers = [
+    "Programming Language :: C++",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: POSIX :: Linux",
+]
+
+[project.urls]
+Homepage = "https://commonroad.in.tum.de/tools/commonroad-clcs"
+Documentation = "https://commonroad.in.tum.de/docs/commonroad-clcs/"
+Source = "https://github.com/CommonRoad/commonroad-curvilinear-coordinate-system"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=3.8.0",
+    "parameterized~=0.9.0",
+]
+docs = [
+    "mkdocs>=1.6.1,<2.0.0",
+    "mkdocstrings-python>=1.8.0,<2.0.0",
+    "mkdocs-material>=9.5.10,<10.0.0",
+    "mkdoxy~=1.2.4",
+]
+build = [
+    "scikit-build-core~=0.11.0",
+    "nanobind~=2.2.0",
+    "pathspec>=0.12.1",
+    "pyproject-metadata>=0.7.1",
+    "typing_extensions~=4.12.2",
+    "cmake (>=3.24, <4.0)",
+]
+
+[build-system]
+requires = [
+    "scikit-build-core~=0.11.0",
+    "nanobind~=2.2.0",
+    "typing_extensions~=4.12.2",
+    "cmake (>=3.24, <4.0)",
+]
+build-backend = "scikit_build_core.build"
+
+[tool.scikit-build]
+wheel.packages = ["commonroad_clcs"]
+build-dir = "build/{build_type}_{wheel_tag}"
+install.components = ["pycrccosy"]
+
+minimum-version = "0.8"
+cmake.version = ">=3.24"
+
+[tool.scikit-build.cmake.define]
+CR_CLCS_BUILD_PYTHON_BINDINGS = "ON"
+
+[tool.cibuildwheel]
+# Skip PyPy
+skip = ["pp*", "*-musllinux*"]
+archs = ["x86_64"]
+environment = { PIP_DISABLE_PIP_VERSION_CHECK = "1" }
+build-verbosity = 1
+
+# Skip tests on musllinux due to missing wheels
+test-skip = "*i686 *-musllinux*"
+test-extras = ["test"]
+# use --import-mode=append to test the installed package and not the source
+test-command = "python -m pytest {package}/tests --import-mode append"
