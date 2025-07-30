@@ -1,0 +1,161 @@
+{# filepath: /home/mateo/proyectos/tai-sql/tai_sql/generators/templates/crud/sync_session_manager.py.jinja2 #}
+# Este archivo ha sido generado automáticamente por tai-sql
+# No modifiques este archivo directamente
+
+{{ imports|join('\n') }}
+
+class AsyncSessionManager:
+    """
+    Gestor de sesiones asíncronas para SQLAlchemy.
+    
+    Esta clase centraliza la gestión del ciclo de vida completo de las sesiones
+    SQLAlchemy, proporcionando una interfaz consistente y segura para todas
+    las operaciones de base de datos.
+    
+    Características principales:
+    - Configuración automática del engine basada en variables de entorno
+    - Context managers para gestión automática de transacciones
+    - Soporte para sesiones individuales y transacciones compartidas
+    - Manejo robusto de errores con rollback automático
+    - Pool de conexiones optimizado para aplicaciones web
+    
+    Métodos principales:
+        `get_session`: Context manager para sesiones automáticas
+    
+    Atributos:
+        `engine` (AsyncEngine): Motor SQLAlchemy configurado
+        `session_factory` (async_sessionmaker): Factoría de sesiones
+
+    Configuración del Engine:
+        - Pool size: {{ engine_params.get('pool_size')}} conexiones
+        - Max overflow: {{ engine_params.get('max_overflow')}} conexiones adicionales
+        - Pool timeout: {{ engine_params.get('pool_timeout')}} segundos
+        - Pool recycle: {{ engine_params.get('pool_recycle')}} segundos
+        - Pre-ping {{ engine_params.get('pool_pre_ping')}} para detectar conexiones perdidas
+    
+    Ejemplos de uso:
+        ```python
+        # Para transacciones automáticas
+        async with db_api.session_manager.get_session() as session:
+            user = await db_api.user.create(name="Juan", session=session)
+            await db_api.post.create(title='Hola', content='Mundo', author_id=user.id, session=session)
+            # Commit automático
+        # Rollback automático en caso de error
+        ```
+    """
+    
+    def __init__(self):
+        """Inicializa el gestor de sesiones"""
+        self._engine: Optional[AsyncEngine] = None
+        self._session_factory: Optional[async_sessionmaker] = None
+    
+    @property
+    def engine(self) -> AsyncEngine:
+        """Acceso al motor de base de datos"""
+        if not self._engine:
+            {% if provider.source_input_type == 'env' %}
+            # Configuración desde variable de entorno (recomendado)
+            database_url = os.getenv('DATABASE_URL')
+            if not database_url:
+                raise ValueError("Variable de entorno DATABASE_URL no encontrada")
+            parse = urlparse(database_url)
+            database_url = URL.create(
+                drivername=parse.scheme.replace('postgresql', 'postgresql+asyncpg').replace('postgres', 'postgresql+asyncpg'),
+                username=parse.username,
+                password=parse.password,
+                host=parse.hostname,
+                port=parse.port,
+                database=parse.path[1:],  # Remove leading '/'
+                query=parse_qs(parse.query)
+            )
+            {% elif provider.source_input_type == 'connection_string' %}
+            # ADVERTENCIA: Configuración desde string de conexión hardcodeado
+            # Esto expone credenciales en el código fuente
+            parse = urlparse("{{ provider.url.render_as_string(hide_password=False) }}")
+            database_url = URL.create(
+                drivername=parse.scheme,
+                username=parse.username,
+                password=parse.password,
+                host=parse.hostname,
+                port=parse.port,
+                database=parse.path[1:],  # Remove leading '/'
+                query=parse_qs(parse.query)
+            )
+            {% elif provider.source_input_type == 'params' %}
+            # ADVERTENCIA: Configuración desde parámetros hardcodeados
+            # Esto expone credenciales en el código fuente
+            database_url = URL.create(
+                drivername="{{ connection_params.get('drivername') }}",
+                username="{{ connection_params.get('username') }}",
+                password="{{ connection_params.get('password') }}",
+                host="{{ connection_params.get('host') }}",
+                port={{ connection_params.get('port') }},
+                database="{{ connection_params.get('database') }}",
+                {% if connection_params.get('query') %}
+                query={{ connection_params.get('query') }}
+                {% endif %}
+            )
+            {% endif %}
+            
+            # Configuración del motor
+            engine_kwargs = {
+                'echo': {{ engine_params.get('sqlalchemy_logs') }},
+                'pool_pre_ping': {{ engine_params.get('pool_pre_ping') }},
+                'pool_recycle': {{ engine_params.get('pool_recycle') }},
+                'pool_size': {{ engine_params.get('pool_size') }},
+                'max_overflow': {{ engine_params.get('max_overflow') }},
+                'pool_timeout': {{ engine_params.get('pool_timeout') }}
+            }
+            
+            self._engine = create_async_engine(database_url, **engine_kwargs)
+        return self._engine
+    
+    @property
+    def session_factory(self) -> async_sessionmaker:
+        """Configura la factoría de sesiones"""
+        if not self._session_factory:
+            if not self._engine:
+                raise ValueError("Motor de base de datos no configurado")
+            self._session_factory = async_sessionmaker(
+                bind=self._engine,
+                expire_on_commit=False,
+                autoflush=True,
+                autocommit=False
+            )
+        return self._session_factory
+    
+    @asynccontextmanager
+    async def get_session(self) -> AsyncGenerator[AsyncSession, None, None]:
+        """
+        Context manager para obtener una sesión.
+            
+        Yields:
+            AsyncSession: Sesión SQLAlchemy configurada
+            
+        Example:
+            ```python
+            async with db.session_manager.get_session() as session:
+                await db.user.create(name="Juan", email="juan@triplealpha.in", session=session)
+                # Commit automático al salir del context manager
+            ```
+        """
+        session: AsyncSession = self.session_factory()
+        
+        try:
+            if not session.in_transaction():
+                await session.begin()
+            
+            yield session
+            
+            # Commit si hay una transacción activa
+            if session.in_transaction():
+                await session.commit()
+            
+        except Exception as e:
+            # Rollback en caso de error
+            if session.in_transaction():
+                await session.rollback()
+            raise e
+        finally:
+            # Siempre cerrar la sesión
+            await session.close()
