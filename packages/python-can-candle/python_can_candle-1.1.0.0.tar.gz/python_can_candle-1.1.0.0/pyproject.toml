@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-can-candle"
+description = "CAN driver for Geschwister Schneider USB/CAN devices"
+authors = [
+  { name="Yu He", email="chinaheyu@outlook.com" },
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+keywords = ["gs_usb", "can", "candleLight"]
+dynamic = ["version"]
+dependencies = [
+  "python-can",
+  "candle-api == 0.0.6"
+]
+
+[project.urls]
+Homepage = "https://github.com/chinaheyu/python-can-candle"
+Issues = "https://github.com/chinaheyu/python-can-candle/issues"
+
+[project.entry-points."can.interface"]
+candle = "candle.candle_bus:CandleBus"
+
+[project.scripts]
+candle_viewer = "candle.candle_viewer:main"
+
+[project.optional-dependencies]
+viewer = ["PySide6"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["candle", "candle.candle_bus"]
+namespaces = false
+
+[tool.setuptools.dynamic]
+version = {attr = "candle.__version__"}
+
+[tool.setuptools.package-data]
+candle = ["py.typed"]
+
+[tool.mypy]
+packages = "candle"
+exclude = [
+  "candle/candle_viewer.py",
+]
+
+[[tool.mypy.overrides]]
+module = "usb.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "libusb.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "PySide6.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "candle_api.*"
+ignore_missing_imports = true
