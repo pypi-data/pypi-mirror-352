@@ -1,0 +1,49 @@
+[project]
+name = "pdkmaster-io-klayout"
+dynamic = []
+description = "KLayout interoperation for PDKMaster"
+authors = [
+    { name = "Chips4Makers contributors" },
+]
+dependencies = [
+    "PDKMaster~=0.12.0",
+    "pdkmaster-io-spice~=0.1.0",
+    "klayout<0.30,>=0.28.17.post1",
+]
+requires-python = "~=3.8"
+readme = "README.md"
+version = "0.1.7.post1"
+
+[project.license]
+text = "GPL-2.0-or-later OR AGPL-3.0-or-later OR CERN-OHL-S-2.0+"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[dependency-groups]
+dev = [
+    "doit>=0.36.0",
+    "coverage[toml]>=7.6.1",
+]
+fixeddeps = [
+    "klayout==0.28.17.post1",
+]
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.build]
+includes = [
+    "pdkmaster/",
+]
+
+[tool.pdm.version]
+source = "scm"
+
+[tool.pdm.scripts]
+doit = "doit"
+upd = "pdm update --update-reuse-installed"
+updns = "pdm update --update-reuse-installed --no-sync"
