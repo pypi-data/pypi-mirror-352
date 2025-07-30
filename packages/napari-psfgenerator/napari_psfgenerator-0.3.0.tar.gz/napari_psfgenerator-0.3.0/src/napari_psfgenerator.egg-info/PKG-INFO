@@ -1,0 +1,145 @@
+Metadata-Version: 2.4
+Name: napari-psfgenerator
+Version: 0.3.0
+Summary: Plugin to compute the focal electric field
+Author-email: Vasiliki Stergiopoulou <vasiliki.stergiopoulou@epfl.ch>, Jonathan Dong <jonathan.dong@epfl.ch>, Yan Liu <yan.liu@epfl.ch>, Daniel Sage <daniel.sage@epfl.ch>
+License: 
+        The MIT License (MIT)
+        
+        Copyright (c) 2024 
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in
+        all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+        THE SOFTWARE.
+        
+Project-URL: Bug Tracker, https://github.com/VStergiop/napari-psfgenerator/issues
+Project-URL: Documentation, https://github.com/VStergiop/napari-psfgenerator#README.md
+Project-URL: Source Code, https://github.com/VStergiop/napari-psfgenerator
+Project-URL: User Support, https://github.com/VStergiop/napari-psfgenerator/issues
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Framework :: napari
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Image Processing
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: magicgui
+Requires-Dist: qtpy
+Requires-Dist: torch>=2.0.0
+Requires-Dist: psf-generator
+Requires-Dist: pyqt5
+Requires-Dist: napari
+Provides-Extra: napari
+Requires-Dist: napari; extra == "napari"
+Provides-Extra: testing
+Requires-Dist: tox; extra == "testing"
+Requires-Dist: pytest; extra == "testing"
+Requires-Dist: pytest-cov; extra == "testing"
+Requires-Dist: pytest-qt; extra == "testing"
+Requires-Dist: napari; extra == "testing"
+Requires-Dist: pyqt5; extra == "testing"
+Dynamic: license-file
+
+# napari-psfgenerator
+
+[![MIT License](https://img.shields.io/github/license/Biomedical-Imaging-Group/napari-psfgenerator)](https://github.com/Biomedical-Imaging-Group/napari-psfgenerator/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-psfgenerator.svg?color=green)](https://pypi.org/project/napari-psfgenerator)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-psfgenerator.svg?color=green)](https://python.org)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-psfgenerator)](https://napari-hub.org/plugins/napari-psfgenerator)
+
+## PSF Generator Napari Plugin
+
+The **PSF Generator Napari Plugin** provides an intuitive, interactive platform for simulating **Point Spread Functions (PSFs)** directly within the Napari ecosystem. Built on **PyTorch**, this plugin supports both **CPU and GPU-accelerated** computations, ensuring fast and efficient simulations for fundamental and advanced optical modeling.
+
+### Key Features:
+
+- **Flexible Propagation Models:** Scalar and vectorial propagators in Cartesian and spherical coordinates.
+- **Customizable Parameters:** Configure **physical** (e.g., numerical aperture, wavelength), **numerical** (e.g., pixel size, Z-stacks), and **optical settings** (e.g., Gibson-Lanni corrections, Zernike aberrations).
+- **Real-Time Visualization:** Seamless integration with Napari for immediate visual feedback.
+- **Versatile API:** Access propagators programmatically for custom workflows.
+- **Image Export:** Save computed PSFs in **TIFF format**.
+
+This plugin is a powerful tool for researchers in **optics, computational microscopy, and imaging science**, bridging user-friendly interactivity with the computational capabilities of our Python library.
+
+----------------------------------
+
+This [napari] plugin was generated with [copier] using the [napari-plugin-template].
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/napari-plugin-template#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+
+## Installation
+
+Set up a Python virtual environment and install napari following this [guide].
+
+You can install `napari-psfgenerator` via [pip]:
+
+    pip install napari-psfgenerator
+
+To install latest development version :
+
+    pip install git+https://github.com/Biomedical-Imaging-Group/napari-psfgenerator.git
+
+
+Now you can try the plugin out! Open napari, click on the menu "Plugins" and select "Propagators (PSF Generator)".
+
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [MIT] license,
+"napari-psfgenerator" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[copier]: https://copier.readthedocs.io/en/stable/
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[napari-plugin-template]: https://github.com/napari/napari-plugin-template
+[guide]: https://napari.org/dev/tutorials/fundamentals/installation.html
+[file an issue]: https://github.com/VStergiop/napari-psfgenerator/issues
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+[psf_generator library]: https://github.com/Biomedical-Imaging-Group/psf_generator
+[plugin]: https://github.com/Biomedical-Imaging-Group/napari-psfgenerator
