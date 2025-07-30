@@ -1,0 +1,42 @@
+Metadata-Version: 2.4
+Name: photography
+Version: 2025.6.1
+Summary: A CLI for managing a photo library.
+Project-URL: Issues, https://github.com/Julian/photography-cli/issues/
+Project-URL: Funding, https://github.com/sponsors/Julian
+Project-URL: Source, https://github.com/Julian/photography-cli
+Author-email: Julian Berman <Julian+photography@GrayVines.com>
+License-Expression: MIT
+License-File: COPYING
+Keywords: images,photography,photos,self-hosting
+Classifier: Development Status :: 3 - Alpha
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.12
+Requires-Dist: attrs
+Requires-Dist: imagehash
+Requires-Dist: pillow
+Requires-Dist: rich-click
+Requires-Dist: rpds-py
+Description-Content-Type: text/x-rst
+
+===============
+``photography``
+===============
+
+|PyPI| |CI|
+
+.. |PyPI| image:: https://img.shields.io/pypi/v/photography.svg
+  :alt: PyPI version
+  :target: https://pypi.org/project/photography/
+
+.. |CI| image:: https://github.com/Julian/photography-cli/workflows/CI/badge.svg
+  :alt: Build status
+  :target: https://github.com/Julian/photography-cli/actions?query=workflow%3ACI
+
+A command line tool for importing to and managing a photography library.
