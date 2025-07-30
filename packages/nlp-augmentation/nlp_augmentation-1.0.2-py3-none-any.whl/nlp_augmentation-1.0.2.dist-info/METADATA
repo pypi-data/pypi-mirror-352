@@ -1,0 +1,76 @@
+Metadata-Version: 2.4
+Name: nlp_augmentation
+Version: 1.0.2
+Summary: Multi-level text augmentation library for NLP tasks
+Home-page: 
+Author: Дима
+Author-email: Дмитрий <dmitry@email.com>
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: packaging==21.3
+Requires-Dist: numpy==1.26.4
+Requires-Dist: beautifulsoup4==4.13.4
+Requires-Dist: bs4==0.0.2
+Requires-Dist: cloudpathlib==0.21.1
+Requires-Dist: decorator==5.2.1
+Requires-Dist: emoji==2.14.1
+Requires-Dist: gensim==4.3.3
+Requires-Dist: huggingface-hub==0.31.2
+Requires-Dist: joblib==1.5.0
+Requires-Dist: matplotlib==3.10.3
+Requires-Dist: networkx==3.4.2
+Requires-Dist: nltk==3.9.1
+Requires-Dist: num2words==0.5.14
+Requires-Dist: openpyxl==3.1.5
+Requires-Dist: pandas==2.2.3
+Requires-Dist: pyarrow==20.0.0
+Requires-Dist: scikit-learn==1.6.1
+Requires-Dist: scipy==1.13.1
+Requires-Dist: seaborn==0.13.2
+Requires-Dist: sentencepiece==0.2.0
+Requires-Dist: spacy==3.8.4
+Requires-Dist: text2digits==0.1.0
+Requires-Dist: textblob==0.19.0
+Requires-Dist: textsearch==0.0.24
+Requires-Dist: tokenizers==0.21.1
+Requires-Dist: toml==0.10.2
+Requires-Dist: tqdm==4.67.1
+Requires-Dist: transformers==4.51.3
+Requires-Dist: urllib3==2.4.0
+Requires-Dist: wordcloud==1.9.4
+Requires-Dist: inflect==7.5.0
+Requires-Dist: constituent_treelib==0.0.8
+Requires-Dist: torchvision==0.20.1
+Dynamic: author
+Dynamic: requires-python
+
+# nlp_augmentation_library
+
+**nlp_augmentation_library** — это современная библиотека для аугментации текстовых данных на нескольких уровнях: символном, словесном, синтаксическом и генеративном. Она предназначена для повышения качества моделей обработки естественного языка (NLP) путем расширения объема и разнообразия обучающих данных.
+
+---
+
+## Возможности
+
+- **CharAugmentor** — аугментация на уровне символов: удаление, вставка, замена, перестановка, изменение регистра.
+- **WordAugmentor** — аугментация на уровне слов: удаление, вставка, синонимы, контекстная замена, морфологические преобразования, аббревиатуры, преобразование чисел.
+- **TextAugmentor** — синтаксическая аугментация: перестановка предложений, удаление поддеревьев, парафраз, суммаризация, обратный перевод, crossover.
+- **Generator** — генеративные методы на базе предобученных моделей Hugging Face.
+
+---
+
+## Установка
+
+Рекомендуется использовать Python версии 3.7 и выше.
+
+```bash
+pip install nlp_augmentation_library
+
+pip install git+https://github.com/PrithivirajDamodaran/Parrot_Paraphraser.git
+pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.8.0/en_core_web_md-3.8.0-py3-none-any.whl
+pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+pip install torch==2.5.1+cu121 torchvision==0.20.1+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
