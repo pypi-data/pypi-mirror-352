@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermarket Sales Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <h1>Supermarket Sales Dashboard</h1>
+            <p class="subtitle">Comprehensive Sales Analytics | January - March 2019</p>
+        </header>
+
+        <!-- Key Performance Indicators -->
+        <section class="kpi-section">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon">💰</div>
+                    <div class="kpi-content">
+                        <h3>Total Revenue</h3>
+                        <p class="kpi-value" id="total-revenue">$322,966.74</p>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">🛒</div>
+                    <div class="kpi-content">
+                        <h3>Total Transactions</h3>
+                        <p class="kpi-value" id="total-transactions">1,000</p>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📊</div>
+                    <div class="kpi-content">
+                        <h3>Avg Transaction Value</h3>
+                        <p class="kpi-value" id="avg-transaction">$322.97</p>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📦</div>
+                    <div class="kpi-content">
+                        <h3>Items Sold</h3>
+                        <p class="kpi-value" id="total-items">5,510</p>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">⭐</div>
+                    <div class="kpi-content">
+                        <h3>Avg Rating</h3>
+                        <p class="kpi-value" id="avg-rating">7.0/10</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="charts-grid">
+                <!-- Branch Performance -->
+                <div class="chart-container">
+                    <h3>Sales by Branch & City</h3>
+                    <canvas id="branchChart"></canvas>
+                </div>
+
+                <!-- Product Line Performance -->
+                <div class="chart-container">
+                    <h3>Revenue by Product Line</h3>
+                    <canvas id="productChart"></canvas>
+                </div>
+
+                <!-- Customer Type Analysis -->
+                <div class="chart-container">
+                    <h3>Sales by Customer Type</h3>
+                    <canvas id="customerChart"></canvas>
+                </div>
+
+                <!-- Payment Method Distribution -->
+                <div class="chart-container">
+                    <h3>Payment Method Distribution</h3>
+                    <canvas id="paymentChart"></canvas>
+                </div>
+
+                <!-- Monthly Sales Trend -->
+                <div class="chart-container full-width">
+                    <h3>Monthly Sales Trend</h3>
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+
+                <!-- Gender Analysis -->
+                <div class="chart-container">
+                    <h3>Sales by Gender</h3>
+                    <canvas id="genderChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights Section -->
+        <section class="insights-section">
+            <h2>Key Insights</h2>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h4>🏪 Branch Performance</h4>
+                    <p>All three branches show balanced performance with Branch A (Yangon) leading at 34.2% of total revenue, followed by Branch C (Naypyitaw) at 32.9%, and Branch B (Mandalay) at 32.9%.</p>
+                </div>
+                <div class="insight-card">
+                    <h4>🛍️ Product Categories</h4>
+                    <p>Food and beverages leads revenue generation, followed by Sports and travel, and Electronic accessories. All product lines show healthy performance with relatively even distribution.</p>
+                </div>
+                <div class="insight-card">
+                    <h4>👥 Customer Loyalty</h4>
+                    <p>Member customers contribute 50.8% of total revenue ($164,223), while normal customers account for 49.2% ($158,743), showing balanced customer base.</p>
+                </div>
+                <div class="insight-card">
+                    <h4>💳 Payment Preferences</h4>
+                    <p>Payment methods are evenly distributed: E-wallet (34.5%), Cash (34.4%), and Credit card (31.1%), indicating diverse customer payment preferences.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="dashboard-footer">
+            <p>Dashboard generated from Supermarket Sales data | Data period: January - March 2019</p>
+        </footer>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

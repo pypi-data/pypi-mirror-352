@@ -1,0 +1,437 @@
+---
+title: 'Environments'
+description: 'Understanding execution environments in PandaAGI SDK'
+---
+
+## What are Environments?
+
+Environments provide isolated execution contexts for general AI agents, allowing them to safely run code, access files, and execute shell commands. The PandaAGI SDK offers two main environment types that balance security, performance, and ease of use.
+
+<CardGroup cols={2}>
+  <Card
+    title="Local Environment"
+    icon="computer"
+    href="#local-environment"
+  >
+    Direct execution on the host system with working directory isolation
+  </Card>
+  <Card
+    title="Docker Environment"
+    icon="docker"
+    href="#docker-environment"
+  >
+    Containerized execution with strong isolation and port management
+  </Card>
+  <Card
+    title="File Operations"
+    icon="file"
+    href="#file-operations"
+  >
+    Read, write, delete files with support for various formats including PDFs
+  </Card>
+  <Card
+    title="Shell Execution"
+    icon="terminal"
+    href="#shell-command-execution"
+  >
+    Execute shell commands with both blocking and non-blocking modes
+  </Card>
+</CardGroup>
+
+## Local Environment
+
+The `LocalEnv` executes operations directly on the host filesystem within a specified base directory:
+
+```python
+from panda_agi.envs import LocalEnv
+
+# Create local environment
+local_env = LocalEnv(base_path="/path/to/workspace")
+
+# Execute shell command
+result = await local_env.exec_shell("ls -la")
+print(result["stdout"])
+
+# Write a file
+await local_env.write_file("hello.txt", "Hello, World!")
+
+# Read a file (supports PDFs too)
+content = await local_env.read_file("hello.txt")
+print(content["content"])
+```
+
+## Docker Environment
+
+
+The `DockerEnv` runs operations inside a Docker container for better isolation:
+
+```python
+from panda_agi.envs import DockerEnv
+
+# Create Docker environment
+docker_env = DockerEnv(
+    base_path="/host/workspace",
+    image="python:3.9-slim",
+    container_name="my-agent-env"
+)
+
+# Use as async context manager
+async with docker_env as env:
+    result = await env.exec_shell("python --version")
+    print(result["stdout"])
+```
+
+### Basic Setup
+
+```python
+from panda_agi.envs import DockerEnv
+
+env = DockerEnv(
+    base_path="/workspace",
+    image="python:3.9-slim",
+    container_name="agent-container",
+    working_dir="/workspace",  # Working directory inside container
+    auto_start=True,           # Start container automatically
+    auto_remove=True           # Remove container when done
+)
+```
+
+### Volume Mounting
+
+Mount additional directories from the host:
+
+```python
+env = DockerEnv(
+    base_path="/workspace", 
+    image="python:3.9-slim",
+    volumes={
+        "/host/data": "/container/data",
+        "/host/models": "/container/models"
+    }
+)
+```
+
+### Environment Variables
+
+Pass environment variables to the container:
+
+```python
+env = DockerEnv(
+    base_path="/workspace",
+    image="python:3.9-slim", 
+    env_vars={
+        "PYTHONPATH": "/workspace/lib",
+        "API_KEY": "your-secret-key",
+        "DEBUG": "true"
+    }
+)
+```
+
+### Port Management
+
+The Docker environment automatically exposes port 2664 (PandaAGI default) and allows custom port mappings:
+
+```python
+# Default behavior - exposes common development ports
+env = DockerEnv(
+    base_path="/workspace",
+    image="python:3.9-slim",
+    expose_common_ports=True  # Exposes port 2664 by default
+)
+
+# Custom port mappings
+env = DockerEnv(
+    base_path="/workspace", 
+    image="python:3.9-slim",
+    ports={
+        8080: 8080,  # host_port: container_port
+        3000: 3000,
+        5432: 5432
+    }
+)
+
+# Add ports dynamically (requires container restart)
+env.add_port_mapping(9000, 9000)
+
+# Check exposed ports
+ports = env.get_exposed_ports()
+print(f"Exposed ports: {ports}")
+```
+
+### Network Configuration
+
+Connect to existing Docker networks:
+
+```python
+env = DockerEnv(
+    base_path="/workspace",
+    image="python:3.9-slim",
+    network="my-docker-network"
+)
+```
+
+## File Operations
+
+All environments support comprehensive file operations:
+
+### Writing Files
+
+```python
+# Write text file
+result = await env.write_file("data.txt", "Sample content")
+print(f"File written: {result['path']}, Size: {result['size']} bytes")
+
+# Write binary file
+with open("image.png", "rb") as f:
+    binary_data = f.read()
+await env.write_file("copy.png", binary_data, mode="wb")
+
+# Append to file
+await env.write_file("log.txt", "New log entry\n", mode="a")
+```
+
+### Reading Files
+
+```python
+# Read text file
+result = await env.read_file("data.txt")
+print(result["content"])
+
+# Read binary file
+result = await env.read_file("image.png", mode="rb")
+binary_content = result["content"]
+
+# Read PDF file (Local environment only)
+result = await env.read_file("document.pdf")
+if result["status"] == "success":
+    print(f"PDF text: {result['content']}")
+    print(f"Extracted {result['extracted_text_length']} characters")
+```
+
+### File Management
+
+```python
+# List files in current directory
+result = await env.list_files()
+for file_info in result["files"]:
+    print(f"{file_info['name']} ({file_info['type']}) - {file_info['size']} bytes")
+
+# List files recursively with hidden files
+result = await env.list_files(
+    path="src/", 
+    recursive=True, 
+    include_hidden=True
+)
+
+# Delete file or directory
+result = await env.delete_file("temp.txt")
+print(result["message"])
+
+# Change working directory
+new_dir = env.change_directory("src/components")
+print(f"Working directory: {new_dir}")
+```
+
+## Shell Command Execution
+
+### Blocking Execution
+
+```python
+# Simple command execution
+result = await env.exec_shell("ls -la")
+print(f"Exit code: {result['return_code']}")
+print(f"Output: {result['stdout']}")
+print(f"Errors: {result['stderr']}")
+print(f"Execution time: {result['execution_time']} seconds")
+
+# Command with timeout
+result = await env.exec_shell(
+    "sleep 10", 
+    timeout=5.0
+)
+if result["status"] == "timeout":
+    print("Command timed out")
+```
+
+### Non-blocking Execution
+
+Perfect for long-running processes or interactive commands:
+
+```python
+# Start non-blocking process
+result = await env.exec_shell(
+    "python server.py", 
+    blocking=False
+)
+
+if result["status"] == "success":
+    session_id = result["session_id"]
+    print(f"Process started with session ID: {session_id}")
+    
+    # Check process status
+    status = env.get_process_status(session_id)
+    print(f"Process running: {status['running']}")
+    
+    # Get process output
+    output = env.get_process_output(session_id)
+    print(f"Current output: {output['stdout']}")
+    
+    # Write to process (Local environment only)
+    if hasattr(env, 'write_to_process'):
+        env.write_to_process(session_id, "help", press_enter=True)
+    
+    # Terminate process
+    env.terminate_process(session_id)
+```
+
+## Container Lifecycle Management
+
+For Docker environments, you can control the container lifecycle:
+
+```python
+# Manual container management
+env = DockerEnv(
+    base_path="/workspace",
+    image="python:3.9-slim",
+    auto_start=False
+)
+
+# Start container
+result = await env.start_container()
+print(f"Container ID: {result['container_id']}")
+print(f"Exposed ports: {result['exposed_ports']}")
+
+# Check if container is running
+if env.is_running:
+    print("Container is active")
+
+# Stop container (with optional removal)
+await env.stop_container(remove=True)
+```
+
+
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Environment Selection">
+    Choose the right environment for your use case:
+    
+    ```python
+    # Development and testing - Local environment
+    dev_env = LocalEnv(base_path="./workspace")
+    
+    # Production or isolation needs - Docker environment  
+    prod_env = DockerEnv(
+        base_path="./workspace",
+        image="python:3.9-slim",
+        auto_remove=True
+    )
+    ```
+  </Accordion>
+
+  <Accordion title="Error Handling">
+    Always check operation results:
+    
+    ```python
+    result = await env.exec_shell("command")
+    if result["status"] != "success":
+        logger.error(f"Command failed: {result.get('message', result.get('stderr'))}")
+        return
+    
+    # Process successful result
+    print(result["stdout"])
+    ```
+  </Accordion>
+
+  <Accordion title="Path Management">
+    Use relative paths within the environment:
+    
+    ```python
+    # Good - relative to working directory
+    await env.write_file("data/output.txt", content)
+    
+    # Good - change working directory first
+    env.change_directory("data")
+    await env.write_file("output.txt", content)
+    
+    # Avoid - absolute paths outside base_path
+    # await env.write_file("/tmp/output.txt", content)
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Docker Container Issues">
+    Common Docker-related problems:
+    
+    ```python
+    # Check if Docker daemon is running
+    try:
+        env = DockerEnv(base_path="./workspace")
+        result = await env.start_container()
+        if result["status"] == "error":
+            print(f"Docker error: {result['message']}")
+    except RuntimeError as e:
+        print(f"Docker daemon issue: {e}")
+    ```
+  </Accordion>
+
+  <Accordion title="Port Conflicts">
+    Handle port binding conflicts:
+    
+    ```python
+    try:
+        env = DockerEnv(
+            base_path="./workspace",
+            ports={8080: 8080}
+        )
+    except RuntimeError as e:
+        if "already in use" in str(e):
+            print("Port 8080 is busy, trying alternative...")
+            env = DockerEnv(
+                base_path="./workspace", 
+                ports={8081: 8080}
+            )
+    ```
+  </Accordion>
+
+  <Accordion title="Process Management">
+    Handle process lifecycle issues:
+    
+    ```python
+    # Always check if processes are still running
+    session_id = "your-session-id"
+    status = env.get_process_status(session_id)
+    
+    if status.get("status") == "error":
+        print(f"Process session lost: {status['message']}")
+    elif not status.get("running", False):
+        print("Process has terminated")
+        # Get final output
+        output = env.get_process_output(session_id)
+        print(f"Final output: {output.get('stdout', '')}")
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Quickstart"
+    icon="bolt"
+    href="/quickstart"
+  >
+    Get started quickly with PandaAGI
+  </Card>
+  <Card
+    title="API Key"
+    icon="key"
+    href="https://agi.pandas-ai.com"
+  >
+    Learn how to obtain and use your API key
+  </Card>
+</CardGroup> 

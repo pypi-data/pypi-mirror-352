@@ -1,0 +1,358 @@
+---
+title: 'Agents'
+description: 'Understanding general AI agents in PandaAGI SDK'
+---
+
+## What are General AI Agents?
+
+General AI Agents are the core building blocks of the PandaAGI SDK.
+They are autonomous AI entities that can understand natural language, make decisions, use tools, and interact with their environment to accomplish tasks. 
+PandaAGI general AI agents consist of four key components:
+
+- **WebSocket Communication**: Real-time bidirectional connection with the AGI backend server
+- **Tool Handlers**: Pluggable modules that provide different capabilities and tool access
+- **Environment Integration**: Isolated workspace for secure file and system operations
+- **Event Streaming**: Real-time transmission of agent thoughts, actions, and results
+
+## Creating General AI Agents
+
+### Basic General AI Agent
+
+The simplest way to create an agent:
+
+```python
+import asyncio
+from panda_agi import Agent
+
+async def main():
+    agent = Agent()
+    
+    async for event in agent.run_stream("What's the weather like today?"):
+        print(f"Event: {event.type} - {event.data}")
+
+asyncio.run(main())
+```
+
+### General AI Agent with Custom Configuration
+
+For more control over agent behavior:
+
+```python
+import uuid
+from panda_agi import Agent
+from panda_agi.envs import LocalEnv
+
+agent = Agent(
+    api_key="your-api-key",      # API key for authentication
+    conversation_id=str(uuid.uuid4()), # Must be a UUID4 string
+    auto_reconnect=True,         # Automatic reconnection
+    reconnect_interval=5.0,      # Reconnection delay
+    environment=LocalEnv("./my_workspace")  # Custom workspace
+)
+```
+
+### Using Environment Variables
+
+Set your API key in environment variables:
+
+```bash
+export PANDA_AGI_KEY="your-api-key-here"
+```
+
+```python
+from panda_agi import Agent
+
+# Agent will automatically use PANDA_AGI_KEY from environment
+agent = Agent()
+```
+
+## How do general AI agents work?
+
+Understanding how agents work internally:
+
+<Steps>
+  <Step title="Initialization">
+    General AI agent initializes WebSocket client, event manager, and tool handlers
+  </Step>
+  
+  <Step title="Connection">
+    General AI agent establishes WebSocket connection and waits for initialization
+  </Step>
+  
+  <Step title="Request Processing">
+    General AI agent sends query and begins streaming events in real-time
+  </Step>
+  
+  <Step title="Event Streaming">
+    General AI agent streams thoughts, tool usage, and results as they happen
+  </Step>
+  
+  <Step title="Completion">
+    General AI agent signals task completion and can handle new requests
+  </Step>
+</Steps>
+
+## How to configure general AI agents?
+
+### Environment Setup
+
+Configure the agent's workspace:
+
+```python
+from panda_agi.envs import LocalEnv
+
+# Custom workspace directory
+env = LocalEnv("./agent_workspace")
+
+agent = Agent(environment=env)
+
+# Change working directory
+agent.change_working_directory("/path/to/project")
+
+# Get current directory
+current_dir = agent.get_working_directory()
+```
+
+### Tool Handlers
+
+Customize tool handling behavior:
+
+```python
+from panda_agi.handlers import CustomHandler
+
+custom_handlers = {
+    "custom_tool": CustomHandler(),
+    # Add your custom handlers here
+}
+
+agent = Agent(tools_handlers=custom_handlers)
+```
+
+### Conversation Context
+
+Enable follow-up questions and maintain context across multiple requests:
+
+```python
+import asyncio
+import uuid
+from panda_agi import Agent
+
+async def persistent_conversation():
+    # Use same conversation_id for related requests
+    # Must be a proper UUID4 string
+    conversation_id = str(uuid.uuid4())
+    agent = Agent(conversation_id=conversation_id)
+    
+    # First request
+    async for event in agent.run_stream("Tell me about Alice in Wonderland"):
+        if event.type == "completed_task":
+            break
+    
+    # Follow-up request with context
+    async for event in agent.run_stream("What's the main character's personality like?"):
+        print(event) # Should mention "Alice"
+
+asyncio.run(persistent_conversation())
+```
+
+**Key Benefits:**
+- **Context Retention**: Agent remembers previous questions and answers
+- **Natural Conversations**: Ask follow-up questions without repeating context
+- **Session Persistence**: Maintain conversations across multiple script runs
+
+**Important:** The `conversation_id` must be a valid UUID4 string generated with `str(uuid.uuid4())`. This ensures proper conversation tracking and prevents conflicts.
+
+### Multi-Turn Conversations
+
+Build complex interactions with follow-up questions:
+
+```python
+import asyncio
+import uuid
+from panda_agi import Agent, EventType
+
+async def multi_turn_conversation():
+    # Consistent conversation_id enables follow-up questions
+    # Must be a proper UUID4 string
+    conversation_id = str(uuid.uuid4())
+    agent = Agent(conversation_id=conversation_id)
+    
+    # Initial request
+    print("=== Initial Question ===")
+    async for event in agent.run_stream("What are the main types of neural networks?"):
+        if event.type == EventType.USER_NOTIFICATION:
+            print(event.data)
+        elif event.type == EventType.COMPLETED_TASK:
+            break
+    
+    # Follow-up question - no need to repeat context
+    print("\n=== Follow-up Question ===")
+    async for event in agent.run_stream("Which one is best for image recognition?"):
+        if event.type == EventType.USER_NOTIFICATION:
+            print(event.data)  # Agent knows we're talking about neural networks
+        elif event.type == EventType.COMPLETED_TASK:
+            break
+    
+    # Another follow-up
+    print("\n=== Another Follow-up ===")
+    async for event in agent.run_stream("Can you show me a code example?"):
+        if event.type == EventType.USER_NOTIFICATION:
+            print(event.data)  # Agent will provide CNN code example
+        elif event.type == EventType.FILE_WRITE:
+            print(f"Creating code file: {event.data}")
+        elif event.type == EventType.COMPLETED_TASK:
+            break
+
+asyncio.run(multi_turn_conversation())
+```
+
+### Available Event Types
+
+General AI agents emit various types of events during execution. For complete details on all events, see the [Events documentation](/concepts/events).
+
+- **File Operations**: [FILE_READ, FILE_WRITE, FILE_REPLACE, FILE_FIND, FILE_EXPLORE](/concepts/events#file-system-events)
+- **Web Operations**: [WEB_SEARCH, WEB_NAVIGATION, WEB_SEARCH_RESULT, WEB_NAVIGATION_RESULT](/concepts/events#web-research-events)
+- **Shell Operations**: [SHELL_EXEC, SHELL_VIEW, SHELL_WRITE](/concepts/events#command-execution-events)
+- **Communication**: [AGENT_CONNECTION_SUCCESS, USER_NOTIFICATION, USER_QUESTION, COMPLETED_TASK](/concepts/events#communication-events)
+- **Media Generation**: [IMAGE_GENERATION](/concepts/events#creative--generation-events)
+
+### File System Integration
+
+General AI agents can work with files in their environment:
+
+```python
+import asyncio
+from panda_agi import Agent, EventType
+
+async def file_operations():
+    agent = Agent()
+    
+    # Get current file system structure
+    fs_structure = await agent.current_file_system
+    print(f"Current directory: {fs_structure['directory']}")
+    print(f"File structure: {fs_structure['structure']}")
+    
+    # Change working directory
+    agent.change_working_directory("./documents")
+    
+    async for event in agent.run_stream("Organize these files by type"):
+        if event.type == EventType.FILE_EXPLORE:
+            print(f"Exploring files: {event.data}")
+        elif event.type == EventType.FILE_READ:
+            print(f"Reading file: {event.data}")
+        elif event.type == EventType.FILE_WRITE:
+            print(f"Organizing file: {event.data}")
+        elif event.type == EventType.USER_NOTIFICATION:
+            print(f"Organization update: {event.data}")
+
+asyncio.run(file_operations())
+```
+
+### Cross-Session Persistence
+
+Maintain conversations across different script executions:
+
+```python
+# session1.py
+import asyncio
+import uuid
+from panda_agi import Agent, EventType
+
+# Generate and save conversation ID for reuse
+CONVERSATION_ID = str(uuid.uuid4())
+print(f"Conversation ID: {CONVERSATION_ID}")
+# Save this ID to reuse in session2.py
+
+async def start_research():
+    # Start a research session
+    agent = Agent(conversation_id=CONVERSATION_ID)
+    
+    async for event in agent.run_stream("Please analyze the Python project in my workspace"):
+        if event.type == EventType.FILE_EXPLORE:
+            print(f"Exploring project: {event.data}")
+        elif event.type == EventType.USER_NOTIFICATION:
+            print(f"Analysis: {event.data}")
+        elif event.type == EventType.COMPLETED_TASK:
+            print("Initial analysis complete. Check session2.py for follow-ups.")
+            break
+
+asyncio.run(start_research())
+```
+
+```python
+# session2.py - Run this later with the same conversation ID
+import asyncio
+from panda_agi import Agent, EventType
+
+# Use the same conversation ID from session1.py
+CONVERSATION_ID = "your-uuid-from-session1"  # Replace with actual UUID
+
+async def continue_research():
+    # Continue the same conversation
+    agent = Agent(conversation_id=CONVERSATION_ID)
+    
+    # Agent remembers the previous analysis
+    async for event in agent.run_stream("Based on your analysis, what improvements would you suggest?"):
+        if event.type == EventType.USER_NOTIFICATION:
+            print(event.data)
+        elif event.type == EventType.FILE_WRITE:
+            print(f"Creating improvement suggestions: {event.data}")
+        elif event.type == EventType.COMPLETED_TASK:
+            break
+
+asyncio.run(continue_research())
+```
+
+### Resource Management
+
+Properly manage connections and resources:
+
+```python
+# Use context managers when possible
+async with Agent() as agent:
+    # Work with agent
+    pass
+
+# Or ensure proper cleanup
+agent = Agent()
+try:
+    # Work with agent
+    pass
+finally:
+    await agent.disconnect()
+```
+
+### Workspace Isolation
+
+Set up appropriate workspace environments for security:
+
+```python
+from panda_agi.envs import LocalEnv
+
+# Isolated workspace for each task
+env = LocalEnv("./task_specific_workspace")
+agent = Agent(environment=env)
+
+# Ensure proper permissions
+agent.change_working_directory("/safe/working/directory")
+```
+
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Events"
+    icon="bolt"
+    href="/concepts/events"
+  >
+    Learn about agent event streaming in detail
+  </Card>
+  <Card
+    title="Environments"
+    icon="globe"
+    href="/concepts/environments"
+  >
+    Understand agent workspace environments
+  </Card>
+</CardGroup> 
