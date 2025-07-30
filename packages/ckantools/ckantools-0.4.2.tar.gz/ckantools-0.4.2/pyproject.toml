@@ -1,0 +1,78 @@
+[project]
+name = "ckantools"
+version = "0.4.2"
+description = "Utilities for ckan extensions."
+readme = "README.md"
+requires-python = ">=3.6"
+license = {text = "GPL-3.0-or-later"}
+authors = [
+    { name = "Natural History Museum", email = "data@nhm.ac.uk" }
+]
+keywords = ["CKAN", "data"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8"
+]
+dependencies = [
+    "ckan>2.9"
+]
+
+[project.optional-dependencies]
+test = [
+    "mock",
+    "pytest>=4.6.5",
+    "pytest-cov>=2.7.1",
+    "coveralls"
+]
+docs = [
+    "mkdocs",
+    "mkdocstrings[python]",
+    "mkdocs-material",
+    "mkdocs-gen-files",
+    "mkdocs-section-index",
+    "mkdocs-include-markdown-plugin"
+]
+
+[project.urls]
+repository = "https://github.com/NaturalHistoryMuseum/ckantools"
+changelog = "https://github.com/NaturalHistoryMuseum/ckantools/blob/main/CHANGELOG.md"
+
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool]
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools.packages.find]
+exclude = ["tests"]
+
+[tool.commitizen]
+name = "cz_nhm"
+version = "0.4.2"
+tag_format = "v$version"
+update_changelog_on_bump = true
+changelog_incremental = false
+version_files = [
+    "pyproject.toml:version"
+]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.pylint]
+max-line-length = 88
+disable = ["C0114", "R0903"]
+
+[tool.docformatter]
+wrap-summaries = 88
+wrap-descriptions = 88
+pre-summary-newline = true
+make-summary-multi-line = true
