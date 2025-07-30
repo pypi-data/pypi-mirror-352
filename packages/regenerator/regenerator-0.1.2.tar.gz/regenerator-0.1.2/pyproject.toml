@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "versioneer"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "regenerator"
+description = "Simple class for reusable generators."
+authors = [
+  { name="pommevoid" }
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/pommevoid/regenerator"
+
+[tool.setuptools.packages.find]
+include = ["regenerator", "regenerator.*"]
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440-pre"
+versionfile_source = "regenerator/_version.py"
+versionfile_build = "regenerator/_version.py"
+tag_prefix = ""
+parentdir_prefix = ""
+parentdir_prefix_version = false
