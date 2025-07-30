@@ -1,0 +1,244 @@
+Metadata-Version: 2.4
+Name: amp-agent
+Version: 0.1.1
+Summary: Library for building AMP agents
+Author-email: Nexus <nexus@theswarmhub.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/theswarmhub/amp-agent
+Project-URL: Documentation, https://amp-agent.readthedocs.io/
+Project-URL: Repository, https://github.com/theswarmhub/amp-agent.git
+Project-URL: Issues, https://github.com/theswarmhub/amp-agent/issues
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Internet :: WWW/HTTP :: HTTP Servers
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: flask>=2.0.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: python-jose>=3.3.0
+Requires-Dist: httpx>=0.24.0
+Requires-Dist: asyncpg>=0.28.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: PyYAML>=6.0
+Requires-Dist: requests>=2.31.0
+Requires-Dist: colorlog>=6.7.0
+Requires-Dist: inquirer>=3.1.3
+Requires-Dist: agno>=1.5.5
+Requires-Dist: sqlalchemy>=2.0.0
+Requires-Dist: psycopg[binary]>=3.1.0
+Requires-Dist: psycopg2-binary>=2.9.0
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: openai>=1.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: black>=22.0.0; extra == "dev"
+Requires-Dist: isort>=5.0.0; extra == "dev"
+Requires-Dist: flake8>=4.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Provides-Extra: test
+Requires-Dist: pytest>=7.0.0; extra == "test"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "test"
+Requires-Dist: pytest-cov>=4.0.0; extra == "test"
+Provides-Extra: docs
+Requires-Dist: sphinx>=4.0.0; extra == "docs"
+Requires-Dist: sphinx-rtd-theme>=1.0.0; extra == "docs"
+Requires-Dist: myst-parser>=0.18.0; extra == "docs"
+Provides-Extra: ml
+Requires-Dist: torch>=2.0.0; extra == "ml"
+Requires-Dist: sentence-transformers>=2.2.0; extra == "ml"
+Dynamic: license-file
+
+# AMP Agent
+
+A Python library for building and deploying AMP agents with ease. This library provides the functionality needed to create, manage, and run AMP agents.
+
+## Features
+
+- Easy agent creation with base classes and interfaces
+- Built-in HTTP server with Flask integration
+- Token-based authentication and validation
+- Configuration management
+- Database integration with AsyncPG
+- Async/sync support
+- Logging and error handling
+- Semantic interest matching
+- Event subscription and listening
+- Agent setup and registration utilities
+- Swarm-based agent components
+
+## Modules
+
+- `amp_agent`: Core functionality for building and running agents
+- `amp_setup`: Configuration and setup utilities
+- `semantic`: Semantic interest matching and processing
+- `subscription`: Event subscription and listening
+- `swarm_cell`: Swarm-based agent components
+
+## Installation
+
+You can install the package using pip:
+
+```bash
+pip install amp-agent
+```
+
+For development installation:
+
+```bash
+pip install -e ".[dev]"
+```
+
+For testing:
+
+```bash
+pip install -e ".[test]"
+```
+
+For documentation:
+
+```bash
+pip install -e ".[docs]"
+```
+
+For machine learning features (advanced semantic matching):
+
+```bash
+pip install -e ".[ml]"
+```
+
+You can combine multiple extras like this:
+
+```bash
+pip install -e ".[dev,ml]"
+```
+
+## Quick Start
+
+Here's a simple example of creating an AMP agent:
+
+```python
+from amp_agent import AgentInterface
+from amp_agent.amp_setup import ConfigManager
+
+class MyAgent(AgentInterface):
+    async def process_message(self, content: str, metadata: dict = None) -> str:
+        return f"Processed: {content}"
+
+# Setup configuration
+config_manager = ConfigManager()
+config = config_manager.load_config()
+
+# Create and run server
+from amp_agent.server import create_app
+app = create_app()
+app.run()
+```
+
+## Development
+
+1. Clone the repository:
+```bash
+git clone https://github.com/theswarmhub/amp-agent.git
+cd amp-agent
+```
+
+2. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install development dependencies:
+```bash
+pip install -e ".[dev]"
+```
+
+4. Run tests:
+```bash
+pytest
+```
+
+## Configuration
+
+Create a `.env` file:
+
+```env
+DATABASE_URL=postgresql://user:password@localhost:5432/dbname
+JWT_SECRET_KEY=your-secret-key
+DEBUG=True
+```
+
+## Module Usage Examples
+
+### Core Features
+
+```python
+from amp_agent import AgentInterface
+from amp_agent.amp_setup import ConfigManager
+
+# Create an agent
+class MyAgent(AgentInterface):
+    async def process_message(self, content: str, metadata: dict = None) -> str:
+        return f"Processed: {content}"
+
+# Load configuration
+config_manager = ConfigManager()
+config = config_manager.load_config()
+```
+
+### Semantic Processing
+
+```python
+from amp_agent.semantic import interest
+
+# Define interests
+@interest("code_review")
+async def handle_code_review(content: str) -> str:
+    return "Code review processed"
+```
+
+### Event Subscription (Optional)
+
+```python
+# Import the optional subscription module when needed
+from amp_agent.subscription import AMPListener
+
+# Create and start a listener
+listener = AMPListener(config)
+listener.start()
+```
+
+### Swarm Components (Optional)
+
+```python
+# Import the optional swarm_cell module when needed
+from amp_agent.swarm_cell import SwarmCell
+
+# Create a swarm cell
+cell = SwarmCell(config)
+cell.initialize()
+```
+
+## Documentation
+
+For detailed documentation, visit [https://amp-agent.readthedocs.io/](https://amp-agent.readthedocs.io/)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
