@@ -1,0 +1,36 @@
+[project]
+name = "marketsandbox"
+version = "0.0.1"
+authors = [
+  { name="Marius Facktor", email="mariusfacktor@gmail.com" },
+]
+description = "A market sandbox that lets you create users and buy and sell resources with both market orders and limit orders."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests>2.32",
+]
+
+
+
+[project.urls]
+Homepage = "https://github.com/mariusfacktor/market_simulator"
+Issues = "https://github.com/mariusfacktor/market_simulator/issues"
+
+
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "marketsandbox"
+
+
+
+
