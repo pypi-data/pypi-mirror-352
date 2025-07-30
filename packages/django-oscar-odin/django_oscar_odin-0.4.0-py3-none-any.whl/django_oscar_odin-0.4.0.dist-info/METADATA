@@ -1,0 +1,77 @@
+Metadata-Version: 2.1
+Name: django-oscar-odin
+Version: 0.4.0
+Summary: Odin Resources and mappings to Oscar models
+Home-page: https://github.com/django-oscar/oscar-odin
+License: BSD-3-Clause
+Keywords: data-structure,validation,data-mapping
+Author: Tim Savage
+Author-email: tim@savage.company
+Maintainer: Viggo de Vries
+Maintainer-email: viggo@highbiza.nl
+Requires-Python: >=3.8,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.1
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Provides-Extra: dev
+Provides-Extra: test
+Requires-Dist: black (>=23.11.0,<24.0.0) ; extra == "test"
+Requires-Dist: coverage (>=7.3,<8.0) ; extra == "test"
+Requires-Dist: django-oscar (>=4.0a1,<5.0)
+Requires-Dist: isort (>=5.13.2,<6.0.0) ; extra == "dev"
+Requires-Dist: odin (>=2.10rc2,<3.0)
+Requires-Dist: poetry (>=1.7.1,<2.0.0) ; extra == "test"
+Requires-Dist: pre-commit ; extra == "dev"
+Requires-Dist: pylint (>=3.0.2,<4.0.0) ; extra == "test"
+Requires-Dist: pylint-django (>=2.5.5,<3.0.0) ; extra == "test"
+Requires-Dist: responses (>=0.24.1,<0.25.0) ; extra == "test"
+Requires-Dist: ruff (>=0.1.8,<0.2.0) ; extra == "dev"
+Requires-Dist: setuptools (>=67) ; extra == "test"
+Requires-Dist: sorl-thumbnail (>=12.8.0,<13.0.0) ; extra == "test"
+Requires-Dist: vdt.versionplugin.wheel (>=0.0.8,<0.0.9) ; extra == "test"
+Project-URL: Repository, https://github.com/django-oscar/oscar-odin
+Description-Content-Type: text/markdown
+
+# Oscar Odin
+
+Mapping of Oscar eCommerce models to Odin resources.
+
+## Installation
+
+To install add `oscar_odin` to your installed apps
+
+## Usage
+
+```python
+from oscar.core.loading import get_model
+from oscar_odin.mappings import catalogue
+
+Product = get_model("catalogue", "Product")
+
+# Map a product to a resource.
+product = Product.objects.get(id=1)
+product_resource = catalogue.product_to_resource(product)
+```
+
+# Developing odin
+
+## Using pip:
+
+make install
+make test
+
+## Using poetry:
+
+poetry install --all-extras
+poetry run ./manage.py test
