@@ -1,0 +1,130 @@
+[build-system]
+build-backend = "flit_core.buildapi"
+requires = ["flit_core >=3.2,<4"]
+
+[project]
+# Check https://flit.readthedocs.io/en/latest/pyproject_toml.html for all available sections
+authors = [
+  {name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"},
+]
+description = "Visualization toolkit for parametric additive simulations "
+license = "MIT"
+license-files = ["LICENSE"]
+maintainers = [
+  {name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"},
+]
+name = "ansys-additive-widgets"
+readme = "README.rst"
+requires-python = ">=3.9,<4"
+version = "0.2.2"
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "importlib-metadata >=4.0",
+  "ansys-additive-core >=0.19, <0.21",
+  "panel==1.4.4",
+]
+
+[project.optional-dependencies]
+doc = [
+  "ansys-sphinx-theme[autoapi]==1.3.3",
+  "enum-tools==0.12.0",
+  "jupyter_sphinx==0.5.3",
+  "matplotlib==3.10.1",
+  "numpydoc==1.8.0",
+  "phantomjs==1.4.1",
+  "pypandoc==1.15",
+  "pyvista==0.44.2",
+  "selenium==4.31.0",
+  "sphinx==8.2.3",
+  "sphinx-autodoc-typehints==3.1.0",
+  "sphinx-copybutton==0.5.2",
+  "sphinx-gallery==0.19.0",
+  "sphinx-notfound-page==1.1.0",
+  "sphinx-toolbox==3.9.0",
+  "sphinxemoji==0.3.1",
+  "plotly==5.22.0",
+]
+tests = [
+  "pytest==8.3.5",
+  "pytest-cov==6.1.1",
+  "panel==1.4.4",
+]
+
+[tool.flit.module]
+name = "ansys.additive.widgets"
+
+[project.urls]
+Documentation = "https://widgets.additive.docs.pyansys.com"
+Homepage = "https://github.com/ansys/pyadditive-widgets"
+Source = "https://github.com/ansys/pyadditive-widgets"
+Tracker = "https://github.com/ansys/pyadditive-widgets/issues"
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+default_section = "THIRDPARTY"
+force_sort_within_sections = true
+line_length = 100
+profile = "black"
+src_paths = ["doc", "src", "tests"]
+
+[tool.coverage.run]
+source = ["ansys.additive"]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.towncrier]
+directory = "doc/changelog.d"
+filename = "doc/source/changelog.rst"
+issue_format = "`#{issue} <https://github.com/ansys/pyadditive-widgets/pull/{issue}>`_"
+package = "ansys.additive.widgets"
+start_string = ".. towncrier release notes start\n"
+template = "doc/changelog.d/changelog_template.jinja"
+title_format = "`{version} <https://github.com/ansys/pyadditive-widgets/releases/tag/v{version}>`_ - {project_date}"
+
+[[tool.towncrier.type]]
+directory = "added"
+name = "Added"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "changed"
+name = "Changed"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "fixed"
+name = "Fixed"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "dependencies"
+name = "Dependencies"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "miscellaneous"
+name = "Miscellaneous"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "documentation"
+name = "Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "maintenance"
+name = "Maintenance"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "test"
+name = "Test"
+showcontent = true
