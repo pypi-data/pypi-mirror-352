@@ -1,0 +1,29 @@
+[project]
+name = "mcp-server-hacker-news"
+version = "0.1.3"
+description = "Hacker News integration server for Model Context Protocol (MCP)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "yareyaredesuyo", email = "yareyaredesuyo@gmail.com" }]
+keywords = ["mcp", "llm", "model-context-protocol", "automation", "hacker-news"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+  "argparse>=1.4.0",
+  "fastmcp>=2.5.2",
+  "httpx>=0.28.1",
+]
+
+[project.scripts]
+mcp-server-hacker-news = "mcp_server_hacker_news:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
