@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "graphai_client"
+version = "1.16.0"
+authors = [
+    { name="Renier Yves", email="yves.renier@epfl.ch" },
+]
+description = "A client library to access the graphai services"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    'termcolor',
+    'mysql-connector-python>=9.2.0',
+    'isodate',
+    'google-api-python-client'
+]
+
+[project.urls]
+"Homepage" = "https://github.com/epflgraph/graphai-client"
+"Bug Tracker" = "https://github.com/epflgraph/graphai-client/issues"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "graphai_client/",
+]
+exclude = [
+    "/config/",
+    "/venv/",
+    "__pycache__/",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["graphai_client"]
