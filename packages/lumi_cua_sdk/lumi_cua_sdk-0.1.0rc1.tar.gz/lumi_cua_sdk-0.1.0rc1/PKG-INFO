@@ -1,0 +1,167 @@
+Metadata-Version: 2.4
+Name: lumi_cua_sdk
+Version: 0.1.0rc1
+Summary: This is the Python SDK for Computer Use Tool Server, allowing you to easily control the computer desktop environment from your applications.
+Project-URL: Documentation, https://github.com/lvlv/tool-server-client#readme
+Project-URL: Issues, https://github.com/lvlv/tool-server-client/issues
+Project-URL: Source, https://github.com/lvlv/tool-server-client
+Author-email: lvlv <lvgj1998@gmail.com>
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.12
+Requires-Dist: jinja2>=3.1.6
+Requires-Dist: langchain-core>=0.3.58
+Requires-Dist: langchain-openai>=0.3.16
+Requires-Dist: langgraph>=0.4.1
+Requires-Dist: mcp>=1.7.1
+Requires-Dist: openai>=1.72.0
+Requires-Dist: pydantic>=1.8.0
+Requires-Dist: requests>=2.25.0
+Description-Content-Type: text/markdown
+
+# Lumi CUA SDK
+
+SDK for Lumi Computer Use Application, providing programmatic access to instance management and remote control capabilities.
+
+## Installation
+
+```bash
+pip install lumi-cua-sdk
+```
+
+## Usage
+
+```python
+import asyncio
+from lumi_cua_sdk import LumiCuaClient, Action
+
+"""
+1. 参考https://console.volcengine.com/ark/region:ark+cn-beijing/application/detail?id=bot-20250304115020-abcde-procode-preset&prev=application&projectName=default 
+   基于火山FaaS应用模版一键部署ComputerUse应用
+2. 待ComputerUse应用部署完成，进入应用详情页获取SANDBOX MANAGER地址、服务Token、MCP Server地址填入以下参数
+"""
+
+SANDBOX_MANAGER = ""  # 获取路径：火山引擎 -> 函数服务 -> 我的应用 -> 创建的ComputerUse应用 -> 应用详情 -> Sandbox Manager 访问入口地址
+TOKEN = ""  #  获取路径：火山引擎 -> 函数服务 -> 我的应用 -> 创建的ComputerUse应用 -> 应用详情 -> Token
+MCP_SERVER_URL = ""  # 获取路径：火山引擎 -> 函数服务 -> 我的应用 -> 创建的ComputerUse应用 -> 应用详情 -> 关联云资源 -> mcpserver -> 公网地址
+MODEL_API_KEY = ""  # 方舟模型接入的API KEY
+async def main():
+    # 1. 初始化客户端
+    client = LumiCuaClient(
+        ecs_manager_endpoint=SANDBOX_MANAGER,
+        auth_token=TOKEN
+    )
+
+    # 2. 列出或启动实例
+    try:
+        sandboxes = await client.list_sandboxes()
+        if not sandboxes:
+            print("No existing sandboxes found. Starting a new Linux sandbox...")
+            sandbox = await client.start_linux(wait_for_ip=True)  # when wait_for_ip=True, client will wait a maximum of 300 seconds for the sandbox to be ready 
+            print(
+                f"Started Linux sandbox: ID={sandbox.id}, IP={sandbox.ip_address}, ToolServerEndpoint={sandbox.tool_server_endpoint}")
+        else:
+          sandbox = sandboxes[0]  
+
+        # 3. 获取流式链接
+        stream_url = await sandbox.get_stream_url()
+        print(f"Stream URL: {stream_url}")
+        
+        # 4. Computer Tool 操作示例
+        screenshot_result = await sandbox.screenshot()
+        print(f"Screenshot taken (first 64 chars): {screenshot_result.base_64_image[:64]}...")
+        await sandbox.computer(action=Action.MOVE_MOUSE, coordinates=[100, 150])
+        print("Mouse moved.")
+        await sandbox.computer(action=Action.TYPE_TEXT, text="Hello from Lumi CUA SDK!")
+        print("Text typed.")
+        await sandbox.computer(action=Action.CLICK_MOUSE, coordinates=[200, 250], button="right")
+        print("Mouse clicked.")
+        await sandbox.computer(action=Action.SCROLL, coordinates=[300, 350], scroll_direction="up", scroll_amount=30)
+        print("Scrolled.")
+        await sandbox.computer(action=Action.PRESS_KEY, keys=["Enter"])
+        print("Pressed Enter.")
+        await sandbox.computer(action=Action.TAKE_SCREENSHOT)
+        print("Screenshot taken.")
+        await sandbox.computer(action=Action.WAIT, duration=10)
+        print("Waited.")
+        
+        # 5. Bash Tool 操作示例
+        bash_result = await sandbox.bash(command="echo 'Hello from Bash via SDK'")
+        print(f"Bash command output: {bash_result.get('stdout')}")
+        print(f"Bash command code: {bash_result.get('code')}")
+        print(f"Bash command code: {bash_result.get('code')}")
+        
+        # 6. File Tool 操作示例
+        await sandbox.file(command=Action.CREATE_FILE, path="sdk_test_file.txt", content="Content written by SDK".encode("utf8"))
+        print("File created.")
+        
+        file_content_result = await sandbox.file(command=Action.READ_FILE, path="sdk_test_file.txt")
+        if file_content_result.content:
+            print(f"File content: {file_content_result.content}")
+
+        # 7. Agent 层集成示例
+        task_prompt = "open the browse"
+        try:
+            async for message in client.agent_stream(MODEL_API_KEY, MCP_SERVER_URL, task_prompt, sandbox):
+                print("summary:", message.summary)
+                print("action:", message.action)
+                print("screenshot:", message.screenshot)
+                print("updated_at:", message.updated_at)
+                print("created_at:", message.created_at)
+        except Exception as e:
+            print(f"\nError occured:", str(e))
+
+        # 8. 删除实例 (可选)
+        # print(f"Deleting sandbox {sandbox.id}...")
+        # await sandbox.delete()
+        # print("Sandbox stopped and deleted.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        import traceback
+        traceback.print_exc()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+## Features
+
+- List available sandboxes.
+- Start and delete sandboxes (Linux and Windows).
+- Get a streaming URL for sandboxe interaction.
+- Remote computer control:
+    - Mouse movements, clicks, drags, scrolls.
+    - Keyboard typing and key presses.
+    - Take screenshots.
+- Execute Bash commands on the instance.
+- File system operations (read, write, list, delete, etc.).
+- Agent integration for more complex task automation.
+
+## Development
+
+Clone the repository and install dependencies for development:
+
+```bash
+git clone https://github.com/your-repo/lumi-cua-sdk.git
+cd lumi-cua-sdk
+pip install -e .[dev]
+```
+
+Run tests:
+
+```bash
+pytest
+```
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
