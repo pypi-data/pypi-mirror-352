@@ -1,0 +1,28 @@
+Metadata-Version: 2.4
+Name: marchingsquares
+Version: 0.1.1
+Classifier: Programming Language :: Rust
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Dist: numpy>=1.19.5 ; python_full_version < '3.7'
+Requires-Dist: numpy>=1.21 ; python_full_version >= '3.7'
+License-File: LICENSE
+Summary: Marching squares algorithm implemented in Rust
+Author: El Hadi Moussi
+License: MIT
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+Project-URL: Homepage, https://github.com/ehmoussi/marchingsquares
+Project-URL: Source, https://github.com/ehmoussi/marchingsquares
+
+# Marching Squares algorithm
+
+Implementation in rust of the [marching squares](https://en.wikipedia.org/wiki/Marching_squares) algorithm with a python binding using pyo3 and maturin.
+
+# Installation
+
+```console
+python -m pip install marchingsquares
+```
+
+
