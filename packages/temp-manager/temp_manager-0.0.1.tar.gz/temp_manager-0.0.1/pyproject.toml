@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "temp-manager"
+version = "0.0.1"
+authors = [
+  { name="Ronald Grefhorst", email="ronald@rgde.be" },
+]
+description = "A package for managing temporary storage of files and folders"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "watchdog",
+    "peewee"
+]
+
+[project.urls]
+Homepage = "https://github.com/Grefron/temp-manager"
+Issues = "https://github.com/Grefron/temp-manager/issues"
