@@ -1,0 +1,120 @@
+[project]
+name = "yield-sdk"
+dynamic = ["version"]
+description = "The official Yield SDK for Python"
+readme = "README.md"
+license = "Apache-2.0"
+authors = [{ name = "Yield" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  # "Development Status :: 5 - Production/Stable",
+  # "Framework :: AsyncIO",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.10"
+dependencies = [
+  "typing-extensions>=4.13.0"
+]
+
+[project.urls]
+homepage = "https://github.com/yield-tech/sdk-python/blob/main/README.md"
+source = "https://github.com/yield-tech/sdk-python"
+documentation = "https://github.com/yield-tech/sdk-python/blob/main/README.md"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/yield_sdk/version.py"
+
+[tool.hatch.envs.hatch-test]
+python = "3.10"
+extra-dependencies = [
+  "httpx>=0.28.0",
+  "urllib3>=2.0.0",
+]
+
+[tool.hatch.envs.default]
+python = "3.10"
+extra-dependencies = [
+  "urllib3>=2.0.0",
+]
+
+[tool.hatch.envs.tools]
+extra-dependencies = [
+  "mypy>=1.0.0",
+  "pyright[nodejs]>=1.0.0",
+  "ruff>=0.11.0",
+  "httpx>=0.28.0",
+  "urllib3>=2.0.0",
+]
+
+[tool.hatch.envs.tools.scripts]
+format = "ruff format"
+lint = "ruff check"
+fix = "ruff check --fix"
+typecheck = "pyright"
+checkmypy = "mypy --install-types --non-interactive {args:src/yield_sdk}"
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+
+[tool.pyright]
+# See: https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+include = ["src/yield_sdk"]
+pythonVersion = "3.10"
+typeCheckingMode = "strict"
+deprecateTypingAliases = true
+reportImplicitOverride = "error"
+reportImplicitStringConcatenation = "error"
+# reportImportCycles = "error"
+# reportMissingSuperCall = "error" # Too strict, see https://github.com/microsoft/pyright/issues/4893
+reportPropertyTypeMismatch = "error"
+reportShadowedImports = "error"
+reportUninitializedInstanceVariable = "error"
+reportUnnecessaryTypeIgnoreComment = "error"
+reportUnusedCallResult = "error"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+# https://docs.astral.sh/ruff/rules/
+select = [
+  "ARG",  # flake8-unused-arguments
+  "B",  # flake8-bugbear
+  "C4",  # flake8-comprehensions
+  "E",  # pycodestyle errors
+  "F",  # Pyflakes
+  "I",  # isort
+  "ICN",  # flake8-import-conventions
+  "N",  # flake8-naming
+  "PIE",  # flake8-pie
+  "RUF",  # Ruff-specific rules
+  "SIM",  # flake8-simplify
+  "T20",  # flake8-print
+  "TC",  # flake8-type-checking
+  "TID",  # flake8-tidy-imports
+  "UP",  # pyupgrade
+  "W",  # pycodestyle warnings
+]
+ignore = ["F403"]
+
+[tool.ruff.lint.flake8-import-conventions.extend-aliases]
+dataclasses = "dc"
+datetime = "dt"
+typing = "t"
+typing_extensions = "tx"
