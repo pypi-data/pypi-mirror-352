@@ -1,0 +1,30 @@
+Metadata-Version: 2.4
+Name: zettalens-sdk
+Version: 1.0.0
+Summary: Python client SDK of ZettaLens. ZettaLens is an open-source engine for visualizing and analyzing execution metrics and performance insights, powered by DeepDoc – a deep document understanding system.
+License: Apache License, Version 2.0
+Requires-Python: <3.13,>=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: requests<3.0.0,>=2.30.0
+Requires-Dist: beartype<0.19.0,>=0.18.5
+Requires-Dist: pytest<9.0.0,>=8.0.0
+Requires-Dist: requests-toolbelt>=1.0.0
+Requires-Dist: python-docx>=1.1.2
+Requires-Dist: openpyxl>=3.1.5
+Requires-Dist: python-pptx>=1.0.2
+Requires-Dist: pillow>=11.1.0
+Requires-Dist: reportlab>=4.3.1
+Provides-Extra: test
+Requires-Dist: pytest<9.0.0,>=8.0.0; extra == "test"
+
+# ZettaLens sdk
+
+# build and publish python SDK to pypi.org
+
+```shell
+uv build
+uv pip install twine
+export TWINE_USERNAME="__token__"
+export TWINE_PASSWORD=$YOUR_PYPI_API_TOKEN
+twine upload dist/*.whl
+```
