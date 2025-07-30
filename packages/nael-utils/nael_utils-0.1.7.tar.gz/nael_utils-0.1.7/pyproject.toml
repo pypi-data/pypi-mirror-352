@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nael-utils"
+version = "0.1.7"
+authors = [
+  { name="Nael", email="nael.nathanael71@gmail.com" },
+]
+description = "A collection of utilities for Python."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "langchain-core",
+    "langchain-openai",
+    "langchain-anthropic",
+    "openai",
+    "pydantic",
+]
