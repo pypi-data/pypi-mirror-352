@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bdcdata"
+dynamic = ["version"]
+authors = [
+  { name="W. Nick Pappin", email="nick.pappin@wsu.edu" },
+]
+maintainers = [
+  { name="W. Nick Pappin", email="npappin@gmail.com" },
+]
+description = "A tool to work with BDC data from the FCC."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "requests-ratelimiter",
+  "python-dotenv",
+  "pandas>=2",
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Science/Research",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[tool.hatch.version]
+source = "vcs"
+
+[project.urls]
+Homepage = "https://github.com/npappin-wsu/bdc"
+Issues = "https://github.com/npappin-wsu/bdc/issues"
