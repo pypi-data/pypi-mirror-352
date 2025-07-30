@@ -1,0 +1,77 @@
+<style>
+    @page {
+        size: A4 portrait;
+        margin: 1cm;
+    }
+    table {
+        page-break-inside: avoid;
+    }
+</style>
+
+<h1 class="title is-4">Baustein "{{ obj.template.short_header }}" für {{obj.enrolment.pupil.last_name.upper()}} {{obj.enrolment.pupil.first_name}}</h1>
+<table class="table is-size-6 is-fullwidth">
+    <thead>
+        <th>Leistung</th>
+        <th>Punkte</th>
+        <th>Mögliche Punkte</th>
+        <th>Prozentsatz</th>
+        <th>Periode</th>
+    </thead>
+    {% for ps in rt.models.ratings.ProjectSection.objects.filter(project_template=obj.template) %}
+        {% set tot = ps.get_ratings_sum(obj.enrolment) %}
+        <tr style="margin-top: 4em;">
+            <th>{{ ps.designation }}</th>
+            <th>{{ tot.rating }}</th>
+            <th>{{ tot.max_rating }}</th>
+            <th>{{ tot }}</th>
+            <th>&nbsp;</th>
+        </tr>
+        {% for r in tot.ratings %}
+            <tr style="margin-top: 4em;">
+                <td>{{ r.text }}</td>
+                <td>{{ r.rating }}</td>
+                <td>{{ r.max_rating }}</td>
+                <td>{{ r }}</td>
+                <td>{{ r.period.nickname }}</td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+
+    {% set tot = obj.get_general_ratings() %}
+    <tr style="margin-top: 4em;">
+        <th>{{ _("General ratings") }}</th>
+        <th>{{ tot.rating }}</th>
+        <th>{{ tot.max_rating }}</th>
+        <th>{{ tot.value }}</th>
+        <th>&nbsp;</th>
+    </tr>
+    {% for r in tot.ratings %}
+        <tr style="margin-top: 4em;">
+            <td>{{ r.text }}</td>
+            <td>{{ r.rating }}</td>
+            <td>{{ r.max_rating }}</td>
+            <td>{{ r }}</td>
+            <td>&nbsp;</td>
+        </tr>
+    {% endfor %}
+
+    {% set tot = tot + obj.get_ratings_sum() %}
+    <tr>
+        <th>Summe</th>
+        <th>{{tot.rating}}</th>
+        <th>{{tot.max_rating}}</th>
+        <th>{{tot}}</th>
+    </tr>
+</table>
+<table class="table is-size-6 is-fullwidth">
+    <tr>
+        <th>
+            Kommentar
+        </th>
+    </tr>
+    <tr>
+        <td>
+            {{ obj.remark }}
+        </td>
+    </tr>
+</table>

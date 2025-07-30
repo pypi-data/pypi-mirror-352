@@ -1,0 +1,319 @@
+<meta charset="utf-8"/>
+<style>
+    @page {
+        size: A4 portrait;
+        margin: 1cm;
+        margin-bottom: 1.5cm;
+        @bottom-left-corner {
+            content: url(file://{{dd.plugins.weasyprint.header_image}});
+            transform: scale(.1);
+        }
+        @bottom-center {
+            content: "{{obj.enrolment.pupil.last_name.upper()}} {{obj.enrolment.pupil.first_name}} — Klasse {{ obj.enrolment.group }} — Schuljahr {{obj.period.year}} — {{obj.period.nickname}}. Periode";
+            font-size: 12px;
+        }
+        @bottom-right {
+            content:  counter(page) "/" counter(pages);
+            font-size: 12px;
+        }
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    section {
+        padding: 0.4rem;
+        page-break-inside: avoid;
+    }
+    h3 {
+        margin-bottom: 0.15cm;
+    }
+</style>
+
+<section class="section">
+    <h1 class="title is-2 has-text-centered">{{rt.models.cert.Certificate._meta.verbose_name}}</h1>
+    <p>Name:  {{obj.enrolment.pupil.last_name.upper()}} {{obj.enrolment.pupil.first_name}}</p>
+    <p>{{rt.models.school.Group._meta.verbose_name}}:  {{ obj.enrolment.group }} — Schuljahr {{obj.period.year}} - {{obj.period.nickname}}. Periode</p>
+    <p>{{ babelattr(obj.enrolment.group, 'remark') }}</p>
+</section>
+
+{% for sr in rt.models.cert.SectionResponse.objects.filter(certificate=obj) %}
+  <section class="section">
+    <h3 class="title is-4">
+      {#<span class="icon-text">#}
+        {# <span class="icon"><i class="fas fa-home"></i></span> #}
+        {% if sr.section.subject.icon_text %}<span style="border:2pt black; padding:3pt">{{sr.section.subject.icon_text}}</span>{% endif %}
+        {{sr.section.subject}}
+      {#</span>#}
+    </h3>
+    {% set img = sr.section.subject.image_file %}
+    {% if img %}
+    <figure class="image is-48x48">
+    {% set src = settings.SITE.media_root / img.get_media_file().get_image_name() %}
+      <img src="file://{{src}}"/>
+    </figure>
+    {% endif %}
+    {#
+    <p class="has-text-weight-normal is-size-7" style="margin-right: 1cm;">
+    {% set casts = rt.models.school.Cast.objects.filter(
+      group=obj.enrolment.group) %}
+    {% if casts.count() > 0 %}
+    LehrerInnen:
+    {% for cast in casts %}
+    {{cast.user}}{% if loop.last %}{% else %}, {% endif %}
+    {% endfor %}
+    {% endif %}
+    </p>
+    {% if sr.section.remark %}
+      <p class="is-size-7">{{babelattr(sr.section, 'remark')}}</p>
+    {% endif %}
+    #}
+    {% if sr.course.remark %}
+      <p class="is-size-7" style="margin-right: 1cm;">
+        {{ babelattr(sr.course, 'remark') }}
+      </p>
+    {% endif %}
+    <table class="table is-bordered is-fullwidth is-narrow is-size-7">
+      {% set rating_type = sr.section.subject.rating_type %}
+      {% if rating_type is none  %} {# % if sr.section.subject.advanced % #}
+        {% set with_previous = not obj.period.ref.endswith("1") %}
+        <thead>
+          <tr>
+            {% if with_previous %}
+            <th style="width: 40%;">Kompetenz</th>
+            <th style="width: 15%;">2. Periode</th>
+            <th style="width: 15%;">Prüfungen</th>
+            <th style="width: 15%;">Punkte gesamt</th>
+            <th style="width: 15%;">Prozentsatz gesamt</th>
+            {% else %}
+            <th style="width: 18%;">Kompetenz</th>
+            <th style="width: 10%;">Punkte</th>
+            <th style="width: 10%;">Prozentsatz</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for er in sr.elements.all() %}
+        {% set numbers = er.numbers %}
+        <tr>
+            <td>{{er.cert_element.skill}}</td>
+            {% if with_previous %}
+              <td>{{ numbers.period.relative}}</td>
+              <td>{{ numbers.final.relative}}</td>
+            {% endif %}
+            {% if numbers.total %}
+            <td>{{numbers.total.absolute}}</td>
+            <td>{{numbers.total.relative}}</td>
+            {% else %}
+            <td>&mdash; / &mdash;</td>
+            <td>&nbsp;</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% set total_rating = sr.total %}
+        <tr>
+            <th style="vertical-align:bottom">
+                Gesamt
+            </th>
+            {% if with_previous %}
+                <td colspan="2"></td>
+            {% endif %}
+            <th style="vertical-align:bottom">
+                {{ sr.numbers.by_period[obj.period.ref] }}
+            </th>
+            <th style="vertical-align:bottom">
+                {{ sr.numbers.by_period[obj.period.ref].relative }}
+            </th>
+        </tr>
+      {% elif rating_type.value == "predicate" %}
+        <thead>
+            <th style="width: 20%;">Note</th>
+            <th style="width: 80%;">Kommentar</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{% if sr.predicate %}
+              {{ sr.predicate.text }}
+              {% endif %}
+            </td>
+            <td>{{ sr.remark }}</td>
+        </tr>
+      {% elif rating_type.value == "smiley"  %}
+        <thead>
+          <tr>
+            <th>Kompetenz</th>
+            {% for choice in rt.models.ratings.Smilies.get_list_items() %}
+              <th style="text-align:center;">{{choice.button_text}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for er in sr.elements.all() %}
+          {% set numbers = er.numbers %}
+          <tr>
+            <td>{{er.cert_element.skill}}</td>
+            {% for choice in rating_type.rating_choicelist.get_list_items() %}
+              <td style="font-size:1.2em; text-align:center;">{{"⦿" if er.smiley == choice else "○"}}</td>
+              {#
+              {% if er.smiley == choice  %}
+                <td style="font-size:1.2em; text-align:center;">{{choice.button_text}}</td>
+              {% else %}
+                <td>&nbsp;</td>
+              {% endif %}
+              #}
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      {% endif %}
+        {% if rating_type.value != "predicate" and sr.remark %}
+        <tr>
+          <td colspan="{{"5" if with_previous else "3"}}">
+            {{ sr.remark }}
+          </td>
+        </tr>
+        {% endif %}
+    </tbody>
+    </table>
+    {% if rating_type.value == "predicate" and sr.remark %}
+    <p>{{ sr.remark }}</p>
+    {% endif %}
+  </section>
+{% endfor %}
+
+<h3 class="title is-4">Kommentar</h3>
+{% if obj.social_skills_comment %}
+<p>{{ obj.social_skills_comment }}</p>
+{% endif %}
+
+
+<section class="section">
+    <h3 class="title is-4">Übersicht</h3>
+    <table class="table is-fullwidth is-bordered is-narrow is-size-7">
+      <thead>
+        <th style="width: 40%;">Fach</th>
+        {% for p in obj.period.year.periods.all() %}
+          <th>{{p.nickname}}</th>
+        {% endfor %}
+        <th>Durchschnitt</th>
+      </thead>
+      {% for sr in rt.models.cert.SectionResponse.objects.filter(certificate=obj) %}
+        {% set rating_type = sr.section.subject.rating_type %}
+        {% if rating_type is none  %}
+          {% set snumbers = sr.numbers %}
+          <tr>
+            <th class="title is-6">{{sr.section.subject}}</th>
+            {% for res in snumbers.by_period.values() %}
+              <td class="title is-6">{{res.relative}}</td>
+            {% endfor %}
+            <td class="title is-6">{{ snumbers.average.relative }}</td>
+          </tr>
+          {% for er in snumbers.elements %}
+            {% set numbers = er.numbers %}
+            <tr>
+              <td>{{er.cert_element.skill}}</td>
+              {% for res in numbers.by_period.values() %}
+                <td>{{res}}</td>
+              {% endfor %}
+              <td>{{ numbers.average }}</td>
+            </tr>
+          {% endfor %}
+        {% elif rating_type.value == "predicate" %}
+          <tr>
+            <th class="title is-6">{{sr.section.subject}}</th>
+            {% for p in obj.period.year.periods.all() %}
+              <td class="title is-6">{{sr.predicate or ""}}</td>
+            {% endfor %}
+            <td class="title is-6">&mdash;</td>
+          </tr>
+        {% elif rating_type.value == "smiley" %}
+          <tr>
+            <th class="title is-6">{{sr.section.subject}}</th>
+            {% for p in obj.period.year.periods.all() %}
+              <td class="title is-6">{{sr.smiley or ""}}</td>
+            {% endfor %}
+            <td class="title is-6">&mdash;</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </table>
+
+    <table class="table is-fullwidth is-bordered is-narrow is-size-7" style="width: 80%">
+        {% for bloc in notenblöcke %}
+            {% if bloc.advanced %}
+            {% else %}
+            <tr>
+                <th style="width: 50%;">{{ bloc.fach }}</th>
+                {% for note in bloc.verlauf.values %}
+                <td style="width: 25%;">{{ note }}</td>
+                {% endfor %}
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</section>
+
+<section class="section">
+  <h3 class="title is-4">Versetzungsbedingungen</h3>
+  <p>{{ obj.enrolment.group.grade.rating_conditions }}</p>
+</section>
+
+{% if obj.final_verdict %}
+  <section class="section">
+    <h3 class="title is-4">Versetzungsentscheidung</h3>
+    <p>{{ obj.final_verdict }}</p>
+  </section>
+{% endif %}
+
+<section class="section">
+    <h3 class="title is-6">Abwesenheiten (in halben Schultagen)</h3>
+    <table class="table is-bordered is-fullwidth is-size-7">
+        <thead>
+            <td style="width: 33.3%;">
+                mit einer <b>schriftlichen Entschuldigung</b></td>
+            <td style="width: 33.3%;">
+                <b>ohne</b> schriftliche Entschuldigung
+            </td>
+            <td style="width: 33.3%;">
+                mit einem <b>ärztlichen Attest</b>
+            </td>
+        </thead>
+        <tr>
+            <td>
+                {{ obj.absences_p or "0" }}
+            </td>
+            <td>
+                {{ obj.absences_u or "0" }}
+            </td>
+            <td>
+                {{ obj.absences_m or "0" }}
+            </td>
+        </tr>
+    </table>
+
+    <h3 class="title is-6">Unterschriften</h3>
+    <table class="table is-fullwidth is-size-7">
+        <thead>
+            <td>
+                <br>
+            </td>
+            <td>
+                <br>
+            </td>
+            <td>
+                <br>
+            </td>
+        </thead>
+        <tr>
+            <td>
+                KlassenleiterInnen
+            </td>
+            <td>
+                Erziehungsberechtigte
+            </td>
+            <td>
+                Schulleiterin
+            </td>
+        </tr>
+    </table>
+</section>

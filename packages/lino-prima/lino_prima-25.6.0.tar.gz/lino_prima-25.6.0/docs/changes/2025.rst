@@ -1,0 +1,44 @@
+=============================
+Changes 2025 in Lino Prima
+=============================
+
+20250528
+========
+
+.. currentmodule:: lino.modlib.users
+
+Field :attr:`User.email` wasn't visible in detail view, field
+:attr:`User.last_name` wasn't visible in grid view.
+
+In :menuselection:`Konfigurierung --> Schule --> Fächer` : kann man jetzt die
+Sortierfolge ändern.
+
+Remove `cert.CertificatesByGroup` because it is irritating to see one row per
+period. Replace this by a `display_field` "Certificates" in `EnrolmentsByGroup`
+and moving that slave table from the More tab to a separate tab.
+
+Set `CertSection.ordering` to ``["subject__seqno"]``
+
+`CertificateChecker` now creates also sections that don't have any element
+("Kunst und Musik fehlen im Zeugnis")
+
+SectionResponse detail_layout has a new slave table cert.ExamResponsesBySection
+
+Fixed "No permission to run ActionRequest for SetScoreValueDirectly on
+cert.SectionResponses" ("Prädikate ändern geht nicht für normale Lehrer")
+
+
+TODO
+====
+
+ExamResponsesBySection uses a customized master
+
+Abwesenheiten erfassen
+
+"Hauptseite attraktiver" : Dashboard should show :class:`school.MyGroups` in the
+new display mode "tiles")
+
+"Datenimport aus Skolengo": Simple csv file with names of ppupils to be imported
+as users and enrolments of a given group.
+
+Add test coverage
