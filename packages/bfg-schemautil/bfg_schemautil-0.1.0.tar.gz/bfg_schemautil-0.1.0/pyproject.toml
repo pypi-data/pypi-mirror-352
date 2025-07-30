@@ -1,0 +1,22 @@
+[project]
+name = "bfg-schemautil"
+version = "0.1.0"
+description = "A set of utilities to generate JSON Schema from simple JSON objects"
+readme = "README.md"
+authors = [
+    { name = "Lei Zhao", email = "8961794+leizha@users.noreply.github.com" }
+]
+requires-python = ">=3.10"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/schemautil"]
