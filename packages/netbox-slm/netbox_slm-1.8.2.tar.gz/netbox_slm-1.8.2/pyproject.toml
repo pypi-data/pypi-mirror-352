@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "netbox-slm"
+dynamic = ["version"]
+description = "Software Lifecycle Management Netbox Plugin"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [
+    {name = "ICTU", email = "open-source-projects@ictu.nl"},
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Plugins",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+dependencies = [
+    "license-expression == 30.4.1",
+]
+
+[project.optional-dependencies]
+build = [
+    "build ==  1.2.2.post1",
+    "setuptools == 75.8.0",
+    "twine == 6.1.0",
+]
+ci = [
+    "coverage == 7.6.11",
+    "ruff == 0.9.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/ICTU/netbox_slm/"
+Changelog = "https://github.com/ICTU/netbox_slm/blob/master/CHANGELOG.md"
+Issues = "https://github.com/ICTU/netbox_slm/issues/"
+
+[tool.setuptools.dynamic]
+version = {attr = "netbox_slm.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["netbox_slm"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+src = ["netbox_slm"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle
+    "F",    # Pyflakes
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+    "D104",  # https://beta.ruff.rs/docs/rules/#pydocstyle-d - don't require doc strings in __init__.py files
+    "F401",  # https://beta.ruff.rs/docs/rules/#pyflakes-f - don't complain about unused imports in __init__.py files
+]
+"netbox_slm/migrations/*.py" = [
+    "E501",  # https://beta.ruff.rs/docs/rules/line-too-long/ - don't check on Django generated migration files
+]
+
+[tool.ruff.format]
+exclude = ["netbox_slm/migrations/*.py"]
