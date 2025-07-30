@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "larp"
+version = "0.3.0"
+authors = [
+  { name="Josue N Rivera", email="josue.n.rivera@outlook.com" },
+]
+description = "Larp (/lärp/): Last-Mile Restrictive Planning"
+readme = "README.md"
+dependencies = ['numpy>=2.0.0', 'pyproj', 'matplotlib', 'scipy']
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/wzjoriv/Larp"
+Issues = "https://github.com/wzjoriv/Larp/issues"
+
+[tool.setuptools.packages.find]
+include = ["larp"]
+
+[tool.ruff.lint]
+select = ["NPY201"]
