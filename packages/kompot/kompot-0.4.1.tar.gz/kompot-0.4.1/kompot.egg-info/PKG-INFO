@@ -1,0 +1,139 @@
+Metadata-Version: 2.4
+Name: kompot
+Version: 0.4.1
+Summary: Differential abundance and gene expression analysis using Mahalanobis distance with JAX backend
+Author-email: Dominik Otto <dotto@fredhutch.org>
+License: GPL-3.0-or-later
+Project-URL: Homepage, https://github.com/settylab/kompot
+Project-URL: Documentation, https://kompot.readthedocs.io/
+Project-URL: Bug Tracker, https://github.com/settylab/kompot/issues
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.20.0
+Requires-Dist: scipy>=1.7.0
+Requires-Dist: pandas>=1.3.0
+Requires-Dist: scikit-learn>=1.0.0
+Requires-Dist: jax>=0.3.0
+Requires-Dist: jaxlib>=0.3.0
+Requires-Dist: mellon>=1.6.0
+Requires-Dist: matplotlib>=3.5.0
+Requires-Dist: tqdm>=4.60.0
+Requires-Dist: anndata>=0.8.0
+Requires-Dist: pynndescent>=0.5.0
+Requires-Dist: python-igraph>=0.10.0
+Requires-Dist: psutil>=5.9.0
+Requires-Dist: filelock>=3.12.0
+Requires-Dist: importlib-resources>=5.0.0; python_version < "3.9"
+Provides-Extra: docs
+Requires-Dist: sphinx>=7.0.0; extra == "docs"
+Requires-Dist: nbsphinx>=0.9.0; extra == "docs"
+Requires-Dist: furo>=2024.0.0; extra == "docs"
+Requires-Dist: sphinx-autodocgen>=1.0.0; extra == "docs"
+Requires-Dist: sphinx-github-style>=1.2.0; extra == "docs"
+Requires-Dist: lxml[html_clean]; extra == "docs"
+Requires-Dist: IPython; extra == "docs"
+Provides-Extra: plot
+Requires-Dist: scanpy>=1.9.0; extra == "plot"
+Requires-Dist: matplotlib>=3.5.0; extra == "plot"
+Requires-Dist: requests>=2.28.0; extra == "plot"
+Requires-Dist: IPython>=7.0.0; extra == "plot"
+Requires-Dist: json5~=0.9.14; extra == "plot"
+Provides-Extra: recommended
+Requires-Dist: palantir>=1.0.0; extra == "recommended"
+Requires-Dist: dask>=2024.4.0; extra == "recommended"
+Provides-Extra: dask
+Requires-Dist: dask>=2024.4.0; extra == "dask"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Provides-Extra: all
+Requires-Dist: scanpy>=1.9.0; extra == "all"
+Requires-Dist: matplotlib>=3.5.0; extra == "all"
+Requires-Dist: requests>=2.28.0; extra == "all"
+Requires-Dist: IPython>=7.0.0; extra == "all"
+Requires-Dist: json5~=0.9.14; extra == "all"
+Requires-Dist: palantir>=1.0.0; extra == "all"
+Requires-Dist: dask>=2024.4.0; extra == "all"
+Dynamic: license-file
+
+# Kompot
+
+[![PyPI](https://img.shields.io/pypi/v/kompot.svg)](https://pypi.org/project/kompot/)
+[![Tests](https://github.com/settylab/kompot/actions/workflows/tests.yml/badge.svg)](https://github.com/settylab/kompot/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/settylab/kompot/branch/main/graph/badge.svg)](https://codecov.io/gh/settylab/kompot)
+[![Documentation Status](https://readthedocs.org/projects/kompot/badge/?version=latest)](https://kompot.readthedocs.io/en/latest/?badge=latest)
+
+![Kompot Logo](https://github.com/settylab/kompot/blob/main/docs/source/_static/images/kompot_logo.png?raw=true)
+
+Kompot is a Python package for differential abundance and gene expression analysis using Gaussian Process models with JAX backend.
+
+## Overview
+
+Kompot implements methodologies from the Mellon package for computing differential abundance and gene expression, with a focus on using Mahalanobis distance as a measure of differential expression significance. It leverages JAX for efficient computations and provides a scikit-learn like API with `.fit()` and `.predict()` methods.
+
+Key features:
+
+- Computation of differential abundance between conditions
+- Gene expression imputation and uncertainty estimation
+- Mahalanobis distance calculation for differential expression significance
+- Weighted log fold change analysis with density difference weighting
+- Support for covariance matrices and optional landmarks
+- JAX-accelerated computations
+- Empirical variance estimation
+- **Disk-backed storage for large datasets** with Dask support
+- **Full scverse compatibility with direct AnnData integration**
+- **Visualization tools** for differential expression, abundance results, and customizable embedding plots
+
+## Installation
+
+```bash
+pip install kompot
+```
+
+For using the default diffusion map cell state representation:
+
+```bash
+pip install palantir
+```
+
+For additional plotting functionality with scanpy integration:
+
+```bash
+pip install kompot[plot]
+```
+
+For disk-backed storage with Dask support (recommended for large datasets):
+
+```bash
+pip install kompot[dask]
+```
+
+To install all optional dependencies:
+
+```bash
+pip install kompot[all]
+```
+
+### JAX Installation
+
+Kompot depends on JAX for efficient computations. By default, the CPU version of JAX is used, which is recommended for most users as it provides good performance without memory constraints.
+
+See [JAX GitHub](https://github.com/google/jax) for more installation details.
+
+## Usage Example
+
+See the [Tutorial Notebook](https://github.com/settylab/kompot/blob/main/examples/tutorial_notebook.ipynb) and [documentation](https://kompot.readthedocs.io/en/latest/index.html).
+
+## License
+
+GNU General Public License v3 (GPLv3)
