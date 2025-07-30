@@ -1,0 +1,24 @@
+bulk-js:
+  filter: rjsmin
+  output: ckanext-bulk/%(version)s-bulk.js
+  contents:
+    - vendor/tom-select.complete.min.js
+    - vendor/sweetalert2.all.js
+    - vendor/htmx.js
+    - vendor/prism.min.js
+
+    - scripts/bulk.js
+    - scripts/bulk-manager-form.js
+    - scripts/bulk-tom-select.js
+
+  extra:
+    preload:
+      - base/main
+
+bulk-css:
+  filter: cssrewrite
+  output: ckanext-bulk/%(version)s-bulk.css
+  contents:
+    - vendor/prism.min.css
+
+    - styles/bulk.css
