@@ -1,0 +1,22 @@
+[project]
+name = "scorpia-pixel"
+version = "0.1.0"
+description = "A lightweight Python package for learning image processing by building filters from scratch"
+authors = [{name = "Montasar Dridi", email = "you@example.com"}]
+readme = "readme.md"
+license = "MIT"
+requires-python = ">=3.8"
+dependencies = ["numpy", "pillow"]
+
+[project.urls]
+"Homepage" = "https://github.com/Montasar-Dridi/scorpia-pixel"
+"Repository" = "https://github.com/Montasar-Dridi/scorpia-pixel"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["pixel_core"]
+include-package-data = true
+
