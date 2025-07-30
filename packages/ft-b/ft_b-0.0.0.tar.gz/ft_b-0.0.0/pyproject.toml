@@ -1,0 +1,21 @@
+[project]
+name = "ft-b"
+version = "0.0.0"
+description = ""
+readme = "README.md"
+authors = [
+    { name = "Peter Pak", email = "ppak10@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/finetune-build/ft-b"
+Repository = "https://github.com/finetune-build/ft-b"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ftb"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
