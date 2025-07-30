@@ -1,0 +1,100 @@
+[project]
+name = "acres"
+description = "Access resources on your terms"
+authors = [
+    { name = "The NiPreps Developers", email = "nipreps@gmail.com" },
+]
+dependencies = [
+    "importlib_resources >=5.7; python_version < '3.10'",
+]
+requires-python = ">=3.9"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dynamic = []
+version = "0.5.0"
+
+[project.license]
+text = "Apache-2.0"
+
+[project.urls]
+Documentation = "https://nipreps-acres.readthedocs.io/en/latest/"
+Repository = "https://github.com/nipreps/acres"
+Issues = "https://github.com/nipreps/acres/issues"
+Changelog = "https://nipreps-acres.readthedocs.io/en/latest/changelog.html"
+
+[dependency-groups]
+doc = [
+    "furo>=2024.8.6",
+    "myst-parser>=3.0.1",
+    "sphinx>=7.4.7",
+]
+test = [
+    "coverage[toml]>=7.8.2",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+]
+types = [
+    "importlib-resources>=6.5.2 ; python_full_version < '3.10'",
+    "mypy>=1.16.0",
+    "pyright>=1.1.401",
+]
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.build]
+source-includes = [
+    "tests/",
+    "tox.ini",
+    "uv.lock",
+]
+
+[tool.pdm.version]
+source = "scm"
+
+[tool.ruff]
+line-length = 99
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+    "*/mymodule.zip/*",
+]
+
+[tool.coverage.paths]
+source = [
+    "src/acres",
+    "**/site-packages/acres",
+]
+
+[tool.coverage.report]
+exclude_also = [
+    "if.*TYPE_CHECKING:",
+]
+
+[tool.codespell]
+skip = [
+    "_build",
+]
