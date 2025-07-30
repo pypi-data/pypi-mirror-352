@@ -1,0 +1,77 @@
+Metadata-Version: 2.3
+Name: cnoe-agent-utils
+Version: 0.1.1
+Summary: 
+Author: Sri Aradhyula
+Author-email: sraradhy@cisco.com
+Requires-Python: >=3.13,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: dotenv (>=0.9.9,<0.10.0)
+Requires-Dist: google-auth (>=2.40.2,<3.0.0)
+Requires-Dist: langchain-anthropic (>=0.3.14)
+Requires-Dist: langchain-aws (>=0.2.24,<0.3.0)
+Requires-Dist: langchain-google-genai (>=2.1.5)
+Requires-Dist: langchain-google-vertexai (>=2.0.24)
+Requires-Dist: langchain-openai (>=0.3.18)
+Description-Content-Type: text/markdown
+
+# cnoe-agent-utils
+
+**cnoe-agent-utils** is an open-source Python library providing utility functions and abstractions for building agent-based systems, including LLM (Large Language Model) factories and integrations.
+
+## Features
+
+- LLM Factory for easy model instantiation across AWS, Azure, GCP Vertex, Google Gemini, Anthropic Claude, and OpenAI
+- Utilities for agent orchestration
+- Extensible and modular design
+
+## Getting Started
+
+### Create and Activate a Virtual Environment
+
+It is recommended to use a virtual environment to manage dependencies:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### Installation
+
+```bash
+pip install cnoe-agent-utils
+```
+
+Or, if you are developing locally:
+
+```bash
+git clone https://github.com/cnoe-agent-utils/cnoe-agent-utils.git
+cd cnoe-agent-utils
+poetry build
+poetry install
+```
+
+## Usage
+
+Run the example script to test integration with AWS Bedrock Claude:
+
+```bash
+uv run examples/test_aws_bedrock_claude.py
+```
+
+This will demonstrate how to use the LLM Factory and other utilities provided by the library.
+
+---
+
+## 📜 License
+
+Apache 2.0 (see [LICENSE](./LICENSE))
+
+---
+
+## 👥 Maintainers
+
+See [MAINTAINERS.md](MAINTAINERS.md)
+
+- Contributions welcome via PR or issue!
