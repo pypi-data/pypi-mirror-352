@@ -1,0 +1,67 @@
+Metadata-Version: 2.4
+Name: qiskit-mps-initializer
+Version: 0.1.0
+Summary: Wavefunction initializers for Qiskit based of matrix product states (MPS)
+Project-URL: Homepage, https://github.com/BlackWild/qiskit-mps-initializer
+Project-URL: Source, https://github.com/BlackWild/qiskit-mps-initializer
+Author-email: Siavash Davani <siavash.davani@uni-jena.de>
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Physics
+Requires-Python: >=3.11
+Requires-Dist: pydantic>=2.11.5
+Requires-Dist: qiskit>=2.0.1
+Requires-Dist: quimb>=1.11.0
+Description-Content-Type: text/markdown
+
+
+## Dev guide
+
+- Make sure you have `uv` installed. You can use the included dev container.
+- Run `uv sync` in the directory to set up the `venv`.
+
+Now you can start developing some code!
+
+For runing the tests, you should run
+
+```sh
+uv run pytest
+```
+
+to run `pytest` inside the venv.
+
+## Project credits
+
+### Tools
+
+- Project and dependency manager: `uv`
+- Linter: `ruff`
+- Formatter & style: `ruff`
+- Static typecheck: `pyright` (`ty` is currently in beta, `pyrefly` is also another candidate, both built using Rust)
+- Unit testing: `pytest` (no Rust-based alternative)
+    - Randomization: `hypothesis`
+
+### Dependencies
+
+- Quantum circuits: `qiskit`
+- Data modeling & validation: `pydatic`
+- Tensor networks: `quimb`
+
+
+## Notes
+
+### Todo
+
+- remove manually added `# type: ignore` expressions
+
+### Other
+
+- `scipy-stubs`'s python `3.10` reqiuirement is keeping this project's python requirement to go down to `3.9`.
+- `typing.Self` was introduced in python `3.11`. Thus we are forced to use `3.11` at the moment.
