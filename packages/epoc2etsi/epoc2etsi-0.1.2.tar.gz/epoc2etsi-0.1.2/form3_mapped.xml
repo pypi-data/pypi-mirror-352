@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<HI1Message xmlns="http://uri.etsi.org/03120/common/2019/10/Core" xmlns:auth="http://uri.etsi.org/03120/common/2020/09/Authorisation" xmlns:doc="http://uri.etsi.org/03120/common/2020/09/Document" xmlns:task="http://uri.etsi.org/03120/common/2020/09/Task" xmlns:notify="http://uri.etsi.org/03120/common/2016/02/Notification" xmlns:ef1="http://uri.etsi.org/03120/common/2025/02/EpocForm1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ph="http://uri.etsi.org/03120/common/2025/02/EPOCPlaceholder" xmlns:epoc="http://data.europa.eu/edm/1/ns/epoc" xmlns:eio="http://data.europa.eu/edm/1/ns/eio" xmlns:epocform1="http://data.europa.eu/edm/1/ns/forms/EPOC-FORM-1#" xmlns:epocform2="http://data.europa.eu/edm/1/ns/forms/EPOC-PR-FORM-2#" xmlns:epocform3="http://data.europa.eu/edm/1/ns/forms/EPOC-FORM-3#" xmlns:eopcform5="http://data.europa.eu/edm/1/ns/forms/EPOC-PR-FORM-5#" xmlns:eopcform6="http://data.europa.eu/edm/1/ns/forms/EPOC-PR-FORM-6#" xmlns:common="http://uri.etsi.org/03120/common/2016/02/Common" xmlns:ecauth="http://uri.etsi.org/03120/common/2025/02/EioAuthority">
+ <Header>
+  <SenderIdentifier>
+   <CountryCode>XX</CountryCode>
+   <UniqueIdentifier>ServiceProviderID</UniqueIdentifier>
+  </SenderIdentifier>
+  <ReceiverIdentifier>
+   <CountryCode>XX</CountryCode>
+   <UniqueIdentifier>RI_API</UniqueIdentifier>
+  </ReceiverIdentifier>
+  <TransactionIdentifier>116e67f9-82ad-481e-9b17-e9f007f91434</TransactionIdentifier>
+  <Timestamp>2025-05-30T14:54:24.545502+01:00</Timestamp>
+  <Version>
+   <ETSIVersion>V1.20.1</ETSIVersion>
+   <NationalProfileOwner>EU</NationalProfileOwner>
+   <NationalProfileVersion>v1.1.1</NationalProfileVersion>
+  </Version>
+ </Header>
+ <Payload>
+  <RequestPayload>
+   <ActionRequests>
+    <ActionRequest>
+     <ActionIdentifier>0</ActionIdentifier>
+     <CREATE>
+      <HI1Object xsi:type="notify:NotificationObject">
+       <ObjectIdentifier>6801ad8b-4e86-4237-acaa-611684207af9</ObjectIdentifier>
+       <CountryCode>DE</CountryCode>
+       <OwnerIdentifier>service-provider-1</OwnerIdentifier>
+       <AssociatedObjects>
+        <AssociatedObject>7e84603b-be7b-4cba-af26-8468d177f36a</AssociatedObject>
+       </AssociatedObjects>
+       <notify:NotificationDetails>Notification of Form 3</notify:NotificationDetails>
+       <notify:NotificationType>
+        <common:Owner>ETSI</common:Owner>
+        <common:Name>EPOCNotificationType</common:Name>
+        <common:Value>DeFactoImpossibility</common:Value>
+       </notify:NotificationType>
+       <notify:NewNotification>true</notify:NewNotification>
+       <notify:NotificationTimestamp>2025-05-30T14:54:24+01:00</notify:NotificationTimestamp>
+       <notify:StatusOfAssociatedObjects>
+        <notify:AssociatedObjectStatus>
+         <notify:AssociatedObject>7e84603b-be7b-4cba-af26-8468d177f36a</notify:AssociatedObject>
+         <notify:Status>
+          <common:Owner>ETSI</common:Owner>
+          <common:Name>AuthorisationStatus</common:Name>
+          <common:Value>Invalid</common:Value>
+         </notify:Status>
+         <notify:Details>From Form 3 Section E (as an example of what could be done)
+TitleOfLaw: SectionE_1_Form3
+ApplicableStatutoryProvision: SectionE_2_Form3
+WhyLawIsApplicable: SectionE_6_Form3
+WhyConflictOfLawConsidered: SectionE_7_Form3
+LinkBetweenServiceProviderAndThirdCountry: SectionE_8_Form3
+ConsequencesForAddressee: SectionE_9_Form3
+AnyOtherRelevantInformation: SectionE_10_Form3
+From Section F
+InformationRequiredFromIssuingAuthority: SectionF_1_Form3</notify:Details>
+        </notify:AssociatedObjectStatus>
+        <notify:AssociatedObjectStatus>
+         <notify:AssociatedObject>f966e795-bc92-4bc4-9c6b-96c1b1b8cb1d</notify:AssociatedObject>
+         <notify:Status>
+          <common:Owner>ETSI</common:Owner>
+          <common:Name>LPTaskStatus</common:Name>
+          <common:Value>Invalid</common:Value>
+         </notify:Status>
+         <notify:Details>Reason: INCOMPLETE
+Reason: CONTAINS_MANIFEST_ERRORS
+ExplanationOrOtherReason:SectionD_1_Form3</notify:Details>
+        </notify:AssociatedObjectStatus>
+       </notify:StatusOfAssociatedObjects>
+      </HI1Object>
+     </CREATE>
+    </ActionRequest>
+    <ActionRequest>
+     <ActionIdentifier>1</ActionIdentifier>
+     <CREATE>
+      <HI1Object xsi:type="doc:DocumentObject">
+       <ObjectIdentifier>03e36530-cdf2-4cb8-bfa3-ceff9fd96c59</ObjectIdentifier>
+       <CountryCode>DE</CountryCode>
+       <OwnerIdentifier>service-provider-1</OwnerIdentifier>
+       <AssociatedObjects>
+        <AssociatedObject>7e84603b-be7b-4cba-af26-8468d177f36a</AssociatedObject>
+       </AssociatedObjects>
+       <doc:DocumentName>EPOC/EPOC-PR Form</doc:DocumentName>
+       <doc:DocumentType>
+        <common:Owner>ETSI</common:Owner>
+        <common:Name>EPOCDocumentType</common:Name>
+        <common:Value>Form3</common:Value>
+       </doc:DocumentType>
+       <doc:DocumentBody>
+        <doc:Contents>RVBPQy9FUE9DLVBSIEZvcm0=</doc:Contents>
+        <doc:ContentType>text/plain</doc:ContentType>
+       </doc:DocumentBody>
+      </HI1Object>
+     </CREATE>
+    </ActionRequest>
+   </ActionRequests>
+  </RequestPayload>
+ </Payload>
+</HI1Message>
+

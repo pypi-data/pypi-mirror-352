@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<HI1Message xmlns="http://uri.etsi.org/03120/common/2019/10/Core" xmlns:auth="http://uri.etsi.org/03120/common/2020/09/Authorisation" xmlns:doc="http://uri.etsi.org/03120/common/2020/09/Document" xmlns:task="http://uri.etsi.org/03120/common/2020/09/Task" xmlns:notify="http://uri.etsi.org/03120/common/2016/02/Notification" xmlns:ef1="http://uri.etsi.org/03120/common/2025/02/EpocForm1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ph="http://uri.etsi.org/03120/common/2025/02/EPOCPlaceholder" xmlns:epoc="http://data.europa.eu/edm/1/ns/epoc" xmlns:eio="http://data.europa.eu/edm/1/ns/eio" xmlns:epocform1="http://data.europa.eu/edm/1/ns/forms/EPOC-FORM-1#" xmlns:epocform2="http://data.europa.eu/edm/1/ns/forms/EPOC-PR-FORM-2#" xmlns:epocform3="http://data.europa.eu/edm/1/ns/forms/EPOC-FORM-3#" xmlns:eopcform5="http://data.europa.eu/edm/1/ns/forms/EPOC-PR-FORM-5#" xmlns:eopcform6="http://data.europa.eu/edm/1/ns/forms/EPOC-PR-FORM-6#" xmlns:common="http://uri.etsi.org/03120/common/2016/02/Common" xmlns:ecauth="http://uri.etsi.org/03120/common/2025/02/EioAuthority">
+ <Header>
+  <SenderIdentifier>
+   <CountryCode>XX</CountryCode>
+   <UniqueIdentifier>RI_API</UniqueIdentifier>
+  </SenderIdentifier>
+  <ReceiverIdentifier>
+   <CountryCode>XX</CountryCode>
+   <UniqueIdentifier>ServiceProviderID</UniqueIdentifier>
+  </ReceiverIdentifier>
+  <TransactionIdentifier>fb3ad91c-f374-489f-b347-e6ddaf7b22cd</TransactionIdentifier>
+  <Timestamp>2025-05-30T14:54:46.417519+01:00</Timestamp>
+  <Version>
+   <ETSIVersion>V1.20.1</ETSIVersion>
+   <NationalProfileOwner>EU</NationalProfileOwner>
+   <NationalProfileVersion>v1.1.1</NationalProfileVersion>
+  </Version>
+ </Header>
+ <Payload>
+  <RequestPayload>
+   <ActionRequests>
+    <ActionRequest>
+     <ActionIdentifier>0</ActionIdentifier>
+     <UPDATE>
+      <HI1Object xsi:type="task:LPTaskObject">
+       <ObjectIdentifier>4f64f242-603b-4998-9916-b8e1b8849aca</ObjectIdentifier>
+       <CountryCode>FR</CountryCode>
+       <OwnerIdentifier>epoc-authority-1</OwnerIdentifier>
+       <AssociatedObjects>
+        <AssociatedObject>e241c1da-b108-48a4-a31a-04554d7bd3f8</AssociatedObject>
+       </AssociatedObjects>
+       <task:DesiredStatus>
+        <common:Owner>ETSI</common:Owner>
+        <common:Name>LDTaskDesiredStatus</common:Name>
+        <common:Value>SubsequentProductionRequest</common:Value>
+       </task:DesiredStatus>
+      </HI1Object>
+     </UPDATE>
+    </ActionRequest>
+    <ActionRequest>
+     <ActionIdentifier>1</ActionIdentifier>
+     <CREATE>
+      <HI1Object xsi:type="doc:DocumentObject">
+       <ObjectIdentifier>a123e20b-b849-4e3f-b23b-9118a137320e</ObjectIdentifier>
+       <CountryCode>FR</CountryCode>
+       <OwnerIdentifier>epoc-authority-1</OwnerIdentifier>
+       <AssociatedObjects>
+        <AssociatedObject>e241c1da-b108-48a4-a31a-04554d7bd3f8</AssociatedObject>
+       </AssociatedObjects>
+       <doc:DocumentName>EPOC/EPOC-PR Form</doc:DocumentName>
+       <doc:DocumentType>
+        <common:Owner>ETSI</common:Owner>
+        <common:Name>EPOCDocumentType</common:Name>
+        <common:Value>Form5</common:Value>
+       </doc:DocumentType>
+       <doc:DocumentBody>
+        <doc:Contents>RVBPQy9FUE9DLVBSIEZvcm0=</doc:Contents>
+        <doc:ContentType>text/plain</doc:ContentType>
+       </doc:DocumentBody>
+      </HI1Object>
+     </CREATE>
+    </ActionRequest>
+   </ActionRequests>
+  </RequestPayload>
+ </Payload>
+</HI1Message>
+

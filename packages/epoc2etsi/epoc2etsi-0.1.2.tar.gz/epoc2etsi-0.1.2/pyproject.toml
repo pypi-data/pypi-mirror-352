@@ -1,0 +1,19 @@
+[project]
+name = "epoc2etsi"
+version = "0.1.2"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "mark", email = "markc@tencastle.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "lxml"
+]
+
+[project.scripts]
+epoc2etsi = "epoc2etsi:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
