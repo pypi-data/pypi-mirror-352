@@ -1,0 +1,104 @@
+Metadata-Version: 2.4
+Name: ledger-analytics
+Version: 0.0.26
+Summary: The Python interface to Ledger Investing's analytics infrastructure
+Project-URL: Homepage, https://ledger-investing-ledger-analytics.readthedocs-hosted.com/en/latest/
+Project-URL: Repository, https://github.com/LedgerInvesting/ledger-analytics/
+Project-URL: Documentation, https://ledger-investing-ledger-analytics.readthedocs-hosted.com/en/latest/
+Author: Ledger Investing
+License-File: LICENSE.txt
+Requires-Python: >3.10
+Requires-Dist: bermuda-ledger
+Requires-Dist: pydantic
+Requires-Dist: requests
+Requires-Dist: rich
+Provides-Extra: dev
+Requires-Dist: certifi==2025.1.31; extra == 'dev'
+Requires-Dist: charset-normalizer==3.4.1; extra == 'dev'
+Requires-Dist: idna==3.10; extra == 'dev'
+Requires-Dist: iniconfig==2.0.0; extra == 'dev'
+Requires-Dist: isort==6.0.1; extra == 'dev'
+Requires-Dist: packaging==24.2; extra == 'dev'
+Requires-Dist: pluggy==1.5.0; extra == 'dev'
+Requires-Dist: pytest==8.3.5; extra == 'dev'
+Requires-Dist: requests-mock==1.12.1; extra == 'dev'
+Requires-Dist: requests==2.32.3; extra == 'dev'
+Requires-Dist: ruff==0.9.10; extra == 'dev'
+Requires-Dist: urllib3==2.3.0; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: alabaster==1.0.0; extra == 'docs'
+Requires-Dist: altair==5.5.0; extra == 'docs'
+Requires-Dist: attrs==25.3.0; extra == 'docs'
+Requires-Dist: babel==2.17.0; extra == 'docs'
+Requires-Dist: beautifulsoup4==4.13.3; extra == 'docs'
+Requires-Dist: bleach==6.2.0; extra == 'docs'
+Requires-Dist: certifi==2025.1.31; extra == 'docs'
+Requires-Dist: charset-normalizer==3.4.1; extra == 'docs'
+Requires-Dist: commonmark==0.9.1; extra == 'docs'
+Requires-Dist: defusedxml==0.7.1; extra == 'docs'
+Requires-Dist: docutils==0.21.2; extra == 'docs'
+Requires-Dist: fastjsonschema==2.21.1; extra == 'docs'
+Requires-Dist: idna==3.10; extra == 'docs'
+Requires-Dist: imagesize==1.4.1; extra == 'docs'
+Requires-Dist: jinja2==3.1.6; extra == 'docs'
+Requires-Dist: jsonschema-specifications==2024.10.1; extra == 'docs'
+Requires-Dist: jsonschema==4.23.0; extra == 'docs'
+Requires-Dist: jupyter-client==8.6.3; extra == 'docs'
+Requires-Dist: jupyter-core==5.7.2; extra == 'docs'
+Requires-Dist: jupyterlab-pygments==0.3.0; extra == 'docs'
+Requires-Dist: markdown==3.7; extra == 'docs'
+Requires-Dist: markupsafe==3.0.2; extra == 'docs'
+Requires-Dist: mistune==3.1.2; extra == 'docs'
+Requires-Dist: narwhals==1.41.0; extra == 'docs'
+Requires-Dist: nbclient==0.10.2; extra == 'docs'
+Requires-Dist: nbconvert==7.16.6; extra == 'docs'
+Requires-Dist: nbformat==5.10.4; extra == 'docs'
+Requires-Dist: nbsphinx==0.9.6; extra == 'docs'
+Requires-Dist: packaging==24.2; extra == 'docs'
+Requires-Dist: pandocfilters==1.5.1; extra == 'docs'
+Requires-Dist: platformdirs==4.3.6; extra == 'docs'
+Requires-Dist: pockets==0.9.1; extra == 'docs'
+Requires-Dist: pygments==2.19.1; extra == 'docs'
+Requires-Dist: python-dateutil==2.9.0.post0; extra == 'docs'
+Requires-Dist: pyzmq==26.3.0; extra == 'docs'
+Requires-Dist: recommonmark==0.7.1; extra == 'docs'
+Requires-Dist: referencing==0.36.2; extra == 'docs'
+Requires-Dist: requests==2.32.3; extra == 'docs'
+Requires-Dist: roman-numerals-py==3.1.0; extra == 'docs'
+Requires-Dist: rpds-py==0.23.1; extra == 'docs'
+Requires-Dist: six==1.17.0; extra == 'docs'
+Requires-Dist: snowballstemmer==2.2.0; extra == 'docs'
+Requires-Dist: soupsieve==2.6; extra == 'docs'
+Requires-Dist: sphinx-copybutton==0.5.2; extra == 'docs'
+Requires-Dist: sphinx-markdown-tables==0.0.17; extra == 'docs'
+Requires-Dist: sphinx-wagtail-theme==6.5.0; extra == 'docs'
+Requires-Dist: sphinx==8.2.3; extra == 'docs'
+Requires-Dist: sphinxcontrib-applehelp==2.0.0; extra == 'docs'
+Requires-Dist: sphinxcontrib-devhelp==2.0.0; extra == 'docs'
+Requires-Dist: sphinxcontrib-htmlhelp==2.1.0; extra == 'docs'
+Requires-Dist: sphinxcontrib-jsmath==1.0.1; extra == 'docs'
+Requires-Dist: sphinxcontrib-napoleon==0.7; extra == 'docs'
+Requires-Dist: sphinxcontrib-qthelp==2.0.0; extra == 'docs'
+Requires-Dist: sphinxcontrib-serializinghtml==2.0.0; extra == 'docs'
+Requires-Dist: sphinxext-altair==0.2.0; extra == 'docs'
+Requires-Dist: tinycss2==1.4.0; extra == 'docs'
+Requires-Dist: tornado==6.4.2; extra == 'docs'
+Requires-Dist: traitlets==5.14.3; extra == 'docs'
+Requires-Dist: typing-extensions==4.12.2; extra == 'docs'
+Requires-Dist: urllib3==2.3.0; extra == 'docs'
+Requires-Dist: webencodings==0.5.1; extra == 'docs'
+Description-Content-Type: text/markdown
+
+# LedgerAnalytics Python
+
+`ledger-analytics` is the Python interface to [Ledger Investing](https://ledgerinvesting.com)'s remote
+analytics infrastructure, providing remote compute access to state-of-art insurance data science models.
+
+For more information, see the [documentation](https://ledger-investing-ledger-analytics.readthedocs-hosted.com/en/latest/)
+
+## Looking for beta testers!
+
+LedgerAnalytics is currently in beta phase, and is looking for beta testers
+to try our models. If you'd like to learn more, reach out
+to analytics@ledgerinvesting.com.
+
