@@ -1,0 +1,75 @@
+Metadata-Version: 2.4
+Name: thsdk
+Version: 1.1.2
+Summary: a python package for thsdk
+Author: panghu11033
+Author-email: panghu11033@gmail.com
+Keywords: python,thsdk
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: keywords
+Dynamic: license-file
+Dynamic: requires-python
+Dynamic: summary
+
+
+# thsdk
+
+# Installation
+
+```bash
+pip install --upgrade thsdk
+```
+
+# Usage
+
+### k线
+
+```python
+from thsdk import THS
+import pandas as pd
+
+with THS() as ths:
+    response = ths.download("USHA600519", count=100)
+    print(pd.DataFrame(response.payload.data))
+
+
+```
+
+### 返回:
+
+```
+            时间      收盘价      成交量         总金额      开盘价      最高价      最低价
+0   2024-12-26  1527.79  1828651  2798840000  1534.00  1538.78  1523.00
+1   2024-12-27  1528.97  2075932  3170191400  1528.90  1536.00  1519.50
+2   2024-12-30  1525.00  2512982  3849542600  1533.97  1543.96  1525.00
+3   2024-12-31  1524.00  3935445  6033540400  1525.40  1545.00  1522.01
+4   2025-01-02  1488.00  5002870  7490883800  1524.00  1524.49  1480.00
+..         ...      ...      ...         ...      ...      ...      ...
+96  2025-05-26  1550.50  2708653  4212944400  1570.00  1574.63  1545.00
+97  2025-05-27  1543.90  1775213  2748945700  1551.00  1558.60  1543.51
+98  2025-05-28  1537.00  1626568  2504624600  1543.99  1546.46  1533.00
+99  2025-05-29  1540.00  2185958  3375465800  1540.00  1555.00  1532.00
+100 2025-05-30  1522.00  3123918  4764875900  1540.15  1545.00  1515.24
+
+[101 rows x 7 columns]
+```
