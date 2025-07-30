@@ -1,0 +1,1803 @@
+.\" Man page generated from reStructuredText.
+.
+.TH "CAPACITY-MANAGEMENT_INTERNAL-DEMAND-SIGNAL" "1" "Jun 03, 2025" "3.58.0" "OCI CLI Command Reference"
+.SH NAME
+capacity-management_internal-demand-signal \- 
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.SH DESCRIPTION
+.sp
+OCI Control Center (OCC) Capacity Management enables you to manage capacity requests in realms where OCI Control Center Capacity Management is available. For more information, see \fI\%OCI Control Center\fP <\fBhttps://docs.cloud.oracle.com/iaas/Content/control-center/home.htm\fP>\&.
+.SH AVAILABLE COMMANDS
+.INDENT 0.0
+.IP \(bu 2
+internal\-occm\-demand\-signal
+.INDENT 2.0
+.IP \(bu 2
+get
+.IP \(bu 2
+list
+.IP \(bu 2
+update
+.UNINDENT
+.IP \(bu 2
+internal\-occm\-demand\-signal\-catalog\-resource
+.INDENT 2.0
+.IP \(bu 2
+list
+.UNINDENT
+.IP \(bu 2
+internal\-occm\-demand\-signal\-delivery
+.INDENT 2.0
+.IP \(bu 2
+create
+.IP \(bu 2
+delete
+.IP \(bu 2
+get
+.IP \(bu 2
+list
+.IP \(bu 2
+update
+.UNINDENT
+.IP \(bu 2
+internal\-occm\-demand\-signal\-item\-collection
+.INDENT 2.0
+.IP \(bu 2
+list\-internal
+.UNINDENT
+.IP \(bu 2
+occm\-demand\-signal\-catalog
+.INDENT 2.0
+.IP \(bu 2
+list\-internal
+.UNINDENT
+.IP \(bu 2
+occm\-demand\-signal\-catalog\-resource
+.INDENT 2.0
+.IP \(bu 2
+get
+.UNINDENT
+.UNINDENT
+.SS internal\-occm\-demand\-signal
+.SS Description
+.sp
+An internal model describing the demand signal.
+.SS Available Commands
+.INDENT 0.0
+.IP \(bu 2
+get
+.IP \(bu 2
+list
+.IP \(bu 2
+update
+.UNINDENT
+.SS \fBget\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This is an internal GET API which gets the detailed information about a specific demand signal.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal get [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-ds\-id [text]
+.UNINDENT
+.sp
+The OCID of the demand signal.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export ds_id=<substitute\-value\-of\-ds_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/internal\-demand\-signal/internal\-occm\-demand\-signal/get.html#cmdoption\-ds\-id
+
+    oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal get \-\-ds\-id $ds_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS \fBlist\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This is an internal GET call is used to list all demand signals within the compartment passed as a query parameter.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal list [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-compartment\-id, \-c [text]
+.UNINDENT
+.sp
+The ocid of the compartment or tenancy in which resources are to be listed. This will also be used for authorization purposes.
+.INDENT 0.0
+.TP
+.B \-\-occ\-customer\-group\-id [text]
+.UNINDENT
+.sp
+The customer group ocid by which we would filter the list.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-all
+.UNINDENT
+.sp
+Fetches all pages of results. If you provide this option, then you cannot provide the \fB\-\-limit\fP option.
+.INDENT 0.0
+.TP
+.B \-\-display\-name [text]
+.UNINDENT
+.sp
+A filter to return only the resources that match the entire display name. The match is not case sensitive.
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.INDENT 0.0
+.TP
+.B \-\-id [text]
+.UNINDENT
+.sp
+A query parameter to filter the list of demand signals based on it’s OCID.
+.INDENT 0.0
+.TP
+.B \-\-lifecycle\-details [text]
+.UNINDENT
+.sp
+A query parameter to filter the list of demand signals based on its state.
+.INDENT 0.0
+.TP
+.B \-\-limit [integer]
+.UNINDENT
+.sp
+The maximum number of items to return.
+.INDENT 0.0
+.TP
+.B \-\-page [text]
+.UNINDENT
+.sp
+A token representing the position at which to start retrieving results. This must come from \fIopc\-next\-page\fP header field of a previous response.
+.INDENT 0.0
+.TP
+.B \-\-page\-size [integer]
+.UNINDENT
+.sp
+When fetching results, the number of results to fetch per call. Only valid when used with \fB\-\-all\fP or \fB\-\-limit\fP, and ignored otherwise.
+.INDENT 0.0
+.TP
+.B \-\-sort\-by [text]
+.UNINDENT
+.sp
+The field to sort the response of List Demand Signal API. Only one sort order may be provided. The default order for timeCreated is reverse chronological order (latest date at the top). The default order for displayName is case sensitive alphabetical order.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+displayName, timeCreated
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-sort\-order [text]
+.UNINDENT
+.sp
+The sort order to use, either ‘ASC’ or ‘DESC’.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ASC, DESC
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export compartment_id=<substitute\-value\-of\-compartment_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-compartment\-id
+    export display_name=<substitute\-value\-of\-display_name> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-display\-name
+
+    occ_customer_group_id=$(oci capacity\-management occ\-customer\-group create \-\-compartment\-id $compartment_id \-\-display\-name $display_name \-\-query data.id \-\-raw\-output)
+
+    oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal list \-\-compartment\-id $compartment_id \-\-occ\-customer\-group\-id $occ_customer_group_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS \fBupdate\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This is a internal PUT API which shall be used to update the metadata of the demand signal.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal update [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-ds\-id [text]
+.UNINDENT
+.sp
+The OCID of the demand signal.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.INDENT 0.0
+.TP
+.B \-\-if\-match [text]
+.UNINDENT
+.sp
+For optimistic concurrency control. In the PUT or DELETE call for a resource, set the \fIif\-match\fP parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource’s current etag value.
+.INDENT 0.0
+.TP
+.B \-\-lifecycle\-details [text]
+.UNINDENT
+.sp
+The subset of demand signal states available for operators for updating the demand signal.
+.sp
+IN_PROGRESS \-> Transitions the demand signal to IN_PROGRESS state. REJECTED \-> Transitions the demand signal to REJECTED state. COMPLETED \-> This will transition the demand signal to COMPLETED state.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+COMPLETED, IN_PROGRESS, REJECTED
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export ds_id=<substitute\-value\-of\-ds_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/internal\-demand\-signal/internal\-occm\-demand\-signal/update.html#cmdoption\-ds\-id
+
+    oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal update \-\-ds\-id $ds_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS internal\-occm\-demand\-signal\-catalog\-resource
+.SS Description
+.sp
+A model containing information about the details of a demand signal catalog resource.
+.SS Available Commands
+.INDENT 0.0
+.IP \(bu 2
+list
+.UNINDENT
+.SS \fBlist\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This API will list all the  resources across all demand signal catalogs for a given namespace and customer group.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-catalog\-resource list [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-compartment\-id, \-c [text]
+.UNINDENT
+.sp
+The ocid of the compartment or tenancy in which resources are to be listed. This will also be used for authorization purposes.
+.INDENT 0.0
+.TP
+.B \-\-ds\-catalog\-id [text]
+.UNINDENT
+.sp
+The ocid of demand signal catalog id.
+.INDENT 0.0
+.TP
+.B \-\-occ\-customer\-group\-id [text]
+.UNINDENT
+.sp
+The customer group ocid by which we would filter the list.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-all
+.UNINDENT
+.sp
+Fetches all pages of results. If you provide this option, then you cannot provide the \fB\-\-limit\fP option.
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.INDENT 0.0
+.TP
+.B \-\-limit [integer]
+.UNINDENT
+.sp
+The maximum number of items to return.
+.INDENT 0.0
+.TP
+.B \-\-name [text]
+.UNINDENT
+.sp
+A query parameter to filter the list of demand signal catalog resource based on the resource name.
+.INDENT 0.0
+.TP
+.B \-\-namespace [text]
+.UNINDENT
+.sp
+A query parameter to filter the list of demand signal catalog resources based on the namespace.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+COMPUTE, GPU, NETWORK, STORAGE
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-page [text]
+.UNINDENT
+.sp
+A token representing the position at which to start retrieving results. This must come from \fIopc\-next\-page\fP header field of a previous response.
+.INDENT 0.0
+.TP
+.B \-\-page\-size [integer]
+.UNINDENT
+.sp
+When fetching results, the number of results to fetch per call. Only valid when used with \fB\-\-all\fP or \fB\-\-limit\fP, and ignored otherwise.
+.INDENT 0.0
+.TP
+.B \-\-sort\-by [text]
+.UNINDENT
+.sp
+The field to sort the response of List Demand catalog resources API. Only one sort order may be provided. The default order for name is case sensitive alphabetical order.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+name
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-sort\-order [text]
+.UNINDENT
+.sp
+The sort order to use, either ‘ASC’ or ‘DESC’.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ASC, DESC
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export compartment_id=<substitute\-value\-of\-compartment_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-compartment\-id
+    export display_name=<substitute\-value\-of\-display_name> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-display\-name
+    export ds_catalog_id=<substitute\-value\-of\-ds_catalog_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/internal\-demand\-signal/internal\-occm\-demand\-signal\-catalog\-resource/list.html#cmdoption\-ds\-catalog\-id
+
+    occ_customer_group_id=$(oci capacity\-management occ\-customer\-group create \-\-compartment\-id $compartment_id \-\-display\-name $display_name \-\-query data.id \-\-raw\-output)
+
+    oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-catalog\-resource list \-\-compartment\-id $compartment_id \-\-ds\-catalog\-id $ds_catalog_id \-\-occ\-customer\-group\-id $occ_customer_group_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS internal\-occm\-demand\-signal\-delivery
+.SS Description
+.sp
+An internal model that contains information about the demand signal item delivery from OCI to customers.
+.SS Available Commands
+.INDENT 0.0
+.IP \(bu 2
+create
+.IP \(bu 2
+delete
+.IP \(bu 2
+get
+.IP \(bu 2
+list
+.IP \(bu 2
+update
+.UNINDENT
+.SS \fBcreate\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This is a post API which is used to create a demand signal delivery resource. operationId: CreateInternalOccmDemandSignalDelivery summary: A post call to create a demand signal delivery.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-delivery create [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-accepted\-quantity [integer]
+.UNINDENT
+.sp
+The quantity of the resource that OCI will supply to the customer.
+.INDENT 0.0
+.TP
+.B \-\-compartment\-id, \-c [text]
+.UNINDENT
+.sp
+The OCID of the tenancy from which the demand signal delivery resource is created.
+.INDENT 0.0
+.TP
+.B \-\-ds\-id [text]
+.UNINDENT
+.sp
+The OCID of the demand signal under which this delivery will be grouped.
+.INDENT 0.0
+.TP
+.B \-\-ds\-item\-id [text]
+.UNINDENT
+.sp
+The OCID of the demand signal item corresponding to which this delivery is made.
+.INDENT 0.0
+.TP
+.B \-\-occ\-customer\-group\-id [text]
+.UNINDENT
+.sp
+The OCID of the corresponding customer group to which this demand signal delivery resource belongs to.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-defined\-tags [complex type]
+.UNINDENT
+.sp
+Defined tags for this resource. Each key is predefined and scoped to a namespace. Example: \fI{“foo\-namespace”: {“bar\-key”: “value”}}\fP
+This is a complex type whose value must be valid JSON. The value can be provided as a string on the command line or passed in as a file using
+the \fI\%file://path/to/file\fP syntax.
+.sp
+The \fB\-\-generate\-param\-json\-input\fP option can be used to generate an example of the JSON which must be provided. We recommend storing this example
+in a file, modifying it as needed and then passing it back in via the \fI\%file://\fP syntax.
+.INDENT 0.0
+.TP
+.B \-\-freeform\-tags [complex type]
+.UNINDENT
+.sp
+Simple key\-value pair that is applied without any predefined name, type or scope. Exists for cross\-compatibility only. Example: \fI{“bar\-key”: “value”}\fP
+This is a complex type whose value must be valid JSON. The value can be provided as a string on the command line or passed in as a file using
+the \fI\%file://path/to/file\fP syntax.
+.sp
+The \fB\-\-generate\-param\-json\-input\fP option can be used to generate an example of the JSON which must be provided. We recommend storing this example
+in a file, modifying it as needed and then passing it back in via the \fI\%file://\fP syntax.
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.INDENT 0.0
+.TP
+.B \-\-justification [text]
+.UNINDENT
+.sp
+This field could be used by OCI to communicate the reason for declining the request.
+.INDENT 0.0
+.TP
+.B \-\-max\-wait\-seconds [integer]
+.UNINDENT
+.sp
+The maximum time to wait for the resource to reach the lifecycle state defined by \fB\-\-wait\-for\-state\fP\&. Defaults to 1200 seconds.
+.INDENT 0.0
+.TP
+.B \-\-notes [text]
+.UNINDENT
+.sp
+This field acts as a notes section for operators.
+.INDENT 0.0
+.TP
+.B \-\-wait\-for\-state [text]
+.UNINDENT
+.sp
+This operation creates, modifies or deletes a resource that has a defined lifecycle state. Specify this option to perform the action and then wait until the resource reaches a given lifecycle state. Multiple states can be specified, returning on the first state. For example, \fB\-\-wait\-for\-state\fP SUCCEEDED \fB\-\-wait\-for\-state\fP FAILED would return on whichever lifecycle state is reached first. If timeout is reached, a return code of 2 is returned. For any other error, a return code of 1 is returned.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ACTIVE, CREATING, DELETED, DELETING, FAILED, UPDATING
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-wait\-interval\-seconds [integer]
+.UNINDENT
+.sp
+Check every \fB\-\-wait\-interval\-seconds\fP to see whether the resource has reached the lifecycle state defined by \fB\-\-wait\-for\-state\fP\&. Defaults to 30 seconds.
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export compartment_id=<substitute\-value\-of\-compartment_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-compartment\-id
+    export display_name=<substitute\-value\-of\-display_name> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-display\-name
+    export accepted_quantity=<substitute\-value\-of\-accepted_quantity> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/internal\-demand\-signal/internal\-occm\-demand\-signal\-delivery/create.html#cmdoption\-accepted\-quantity
+    export ds_id=<substitute\-value\-of\-ds_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/internal\-demand\-signal/internal\-occm\-demand\-signal\-delivery/create.html#cmdoption\-ds\-id
+    export ds_item_id=<substitute\-value\-of\-ds_item_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/internal\-demand\-signal/internal\-occm\-demand\-signal\-delivery/create.html#cmdoption\-ds\-item\-id
+
+    occ_customer_group_id=$(oci capacity\-management occ\-customer\-group create \-\-compartment\-id $compartment_id \-\-display\-name $display_name \-\-query data.id \-\-raw\-output)
+
+    oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-delivery create \-\-accepted\-quantity $accepted_quantity \-\-compartment\-id $compartment_id \-\-ds\-id $ds_id \-\-ds\-item\-id $ds_item_id \-\-occ\-customer\-group\-id $occ_customer_group_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS \fBdelete\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This is an internal DELETE API which is used to delete a demand signal delivery resource.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-delivery delete [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-ds\-delivery\-id [text]
+.UNINDENT
+.sp
+The OCID of the demand signal delivery.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-force
+.UNINDENT
+.sp
+Perform deletion without prompting for confirmation.
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.INDENT 0.0
+.TP
+.B \-\-if\-match [text]
+.UNINDENT
+.sp
+For optimistic concurrency control. In the PUT or DELETE call for a resource, set the \fIif\-match\fP parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource’s current etag value.
+.INDENT 0.0
+.TP
+.B \-\-max\-wait\-seconds [integer]
+.UNINDENT
+.sp
+The maximum time to wait for the resource to reach the lifecycle state defined by \fB\-\-wait\-for\-state\fP\&. Defaults to 1200 seconds.
+.INDENT 0.0
+.TP
+.B \-\-wait\-for\-state [text]
+.UNINDENT
+.sp
+This operation creates, modifies or deletes a resource that has a defined lifecycle state. Specify this option to perform the action and then wait until the resource reaches a given lifecycle state. Multiple states can be specified, returning on the first state. For example, \fB\-\-wait\-for\-state\fP SUCCEEDED \fB\-\-wait\-for\-state\fP FAILED would return on whichever lifecycle state is reached first. If timeout is reached, a return code of 2 is returned. For any other error, a return code of 1 is returned.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ACTIVE, CREATING, DELETED, DELETING, FAILED, UPDATING
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-wait\-interval\-seconds [integer]
+.UNINDENT
+.sp
+Check every \fB\-\-wait\-interval\-seconds\fP to see whether the resource has reached the lifecycle state defined by \fB\-\-wait\-for\-state\fP\&. Defaults to 30 seconds.
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export ds_delivery_id=<substitute\-value\-of\-ds_delivery_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/internal\-demand\-signal/internal\-occm\-demand\-signal\-delivery/delete.html#cmdoption\-ds\-delivery\-id
+
+    oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-delivery delete \-\-ds\-delivery\-id $ds_delivery_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS \fBget\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This is an internal GET API to get the details of a demand signal delivery resource corresponding to a demand signal item.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-delivery get [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-ds\-delivery\-id [text]
+.UNINDENT
+.sp
+The OCID of the demand signal delivery.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export ds_delivery_id=<substitute\-value\-of\-ds_delivery_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/internal\-demand\-signal/internal\-occm\-demand\-signal\-delivery/get.html#cmdoption\-ds\-delivery\-id
+
+    oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-delivery get \-\-ds\-delivery\-id $ds_delivery_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS \fBlist\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This GET call is used to list all demand signal delivery resources within the customer group passed as a query parameter.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-delivery list [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-compartment\-id, \-c [text]
+.UNINDENT
+.sp
+The ocid of the compartment or tenancy in which resources are to be listed. This will also be used for authorization purposes.
+.INDENT 0.0
+.TP
+.B \-\-occ\-customer\-group\-id [text]
+.UNINDENT
+.sp
+The customer group ocid by which we would filter the list.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-all
+.UNINDENT
+.sp
+Fetches all pages of results. If you provide this option, then you cannot provide the \fB\-\-limit\fP option.
+.INDENT 0.0
+.TP
+.B \-\-ds\-item\-id [text]
+.UNINDENT
+.sp
+A query parameter to filter the list of demand signal items based on it’s OCID.
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.INDENT 0.0
+.TP
+.B \-\-id [text]
+.UNINDENT
+.sp
+A query parameter to filter the list of demand signals based on it’s OCID.
+.INDENT 0.0
+.TP
+.B \-\-limit [integer]
+.UNINDENT
+.sp
+The maximum number of items to return.
+.INDENT 0.0
+.TP
+.B \-\-page [text]
+.UNINDENT
+.sp
+A token representing the position at which to start retrieving results. This must come from \fIopc\-next\-page\fP header field of a previous response.
+.INDENT 0.0
+.TP
+.B \-\-page\-size [integer]
+.UNINDENT
+.sp
+When fetching results, the number of results to fetch per call. Only valid when used with \fB\-\-all\fP or \fB\-\-limit\fP, and ignored otherwise.
+.INDENT 0.0
+.TP
+.B \-\-sort\-by [text]
+.UNINDENT
+.sp
+The field to sort the response of List Demand Signal Delivery API. Only one sort order may be provided. The default order for resource name is case sensitive alphabetical order.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+resourceName
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-sort\-order [text]
+.UNINDENT
+.sp
+The sort order to use, either ‘ASC’ or ‘DESC’.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ASC, DESC
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export compartment_id=<substitute\-value\-of\-compartment_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-compartment\-id
+    export display_name=<substitute\-value\-of\-display_name> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-display\-name
+
+    occ_customer_group_id=$(oci capacity\-management occ\-customer\-group create \-\-compartment\-id $compartment_id \-\-display\-name $display_name \-\-query data.id \-\-raw\-output)
+
+    oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-delivery list \-\-compartment\-id $compartment_id \-\-occ\-customer\-group\-id $occ_customer_group_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS \fBupdate\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This is an internal PUT API which is used to update the demand signal delivery resource.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-delivery update [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-ds\-delivery\-id [text]
+.UNINDENT
+.sp
+The OCID of the demand signal delivery.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-accepted\-quantity [integer]
+.UNINDENT
+.sp
+The quantity of the resource that OCI will supply to the customer.
+.INDENT 0.0
+.TP
+.B \-\-defined\-tags [complex type]
+.UNINDENT
+.sp
+Defined tags for this resource. Each key is predefined and scoped to a namespace. Example: \fI{“foo\-namespace”: {“bar\-key”: “value”}}\fP
+This is a complex type whose value must be valid JSON. The value can be provided as a string on the command line or passed in as a file using
+the \fI\%file://path/to/file\fP syntax.
+.sp
+The \fB\-\-generate\-param\-json\-input\fP option can be used to generate an example of the JSON which must be provided. We recommend storing this example
+in a file, modifying it as needed and then passing it back in via the \fI\%file://\fP syntax.
+.INDENT 0.0
+.TP
+.B \-\-force
+.UNINDENT
+.sp
+Perform update without prompting for confirmation.
+.INDENT 0.0
+.TP
+.B \-\-freeform\-tags [complex type]
+.UNINDENT
+.sp
+Simple key\-value pair that is applied without any predefined name, type or scope. Exists for cross\-compatibility only. Example: \fI{“bar\-key”: “value”}\fP
+This is a complex type whose value must be valid JSON. The value can be provided as a string on the command line or passed in as a file using
+the \fI\%file://path/to/file\fP syntax.
+.sp
+The \fB\-\-generate\-param\-json\-input\fP option can be used to generate an example of the JSON which must be provided. We recommend storing this example
+in a file, modifying it as needed and then passing it back in via the \fI\%file://\fP syntax.
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.INDENT 0.0
+.TP
+.B \-\-if\-match [text]
+.UNINDENT
+.sp
+For optimistic concurrency control. In the PUT or DELETE call for a resource, set the \fIif\-match\fP parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource’s current etag value.
+.INDENT 0.0
+.TP
+.B \-\-justification [text]
+.UNINDENT
+.sp
+This field could be used by OCI to communicate the reason for declining the request.
+.INDENT 0.0
+.TP
+.B \-\-lifecycle\-details [text]
+.UNINDENT
+.sp
+The state in which we want to transition the demand signal delivery resource.
+.INDENT 0.0
+.TP
+.B \-\-max\-wait\-seconds [integer]
+.UNINDENT
+.sp
+The maximum time to wait for the resource to reach the lifecycle state defined by \fB\-\-wait\-for\-state\fP\&. Defaults to 1200 seconds.
+.INDENT 0.0
+.TP
+.B \-\-notes [text]
+.UNINDENT
+.sp
+This field acts as a notes section for operators.
+.INDENT 0.0
+.TP
+.B \-\-time\-delivered [datetime]
+.UNINDENT
+.sp
+The date on which the OCI delivered the resource to the customers.
+.INDENT 0.0
+.INDENT 3.5
+The following datetime formats are supported:
+.UNINDENT
+.UNINDENT
+.SS UTC with microseconds
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+Format: YYYY\-MM\-DDTHH:mm:ss.ssssssTZD
+Example: 2017\-09\-15T20:30:00.123456Z
+
+UTC with milliseconds
+***********************
+\&.. code::
+
+    Format: YYYY\-MM\-DDTHH:mm:ss.sssTZD
+    Example: 2017\-09\-15T20:30:00.123Z
+
+UTC without milliseconds
+**************************
+\&.. code::
+
+    Format: YYYY\-MM\-DDTHH:mm:ssTZD
+    Example: 2017\-09\-15T20:30:00Z
+
+UTC with minute precision
+**************************
+\&.. code::
+
+    Format: YYYY\-MM\-DDTHH:mmTZD
+    Example: 2017\-09\-15T20:30Z
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Timezone with microseconds
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+Format: YYYY\-MM\-DDTHH:mm:ssTZD
+Example: 2017\-09\-15T12:30:00.456789\-08:00, 2017\-09\-15T12:30:00.456789\-0800
+
+Timezone with milliseconds
+***************************
+\&.. code::
+
+    Format: YYYY\-MM\-DDTHH:mm:ssTZD
+    Example: 2017\-09\-15T12:30:00.456\-08:00, 2017\-09\-15T12:30:00.456\-0800
+
+Timezone without milliseconds
+*******************************
+\&.. code::
+
+    Format: YYYY\-MM\-DDTHH:mm:ssTZD
+    Example: 2017\-09\-15T12:30:00\-08:00, 2017\-09\-15T12:30:00\-0800
+
+Timezone with minute precision
+*******************************
+\&.. code::
+
+    Format: YYYY\-MM\-DDTHH:mmTZD
+    Example: 2017\-09\-15T12:30\-08:00, 2017\-09\-15T12:30\-0800
+
+Short date and time
+********************
+The timezone for this date and time will be taken as UTC (Needs to be surrounded by single or double quotes)
+
+\&.. code::
+
+    Format: \(aqYYYY\-MM\-DD HH:mm\(aq or "YYYY\-MM\-DD HH:mm"
+    Example: \(aq2017\-09\-15 17:25\(aq
+
+Date Only
+**********
+This date will be taken as midnight UTC of that day
+
+\&.. code::
+
+    Format: YYYY\-MM\-DD
+    Example: 2017\-09\-15
+
+Epoch seconds
+**************
+\&.. code::
+
+    Example: 1412195400
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-wait\-for\-state [text]
+.UNINDENT
+.sp
+This operation creates, modifies or deletes a resource that has a defined lifecycle state. Specify this option to perform the action and then wait until the resource reaches a given lifecycle state. Multiple states can be specified, returning on the first state. For example, \fB\-\-wait\-for\-state\fP SUCCEEDED \fB\-\-wait\-for\-state\fP FAILED would return on whichever lifecycle state is reached first. If timeout is reached, a return code of 2 is returned. For any other error, a return code of 1 is returned.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ACTIVE, CREATING, DELETED, DELETING, FAILED, UPDATING
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-wait\-interval\-seconds [integer]
+.UNINDENT
+.sp
+Check every \fB\-\-wait\-interval\-seconds\fP to see whether the resource has reached the lifecycle state defined by \fB\-\-wait\-for\-state\fP\&. Defaults to 30 seconds.
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export ds_delivery_id=<substitute\-value\-of\-ds_delivery_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/internal\-demand\-signal/internal\-occm\-demand\-signal\-delivery/update.html#cmdoption\-ds\-delivery\-id
+
+    oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-delivery update \-\-ds\-delivery\-id $ds_delivery_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS internal\-occm\-demand\-signal\-item\-collection
+.SS Description
+.sp
+A list containing detailed information about different resources demanded as part of a given demand signal.
+.SS Available Commands
+.INDENT 0.0
+.IP \(bu 2
+list\-internal
+.UNINDENT
+.SS \fBlist\-internal\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This internal API will list the detailed information about the resources demanded as part of the demand signal.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-item\-collection list\-internal [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-compartment\-id, \-c [text]
+.UNINDENT
+.sp
+The ocid of the compartment or tenancy in which resources are to be listed. This will also be used for authorization purposes.
+.INDENT 0.0
+.TP
+.B \-\-occ\-customer\-group\-id [text]
+.UNINDENT
+.sp
+The customer group ocid by which we would filter the list.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-all
+.UNINDENT
+.sp
+Fetches all pages of results. If you provide this option, then you cannot provide the \fB\-\-limit\fP option.
+.INDENT 0.0
+.TP
+.B \-\-ds\-id [text]
+.UNINDENT
+.sp
+A query parameter to filter the list of demand signal items based on a demand signal id.
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.INDENT 0.0
+.TP
+.B \-\-limit [integer]
+.UNINDENT
+.sp
+The maximum number of items to return.
+.INDENT 0.0
+.TP
+.B \-\-namespace [text]
+.UNINDENT
+.sp
+A query parameter to filter the list of demand signal details based on the namespace.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+COMPUTE, GPU, NETWORK, STORAGE
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-page [text]
+.UNINDENT
+.sp
+A token representing the position at which to start retrieving results. This must come from \fIopc\-next\-page\fP header field of a previous response.
+.INDENT 0.0
+.TP
+.B \-\-page\-size [integer]
+.UNINDENT
+.sp
+When fetching results, the number of results to fetch per call. Only valid when used with \fB\-\-all\fP or \fB\-\-limit\fP, and ignored otherwise.
+.INDENT 0.0
+.TP
+.B \-\-resource\-name [text]
+.UNINDENT
+.sp
+A query parameter to filter the list of demand signal details based on the resource name.
+.INDENT 0.0
+.TP
+.B \-\-sort\-by [text]
+.UNINDENT
+.sp
+The field to sort the response of List Demand Signal Details API. Only one sort order may be provided. The default order for resource name is case sensitive alphabetical order.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+resourceName
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-sort\-order [text]
+.UNINDENT
+.sp
+The sort order to use, either ‘ASC’ or ‘DESC’.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ASC, DESC
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export compartment_id=<substitute\-value\-of\-compartment_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-compartment\-id
+    export display_name=<substitute\-value\-of\-display_name> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-display\-name
+
+    occ_customer_group_id=$(oci capacity\-management occ\-customer\-group create \-\-compartment\-id $compartment_id \-\-display\-name $display_name \-\-query data.id \-\-raw\-output)
+
+    oci capacity\-management internal\-demand\-signal internal\-occm\-demand\-signal\-item\-collection list\-internal \-\-compartment\-id $compartment_id \-\-occ\-customer\-group\-id $occ_customer_group_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS occm\-demand\-signal\-catalog
+.SS Description
+.sp
+A model for the demand signal catalog.
+.SS Available Commands
+.INDENT 0.0
+.IP \(bu 2
+list\-internal
+.UNINDENT
+.SS \fBlist\-internal\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This API will list demand signal catalogs for a given customer group.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal occm\-demand\-signal\-catalog list\-internal [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-compartment\-id, \-c [text]
+.UNINDENT
+.sp
+The ocid of the compartment or tenancy in which resources are to be listed. This will also be used for authorization purposes.
+.INDENT 0.0
+.TP
+.B \-\-occ\-customer\-group\-id [text]
+.UNINDENT
+.sp
+The customer group ocid by which we would filter the list.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-all
+.UNINDENT
+.sp
+Fetches all pages of results. If you provide this option, then you cannot provide the \fB\-\-limit\fP option.
+.INDENT 0.0
+.TP
+.B \-\-display\-name [text]
+.UNINDENT
+.sp
+A filter to return only the resources that match the entire display name. The match is not case sensitive.
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.INDENT 0.0
+.TP
+.B \-\-limit [integer]
+.UNINDENT
+.sp
+The maximum number of items to return.
+.INDENT 0.0
+.TP
+.B \-\-page [text]
+.UNINDENT
+.sp
+A token representing the position at which to start retrieving results. This must come from \fIopc\-next\-page\fP header field of a previous response.
+.INDENT 0.0
+.TP
+.B \-\-page\-size [integer]
+.UNINDENT
+.sp
+When fetching results, the number of results to fetch per call. Only valid when used with \fB\-\-all\fP or \fB\-\-limit\fP, and ignored otherwise.
+.INDENT 0.0
+.TP
+.B \-\-sort\-by [text]
+.UNINDENT
+.sp
+The field to sort the response of List Demand catalog  API. Only one sort order may be provided. The default order for name is case sensitive alphabetical order.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+name
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-sort\-order [text]
+.UNINDENT
+.sp
+The sort order to use, either ‘ASC’ or ‘DESC’.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ASC, DESC
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export compartment_id=<substitute\-value\-of\-compartment_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-compartment\-id
+    export display_name=<substitute\-value\-of\-display_name> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/occ\-customer\-group/create.html#cmdoption\-display\-name
+
+    occ_customer_group_id=$(oci capacity\-management occ\-customer\-group create \-\-compartment\-id $compartment_id \-\-display\-name $display_name \-\-query data.id \-\-raw\-output)
+
+    oci capacity\-management internal\-demand\-signal occm\-demand\-signal\-catalog list\-internal \-\-compartment\-id $compartment_id \-\-occ\-customer\-group\-id $occ_customer_group_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS occm\-demand\-signal\-catalog\-resource
+.SS Description
+.sp
+A model containing information about the details of a demand signal catalog resource.
+.SS Available Commands
+.INDENT 0.0
+.IP \(bu 2
+get
+.UNINDENT
+.SS \fBget\fP
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SS Description
+.sp
+This API helps in getting the details about a specific occm demand signal catalog.
+.SS Usage
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci capacity\-management internal\-demand\-signal occm\-demand\-signal\-catalog\-resource get [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Required Parameters
+.INDENT 0.0
+.TP
+.B \-\-ds\-catalog\-id [text]
+.UNINDENT
+.sp
+The OCID of the demand signal catalog.
+.SS Optional Parameters
+.INDENT 0.0
+.TP
+.B \-\-from\-json [text]
+.UNINDENT
+.sp
+Provide input to this command as a JSON document from a file using the \fI\%file://path\-to/file\fP syntax.
+.sp
+The \fB\-\-generate\-full\-command\-json\-input\fP option can be used to generate a sample json file to be used with this command option. The key names are pre\-populated and match the command option names (converted to camelCase format, e.g. compartment\-id –> compartmentId), while the values of the keys need to be populated by the user before using the sample file as an input to this command. For any command option that accepts multiple values, the value of the key can be a JSON array.
+.sp
+Options can still be provided on the command line. If an option exists in both the JSON document and the command line then the command line specified value will be used.
+.sp
+For examples on usage of this option, please see our “using CLI with advanced JSON options” link: \fI\%https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliusing.htm#AdvancedJSONOptions\fP
+.SS Global Parameters
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SS Example using required parameter
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export ds_catalog_id=<substitute\-value\-of\-ds_catalog_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/capacity\-management/internal\-demand\-signal/occm\-demand\-signal\-catalog\-resource/get.html#cmdoption\-ds\-catalog\-id
+
+    oci capacity\-management internal\-demand\-signal occm\-demand\-signal\-catalog\-resource get \-\-ds\-catalog\-id $ds_catalog_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH AUTHOR
+Oracle
+.SH COPYRIGHT
+2016, 2025, Oracle
+.\" Generated by docutils manpage writer.
+.
