@@ -1,0 +1,618 @@
+Metadata-Version: 2.4
+Name: wowool-english
+Version: 3.1.0
+Summary: Wowool NLP english Package
+Description-Content-Type: text/markdown
+
+# Wowool NLP english Package
+This package contains the language file and domains for english.
+To use this package, you need to install the wowool-sdk package and request a license file at info@wowool.com
+
+## Usage
+
+```python
+from wowool.sdk import Pipeline
+from pathlib import Path
+input_text = Path("input.txt").read_text()
+pipeline = Pipeline("english,entity")
+doc = pipeline(input_text)
+print(doc)
+```
+
+## Domains
+
+### english-entity-extended.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Address |Captures the Street, City and the complete Address | 999 Berners Street London W1T 3LF |
+| Animal |Names of common animals. | camel, bat, insect |
+| Automobile |A car brand or reference to a car. | BMW 1 - series |
+| BaseballTeam |US baseball team | Houston Astros |
+| City |Name of a City | Cardiff |
+| Clothes |Names of clothes | jeans, cardigan |
+| Company |Name of a Company | Tesco |
+| Country |Name of a Country | Belgium, England, Spain, Denmark, Sweden |
+| CurrencyUnit |Name of a currency | dollars, yuan     |
+| Date |Date and Month | 29 October 2017 |
+| Drink |Name of a drink | martini, tea, champagne |
+| Email |Email address | info@wowool.com |
+| Event |Something that happens | World Cup |
+| Facility |A building or place that provides a particular service or is used for a particular industry | Cape Range national park |
+| Food |Name of food, ingredients as well as dishes | pasta, chocolate bar |
+| GivenName |First name of a Person | Theresa |
+| InsuranceCompany |Name of insurance company | Nationwide, Allianz, Zurich Insurance Group |
+| Language |Name of a language | English speaker, Mandarin |
+| Measure |Unit of measure | 350 tonnes, 5ft, 75ml |
+| MoneyAmount |Amount of money | £50,000 |
+| Month |Name of a month | October |
+| Organization |Name of an Organization | Labour party |
+| Percent |Percentage | 59.1% |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Marcus Harrington |
+| PersonMention |A mention of a person in a general way | consumer, colleague, patient |
+| PlaceAdj |Adjective of geographical origin. | Asian, Spanish |
+| PhoneNr |Phone number | 1-800-273-5555, 0800 977 8880  |
+| Position |Subclass of PersonMention. The professional occupation of a person. | deputy prime minister |
+| Product |Name of a product in general (just a few brands) | shoes, video games, camera |
+| SoccerTeam |European soccer team | Juventus, Atalanta, Chelsea |
+| Sports |Sports | baseball, jogging |
+| Street |The name of a street with or without number. | Elm Street 3 |
+| Time |The time in hours | 10pm, five o'clock |
+| Url |Url | https://www.wowool.com |
+| Vehicle |Name of a vehicle | drone, motorbike |
+| Weapon |Name of a weapon | bomb, missile, explosive device |
+| WeekDay |Day of the week | Saturday, Sundays |
+| WorldRegion |A geographical place, like a continent, a region, a county, etc. | Northern Ireland |
+
+
+### english-numeric.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Numeric |Numbers | 300 tanks |
+
+
+### english-healthcare.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| AlternativeMedicine |Alternative practices to restore health. | visualization, shiatsu, homeopathy |
+| BodyPart |Body parts and organs. | uterus |
+| Covid19 |The SARS-CoV-2 respiratory disease. | Covid 19 |
+| Dosage |Dosage. | 120 micrograms |
+| Drug |Name of a drug. | Fentanyl |
+| Food |Reference to food. | apple, turkey |
+| HealthLink |Activities, drugs or behaviours that have a link to health | The drug causes weight gain and prevents weight loss |
+| HealthIssue |A Healthissue is a symptom or a disease. | headache |
+| IncubationEstimate |Duration of incubation period. | an incubation time of about 5 day |
+| MedicalProcedure |Medical procedure | coronary angiography, chemotherapy |
+| Pathology |Pathology | Ankylosing Spondylitis |
+| Supplement |A supplement. | vitamin D, probiotic |
+| Surgery |Surgery, a subclass of MedicalProcedure | Removing the entire large intestine |
+
+
+### english-topics.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| TopicCandidate |Possible topics | green energy, John Travolta |
+
+
+### english-drugs.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| AlternativeMedicine |Alternative Medicine practice | acupuncture |
+| BodyPart |Body parts and organs. | uterus |
+| Drug |Name of a drug. | Fentanyl, Zoloft |
+| Dosage |The amount of a dosage. | 20mg, 10 micrograms |
+| DrugAddiction |Markers of addiction. | getting off Ativan, Opana withdrawal |
+| DrugSwitch |The fact of switching to another drug. | switched to Opana |
+| DrugType |Type of drug. | antidepressant, antiviral medication |
+| Food |Names of food. | grapefruit, leafy green |
+| HealthIssue |A Healthissue is a symptom. | headache, diarrhea |
+| HealthLink |Activities, drugs or behaviours that have a link to health | The drug causes weight gain and prevents weight loss |
+| MedicalProcedure |Medical procedure | coronary angiography |
+| NaturalRemedy |Food or diets usually used as a natural remedy | ginger, low-FODMAP diet |
+| Supplement |A supplement or herbal remedy | vitamin D, curcumin |
+| Surgery |Surgery | Removing the entire large intestine |
+| Pathology |Pathology, it is a subclass of HealthIssue. | Ankylosing Spondylitis |
+
+
+### english-quotation.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Quotation |A quotation. | 'Where is the Capitol?', asked Donald Trump |
+| QuotationAuthor |The author of the quote. | Desmond Tutu said he did not agree. |
+| QuotationScope |The whole quotation including the author. | “I think this is a positive move,” Scott Morrison said. |
+
+
+### english-dates.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Date |An attribute will resolve the absolute date from the date that has been set | 13/Jan/2021 |
+| Day |Day of the month, in this case 13 | 13/Jan/2021 |
+| Month |Month name or number | 13/Jan/2021 |
+| Year |Year number | 13/Jan/2021 |
+| TimePhrase |A phrase expressing time, including dates | four years ago, Today |
+
+
+### english-discovery.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Definition |A definition. A sentence that explains what something or someone is. | Aaron Bramwell is a rugby union player |
+| Descriptor | descriptor is something like 'painter', which will allow us to classify an concept as a Person when it appears in certain definition context. | Conexión Caribe is a 1984 film starring members of Los Chicos |
+| DescriptorMarker |A DescriptorMarker is a descriptor no matter the context | film, actor |
+
+
+### english-metadata.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Url |Captures metadata Url from our corpus | Url: https://www.businessinsider.com/google-employees-test-smarter-chatbot-big-bard-2023-3 |
+
+
+### english-event.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Event |An event, in very general terms. | terrorist attack |
+
+
+### english-sanctions.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Person |An person under sanctions. | Alexey Mordashov |
+
+
+### english-contact-info.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Address |Captures the Street, City and the complete Address | 999 Berners Street London W1T 3LF |
+| City |Name of a City | Cardiff |
+| Company |Name of a Company | Tesco |
+| Country |Name of a Country | Belgium, England, Spain, Denmark, Sweden |
+| Email |Email address | info@wowool.com |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Marcus Harrington |
+| PersonFam |Surname of a Person. Subannotation of the Person annotation | McElvoy |
+| PersonGiv |Given name of a Person. Subannotation of the Person annotation | Caroline |
+| PhoneNr |A phone number | +44 (0) 330 333 1212 |
+| Position |Subclass of PersonMention. The professional occupation of a person. | deputy prime minister |
+| Street |The name of a street with or without number. | de Mariniersweg |
+| Url |Url | https://www.wowool.com |
+
+
+### english-business-news.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| BankProduct |Offering from a bank | mortgage |
+| City |Name of a city | Cardiff, Mumbai |
+| Company |Name of a company | Tesco |
+| Country |Name of a country | France, Germany |
+| ChangeManagement |Facts related to change of management. | Colin Huang resigns as chairman |
+| CompanyAcquisition |Facts describing company acquisitions. | Greybull Capital bought British Steel |
+| CompanyBailout |Facts describing help received by a company on difficult times. | subsidies for airplane maker Airbus |
+| CompanyClosure |Facts describing closures related to companies. | Debenhams to close all stores |
+| CompanyCyberAttack |Facts describing cyber attacks to companies. | Hackers target Cisco Routers |
+| CompanyDisruption |Facts describing general disruptions in companies, like problems, outages, shortages. |  TSB customers are still facing problems |
+| CompanyLawsuit |Facts describing lawsuits or fines involving companies. | Tesla sued Alameda county |
+| CompanyMerger |Facts describing company mergers. | Dixons' merger with Carphone Warehouse |
+| CompanyExpansion |Facts describing operations that point to companies or their operations being extended. | Ocado plans to expand into offering delivery services |
+| CompanyOperation |Super class of CompanyExpansion, CompanyDeal, ProductLaunch, CompanyBailout, CompanyClosure, CompanyDisruption and ChangeManagement. | Aston Martin axes 500 jobs |
+| CompanyPartnership |Partnerships related to a company. | AstraZeneca has expanded an agreement with Oxford Biomedica |
+| CompanyPerformance |How the finances of a company are going. | Adidas reports nearly 40% drop in profits. |
+| CompanyPosition |Facts relating Person to their position at a company. | Paul Sears , sales manager at Vivara Pro. |
+| CompanyPublicOpinion |Facts related to the perception of a company. | Facebook faced a major pressure campaign |
+| CompanySupplyRelation |Companies in a supply relation. | Foxconn, a major supplier for Apple |
+| CompanyWarning |Warnings issued by companies. | Ryanair warns it could shut bases and cut jobs after 737 Max delays |
+| Country |Name of a Country | Belgium, England, Spain, Denmark, Sweden |
+| MoneyAmount |Amount of money | £50,000 |
+| Organization |An organization | European Central Bank |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Marcus Harrington |
+| Position |Subclass of PersonMention. The professional occupation of a person. | deputy prime minister |
+| ProductLaunch |Product launches by companies. | Instagram has unveiled a new feature |
+| ProductRecall |Product recalls by companies. | Decathlon recalls treadmills |
+| StockExchange |A Stock exchange. | Nasdaq stock exchange |
+| StockIndex |A Stock index. | Russell 2000 |
+
+
+### english-threats.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Threat |A threat, in very general terms. | terrorist attack |
+
+
+### english-cyber-news.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| AttackTarget |The target of a cyber incident a subannotation of CyberAttack fact. | Official Monero Site Hacked |
+| ThreatActor |A threat actor, like a hacker or a hacker group. | Hacker, cybercriminal |
+| Company |Name of a Company | OnePlus, Kaspersky |
+| CyberAttack |Cyberattack fact | @realDonaldTrump 's campaign website has been hacked. |
+| CyberIncident |Cyberincident annotation | distributed denial of service attack, spear-phishing email. |
+| Organization |Name of an Organization. | Taliban |
+| SensitiveInfo |Information that should not fall in the hands of bad actors. | email address, billing information |
+| Vulnerability |Flaw in a system that might be taken advantage of by cubercriminals. | backdoor, zero-day RCE vulnerability |
+
+
+### english-sentiment.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| PositiveSentiment |A positive opinion. | she is a successful entrepreneur |
+| NegativeSentiment |A negative opinion. | the system of social redistribution is n't working |
+| Gratitude |Expression of gratitude. | I appreciate his help |
+| Abuse |Expression denoting abusive behaviour. | he tried to abuse his next girlfriend |
+| Supportive |In a conversation, a supportive statement. | you 're right |
+| Antagonistic |In a conversation, an antagonistic statement. | your vile propaganda |
+| Bullying |In a conversation, a bullying remark. | you giant twat |
+| Lawsuit |A lawsuit. | EU launches legal action against AstraZeneca |
+| Warning |A warning. | You 've been warned |
+| Threat |A threat. | I will kill you |
+
+
+### english-syntax.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| AdvP |Adverb Phrase. | over the weekend, flatly |
+| AdjP |Adjective Phrase. | seemingly unstoppable, open and independen |
+| Apposition |Apposition: a relationship between two or more words or phrases in which the two units are grammatically parallel and have the same referent. | The prime minister , Jacinda Ardern , was voted into office. |
+| LocationPhrase |A phrase indicating location. | inside a church |
+| NP |Noun phrase, a group of words that has a noun as its head. | the seemingly unstoppable rise |
+| Object |In a triple, the Object or Predicate. | She doused the burning hair |
+| PronPhrase |A pronominal phrase. | None of this, them |
+| RelClause |A relative clause. | The brothers who own the high street bookmaker Betfred are making millions |
+| Subject |In a triple, the Subject of the triple. In the above example: European regulators. | European regulators fined Google €1.5bn |
+| TimePhrase |A phrase indicating when something happens, or how often (frequency). | soon, in the last four months, for years |
+| Triple |An expression that consists of Subject Verb Object or Predicate . | factual information is a necessity |
+| VP |A verb phrase | can be produced |
+
+
+### english-unknown.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| UnknownThing |Unknown concept | Yttrium  |
+
+
+### english-entity.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Address |Captures the Street, City and the complete Address | 999 Berners Street London W1T 3LF |
+| City |Name of a city | Cardiff |
+| Company |Name of a company | Tesco |
+| Country |Name of a country | Belgium, England, Spain, Denmark, Sweden |
+| Date |Date and Month | 29 October 2017 |
+| Email |Email address | info@wowool.com |
+| Event |Something that happens | World Cup |
+| Facility |A building or place that provides a particular service or is used for a particular industry | Cape Range national park |
+| MoneyAmount |Amount of money | £50,000 |
+| Month |Name of a month | October |
+| Organization |Name of an Organization | Labour party |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Marcus Harrington |
+| PersonMention |A mention of a person in a general way | consumer, colleague, patient |
+| PlaceAdj |Adjective of geographical origin. | Asian, Spanish |
+| Position |Subclass of PersonMention. The professional occupation of a person. | deputy prime minister |
+| Street |The name of a street with or without number. | Elm Street 2 |
+| Url |Url | https://www.wowool.com |
+| WorldRegion |A geographical place, like a continent, a region, a county, etc. | Northern Ireland |
+
+
+### english-world-regions.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Afghanistan |The country Afghanistan or a place in Afghanistan. | Afghanistan, Kabul |
+| Albania |The country Albania or a place in Albania. | Albania, Tirana |
+| Algeria |The country Algeria or a place in Algeria. | Algeria, Algiers |
+| Angola |The country Angola or a place in Angola. | Angola, Luanda |
+| Argentina |The country Argentina or a place in Argentina. | Argentina, Buenos Aires |
+| Armenia |The country Armenia or a place in Armenia. | Armenia, Yerevan |
+| Australia |The country Australia or a place in Australia. | Australia, Canberra |
+| Austria |The country Austria or a place in Austria. | Austria, Vienna |
+| Azerbaijan |The country Azerbaijan or a place in Azerbaijan. | Azerbaijan, Baku |
+| Bangladesh |The country Bangladesh or a place in Bangladesh. | Bangladesh, Dhaka |
+| Belarus |The country Belarus or a place in Belarus. | Belarus, Minsk |
+| Belgium |The country Belgium or a place in Belgium. | Belgium, Brussels, Liege |
+| Benin |The country Benin or a place in Benin. | Benin, Porto Novo |
+| Bhutan |The country Bhutan or a place in Bhutan. | Bhutan, Thimphu |
+| Bolivia |The country Bolivia or a place in Bolivia. | Bolivia, La Paz |
+| Bosnia |The country Bosnia or a place in Bosnia. | Bosnia, Sarajevo |
+| Botswana |The country Botswana or a place in Botswana. | Botswana, Gaborone |
+| Brazil |The country Brazil or a place in Brazil. | Brazil, Brasilia |
+| Bulgaria |The country Bulgaria or a place in Bulgaria. | Bulgaria |
+| BurkinaFaso |The country Burkina Faso or a place in Burkina Faso. | Burkina Faso, Ouagadougou |
+| Burundi |The country Burundi or a place in Burundi. | Burundi, Gitega |
+| Cambodia |The country Cambodia or a place in Cambodia. | Cambodia, Phnom Penh |
+| Cameroon |The country Cameroon or a place in Cameroon. | Cameroon, Yaounde |
+| Canada |The country Canada or a place in Canada. | Canada, Ottawa |
+| CentralAsia |A place in Central Asia. | Afghanistan |
+| Chile |The country Chile or a place in Chile. | Chile |
+| China |The country China or a place in China. | China, Wuhan |
+| Colombia |The country Colombia or a place in Colombia. | Colombia, Bogota |
+| DemocraticRepublicCongo |The country Democratic Republic of Congo or a place in Democratic Republic of Congo. | Democratic Republic of the Congo |
+| RepublicCongo |The country Republic of Congo or a place in Republic of Congo. | Republic of the Congo |
+| CostaRica |The country Costa Rica or a place in Costa Rica. | Costa Rica |
+| Croatia |The country Croatia or a place in Croatia. | Croatia |
+| Cuba |The country Cuba or a place in Cuba. | Cuba |
+| Cyprus |The country Cyprus or a place in Cyprus. | Cyprus |
+| CzechRepublic |The country Czech Republic or a place in Czech Republic. | Czech Republic |
+| Denmark |The country Denmark or a place in Denmark. | Denmark |
+| DominicanRepublic |The country Dominican Republic or a place in Dominica Republic. | Dominican Republic |
+| EU |A place in the EU. | Ireland, Brussels |
+| Ecuador |The country Ecuador or a place in Ecuador. | Ecuador |
+| Egypt |The country Egypt or a place in Egypt. | Egypt |
+| Estonia |The country Estonia or a place in Estonia. | Estonia |
+| Ethiopia |The country Ethiopia or a place in Ethiopia. | Ethiopia |
+| Finland |The country Finland or a place in Finland. | Finland |
+| France |The country France or a place in France. | France |
+| Gabon |The country Gabon or a place in Gabon. | Gabon |
+| Gambia |The country Gambia or a place in Gambia. | Gambia |
+| Germany |The country Germany or a place in Germany. | Germany |
+| Ghana |The country Ghana or a place in Ghana. | Ghana |
+| Greece |The country Greece or a place in Greece. | Greece |
+| Greenland |The country Greenland or a place in Greenland. | Greenland |
+| Guatemala |The country Guatemala or a place in Guatemala. | Guatemala |
+| Guinea |The country Guinea or a place in Guinea. | Guinea |
+| GuineaBissau |The country Guinea Bissau or a place in Guinea Bissau. | Guinea Bissau |
+| Honduras |The country Honduras or a place in Honduras. | Honduras |
+| Hungary |The country Hungary or a place in Hungary. | Hungary |
+| Iceland |The country Iceland or a place in Iceland. | Iceland |
+| India |The country India or a place in India. | India |
+| Indonesia |The country Indonesia or a place in Indonesia. | Indonesia |
+| Iran |The country Iran or a place in Iran. | Iran |
+| Iraq |The country Iraq or a place in Iraq. | Iraq |
+| Ireland |The country Ireland or a place in Ireland. | Ireland |
+| Israel |The country Israel or a place in Israel. | Israel |
+| Italy |The country Italy or a place in Italy. | Italy |
+| IvoryCoast |The country Ivory Coast or a place in Ivory Coast. | Ivory Coast |
+| Jamaica |The country Jamaica or a place in Jamaica. | Jamaica |
+| Japan |The country Japan or a place in Japan. | Tokyo, Osaka, Japan |
+| Jordan |The country Jordan or a place in Jordan. | Jordan |
+| Kazakhstan |The country Kazakhstan or a place in Kazakhstan. | Kazakhstan |
+| Kenya |The country Kenya or a place in Kenya. | Kenya |
+| Kosovo |The country Kosovo or a place in Kosovo. | Kosovo |
+| Kyrgyzstan |The country Kyrgyzstan or a place in Kyrgyzstan. | Kyrgyzstan |
+| Laos |The country Laos or a place in Laos. | Laos |
+| Latvia |The country Latvia or a place in Latvia. | Latvia |
+| Lebanon |The country Lebanon or a place in Lebanon. | Lebanon |
+| Liberia |The country Liberia or a place in Liberia. | Liberia |
+| Libya |The country Libya or a place in Libya. | Libya |
+| Liechtenstein |The country Liechtenstein or a place in Liechtenstein. | Liechtenstein |
+| Lithuania |The country Lithuania or a place in Lithuania. | Lithuania |
+| Luxembourg |The country Luxembourg or a place in Luxembourg. | Luxembourg |
+| NorthMacedonia |The country North Macedonia or a place in North Macedonia. | North Macedonia |
+| Madagascar |The country Madagascar or a place in Madagascar. | Madagascar |
+| Malaysia |The country Malaysia or a place in Malaysia. | Malaysia |
+| Mali |The country Mali or a place in Mali. | Mali |
+| Malta |The country Malta or a place in Malta. | Malta |
+| Mauritania |The country Mauritania or a place in Mauritania. | Mauritania |
+| Mexico |The country Mexico or a place in Mexico. | Mexico |
+| MiddleEast |A place in the Middle East | Lebanon, Baghdad |
+| Moldova |The country Moldova or a place in Moldova. | Moldova |
+| Monaco |The country Monaco or a place in Monaco. | Monaco |
+| Mongolia |The country Mongolia or a place in Mongolia. | Mongolia |
+| Montenegro |The country Montenegro or a place in Montenegro. | Montenegro |
+| Morocco |The country Morocco or a place in Morocco. | Morocco |
+| Mozambique |The country Mozambique or a place in Mozambique. | Mozambique |
+| Myanmar |The country Myanmar or a place in Myanmar. | Myanmar |
+| Namibia |The country Namibia or a place in Namibia. | Namibia |
+| Nepal |The country Nepal or a place in Nepal. | Nepal |
+| Netherlands |The country Netherlands or a place in Netherlands. | Netherlands |
+| NewZealand |The country New Zealand or a place in New Zealand. | New Zealand |
+| Nicaragua |The country Nicaragua or a place in Nicaragua. | Nicaragua |
+| Nigeria |The country Nigeria or a place in Nigeria. | Nigeria |
+| NorthKorea |The country North Korea or a place in North Korea. | North Korea |
+| Norway |The country Norway or a place in Norway. | Norway |
+| Oman |The country Oman or a place in Oman. | Oman |
+| Pakistan |The country Pakistan or a place in Pakistan. | Pakistan |
+| Palestine |The country Palestine or a place in Palestine. | Palestine |
+| Panama |The country Panama or a place in Panama. | Panama |
+| PapuaNewGuinea |The country Papua New Guinea or a place in Papua New Guinea. | Papua New Guinea |
+| Paraguay |The country Paraguay or a place in Paraguay. | Paraguay |
+| Peru |The country Peru or a place in Peru. | Peru |
+| Philippines |The country Philippines or a place in Philippines. | Philippines |
+| Poland |The country Poland or a place in Poland. | Poland |
+| Portugal |The country Portugal or a place in Portugal. | Portugal |
+| PuertoRico |The country Puerto Rico or a place in Puerto Rico. | Puerto Rico |
+| Qatar |The country Qatar or a place in Qatar. | Qatar |
+| Romania |The country Romania or a place in Romania. | Romania |
+| Russia |The country Russia or a place in Russia. | Russia |
+| Rwanda |The country Rwanda or a place in Rwanda. | Rwanda |
+| SaudiArabia |The country Saudi Arabia or a place in Saudi Arabia. | Saudi Arabia |
+| Serbia |The country Serbia or a place in Serbia. | Serbia |
+| SierraLeone |The country Sierra Leone or a place in Sierra Leone. | Sierra Leone |
+| Singapore |The country Singapore or a place in Singapore. | Singapore |
+| Slovakia |The country Slovakia or a place in Slovakia. | Slovakia |
+| Slovenia |The country Slovenia or a place in Slovenia. | Slovenia |
+| Somalia |The country Somalia or a place in Somalia. | Somalia |
+| SouthKorea |The country South Korea or a place in South Korea. | South Korea |
+| SoutheastAsia |A place in Southeast Asia. | Thailand |
+| Spain |The country Spain or a place in Spain. | Spain, Madrid |
+| SriLanka |The country Sri Lanka or a place in Sri Lanka. | Sri Lanka |
+| Sudan |The country Sudan or a place in Sudan. | Sudan |
+| Suriname |The country Suriname or a place in Suriname. | Suriname |
+| Sweden |The country Sweden or a place in Sweden. | Sweden |
+| Switzerland |The country Switzerland or a place in Switzerland. | Switzerland |
+| Syria |The country Syria or a place in Syria. | Syria |
+| Taiwan |The country Taiwan or a place in Taiwan. | Taiwan |
+| Tajikistan |The country Tajikistan or a place in Tajikistan. | Tajikistan |
+| Tanzania |The country Tanzania or a place in Tanzania. | Tanzania |
+| Thailand |The country Thailand or a place in Thailand. | Thailand |
+| Togo |The country Togo or a place in Togo. | Togo |
+| Tunisia |The country Tunisia or a place in Tunisia. | Tunisia |
+| Turkey |The country Turkey or a place in Turkey. | I live in Turkey |
+| Turkmenistan |The country Turkmenistan or a place in Turkmenistan. | Turkmenistan |
+| USA |The country USA or a place in USA. | USA |
+| Uganda |The country Uganda or a place in Uganda. | Uganda |
+| Ukraine |The country Ukraine or a place in Ukraine. | Ukraine |
+| UnitedArabEmirates |A place in the UAE. | Dubai |
+| Uruguay |The country Uruguay or a place in Uruguay. | Uruguay |
+| Uzbekistan |The country Uzbekistan or a place in Uzbekistan. | Uzbekistan |
+| Vatican |The country Vatican or a place in Vatican. | Vatican |
+| Venezuela |The country Venezuela or a place in Venezuela. | Venezuela |
+| Vietnam |The country Vietnam or a place in Vietnam. | Vietnam |
+| Zambia |The country Zambia or a place in Zambia. | Zambia |
+| Zanzibar |The country Zanzibar or a place in Zanzibar. | Zanzibar |
+| UK |A place in the United Kingdom. | London, England |
+
+
+### english-economy.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| BadFinancialSituation |As the name says, markers that point at financial trouble | bankruptcy, inflation, financial crisis |
+| Company |Name of a Company | Tesco |
+| Country |Name of a Country | Spain |
+| CompanyOperation |Facts describing general company operations such as change of management, product launches, closures, layoffs, expansions, etc. | Hyundai reveals a new pickup truck |
+| CompanyPerformance |Facts relating the economic performance of a company. | Aeroméxico has filed for chapter 11 |
+| Country |Name of a Country | Belgium, England, Spain, Denmark, Sweden |
+| MoneyAmount |Amount of money | £50,000 |
+| NegativeSentiment |Negative opinions in general. | third largest economy has been struggling |
+| Percent |Percentage. | 1,031% |
+| PositiveSentiment |Positive opinions in general. | VR can also help companies to pick the best people |
+| StockExchange |Stock Exchange | Shanghai Stock Exchange |
+| StockIndex |Stock Index | Dow Jones industrial average |
+| WorldRegion |World region | East Coast |
+
+
+### english-places.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| City |Name of a city | Istanbul, Melbourne |
+| Country |Name of a country | Japan, South Korea  |
+| Facility |Name of man-made facility | Kansai international airport, Anfield |
+| WorldRegion |Place in the United Kingdom | South Carolina,   |
+
+
+### english-semantic-theme.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Theme |Theme annotation. | camel, bat, insect |
+
+
+### english-recruitment.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| City |Name of a City | Cardiff |
+| Company |Name of a Company | Tesco |
+| Country |Name of a Country | Belgium, England, Spain, Denmark, Sweden |
+| JobCondition |General job condition | part-time, internship, summer job |
+| Language |Name of a Language | Swedish speaker |
+| Organization |Name of an Organization | University of Sheffield |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Marcus Harrington |
+| SoftSkill |Traits related to the desired personality | team player, outstanding communicator |
+| Perks |Things to make job attractive | end-of-season bonus, Medical Insurance |
+| HardSkill |The name of a skill | blockchain, hotel management |
+| WorldRegion |Geopolitical location, not a city or a country | Middle East, New Hampshire |
+| Position |Subclass of PersonMention. The professional occupation of a person. | deputy prime minister |
+
+
+### english-semantic-primitive.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Acknowledge |Verbs that imply that something is acknowledged. | admit, acknowledged, confirm |
+| Buy |Verb that means buying | purchase, acquired, bought |
+| Harm |Verb of harm | damage, destroy, harmed |
+| Move |Verbs implying movement | travelling, move, run |
+
+
+### english-entity-graph.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| AdvP |Adverb Phrase. | over the weekend, flatly |
+| AdjP |Adjective Phrase. | seemingly unstoppable, open and independen |
+| Apposition |Apposition: a relationship between two or more words or phrases in which the two units are grammatically parallel and have the same referent. | The prime minister , Jacinda Ardern , was voted into office. |
+| LocationPhrase |A phrase indicating location. | inside a church |
+| NP |Noun phrase, a group of words that has a noun as its head. | the seemingly unstoppable rise |
+| Object |In a triple, the Object or Predicate. | She doused the burning hair |
+| PronPhrase |A pronominal phrase. | None of this, them |
+| RelClause |A relative clause. | The brothers who own the high street bookmaker Betfred are making millions |
+| Subject |In a triple, the Subject of the triple. In the above example: European regulators. | European regulators fined Google €1.5bn |
+| TimePhrase |A phrase indicating when something happens, or how often (frequency). | soon, in the last four months, for years |
+| Triple |An expression that consists of Subject Verb Object or Predicate . | factual information is a necessity |
+| VP |A verb phrase | can be produced |
+
+
+### english-person.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Address |Captures the Street, City and the complete Address | 999 Berners Street London W1T 3LF |
+| City |Name of a City | Cardiff |
+| Company |Name of a Company | Tesco |
+| Country |Name of a Country | Belgium, England, Spain, Denmark, Sweden |
+| Date |Date and Month | 29 October 2017 |
+| Email |Email address | info@wowool.com |
+| Organization |Name of an Organization | Labour party |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Marcus Harrington |
+| PersonMention |A mention of a person in a general way | consumer, colleague |
+| Position |Subclass of PersonMention. The professional occupation of a person. | deputy prime minister |
+
+
+### english-anonymizer.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Address |Captures the Street, City and the complete Address | 999 Berners Street London W1T 3LF |
+| Age |Person's age | 28-year-old |
+| BankAccount |Bank account number | DE44 5001 0517 5407 3249 31 |
+| BitcoinAddress |Bitcoin address | 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa |
+| City |Name of a City | Cardiff |
+| Company |Name of a Company | Tesco |
+| Country |Name of a Country | Belgium, England, Spain, Denmark, Sweden |
+| Date |A Date | 17th of September 2025 |
+| Email |Email address | info@wowool.com |
+| IPAddress |IP address | 192.168.1.1 |
+| MoneyAmount |Money amount | $500bn |
+| Organization |Name of organization (not including companies) | NATO |
+| PaymentCardNumber |Possible payment card number | 4111 1111 1111 1111 |
+| Person |Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name) | Marcus Harrington |
+| PersonFam |Surname of a Person. Subannotation of the Person annotation | McElvoy |
+| PersonGiv |Given name of a Person. Subannotation of the Person annotation | Caroline |
+| PersonalIdentificationNumber |A personal identification number, such as passport, identity card number or social security number | SSN: 123-45-678 |
+| PlaceAdj |An adjective related to a country | Austrian |
+| PhoneNr |A phone number | +44 (0) 330 333 1212 |
+| Position |Subclass of PersonMention. The professional occupation of a person. | deputy prime minister |
+| Publisher |A company in the media sector. | BBC |
+| Street |The name of a street with or without number. | Elm Street 4 |
+| Url |Url | https://www.wowool.com |
+
+
+### english-definition.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Definition |A definition. A sentence that explains what something or someone is. | Aaron Bramwell is a rugby union player |
+
+
+### english-question.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| Question |A question. | How can we cope with the concept of mortality ? |
+
+
+### english-semantic-query.dom_info
+
+| Entity | Description | Sample |
+| ------ | ----------- | ------ |
+| ReplaceConcept |Replace for Company@(sector=retail). | retail company |
+
+
+

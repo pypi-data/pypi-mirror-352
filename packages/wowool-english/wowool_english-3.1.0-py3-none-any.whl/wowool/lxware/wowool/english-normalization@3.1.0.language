@@ -1,0 +1,24 @@
+{
+  "tokenizer": "wowool/english@3.1.0.tkz",
+  "hmm": "wowool/english@3.1.0.hmm",
+  "conditions": [
+    {
+      "type": "pos",
+      "value": "Prop",
+      "action": "overwrite"
+    }
+  ],
+  "morph_chain": [
+    {
+      "file": "wowool/english@3.1.0.morph",
+      "lookup": "plain",
+      "transform": "none"
+    },
+    {
+      "file": "wowool/english-normalization@3.1.0.morph",
+      "lookup": "plain",
+      "transform": "none"
+    }
+  ],
+  "short_description": "A language module that normalizes Proper names. For instance, 'Aleksij' or 'Aleksey' would be normalized to 'Alexey'"
+}

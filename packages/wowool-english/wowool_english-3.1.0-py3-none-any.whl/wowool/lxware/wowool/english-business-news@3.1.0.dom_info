@@ -1,0 +1,198 @@
+{
+  "dependencies": [
+    "wowool/english-semantic-primitive@3.1.0",
+    "wowool/english-entity-extended@3.1.0",
+    "wowool/english-sentiment@3.1.0",
+    "wowool/english-cyber-news@3.1.0"
+  ],
+  "concepts": [
+    "City",
+    "Company",
+    "Publisher",
+    "Country",
+    "BankProduct",
+    "Bankruptcy",
+    "CompanyAcquisition",
+    "CompanyBailout",
+    "CompanyClosure",
+    "CompanyCyberAttack",
+    "CompanyDisruption",
+    "CompanyLawsuit",
+    "CompanyMerger",
+    "CompanyExpansion",
+    "CompanyOperation",
+    "CompanyPartnership",
+    "CompanyPerformance",
+    "CompanyPosition",
+    "CompanyPublicOpinion",
+    "CompanySupplyRelation",
+    "CompanyWarning",
+    "ChangeManagement",
+    "GoPublic",
+    "GoodFinancialSituation",
+    "BadFinancialSituation",
+    "Layoffs",
+    "MoneyAmount",
+    "Position",
+    "Product",
+    "Person",
+    "ProductLaunch",
+    "ProductRecall",
+    "Organization",
+    "RawMaterial",
+    "Shortages",
+    "StockIndex",
+    "StockExchange",
+    "SupplyIssues",
+    "TopicInnovation"
+  ],
+  "short_description": "Business news annotations such as: Acquisitions, Mergers, Performance, Lawsuits, Operations.",
+  "long_description": "The English company domain offers annotations that can be of help for business analysis, such as: CompanyAcquisition, CompanyMerger, CompanyPerformance, CompanyLawsuit and CompanyOperation. It includes entities from the entity domain, such as Person, Company, Position and MoneyAmount.",
+  "examples": [
+    {
+      "concept": "BankProduct",
+      "sample": "mortgage",
+      "desc": "Offering from a bank"
+    },
+    {
+      "concept": "City",
+      "sample": "Cardiff, Mumbai",
+      "desc": "Name of a city"
+    },
+    {
+      "concept": "Company",
+      "sample": "Tesco",
+      "desc": "Name of a company"
+    },
+    {
+      "concept": "Country",
+      "sample": "France, Germany",
+      "desc": "Name of a country"
+    },
+    {
+      "concept": "ChangeManagement",
+      "sample": "Colin Huang resigns as chairman",
+      "desc": "Facts related to change of management."
+    },
+    {
+      "concept": "CompanyAcquisition",
+      "sample": "Greybull Capital bought British Steel",
+      "desc": "Facts describing company acquisitions."
+    },
+    {
+      "concept": "CompanyBailout",
+      "sample": "subsidies for airplane maker Airbus",
+      "desc": "Facts describing help received by a company on difficult times."
+    },
+    {
+      "concept": "CompanyClosure",
+      "sample": "Debenhams to close all stores",
+      "desc": "Facts describing closures related to companies."
+    },
+    {
+      "concept": "CompanyCyberAttack",
+      "sample": "Hackers target Cisco Routers",
+      "desc": "Facts describing cyber attacks to companies."
+    },
+    {
+      "concept": "CompanyDisruption",
+      "sample": " TSB customers are still facing problems",
+      "desc": "Facts describing general disruptions in companies, like problems, outages, shortages."
+    },
+    {
+      "concept": "CompanyLawsuit",
+      "sample": "Tesla sued Alameda county",
+      "desc": "Facts describing lawsuits or fines involving companies."
+    },
+    {
+      "concept": "CompanyMerger",
+      "sample": "Dixons' merger with Carphone Warehouse",
+      "desc": "Facts describing company mergers."
+    },
+    {
+      "concept": "CompanyExpansion",
+      "sample": "Ocado plans to expand into offering delivery services",
+      "desc": "Facts describing operations that point to companies or their operations being extended."
+    },
+    {
+      "concept": "CompanyOperation",
+      "sample": "Aston Martin axes 500 jobs",
+      "desc": "Super class of CompanyExpansion, CompanyDeal, ProductLaunch, CompanyBailout, CompanyClosure, CompanyDisruption and ChangeManagement."
+    },
+    {
+      "concept": "CompanyPartnership",
+      "sample": "AstraZeneca has expanded an agreement with Oxford Biomedica",
+      "desc": "Partnerships related to a company."
+    },
+    {
+      "concept": "CompanyPerformance",
+      "sample": "Adidas reports nearly 40% drop in profits.",
+      "desc": "How the finances of a company are going."
+    },
+    {
+      "concept": "CompanyPosition",
+      "sample": "Paul Sears , sales manager at Vivara Pro.",
+      "desc": "Facts relating Person to their position at a company."
+    },
+    {
+      "concept": "CompanyPublicOpinion",
+      "sample": "Facebook faced a major pressure campaign",
+      "desc": "Facts related to the perception of a company."
+    },
+    {
+      "concept": "CompanySupplyRelation",
+      "sample": "Foxconn, a major supplier for Apple",
+      "desc": "Companies in a supply relation."
+    },
+    {
+      "concept": "CompanyWarning",
+      "sample": "Ryanair warns it could shut bases and cut jobs after 737 Max delays",
+      "desc": "Warnings issued by companies."
+    },
+    {
+      "concept": "Country",
+      "sample": "Belgium, England, Spain, Denmark, Sweden",
+      "desc": "Name of a Country"
+    },
+    {
+      "concept": "MoneyAmount",
+      "sample": "\u00a350,000",
+      "desc": "Amount of money"
+    },
+    {
+      "concept": "Organization",
+      "sample": "European Central Bank",
+      "desc": "An organization"
+    },
+    {
+      "concept": "Person",
+      "sample": "Marcus Harrington",
+      "desc": "Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name)"
+    },
+    {
+      "concept": "Position",
+      "sample": "deputy prime minister",
+      "desc": "Subclass of PersonMention. The professional occupation of a person."
+    },
+    {
+      "concept": "ProductLaunch",
+      "sample": "Instagram has unveiled a new feature",
+      "desc": "Product launches by companies."
+    },
+    {
+      "concept": "ProductRecall",
+      "sample": "Decathlon recalls treadmills",
+      "desc": "Product recalls by companies."
+    },
+    {
+      "concept": "StockExchange",
+      "sample": "Nasdaq stock exchange",
+      "desc": "A Stock exchange."
+    },
+    {
+      "concept": "StockIndex",
+      "sample": "Russell 2000",
+      "desc": "A Stock index."
+    }
+  ]
+}

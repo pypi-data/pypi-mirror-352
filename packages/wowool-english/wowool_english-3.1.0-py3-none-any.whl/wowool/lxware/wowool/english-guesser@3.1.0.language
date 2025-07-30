@@ -1,0 +1,20 @@
+{
+  "tokenizer": "wowool/english@3.1.0.tkz",
+  "conditions": [
+    {
+      "type": "property",
+      "value": "nf,!init-cap,!all-cap",
+      "action": "merge",
+      "input": "stem"
+    }
+  ],
+  "morph_chain": [
+    {
+      "file": "wowool/english@3.1.0.morph",
+      "guesser": "wowool/english-guesser@3.1.0.morph",
+      "lookup": "guesser",
+      "transform": "none"
+    }
+  ],
+  "short_description": "A language module that guesses word that have not been found."
+}

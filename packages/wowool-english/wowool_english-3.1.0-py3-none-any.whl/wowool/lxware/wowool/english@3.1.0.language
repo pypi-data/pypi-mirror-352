@@ -1,0 +1,57 @@
+{
+  "tokenizer": "wowool/english@3.1.0.tkz",
+  "hmm": "wowool/english@3.1.0.hmm",
+  "postagger": "wowool/english@3.1.0.postagger",
+  "abbreviations": "wowool/english@3.1.0.abbrev",
+  "apostrophe": "wowool/english@3.1.0.apostrophe",
+  "measure": "wowool/english@3.1.0.measure",
+  "morph_chain": [
+    {
+      "file": "wowool/english@3.1.0.morph",
+      "lookup": "plain",
+      "transform": "none"
+    },
+    {
+      "file": "wowool/english-spelling-mistakes@3.1.0.morph",
+      "lookup": "plain",
+      "transform": "none"
+    }
+  ],
+  "property_chain": {
+    "abbrev": [
+      {
+        "file": "wowool/english-abbreviation@3.1.0.morph",
+        "lookup": "plain"
+      }
+    ],
+    "tag": [
+      {
+        "file": "wowool/english@3.1.0.morph",
+        "lookup": "tag",
+        "transform": "tolower"
+      }
+    ],
+    "apostrophe": [
+      {
+        "file": "wowool/english-apostrophe@3.1.0.morph",
+        "lookup": "plain"
+      }
+    ]
+  },
+  "not_found": [
+    {
+      "file": "wowool/english@3.1.0.morph",
+      "lookup": "cleaner",
+      "transform": "none"
+    }
+  ],
+  "tokenizer_mapper": [
+    [
+      621,
+      "internet",
+      "+Url",
+      "-Nn-Std"
+    ]
+  ],
+  "short_description": "A language module that enriches words with root forms, part of speech and properties for english"
+}

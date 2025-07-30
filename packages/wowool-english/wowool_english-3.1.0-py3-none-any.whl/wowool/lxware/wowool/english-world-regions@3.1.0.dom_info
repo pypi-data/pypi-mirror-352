@@ -1,0 +1,955 @@
+{
+  "concepts": [
+    "Afghanistan",
+    "Africa",
+    "Albania",
+    "Algeria",
+    "Angola",
+    "Argentina",
+    "Armenia",
+    "Asia",
+    "Australia",
+    "Austria",
+    "Azerbaijan",
+    "Bahamas",
+    "Bangladesh",
+    "Barbados",
+    "Belarus",
+    "Belize",
+    "Belgium",
+    "Benin",
+    "Bhutan",
+    "Bolivia",
+    "Bosnia",
+    "Botswana",
+    "Brazil",
+    "Bulgaria",
+    "BurkinaFaso",
+    "Burundi",
+    "Cambodia",
+    "Cameroon",
+    "Canada",
+    "CapeVerde",
+    "Caribbean",
+    "CentralAmerica",
+    "CentralAfricanRepublic",
+    "CentralAsia",
+    "Chad",
+    "Chile",
+    "China",
+    "Colombia",
+    "DemocraticRepublicCongo",
+    "RepublicCongo",
+    "CostaRica",
+    "Croatia",
+    "Cuba",
+    "Cyprus",
+    "CzechRepublic",
+    "Denmark",
+    "Djibouti",
+    "DominicanRepublic",
+    "Eritrea",
+    "EquatorialGuinea",
+    "Europe",
+    "EU",
+    "Ecuador",
+    "Egypt",
+    "Estonia",
+    "Eswatini",
+    "Ethiopia",
+    "Finland",
+    "France",
+    "Gabon",
+    "Gambia",
+    "Germany",
+    "Ghana",
+    "Greece",
+    "Greenland",
+    "Guatemala",
+    "Guinea",
+    "GuineaBissau",
+    "Honduras",
+    "Hungary",
+    "Iceland",
+    "India",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Ireland",
+    "Israel",
+    "Italy",
+    "IvoryCoast",
+    "Jamaica",
+    "Japan",
+    "Jordan",
+    "Kazakhstan",
+    "Kenya",
+    "Kosovo",
+    "Kyrgyzstan",
+    "Laos",
+    "Latvia",
+    "Lebanon",
+    "Lesotho",
+    "Liberia",
+    "Libya",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "NorthMacedonia",
+    "Madagascar",
+    "Malaysia",
+    "Malawi",
+    "Mali",
+    "Malta",
+    "Martinique",
+    "Mauritania",
+    "Mauritius",
+    "Mexico",
+    "MiddleEast",
+    "Moldova",
+    "Monaco",
+    "Mongolia",
+    "Montenegro",
+    "Morocco",
+    "Mozambique",
+    "Myanmar",
+    "Namibia",
+    "Nepal",
+    "Netherlands",
+    "NewZealand",
+    "Nicaragua",
+    "Niger",
+    "Nigeria",
+    "NorthAmerica",
+    "NorthKorea",
+    "Norway",
+    "Oman",
+    "Pakistan",
+    "Palestine",
+    "Panama",
+    "PapuaNewGuinea",
+    "Paraguay",
+    "Peru",
+    "Philippines",
+    "Poland",
+    "Portugal",
+    "PuertoRico",
+    "Qatar",
+    "Romania",
+    "Russia",
+    "Rwanda",
+    "SaudiArabia",
+    "Senegal",
+    "Serbia",
+    "SierraLeone",
+    "Singapore",
+    "Slovakia",
+    "Slovenia",
+    "Somalia",
+    "SouthAfrica",
+    "SouthAmerica",
+    "SouthKorea",
+    "SoutheastAsia",
+    "SouthSudan",
+    "Spain",
+    "SriLanka",
+    "Sudan",
+    "Suriname",
+    "Sweden",
+    "Switzerland",
+    "Syria",
+    "Taiwan",
+    "Tajikistan",
+    "Tanzania",
+    "Thailand",
+    "Togo",
+    "Tunisia",
+    "Turkey",
+    "Turkmenistan",
+    "UK",
+    "USA",
+    "Uganda",
+    "Ukraine",
+    "UnitedArabEmirates",
+    "Uruguay",
+    "Uzbekistan",
+    "Vatican",
+    "Venezuela",
+    "Vietnam",
+    "Zambia",
+    "Zanzibar",
+    "Zimbabwe",
+    "Place"
+  ],
+  "dependencies": [
+    "wowool/english-entity@3.1.0"
+  ],
+  "short_description": "An ontology of places. For instance annotations like UK, which will cover cities, towns and counties in the UK. ",
+  "examples": [
+    {
+      "concept": "Afghanistan",
+      "sample": "Afghanistan, Kabul",
+      "desc": "The country Afghanistan or a place in Afghanistan."
+    },
+    {
+      "concept": "Albania",
+      "sample": "Albania, Tirana",
+      "desc": "The country Albania or a place in Albania."
+    },
+    {
+      "concept": "Algeria",
+      "sample": "Algeria, Algiers",
+      "desc": "The country Algeria or a place in Algeria."
+    },
+    {
+      "concept": "Angola",
+      "sample": "Angola, Luanda",
+      "desc": "The country Angola or a place in Angola."
+    },
+    {
+      "concept": "Argentina",
+      "sample": "Argentina, Buenos Aires",
+      "desc": "The country Argentina or a place in Argentina."
+    },
+    {
+      "concept": "Armenia",
+      "sample": "Armenia, Yerevan",
+      "desc": "The country Armenia or a place in Armenia."
+    },
+    {
+      "concept": "Australia",
+      "sample": "Australia, Canberra",
+      "desc": "The country Australia or a place in Australia."
+    },
+    {
+      "concept": "Austria",
+      "sample": "Austria, Vienna",
+      "desc": "The country Austria or a place in Austria."
+    },
+    {
+      "concept": "Azerbaijan",
+      "sample": "Azerbaijan, Baku",
+      "desc": "The country Azerbaijan or a place in Azerbaijan."
+    },
+    {
+      "concept": "Bangladesh",
+      "sample": "Bangladesh, Dhaka",
+      "desc": "The country Bangladesh or a place in Bangladesh."
+    },
+    {
+      "concept": "Belarus",
+      "sample": "Belarus, Minsk",
+      "desc": "The country Belarus or a place in Belarus."
+    },
+    {
+      "concept": "Belgium",
+      "sample": "Belgium, Brussels, Liege",
+      "desc": "The country Belgium or a place in Belgium."
+    },
+    {
+      "concept": "Benin",
+      "sample": "Benin, Porto Novo",
+      "desc": "The country Benin or a place in Benin."
+    },
+    {
+      "concept": "Bhutan",
+      "sample": "Bhutan, Thimphu",
+      "desc": "The country Bhutan or a place in Bhutan."
+    },
+    {
+      "concept": "Bolivia",
+      "sample": "Bolivia, La Paz",
+      "desc": "The country Bolivia or a place in Bolivia."
+    },
+    {
+      "concept": "Bosnia",
+      "sample": "Bosnia, Sarajevo",
+      "desc": "The country Bosnia or a place in Bosnia."
+    },
+    {
+      "concept": "Botswana",
+      "sample": "Botswana, Gaborone",
+      "desc": "The country Botswana or a place in Botswana."
+    },
+    {
+      "concept": "Brazil",
+      "sample": "Brazil, Brasilia",
+      "desc": "The country Brazil or a place in Brazil."
+    },
+    {
+      "concept": "Bulgaria",
+      "sample": "Bulgaria",
+      "desc": "The country Bulgaria or a place in Bulgaria."
+    },
+    {
+      "concept": "BurkinaFaso",
+      "sample": "Burkina Faso, Ouagadougou",
+      "desc": "The country Burkina Faso or a place in Burkina Faso."
+    },
+    {
+      "concept": "Burundi",
+      "sample": "Burundi, Gitega",
+      "desc": "The country Burundi or a place in Burundi."
+    },
+    {
+      "concept": "Cambodia",
+      "sample": "Cambodia, Phnom Penh",
+      "desc": "The country Cambodia or a place in Cambodia."
+    },
+    {
+      "concept": "Cameroon",
+      "sample": "Cameroon, Yaounde",
+      "desc": "The country Cameroon or a place in Cameroon."
+    },
+    {
+      "concept": "Canada",
+      "sample": "Canada, Ottawa",
+      "desc": "The country Canada or a place in Canada."
+    },
+    {
+      "concept": "CentralAsia",
+      "sample": "Afghanistan",
+      "desc": "A place in Central Asia."
+    },
+    {
+      "concept": "Chile",
+      "sample": "Chile",
+      "desc": "The country Chile or a place in Chile."
+    },
+    {
+      "concept": "China",
+      "sample": "China, Wuhan",
+      "desc": "The country China or a place in China."
+    },
+    {
+      "concept": "Colombia",
+      "sample": "Colombia, Bogota",
+      "desc": "The country Colombia or a place in Colombia."
+    },
+    {
+      "concept": "DemocraticRepublicCongo",
+      "sample": "Democratic Republic of the Congo",
+      "desc": "The country Democratic Republic of Congo or a place in Democratic Republic of Congo."
+    },
+    {
+      "concept": "RepublicCongo",
+      "sample": "Republic of the Congo",
+      "desc": "The country Republic of Congo or a place in Republic of Congo."
+    },
+    {
+      "concept": "CostaRica",
+      "sample": "Costa Rica",
+      "desc": "The country Costa Rica or a place in Costa Rica."
+    },
+    {
+      "concept": "Croatia",
+      "sample": "Croatia",
+      "desc": "The country Croatia or a place in Croatia."
+    },
+    {
+      "concept": "Cuba",
+      "sample": "Cuba",
+      "desc": "The country Cuba or a place in Cuba."
+    },
+    {
+      "concept": "Cyprus",
+      "sample": "Cyprus",
+      "desc": "The country Cyprus or a place in Cyprus."
+    },
+    {
+      "concept": "CzechRepublic",
+      "sample": "Czech Republic",
+      "desc": "The country Czech Republic or a place in Czech Republic."
+    },
+    {
+      "concept": "Denmark",
+      "sample": "Denmark",
+      "desc": "The country Denmark or a place in Denmark."
+    },
+    {
+      "concept": "DominicanRepublic",
+      "sample": "Dominican Republic",
+      "desc": "The country Dominican Republic or a place in Dominica Republic."
+    },
+    {
+      "concept": "EU",
+      "sample": "Ireland, Brussels",
+      "desc": "A place in the EU."
+    },
+    {
+      "concept": "Ecuador",
+      "sample": "Ecuador",
+      "desc": "The country Ecuador or a place in Ecuador."
+    },
+    {
+      "concept": "Egypt",
+      "sample": "Egypt",
+      "desc": "The country Egypt or a place in Egypt."
+    },
+    {
+      "concept": "Estonia",
+      "sample": "Estonia",
+      "desc": "The country Estonia or a place in Estonia."
+    },
+    {
+      "concept": "Ethiopia",
+      "sample": "Ethiopia",
+      "desc": "The country Ethiopia or a place in Ethiopia."
+    },
+    {
+      "concept": "Finland",
+      "sample": "Finland",
+      "desc": "The country Finland or a place in Finland."
+    },
+    {
+      "concept": "France",
+      "sample": "France",
+      "desc": "The country France or a place in France."
+    },
+    {
+      "concept": "Gabon",
+      "sample": "Gabon",
+      "desc": "The country Gabon or a place in Gabon."
+    },
+    {
+      "concept": "Gambia",
+      "sample": "Gambia",
+      "desc": "The country Gambia or a place in Gambia."
+    },
+    {
+      "concept": "Germany",
+      "sample": "Germany",
+      "desc": "The country Germany or a place in Germany."
+    },
+    {
+      "concept": "Ghana",
+      "sample": "Ghana",
+      "desc": "The country Ghana or a place in Ghana."
+    },
+    {
+      "concept": "Greece",
+      "sample": "Greece",
+      "desc": "The country Greece or a place in Greece."
+    },
+    {
+      "concept": "Greenland",
+      "sample": "Greenland",
+      "desc": "The country Greenland or a place in Greenland."
+    },
+    {
+      "concept": "Guatemala",
+      "sample": "Guatemala",
+      "desc": "The country Guatemala or a place in Guatemala."
+    },
+    {
+      "concept": "Guinea",
+      "sample": "Guinea",
+      "desc": "The country Guinea or a place in Guinea."
+    },
+    {
+      "concept": "GuineaBissau",
+      "sample": "Guinea Bissau",
+      "desc": "The country Guinea Bissau or a place in Guinea Bissau."
+    },
+    {
+      "concept": "Honduras",
+      "sample": "Honduras",
+      "desc": "The country Honduras or a place in Honduras."
+    },
+    {
+      "concept": "Hungary",
+      "sample": "Hungary",
+      "desc": "The country Hungary or a place in Hungary."
+    },
+    {
+      "concept": "Iceland",
+      "sample": "Iceland",
+      "desc": "The country Iceland or a place in Iceland."
+    },
+    {
+      "concept": "India",
+      "sample": "India",
+      "desc": "The country India or a place in India."
+    },
+    {
+      "concept": "Indonesia",
+      "sample": "Indonesia",
+      "desc": "The country Indonesia or a place in Indonesia."
+    },
+    {
+      "concept": "Iran",
+      "sample": "Iran",
+      "desc": "The country Iran or a place in Iran."
+    },
+    {
+      "concept": "Iraq",
+      "sample": "Iraq",
+      "desc": "The country Iraq or a place in Iraq."
+    },
+    {
+      "concept": "Ireland",
+      "sample": "Ireland",
+      "desc": "The country Ireland or a place in Ireland."
+    },
+    {
+      "concept": "Israel",
+      "sample": "Israel",
+      "desc": "The country Israel or a place in Israel."
+    },
+    {
+      "concept": "Italy",
+      "sample": "Italy",
+      "desc": "The country Italy or a place in Italy."
+    },
+    {
+      "concept": "IvoryCoast",
+      "sample": "Ivory Coast",
+      "desc": "The country Ivory Coast or a place in Ivory Coast."
+    },
+    {
+      "concept": "Jamaica",
+      "sample": "Jamaica",
+      "desc": "The country Jamaica or a place in Jamaica."
+    },
+    {
+      "concept": "Japan",
+      "sample": "Tokyo, Osaka, Japan",
+      "desc": "The country Japan or a place in Japan."
+    },
+    {
+      "concept": "Jordan",
+      "sample": "Jordan",
+      "desc": "The country Jordan or a place in Jordan."
+    },
+    {
+      "concept": "Kazakhstan",
+      "sample": "Kazakhstan",
+      "desc": "The country Kazakhstan or a place in Kazakhstan."
+    },
+    {
+      "concept": "Kenya",
+      "sample": "Kenya",
+      "desc": "The country Kenya or a place in Kenya."
+    },
+    {
+      "concept": "Kosovo",
+      "sample": "Kosovo",
+      "desc": "The country Kosovo or a place in Kosovo."
+    },
+    {
+      "concept": "Kyrgyzstan",
+      "sample": "Kyrgyzstan",
+      "desc": "The country Kyrgyzstan or a place in Kyrgyzstan."
+    },
+    {
+      "concept": "Laos",
+      "sample": "Laos",
+      "desc": "The country Laos or a place in Laos."
+    },
+    {
+      "concept": "Latvia",
+      "sample": "Latvia",
+      "desc": "The country Latvia or a place in Latvia."
+    },
+    {
+      "concept": "Lebanon",
+      "sample": "Lebanon",
+      "desc": "The country Lebanon or a place in Lebanon."
+    },
+    {
+      "concept": "Liberia",
+      "sample": "Liberia",
+      "desc": "The country Liberia or a place in Liberia."
+    },
+    {
+      "concept": "Libya",
+      "sample": "Libya",
+      "desc": "The country Libya or a place in Libya."
+    },
+    {
+      "concept": "Liechtenstein",
+      "sample": "Liechtenstein",
+      "desc": "The country Liechtenstein or a place in Liechtenstein."
+    },
+    {
+      "concept": "Lithuania",
+      "sample": "Lithuania",
+      "desc": "The country Lithuania or a place in Lithuania."
+    },
+    {
+      "concept": "Luxembourg",
+      "sample": "Luxembourg",
+      "desc": "The country Luxembourg or a place in Luxembourg."
+    },
+    {
+      "concept": "NorthMacedonia",
+      "sample": "North Macedonia",
+      "desc": "The country North Macedonia or a place in North Macedonia."
+    },
+    {
+      "concept": "Madagascar",
+      "sample": "Madagascar",
+      "desc": "The country Madagascar or a place in Madagascar."
+    },
+    {
+      "concept": "Malaysia",
+      "sample": "Malaysia",
+      "desc": "The country Malaysia or a place in Malaysia."
+    },
+    {
+      "concept": "Mali",
+      "sample": "Mali",
+      "desc": "The country Mali or a place in Mali."
+    },
+    {
+      "concept": "Malta",
+      "sample": "Malta",
+      "desc": "The country Malta or a place in Malta."
+    },
+    {
+      "concept": "Mauritania",
+      "sample": "Mauritania",
+      "desc": "The country Mauritania or a place in Mauritania."
+    },
+    {
+      "concept": "Mexico",
+      "sample": "Mexico",
+      "desc": "The country Mexico or a place in Mexico."
+    },
+    {
+      "concept": "MiddleEast",
+      "sample": "Lebanon, Baghdad",
+      "desc": "A place in the Middle East"
+    },
+    {
+      "concept": "Moldova",
+      "sample": "Moldova",
+      "desc": "The country Moldova or a place in Moldova."
+    },
+    {
+      "concept": "Monaco",
+      "sample": "Monaco",
+      "desc": "The country Monaco or a place in Monaco."
+    },
+    {
+      "concept": "Mongolia",
+      "sample": "Mongolia",
+      "desc": "The country Mongolia or a place in Mongolia."
+    },
+    {
+      "concept": "Montenegro",
+      "sample": "Montenegro",
+      "desc": "The country Montenegro or a place in Montenegro."
+    },
+    {
+      "concept": "Morocco",
+      "sample": "Morocco",
+      "desc": "The country Morocco or a place in Morocco."
+    },
+    {
+      "concept": "Mozambique",
+      "sample": "Mozambique",
+      "desc": "The country Mozambique or a place in Mozambique."
+    },
+    {
+      "concept": "Myanmar",
+      "sample": "Myanmar",
+      "desc": "The country Myanmar or a place in Myanmar."
+    },
+    {
+      "concept": "Namibia",
+      "sample": "Namibia",
+      "desc": "The country Namibia or a place in Namibia."
+    },
+    {
+      "concept": "Nepal",
+      "sample": "Nepal",
+      "desc": "The country Nepal or a place in Nepal."
+    },
+    {
+      "concept": "Netherlands",
+      "sample": "Netherlands",
+      "desc": "The country Netherlands or a place in Netherlands."
+    },
+    {
+      "concept": "NewZealand",
+      "sample": "New Zealand",
+      "desc": "The country New Zealand or a place in New Zealand."
+    },
+    {
+      "concept": "Nicaragua",
+      "sample": "Nicaragua",
+      "desc": "The country Nicaragua or a place in Nicaragua."
+    },
+    {
+      "concept": "Nigeria",
+      "sample": "Nigeria",
+      "desc": "The country Nigeria or a place in Nigeria."
+    },
+    {
+      "concept": "NorthKorea",
+      "sample": "North Korea",
+      "desc": "The country North Korea or a place in North Korea."
+    },
+    {
+      "concept": "Norway",
+      "sample": "Norway",
+      "desc": "The country Norway or a place in Norway."
+    },
+    {
+      "concept": "Oman",
+      "sample": "Oman",
+      "desc": "The country Oman or a place in Oman."
+    },
+    {
+      "concept": "Pakistan",
+      "sample": "Pakistan",
+      "desc": "The country Pakistan or a place in Pakistan."
+    },
+    {
+      "concept": "Palestine",
+      "sample": "Palestine",
+      "desc": "The country Palestine or a place in Palestine."
+    },
+    {
+      "concept": "Panama",
+      "sample": "Panama",
+      "desc": "The country Panama or a place in Panama."
+    },
+    {
+      "concept": "PapuaNewGuinea",
+      "sample": "Papua New Guinea",
+      "desc": "The country Papua New Guinea or a place in Papua New Guinea."
+    },
+    {
+      "concept": "Paraguay",
+      "sample": "Paraguay",
+      "desc": "The country Paraguay or a place in Paraguay."
+    },
+    {
+      "concept": "Peru",
+      "sample": "Peru",
+      "desc": "The country Peru or a place in Peru."
+    },
+    {
+      "concept": "Philippines",
+      "sample": "Philippines",
+      "desc": "The country Philippines or a place in Philippines."
+    },
+    {
+      "concept": "Poland",
+      "sample": "Poland",
+      "desc": "The country Poland or a place in Poland."
+    },
+    {
+      "concept": "Portugal",
+      "sample": "Portugal",
+      "desc": "The country Portugal or a place in Portugal."
+    },
+    {
+      "concept": "PuertoRico",
+      "sample": "Puerto Rico",
+      "desc": "The country Puerto Rico or a place in Puerto Rico."
+    },
+    {
+      "concept": "Qatar",
+      "sample": "Qatar",
+      "desc": "The country Qatar or a place in Qatar."
+    },
+    {
+      "concept": "Romania",
+      "sample": "Romania",
+      "desc": "The country Romania or a place in Romania."
+    },
+    {
+      "concept": "Russia",
+      "sample": "Russia",
+      "desc": "The country Russia or a place in Russia."
+    },
+    {
+      "concept": "Rwanda",
+      "sample": "Rwanda",
+      "desc": "The country Rwanda or a place in Rwanda."
+    },
+    {
+      "concept": "SaudiArabia",
+      "sample": "Saudi Arabia",
+      "desc": "The country Saudi Arabia or a place in Saudi Arabia."
+    },
+    {
+      "concept": "Serbia",
+      "sample": "Serbia",
+      "desc": "The country Serbia or a place in Serbia."
+    },
+    {
+      "concept": "SierraLeone",
+      "sample": "Sierra Leone",
+      "desc": "The country Sierra Leone or a place in Sierra Leone."
+    },
+    {
+      "concept": "Singapore",
+      "sample": "Singapore",
+      "desc": "The country Singapore or a place in Singapore."
+    },
+    {
+      "concept": "Slovakia",
+      "sample": "Slovakia",
+      "desc": "The country Slovakia or a place in Slovakia."
+    },
+    {
+      "concept": "Slovenia",
+      "sample": "Slovenia",
+      "desc": "The country Slovenia or a place in Slovenia."
+    },
+    {
+      "concept": "Somalia",
+      "sample": "Somalia",
+      "desc": "The country Somalia or a place in Somalia."
+    },
+    {
+      "concept": "SouthKorea",
+      "sample": "South Korea",
+      "desc": "The country South Korea or a place in South Korea."
+    },
+    {
+      "concept": "SoutheastAsia",
+      "sample": "Thailand",
+      "desc": "A place in Southeast Asia."
+    },
+    {
+      "concept": "Spain",
+      "sample": "Spain, Madrid",
+      "desc": "The country Spain or a place in Spain."
+    },
+    {
+      "concept": "SriLanka",
+      "sample": "Sri Lanka",
+      "desc": "The country Sri Lanka or a place in Sri Lanka."
+    },
+    {
+      "concept": "Sudan",
+      "sample": "Sudan",
+      "desc": "The country Sudan or a place in Sudan."
+    },
+    {
+      "concept": "Suriname",
+      "sample": "Suriname",
+      "desc": "The country Suriname or a place in Suriname."
+    },
+    {
+      "concept": "Sweden",
+      "sample": "Sweden",
+      "desc": "The country Sweden or a place in Sweden."
+    },
+    {
+      "concept": "Switzerland",
+      "sample": "Switzerland",
+      "desc": "The country Switzerland or a place in Switzerland."
+    },
+    {
+      "concept": "Syria",
+      "sample": "Syria",
+      "desc": "The country Syria or a place in Syria."
+    },
+    {
+      "concept": "Taiwan",
+      "sample": "Taiwan",
+      "desc": "The country Taiwan or a place in Taiwan."
+    },
+    {
+      "concept": "Tajikistan",
+      "sample": "Tajikistan",
+      "desc": "The country Tajikistan or a place in Tajikistan."
+    },
+    {
+      "concept": "Tanzania",
+      "sample": "Tanzania",
+      "desc": "The country Tanzania or a place in Tanzania."
+    },
+    {
+      "concept": "Thailand",
+      "sample": "Thailand",
+      "desc": "The country Thailand or a place in Thailand."
+    },
+    {
+      "concept": "Togo",
+      "sample": "Togo",
+      "desc": "The country Togo or a place in Togo."
+    },
+    {
+      "concept": "Tunisia",
+      "sample": "Tunisia",
+      "desc": "The country Tunisia or a place in Tunisia."
+    },
+    {
+      "concept": "Turkey",
+      "sample": "I live in Turkey",
+      "desc": "The country Turkey or a place in Turkey."
+    },
+    {
+      "concept": "Turkmenistan",
+      "sample": "Turkmenistan",
+      "desc": "The country Turkmenistan or a place in Turkmenistan."
+    },
+    {
+      "concept": "USA",
+      "sample": "USA",
+      "desc": "The country USA or a place in USA."
+    },
+    {
+      "concept": "Uganda",
+      "sample": "Uganda",
+      "desc": "The country Uganda or a place in Uganda."
+    },
+    {
+      "concept": "Ukraine",
+      "sample": "Ukraine",
+      "desc": "The country Ukraine or a place in Ukraine."
+    },
+    {
+      "concept": "UnitedArabEmirates",
+      "sample": "Dubai",
+      "desc": "A place in the UAE."
+    },
+    {
+      "concept": "Uruguay",
+      "sample": "Uruguay",
+      "desc": "The country Uruguay or a place in Uruguay."
+    },
+    {
+      "concept": "Uzbekistan",
+      "sample": "Uzbekistan",
+      "desc": "The country Uzbekistan or a place in Uzbekistan."
+    },
+    {
+      "concept": "Vatican",
+      "sample": "Vatican",
+      "desc": "The country Vatican or a place in Vatican."
+    },
+    {
+      "concept": "Venezuela",
+      "sample": "Venezuela",
+      "desc": "The country Venezuela or a place in Venezuela."
+    },
+    {
+      "concept": "Vietnam",
+      "sample": "Vietnam",
+      "desc": "The country Vietnam or a place in Vietnam."
+    },
+    {
+      "concept": "Zambia",
+      "sample": "Zambia",
+      "desc": "The country Zambia or a place in Zambia."
+    },
+    {
+      "concept": "Zanzibar",
+      "sample": "Zanzibar",
+      "desc": "The country Zanzibar or a place in Zanzibar."
+    },
+    {
+      "concept": "UK",
+      "sample": "London, England",
+      "desc": "A place in the United Kingdom."
+    }
+  ]
+}

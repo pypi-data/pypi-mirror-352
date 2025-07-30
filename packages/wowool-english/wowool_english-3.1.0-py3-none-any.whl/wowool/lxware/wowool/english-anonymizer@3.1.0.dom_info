@@ -1,0 +1,150 @@
+{
+  "dependencies": [
+    "wowool/english-entity@3.1.0"
+  ],
+  "concepts": [
+    "Address",
+    "Age",
+    "BankAccount",
+    "BitcoinAddress",
+    "City",
+    "Company",
+    "Country",
+    "Date",
+    "Email",
+    "GivenName",
+    "IPAddress",
+    "MoneyAmount",
+    "Organization",
+    "PaymentCardNumber",
+    "PersonFam",
+    "PersonGiv",
+    "Person",
+    "PersonalIdentificationNumber",
+    "PlaceAdj",
+    "PhoneNr",
+    "Position",
+    "Publisher",
+    "Street",
+    "Url"
+  ],
+  "short_description": "Contact information annotations, such as: Person name, City, Country, Address, PhoneNr, etc.",
+  "examples": [
+    {
+      "concept": "Address",
+      "sample": "999 Berners Street London W1T 3LF",
+      "desc": "Captures the Street, City and the complete Address"
+    },
+    {
+      "concept": "Age",
+      "sample": "28-year-old",
+      "desc": "Person's age"
+    },
+    {
+      "concept": "BankAccount",
+      "sample": "DE44 5001 0517 5407 3249 31",
+      "desc": "Bank account number"
+    },
+    {
+      "concept": "BitcoinAddress",
+      "sample": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+      "desc": "Bitcoin address"
+    },
+    {
+      "concept": "City",
+      "sample": "Cardiff",
+      "desc": "Name of a City"
+    },
+    {
+      "concept": "Company",
+      "sample": "Tesco",
+      "desc": "Name of a Company"
+    },
+    {
+      "concept": "Country",
+      "sample": "Belgium, England, Spain, Denmark, Sweden",
+      "desc": "Name of a Country"
+    },
+    {
+      "concept": "Date",
+      "sample": "17th of September 2025",
+      "desc": "A Date"
+    },
+    {
+      "concept": "Email",
+      "sample": "info@wowool.com",
+      "desc": "Email address"
+    },
+    {
+      "concept": "IPAddress",
+      "sample": "192.168.1.1",
+      "desc": "IP address"
+    },
+    {
+      "concept": "MoneyAmount",
+      "sample": "$500bn",
+      "desc": "Money amount"
+    },
+    {
+      "concept": "Organization",
+      "sample": "NATO",
+      "desc": "Name of organization (not including companies)"
+    },
+    {
+      "concept": "PaymentCardNumber",
+      "sample": "4111 1111 1111 1111",
+      "desc": "Possible payment card number"
+    },
+    {
+      "concept": "Person",
+      "sample": "Marcus Harrington",
+      "desc": "Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name)"
+    },
+    {
+      "concept": "PersonFam",
+      "sample": "McElvoy",
+      "desc": "Surname of a Person. Subannotation of the Person annotation"
+    },
+    {
+      "concept": "PersonGiv",
+      "sample": "Caroline",
+      "desc": "Given name of a Person. Subannotation of the Person annotation"
+    },
+    {
+      "concept": "PersonalIdentificationNumber",
+      "sample": "SSN: 123-45-678",
+      "desc": "A personal identification number, such as passport, identity card number or social security number"
+    },
+    {
+      "concept": "PlaceAdj",
+      "sample": "Austrian",
+      "desc": "An adjective related to a country"
+    },
+    {
+      "concept": "PhoneNr",
+      "sample": "+44 (0) 330 333 1212",
+      "desc": "A phone number"
+    },
+    {
+      "concept": "Position",
+      "sample": "deputy prime minister",
+      "desc": "Subclass of PersonMention. The professional occupation of a person."
+    },
+    {
+      "concept": "Publisher",
+      "sample": "BBC",
+      "desc": "A company in the media sector."
+    },
+    {
+      "concept": "Street",
+      "sample": "Elm Street 4",
+      "desc": "The name of a street with or without number."
+    },
+    {
+      "concept": "Url",
+      "sample": "https://www.wowool.com",
+      "desc": "Url"
+    }
+  ],
+  "instances": true
+}

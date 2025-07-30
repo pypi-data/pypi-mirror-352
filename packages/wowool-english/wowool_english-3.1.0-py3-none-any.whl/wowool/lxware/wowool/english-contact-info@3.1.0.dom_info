@@ -1,0 +1,84 @@
+{
+  "dependencies": [
+    "wowool/english-entity@3.1.0"
+  ],
+  "concepts": [
+    "Address",
+    "City",
+    "Company",
+    "Country",
+    "Email",
+    "PersonFam",
+    "PersonGiv",
+    "Person",
+    "PhoneNr",
+    "Position",
+    "Publisher",
+    "Street",
+    "Url"
+  ],
+  "short_description": "Contact information annotations, such as: Person name, City, Country, Address, PhoneNr, etc.",
+  "examples": [
+    {
+      "concept": "Address",
+      "sample": "999 Berners Street London W1T 3LF",
+      "desc": "Captures the Street, City and the complete Address"
+    },
+    {
+      "concept": "City",
+      "sample": "Cardiff",
+      "desc": "Name of a City"
+    },
+    {
+      "concept": "Company",
+      "sample": "Tesco",
+      "desc": "Name of a Company"
+    },
+    {
+      "concept": "Country",
+      "sample": "Belgium, England, Spain, Denmark, Sweden",
+      "desc": "Name of a Country"
+    },
+    {
+      "concept": "Email",
+      "sample": "info@wowool.com",
+      "desc": "Email address"
+    },
+    {
+      "concept": "Person",
+      "sample": "Marcus Harrington",
+      "desc": "Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name)"
+    },
+    {
+      "concept": "PersonFam",
+      "sample": "McElvoy",
+      "desc": "Surname of a Person. Subannotation of the Person annotation"
+    },
+    {
+      "concept": "PersonGiv",
+      "sample": "Caroline",
+      "desc": "Given name of a Person. Subannotation of the Person annotation"
+    },
+    {
+      "concept": "PhoneNr",
+      "sample": "+44 (0) 330 333 1212",
+      "desc": "A phone number"
+    },
+    {
+      "concept": "Position",
+      "sample": "deputy prime minister",
+      "desc": "Subclass of PersonMention. The professional occupation of a person."
+    },
+    {
+      "concept": "Street",
+      "sample": "de Mariniersweg",
+      "desc": "The name of a street with or without number."
+    },
+    {
+      "concept": "Url",
+      "sample": "https://www.wowool.com",
+      "desc": "Url"
+    }
+  ],
+  "instances": true
+}

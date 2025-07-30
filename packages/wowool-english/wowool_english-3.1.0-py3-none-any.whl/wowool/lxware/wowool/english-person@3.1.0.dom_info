@@ -1,0 +1,82 @@
+{
+  "dependencies": [
+    "wowool/english-entity@3.1.0",
+    "wowool/english-healthcare@3.1.0"
+  ],
+  "concepts": [
+    "Address",
+    "City",
+    "Company",
+    "Country",
+    "Date",
+    "Email",
+    "Organization",
+    "Person",
+    "PersonGiv",
+    "PersonFam",
+    "PersonAge",
+    "PersonFamily",
+    "PersonTime",
+    "PersonMention",
+    "PersonMedicalProcedure",
+    "PersonHealthIssue",
+    "PersonPosition",
+    "PersonProduct",
+    "Publisher",
+    "Position"
+  ],
+  "short_description": "Annotations centered on information about individual persons. It has been modelled using the news as a source",
+  "examples": [
+    {
+      "concept": "Address",
+      "sample": "999 Berners Street London W1T 3LF",
+      "desc": "Captures the Street, City and the complete Address"
+    },
+    {
+      "concept": "City",
+      "sample": "Cardiff",
+      "desc": "Name of a City"
+    },
+    {
+      "concept": "Company",
+      "sample": "Tesco",
+      "desc": "Name of a Company"
+    },
+    {
+      "concept": "Country",
+      "sample": "Belgium, England, Spain, Denmark, Sweden",
+      "desc": "Name of a Country"
+    },
+    {
+      "concept": "Date",
+      "sample": "29 October 2017",
+      "desc": "Date and Month"
+    },
+    {
+      "concept": "Email",
+      "sample": "info@wowool.com",
+      "desc": "Email address"
+    },
+    {
+      "concept": "Organization",
+      "sample": "Labour party",
+      "desc": "Name of an Organization"
+    },
+    {
+      "concept": "Person",
+      "sample": "Marcus Harrington",
+      "desc": "Name of a Person, it captures as well the PersonGiv (first name) and PersonFam (family name)"
+    },
+    {
+      "concept": "PersonMention",
+      "sample": "consumer, colleague",
+      "desc": "A mention of a person in a general way"
+    },
+    {
+      "concept": "Position",
+      "sample": "deputy prime minister",
+      "desc": "Subclass of PersonMention. The professional occupation of a person."
+    }
+  ],
+  "instances": true
+}

@@ -1,0 +1,30 @@
+{
+  "dependencies": [
+    "wowool/english-syntax@3.1.0",
+    "wowool/english-definition@3.1.0",
+    "wowool/english-entity@3.1.0"
+  ],
+  "concepts": [
+    "Definition",
+    "Descriptor",
+    "DescriptorMarker"
+  ],
+  "short_description": "Descriptors for knowledge discovery. For instance 'painter' will refer to a Person. ",
+  "examples": [
+    {
+      "concept": "Definition",
+      "sample": "Aaron Bramwell is a rugby union player",
+      "desc": "A definition. A sentence that explains what something or someone is."
+    },
+    {
+      "concept": "Descriptor",
+      "sample": "Conexi\u00f3n Caribe is a 1984 film starring members of Los Chicos",
+      "desc": " descriptor is something like 'painter', which will allow us to classify an concept as a Person when it appears in certain definition context."
+    },
+    {
+      "concept": "DescriptorMarker",
+      "sample": "film, actor",
+      "desc": "A DescriptorMarker is a descriptor no matter the context"
+    }
+  ]
+}
