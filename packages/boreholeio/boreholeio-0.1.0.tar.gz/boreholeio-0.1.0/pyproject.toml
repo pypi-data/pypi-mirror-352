@@ -1,0 +1,79 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "boreholeio"
+dynamic = ["version"]
+authors = [
+  { name="Advanced Logic Technology", email="support@alt.lu" },
+]
+description = "A library for interacting with borehole.io, a subsurface data management, delivery and visualisation platform."
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy~=1.20",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Development Status :: 1 - Planning",
+]
+
+[project.urls]
+Homepage = "https://git.alt.lu/alt/borehole.io-python"
+Issues = "https://git.alt.lu/alt/borehole.io-python/issues"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/boreholeio"]
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+  "pytest-stub",
+]
+
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive src/boreholeio tests"
+
+[tool.coverage.run]
+source_pkgs = ["boreholeio", "tests"]
+branch = true
+parallel = true
+omit = [
+]
+
+[tool.coverage.paths]
+boreholeio = ["boreholeio", "*/boreholeio/src/boreholeio"]
+tests = ["tests", "*/boreholeio/tests"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.ruff]
+target-version = "py38"
+lint.pydocstyle.convention = "numpy"
+lint.extend-select = [
+    "D",
+]
+lint.extend-ignore = [
+    "D105",
+    "D107",
+    "D203",
+    "D213",
+    "TRY003",
+]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"src/boreholeio/**/__init__.py" = ["D"]
+"src/boreholeio/_model.py" = ["TCH003"]
+"**/tests/**/*" = ["D"]
