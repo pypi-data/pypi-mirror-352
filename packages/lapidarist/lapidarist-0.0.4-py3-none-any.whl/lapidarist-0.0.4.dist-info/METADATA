@@ -1,0 +1,46 @@
+Metadata-Version: 2.4
+Name: lapidarist
+Version: 0.0.4
+Summary: Extract and resolve Knowledge Graphs and other structures for AI Systems
+Author-email: Adam Pingel <oss@pingel.org>
+License-Expression: Apache-2.0
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aisuite>=0.1.10
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: rich>=13.9.4
+Requires-Dist: pymilvus>=2.5.4
+Requires-Dist: pymilvus_model>=0.3.1
+Requires-Dist: datasets>=3.3.2
+Requires-Dist: tiktoken>=0.9.0
+Requires-Dist: neo4j>=5.28.1
+Requires-Dist: langchain-community>=0.3.18
+Requires-Dist: langchain-huggingface>=0.1.2
+Provides-Extra: test
+Requires-Dist: pytest<9,>=8; extra == "test"
+Requires-Dist: pytest-cov<6,>=5; extra == "test"
+Requires-Dist: docstring_parser>=0.16; extra == "test"
+Requires-Dist: typer>=0.15.2; extra == "test"
+Requires-Dist: click>=8.2.0; extra == "test"
+Requires-Dist: pytest>=8.3.5; extra == "test"
+Requires-Dist: llama_api_client>=0.1.1; extra == "test"
+Requires-Dist: neo4j>=5.28.1; extra == "test"
+Requires-Dist: gofannon>=0.25.13; extra == "test"
+Requires-Dist: lapidarist>=0.0.1; extra == "test"
+Dynamic: license-file
+
+# lapidarist
+
+[![CI](https://github.com/The-AI-Alliance/lapidarist/actions/workflows/pytest.yml/badge.svg)](https://github.com/The-AI-Alliance/lapidarist/actions/workflows/pytest.yml)
+[![PyPI](https://img.shields.io/pypi/v/lapidarist)](https://pypi.org/project/lapidarist/)
+[![License](https://img.shields.io/github/license/The-AI-Alliance/lapidarist)](https://github.com/The-AI-Alliance/lapidarist/tree/main?tab=Apache-2.0-1-ov-file#readme)
+[![Issues](https://img.shields.io/github/issues/The-AI-Alliance/lapidarist)](https://github.com/The-AI-Alliance/lapidarist/issues)
+[![GitHub stars](https://img.shields.io/github/stars/The-AI-Alliance/lapidarist?style=social)](https://github.com/The-AI-Alliance/lapidarist/stargazers)
+
+lapidarist is a small library for using LLMs to create
+various kinds of indices and data structures used by AI Agents.
+
+See the [website](https://the-ai-alliance.github.io/lapidarist/) for quickstart info, goals, and other links.
+
+To find the lapidarist community, see the [discussions](https://github.com/The-AI-Alliance/lapidarist/discussions)
