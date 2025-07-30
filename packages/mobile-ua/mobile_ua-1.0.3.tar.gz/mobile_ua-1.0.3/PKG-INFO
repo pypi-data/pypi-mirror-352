@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: mobile_ua
+Version: 1.0.3
+Summary: Randomly obtain the Useragent of the mobile phone
+Home-page: https://gitee.com/tieyongjie/mobile_ua
+Author: white.tie
+Author-email: 1042798703@qq.com
+License: MIT
+Description-Content-Type: text/markdown
+Requires-Dist: pandas
+Requires-Dist: numpy
+
+
+
+
+# 安装mobile_ua请求头
+
+## 安装
+
+使用pip安装
+
+```
+pip install mobile_ua
+```
+
+或者克隆这个项目并且执行setup.py安装
+
+```
+python setup.py install
+```
+
+## 使用
+
+```python
+"""
+@Time    : 2025/6/2 13:51
+@Author  : white.tie
+@File    : test.py
+@Desc    :
+"""
+from mobile_ua import useragent
+# 获取随机Ua
+print(useragent.random_ua())
+# 获取指定UA
+print(useragent.get_ua(2))
+```
+
