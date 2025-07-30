@@ -1,0 +1,123 @@
+Metadata-Version: 2.4
+Name: getml-mlflow
+Version: 0.1.2
+Summary: Integrate MLflow into getML
+Project-URL: API Reference, https://getml.com/dev/reference/mlflow/
+Project-URL: User Guide, https://getml.com/dev/user_guide/concepts/mlflow_integration/
+Project-URL: Repository, https://github.com/getml/getml-mlflow
+Project-URL: Issues, https://github.com/getml/getml-mlflow/issues
+Project-URL: getML, https://getml.com
+Project-URL: Code17 GmbH, https://www.code17.io/
+Project-URL: MLflow, https://mlflow.org/
+Author-email: Code17 GmbH <hello@code17.io>, getML <hello@getml.com>
+Maintainer-email: Code17 GmbH <hello@code17.io>, getML <hello@getml.com>
+License-Expression: MIT
+Keywords: AutoML,feature engineering,feature learning,getML,mlflow
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Pydantic
+Classifier: Framework :: Pydantic :: 2
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Intended Audience :: Financial and Insurance Industry
+Classifier: Intended Audience :: Healthcare Industry
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Manufacturing
+Classifier: Intended Audience :: Other Audience
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Telecommunications Industry
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Office/Business
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Logging
+Classifier: Topic :: System :: Monitoring
+Requires-Python: >=3.9
+Requires-Dist: getml~=1.5.1
+Requires-Dist: mlflow~=2.20.3
+Requires-Dist: pyyaml~=6.0
+Requires-Dist: typing-extensions>=4.12.2
+Description-Content-Type: text/markdown
+
+# getml-mlflow
+
+## How to use
+
+Prepare the Python environment.
+```bash
+$ uv venv
+```
+
+Install getml-mlflow via pip from pypi.
+```bash
+$ uv pip install getml-mlflow
+```
+
+Install latest getml-mlflow via pip from repository.
+```bash
+$ uv pip install "git+ssh://git@github.com/getml/getml-mlflow.git"
+```
+
+Run the mlflow server with its browser UI.
+```bash
+$ uv run mlflow ui
+```
+
+Open the mlflow UI in your browser.
+```bash
+$ open http://localhost:5000
+```
+
+### Documentation
+
+See [User Guide](https://getml.com/dev/user_guide/concepts/mlflow_integration/)
+
+See [API Reference](https://getml.com/dev/reference/mlflow/)
+
+### Log via mlflow
+
+To log information from getML pipelines and its `fit`, `score`, `predict` and `transform` methods into mlflow, you can activate the mlflow autologging capabilities.
+
+```python
+import getml_mlflow
+getml_mlflow.autolog()
+```
+
+You can try this with our [demonstrational notebooks](https://github.com/getml/getml-demo/) and the [community variants](https://github.com/getml/getml-community/tree/main/demo-notebooks).
+
+## Delete a deleted experiment
+
+By deleting an experiment in the mlflow UI, the experiment is still preset in the aether...
+Even when deleting the experiment via the mlflow CLI, the experiment is still present in the aether...
+
+```bash
+$ uv run mlflow experiments search --view all
+Experiment Id       Name            Artifact Location
+------------------  --------------  ------------------------------------
+0                   Default         mlflow-artifacts:/0
+888888888888888888  interstate94    mlflow-artifacts:/888888888888888888
+
+$ uv run mlflow  experiments  delete -x 888888888888888888
+Experiment with ID 888888888888888888 has been deleted.
+```
+
+Creating another experiment with the same name will result in the following error:
+> RestException: RESOURCE_ALREADY_EXISTS: Experiment 'interstate94' already exists in deleted state. You can restore the experiment, or permanently delete the experiment from the .trash folder (under tracking server's root folder) in order to use this experiment name again.
+
+You have to delete the experiment from the aether via
+```bash
+$ rm -rf mlruns/.trash/888888888888888888/
+$ MLFLOW_TRACKING_URI="http://localhost:5000" uv run mlflow gc
+```
