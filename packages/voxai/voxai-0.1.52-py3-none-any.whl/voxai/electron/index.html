@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>VoxAI</title>
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: sans-serif;
+      padding: 1rem;
+    }
+    button {
+      margin-right: 1rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background: #444;
+      color: #ccc;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #333;
+      color: #666;
+      cursor: not-allowed;
+    }
+    .active {
+      background: #28a745;
+      color: #fff;
+    }
+    .card {
+      background: #1a1a1a;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 6px;
+    }
+    .card h3 {
+      margin: 0 0 0.5rem 0;
+    }
+    #answer p {
+      margin: 0;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎧 VoxAI</h1>
+  <button id="startBtn">Start</button>
+  <button id="stopBtn">Stop</button>
+  <button id="askBtn" onclick="askAI()" disabled>Ask AI</button>
+
+  <div class="card">
+    <h3>Transcript</h3>
+    <div id="transcript">...</div>
+  </div>
+  <div class="card">
+    <h3>Answer</h3>
+    <div id="answer">Waiting...</div>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    let recording = false;
+    let paragraph = null;
+    let awaitingResponse = false;
+
+    const startBtn     = document.getElementById('startBtn');
+    const stopBtn      = document.getElementById('stopBtn');
+    const askBtn       = document.getElementById('askBtn');
+    const answerEl     = document.getElementById('answer');
+    const transcriptEl = document.getElementById('transcript');
+
+    function updateButtons() {
+      startBtn.classList.toggle('active', recording);
+      stopBtn.classList.toggle('active', !recording);
+    }
+
+    startBtn.onclick = () => {
+      if (recording) return;
+      recording = true;
+      updateButtons();
+      ipcRenderer.send('to-python', 'START');
+    };
+
+    stopBtn.onclick = () => {
+      if (!recording) return;
+      recording = false;
+      updateButtons();
+      ipcRenderer.send('to-python', 'STOP');
+    };
+
+    function askAI() {
+      if (awaitingResponse) return;
+      answerEl.innerHTML = '';
+      paragraph = document.createElement('p');
+      answerEl.appendChild(paragraph);
+      awaitingResponse = true;
+      askBtn.disabled = true;
+      ipcRenderer.send('to-python', 'ASK::');
+    }
+
+    ipcRenderer.on('from-python', (_, raw) => {
+      try {
+        if (raw.startsWith('TRANSCRIBED::')) {
+          const payload = raw.slice(13);
+          transcriptEl.textContent = payload;
+          if (payload.trim()) {
+            askBtn.disabled = false;
+            awaitingResponse = false;
+          }
+          return;
+        }
+
+        if (raw.startsWith('CHUNK::')) {
+          const payload = raw.slice(7);
+          if (payload === '[END]') {
+            awaitingResponse = false;
+            if (transcriptEl.textContent.trim()) {
+              askBtn.disabled = false;
+            }
+            return;
+          }
+          if (!paragraph) return;
+          paragraph.textContent += (paragraph.textContent ? ' ' : '') + payload;
+          return;
+        }
+
+        if (raw.startsWith('STATUS::')) {
+          // ignore status messages
+          return;
+        }
+
+        // ignore other messages
+      }
+      catch {
+        awaitingResponse = false;
+        if (transcriptEl.textContent.trim()) {
+          askBtn.disabled = false;
+        }
+      }
+    });
+
+    updateButtons();
+  </script>
+</body>
+</html>
