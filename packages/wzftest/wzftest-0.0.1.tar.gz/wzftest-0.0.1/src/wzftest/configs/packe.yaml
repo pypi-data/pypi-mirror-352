@@ -1,0 +1,40 @@
+setting: 2
+lnes: 'EMS'
+internal_node_holder: 80
+leaf_node_holder: 50
+shuffle: True
+continuous: False
+id: 'PctDiscrete-v0'
+
+no_cuda: False
+device: 0
+seed: 4
+use_acktr: True
+num_processes: 64
+num_steps: 5
+learning_rate: 1e-6
+actor_loss_coef: 1.0
+critic_loss_coef: 1.0
+max_grad_norm: 0.5
+embedding_size: 64
+hidden_size: 128
+gat_layer_num: 1
+gamma: 1.0
+
+evaluate: True
+evaluation_episodes: 100
+load_model: True
+model_path: '/media/wzf/goodluck/Workspace/rl/packe/PackE.pt'
+#model_path_random_time_series: '/media/wzf/goodluck/Workspace/rl/packe/PackE-time_series-2024.10.03-11-59-02_2024.10.10-11-13-56.pt'
+#model_path_occupancy: '/media/wzf/goodluck/Workspace/rl/packe/PackE-occupancy-2024.10.03-11-59-40_2024.10.10-10-26-07.pt'
+#model_path_flat_long: '/media/wzf/goodluck/Workspace/rl/packe/PackE-flat_long-2024.10.03-11-59-47_2024.10.07-18-39-30.pt'
+model_path_random_time_series: '/media/wzf/goodluck/Workspace/rl/packe/PackE-time_series-2024.10.17-17-08-15_2024.10.20-01-34-00.pt'
+model_path_occupancy: '/media/wzf/goodluck/Workspace/rl/packe/PackE-occupancy-2024.10.17-17-08-17_2024.10.21-00-47-39.pt'
+model_path_flat_long: '/media/wzf/goodluck/Workspace/rl/packe/PackE-flat_long-2024.10.17-17-08-19_2024.10.20-10-27-36.pt'
+load_dataset: False
+dataset_path: None
+
+sample_from_distribution: False
+sample_left_bound: 'a'
+sample_right_bound: 'b'
+

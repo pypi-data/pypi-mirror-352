@@ -1,0 +1,62 @@
+Scene:
+    ompl_plan_allowed_time: 40
+    support_pose: [0.9, -0.45, 0.0]
+    plane_offset: [-0, 0, -0.001]   # 平面偏移量
+    block_unit: 0.03   # 3cm一个单位 # 立方体的单位尺寸
+    blocks_num: 10     # 立方体的数量
+    block_gap: 0.004   # 立方体之间的间隙
+    init_box_offset: [0, 0.1, 0] # 初始盒子的偏移量
+    block_min_size: 1    # 立方体的最小和最大尺寸
+    block_max_size: 4
+
+    target_container_size:    [12, 10, 17]     # 目标容器的整体尺寸，默认为[10, 10, 10]
+    wall_width: 0.005          # 容器壁的宽度和高度
+    # wall_height: 0.31
+    target_origin: [0.9, 0.46, 0.025]   # [0.35, 0.28, 0.025]  [0.8, 0.56, 0.025]  [0.7, 0.56, 0.025] # 目标容器的左上角位置
+    remove_position: [0.11, -0.4, 0] # 无法摆放物体的丢弃位置
+
+    height_pose_offset_up: 0.35          # 0.2
+    height_pose_offset_down: 0.253      # 0.252
+
+    # data_folder: "./dataset/10_[7]_[1_4]_003_mess_real/train"  # 数据文件夹路径
+    # foldername: './dataset/blockout/shape_vhacd' # irrgular
+    
+    # 3d irregular
+    # blockout
+    objPath: './dataset/blockout/shape_vhacd'
+    pointCloud: './dataset/blockout/pointCloud'
+    dicPath: './dataset/blockout/id2shape.pt'
+    scale: [0.45, 0.45, 0.45]
+    is_3d_packing: True
+    
+    # 2d packing data
+    scale_2d: [0.0004, 0.0004, 0.0004]   # [0.0002, 0.0002, 0.0002]
+    objPath_2d: './dataset/pack2d/mesh_test_fit'
+    height_pose_offset_up_2d: 0.1
+    height_pose_offset_down_2d: 0.117
+
+Data:   # [0.62056174, -0.5, 0.08197798]
+    init_position: [0.82056174, -0.5, 0.08197798]    # [0.39056174, -0.32140087, 0.08197798]     [0.97056174, -0.54140087, 0.08197798]  [0.92056174, -0.5, 0.08197798]
+    init_rotation: [0, 0, 0, 1]
+
+    # 3d regular
+    tex_path: 'dataset/10_[7]_[1_4]_003_mess_real/train/0/textures.npy'  # 纹理
+    random_data_path: 'dataset/10_[7]_[1_4]_003_mess_real/train/0/sizes.npy'
+    time_series_data_path: 'packing_dataset/宝洁-Simulation+data.xlsx'
+    occupancy_data_path: 'packing_dataset/得力选品desk.xlsx'
+    flat_long_data_path: 'packing_dataset/欧派家居opai'
+
+    # 3d irregular
+    blockout_data_path: "dataset/blockout/object_sizes.npy"
+    blockout_data_names: ['1_1B', '1_2I', '1_3I', '2_2B', '2_2L', '2_3L', '2_3T', '2_3Z']
+    armbench_data_path: None
+    armbench_data_names: None
+    abc_data_path: None
+    abc_data_names: None
+
+    # 2d
+    steel_plate_data_path: "dataset/pack2d/object_sizes_2d_test.npy"
+    steel_plate_data_names: "dataset/pack2d/names_2d_test.npy"
+    panel_furniture_data_path: None
+    panel_furniture_data_names: None
+

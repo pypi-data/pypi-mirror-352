@@ -1,0 +1,87 @@
+hidden_size: 128
+noisy_std: 0.5
+atoms: 31
+V_min: -1
+V_max: 8
+target_update: 1e3
+multi_step: 3
+discount: 0.99
+reward_clip: 0
+learning_rate: 0.0000625
+batch_size: 64
+norm_clip: 10
+memory_capacity: int(1e5)
+replay_frequency: 4
+priority_exponent: 0.5
+priority_weight: 1.0
+id: 'default'
+seed: 123
+disable_cuda: False
+T_max: int(50e6)
+max_episode_length: int(108e3)
+history_length: 1
+architecture: 'canonical'
+load_model: True
+learn_start: int(5e2)
+
+evaluation_interval: 100000
+evaluation_episodes_training: 100
+# TODO: Note that DeepMind's evaluation method is running the latest agent for 500K frames ever every 1M steps
+evaluation_size: 500
+
+render: True
+enable_cudnn: True
+
+# 10000     # 1000
+checkpoint_interval: 100
+save_interval: 100
+model_save_path: './logs/experiment'
+
+disable_bzip_memory: True
+print_log_interval: 10
+adam_eps: 1.5e-4
+
+# Parameters for irregular shape packing
+envName: 'Physics-v0'
+dataset: 'blockout'  # blockout general kitchen abc
+bin_dimension: [0.32, 0.32, 0.30]
+scale: [100, 100, 100] # fix it! don't change it!
+meshScale: 1
+model: '/media/wzf/goodluck/Workspace/rl/ir-bpp/blockout_online.pt'
+level: 'location'
+
+device: 0
+custom: None
+hierachical: False
+bufferSize: 1 # 1 3 5 10
+num_processes: 1  # 16 1
+#distributed: True          # here？
+samplePointsNum: 1024
+selectedAction: 500
+maxBatch: 2
+visual: False
+resolutionA: 0.02
+resolutionH: 0.01
+resolutionZ: 0.01
+resolutionRot: 8
+
+locmodel: None
+ordmodel: None
+
+only_simulate_current: True
+non_blockin: True
+time_limit: 0.01
+
+evaluate: True
+evaluation_episodes_test: 2000
+
+objVecLen: 9
+load_memory_path: None
+save_memory_path: None
+physics: True
+heightMap: True
+useHeightMap: True
+simulation: True
+distributed: True
+
+
