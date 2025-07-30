@@ -1,0 +1,100 @@
+[tool.poetry]
+name = "fluidattacks-sifts"
+version = "0.2.5"
+description = ""
+authors = ["Diego Restrepo <drestrepo@fluidattacks.com>"]
+readme = "README.md"
+packages = [{ include = "sifts" }]
+
+[tool.poetry.scripts]
+sifts = "sifts.cli.main:main_cli"
+
+[tool.poetry.dependencies]
+python = "<3.13,>=3.12"
+voyageai = "0.3.2"
+click = "8.1.8"
+aiofiles = "24.1.0"
+opensearch-py = "2.8.0"
+openai = ">=1.66.5,<2.0.0"
+diskcache = "5.6.3"
+more-itertools = "10.6.0"
+redis = "6.2.0"
+aiosqlite = "^0.21.0"
+litellm = "^1.68.0"
+fluidattacks-core = "^2.6.11"
+openai-agents = "^0.0.9"
+thefuzz = "^0.22.1"
+tinydb = "^4.8.2"
+aioboto3 = "^14.1.0"
+pydantic = "^2.7.2"
+pyyaml = "^6.0.1"
+sarif-om = "^1.0.4"
+types-aioboto3 = { extras = ["dynamodb", "sqs", "s3"], version = "13.3.0.post1" }
+asyncache = "^0.3.1"
+reactivex = "^4.0.4"
+orjson = "^3.10.18"
+platformdirs = "^4.3.8"
+
+[tool.poetry.group.dev.dependencies]
+types-boto3 = "^1.37.38"
+pytest = "^8.3.5"
+ruff = "0.9.9"
+mypy = "1.15.0"
+types-aiofiles = "24.1.0.20241221"
+types-networkx = "3.4.2.20250304"
+types-requests = "2.32.0.20250306"
+types-pyyaml = "6.0.12.20241230"
+json-schema-to-pydantic = "^0.2.6"
+
+[tool.poetry.group.notebook.dependencies]
+openpyxl = "^3.1.5"
+ipykernel = "^6.29.5"
+pandas = "^2.2.3"
+nbqa = "^1.9.1"
+google-api-python-client = "^2.166.0"
+google-auth-httplib2 = "^0.2.0"
+google-auth-oauthlib = "^1.2.1"
+google-api-python-client-stubs = "^1.29.0"
+jupyter-ruff = "^0.2.0"
+itables = "^2.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# uv
+[project]
+name = "sifts"
+version = "0.2.6"
+description = ""
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "aioboto3==14.3.0",
+    "aiofiles==24.1.0",
+    "aiosqlite==0.21.0",
+    "asyncache==0.3.1",
+    "chromadb>=1.0.12",
+    "click==8.2.1",
+    "diskcache==5.6.3",
+    "fluidattacks-core==2.7.4",
+    "litellm==1.71.2",
+    "more-itertools==10.7.0",
+    "onnxruntime>=1.22.0",
+    "openai==1.82.1",
+    "openai-agents==0.0.16",
+    "opensearch-py==2.8.0",
+    "orjson==3.10.18",
+    "platformdirs==4.3.8",
+    "pydantic==2.11.5",
+    "pyyaml==6.0.2",
+    "reactivex==4.0.4",
+    "redis==6.2.0",
+    "sarif-om==1.0.4",
+    "thefuzz==0.22.1",
+    "tinydb==4.8.2",
+    "types-aioboto3[dynamodb,sqs,s3]==14.3.0",
+    "voyageai==0.3.2",
+]
+[project.scripts]
+sifts = "sifts.cli:main_cli"
