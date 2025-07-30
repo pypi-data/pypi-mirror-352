@@ -1,0 +1,24 @@
+[package]
+name = "pymocd" 
+version = "1.1.3" 
+edition = "2024"
+authors = ["Guilherme Santos"]
+license = "GPL-3.0-or-later"
+
+[lib]
+name = "pymocd"
+crate-type = ["cdylib"]
+
+[profile.release]
+debug = false 
+
+[dependencies]
+rand = "0.9"                                                    # random number generation.
+rayon = "1.10.0"                                                # data parallelism and multi-threading support.
+rustc-hash = { version = "2.1.1", default-features = true }     # a fast hash map implementation.
+pyo3 = { version = "0.25.0", features = ["extension-module"] }  # Python compatibility
+dashmap = "6.1.0"                                               # For concurrent HashMap
+rand_chacha = "0.9.0"                                           # ChaCha random number generator 
+
+[package.metadata.maturin]
+name = "pymocd"
