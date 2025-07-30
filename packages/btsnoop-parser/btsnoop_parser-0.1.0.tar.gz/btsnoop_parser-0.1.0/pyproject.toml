@@ -1,0 +1,15 @@
+[project]
+name = "btsnoop-parser"
+version = "0.1.0"
+description = "Bluetooth HCI btsnoop log parser for Android"
+authors = [{name="Your Name", email="you@example.com"}]
+license = "MIT"
+readme = "README.md"
+dependencies = []
+
+[project.scripts]
+btsnoop_parser = "btsnoop_parser.cli:main"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
