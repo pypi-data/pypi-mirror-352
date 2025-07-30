@@ -1,0 +1,49 @@
+# Ignore filetypes with these suffixes
+*.pyc
+*.swp
+
+# Ignore files with these names
+.DS_Store
+.idea
+.buildinfo
+.nojekyll
+
+# Ignore folders and their contents with these names
+.vscode
+__pycache__
+
+# Ignore dynamic contents of example directories
+examples/**/data/*_vicarious_correction.txt
+examples/**/data/*_coastal_model.mat
+examples/**/output/*.txt
+examples/**/output/*.mat
+examples/**/remote/*prm20151026t173213_data*.mat
+examples/**/remote/*prm20151026t173213_mdl*.txt
+examples/**/remote/*prm20151026t173213_post*.txt
+examples/**/remote/*prm20151026t173213_rfl*.txt
+examples/**/*.mat
+examples/**/images/*.png
+
+# Ignore test, build and distribution files
+build/
+dist/*.whl
+*.egg
+*.egg-info/
+.pytest_cache/
+isofit/test/output/*.txt
+tests/output/*.txt
+logs/
+
+# Ignore documentation files
+docs/_build/
+docs/html/_sources/
+
+# Ignore local testing directories
+local/
+
+# Additional external libraries
+6sv-2.1/
+
+# Data dependencies
+sRTMnet_v120/
+hypertrace-data/
