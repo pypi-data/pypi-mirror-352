@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: packsim
+Version: 0.0.1
+Summary: A set of bin packing visualization simulation environment code, which can visualize the entire bin packing process, making it convenient for others to train or test
+Author: wzf
+Author-email: wzf <wangzhoufeng7346@gmail.com>
+License: MIT
+Project-URL: Home Page, https://example.com
+Project-URL: DOCUMENTATION, https://readthedocs.org
+Project-URL: Repository, https://upstream.example.com/me/spam.git
+Project-URL: GitHub, https://github.com/example/spam
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: bpy ==4.4.0
+Requires-Dist: easydict ==1.13
+Requires-Dist: gym ==0.19.0
+Requires-Dist: mathutils ==3.3.0
+Requires-Dist: matplotlib ==3.5.3
+Requires-Dist: meshcat ==0.3.2
+Requires-Dist: numba ==0.56.4
+Requires-Dist: numpy ==1.21.6
+Requires-Dist: opencv-python ==4.2.0.34
+Requires-Dist: pandas ==1.3.5
+Requires-Dist: pybullet ==3.2.6
+Requires-Dist: pygccxml ==2.2.1
+Requires-Dist: pyplusplus ==1.8.5
+Requires-Dist: pyvista ==0.38.6
+Requires-Dist: scipy ==1.7.3
+Requires-Dist: tensorboardX ==2.6.2.2
+Requires-Dist: torch ==1.13.1+cu116
+Requires-Dist: tqdm ==4.66.2
+Requires-Dist: transforms3d ==0.4.1
+Requires-Dist: trimesh ==4.4.1
+Requires-Dist: wrapper ==1.1.0b1
+
+# Description
+A set of bin packing visualization simulation environment code, which can visualize the entire bin packing process, making it convenient for others to train or test
+
+# How to use?
+from packsim import simulate
+
+# Default use
+simulate()
+
+# Customize use
+simulate({ 'setting': 1, 'data': 'occupancy', 'test_data_config': 0, 'gui': 1, 'config': '/home/wzf/Workspace/rl/pypi/ttt/default.yaml', 'action_path': '/home/wzf/Workspace/rl/pypi/ttt/action.json', 'planning_time_path': '/home/wzf/Workspace/rl/pypi/ttt/planning_time.json', 'save_path': '/home/wzf/Workspace/rl/pypi/ttt'})
+
