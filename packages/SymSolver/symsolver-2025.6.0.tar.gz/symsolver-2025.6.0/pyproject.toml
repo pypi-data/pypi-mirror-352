@@ -1,0 +1,25 @@
+[project]
+name = 'SymSolver'
+authors = [
+    {name = 'Sam Evans', email = 'sevans7@bu.edu'},
+]
+description = 'Symbolic Solver for systems of linear, differential, vector equations.'
+dynamic = ['version']
+license = {text = 'MIT License'}
+readme = 'README.md'
+requires-python = '>=3.7'
+
+dependencies = []  # no required dependencies at this time.
+
+[project.optional-dependencies]
+all = ['numpy', 'matplotlib', 'mpmath', 'IPython']
+dev_math = ['numpy', 'mpmath']
+dev_display = ['matplotlib', 'IPython']
+
+
+[project.urls]
+source-code = "https://gitlab.com/Sevans7/symsolver"
+
+[build-system]
+requires = ["flit_core >=3.2"]
+build-backend = "flit_core.buildapi"
