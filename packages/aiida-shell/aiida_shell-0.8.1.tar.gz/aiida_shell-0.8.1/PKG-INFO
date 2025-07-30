@@ -1,0 +1,55 @@
+Metadata-Version: 2.4
+Name: aiida-shell
+Version: 0.8.1
+Summary: AiiDA plugin that makes running shell commands easy.
+Keywords: aiida,workflows
+Author-email: "Sebastiaan P. Huber" <mail@sphuber.net>
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: AiiDA
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering
+License-File: LICENSE.txt
+Requires-Dist: aiida-core~=2.6,>=2.6.1
+Requires-Dist: dill
+Requires-Dist: mypy==1.6.1 ; extra == "dev"
+Requires-Dist: pre-commit ; extra == "dev"
+Requires-Dist: pytest~=6.2 ; extra == "dev"
+Requires-Dist: pytest-regressions ; extra == "dev"
+Requires-Dist: myst-parser ; extra == "docs"
+Requires-Dist: pydata-sphinx-theme~=0.14.3 ; extra == "docs"
+Requires-Dist: sphinx~=7.2 ; extra == "docs"
+Requires-Dist: sphinx-copybutton~=0.5.0 ; extra == "docs"
+Requires-Dist: sphinx-click~=4.0 ; extra == "docs"
+Requires-Dist: sphinx-design~=0.5.0 ; extra == "docs"
+Requires-Dist: sphinx-favicon ; extra == "docs"
+Project-URL: documentation, https://aiida-shell.readthedocs.io/
+Project-URL: homepage, https://github.com/sphuber/aiida-shell
+Project-URL: source, https://github.com/sphuber/aiida-shell
+Project-URL: tracker, https://github.com/sphuber/aiida-shell/issues
+Provides-Extra: dev
+Provides-Extra: docs
+
+<div style="text-align: center;">
+    <img src="docs/source/_static/logo-text.svg" style="width:100%" alt="aiida-shell"/>
+</div>
+
+[![PyPI version](https://badge.fury.io/py/aiida-shell.svg)](https://badge.fury.io/py/aiida-shell)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/aiida-shell.svg)](https://pypi.python.org/pypi/aiida-shell)
+[![CI](https://github.com/sphuber/aiida-shell/workflows/ci/badge.svg)](https://github.com/sphuber/aiida-shell/actions/workflows/ci.yml)
+
+AiiDA plugin that makes running shell commands easy.
+Run any shell executable without writing a dedicated plugin or parser.
+
+## Documentation
+
+Please refer to the [online documentation](https://aiida-shell.readthedocs.io/) for a complete guide.
+

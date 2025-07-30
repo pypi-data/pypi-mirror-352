@@ -1,0 +1,123 @@
+[build-system]
+build-backend = 'flit_core.buildapi'
+requires = ['flit_core>=3.4,<4']
+
+[project]
+authors = [
+  {name = 'Sebastiaan P. Huber', email = 'mail@sphuber.net'}
+]
+classifiers = [
+  'Development Status :: 4 - Beta',
+  'Framework :: AiiDA',
+  'License :: OSI Approved :: MIT License',
+  'Operating System :: POSIX :: Linux',
+  'Operating System :: MacOS :: MacOS X',
+  'Programming Language :: Python',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: 3.12',
+  'Topic :: Scientific/Engineering'
+]
+dependencies = [
+  'aiida-core~=2.6,>=2.6.1',
+  'dill'
+]
+dynamic = ['description', 'version']
+keywords = ['aiida', 'workflows']
+license = {file = 'LICENSE.txt'}
+name = 'aiida-shell'
+readme = 'README.md'
+requires-python = '>=3.9'
+
+[project.entry-points.'aiida.calculations']
+'core.shell' = 'aiida_shell.calculations.shell:ShellJob'
+
+[project.entry-points.'aiida.data']
+'core.code.installed.shell' = 'aiida_shell.data.code:ShellCode'
+'core.entry_point' = 'aiida_shell.data.entry_point:EntryPointData'
+'core.pickled' = 'aiida_shell.data.pickled:PickledData'
+
+[project.entry-points.'aiida.parsers']
+'core.shell' = 'aiida_shell.parsers.shell:ShellParser'
+
+[project.optional-dependencies]
+dev = [
+  'mypy==1.6.1',
+  'pre-commit',
+  'pytest~=6.2',
+  'pytest-regressions'
+]
+docs = [
+  'myst-parser',
+  'pydata-sphinx-theme~=0.14.3',
+  'sphinx~=7.2',
+  'sphinx-copybutton~=0.5.0',
+  'sphinx-click~=4.0',
+  'sphinx-design~=0.5.0',
+  'sphinx-favicon'
+]
+
+[project.urls]
+documentation = 'https://aiida-shell.readthedocs.io/'
+homepage = 'https://github.com/sphuber/aiida-shell'
+source = 'https://github.com/sphuber/aiida-shell'
+tracker = 'https://github.com/sphuber/aiida-shell/issues'
+
+[tool.flit.module]
+name = 'aiida_shell'
+
+[tool.flit.sdist]
+exclude = [
+  '.github/',
+  'tests/',
+  '.gitignore',
+  '.pre-commit-config.yaml'
+]
+
+[tool.flynt]
+fail-on-change = true
+line-length = 120
+
+[tool.mypy]
+disallow_untyped_calls = false
+exclude = [
+  '^tests/'
+]
+strict = true
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = [
+  'dill.*',
+  'ruamel.*'
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+  'ignore:Creating AiiDA configuration folder.*:UserWarning',
+  'ignore:Object of type .* not in session, .* operation along .* will not proceed:sqlalchemy.exc.SAWarning'
+]
+
+[tool.ruff]
+ignore = [
+  'D203',  # Incompatible with D211 `no-blank-line-before-class`
+  'D213'  # Incompatible with D212 `multi-line-summary-second-line`
+]
+line-length = 120
+select = [
+  'E',  # pydocstyle
+  'W',  # pydocstyle
+  'F',  # pyflakes
+  'I',  # isort
+  'N',  # pep8-naming
+  'D',  # pydocstyle
+  'PLC',  # pylint-convention
+  'PLE',  # pylint-error
+  'PLR',  # pylint-refactor
+  'PLW',  # pylint-warning
+  'RUF'  # ruff
+]
+
+[tool.ruff.format]
+quote-style = 'single'
