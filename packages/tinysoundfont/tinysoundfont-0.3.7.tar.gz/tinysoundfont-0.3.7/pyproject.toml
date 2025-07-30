@@ -1,0 +1,38 @@
+[build-system]
+requires = ["scikit-build-core", "pybind11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "tinysoundfont"
+version = "0.3.7"
+authors = [ { name = "Nathan Whitehead", email = "nwhitehe@gmail.com" } ]
+description = "Python bindings for using SoundFonts (sf2/sf3/sfo formats), generating audio samples, and playing MIDI songs"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Intended Audience :: Developers",
+    "Topic :: Multimedia :: Sound/Audio :: MIDI",
+    "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "pyaudio",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "numpy",
+    "scipy",
+]
+
+[tool.cibuildwheel]
+skip = "cp36-*"
+
+[tool.scikit-build]
+build.verbose = false
