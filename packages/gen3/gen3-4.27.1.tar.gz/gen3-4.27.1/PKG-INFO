@@ -1,0 +1,42 @@
+Metadata-Version: 2.3
+Name: gen3
+Version: 4.27.1
+Summary: Gen3 CLI and Python SDK
+License: Apache-2.0
+Author: Center for Translational Data Science at the University of Chicago
+Author-email: support@gen3.org
+Requires-Python: >=3.9,<4
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering
+Provides-Extra: fhir
+Requires-Dist: aiofiles (>=0.8.0,<0.9.0)
+Requires-Dist: aiohttp
+Requires-Dist: backoff
+Requires-Dist: cdislogging (>=1.1.0,<2.0.0)
+Requires-Dist: click
+Requires-Dist: dataclasses-json (<=0.5.9)
+Requires-Dist: drsclient (>=0.3.0)
+Requires-Dist: fhirclient ; extra == "fhir"
+Requires-Dist: gen3users
+Requires-Dist: httpx
+Requires-Dist: humanfriendly
+Requires-Dist: indexclient (>=2.3.0,<3.0.0)
+Requires-Dist: jsonschema
+Requires-Dist: pandas (>=1.4.2)
+Requires-Dist: pypfb (>=0.5.30)
+Requires-Dist: python-dateutil
+Requires-Dist: pyyaml (>=6.0.1)
+Requires-Dist: requests
+Requires-Dist: tqdm (>=4.61.2,<5.0.0)
+Requires-Dist: urllib3 (>2.0.0)
+Requires-Dist: xmltodict (>=0.13.0,<0.14.0)
+Project-URL: Homepage, https://gen3.org/
