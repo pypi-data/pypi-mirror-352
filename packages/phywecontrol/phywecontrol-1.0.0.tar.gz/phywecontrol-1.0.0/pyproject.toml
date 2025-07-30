@@ -1,0 +1,26 @@
+[build-system]
+requires      = ["setuptools>=61.0.0", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phywecontrol"
+description = "A Package to control a digital function generator by PHYWE"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "GPL-2.0"
+license-files = ["LICENSE"]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/Schallform/PhyweControl"
+
+[tool.setuptools.packages.find]
+include = ["PhyweControl"]
+
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "no-local-version"
