@@ -1,0 +1,61 @@
+Metadata-Version: 2.3
+Name: howler-client
+Version: 2.4.0.dev37
+Summary: The Howler client library facilitates issuing requests to Howler
+License: MIT
+Keywords: howler,alerting,gc,canada,cse-cst,cse,cst,cyber,cccs
+Author: Canadian Centre for Cyber Security
+Author-email: howler@cyber.gc.ca
+Requires-Python: >=3.9,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Libraries
+Requires-Dist: coverage[toml] (>=7.6.1,<8.0.0)
+Requires-Dist: diff-cover (>=9.2.0,<10.0.0)
+Requires-Dist: pycryptodome (>=3.20.0,<4.0.0)
+Requires-Dist: python-baseconv (>=1.2.2,<2.0.0)
+Requires-Dist: requests[security] (>=2.32.0,<3.0.0)
+Project-URL: Documentation, https://cybercentrecanada.github.io/howler-docs/developer/client/
+Project-URL: Homepage, https://cybercentrecanada.github.io/howler-docs/
+Project-URL: Repository, https://github.com/CybercentreCanada/howler-client
+Description-Content-Type: text/markdown
+
+# Howler Client Library
+
+The Howler client library facilitates issuing requests to Howler.
+
+## Requirements
+
+1. Python 3.9 and up
+
+## Running the Tests
+
+1. Prepare the howler-api:
+   1. Start dependencies
+   1. `howler-api > python howler/app.py`
+   1. `howler-api > python howler/odm/random_data.py`
+2. Run python integration tests:
+   1. `python -m venv env`
+   1. `. env/bin/activate`
+   1. `pip install -r requirements.txt`
+   1. `pip install -r test/requirements.txt`
+   1. `pip install -e .`
+   1. `pytest -s -v test`
+
+## \_sqlite3 error
+
+You'll likely have to reinstall python3.9 while libsqlite3-dev is installed
+
+1. libsqlite3-dev
+   `sudo apt install libsqlite3-dev`
+2. Python3.9 with loadable-sqlite-extensions enabled
+   - `./configure --enable-loadable-sqlite-extensions --enable-optimizations`
+   - `make altinstall`
+
