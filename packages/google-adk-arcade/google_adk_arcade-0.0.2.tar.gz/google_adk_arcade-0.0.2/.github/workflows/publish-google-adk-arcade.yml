@@ -1,0 +1,100 @@
+name: Publish google-adk-arcade
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.10"
+
+      - name: Test google-adk-arcade # TODO: add `make tests` when we have tests
+        working-directory: .
+        run: |
+          make sync
+          make lint
+
+      - name: Set version
+        run: |
+          VERSION=$(grep -m1 '^version' pyproject.toml | cut -d\" -f2)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Build release distributions
+        working-directory: .
+        run: |
+          uv build | tee build.log
+
+      - name: Upload release distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+
+  pypi-publish:
+    runs-on: ubuntu-latest
+    needs:
+      - test-and-build
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Retrieve release distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+
+      - name: Publish release distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+  notify-slack:
+    runs-on: ubuntu-latest
+    needs:
+      - test-and-build
+      - pypi-publish
+    if: always()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set version
+        run: |
+          VERSION=$(grep -m1 '^version' pyproject.toml | cut -d\" -f2)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Determine overall status
+        run: |
+          if [[ "${{ needs.test-and-build.result }}" == "failure" || "${{ needs.pypi-publish.result }}" == "failure" ]]; then
+            echo "OVERALL_STATUS=failure" >> $GITHUB_ENV
+          elif [[ "${{ needs.test-and-build.result }}" == "cancelled" || "${{ needs.pypi-publish.result }}" == "cancelled" ]]; then
+            echo "OVERALL_STATUS=cancelled" >> $GITHUB_ENV
+          else
+            echo "OVERALL_STATUS=success" >> $GITHUB_ENV
+          fi
+
+      - name: Send status to Slack
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          webhook: ${{ secrets.PACKAGE_RELEASE_SLACK_WEBHOOK_URL }}
+          webhook-type: webhook-trigger
+          payload: |
+            {
+              "status": "${{ env.OVERALL_STATUS }}",
+              "package": "google-adk-arcade",
+              "version": "${{ env.VERSION }}",
+              "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
