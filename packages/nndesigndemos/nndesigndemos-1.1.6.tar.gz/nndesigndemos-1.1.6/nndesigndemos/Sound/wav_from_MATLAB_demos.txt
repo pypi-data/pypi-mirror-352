@@ -1,0 +1,4 @@
+To save the sounds from the MATLAB demo, put a brekpoint on nndesign_2014b/private/nnsound.m line 136 (ss = s),
+and after getting the sound wave (s), do audiowrite('file_name.wav', s, Fs).
+
+The file will be saved at pwd (run this on MATLAB to find the location).
