@@ -1,0 +1,9 @@
+{%- if node.content -%}
+  <p{{ extract_tag_attrs(node) }}>
+  {%- for item in node.content -%}
+    {%- with template=item.type + '.html', node=item -%}
+        {%- include template -%}
+          {%- endwith -%}
+  	{%- endfor -%}
+  </p>
+{%- endif -%}

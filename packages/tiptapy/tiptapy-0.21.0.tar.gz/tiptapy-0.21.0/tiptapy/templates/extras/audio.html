@@ -1,0 +1,13 @@
+{%- if node.attrs.src -%}
+  {%- set caption = node.attrs.caption|trim -%}
+  {%- set audio_player_block = get_audio_player_block() -%}
+  {%- set src = node.attrs.src|trim -%}
+
+  <figure class="audio-player-container"{{ extract_tag_attrs(node) }}>
+    {%- if caption -%}
+      <div><audio src={{src}}></audio>{{audio_player_block}}</div><figcaption>{{caption}}</figcaption>
+    {%- else -%}
+      <div><audio src={{src}}></audio>{{audio_player_block}}</div>
+    {%- endif -%}
+  </figure>
+{%- endif -%}

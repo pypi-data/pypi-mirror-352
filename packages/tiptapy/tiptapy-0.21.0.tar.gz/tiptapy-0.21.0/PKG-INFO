@@ -1,0 +1,118 @@
+Metadata-Version: 2.4
+Name: tiptapy
+Version: 0.21.0
+Summary: Library that generates HTML output from JSON export of tiptap editor
+Home-page: https://github.com/scrolltech/tiptapy
+Author: Shekhar Tiwatne
+Author-email: pythonic@gmail.com
+License: http://www.opensource.org/licenses/mit-license.php
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: summary
+
+# Tiptapy
+### Library that generates HTML output from JSON export of tiptap editor 
+
+![tiptapy](https://github.com/scrolltech/tiptapy/workflows/tiptapy/badge.svg)
+
+### Install 
+
+
+```bash
+pip install tiptapy
+```
+
+### Test
+
+```bash
+python -m pytest
+```
+
+### Usage
+
+``` {.sourceCode .python}
+import tiptapy
+
+s = """
+
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "blockquote",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Readability counts."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": { "href": "https://en.wikipedia.org/wiki/Zen_of_Python" }
+                }
+              ],
+              "text": "Zen of Python"
+            },
+            {
+              "type": "text", "text": " By "
+            },
+            {
+              "type": "text",
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Tom Peters"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+"""
+
+class config:
+    """
+    Config class to store constants used by the other nodes.
+    """
+    DOMAIN = "python.org"
+
+
+renderer = tiptapy.BaseDoc(config)
+out = renderer.render(s)
+print(out)
+```
+
+#### Output
+``` {.sourceCode .html}
+<blockquote>
+  <p>Readability counts.</p>
+  <p>
+      <a href="https://en.wikipedia.org/wiki/Zen_of_Python">Zen of Python</a> By 
+      <strong>Tom Peters</strong>
+  </p>
+</blockquote>
+```
