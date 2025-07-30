@@ -1,0 +1,152 @@
+Metadata-Version: 2.4
+Name: fastapis
+Version: 0.11
+Summary: Simple FastAPI/SQLAlchemy to super easy create (generic) routes, delcare db types and more.
+Home-page: https://github.com/ultrafunkamsterdam/fastapis
+Author: UltrafunkAmsterdam
+Author-email: Me <non@yourbusiness.no>
+License: ISC
+Project-URL: homepage, https://www.github.com/ultrafunkamsterdam/fastapis
+Project-URL: repository, https://github.com/ultrafunkamsterdam/fastapis.git
+Project-URL: documentation, https://ultrafunkamsterdam.github.io/fastapis
+Project-URL: issues, https://github.com/ultrafunkamsterdam/fastapis/issues
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: aiomysql==0.2.0
+Requires-Dist: aiosqlite==0.21.0
+Requires-Dist: annotated-types==0.7.0
+Requires-Dist: anyio==4.9.0
+Requires-Dist: asyncpg==0.30.0
+Requires-Dist: click==8.2.1
+Requires-Dist: colorama==0.4.6
+Requires-Dist: fastapi==0.115.12
+Requires-Dist: greenlet==3.2.2
+Requires-Dist: h11==0.16.0
+Requires-Dist: idna==3.10
+Requires-Dist: itsdangerous==2.2.0
+Requires-Dist: pydantic==2.11.5
+Requires-Dist: pydantic_core==2.33.2
+Requires-Dist: PyMySQL==1.1.1
+Requires-Dist: python-multipart==0.0.20
+Requires-Dist: PyYAML==6.0.2
+Requires-Dist: sniffio==1.3.1
+Requires-Dist: SQLAlchemy==2.0.41
+Requires-Dist: starlette==0.46.2
+Requires-Dist: typing-inspection==0.4.1
+Requires-Dist: typing_extensions==4.13.2
+Requires-Dist: uvicorn==0.34.2
+Provides-Extra: dev
+Requires-Dist: black>=23.1.0; extra == "dev"
+Requires-Dist: twine>=4.0.0; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Dynamic: author
+Dynamic: home-page
+
+Faster**Apis**
+====================
+just a pet project for own use.
+
+as the name implies, this let's you create FastAPI's combined with SQLAlchemy even FASTER.
+
+
+```python
+from __future__ import annotations
+
+from typing import Optional
+
+from fastapi.security.oauth2 import OAuth2PasswordBearer
+from sqlalchemy.testing.schema import mapped_column
+
+from fastapis.db import Base, Mapped, relationship, ForeignKey
+from fastapis.web import BaseRouter
+from fastapis.web import app
+from fastapis.web.types import schema_model_conf, BaseModel
+
+
+# database models
+
+class DBUser(Base):
+    __tablename__ = "db_user"
+
+    username: Mapped[str]
+    password: Mapped[Optional[str]]
+    token: Mapped[DBToken] = relationship(uselist=False, lazy="selectin")
+
+
+class DBToken(Base):
+    __tablename__ = "db_token"
+
+    value: Mapped[str]
+    user_id: Mapped[DBUser] = mapped_column(ForeignKey("db_user.id"))
+
+
+# fastapi (pydantic) models
+
+class UserRead(BaseModel):
+    model_config = schema_model_conf
+    username: str
+    password: Optional[str] = None
+    token: Optional[TokenRead] = None
+
+
+class UserCreate(BaseModel):
+    username: str
+    password: str
+
+
+class TokenRead(BaseModel):
+    model_config = schema_model_conf
+    value: Optional[str]
+
+
+# fastapi security
+
+security = OAuth2PasswordBearer(tokenUrl="/token")
+
+
+# manual route for tokens
+
+@app.post("/token")
+async def get_token():
+    return dict(access_token="123", token_type="Bearer")
+
+
+# dependency
+
+async def some_dependency():
+    yield "test"
+
+
+# router for users
+# creates all route handlers for CRUD
+
+user_router = BaseRouter(
+    db_model=DBUser,
+    model_read=UserRead,
+    model_create=UserCreate,
+    model_patch=UserCreate,
+    security=security,
+    dependencies=[some_dependency]
+)
+
+# include the above router
+app.include_router(user_router, prefix="/user", tags=["user"])
+
+# done!
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+```
+
+Result
+-----------------------
+![output api](img.png "Output API")
