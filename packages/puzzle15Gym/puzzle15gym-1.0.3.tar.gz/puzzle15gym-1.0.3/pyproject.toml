@@ -1,0 +1,28 @@
+[project]
+name = "puzzle15Gym"
+version = "1.0.3"
+description = "A custom AI Gym environment for the sliding block puzzle game"
+readme = "README.md"
+authors = [{name = "Evaldas Visockas", email = "developersediary@gmail.com"}]
+license = {text = "GPL-3.0-or-later "}
+requires-python = ">=3.12"
+dependencies = [
+    "gymnasium>=1.1.1",
+    "numpy>=2.2.3",
+    "matplotlib>=3.10.1",
+    "puzzle15 >= 1.0.1"
+]
+
+[project.urls]
+Repository = "https://github.com/EvalVis/Puzzle15Gym"
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["puzzle15Gym"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
