@@ -1,0 +1,75 @@
+Metadata-Version: 2.4
+Name: vizy
+Version: 0.2.0
+Summary: Tiny tensor visualiser: vz.plot(t) / vz.save(t)
+Project-URL: Repository, https://github.com/anilzeybek/vizy
+Project-URL: Issues, https://github.com/anilzeybek/vizy/issues
+Author: Anıl Zeybek
+License-Expression: MIT
+License-File: LICENSE
+Keywords: matplotlib,numpy,pytorch,tensor,visualization
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Requires-Dist: matplotlib>=3.5.0
+Requires-Dist: numpy>=1.20.0
+Provides-Extra: pil
+Requires-Dist: pillow; extra == 'pil'
+Provides-Extra: torch
+Requires-Dist: torch; extra == 'torch'
+Description-Content-Type: text/markdown
+
+# vizy
+
+**Lightweight tensor visualizer for PyTorch and NumPy**
+
+Display or save any NumPy array or PyTorch tensor with a single line with ease:
+
+```python
+import vizy
+
+vizy.plot(tensor)               # shows image or grid
+vizy.save("image.png", tensor)  # saves to file
+vizy.save(tensor)               # saves to temp file and prints path
+vizy.summary(tensor)            # prints info like res, dtype, device, range, etc.
+```
+
+Let's say you have a PyTorch `tensor` with shape `(BS, 3, H, W)`. Instead of
+
+```python
+plt.imshow(tensor.cpu().numpy()[0].transpose(1, 2, 0))
+plt.imshow(tensor.cpu().numpy()[1].transpose(1, 2, 0))
+...
+```
+
+You can just do:
+
+```python
+vizy.plot(tensor)
+```
+
+Or if you are in an ssh session, you can just do:
+
+```python
+vizy.save(tensor)
+```
+
+It will automatically save the tensor to a temporary file and print the path, so you can scp it to your local machine and visualize it.
+
+
+## Installation
+
+```bash
+pip install vizy
+```
