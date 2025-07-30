@@ -1,0 +1,119 @@
+[project]
+name = "tcgdex-sdk"
+dynamic = []
+description = "A fast, type-safe Python SDK for the TCGdex API. Query Pokémon Trading Card Game data easily. 🚀"
+authors = [
+    { name = "HellLord77" },
+    { name = "Avior", email = "git@avior.me" },
+]
+dependencies = [
+    "dacite<2.0.0,>=1.8.1",
+]
+keywords = [
+    "api",
+    "pokemon",
+    "tcg",
+    "sdk",
+    "trading",
+    "card",
+    "pokemon-api",
+    "pokemon-cards",
+    "tcgdex",
+]
+requires-python = ">=3.8"
+readme = "README.md"
+maintainers = [
+    { name = "Avior", email = "git@avior.me" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+version = "2.2.0"
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+homepage = "https://tcgdex.dev/sdks/python"
+source = "https://github.com/tcgdex/python-sdk"
+download = "https://github.com/tcgdex/python-sdk/releases/latest"
+changelog = "https://github.com/tcgdex/python-sdk/releases/latest"
+releasenotes = "https://github.com/tcgdex/python-sdk/releases/latest"
+documentation = "https://tcgdex.dev/sdks/python"
+issues = "https://github.com/tcgdex/python-sdk/issues"
+funding = "https://github.com/sponsors/tcgdex"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "ruff>=0.6.7",
+    "vcrpy<7.0.0,>=6.0.1",
+    "toml>=0.10.2",
+]
+
+[tool.pdm.scripts]
+pre_build = "python scripts/load_version.py"
+check = "ruff check"
+test = "python -m unittest discover -s tests"
+
+[tool.pdm.build]
+includes = [
+    "src/tcgdexsdk",
+]
+
+[tool.pdm.version]
+source = "file"
+path = "src/tcgdexsdk/__init__.py"
+
+[tool.ruff]
+line-length = 120
+respect-gitignore = true
+include = [
+    "src/**/*.py",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "UP",
+    "B",
+    "SIM",
+    "I",
+]
+
+[tool.ruff.lint.pycodestyle]
+ignore-overlong-task-comments = true
+
+[tool.ruff.format]
+docstring-code-format = true
+line-ending = "lf"
+
+[tool.pyright]
+exclude = [
+    ".venv",
+]
+venvPath = "."
+venv = ".venv"
+reportTypeshedErrors = false
+reportMissingImports = true
+reportMissingTypeStubs = false
