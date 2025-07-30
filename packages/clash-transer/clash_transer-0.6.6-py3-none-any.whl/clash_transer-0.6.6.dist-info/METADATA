@@ -1,0 +1,37 @@
+Metadata-Version: 2.4
+Name: clash_transer
+Version: 0.6.6
+Summary: 机场订阅转换工具
+Home-page: 
+Author: TT
+Author-email: 123@mail.com
+License: BSD
+Keywords: clash_transer
+Platform: Linux
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: POSIX :: Linux
+Requires-Python: >=3.10.4
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: PyYAML
+Requires-Dist: funcy
+Requires-Dist: Brotli
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: keywords
+Dynamic: license
+Dynamic: platform
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# 用于聚合多个机场订阅文件
+
+```bash
+mct -c config.yaml --proxy http://192.168.254.1:3333
+```
