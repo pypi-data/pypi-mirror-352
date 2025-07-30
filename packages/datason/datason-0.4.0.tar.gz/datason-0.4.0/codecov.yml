@@ -1,0 +1,103 @@
+# Codecov Configuration for datason
+# See: https://docs.codecov.com/docs/codecov-yaml
+
+codecov:
+  # Require CI to pass before coverage is collected
+  require_ci_to_pass: false
+  # Notify us if coverage drops
+  notify:
+    # After this many builds (we only upload from full test suite now)
+    after_n_builds: 1
+    # Wait at most this long for coverage reports
+    wait_for_ci: true
+
+# Coverage targets and thresholds
+coverage:
+  # Precision of the coverage percentage (2 = 85.32%)
+  precision: 2
+  # Rounding method (down, up, nearest)
+  round: nearest
+  # Coverage range (used for color coding)
+  range: 70..90
+
+  # Status checks that will appear on PRs
+  status:
+    # Overall project coverage
+    project:
+      default:
+        # Fail if coverage drops by more than 2%
+        threshold: 2%
+        # Coverage target (we're currently at ~84%)
+        target: 80%
+        # Only check against base branch
+        base: auto
+        # Don't fail if CI failed - still want to see coverage
+        if_ci_failed: success
+
+    # Coverage on PR changes only
+    patch:
+      default:
+        # Require 70% coverage on new code
+        target: 70%
+        # Allow new code to drop slightly
+        threshold: 10%
+        # Only check the changes, not the whole project
+        base: auto
+        if_ci_failed: success
+
+# Configure which files to include/exclude
+ignore:
+  # Test files (already tested by running them)
+  - "tests/"
+  - "test_*.py"
+  - "*_test.py"
+  # Examples and benchmarks
+  - "examples/"
+  - "benchmarks/"
+  # Scripts and tooling
+  - "scripts/"
+  # Build artifacts
+  - "setup.py"
+  - "dist/"
+  - "build/"
+  # Virtual environments
+  - "venv/"
+  - ".venv/"
+  - "env/"
+  # Documentation
+  - "docs/"
+
+# Comment configuration for PRs
+comment:
+  # Layout of the comment
+  layout: "reach,diff,flags,tree"
+  # Behavior settings
+  behavior: default
+  # Require changes to post comment
+  require_changes: false
+  # Show coverage after builds
+  after_n_builds: 1
+
+# Flag configuration for different test types
+flags:
+  # Core functionality tests
+  core:
+    paths:
+      - datason/core.py
+      - datason/converters.py
+      - datason/deserializers.py
+  # ML integration tests
+  ml:
+    paths:
+      - datason/ml_serializers.py
+  # Configuration system
+  config:
+    paths:
+      - datason/config.py
+      - datason/type_handlers.py
+  # Utility modules
+  utils:
+    paths:
+      - datason/datetime_utils.py
+      - datason/data_utils.py
+      - datason/serializers.py
