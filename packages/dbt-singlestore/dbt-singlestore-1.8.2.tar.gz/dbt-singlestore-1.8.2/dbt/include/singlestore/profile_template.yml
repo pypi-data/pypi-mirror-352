@@ -1,0 +1,22 @@
+fixed:
+  type: singlestore
+prompts:
+  host:
+    hint: 'hostname for the instance'
+  port:
+    default: 3306
+    type: 'int'
+  user:
+    default: 'root'
+    hint: 'database username'
+  password:
+    hint: 'database password'
+    hide_input: true
+  database:
+    hint: 'database that dbt will connect to an build objects in'
+  schema:
+    hint: 'name used by dbt internal procedures. Can be used as a table name prefix'
+  threads:
+    hint: '1 or more'
+    type: 'int'
+    default: 1
