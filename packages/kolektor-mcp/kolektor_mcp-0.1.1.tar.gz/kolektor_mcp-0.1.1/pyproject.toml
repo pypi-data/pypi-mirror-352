@@ -1,0 +1,60 @@
+[project]
+name = "kolektor-mcp"
+version = "0.1.1"
+description = "Secure IFC processing MCP server for Claude Desktop"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Proprietary"}
+authors = [
+    {name = "Kolektor Development Team"},
+]
+keywords = ["ifc", "bim", "mcp", "claude"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Cython",
+    "Topic :: Software Development :: Libraries",
+]
+
+dependencies = [
+    "fastmcp>=2.5.1",
+    "ifcopenshell>=0.8.0",
+]
+
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel",
+    "cython>=3.0.0",
+    "numpy>=1.21.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+kolektor-mcp = "kolektor_mcp.main:main"
+
+[tool.setuptools]
+packages = ["kolektor_mcp", "kolektor_mcp.core"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+kolektor_mcp = ["_compiled/*.pyd", "_compiled/*.so"]
+
+[tool.cibuildwheel]
+build = ["cp310-*", "cp311-*", "cp312-*"]
+skip = ["*-musllinux_*", "*-manylinux_i686"]
+
+[tool.cibuildwheel.windows]
+before-build = "pip install cython numpy"
+
+[tool.cibuildwheel.macos]
+before-build = "pip install cython numpy"
+
+[tool.cibuildwheel.linux]
+before-build = "pip install cython numpy"

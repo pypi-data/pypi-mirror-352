@@ -1,0 +1,88 @@
+# MANIFEST.in - Controls what files are included in the distribution
+# SECURITY: This file ensures no source code (.pyx files) are distributed
+
+# Include compiled extensions (platform-specific)
+recursive-include src/kolektor_mcp/_compiled *.pyd
+recursive-include src/kolektor_mcp/_compiled *.so
+recursive-include src/kolektor_mcp/_compiled *.dylib
+
+# Include Python package files (only the minimal interface)
+recursive-include src/kolektor_mcp *.py
+include src/kolektor_mcp/py.typed
+
+# Include package metadata
+include README.md
+include LICENSE
+include pyproject.toml
+
+# CRITICAL: Exclude all Cython source files
+recursive-exclude src *.pyx
+recursive-exclude src *.pxd
+recursive-exclude src *.pxi
+
+# Exclude C/C++ generated files
+recursive-exclude src *.c
+recursive-exclude src *.cpp
+recursive-exclude src *.h
+
+# Exclude build artifacts
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * *.orig
+
+# Exclude development files
+exclude .gitignore
+exclude .git*
+exclude setup.py
+exclude setup.cfg
+exclude tox.ini
+exclude .travis.yml
+exclude .coverage
+exclude .coveragerc
+
+# Exclude documentation source
+recursive-exclude docs *
+exclude PLANNING.md
+exclude TASK.md
+exclude ISSUES.md
+
+# Exclude test files (tests are not distributed)
+recursive-exclude tests *
+exclude pytest.ini
+exclude .pytest_cache
+
+# Exclude development directories
+prune .git
+prune .github
+prune .vscode
+prune .idea
+prune .tox
+prune .eggs
+prune build
+prune dist
+prune htmlcov
+prune .mypy_cache
+prune .pytest_cache
+prune .ruff_cache
+
+# Exclude any backup or temporary files
+global-exclude *.bak
+global-exclude *.swp
+global-exclude *.tmp
+global-exclude *~
+global-exclude .DS_Store
+global-exclude Thumbs.db
+
+# Exclude environment files
+exclude .env
+exclude .env.*
+exclude *.env
+
+# SECURITY: Never include private keys or credentials
+global-exclude *.key
+global-exclude *.pem
+global-exclude *.p12
+global-exclude *.pfx
+exclude .pypirc
+exclude secrets.json
+exclude credentials.json
