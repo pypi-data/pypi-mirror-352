@@ -1,0 +1,67 @@
+[tool.poetry]
+name = "kymata"
+version = "1.0.3"
+description = "Core Kymata codebase, including statistical analysis and plotting tools"
+authors = [
+    "Kymata Research Group <acgt2@cam.ac.uk>",
+    "Lakra, Anirudh <anirudh.lakra.19@alumni.ucl.ac.uk>",
+    "Parish, Oliver <oliver.parish.23@ucl.ac.uk>",
+    "Thwaites, Andrew <acgt2@cam.ac.uk>",
+    "Wingfield, Cai <cai@caiwingfield.net>",
+    "Yang, Chentianyi <cy334@cam.ac.uk>",
+]
+homepage = "https://kymata.org"
+repository = "https://github.com/kymata-atlas/kymata-core"
+documentation = "https://kymata-atlas.github.io/kymata-core/"
+readme = "README.md"
+packages = [{include = "kymata"}]
+keywords = ["neuroscience", "neuroimaging"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Visualization"
+]
+
+[tool.poetry.dependencies]
+python = "~3.11"
+mne = "^1.5.1"
+colorama = "^0.4.5"
+jupyter = "^1.1.0"
+llvmlite = "^0.41.0"
+mat73 = "^0.62"
+matplotlib = "^3.7.1"
+pandas = "^2.1.1"
+PyYAML = "^6.0"
+requests = "^2.32.0"
+scikit-learn = "^1.3.2"
+seaborn = "^0.12.2"
+pyvistaqt = "^0.11.0"
+nibabel = "^5.1.0"
+traitlets = "^5.13.0"
+sparse = "^0.14.0"
+xarray = "^2023.9.0"
+pyqt6 = "^6.6.1"
+h5io = "^0.1.9"
+mkdocs-material = "^9.5.24"
+mkdocstrings = {extras = ["python"], version = "^0.29.0"}
+twine = "^5.1.1"
+networkx = "^3.4.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+ipdb = "^0.13.13"
+ruff = "^0.5.6"
+pytest-cov = "^6.1.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+ignore = [
+    # Ignore these bad linting rules
+    "F842",  # Local variable `node` is annotated but never used
+]
