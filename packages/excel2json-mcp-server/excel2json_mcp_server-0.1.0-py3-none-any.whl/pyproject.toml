@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "excel2json_mcp_server"
+version = "0.1.0"
+description = "MCP server for converting Excel files to JSON format with support for merged cells and Chinese characters"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Shawn Hui", email = "shawnhui1012@gmail.com"}
+]
+keywords = ["mcp", "excel", "json", "converter", "server"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.12"
+dependencies = [
+    "mcp>=1.0.0",
+    "pandas>=2.0.0",
+    "openpyxl>=3.1.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/v587d/excel2json-mcp-server"
+Repository = "https://github.com/v587d/excel2json-mcp-server"
+Issues = "https://github.com/v587d/excel2json-mcp-server/issues"
+
+[project.scripts]
+excel2json-mcp-server = "server:main"
+[tool.hatch.build.targets.wheel]
+packages = ["."]

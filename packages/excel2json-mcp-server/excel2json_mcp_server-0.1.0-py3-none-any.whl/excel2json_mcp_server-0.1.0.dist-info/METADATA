@@ -1,0 +1,44 @@
+Metadata-Version: 2.4
+Name: excel2json_mcp_server
+Version: 0.1.0
+Summary: MCP server for converting Excel files to JSON format with support for merged cells and Chinese characters
+Project-URL: Homepage, https://github.com/v587d/excel2json-mcp-server
+Project-URL: Repository, https://github.com/v587d/excel2json-mcp-server
+Project-URL: Issues, https://github.com/v587d/excel2json-mcp-server/issues
+Author-email: Shawn Hui <shawnhui1012@gmail.com>
+License: MIT
+Keywords: converter,excel,json,mcp,server
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.12
+Requires-Dist: mcp>=1.0.0
+Requires-Dist: openpyxl>=3.1.0
+Requires-Dist: pandas>=2.0.0
+Description-Content-Type: text/markdown
+
+# ☄️Excel2JSON MCP Server
+
+一个强大的 MCP (Model Context Protocol) 服务器，用于将 Excel 文件转换为 JSON 格式。支持合并单元格、中文字符和多工作表处理。
+
+## 功能特性
+
+- 🔄 将 Excel (.xlsx) 文件转换为结构化的 JSON 格式
+- 📊 支持多工作表处理
+- 🔗 自动处理合并单元格
+- 🌏 完美支持中文和其他 Unicode 字符
+- 📍 保留原始 Excel 行号信息
+- 🛡️ 智能错误处理和验证
+
+## 安装方法
+
+### 通过 uvx 安装（推荐）
+
+```bash
+uvx excel2json-mcp-server
+```
