@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: grizzly-loadtester-ls
+Version: 2.1.20
+Summary: LSP server implementation for grizzly-loadtester load scenario development
+Author-email: biometria <opensource@biometria.se>
+License: MIT
+Project-URL: Documentation, https://biometria-se.github.io/grizzly/editor-support/
+Project-URL: Code, https://github.com/biometria-se/grizzly-lsp/
+Project-URL: Tracker, https://github.com/Biometria-se/grizzly/issues
+Keywords: locust,behave,grizzly,grizzly-loadtester,loadtest,load,performance,traffic generator,lsp,vscode
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: pygls==1.3.1
+Requires-Dist: behave==1.2.6
+Requires-Dist: random-word==1.0.11
+Requires-Dist: colorama==0.4.6
+Requires-Dist: Jinja2==3.1.4
+Requires-Dist: jinja2-simple-tags==0.6.1
+Requires-Dist: ordered-set==4.1.0
+Provides-Extra: dev
+Requires-Dist: pytest==8.1.1; extra == "dev"
+Requires-Dist: coverage[toml]==6.4.4; extra == "dev"
+Requires-Dist: pytest-cov==5.0.0; extra == "dev"
+Requires-Dist: pytest-mock==3.14.0; extra == "dev"
+Requires-Dist: pytest-timeout==2.3.1; extra == "dev"
+Requires-Dist: pylint==3.2.6; extra == "dev"
+Requires-Dist: flake8-pyproject==1.2.3; extra == "dev"
+Requires-Dist: black==24.8.0; extra == "dev"
+Requires-Dist: mypy==1.11.1; extra == "dev"
+Requires-Dist: requests==2.32.3; extra == "dev"
+Requires-Dist: types-requests<3.0.0,>=2.27.13; extra == "dev"
+Requires-Dist: pip-licenses==4.3.4; extra == "dev"
+Requires-Dist: pytablewriter==1.2.0; extra == "dev"
+Requires-Dist: types-colorama==0.4.15.20240311; extra == "dev"
+Requires-Dist: grizzly-loadtester>=2.10.2; extra == "dev"
+Provides-Extra: debug
+Requires-Dist: debugpy==1.8.1; extra == "debug"
+Provides-Extra: ci
+Requires-Dist: build==1.1.1; extra == "ci"
+Requires-Dist: twine==5.0.0; extra == "ci"
+
+# grizzly-ls
+
+This is the LSP server implementation for Visual Studio Code extension [`biometria-se.grizzly-loadtester-vscode`](https://marketplace.visualstudio.com/items?itemName=biometria-se.grizzly-loadtester-vscode).
+
+It provides the logic for auto-completion of step expressions for your `grizzly-loadtester` project.
+
+Big shout out to [`pygls`](https://pypi.org/project/pygls/) for making the implementation of a LSP server easy!
