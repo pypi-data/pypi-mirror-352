@@ -1,0 +1,147 @@
+/*TODO: cleanup this*/
+$accent: $primary;
+
+/*beautify scrollbar*/
+* {
+    scrollbar-background:        $surface-lighten-1;
+    scrollbar-background-hover:  $surface-lighten-2;
+    scrollbar-background-active: $surface-lighten-3;
+
+    scrollbar-color:        $primary;
+    scrollbar-color-hover:  $primary-lighten-1;
+    scrollbar-color-active: $primary-lighten-2;
+
+    scrollbar-corner-color: $surface;
+}
+
+/*make button-off red*/
+.toggle--button {
+    color: $text-error ;
+}
+
+.-on > .toggle--button {
+    color: $text-success;
+}
+
+/*TODO: cleanup from here*/
+
+Next {
+    align: center middle;
+}
+
+Next > Container {
+    width: auto;
+    height: auto;
+    align: center middle;
+    padding: 1 2;
+    background: $panel;
+}
+
+Next > Container > Label {
+    width: 100%;
+    content-align-horizontal: center;
+}
+
+Next > Container > Horizontal {
+    height: auto;
+    width: auto;
+}
+
+Next > Container > Horizontal > Button {
+    margin: 1 2;
+}
+
+#hosters {
+    padding-top: 1;
+    height: auto;
+}
+
+#input {
+    margin: 1 0;
+}
+
+/*TODO: make height 100 of what the table needs, so there is only one scroll*/
+#season_list {
+    min-height: 3;
+    margin: 1;
+    margin-bottom: 0;
+}
+
+TabbedContent #--content-tab-setting {
+    dock: right;
+}
+
+#setting > RadioButton {
+    margin-bottom: 1;
+}
+
+ClickableListItem Markdown {
+    background: $surface 50%;
+    margin: 0;
+    padding: 0;
+}
+
+#footer {
+    background: $panel;
+    dock: bottom;
+}
+
+SortableTable {
+    width: auto;
+}
+
+TabbedContent {
+    padding: 1;
+}
+
+Tab {
+    margin-right: 1;
+}
+
+/*settings*/
+#settings_container > * {
+    margin: 1;
+}
+
+#settings_container > Collapsible > * > * > * {
+    margin-top: 1;
+}
+
+#settings_container > Collapsible > * > *  {
+    margin-top: 1;
+}
+
+#settings_container > Collapsible > * > *:first-of-type {
+    margin-top: 0;
+}
+
+#image {
+    padding-top: 1;
+    height: 20;
+    width: auto;
+    background: $background;
+}
+
+#res_con_2 {
+     height: auto;
+}
+
+#markdown {
+    margin: 1;
+    padding: 1;
+    padding-top: -1;
+    margin-bottom: -1;
+    height: auto;
+    width: 1fr;
+}
+
+/* * This is a workaround for the horizontal scrollable container
+ * to have a margin at the bottom, so it does not touch the next element.
+ */
+.season-filter {
+    margin-bottom: 1;  /* Abstand nach unten */
+}
+
+ScrollableContainer > Horizontal#res_con_2 {
+    margin-bottom: 1;
+}
