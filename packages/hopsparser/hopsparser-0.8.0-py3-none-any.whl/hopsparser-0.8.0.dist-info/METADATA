@@ -1,0 +1,109 @@
+Metadata-Version: 2.4
+Name: hopsparser
+Version: 0.8.0
+Summary: A graph dependency parser to tinker with
+Author-email: Benoît Crabbé <benoit.crabbe@univ-paris-diderot.fr>, Loïc Grobol <lgrobol@parisnanterre.fr>
+License-Expression: MIT
+Project-URL: Bug Tracker, https://github.com/hopsparser/hopsparser/issues
+Project-URL: Changes, https://github.com/hopsparser/hopsparser/blob/main/CHANGELOG.md
+Project-URL: Documentation, https://hopsparser.readthedocs.io
+Project-URL: Source Code, https://github.com/hopsparser/hopsparser
+Keywords: nlp,parsing
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENCE.md
+Requires-Dist: bidict
+Requires-Dist: boltons
+Requires-Dist: click<9.0.0,>=8.0.4
+Requires-Dist: fastapi
+Requires-Dist: fasttextlt
+Requires-Dist: huggingface-hub
+Requires-Dist: loguru
+Requires-Dist: numpy>=2.1
+Requires-Dist: pooch
+Requires-Dist: pydantic<2.12,>=2.0
+Requires-Dist: pydantic-settings<2.10,>=2.0
+Requires-Dist: pyyaml
+Requires-Dist: rich
+Requires-Dist: sacremoses
+Requires-Dist: tabulate2
+Requires-Dist: torch<2.8.0,>=2.0.0
+Requires-Dist: transformers!=4.23.0,!=4.23.1,!=4.51.0,<5.0.0,>=4.19.0
+Requires-Dist: uvicorn
+Provides-Extra: ci
+Requires-Dist: pytest-github-actions-annotate-failures; extra == "ci"
+Provides-Extra: spacy
+Requires-Dist: spacy<4.0,>=3.8; extra == "spacy"
+Provides-Extra: tests
+Requires-Dist: hypothesis<7.0,>=6.0; extra == "tests"
+Requires-Dist: networkx<3.5,>=3.2; extra == "tests"
+Requires-Dist: pytest<9.0,>=7.0; extra == "tests"
+Requires-Dist: pytest-assert-utils; extra == "tests"
+Requires-Dist: pytest-console-scripts<1.5,>=1.4; extra == "tests"
+Requires-Dist: pytest-github-actions-annotate-failures; extra == "tests"
+Requires-Dist: pytest-lazy-fixtures<2,>=1.1; extra == "tests"
+Provides-Extra: traintools
+Requires-Dist: httpx[http2]; extra == "traintools"
+Requires-Dist: lightning; extra == "traintools"
+Requires-Dist: polars<1.30,>=1.12; extra == "traintools"
+Requires-Dist: pytorch-lightning<3.0,>=2.4; extra == "traintools"
+Requires-Dist: tensorboardx; extra == "traintools"
+Requires-Dist: torchmetrics; extra == "traintools"
+Dynamic: license-file
+
+HOPS, an honest parser of sentences
+===================================
+
+[![Latest PyPI version](https://img.shields.io/pypi/v/hopsparser.svg)](https://pypi.org/project/hopsparser)
+[![Continuous integration](https://github.com/hopsparser/hopsparser/actions/workflows/ci.yml/badge.svg)](https://github.com/hopsparser/hopsparser/actions/workflows/ci.yml)
+
+> It ain't much but it's honest work.
+
+This is a graph-based dependency parser inspired by [Dozat and Manning
+(2017)](https://nlp.stanford.edu/pubs/dozat2017deep.pdf)'s biaffine graph parser. Contrary to Dozat,
+the parser performs its own tagging and can use several lexers such as FastText, BERT and others. It
+has been originally designed within the [FlauBERT](https://github.com/getalp/Flaubert) initiative.
+
+The parser comes with pretrained models ready for parsing French, but it might be trained for other
+languages without difficulties.
+
+See the [documentation](http://hopsparser.readthedocs.io) for more information.
+
+## Citation
+
+If you use this parser for your scientific publication, or if you find the resources in this
+repository useful, please cite the following paper
+
+```biblatex
+@inproceedings{grobol:hal-03223424,
+    title = {{Analyse en dépendances du français avec des plongements contextualisés}},
+    author = {Grobol, Loïc and Crabbé, Benoît},
+    url = {https://hal.archives-ouvertes.fr/hal-03223424},
+    booktitle = {{Actes de la 28ème Conférence sur le Traitement Automatique des Langues Naturelles}},
+    eventtitle = {{TALN-RÉCITAL 2021}},
+    venue = {Lille, France},
+    pdf = {https://hal.archives-ouvertes.fr/hal-03223424/file/HOPS_final.pdf},
+    hal_id = {hal-03223424},
+    hal_version = {v1},
+}
+```
+
+## Development
+
+If you want a development install (so you can modify the code locally and directly run it), you can
+install it in editable mode with the tests extras after cloning the repository
+
+```sh
+git clone https://github.com/hopsparser/hopsparser
+cd hopsparser
+pip install -e ".[spacy,tests,traintools]"
+```
+
+In that case, you can run the smoke tests with `tox` to ensure that everything works on your end.
+
+Note that using the editable mode requires `pip >= 21.3.1`.
+
+## Licence
+
+This software is released under the MIT Licence, with some files released under compatible free
+licences, see [LICENCE.md](LICENCE.md) for the details.
