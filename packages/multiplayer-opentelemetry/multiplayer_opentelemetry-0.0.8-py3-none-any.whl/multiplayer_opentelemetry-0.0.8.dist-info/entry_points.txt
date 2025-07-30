@@ -1,0 +1,9 @@
+[multiplayer.opentelemetry]
+id_generator = multiplayer.opentelemetry.trace.id_generator:MultiplayerRandomIdGenerator
+traces_sampler = multiplayer.opentelemetry.trace.sampler:MultiplayerTraceIdRatioBasedSampler
+
+[multiplayer.opentelemetry.exporter]
+grpc.log = multiplayer.opentelemetry.exporter.grpc.log_exporter:MultiplayerOTLPLogExporter
+grpc.trace = multiplayer.opentelemetry.exporter.grpc.trace_exporter:MultiplayerOTLPSpanExporter
+http.log = multiplayer.opentelemetry.exporter.http.log_exporter:MultiplayerOTLPLogExporter
+http.trace = multiplayer.opentelemetry.exporter.http.trace_exporter:MultiplayerOTLPSpanExporter
