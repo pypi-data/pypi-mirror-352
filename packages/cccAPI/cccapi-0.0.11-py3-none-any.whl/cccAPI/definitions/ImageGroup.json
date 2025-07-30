@@ -1,0 +1,41 @@
+{
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "default": ""
+      },
+      "nodes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Node"
+        },
+        "default": []
+      },
+      "candidates": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Node"
+        },
+        "default": []
+      },
+      "type": {
+        "type": "string",
+        "default": ""
+      },
+      "backupImageDevice": {
+        "type": "string",
+        "default": ""
+      },
+      "backupImageDate": {
+        "type": "string",
+        "format": "date-time",
+        "default": ""
+      },
+      "features": {
+        "type": "object",
+        "default": {}
+      }
+    },
+    "required": []
+}
