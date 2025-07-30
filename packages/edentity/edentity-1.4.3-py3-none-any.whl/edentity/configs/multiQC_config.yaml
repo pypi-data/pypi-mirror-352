@@ -1,0 +1,43 @@
+# # This configuration file is used to control the behavior of the MultiQC report
+skip_generalstats: true
+show_analysis_paths: false
+fn_clean_exts:
+  - ".gz"
+  - ".fastq"
+  - "_R1"
+  - "_R2"
+  - "_merged"
+# # General formatting settings for numbers
+# formatting:
+#   numbers:
+#     human_readable: false  # Ensure all numbers are human-readable (e.g., 1M, 1K)
+
+# handle custom data
+custom_data:
+  edentity_summary:
+    file_format: 'tsv'
+    section_name: 'eDentity Pipeline Summary'
+    plot_type: 'table'
+
+# Update module order to include custom_content
+module_order:
+  - edentity_summary
+  - fastp
+  - cutadapt
+  # - custom_content
+
+# Configure table display
+table_columns_visible:
+  edentity_summary:
+    Sample: true
+    read_pairs: true
+    merged_percent: true
+    primer_trimmed_reads: true
+    passed_quality_filtering: true
+    dereplicated_reads: true
+    reads_passed_denoising: true
+    n_esv: true
+    # chimeric_reads: false
+    # borderline_reads: false 
+    
+    

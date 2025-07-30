@@ -1,0 +1,46 @@
+
+#project specific
+raw_data_dir: 
+work_dir: 
+make_json_reports: False
+
+# tool params
+
+# Fastp params (general quality control)
+average_qual: 25
+length_required: 100
+n_base_limit: 0
+# 3_PE_merging (these are set to vsearch default values)
+maxdiffpct: 100
+maxdiffs: 10
+minovlen: 10
+
+#4_primer_trimming
+forward_primer: 
+reverse_primer: 
+anchoring: False
+discard_untrimmed: True
+
+#5_quality_filtering (vsearch)
+min_length: 100
+max_length: 600
+maxEE: 1
+# dereplication params
+fasta_width: 0
+# 6_denoising (set to default vsearch values)
+alpha: 2
+minsize: 4
+
+
+#DO not change this ones :)
+conda: "../envs/vsearch.yaml" # strict channel can cause conda creation errors: disable this with: conda config --set channel_priority disabled
+bbtoolsConda: "../envs/bbtools.yml"
+
+# Pipeline settings
+dataType: "Illumina" # [Illumina, AVITI], one of the two
+
+# nbitk settings
+license_file: LICENSE
+changelog_file: CHANGELOG
+cpu_cores: 20
+log_level: INFO

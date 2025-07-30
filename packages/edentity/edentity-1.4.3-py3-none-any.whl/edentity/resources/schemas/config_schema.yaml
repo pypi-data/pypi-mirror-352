@@ -1,0 +1,99 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+description: Configuration of apscale tool settings
+properties:  
+  raw_data_dir: 
+    type: string
+    description: Path to the raw data directory, raw  fastq file are expected in this directory
+  
+  dataType:
+    type: string
+    description: "Type of data, either Illumina or AVITI"
+    enum:
+      - Illumina
+      - AVITI
+    default: "Illumina"
+  
+  work_dir:
+    type: string
+    description: Path to the project directory; this will be set as results directory
+    
+
+# 3_PE_merging (these are set to vsearch default values)
+  maxdiffpct:
+    type: integer
+    description: "maximum percentage diff. bases in overlap; default is 100"
+    default: 100
+
+  maxdiffs:
+    type: integer
+    description: "maximum number of different bases in overlap; default is 10"
+    default: 10
+
+  minovlen:
+    type: integer
+    description: "minimum length of overlap between reads, default is 10"
+    default: 10
+
+# 4_primer_trimming
+
+  forward_primer:
+    type: string
+    description: "Sequence of the forward primer"
+  
+  reverse_primer:
+    type: string
+    description: "Sequence of the reverse primer"
+
+  anchoring:
+    type: boolean
+    description: "the primer is only found if it is a suffix/prefix of the read"
+    default: False
+
+# 5_quality_filtering
+
+  min_length:
+    type: integer
+    description: "discard if length of sequence is shorter than min_length"
+    default: 100
+
+  max_length:
+    type: integer
+    description: "discard if length of sequence is longer than max_length"
+    default: 600
+
+  maxEE:
+    type: integer
+    description: "maximum expected error value for merged sequence"
+    default: 1
+
+ # 6_denoising (set to default vsearch values)
+
+  alpha:
+    type: integer
+    description: "cluster unoise alpha parameter"
+    default: 2
+
+  minsize:
+    type: integer
+    description: "minimum abundance; drop ESVs if they are less than minsize"
+    default: 5
+
+# 0_general_settings
+  
+  cores:
+    type: integer
+    description: "Cores used for parallelism in apscale"
+    default: 4
+
+  compression_level:
+    type: integer
+    description: "gzip compression level"
+    default: 6
+
+
+required:
+  - raw_data_dir
+  - work_dir
+  - forward_primer
+  - reverse_primer
+  
