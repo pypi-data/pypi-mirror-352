@@ -1,0 +1,89 @@
+Metadata-Version: 2.1
+Name: yors_comfyui_node_setup
+Version: 0.9.2
+Summary: A python library for setup comfyui custom nodes for developers in development
+Home-page: https://github.com/ymc-github/panz/blob/main/packages/yors_comfyui_node_setup/README.md
+License: LICENSE
+Keywords: artist,panz,mono,yors_comfyui_node_setup
+Author: yemiancheng
+Author-email: ymc.github@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Build Tools
+Project-URL: Documentation, https://github.com/ymc-github/panz/blob/main/packages/yors_comfyui_node_setup/README.md
+Project-URL: Repository, https://github.com/ymc-github/panz.git
+Project-URL: changelog, https://github.com/ymc-github/panz/blob/main/packages/yors_comfyui_node_setup/CHANGELOG.md
+Description-Content-Type: text/markdown
+
+<!-- inject desc here -->
+<!-- inject-desc -->
+
+A python library for setup comfyui custom nodes for developers in development
+
+## File size
+
+<!-- inject size of bundles here -->
+<!-- inject-file-size -->
+
+## Features
+
+<!-- inject feat here -->
+- feat(core): pyio_read_dirs_name - read dirs name in some location
+- feat(core): pyio_read_file_name - read file name in some location
+- feat(core): pyio_read_module_name - read python module name in some location
+- feat(core): get_sys_module - get python module in sys with name
+- feat(core): get_classes_in_module - get class list in python module
+- feat(core): get_module_name_list - get module name list in sys.modules with substring name
+- feat(core): list_ignore_them - list ignore them
+- feat(core): std_stro_name - std name in stro
+- feat(core): std_module_name - std name for module
+- feat(core): import_custom_node_module - import custom node module in some sub location
+- feat(core): is_yors_style_node - check if a node class is yors-style node
+- feat(core): get_node_class_in_sys_modules - get node (yors style) class name in sys modules with substring name
+- feat(core): get_all_classs_in_sys - get all class in sys
+- feat(core): register_node_list - register comfyui node (yors style) through udate node class map and and display name map and more
+- feat(core): use global vars
+- feat(core): use default category in node when custom categoty not passed
+- feat(core): info repeat node when node
+- feat(core): register_node_list_local - not using global vars
+- feat(core): get_node_desc - get yors-style node desc from node class
+- feat(core): get_node_name - get yors-style node name from node class
+- feat(core): get_node_menu_name - get yors-style node menu name from node class
+- feat(core): gen_menu_name - gen yors-style node display name
+- feat(core): import_py_file - import py file in location
+- feat(core): read_py_file_name_list - read py file name list in location
+- feat(core): ignore `__init__.py`
+- feat(core): read_py_file_name_list_no_suffix - read py file name list in location wihout .py suffix
+- feat(core): ignore `__init__.py`
+- feat(core): get_module_name_contains_x_in_sys - get all module name with subtring name in sys
+- feat(core): ignore eq x
+- feat(core): get_module_contains_x_name_in_sys - get all module with subtring name in sys
+- feat(core): ignore eq x
+- feat(core): debug_print - print msg if node loading debug status opened
+- feat(core): debug_status - update node loading debug status
+- feat(core): entry_pre_import - make `__all__` with name and file location
+- feat(core): entry_import - import module with importlib.import_module and `__all__`
+- feat(core): entry_post_import - prepare import for comfyui node
+- feat(core): entry - make entry vars for comfyui node
+- feat(core): pyio_install_requirements - install requirements in file location without installed packages checking before installing
+- feat(core): ensure_package - install some python package if not installed
+- feat(core): spio_install_requirements - install some python package in file location if not installed
+- feat(core): node_install_requirements - install requirements in dir and file name
+- feat(core): set_node_class_category_alias - set node category alias through extended class
+
+## Usage
+
+```bash
+pip install yors_comfyui_node_setup
+```
+
+<!-- inject demo here -->
+
+
