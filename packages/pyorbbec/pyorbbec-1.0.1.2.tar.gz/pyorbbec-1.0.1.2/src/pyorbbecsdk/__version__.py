@@ -1,0 +1,10 @@
+__title__ = "pyorbbecsdk"
+__description__ = "Python interface to the Orbbec SDK."
+__url__ = "https://orbbec.com.cn/"
+__version__ = "1.0.0"
+__build__ = 0x023203
+__author__ = "orbbec"
+__author_email__ = "lijie@orbbec.com"
+__license__ = "Apache License"
+__copyright__ = "Copyright Orbbec"
+__cake__ = "\u2728 \U0001f370 \u2728"
