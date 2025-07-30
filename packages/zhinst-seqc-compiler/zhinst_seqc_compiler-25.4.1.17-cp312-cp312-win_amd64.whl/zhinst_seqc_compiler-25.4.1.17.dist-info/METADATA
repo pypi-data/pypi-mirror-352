@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: zhinst-seqc-compiler
+Version: 25.4.1.17
+Summary: Zurich Instruments SeqC compiler
+Project-URL: Documentation, https://docs.zhinst.com/labone_api_user_manual
+Author-email: Zurich Instruments AG <info@zhinst.com>
+License-Expression: MIT
+License-File: LICENSE.txt
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# Zurich Instruments SeqC Compiler
+
+The `zhinst-seqc-compiler` package contains a standalone compiler for the Zurich
+Instruments [LabOne](https://www.zhinst.com/labone)&reg; AWG Sequencer programming
+language, SeqC. Please see the corresponding sections in the user manuals for
+more detail, e.g.,
+[SHFQA](https://docs.zhinst.com/shfqa_user_manual/functional_description/generator_tab.html#shfqa.functional_description.readout_pulse_generator.sequencer.seqc),
+[SHFQC](https://docs.zhinst.com/shfsg_user_manual/functional_description/awg.html#labone.functional.awg.language),
+or
+[HDAWG](https://docs.zhinst.com/hdawg_user_manual/functional_description/awg.html#labone.functional.awg.language).
+
+This package exposes a single function, `zhinst.seqc_compiler.compile_seqc`,
+which takes SeqC source code and returns the compiled program and waveforms as
+an ELF file, which can be uploaded through the [LabOne
+API](https://docs.zhinst.com/labone_programming_manual/overview.html).
+
+The same function is available in the
+[`zhinst-core`](https://pypi.org/project/zhinst-core/) package.
+`zhinst.core.compile_seqc` will forward the call to
+`zhinst.seqc_compiler.compile_seqc` if a compatible version of this package is
+installed. A version is compatible if major and minor package versions match,
+and the revision of ´zhinst-seqc-compiler´ is greater or equal to the revision
+of `zhinst-core`. A warning will be issued if the versions do not match.
+
+This package has the main purposes to enable faster deployment of bug fixes
+independently from `zhinst-core` and the LabOne release cycle.
