@@ -1,0 +1,54 @@
+Metadata-Version: 2.4
+Name: pydfc
+Version: 1.0.7
+Summary: This package aims to provide a comprehensive framework for assessing dynamic functional connectivity (dFC) using multiple methods and comparing results across methods.
+Author: Mohammad Torabi
+Maintainer-email: Mohammad Torabi <mohammad.torabi@mail.mcgill.ca>
+License: MIT
+License-File: LICENSE
+Keywords: dFC package,neuroimaging,python
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Education
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Requires-Dist: h5py
+Requires-Dist: hmmlearn
+Requires-Dist: ksvd
+Requires-Dist: matplotlib
+Requires-Dist: networkx
+Requires-Dist: nilearn!=0.10.3,>=0.10.2
+Requires-Dist: pycwt
+Requires-Dist: seaborn
+Requires-Dist: statsmodels
+Provides-Extra: test
+Requires-Dist: pytest; extra == 'test'
+Description-Content-Type: text/x-rst
+
+.. image:: docs/PydFC_logo_dark_round.png
+    :alt: pydfc Logo
+    :align: left
+    :width: 250px
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.10161176.svg
+    :target: https://zenodo.org/doi/10.5281/zenodo.10161176
+.. image:: https://img.shields.io/pypi/v/pydfc.svg
+    :target: https://pypi.org/project/pydfc/
+    :alt: Pypi Package
+
+pydfc
+=====
+
+An implementation of several well-known dynamic Functional Connectivity (dFC) assessment methods.
+
+Simply install ``pydfc`` using the following steps:
+  * ``conda create --name pydfc_env python=3.11``
+  * ``conda activate pydfc_env``
+  * ``pip install pydfc``
+
+The ``dFC_methods_demo.ipynb`` illustrates how to load data and apply each of the dFC methods implemented in the ``pydfc`` toolbox individually.
+The ``multi_analysis_demo.ipynb`` illustrates how to use the ``pydfc`` toolbox to apply multiple dFC methods at the same time on a dataset and compare their results.
+
+For more details about the implemented methods and the comparison analysis see `our paper <https://doi.org/10.1093/gigascience/giae009>`_.
+
+  * Mohammad Torabi, Georgios D Mitsis, Jean-Baptiste Poline, On the variability of dynamic functional connectivity assessment methods, GigaScience, Volume 13, 2024, giae009, https://doi.org/10.1093/gigascience/giae009.
