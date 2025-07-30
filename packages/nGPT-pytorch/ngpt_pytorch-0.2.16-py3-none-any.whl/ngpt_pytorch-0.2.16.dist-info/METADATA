@@ -1,0 +1,121 @@
+Metadata-Version: 2.4
+Name: nGPT-pytorch
+Version: 0.2.16
+Summary: nGPT
+Project-URL: Homepage, https://pypi.org/project/nGPT-pytorch/
+Project-URL: Repository, https://github.com/lucidrains/nGPT-pytorch
+Author-email: Phil Wang <lucidrains@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2024 Phil Wang
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Keywords: artificial intelligence,attention mechanism,deep learning,hypersphere,transformer
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.9
+Requires-Dist: einops>=0.8.0
+Requires-Dist: rotary-embedding-torch
+Requires-Dist: torch>=2.4
+Provides-Extra: examples
+Provides-Extra: test
+Requires-Dist: pytest; extra == 'test'
+Description-Content-Type: text/markdown
+
+<img src="./ngpt-table1.png" width="350px"></img>
+
+## nGPT (normalized GPT) - Pytorch
+
+Quick implementation of <a href="https://arxiv.org/abs/2410.01131">nGPT</a>, learning entirely on the hypersphere, from NvidiaAI. The question is whether there is any loss of expressivity they swept under the rug, but I'll take it with good faith.
+
+This type of network should also be studied in the context of continual learning and <a href="https://www.nature.com/articles/s41586-024-07711-7">loss of plasticity</a>
+
+Adaptation to vision transformers is [here](https://github.com/lucidrains/vit-pytorch/blob/main/vit_pytorch/normalized_vit.py)
+
+Update: The normalized feedforward was successfully applied for improving UTD for off-policy reinforcement learning [in a new paper](https://dojeon-ai.github.io/SimbaV2/)
+
+## Install
+
+```bash
+$ pip install nGPT-pytorch
+```
+
+## Usage
+
+```python
+import torch
+from nGPT_pytorch import nGPT
+
+model = nGPT(
+    num_tokens = 256,
+    dim = 512,
+    depth = 4,
+    attn_norm_qk = True
+)
+
+x = torch.randint(0, 256, (2, 2048))
+
+loss = model(x, return_loss = True)
+loss.backward()
+
+logits = model(x) # (2, 2048, 256)
+```
+
+## Test
+
+Enwik8
+
+```bash
+$ python train.py
+```
+
+## Citations
+
+```bibtex
+@inproceedings{Loshchilov2024nGPTNT,
+    title   = {nGPT: Normalized Transformer with Representation Learning on the Hypersphere},
+    author  = {Ilya Loshchilov and Cheng-Ping Hsieh and Simeng Sun and Boris Ginsburg},
+    year    = {2024},
+    url     = {https://api.semanticscholar.org/CorpusID:273026160}
+}
+```
+
+```bibtex
+@article{Luo2017CosineNU,
+    title     = {Cosine Normalization: Using Cosine Similarity Instead of Dot Product in Neural Networks},
+    author    = {Chunjie Luo and Jianfeng Zhan and Lei Wang and Qiang Yang},
+    journal   = {ArXiv},
+    year      = {2017},
+    volume    = {abs/1702.05870},
+    url       = {https://api.semanticscholar.org/CorpusID:1505432}
+}
+```
+
+```bibtex
+@inproceedings{Zhou2024ValueRL,
+    title   = {Value Residual Learning For Alleviating Attention Concentration In Transformers},
+    author  = {Zhanchao Zhou and Tianyi Wu and Zhiyun Jiang and Zhenzhong Lan},
+    year    = {2024},
+    url     = {https://api.semanticscholar.org/CorpusID:273532030}
+}
+```
