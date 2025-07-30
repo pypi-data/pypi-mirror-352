@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "smart-webdriver-manager"
+version = "0.8.0"
+description = "A smart webdriver and browser manager"
+readme = "README.md"
+license = "MIT"
+authors = ["bissli"]
+repository = "https://github.com/bissli/smart-webdriver-manager"
+classifiers = [
+  "License :: OSI Approved :: Apache Software License",
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Libraries",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+requests = "*"
+backoff = "*"
+tqdm = "*"
+platformdirs = "*"
+
+mock = { version = "^4.0.3", optional = true }
+selenium = { version = "^4.1.0", optional = true }
+pytest = { version = "*", optional = true }
+pytest-cov = { version = "*", optional = true }
+asserts = { version = "*", optional = true }
+bump2version = { version = "*", optional = true }
+
+[tool.poetry.extras]
+test = [
+  "mock",
+  "selenium",
+  "pytest",
+  "pytest-cov",
+  "asserts",
+  "bump2version",
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
