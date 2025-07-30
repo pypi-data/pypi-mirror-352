@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quest-snl"
+version = "2.0.dev2"
+description = "Sandia National Laboratories Energy Storage Application Platform"
+readme = "README.md"
+license = "BSD-3-Clause"
+authors = [{name = "Sandia National Laboratories"}]
+maintainers = [{name = "Sandia National Laboratories", email = "tunguy@sandia.gov"}]
+requires-python = ">=3.6, <3.11"
+dependencies = [
+    "PySide6==6.5.2",
+    "pandas==2.2.1",
+    "streamlit==1.33.0",
+    "openai==0.28.1",
+    "configparser==6.0.1",
+    "matplotlib==3.8.3",
+    "geopandas==0.14.3",
+    "psutil==5.9.0",
+    "GitPython==3.1.43"
+]
+
+[project.scripts]
+quest = "quest.__main__:main"
+
+[tool.setuptools]
+packages = ["quest"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"quest" = [
+    "*.log",
+    "*.py",
+    "*.qrc",
+    "*.rc",
+    "*.json",
+    "*.jpg",
+    "*.png",
+    "*.svg",
+    "*.csv",
+    "*.md",
+    "*.yml",
+    "*.ini",
+    "*.bat",
+    "*.sh",
+    "*.html",
+    "*.js",
+    "*.css",
+    "*.ttf",
+    "*.pdf",
+    "*.xlsx",
+    "*.gif",
+    "*.mplstyle",
+    "**/license*",
+    "**/*.ui",
+    "**/*.eot",
+    "**/*.woff",
+    "**/*.woff2",
+    ".streamlit/*",
+    "app/*",
+    "app_envs/*",
+    "data/*",
+    "images/*",
+    "licenses/*",
+    "snl_libraries/*",
+    "themes/*"
+]
