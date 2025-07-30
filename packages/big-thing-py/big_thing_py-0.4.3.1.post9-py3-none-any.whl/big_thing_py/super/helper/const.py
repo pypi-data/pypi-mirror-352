@@ -1,0 +1,5 @@
+DRY_RUN_ATTRIBUTE = 'dry_run'
+CALL_LINE_INFO_LIST_ATTRIBUTE = 'call_line_info_list'
+LINE_NUM_ATTRIBUTE = 'line_num'
+SUPER_EXECUTE_REQUEST_ATTRIBUTE = 'super_execute_request'
+SELF_ATTRIBUTE = 'self'
