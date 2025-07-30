@@ -1,0 +1,403 @@
+Metadata-Version: 2.4
+Name: pse
+Version: 2025.6.1
+Summary: Proxy Structuring Engine: Stateful AI-generated output with a focus on creativity, speed, and structure.
+Project-URL: homepage, https://github.com/TheProxyCompany/proxy-structuring-engine
+Project-URL: documentation, https://github.com/TheProxyCompany/proxy-structuring-engine#readme
+Project-URL: source, https://github.com/TheProxyCompany/proxy-structuring-engine
+Author-email: Jack Wind <jckwind11@gmail.com>, The Proxy Company <contact@theproxy.company>
+License:                                  Apache License
+                                   Version 2.0, January 2004
+                                http://www.apache.org/licenses/
+        
+           TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+        
+           1. Definitions.
+        
+              "License" shall mean the terms and conditions for use, reproduction,
+              and distribution as defined by Sections 1 through 9 of this document.
+        
+              "Licensor" shall mean the copyright owner or entity authorized by
+              the copyright owner that is granting the License.
+        
+              "Legal Entity" shall mean the union of the acting entity and all
+              other entities that control, are controlled by, or are under common
+              control with that entity. For the purposes of this definition,
+              "control" means (i) the power, direct or indirect, to cause the
+              direction or management of such entity, whether by contract or
+              otherwise, or (ii) ownership of fifty percent (50%) or more of the
+              outstanding shares, or (iii) beneficial ownership of such entity.
+        
+              "You" (or "Your") shall mean an individual or Legal Entity
+              exercising permissions granted by this License.
+        
+              "Source" form shall mean the preferred form for making modifications,
+              including but not limited to software source code, documentation
+              source, and configuration files.
+        
+              "Object" form shall mean any form resulting from mechanical
+              transformation or translation of a Source form, including but
+              not limited to compiled object code, generated documentation,
+              and conversions to other media types.
+        
+              "Work" shall mean the work of authorship, whether in Source or
+              Object form, made available under the License, as indicated by a
+              copyright notice that is included in or attached to the work
+              (an example is provided in the Appendix below).
+        
+              "Derivative Works" shall mean any work, whether in Source or Object
+              form, that is based on (or derived from) the Work and for which the
+              editorial revisions, annotations, elaborations, or other modifications
+              represent, as a whole, an original work of authorship. For the purposes
+              of this License, Derivative Works shall not include works that remain
+              separable from, or merely link (or bind by name) to the interfaces of,
+              the Work and Derivative Works thereof.
+        
+              "Contribution" shall mean any work of authorship, including
+              the original version of the Work and any modifications or additions
+              to that Work or Derivative Works thereof, that is intentionally
+              submitted to Licensor for inclusion in the Work by the copyright owner
+              or by an individual or Legal Entity authorized to submit on behalf of
+              the copyright owner. For the purposes of this definition, "submitted"
+              means any form of electronic, verbal, or written communication sent
+              to the Licensor or its representatives, including but not limited to
+              communication on electronic mailing lists, source code control systems,
+              and issue tracking systems that are managed by, or on behalf of, the
+              Licensor for the purpose of discussing and improving the Work, but
+              excluding communication that is conspicuously marked or otherwise
+              designated in writing by the copyright owner as "Not a Contribution."
+        
+              "Contributor" shall mean Licensor and any individual or Legal Entity
+              on behalf of whom a Contribution has been received by Licensor and
+              subsequently incorporated within the Work.
+        
+           2. Grant of Copyright License. Subject to the terms and conditions of
+              this License, each Contributor hereby grants to You a perpetual,
+              worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+              copyright license to reproduce, prepare Derivative Works of,
+              publicly display, publicly perform, sublicense, and distribute the
+              Work and such Derivative Works in Source or Object form.
+        
+           3. Grant of Patent License. Subject to the terms and conditions of
+              this License, each Contributor hereby grants to You a perpetual,
+              worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+              (except as stated in this section) patent license to make, have made,
+              use, offer to sell, sell, import, and otherwise transfer the Work,
+              where such license applies only to those patent claims licensable
+              by such Contributor that are necessarily infringed by their
+              Contribution(s) alone or by combination of their Contribution(s)
+              with the Work to which such Contribution(s) was submitted. If You
+              institute patent litigation against any entity (including a
+              cross-claim or counterclaim in a lawsuit) alleging that the Work
+              or a Contribution incorporated within the Work constitutes direct
+              or contributory patent infringement, then any patent licenses
+              granted to You under this License for that Work shall terminate
+              as of the date such litigation is filed.
+        
+           4. Redistribution. You may reproduce and distribute copies of the
+              Work or Derivative Works thereof in any medium, with or without
+              modifications, and in Source or Object form, provided that You
+              meet the following conditions:
+        
+              (a) You must give any other recipients of the Work or
+                  Derivative Works a copy of this License; and
+        
+              (b) You must cause any modified files to carry prominent notices
+                  stating that You changed the files; and
+        
+              (c) You must retain, in the Source form of any Derivative Works
+                  that You distribute, all copyright, patent, trademark, and
+                  attribution notices from the Source form of the Work,
+                  excluding those notices that do not pertain to any part of
+                  the Derivative Works; and
+        
+              (d) If the Work includes a "NOTICE" text file as part of its
+                  distribution, then any Derivative Works that You distribute must
+                  include a readable copy of the attribution notices contained
+                  within such NOTICE file, excluding those notices that do not
+                  pertain to any part of the Derivative Works, in at least one
+                  of the following places: within a NOTICE text file distributed
+                  as part of the Derivative Works; within the Source form or
+                  documentation, if provided along with the Derivative Works; or,
+                  within a display generated by the Derivative Works, if and
+                  wherever such third-party notices normally appear. The contents
+                  of the NOTICE file are for informational purposes only and
+                  do not modify the License. You may add Your own attribution
+                  notices within Derivative Works that You distribute, alongside
+                  or as an addendum to the NOTICE text from the Work, provided
+                  that such additional attribution notices cannot be construed
+                  as modifying the License.
+        
+              You may add Your own copyright statement to Your modifications and
+              may provide additional or different license terms and conditions
+              for use, reproduction, or distribution of Your modifications, or
+              for any such Derivative Works as a whole, provided Your use,
+              reproduction, and distribution of the Work otherwise complies with
+              the conditions stated in this License.
+        
+           5. Submission of Contributions. Unless You explicitly state otherwise,
+              any Contribution intentionally submitted for inclusion in the Work
+              by You to the Licensor shall be under the terms and conditions of
+              this License, without any additional terms or conditions.
+              Notwithstanding the above, nothing herein shall supersede or modify
+              the terms of any separate license agreement you may have executed
+              with Licensor regarding such Contributions.
+        
+           6. Trademarks. This License does not grant permission to use the trade
+              names, trademarks, service marks, or product names of the Licensor,
+              except as required for reasonable and customary use in describing the
+              origin of the Work and reproducing the content of the NOTICE file.
+        
+           7. Disclaimer of Warranty. Unless required by applicable law or
+              agreed to in writing, Licensor provides the Work (and each
+              Contributor provides its Contributions) on an "AS IS" BASIS,
+              WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+              implied, including, without limitation, any warranties or conditions
+              of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+              PARTICULAR PURPOSE. You are solely responsible for determining the
+              appropriateness of using or redistributing the Work and assume any
+              risks associated with Your exercise of permissions under this License.
+        
+           8. Limitation of Liability. In no event and under no legal theory,
+              whether in tort (including negligence), contract, or otherwise,
+              unless required by applicable law (such as deliberate and grossly
+              negligent acts) or agreed to in writing, shall any Contributor be
+              liable to You for damages, including any direct, indirect, special,
+              incidental, or consequential damages of any character arising as a
+              result of this License or out of the use or inability to use the
+              Work (including but not limited to damages for loss of goodwill,
+              work stoppage, computer failure or malfunction, or any and all
+              other commercial damages or losses), even if such Contributor
+              has been advised of the possibility of such damages.
+        
+           9. Accepting Warranty or Additional Liability. While redistributing
+              the Work or Derivative Works thereof, You may choose to offer,
+              and charge a fee for, acceptance of support, warranty, indemnity,
+              or other liability obligations and/or rights consistent with this
+              License. However, in accepting such obligations, You may act only
+              on Your own behalf and on Your sole responsibility, not on behalf
+              of any other Contributor, and only if You agree to indemnify,
+              defend, and hold each Contributor harmless for any liability
+              incurred by, or claims asserted against, such Contributor by reason
+              of your accepting any such warranty or additional liability.
+        
+           END OF TERMS AND CONDITIONS
+        
+           APPENDIX: How to apply the Apache License to your work.
+        
+              To apply the Apache License to your work, attach the following
+              boilerplate notice, with the fields enclosed by brackets "[]"
+              replaced with your own identifying information. (Don't include
+              the brackets!)  The text should be enclosed in the appropriate
+              comment syntax for the file format. We also recommend that a
+              file or class name and description of purpose be included on the
+              same "printed page" as the copyright notice for easier
+              identification within third-party archives.
+        
+           Copyright [yyyy] [name of copyright owner]
+        
+           Licensed under the Apache License, Version 2.0 (the "License");
+           you may not use this file except in compliance with the License.
+           You may obtain a copy of the License at
+        
+               http://www.apache.org/licenses/LICENSE-2.0
+        
+           Unless required by applicable law or agreed to in writing, software
+           distributed under the License is distributed on an "AS IS" BASIS,
+           WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+           See the License for the specific language governing permissions and
+           limitations under the License.
+License-File: LICENSE
+Requires-Python: >=3.11
+Requires-Dist: docstring-parser
+Requires-Dist: lark
+Requires-Dist: protobuf
+Requires-Dist: pse-core
+Requires-Dist: pydantic
+Requires-Dist: regex
+Requires-Dist: tokenizers
+Requires-Dist: tqdm
+Requires-Dist: transformers
+Requires-Dist: typing-extensions
+Requires-Dist: wheel
+Provides-Extra: dev
+Requires-Dist: coverage; extra == 'dev'
+Requires-Dist: flake8; extra == 'dev'
+Requires-Dist: ipykernel; extra == 'dev'
+Requires-Dist: pytest; extra == 'dev'
+Requires-Dist: pytest-cov; extra == 'dev'
+Requires-Dist: ruff; extra == 'dev'
+Requires-Dist: sentencepiece; extra == 'dev'
+Provides-Extra: jax
+Requires-Dist: accelerate; extra == 'jax'
+Requires-Dist: jax; extra == 'jax'
+Provides-Extra: mlx
+Requires-Dist: mlx; extra == 'mlx'
+Requires-Dist: mlx-proxy; extra == 'mlx'
+Provides-Extra: tensorflow
+Requires-Dist: accelerate; extra == 'tensorflow'
+Requires-Dist: tensorflow; extra == 'tensorflow'
+Provides-Extra: torch
+Requires-Dist: accelerate; extra == 'torch'
+Requires-Dist: torch; extra == 'torch'
+Description-Content-Type: text/markdown
+
+<p align="center">
+  <img src="logo.png" alt="Proxy Structuring Engine" style="object-fit: contain; max-width: 50%; padding-top: 20px;"/>
+</p>
+
+<h2 align="center">
+  <strong>Guaranteed structured outputs from any language model.</strong>
+</h2>
+
+<p align="center" style="font-size: 1.2em; width: 350px; margin: 0 auto; padding-bottom: 20px;">
+  Eliminate 100% of schema violations and state tracking failures in your LLM applications.
+</p>
+
+<p align="center">
+  <a href="https://github.com/TheProxyCompany/proxy-structuring-engine/actions/workflows/python-app.yml"><img src="https://github.com/TheProxyCompany/proxy-structuring-engine/actions/workflows/python-app.yml/badge.svg" alt="Build Status"></a>
+  <a href="https://pypi.org/project/pse/"><img src="https://img.shields.io/pypi/v/pse.svg" alt="PyPI Version"></a>
+  <a href="https://docs.theproxycompany.com/pse/"><img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Documentation"></a>
+  <a href="https://github.com/TheProxyCompany/proxy-structuring-engine/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"></a>
+</p>
+
+## The Problem: Unreliable LLM Outputs
+
+Raw LLM outputs are structurally unpredictable, breaking systems that require specific formats (API calls, tool use, structured data). Prompting for structure is inconsistent; post-processing is inefficient and often fails on complex or nested formats.
+
+## The Solution: Runtime Structural Enforcement
+
+The **Proxy Structuring Engine (PSE)** provides **guaranteed structural validity** by enforcing constraints *during* LLM generation.
+
+Define your required output structure using Pydantic, JSON Schema, function signatures, or PSE's composable types. PSE compiles this into a high-performance Hierarchical State Machine (HSM). Integrated into the generation loop, the HSM engine guides the LLM, ensuring every generated token conforms to the defined structure.
+
+**Result: Structurally perfect output, generated correctly the first time.**
+
+## Core Capabilities
+
+*   **100% Structural Guarantee:** Eliminate schema violations, parsing errors, and malformed outputs. Enables reliable downstream processing and state management.
+*   **Handles Complexity & Recursion:** Reliably generate deeply nested JSON, valid code, or custom recursive formats via the core HSM engine.
+*   **Flexible Schema Definition:** Configure instantly using **Pydantic models**, **JSON Schema**, **Python function signatures**, or compose custom structures with `pse.types`.
+*   **Robust & Resilient:** Built-in **Token Healing** recovers from minor tokenization artifacts. Principled path selection resolves ambiguity deterministically.
+*   **High-Performance C++ Core:** Optimized HSM engine delivers guaranteed structure with minimal latency (~20ms/token overhead). ([Benchmarks](https://github.com/TheProxyCompany/llm-structured-output-benchmarks))
+*   **Model & Framework Agnostic:** Integrates with any local LLM stack via standard logits processing (`process_logits`) and sampling (`sample`) hooks. Optional mixins simplify `transformers` integration (PyTorch, TF, JAX).
+*   **Advanced Grammar Composition:** Use `pse.types` (`Chain`, `Loop`, `Any`, etc.) to build custom HSMs for bespoke structural requirements beyond standard schemas.
+
+## Installation
+
+```bash
+pip install pse
+```
+or
+```bash
+uv add pse
+```
+*(Installs the `pse` Python library and its required `pse-core` dependency. See [Installation Docs](https://docs.theproxycompany.com/pse/getting-started/installation/) for framework extras and setup)*
+
+## Quickstart: Pydantic to Guaranteed JSON
+
+This example demonstrates generating JSON output matching a Pydantic schema using `transformers`.
+
+```python
+import torch
+from transformers import AutoTokenizer, LlamaForCausalLM
+from pydantic import BaseModel
+from pse import StructuringEngine
+from pse.util.torch_mixin import PSETorchMixin # Optional: Mixin for easy HF integration
+
+# 1. Define structure
+class UserProfile(BaseModel):
+    user_id: int
+    username: str
+    is_active: bool
+    roles: list[str]
+
+# 2. (Optional) Apply PSE mixin to model class
+class PSE_Llama(PSETorchMixin, LlamaForCausalLM): pass
+
+# 3. Load model & tokenizer
+model_path = "meta-llama/Llama-3.2-1B-Instruct" # Example
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+model = PSE_Llama.from_pretrained( # Or your base model class
+    model_path, torch_dtype=torch.bfloat16, device_map="auto"
+)
+if tokenizer.pad_token is None: tokenizer.pad_token = tokenizer.eos_token
+model.config.pad_token_id = tokenizer.pad_token_id
+
+# 4. Init & Configure Engine (Mixin attaches as model.engine)
+model.engine = StructuringEngine(tokenizer)
+model.engine.configure(UserProfile) # Compile structure to HSM
+
+# 5. Create prompt & input IDs
+prompt = f"Generate a user profile: ID 999, username 'tester', active true, roles ['qa', 'dev']. Output ONLY the JSON."
+messages = [{"role": "user", "content": prompt}]
+input_ids = tokenizer.apply_chat_template(
+    messages, return_tensors="pt", add_generation_prompt=True
+).to(model.device)
+
+# 6. Generate (PSE hooks applied via mixin or manually)
+output_ids = model.generate(
+    input_ids, max_new_tokens=150, do_sample=True,
+    # Manual hook example (if not using mixin):
+    # logits_processor=[model.engine.process_logits], sampler=model.engine.sample
+)
+
+# 7. Decode & Parse (Guaranteed by PSE)
+output_text = tokenizer.decode(output_ids[0][input_ids.shape[-1]:], skip_special_tokens=True)
+structured_output: UserProfile | None = model.engine.get_structured_output(UserProfile)
+
+print("Raw Output (Guided by PSE):\n", output_text)
+print("\nParsed Pydantic Object:\n", structured_output)
+# Expected: UserProfile(user_id=999, username='tester', is_active=True, roles=['qa', 'dev'])
+```
+
+See the [`examples/`](examples/) directory for more use cases, including JSON Schema and custom `StateMachine` composition.
+
+## Why PSE?
+
+PSE's **runtime HSM enforcement** offers fundamental advantages over other methods:
+
+| Capability                | PSE (Runtime HSM)     | Prompting / Retries   | Regex / Post-Proc.  | Simple Masking      |
+| :------------------------ | :-------------------- | :-------------------- | :------------------ | :------------------ |
+| **Guaranteed Structure**  | **100%**              | Probabilistic         | Fixes Errors        | Flat Only           |
+| **Complex/Nested**        | **Handles Natively**  | Brittle / Fails       | Impractical         | Cannot Handle       |
+| **Recursion**             | **Handles Natively**  | No                    | No                  | No                  |
+| **Reliability**           | **Production Grade**  | Low                   | Error-prone         | Brittle             |
+| **Efficiency**            | **Optimized C++**     | Retries Cost          | Slow                | Fast (Simple)       |
+| **Token Healing**         | **Built-in**          | N/A                   | N/A                 | Breaks              |
+
+## Integration
+
+Integrate PSE into your generation loop via two hooks:
+1.  `logits_processor=[engine.process_logits]`
+2.  `sampler=engine.sample` (wraps your base sampler)
+
+Works with PyTorch, TensorFlow, JAX, MLX, etc. Optional `transformers` mixins simplify integration. *(See [Docs](https://docs.theproxycompany.com/pse/) for details)*
+
+## Foundation for Reliable Agents
+
+PSE provides the structural guarantees required for reliable agentic systems, powering the **[Proxy Base Agent (PBA)](https://github.com/TheProxyCompany/proxy-base-agent)** for dependable state transitions and tool use.
+
+## License & Source Availability
+
+*   **`pse` (Python Library):** Open source under Apache 2.0 ([LICENSE](LICENSE)). Provides the Python interface, schema parsing, and integration logic.
+*   **`pse-core` (C++ Engine):** Required dependency. Distributed as a pre-compiled binary. Contains the high-performance HSM execution core. Source code is proprietary (The Proxy Company, Patent Pending).
+
+## Contact & Support
+
+*   **Issues/Bugs:** [GitHub Issues](https://github.com/TheProxyCompany/proxy-structuring-engine/issues)
+*   **Commercial Services:** [The Proxy Company Business Services](https://theproxycompany.com/business) (Integration, Custom Development, Support)
+
+## Citation
+
+```bibtex
+@software{Wind_Proxy_Structuring_Engine_2025,
+  author    = {Wind, Jack},
+  title     = {{Proxy Structuring Engine: Guaranteed Structured Output from Language Models via Runtime Hierarchical State Machine Enforcement}},
+  year      = {2025}, # Adjust year if needed
+  publisher = {The Proxy Company},
+  version   = {2025.06.1}, # Update version as needed
+  date      = {2025-04-15}, # Update release date
+  url       = {https://github.com/TheProxyCompany/proxy-structuring-engine}
+}
+```
