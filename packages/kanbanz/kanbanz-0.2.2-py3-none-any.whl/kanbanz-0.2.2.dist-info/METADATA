@@ -1,0 +1,43 @@
+Metadata-Version: 2.4
+Name: kanbanz
+Version: 0.2.2
+Summary: 相对完整版, 支持基本功能及其相关文档和测试
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: grapherz>=0.1.7
+Requires-Dist: llmada>=0.1.11
+Requires-Dist: mkdocs-material>=9.6.11
+Requires-Dist: mkdocstrings>=0.29.1
+Requires-Dist: mkdocstrings-python>=1.16.10
+Requires-Dist: promptlibz>=0.2.7
+Requires-Dist: pytest>=8.3.5
+Requires-Dist: pytest-html>=4.1.1
+Requires-Dist: requests>=2.32.3
+Requires-Dist: setuptools>=78.1.0
+
+# kanbanz
+看板管理工具的底层能力
+
+## 常规操作
+
+### 导出环境
+```
+uv export --format requirements-txt > requirements.txt
+```
+### 更新文档
+```
+mkdocs serve # 预览
+mkdocs gh-deploy -d ../.temp # 同步到github网站
+```
+### 发布
+```
+uv build
+uv publish
+```
+### 运行测试并同步到测试服务
+```
+bash run_test.sh
+```
+
+
+
