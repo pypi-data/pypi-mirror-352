@@ -1,0 +1,86 @@
+stages:
+  - test
+  - package
+  - deploy
+
+variables:
+  RPM_REPO: incubator
+  RPM_REPO_EOS: /eos/project/l/lhcbwebsites/www/lhcb-rpm/${RPM_REPO}
+  RPM_REPO_URL: "https://lhcb-rpm.web.cern.ch/lhcb-rpm/${RPM_REPO}/"
+
+pixi:
+  parallel:
+    matrix:
+      - task: pre-commit run --all-files
+      - task: pytest -v
+  rules:
+    - when: always
+  image: gitlab-registry.cern.ch/lhcb-docker/os-base/alma9-devel:latest
+  before_script:
+    - curl -fsSL https://pixi.sh/install.sh | sh
+    - source ~/.bashrc || true
+  script:
+    - pixi run $task
+
+
+# Packaging step
+compiler-wrappers-rpm:
+  stage: package
+  dependencies: []
+  tags:
+    - cvmfs
+  image: gitlab-registry.cern.ch/lhcb-core/lbdocker/centos7-build
+  variables:
+    NO_LBLOGIN: "1"
+  script:
+    - mkdir -p ~/rpmbuild/SOURCES public
+    - cp bin/lb-gen-compiler-wrapper /userhome/rpmbuild/SOURCES
+    - rpmbuild -bb rpm/CompilerWrappers.spec
+    - rpm_name=$(ls /userhome/rpmbuild/RPMS/noarch/ | grep 'rpm$' | head -1)
+    - mv /userhome/rpmbuild/RPMS/noarch/${rpm_name} public
+    - if curl --silent --head ${RPM_REPO_URL}${rpm_name} | grep -q "200 OK" ; then
+    -   echo "${rpm_name} already in ${RPM_REPO_URL}, will not deploy"
+    - else
+    -   touch public/to_deploy
+    - fi
+  artifacts:
+    paths:
+      - public
+    when: always
+    expire_in: 1 week
+
+
+deploy-packages:
+  stage: deploy
+  only:
+    - tags@lhcb-core/LbDevTools
+  image: registry.cern.ch/docker.io/library/python:latest
+  before_script:
+    - pip install build twine
+  script:
+    - python -m build
+    - if [ -z "$TWINE_PASSWORD" ] ; then echo "Set TWINE_PASSWORD in CI variables" ; exit 1 ; fi
+    - twine upload -u __token__ dist/*
+
+
+deploy-rpm:
+  stage: deploy
+  dependencies:
+    - compiler-wrappers-rpm
+  image: gitlab-registry.cern.ch/ci-tools/ci-web-deployer:latest
+  script:
+    - test -z "$EOS_ACCOUNT_USERNAME" -o -z "$EOS_ACCOUNT_PASSWORD" && exit 0 || true
+    # Script that performs the deploy to EOS. Makes use of the variables defined in the project
+    # It will copy the generated content to the folder in EOS
+    - export EOS_PATH=${RPM_REPO_EOS}
+    - if [ -e public/to_deploy ] ; then
+    -   rm -f public/to_deploy
+    -   echo "publishing $(find public -type f -ls | wc -l) files:"
+    -   find public -type f -ls
+    -   deploy-eos
+    - else
+    -   echo "nothing to publish"
+    - fi
+  # do not run any globally defined before_script or after_script for this step
+  before_script: []
+  after_script: []
