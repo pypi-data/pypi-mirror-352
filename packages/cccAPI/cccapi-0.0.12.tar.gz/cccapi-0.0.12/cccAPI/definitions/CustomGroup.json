@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "default": ""
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "file:Node.json"
+      },
+      "default": []
+    },
+    "features": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "required": [],
+  "definitions": {
+    "Node": {
+      "type": "object"
+    }
+  }
+}

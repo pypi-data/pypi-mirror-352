@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "default": ""
+      },
+      "nodes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Node"
+        },
+        "default": []
+      },
+      "features": {
+        "type": "object",
+        "default": {}
+      }
+    },
+    "required": []
+}
