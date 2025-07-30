@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+@page {
+  font-family: "Roboto", sans-serif;
+  size: A4 landscape;
+  margin: 15mm;
+
+  @bottom-center {
+    content: "Page " counter(page);
+    font-size: 9px;
+    border-top: 1px solid #ccc;
+    padding-top: 5px;
+    text-align: right;
+  }
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  position: relative;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 0 1cm 2cm 1cm;
+}
+
+.page.with-break {
+  page-break-after: always;
+}
+
+.form-title {
+  font-size: 12px;
+  margin-bottom: 1em;
+}
+
+.page-header {
+  font-weight: bold;
+  font-size: 10px;
+  margin-bottom: 1em;
+  border-bottom: 2px solid #000;
+  padding-bottom: 5px;
+  background-color: #d9d9d9;
+  padding: 5px 8px;
+  font-weight: bold;
+}
+
+/* Footer fixed to bottom of page */
+.page-footer {
+  display: none;
+  position: absolute;
+  bottom: 1.5cm; /* adjust based on your margin */
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 9px;
+  border-top: 1px solid #ddd;
+  padding-top: 0.5em;
+}
+
+.content {
+  /* TWO COLUMN LAYOUT */
+  column-count: 2;
+  column-gap: 2rem;
+  column-rule: 1px solid #ccc; /* column separator line */
+}
+
+.question {
+  /* Prevent question from breaking between columns */
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+.question-label-container {
+  background-color: #f2f2f2;
+  padding: 6px 8px 4px;
+}
+
+.question-label-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.question-label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.question-hint,
+.text-hint,
+.number-hint {
+  margin-top: 5px;
+  font-style: italic;
+  font-size: 9px;
+}
+
+.question-dependency-hint {
+  margin: 5px 0 10px;
+}
+.question-jump-hint {
+  margin: 10px 0 5px;
+}
+.question-dependency-hint,
+.question-jump-hint {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.answer-field-container {
+  padding: 4px 6px;
+}
+
+.text-line {
+  border-bottom: 1px solid #000;
+  height: 1.2rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.multiline-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.option-list {
+  /* Use flexbox instead of grid for better WeasyPrint support */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.option-list > label {
+  display: flex;
+  flex: 1 1 48%;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.2;
+  max-width: 100%;
+  break-inside: avoid;
+}
+
+.option-list.horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; /* gap for each item */
+}
+
+.option-list.horizontal label {
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 1rem;
+  white-space: nowrap;
+
+  flex: unset !important; /* override 1 1 48% */
+  max-width: unset !important; /* override 100% */
+}
+
+.number-boxes {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.number-box {
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  width: 16px;
+  height: 20px;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.number-box:last-child {
+  border-right: 1px solid #000;
+}
+
+.number-box-last {
+  border-right: 1px solid #000;
+}
+
+.number-box-separator {
+  margin: 0 6px;
+  font-weight: bold;
+}
+
+.signature-line {
+  border-bottom: 1px solid #000;
+  width: 60%;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.tooltip {
+  font-style: italic;
+  font-size: 9px;
+  color: #555;
+  margin-top: 4px;
+}
+
+.geolocation label {
+  font-weight: bold;
+  margin-top: 8px;
+  display: block;
+}
+
+.checkbox-box,
+.radio-box {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-top: 2px; /* helps center visually for multi-line text */
+  border: 1px solid black;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.radio-box {
+  border-radius: 20px;
+  width: 20px;
+}
+
+.cascade-level {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 8px;
+}
+
+.cascade-level::first-line {
+  white-space: nowrap;
+}
+
+.cascade-level > .text-line {
+  flex: 1;
+  height: 1px;
+  background-color: #000;
+  margin-top: 0.8rem;
+}
+
+.other-text-line {
+  border-bottom: 1px solid #000;
+  height: 12px;
+}
