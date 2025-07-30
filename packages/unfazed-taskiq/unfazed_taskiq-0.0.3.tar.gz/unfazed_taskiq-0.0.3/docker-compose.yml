@@ -1,0 +1,25 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - 5672:5672
+      - 15672:15672
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:9927:9927"
+    depends_on:
+      - rabbitmq
+      - redis
+    command: tail -f /unfazed_taskiq/README.md
+    environment:
+      - UNFAZED_SETTINGS_MODULE=tests.proj.entry.settings
+    volumes:
+      - .:/unfazed_taskiq
