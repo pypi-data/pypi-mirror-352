@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "beancount-nblock"
+dynamic = ["version"]
+description = "A collection of beancount plugins"
+readme = "README.md"
+authors = [
+  {name = "Florian Preinstorfer", email = "site-github@nblock.org"},
+]
+license = "GPL-2.0-or-later"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = [
+  "beancount>=2,<3",
+]
+
+[project.urls]
+Repository = "https://github.com/nblock/beancount-nblock"
+
+[project.optional-dependencies]
+test = [
+  "coverage",
+  "pytest",
+  "pytest-randomly",
+]
+
+# basedpyright
+[tool.basedpyright]
+include = ["src", "tests"]
+ignore = ["tests"]
+reportAny = false
+reportUnusedCallResult = false
+
+# coverage: paths
+[tool.coverage.paths]
+source = [
+  "src",
+  ".tox/*/lib/python*/site-packages/beancount_nblock",
+]
+
+# coverage: run
+[tool.coverage.run]
+branch = true
+source = [
+  "beancount_nblock",
+  "tests",
+]
+
+# coverage: report
+[tool.coverage.report]
+skip_covered = true
+exclude_lines = [
+  # Have to re-enable the standard pragma
+  "pragma: no cover",
+
+  # Don't complain about missing debug-only code:
+  "def __repr__",
+
+  # Don't complain if tests don't hit defensive assertion code:
+  "assert_never\\(",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "return NotImplemented",
+  "if __name__ == .__main__.:",
+]
+
+# pytest
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+# ruff: lint
+[tool.ruff.lint]
+extend-select = [
+  "I",  # isort
+  "UP", # pyupgrade
+]
+
+# ruff: lint isort
+[tool.ruff.lint.isort]
+known-local-folder = ["tests"]
+
+# setuptools_scm
+[tool.setuptools_scm]
