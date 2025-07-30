@@ -1,0 +1,7 @@
+[console_scripts]
+sshpyk=sshpyk.cli:main
+sshpyk-kernel=sshpyk.kernelapp:main
+
+[jupyter_client.kernel_provisioners]
+sshpyk-provisioner=sshpyk.provisioning:SSHKernelProvisioner
+
