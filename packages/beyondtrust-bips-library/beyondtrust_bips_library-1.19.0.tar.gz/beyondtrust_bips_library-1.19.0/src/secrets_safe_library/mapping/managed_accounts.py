@@ -1,0 +1,105 @@
+"""
+This file contains the fields mapping for each endpoint and version related to Safes.
+
+More info for the fields included in each endpoint and version:
+- https://docs.beyondtrust.com/bips/docs/passwordsafe-api
+- https://docs.beyondtrust.com/bips/docs/secrets-safe-api
+"""
+
+from secrets_safe_library.constants.endpoints import (
+    GET_MANAGED_ACCOUNTS_ID,
+    GET_MANAGED_SYSTEMS_SYSTEM_ID_MANAGED_ACCOUNTS,
+)
+from secrets_safe_library.constants.versions import Version
+
+fields = {
+    GET_MANAGED_SYSTEMS_SYSTEM_ID_MANAGED_ACCOUNTS: {
+        Version.DEFAULT: [
+            "ManagedAccountID",
+            "ManagedSystemID",
+            "DomainName",
+            "AccountName",
+            "DistinguishedName",
+            "PasswordFallbackFlag",
+            "UserPrincipalName",
+            "SAMAccountName",
+            "LoginAccountFlag",
+            "Description",
+            "PasswordRuleID",
+            "ApiEnabled",
+            "ReleaseNotificationEmail",
+            "ChangeServicesFlag",
+            "RestartServicesFlag",
+            "ChangeTasksFlag",
+            "ReleaseDuration",
+            "MaxReleaseDuration",
+            "ISAReleaseDuration",
+            "MaxConcurrentRequests",
+            "AutoManagementFlag",
+            "DSSAutoManagementFlag",
+            "CheckPasswordFlag",
+            "ResetPasswordOnMismatchFlag",
+            "ChangePasswordAfterAnyReleaseFlag",
+            "ChangeFrequencyType",
+            "ChangeFrequencyDays",
+            "ChangeTime",
+            "ParentAccountID",
+            "IsSubscribedAccount",
+            "LastChangeDate",
+            "NextChangeDate",
+            "IsChanging",
+            "ChangeState",
+            "UseOwnCredentials",
+            "WorkgroupID",
+            "ChangeIISAppPoolFlag",
+            "RestartIISAppPoolFlag",
+            "ChangeWindowsAutoLogonFlag",
+            "ChangeComPlusFlag",
+            "ChangeDComFlag",
+            "ChangeSComFlag",
+        ]
+    },
+    GET_MANAGED_ACCOUNTS_ID: {
+        Version.DEFAULT: [
+            "ManagedAccountID",
+            "ManagedSystemID",
+            "DomainName",
+            "AccountName",
+            "DistinguishedName",
+            "PasswordFallbackFlag",
+            "UserPrincipalName",
+            "SAMAccountName",
+            "LoginAccountFlag",
+            "Description",
+            "PasswordRuleID",
+            "ApiEnabled",
+            "ReleaseNotificationEmail",
+            "ChangeServicesFlag",
+            "RestartServicesFlag",
+            "ChangeTasksFlag",
+            "ReleaseDuration",
+            "MaxReleaseDuration",
+            "ISAReleaseDuration",
+            "MaxConcurrentRequests",
+            "AutoManagementFlag",
+            "DSSAutoManagementFlag",
+            "CheckPasswordFlag",
+            "ResetPasswordOnMismatchFlag",
+            "ChangePasswordAfterAnyReleaseFlag",
+            "ChangeFrequencyType",
+            "ChangeFrequencyDays",
+            "ChangeTime",
+            "ParentAccountID",
+            "IsSubscribedAccount",
+            "LastChangeDate",
+            "NextChangeDate",
+            "IsChanging",
+            "ChangeState",
+            "UseOwnCredentials",
+            "WorkgroupID",
+            "ChangeIISAppPoolFlag",
+            "RestartIISAppPoolFlag",
+            "ObjectID",
+        ]
+    },
+}
