@@ -1,0 +1,1 @@
+/Users/macci/questdb/repos/py-questdb-client/pystr-to-utf8/target/release/libpystr_to_utf8.a: /Users/macci/questdb/repos/py-questdb-client/pystr-to-utf8/build.rs /Users/macci/questdb/repos/py-questdb-client/pystr-to-utf8/src/lib.rs
