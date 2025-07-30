@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карточки - {{ card_name }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <style>
+        body { padding-top: 20px; }
+        .card-custom { margin-bottom: 20px; background: #f8f9fa; border-radius: 10px; box-shadow: 0 2px 8px #0001; }
+        .card-header { background: #67BA80; color: #fff; border-radius: 10px 10px 0 0; }
+        .card-body { padding: 20px; }
+        .field-label { font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="pb-3 mb-4 border-bottom">
+        <span class="fs-4"></span>
+        <span class="ms-2 fs-6 text-muted">Карточки: {{ card_name }}</span>
+    </header>
+    <main>
+        <h1 class="mb-4">Карточки (шаблон: {{ card_name }})</h1>
+        {% if data %}
+            {% for row in data %}
+                <div class="card card-custom">
+                    <div class="card-header">Карточка №{{ loop.index }}</div>
+                    <div class="card-body">
+                        {% for field in card_template %}
+                            <div class="mb-2">
+                                <span class="field-label">{{ field.label }}:</span>
+                                {% if field.type == 'discount_calc' and field.calc %}
+                                    {# Пример: field.calc = '0%' if row['total_sales'] < 10000 else ... #}
+                                    {% set value = namespace(val='') %}
+                                    {% set _ = cycler.reset() %}
+                                    {% set _ = value.update({'val': eval(field.calc, {}, row) if row else ''}) %}
+                                    <span>{{ value.val }}</span>
+                                {% elif field.type == 'number' %}
+                                    <span>{{ row.get(field.label, '') }}</span>
+                                {% else %}
+                                    <span>{{ row.get(field.label, '') }}</span>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info">Нет данных для отображения карточек.</div>
+        {% endif %}
+    </main>
+    <footer class="pt-3 mt-4 text-muted border-top">&copy; 2023 PGAdmin Site</footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
