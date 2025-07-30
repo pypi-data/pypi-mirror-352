@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GUI</title>
+<meta name="referrer" content="same-origin">
+<link rel="canonical" href="https://pypi.org/project/metabolabpytools/gui.html">
+<meta name="robots" content="max-image-preview:large">
+<meta name="viewport" content="width=1200">
+<style>.anim{visibility:hidden}</style>
+<link rel="preload" href="css/Roboto-Thin.woff2" as="font" crossorigin>
+<style>html,body{-webkit-text-zoom:reset !important}@-webkit-keyframes fadeIn{0%{opacity:0}100%{opacity:1}}@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}.fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}@-webkit-keyframes fadeOut{0%{opacity:1}100%{opacity:0}}@keyframes fadeOut{0%{opacity:1}100%{opacity:0}}.fadeOut{-webkit-animation-name:fadeOut;animation-name:fadeOut}.modpop{margin-left:var(--sw,0px);overflow:hidden}.modalpop{overflow:scroll}.popup::-webkit-scrollbar{display:none}.popup div::-webkit-scrollbar{display:none}
+@font-face{font-display:block;font-family:"Roboto 1";src:url('css/Roboto-Light.woff2') format('woff2'),url('css/Roboto-Light.woff') format('woff');font-weight:300}@font-face{font-display:block;font-family:Roboto;src:url('css/Roboto-Thin.woff2') format('woff2'),url('css/Roboto-Thin.woff') format('woff');font-weight:100}@font-face{font-display:block;font-family:"Roboto 2";src:url('css/Roboto-Regular.woff2') format('woff2'),url('css/Roboto-Regular.woff') format('woff');font-weight:400}@font-face{font-display:block;font-family:"Hanken Grotesk 3";src:url('css/HankenGrotesk_wght_.woff2') format('woff2'),url('css/HankenGrotesk_wght_.woff') format('woff');font-weight:400}body>div{font-size:0}p,span,h1,h2,h3,h4,h5,h6,a,li{margin:0;word-spacing:normal;word-wrap:break-word;-ms-word-wrap:break-word;pointer-events:auto;-ms-text-size-adjust:none !important;-moz-text-size-adjust:none !important;-webkit-text-size-adjust:none !important;text-size-adjust:none !important;max-height:10000000px}sup{font-size:inherit;vertical-align:baseline;position:relative;top:-0.4em}sub{font-size:inherit;vertical-align:baseline;position:relative;top:0.4em}ul{display:block;word-spacing:normal;word-wrap:break-word;line-break:normal;list-style-type:none;padding:0;margin:0;-moz-padding-start:0;-khtml-padding-start:0;-webkit-padding-start:0;-o-padding-start:0;-padding-start:0;-webkit-margin-before:0;-webkit-margin-after:0}li{display:block;white-space:normal}[data-marker]::before{content:attr(data-marker) ' ';-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}li p{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}form{display:inline-block}a{text-decoration:inherit;color:inherit;-webkit-tap-highlight-color:rgba(0,0,0,0)}textarea{resize:none}.shm-l{float:left;clear:left}.shm-r{float:right;clear:right;shape-outside:content-box}.btf{display:none}.plyr{min-width:0 !important}html{font-family:sans-serif}body{font-size:0;margin:0;--z:1;zoom:var(--z)}audio,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0;outline:0}b,strong{font-weight:700}dfn{font-style:italic}h1,h2,h3,h4,h5,h6{font-size:1em;line-height:1;margin:0}img{border:0}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=submit]{-webkit-appearance:button;cursor:pointer;box-sizing:border-box;white-space:normal}input[type=date],input[type=email],input[type=number],input[type=password],input[type=text],textarea{-webkit-appearance:none;appearance:none;box-sizing:border-box}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}textarea{overflow:auto;box-sizing:border-box;border-color:#ddd}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}blockquote{margin-block-start:0;margin-block-end:0;margin-inline-start:0;margin-inline-end:0}:-webkit-full-screen-ancestor:not(iframe){-webkit-clip-path:initial !important}
+html{-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale}@-webkit-keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.animated{-webkit-animation-fill-mode:both;animation-fill-mode:both}.animated.infinite{-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}@-webkit-keyframes fadeInLeft{from{opacity:0;-webkit-transform:translate3d(-100%,0,0)}to{opacity:1;-webkit-transform:translate3d(0, 0, 0)}}@keyframes fadeInLeft{from{opacity:0;transform:translate3d(-100%,0,0)}to{opacity:1;transform:translate3d(0, 0, 0)}}.fadeInLeft{-webkit-animation-name:fadeInLeft;animation-name:fadeInLeft}
+#b{background-color:#191919}.v8{display:inline-block;vertical-align:top}.ps164{position:relative;margin-top:0}.s148{width:100%;min-width:1200px;height:866px}.c41{border:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;z-index:7}.z159{z-index:7;pointer-events:none}.c42{position:absolute}.s149{width:100%;height:100%;box-sizing:border-box}.fx16{background-attachment:fixed;background-color:transparent;background-repeat:no-repeat;background-position:0 50%;background-size:cover;background-image:url(images/screenshot-2023-07-18-at-18.41.16-1200-1.png);opacity:0.3}.webp .fx16{background-image:url(images/screenshot-2023-07-18-at-18.41.16-1200-1.webp);background-attachment:fixed}.ps165{position:relative;margin-top:15px}.v9{display:block}.s150{width:1200px;margin-left:auto;margin-right:auto;min-height:456px}.ps166{position:relative;margin-left:0;margin-top:0}.s151{min-width:1180px;width:1180px;min-height:147px}.s152{min-width:348px;width:348px;min-height:147px;height:147px}.z160{z-index:14;pointer-events:auto}.i30{position:absolute;left:27px;width:294px;height:147px;top:0;border:0}.ps167{position:relative;margin-left:496px;margin-top:0}.s153{min-width:336px;width:336px;min-height:122px;line-height:0}.ps168{position:relative;margin-left:102px;margin-top:0}.s154{min-width:234px;width:234px;overflow:hidden;height:42px}.z161{z-index:18;pointer-events:auto}.p13{text-indent:0;padding-bottom:0;padding-right:0;text-align:right}.f28{font-family:"Roboto 1";font-size:24px;font-size:calc(24px * var(--f));line-height:1.626;font-weight:300;font-style:normal;text-decoration:underline;text-transform:none;letter-spacing:normal;color:#268bd2;background-color:initial;text-shadow:none}.s155{min-width:336px;width:336px;overflow:hidden;height:40px}.z162{z-index:19;pointer-events:auto}.ps169{position:relative;margin-left:132px;margin-top:0}.s156{min-width:204px;width:204px;overflow:hidden;height:40px}.z163{z-index:17;pointer-events:auto}.ps170{position:relative;margin-left:68px;margin-top:94px}.s157{min-width:895px;width:895px;min-height:215px}.s158{min-width:895px;width:895px;min-height:215px;line-height:0}.s159{min-width:641px;width:641px;overflow:hidden;height:181px}.z164{z-index:12;pointer-events:auto}.p14{text-indent:0;padding-bottom:0;padding-right:0;text-align:left}.f29{font-family:Roboto;font-size:103px;font-size:calc(103px * var(--f));line-height:1.642;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps171{position:relative;margin-left:0;margin-top:-49px}.s160{min-width:895px;width:895px;overflow:hidden;height:83px}.z165{z-index:13;pointer-events:auto}.f30{font-family:Roboto;font-size:48px;font-size:calc(48px * var(--f));line-height:1.626;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps172{position:relative;margin-left:0;margin-top:-471px}.s161{min-width:1200px;width:1200px;min-height:1px}@media (min-width:1200px) and (-webkit-min-device-pixel-ratio:1.7), (min-width:1200px) and (min-resolution:144dpi) {.fx16{background-image:url(images/screenshot-2023-07-18-at-18.41.16-2400-1.png);background-attachment:fixed}.webp .fx16{background-image:url(images/screenshot-2023-07-18-at-18.41.16-2400-1.webp);background-attachment:fixed}}@media (min-width:1200px) {.fx16{background-attachment:fixed;background-image:url(images/screenshot-2023-07-18-at-18.41.16-1600-1.png)}.webp .fx16{background-image:url(images/screenshot-2023-07-18-at-18.41.16-1600-1.webp);background-attachment:fixed}}@media (min-width:1600px) {.fx16{background-attachment:fixed;background-image:url(images/screenshot-2023-07-18-at-18.41.16-2000-1.png)}.webp .fx16{background-image:url(images/screenshot-2023-07-18-at-18.41.16-2000-1.webp);background-attachment:fixed}}@media (min-width:2000px) {.fx16{background-attachment:fixed;background-image:url(images/screenshot-2023-07-18-at-18.41.16-2560-1.png)}.webp .fx16{background-image:url(images/screenshot-2023-07-18-at-18.41.16-2560-1.webp);background-attachment:fixed}}</style>
+<script>!function(){var A=new Image;A.onload=A.onerror=function(){1!=A.height&&document.body.classList.remove("webp")},A.src="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAD8D+JaQAA3AA/ua1AAA"}();
+</script>
+<link onload="this.media='all';this.onload=null;" rel="stylesheet" href="css/site.8b81ba.css" media="print">
+<noscript><link rel="stylesheet" href="css/site.8b81ba.css" type="text/css"></noscript>
+</head>
+<body class="webp" id="b">
+<script>!function(){var e=document.createElement("P");e.innerHTML="&nbsp;",e.style.cssText="position:fixed;visible:hidden;font-size:100px;zoom:1",document.body.appendChild(e);var t=function(e){return function(){var t=Math.trunc(1e4/parseFloat(window.getComputedStyle(e).getPropertyValue("font-size")))/100,n=document.body;t!=n.style.getPropertyValue("--f")&&n.style.setProperty("--f",t)}}(e);if("ResizeObserver"in window)new ResizeObserver(t).observe(e);else if("requestAnimationFrame"in window){var n=function(){t(),requestAnimationFrame(n)};requestAnimationFrame(n)}else setInterval(t,100)}()</script>
+
+<div data-ffbk class="fbk v8 ps164 s148 c41 z159 fx16" data-fbk="fx16">
+<div class="c42 s149">
+</div>
+<div class="ps165 v9 s150">
+<div class="v8 ps166 s151">
+<div class="anim fadeIn un19 v8 ps166 s152 c43 z160">
+<picture>
+<source srcset="images/metabolabpy_dark_transparency-294.webp 1x, images/metabolabpy_dark_transparency-588.webp 2x" type="image/webp">
+<source srcset="images/metabolabpy_dark_transparency-294.png 1x, images/metabolabpy_dark_transparency-588.png 2x">
+<img src="images/metabolabpy_dark_transparency-588.png" class="i30">
+</picture>
+</div>
+<div class="v8 ps167 s153">
+<div class="anim fadeIn un20 v8 ps168 s154 c43 z161">
+<p class="p13"><a href="./#top" class="f28">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un21 v8 ps166 s155 c43 z162">
+<p class="p13"><a href="./#documentation" class="f28">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un22 v8 ps169 s156 c43 z163">
+<p class="p13"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f28">GUI - Main Window</a></p>
+</div>
+</div>
+</div>
+<div class="v8 ps170 s157">
+<div class="v8 ps166 s158">
+<div class="anim fadeInLeft un23 v8 ps166 s159 c43 z164">
+<p class="p14 f29">MetaboLabPy</p>
+</div>
+<div class="anim fadeInLeft un24 v8 ps171 s160 c43 z165">
+<p class="p14 f30">The Graphical User Interface</p>
+</div>
+</div>
+</div>
+</div>
+<a name="top" class="v9 ps172 s161"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps1 s54 c17 z30 fx6" data-fbk="fx6">
+<div class="c18 s2">
+</div>
+<div class="ps50 v2 s55">
+<div class="v1 ps51 s56 c4 z31">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="v1 ps3 s57">
+<div class="v1 ps52 s5 c3 z32"></div>
+<div class="anim slideInDown un25 v1 ps53 s6 c4 z33">
+<p class="p1 f1">Main Window</p>
+</div>
+<div class="v1 ps54 s58 c4 z34">
+<picture>
+<source srcset="images/screenshot-2023-11-10-at-18.58.12-742.webp 1x, images/screenshot-2023-11-10-at-18.58.12-1484.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-11-10-at-18.58.12-742.png 1x, images/screenshot-2023-11-10-at-18.58.12-1484.png 2x">
+<img src="images/screenshot-2023-11-10-at-18.58.12-1484.png" loading="lazy" class="i3">
+</picture>
+</div>
+<div class="anim fadeIn un26 v1 ps55 s59 c4 z35">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+</div>
+<div class="v1 ps56 s60 c4 z36">
+<p class="p2 f2">The main window of the MetaboLabPy GUI is organised as several tabs, each of which focusing on a specific area associated with the loaded NMR spectra. The first tab (<a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f3">NMR Spectrum</a>) displays the selected NMR spectra. The <a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f3">Processing Parameters</a> tab is used to set data processing such as phase correction values, the amount of line broadening etc. The information set in the <a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f3">Display Parameters</a> tab determines how the NMR spectra are displayed (e.g. plot colour, minimum and maximum contour levels for 2D NMR spectra). The <a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f3">Acquisition Parameters</a> tab summarises settings used to acquire the NMR spectrum. Information saved in title files is presented in the Title file tab. The used pulse program is shown inside the <a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f3">pUlseProgram</a> tab. Reading NMR data from raw spectrometer data files as well as NMR data processing can be automated using scripts displayed in the <a onclick="return window.smoothScroll(event, '[name=\'script\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f3">Script</a> tab. Any console output including error messages will be displayed in the <a onclick="return window.smoothScroll(event, '[name=\'console\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f3">cOnsole</a> tab. Help files as well as links to popular NMR data bases such as BML, HDMB, KEGG and more are available in the <a onclick="return window.smoothScroll(event, '[name=\'help\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f3">Help</a> tab. Every tab can be activated using keyboard shortcuts. On the Windows platform this is the combination of Ctrl <span class="f4">+ </span><span class="f4">&#x21e7;</span><span class="f4"> + </span>the first capitalised letter of the tab name (e.g. Ctrl <span class="f4">+ </span><span class="f4">&#x21e7;</span><span class="f4"> + D to reach the Display Parameters tab and Ctrl + </span><span class="f4">&#x21e7;</span><span class="f4"> + O to reach the cOnsole tab). Specifics for every tab are discussed below. There are specific action Items available from the different menus. These are discussed in the </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 1, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f22">Menu Items</a><span class="f4"> section below.</span></p>
+</div>
+<div class="v1 ps57 s56 c4 z37">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+</div>
+<a name="mainwindow" class="v2 ps58 s11"></a>
+<a name="nmrspectrum" class="v2 ps59 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps60 s61 c19 z38 fx7" data-fbk="fx7">
+<div class="c20 s2">
+</div>
+<div class="ps61 v2 s62">
+<div class="v1 ps51 s56 c4 z39">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="v1 ps62 s63">
+<div class="v1 ps52 s5 c3 z40"></div>
+<div class="anim slideInDown un27 v1 ps53 s6 c4 z41">
+<p class="p1 f1">NMR Spectrum</p>
+</div>
+<div class="v1 ps63 s64 c4 z42">
+<picture>
+<source srcset="images/screenshot-2023-11-10-at-18.59.05-766.webp 1x, images/screenshot-2023-11-10-at-18.59.05-1532.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-11-10-at-18.59.05-766.png 1x, images/screenshot-2023-11-10-at-18.59.05-1532.png 2x">
+<img src="images/screenshot-2023-11-10-at-18.59.05-1532.png" loading="lazy" class="i4">
+</picture>
+</div>
+<div class="v1 ps64 s65">
+<div class="anim fadeIn un28 v1 ps65 s59 c4 z43">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="anim fadeIn un29 v1 ps34 s66 c4 z44">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps66 s67 c4 z45">
+<p class="p2 f2">Once NMR spectra are loaded into the software, additional options appear below the spectrum display. For 1D-NMR spectra these options include Data Pre-Processing, Peak Picking and Spline baseline correction. These options will be discussed in Basic NMR Data Processing.</p>
+</div>
+<div class="v1 ps67 s56 c4 z46">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+</div>
+<a name="processingparameters" class="v2 ps68 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps69 s61 c21 z47 fx8" data-fbk="fx8">
+<div class="c22 s2">
+</div>
+<div class="ps70 v2 s68">
+<div class="v1 ps51 s56 c4 z48">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="anim fadeIn un30 v1 ps71 s59 c4 z49">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="v1 ps3 s69">
+<div class="v1 ps72 s5 c3 z50"></div>
+<div class="anim slideInDown un31 v1 ps73 s70 c4 z51">
+<p class="p1 f1">Processing Parameters</p>
+</div>
+<div class="v1 ps74 s71 c4 z52">
+<picture>
+<source srcset="images/screenshot-2023-11-10-at-18.59.18-766.webp 1x, images/screenshot-2023-11-10-at-18.59.18-1532.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-11-10-at-18.59.18-766.png 1x, images/screenshot-2023-11-10-at-18.59.18-1532.png 2x">
+<img src="images/screenshot-2023-11-10-at-18.59.18-1532.png" loading="lazy" class="i5">
+</picture>
+</div>
+<div class="anim fadeIn un32 v1 ps75 s66 c4 z53">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+</div>
+<div class="v1 ps76 s72 c4 z54">
+<p class="p2 f2">In this tab, NMR processing parameters can be seen for each spectrum. These include the amount of zero filling, the type of window function, amount of line broadening, phase correction values to ensure pure absorptive lineshapes and whether to perform post-acquisition water suppression and strip-transform&nbsp;&nbsp;if necessary. The baseline correction parameters can be determined automatically, which is covered in Basic NMR Data Processing. Similarly, phase correction parameters are best to be determined interactively, which is also covered in Basic NMR Data Processing.</p>
+</div>
+<div class="v1 ps77 s56 c4 z55">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+</div>
+</div>
+<div data-ffbk class="fbk btf v1 ps69 s73 c23 z56 fx9" data-fbk="fx9">
+<div class="c24 s2">
+</div>
+<div class="ps70 v2 s74">
+<div class="v1 ps51 s56 c4 z57">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="anim fadeIn un33 v1 ps78 s59 c4 z58">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="v1 ps3 s75">
+<div class="v1 ps79 s5 c3 z59"></div>
+<div class="anim slideInDown un34 v1 ps80 s70 c4 z60">
+<p class="p1 f1">Display Parameters</p>
+</div>
+<div class="v1 ps74 s76 c4 z61">
+<picture>
+<source srcset="images/screenshot-2023-11-10-at-18.59.22-766.webp 1x, images/screenshot-2023-11-10-at-18.59.22-1532.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-11-10-at-18.59.22-766.png 1x, images/screenshot-2023-11-10-at-18.59.22-1532.png 2x">
+<img src="images/screenshot-2023-11-10-at-18.59.22-1532.png" loading="lazy" class="i6">
+</picture>
+</div>
+<div class="anim fadeIn un35 v1 ps81 s66 c4 z62">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+</div>
+<div class="v1 ps76 s77 c4 z63">
+<p class="p2 f2">Settings in this tab determine the look and feel of the displayed NMR spectra. Adjustable parameters include line colour, which for 1D-NMR spectra is set as PosCol and for 2D-NMR spectra is both PosCol and NegCol, PosCol for positive contour lines and NegCol for negative contour lines. The user can choose RGB and then provide RGB values in the interval 0 to 1, or colours which are labelled in the drop down menus.</p>
+<p class="p2 f2">2D-NMR spectra are displayed as contour plots, the number of contour levels (nLevels) as well as the minimum and maximum contour levels can be set here. The axis type can be set to Hz or ppm, axis labels selected and a phase reference dataset can be set, which is usually experiment 1 and the colour of that phase reference spectrum can be set when in interactive phase correction mode to ensure consistent phase corrections across a large set of 1D-NMR spectra.</p>
+</div>
+<div class="v1 ps82 s56 c4 z64">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+</div>
+<a name="displayparameters" class="v2 ps83 s11"></a>
+<a name="acquisitionparameters" class="v2 ps84 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps60 s78 c25 z65 fx10" data-fbk="fx10">
+<div class="c26 s2">
+</div>
+<div class="ps61 v2 s79">
+<div class="v1 ps51 s56 c4 z66">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="v1 ps85 s80">
+<div class="v1 ps34 s81">
+<div class="anim fadeIn un36 v1 ps65 s59 c4 z67">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="anim fadeIn un37 v1 ps86 s66 c4 z68">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps3 s82">
+<div class="v1 ps4 s5 c3 z69"></div>
+<div class="anim slideInDown un38 v1 ps5 s70 c4 z70">
+<p class="p1 f1">Acquisition Parameters</p>
+</div>
+<div class="v1 ps74 s76 c4 z71">
+<picture>
+<source srcset="images/screenshot-2023-11-10-at-18.59.26-766.webp 1x, images/screenshot-2023-11-10-at-18.59.26-1532.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-11-10-at-18.59.26-766.png 1x, images/screenshot-2023-11-10-at-18.59.26-1532.png 2x">
+<img src="images/screenshot-2023-11-10-at-18.59.26-1532.png" loading="lazy" class="i6">
+</picture>
+</div>
+<div class="v1 ps87 s77 c4 z72">
+<p class="p2 f2">The Acquisition Parameters tab is display only. The most important acquisition parameters are displayed here and are here for reference purposes.</p>
+</div>
+</div>
+<div class="v1 ps88 s56 c4 z73">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+</div>
+<a name="titlefile" class="v2 ps89 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps60 s83 c27 z74 fx11" data-fbk="fx11">
+<div class="c28 s2">
+</div>
+<div class="ps90 v2 s84">
+<div class="v1 ps51 s56 c4 z75">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="v1 ps91 s80">
+<div class="v1 ps34 s81">
+<div class="anim fadeIn un39 v1 ps65 s59 c4 z76">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="anim fadeIn un40 v1 ps86 s66 c4 z77">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps3 s85">
+<div class="v1 ps4 s5 c3 z78"></div>
+<div class="anim slideInDown un41 v1 ps5 s70 c4 z79">
+<p class="p1 f1">Title File</p>
+</div>
+<div class="v1 ps92 s86 c4 z80">
+<picture>
+<source srcset="images/screenshot-2023-11-10-at-18.59.30-766.webp 1x, images/screenshot-2023-11-10-at-18.59.30-1532.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-11-10-at-18.59.30-766.png 1x, images/screenshot-2023-11-10-at-18.59.30-1532.png 2x">
+<img src="images/screenshot-2023-11-10-at-18.59.30-1532.png" loading="lazy" class="i7">
+</picture>
+</div>
+</div>
+<div class="v1 ps93 s77 c4 z81">
+<p class="p2 f2">Both Bruker and Varian allow for meta-information to be associated with each NMR spectrum at time of acquisition to uniquely identify every single NMR spectrum. It is the responsibility of the NMR spectrometer operator to ensure that this information is associated with each spectrum, although MetaboLabPy also contains functionality to associate that meta-information with each NMR spectrum from an Excel spreadsheet, although this requires the use of the automatic sample changing robot SampleJet and therefore is entirely Bruker centric.</p>
+</div>
+<div class="v1 ps94 s56 c4 z82">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+</div>
+<a name="pulseprogram" class="v2 ps89 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps69 s87 c29 z7 fx12" data-fbk="fx12">
+<div class="c30 s2">
+</div>
+<div class="ps95 v2 s88">
+<div class="v1 ps51 s56 c4 z83">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="anim fadeIn un42 v1 ps96 s59 c4 z84">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="anim fadeIn un43 v1 ps97 s66 c4 z85">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+<div class="v1 ps98 s89">
+<div class="v1 ps4 s5 c3 z86"></div>
+<div class="anim slideInDown un44 v1 ps5 s70 c4 z87">
+<p class="p1 f1">Pulse Program</p>
+</div>
+<div class="v1 ps74 s90 c4 z88">
+<picture>
+<source srcset="images/screenshot-2023-11-10-at-18.59.37-766.webp 1x, images/screenshot-2023-11-10-at-18.59.37-1532.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-11-10-at-18.59.37-766.png 1x, images/screenshot-2023-11-10-at-18.59.37-1532.png 2x">
+<img src="images/screenshot-2023-11-10-at-18.59.37-1532.png" loading="lazy" class="i8">
+</picture>
+</div>
+</div>
+<div class="v1 ps76 s91 c4 z89">
+<p class="p2 f2">The TopSpin software stores a version of the pulse sequence used to acquire the NMR spectrum with each raw NMR data file. MetaboLabPy reads this pueseprogram in and displays the pueseprogram in this tab.</p>
+</div>
+<div class="v1 ps99 s56 c4 z90">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+</div>
+<a name="script" class="v2 ps89 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps100 s83 c31 z1 fx13" data-fbk="fx13">
+<div class="c32 s2">
+</div>
+<div class="ps101 v2 s92">
+<div class="v1 ps51 s56 c4 z91">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="anim fadeIn un45 v1 ps102 s59 c4 z92">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 4, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="anim fadeIn un46 v1 ps97 s66 c4 z93">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 4, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+<div class="v1 ps103 s93">
+<div class="v1 ps4 s5 c3 z94"></div>
+<div class="v1 ps5 s94">
+<div class="anim slideInDown un47 v1 ps34 s70 c4 z95">
+<p class="p1 f1">Script</p>
+</div>
+<div class="v1 ps104 s95 c4 z96">
+<picture>
+<source srcset="images/screenshot-2023-07-19-at-21.32.53-203.webp 1x, images/screenshot-2023-07-19-at-21.32.53-406.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-19-at-21.32.53-203.png 1x, images/screenshot-2023-07-19-at-21.32.53-406.png 2x">
+<img src="images/screenshot-2023-07-19-at-21.32.53-406.png" loading="lazy" class="i9">
+</picture>
+</div>
+</div>
+<div class="v1 ps105 s96 c4 z97">
+<picture>
+<source srcset="images/screenshot-2023-11-10-at-19.08.57-766.webp 1x, images/screenshot-2023-11-10-at-19.08.57-1532.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-11-10-at-19.08.57-766.png 1x, images/screenshot-2023-11-10-at-19.08.57-1532.png 2x">
+<img src="images/screenshot-2023-11-10-at-19.08.57-1532.png" loading="lazy" class="i10">
+</picture>
+</div>
+</div>
+<div class="v1 ps106 s91 c4 z98">
+<p class="p2 f2">Because MetaboLabPy is implemented as a series of python classes, procedures can be easily automated via python scripts. MetaboLabPy has a scripting interface and a collection of example scripts, all of which are well documented so that use of them should be more or less self-explanatory. Especially reading in a series of NMR spectra is greatly facilitated using the scripting interface.</p>
+<p class="p2 f2">Scripting is also possible just running the python interpreter and creating a NmrDataSet object or by doing the same as part of a Jupyter notebook. Both of these possibilities will be discussed in MetaboLabPy Scripts and MetaboLabPy and Jupyter Notebooks, respectively.</p>
+</div>
+<div class="v1 ps107 s56 c4 z99">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+</div>
+<a name="console" class="v2 ps108 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps69 s97 c33 z100 fx14" data-fbk="fx14">
+<div class="c34 s2">
+</div>
+<div class="ps101 v2 s98">
+<div class="v1 ps51 s56 c4 z101">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="anim fadeIn un48 v1 ps96 s59 c4 z102">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="anim fadeIn un49 v1 ps97 s66 c4 z103">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+<div class="v1 ps109 s99">
+<div class="v1 ps4 s5 c3 z104"></div>
+<div class="anim slideInDown un50 v1 ps5 s70 c4 z105">
+<p class="p1 f1">Console</p>
+</div>
+<div class="v1 ps74 s100 c4 z106">
+<picture>
+<source srcset="images/screenshot-2023-11-10-at-18.59.52-766.webp 1x, images/screenshot-2023-11-10-at-18.59.52-1532.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-11-10-at-18.59.52-766.png 1x, images/screenshot-2023-11-10-at-18.59.52-1532.png 2x">
+<img src="images/screenshot-2023-11-10-at-18.59.52-1532.png" loading="lazy" class="i11">
+</picture>
+</div>
+</div>
+<div class="v1 ps110 s101 c4 z107">
+<p class="p2 f2">Most GUI routines re-route their standard output device to the cOnsole tab. Any output will be displayed in this window. Execute script texts will appear in blue, error messages in red and normal output either in black or in white depending on light or dark mode settings.</p>
+</div>
+<div class="v1 ps57 s56 c4 z108">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+</div>
+</div>
+<div data-ffbk class="fbk btf v1 ps1 s102 c35 z109 fx15" data-fbk="fx15">
+<div class="c36 s2">
+</div>
+<div class="ps111 v2 s103">
+<div class="v1 ps51 s56 c4 z110">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="anim fadeIn un51 v1 ps112 s59 c4 z111">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="anim fadeIn un52 v1 ps113 s66 c4 z112">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+<div class="v1 ps114 s104">
+<div class="v1 ps4 s5 c3 z113"></div>
+<div class="anim slideInDown un53 v1 ps5 s70 c4 z114">
+<p class="p1 f1">Plot Editor</p>
+</div>
+<div class="v1 ps74 s105 c4 z115">
+<picture>
+<source srcset="images/scr2-766.webp 1x, images/scr2-1532.webp 2x" type="image/webp">
+<source srcset="images/scr2-766.png 1x, images/scr2-1532.png 2x">
+<img src="images/scr2-1532.png" loading="lazy" class="i12">
+</picture>
+</div>
+</div>
+<div class="v1 ps115 s106 c4 z116">
+<p class="p2 f2">PDF plots of NMR spectra can be generated in MetaboLabPy by choosing the option&nbsp;&nbsp;&ldquo;Print&rdquo; in the &ldquo;Command Line&rdquo; menu, or by using the keyboard shortcut Ctrl + P (<span class="f23">&#x2318;</span><span class="f2"> + P in macOS</span>).</p>
+<p class="p2 f2">This tab controls the layout and look-and-feel of PDF plots of 1D- and 2D-NMR spectra. If multiple spectra are displayed, they can be plotted as overlaid spectra (with the stacked plot option turned off, or as stacked plot when this option is selected. When spectra are plotted as stacked, the axes selected can be repeated or kept only for the first spectrum (plotted on the bottom).&nbsp;</p>
+<p class="p2 f2">Spectra can also be scaled to maximum vertical size if the auto scale option is selected. The axes to be plotted (bottom, left, top, right) can be selected graphically. The background can be transparent or plotted (white in light mode, dark gray in dark mode). Spectrum plot colours can either be the same as on-screen or MetaboLabPy standard plot colours, which is, in particular, useful if the PDF plot mode (which can be set to either light or dark mode) is different from the GUI colour mode. Finally, the line widths for the spectrum and the axes can be controlled, as can font sizes for axes and labels.</p>
+<p class="p2 f2">In addition to font sizes and line widths, the aspect ratio can be controlled. If the <span class="f24">&lsquo;auto&rsquo; </span>is select, the aspect ratio will be as displayed within the graphical user interface. Alternatively the aspect ratio can be specified with a floating point number. E.g. choose 1.33 to set the aspect ratio (width / height) to 4/3.</p>
+<p class="p2 f2">In order to generate a pdf file with A4 dimensions, the aspect ratios can be set to <span class="f24">a4_portrait</span> or <span class="f24">a4_landscape</span> as well. In case of a stack plot, this then refers to the dimensions of the finished pdf file.</p>
+<p class="p2 f2">Each spectrum in a stacked spectrum plot can be automatically annotated. To plot this spectrum label, the following line needs to be included in the title file of the NMR spectrum:</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f24">spcLabel: label</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">Where label needs to be replace with the spectrum label to be printed in the stacked plot.</p>
+</div>
+<div class="v1 ps116 s56 c4 z117">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="v1 ps117 s56 c4 z118">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="anim fadeIn un54 v1 ps118 s59 c4 z119">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="anim fadeIn un55 v1 ps119 s66 c4 z120">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+<div class="v1 ps120 s107">
+<div class="v1 ps4 s5 c3 z121"></div>
+<div class="v1 ps5 s108">
+<div class="anim slideInDown un56 v1 ps34 s70 c4 z122">
+<p class="p1 f1">Help</p>
+</div>
+<div class="v1 ps121 s109 c4 z123">
+<picture>
+<source srcset="images/screenshot-2023-07-19-at-15.45.49-86.webp 1x, images/screenshot-2023-07-19-at-15.45.49-172.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-19-at-15.45.49-86.png 1x, images/screenshot-2023-07-19-at-15.45.49-172.png 2x">
+<img src="images/screenshot-2023-07-19-at-15.45.49-172.png" loading="lazy" class="i13">
+</picture>
+</div>
+</div>
+<div class="v1 ps122 s105 c4 z124">
+<picture>
+<source srcset="images/screenshot-2023-11-10-at-19.00.06-766.webp 1x, images/screenshot-2023-11-10-at-19.00.06-1532.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-11-10-at-19.00.06-766.png 1x, images/screenshot-2023-11-10-at-19.00.06-1532.png 2x">
+<img src="images/screenshot-2023-11-10-at-19.00.06-1532.png" loading="lazy" class="i12">
+</picture>
+</div>
+</div>
+<div class="v1 ps123 s72 c4 z125">
+<p class="p2 f2">As the name suggests, this tab contains the included documentation, which is also available at <span class="f25">https://ludwigc.github.io/metabolabpy/index.html</span><span class="f2">. In addition quick access to NMR and metabolism related databases, including the Birmingham Metabolite Library (BML), the Human Metabolome Database (HMDB), the Small Molecule Pathway Database (SMPDB), the Biological Magnetic Resonance Bank Database (BMRB), the Kyoto Encyclopedia of Genes and Genomes Database (KEGG), NMRShiftDB2, the Database for Organic Compounds (SDBS) and the SpinCouple Database.</span></p>
+</div>
+<div class="v1 ps124 s56 c4 z126">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="v1 ps125 s56 c4 z127">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<div class="anim fadeIn un57 v1 ps126 s59 c4 z128">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">GUI - Home</a></p>
+</div>
+<div class="anim fadeIn un58 v1 ps119 s66 c4 z129">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'mainwindow\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#mainwindow" class="f5">GUI - Main Window</a></p>
+</div>
+<div class="v1 ps120 s110">
+<div class="v1 ps4 s5 c3 z130"></div>
+<div class="v1 ps5 s111">
+<div class="anim slideInDown un59 v1 ps34 s70 c4 z131">
+<p class="p1 f1">Menu Items</p>
+</div>
+<div class="v1 ps127 s112">
+<div class="v1 ps34 s113">
+<div class="v1 ps128 s114 c4 z132">
+<picture>
+<source srcset="images/n/data-84.webp 1x" type="image/webp">
+<source srcset="images/r/data-84.png 1x">
+<img src="images/r/data-84.png" loading="lazy" class="i14">
+</picture>
+</div>
+<div class="v1 ps129 s115 c4 z133">
+<picture>
+<source srcset="images/6/configuration-164.webp 1x" type="image/webp">
+<source srcset="images/a/configuration-164.png 1x">
+<img src="images/a/configuration-164.png" loading="lazy" class="i15">
+</picture>
+</div>
+<div class="v1 ps130 s116 c4 z134">
+<a onclick="return pop&&pop.openPopup('popup1',event)" style="cursor:pointer;" href="#" class="a1"><picture><source srcset="images/a/file-64.webp 1x" type="image/webp"><source srcset="images/a/file-64.png 1x"><img src="images/a/file-64.png" loading="lazy" class="i16"></picture></a>
+</div>
+<div class="v1 ps131 s117 c4 z135">
+<picture>
+<source srcset="images/p/menu-749.webp 1x" type="image/webp">
+<source srcset="images/l/menu-749.png 1x">
+<img src="images/l/menu-749.png" loading="lazy" class="i17">
+</picture>
+</div>
+<div class="v1 ps132 s118 c4 z136">
+<picture>
+<source srcset="images/4/commandline-186.webp 1x" type="image/webp">
+<source srcset="images/v/commandline-186.png 1x">
+<img src="images/v/commandline-186.png" loading="lazy" class="i18">
+</picture>
+</div>
+<div class="v1 ps133 s119 c4 z137">
+<a onclick="return pop&&pop.openPopup('popup2',event)" style="cursor:pointer;" href="#" class="a1"><picture><source srcset="images/2/data-78.webp 1x" type="image/webp"><source srcset="images/6/data-78.png 1x"><img src="images/6/data-78.png" loading="lazy" class="i19"></picture></a>
+</div>
+<div class="v1 ps134 s120 c4 z138">
+<picture>
+<source srcset="images/v/file-67.webp 1x" type="image/webp">
+<source srcset="images/c/file-67.png 1x">
+<img src="images/c/file-67.png" loading="lazy" class="i20">
+</picture>
+</div>
+<div class="v1 ps135 s121 c4 z139">
+<picture>
+<source srcset="images/t/plot-63.webp 1x" type="image/webp">
+<source srcset="images/t/plot-63.png 1x">
+<img src="images/t/plot-63.png" loading="lazy" class="i21">
+</picture>
+</div>
+<div class="v1 ps136 s122 c4 z140">
+<a onclick="return pop&&pop.openPopup('popup3',event)" style="cursor:pointer;" href="#" class="a1"><picture><source srcset="images/c/plot-61.webp 1x" type="image/webp"><source srcset="images/n/plot-61.png 1x"><img src="images/n/plot-61.png" loading="lazy" class="i22"></picture></a>
+</div>
+<div class="v1 ps137 s123 c4 z141">
+<a onclick="return pop&&pop.openPopup('popup4',event)" style="cursor:pointer;" href="#" class="a1"><picture><source srcset="images/2/configuration-164.webp 1x" type="image/webp"><source srcset="images/e/configuration-164.png 1x"><img src="images/e/configuration-164.png" loading="lazy" class="i23"></picture></a>
+</div>
+<div class="v1 ps138 s124 c4 z142">
+<a onclick="return pop&&pop.openPopup('popup5',event)" style="cursor:pointer;" href="#" class="a1"><picture><source srcset="images/c/commandline-184.webp 1x" type="image/webp"><source srcset="images/c/commandline-184.png 1x"><img src="images/c/commandline-184.png" loading="lazy" class="i24"></picture></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="v1 ps139 s125 c4 z143">
+<p class="p2 f20">To explore the different options, click on the different menu items. Click on the X to close the pop-up window.</p>
+</div>
+<div class="v1 ps140 s56 c4 z144">
+<p class="p1"><a onclick="return window.smoothScroll(event, '[name=\'nmrspectrum\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#nmrspectrum" class="f19">NMR Spectrum</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'processingparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processingparameters" class="f19">Processing Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'displayparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#displayparameters" class="f19">Display Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'acquisitionparameters\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#acquisitionparameters" class="f19">Acquisition Parameters</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'titlefile\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#titlefile" class="f19">Title File</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'pulseprogram\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#pulseprogram" class="f19">pUlseProgram</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'script\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#script" class="f19">Script</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'console\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#console" class="f19">cOnsole</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'ploteditor\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#ploteditor" class="f19">pLot Editor</a><span class="f20"> | </span><a onclick="return window.smoothScroll(event, '[name=\'help\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#help" class="f19">Help</a><span class="f21"> </span><span class="f20">| </span><a onclick="return window.smoothScroll(event, '[name=\'menuitems\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#menuitems" class="f19">Menu Items</a></p>
+</div>
+<a name="help" class="v1 ps141 s11"></a>
+<a name="menuitems" class="v1 ps142 s11"></a>
+</div>
+<a name="ploteditor" class="v2 ps143 s11"></a>
+</div>
+<div class="btf ps144 v2 s126 z145">
+<div id="popup6" style="visibility:hidden;transform:translate3d(-999999px,0,0)" class="popup v7 ps145 s127 c37 z146" data-popup-group="0" data-popup-type="0">
+<div class="v1 ps146 s128 c38 z147">
+<a onclick="return pop&&pop.closePopup('popup6',event)" style="cursor:pointer;" href="#" class="a2"></a>
+</div>
+</div>
+<div class="v1 ps147 s129">
+<div class="v1 ps34 s130">
+<div id="popup1" style="visibility:hidden;transform:translate3d(-999999px,0,0)" class="popup v7 ps148 s131 c39 z148" data-popup-group="0" data-popup-type="0">
+<div class="v1 ps34 s132 c4">
+<picture>
+<source srcset="images/e/file-759.webp 1x" type="image/webp">
+<source srcset="images/c/file-759.png 1x">
+<img src="images/c/file-759.png" loading="lazy" class="i25">
+</picture>
+</div>
+<div class="v1 ps149 s128 c38">
+<a onclick="return pop&&pop.closePopup('popup1',event)" style="cursor:pointer;" href="#" class="a2"></a>
+</div>
+<div class="v1 ps150 s133 c4">
+<p class="p2 f26">NMR data can be read into MetaboLabPy from different sources. Both Bruker and Varian raw NMR data can be read into MetaboLabPy using the Open NMR Spectrum entry. On Windows, this can be achieved using the keyboard shortcut Ctrl + O, on macOS using &#x2318; + O. NMR data can be save using the MetaboLabPy data file format using Ctrl + S (&#x2318; + S on macOS). Files saved in this format can be loaded in again using Load (Ctrl + L on Windows, &#x2318; + S on macOS).&nbsp;</p>
+<p class="p2 f26">Data saved in the Matlab based MetaboLab software as a .mat file, can be imported into MetaboLabPy using the keyboard shortcut Ctrl + I (&#x2318; + I on macOS). Any data preprocessing options are imported as well.</p>
+<p class="p2 f26">On Windows a desktop icon capable of starting MetaboLabPy can be generated with the Create Desktop Icon entry. On macOS the equivalent LaunchPad starter can be generated by clicking on Create Launchpad Icon instead. The software can be shutdown by clicking on Quit (Ctrl + Q or &#x2318; + Q).</p>
+</div>
+</div>
+<div id="popup4" style="visibility:hidden;transform:translate3d(-999999px,0,0)" class="popup v7 ps151 s134 c39 z146" data-popup-group="0" data-popup-type="0">
+<div class="v1 ps148 s135">
+<div class="v1 ps34 s136">
+<div class="v1 ps34 s137 c4 z149">
+<picture>
+<source srcset="images/2/configuration-921.webp 1x" type="image/webp">
+<source srcset="images/e/configuration-921.png 1x">
+<img src="images/e/configuration-921.png" loading="lazy" class="i26">
+</picture>
+</div>
+<div class="v1 ps152 s128 c38 z150">
+<a onclick="return pop&&pop.closePopup('popup4',event)" style="cursor:pointer;" href="#" class="a2"></a>
+</div>
+</div>
+</div>
+<div class="v1 ps153 s138 c4 z151">
+<p class="p2 f26">In this menu, default configurations can be stored (Save as Default), reload and reset to MetaboLabPy defaults. The colour scheme can be set to system mode (same as operating system or enforce either high or dark mode. The application can be put into fullscreen/windowed mode (Alt + F). The splash screen can also be displayed for 5 seconds.</p>
+</div>
+</div>
+<div id="popup3" style="visibility:hidden;transform:translate3d(-999999px,0,0)" class="popup v7 ps154 s139 c39 z146" data-popup-group="0" data-popup-type="0">
+<div class="v1 ps34 s140 c4 z152">
+<picture>
+<source srcset="images/0/plot-746.webp 1x" type="image/webp">
+<source srcset="images/p/plot-746.png 1x">
+<img src="images/p/plot-746.png" loading="lazy" class="i27">
+</picture>
+</div>
+<div class="v1 ps155 s128 c38 z153">
+<a onclick="return pop&&pop.closePopup('popup3',event)" style="cursor:pointer;" href="#" class="a2"></a>
+</div>
+<div class="v1 ps34 s141 c4 z154">
+<p class="p2 f26">Actions in this menu are all related to NMR spectra display. Plot settings can be reset with Reset Plot (Ctrl + R or &#x2318; + R). Spectrum display can be changed to the previous/next experiment with Alt + <span class="f27"><x-svg class="s39"><svg style='fill:currentColor' height='100%' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512' role='graphics-object'><title>Arrow Down Long</title><path d='M169.4 502.6c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 402.7 224 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 370.7L86.6 329.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128z'/></svg></x-svg></span> / Alt + <span class="f27"><x-svg class="s39"><svg style='fill:currentColor' height='100%' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512' role='graphics-object'><title>Arrow Up Long</title><path d='M214.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 109.3V480c0 17.7 14.3 32 32 32s32-14.3 32-32V109.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128z'/></svg></x-svg></span>, respectively. If there is more than one dataset, datasets can be changed to the previous / next dataset using Alt + <span class="f27"><x-svg class="s39"><svg style='fill:currentColor' height='100%' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' role='graphics-object'><title>Arrow Left Long</title><path d='M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z'/></svg></x-svg></span> / Alt + <span class="f27"><x-svg class="s39"><svg style='fill:currentColor' height='100%' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' role='graphics-object'><title>Arrow Right Long</title><path d='M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z'/></svg></x-svg></span>, respectively.</p>
+<p class="p2 f26">To plot all spectra in the current dataset, click on Select All Sec for Plot (Alt + &#x21e7; + A), revert back to display the current spectrum only by clicking on Clear All Selected Spa for Plot (Alt + &#x21e7; + C).</p>
+<p class="p2 f26">For any spectral area, clicking on Vertical AutoScale (Alt + V) will change the vertical scaling to be optimal for the currently selected horizontal section of the NMR spectra. Clicking on Horizontal AutoScale (Alt + H) will unzoom the chemical shift axis but keep the current vertical scaling.</p>
+<p class="p2 f26">Mouse actions can be changed between zoom (Meta + Alt + Z, use right mouse button to unzoom) and pan (Meta + Alt + P), where the spectrum can be dragged across the screen.</p>
+</div>
+</div>
+<div id="popup2" style="visibility:hidden;transform:translate3d(-999999px,0,0)" class="popup v7 ps156 s142 c39 z146" data-popup-group="0" data-popup-type="0">
+<div class="v1 ps157 s143 c4 z155">
+<picture>
+<source srcset="images/e/data-740.webp 1x" type="image/webp">
+<source srcset="images/c/data-740.png 1x">
+<img src="images/c/data-740.png" loading="lazy" class="i28">
+</picture>
+</div>
+<div class="v1 ps158 s128 c38 z156">
+<a onclick="return pop&&pop.closePopup('popup2',event)" style="cursor:pointer;" href="#" class="a2"></a>
+</div>
+<div class="v1 ps159 s144 c4 z157">
+<p class="p2 f26">This menu deals with data processing options. Data can be Fourier-Transformed (Ctrl + F / &#x2318; + F, automatically referenced to either TMSP or, if not present, to the water resonance in the middle of the spectrum (Alt + R / &#x2318; + R). This menu also shows the keyboard shortcuts to access the different tabs of the GUI. All NMR data can be removed from memory via the Clear command (Ctrl + &#x21e7; + C / &#x2318; + &#x21e7; + C).</p>
+</div>
+</div>
+<div id="popup5" style="visibility:hidden;transform:translate3d(-999999px,0,0)" class="popup v7 ps160 s145 c39 z158" data-popup-group="0" data-popup-type="0">
+<div class="v1 ps161 s146 c4">
+<picture>
+<source srcset="images/e/commandline-925.webp 1x" type="image/webp">
+<source srcset="images/h/commandline-925.png 1x">
+<img src="images/h/commandline-925.png" loading="lazy" class="i29">
+</picture>
+</div>
+<div class="v1 ps162 s128 c38">
+<a onclick="return pop&&pop.closePopup('popup5',event)" style="cursor:pointer;" href="#" class="a2"></a>
+</div>
+<div class="v1 ps163 s147 c4">
+<p class="p2 f26">The integrated command line can be (de-)activated by pressing escape. The command line keeps a history of executed commands, which can be displayed using the command h() on the command line. Previous commands can be recalled using <span class="f27"><x-svg class="s39"><svg style='fill:currentColor' height='100%' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512' role='graphics-object'><title>Arrow Up Long</title><path d='M214.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 109.3V480c0 17.7 14.3 32 32 32s32-14.3 32-32V109.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128z'/></svg></x-svg></span>/<span class="f27"><x-svg class="s39"><svg style='fill:currentColor' height='100%' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512' role='graphics-object'><title>Arrow Down Long</title><path d='M169.4 502.6c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 402.7 224 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 370.7L86.6 329.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128z'/></svg></x-svg></span> when the command line is active. Scripts can be executed / saved using the keyboard shortcuts Ctrl + X / Meta + S, respectively.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="btf c40">
+</div>
+<script>!function(){if("Promise"in window&&void 0!==window.performance){var e,t,r=document,n=function(){return r.createElement("link")},o=new Set,a=n(),i=a.relList&&a.relList.supports&&a.relList.supports("prefetch"),s=location.href.replace(/#[^#]+$/,"");o.add(s);var c=function(e){var t=location,r="http:",n="https:";if(e&&e.href&&e.origin==t.origin&&[r,n].includes(e.protocol)&&(e.protocol!=r||t.protocol!=n)){var o=e.pathname;if(!(e.hash&&o+e.search==t.pathname+t.search||"?preload=no"==e.search.substr(-11)||".html"!=o.substr(-5)&&".html"!=o.substr(-5)&&"/"!=o.substr(-1)))return!0}},u=function(e){var t=e.replace(/#[^#]+$/,"");if(!o.has(t)){if(i){var a=n();a.rel="prefetch",a.href=t,r.head.appendChild(a)}else{var s=new XMLHttpRequest;s.open("GET",t,s.withCredentials=!0),s.send()}o.add(t)}},p=function(e){return e.target.closest("a")},f=function(t){var r=t.relatedTarget;r&&p(t)==r.closest("a")||e&&(clearTimeout(e),e=void 0)},d={capture:!0,passive:!0};r.addEventListener("touchstart",function(e){t=performance.now();var r=p(e);c(r)&&u(r.href)},d),r.addEventListener("mouseover",function(r){if(!(performance.now()-t<1200)){var n=p(r);c(n)&&(n.addEventListener("mouseout",f,{passive:!0}),e=setTimeout(function(){u(n.href),e=void 0},80))}},d)}}();dpth="/";!function(){var e={},t={},n={};window.ld=function(a,r,o){var c=function(){"interactive"==document.readyState?(r&&r(),document.addEventListener("readystatechange",function(){"complete"==document.readyState&&o&&o()})):"complete"==document.readyState?(r&&r(),o&&o()):document.addEventListener("readystatechange",function(){"interactive"==document.readyState&&r&&r(),"complete"==document.readyState&&o&&o()})},d=(1<<a.length)-1,u=0,i=function(r){var o=a[r],i=function(){for(var t=0;t<a.length;t++){var r=(1<<t)-1;if((u&r)==r&&n[a[t]]){if(!e[a[t]]){var o=document.createElement("script");o.textContent=n[a[t]],document.body.appendChild(o),e[a[t]]=!0}if((u|=1<<t)==d)return c(),0}}return 1};if(null==t[o]){t[o]=[];var f=new XMLHttpRequest;f.open("GET",o,!0),f.onload=function(){n[o]=f.responseText,[].forEach.call(t[o],function(e){e()})},t[o].push(i),f.send()}else{if(e[o])return i();t[o].push(i)}return 1};if(a.length)for(var f=0;f<a.length&&i(f);f++);else c()}}();ld(["js/fixed.e4c4f9.js"]);ld([],function(){!function(){var e=document.querySelectorAll('a[href^="#"]');[].forEach.call(e,function(e){var t=navigator.userAgent,a=/chrome/i.test(t),o=/firefox/i.test(t),n=/iPad|iPhone|iPod/.test(t)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1;e.addEventListener("click",function(t){var r=!1,i=document.body.parentNode;n&&"none"!=getComputedStyle(i).getPropertyValue("scroll-snap-type")&&(i.setAttribute("data-snap",i.style.scrollSnapType),i.style.scrollSnapType="none",r=!0);var s=0;if(e.hash.length>1){var u=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!o&&u||(u=1);var l=e.hash.slice(1),c=document.getElementById(l);if(null===c&&null===(c=document.querySelector('[name="'+l+'"]')))return;s=a?c.getBoundingClientRect().top*u+pageYOffset:(c.getBoundingClientRect().top+pageYOffset)*u}else if(r)for(var m=document.querySelectorAll("[data-block-group]"),p=0;p<m.length;p++)if("none"!=getComputedStyle(m[p]).getPropertyValue("scroll-snap-align")){c=m[p];break}if(r)window.smoothScroll(t,c,1);else if("scrollBehavior"in document.documentElement.style)scroll({top:s,left:0,behavior:"smooth"});else if("requestAnimationFrame"in window){var d=pageYOffset,f=null;requestAnimationFrame(function e(t){f||(f=t);var a=(t-f)/400;scrollTo(0,d<s?(s-d)*a+d:d-(d-s)*a),a<1?requestAnimationFrame(e):scrollTo(0,s)})}else scrollTo(0,s);t.preventDefault()},!1)})}(),window.smoothScroll=function(e,t,a,o){e.stopImmediatePropagation();var n,r=pageYOffset;t?(("string"==typeof t||t instanceof String)&&(t=document.querySelector(t)),n=t.getBoundingClientRect().top):n=-r;var i=navigator.userAgent,s=/chrome/i.test(i),u=/firefox/i.test(i),l=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!u&&l||(l=1);var c=n*l+(s?0:r*(l-1)),m=null;function p(){d(window.performance.now?window.performance.now():Date.now())}function d(e){null===m&&(m=e);var n=(e-m)/1e3,i=function(e,t,a){switch(o){case"linear":break;case"easeInQuad":e*=e;break;case"easeOutQuad":e=1-(1-e)*(1-e);break;case"easeInCubic":e*=e*e;break;case"easeOutCubic":e=1-Math.pow(1-e,3);break;case"easeInOutCubic":e=e<.5?4*e*e*e:1-Math.pow(-2*e+2,3)/2;break;case"easeInQuart":e*=e*e*e;break;case"easeOutQuart":e=1-Math.pow(1-e,4);break;case"easeInOutQuart":e=e<.5?8*e*e*e*e:1-Math.pow(-2*e+2,4)/2;break;case"easeInQuint":e*=e*e*e*e;break;case"easeOutQuint":e=1-Math.pow(1-e,5);break;case"easeInOutQuint":e=e<.5?16*e*e*e*e*e:1-Math.pow(-2*e+2,5)/2;break;case"easeInCirc":e=1-Math.sqrt(1-Math.pow(e,2));break;case"easeOutCirc":e=Math.sqrt(1-Math.pow(0,2));break;case"easeInOutCirc":e=e<.5?(1-Math.sqrt(1-Math.pow(2*e,2)))/2:(Math.sqrt(1-Math.pow(-2*e+2,2))+1)/2;break;case"easeInOutQuad":default:e=e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2}e>1&&(e=1);return t+a*e}(n/a,r,c);window.scrollTo(0,i),n<a?"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120):(/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1)&&(t&&t.scrollIntoView(),setTimeout(function(){var e=document.body.parentNode;e.style.scrollSnapType=e.getAttribute("data-snap"),e.removeAttribute("data-snap")},100))}return"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120),!1};!function(){var e=null;if(location.hash){var t=location.hash.replace("#",""),n=function(){var o=document.getElementById(t);null===o&&(o=document.querySelector('[name="'+t+'"]')),o&&o.scrollIntoView(!0),"0px"===window.getComputedStyle(document.body).getPropertyValue("min-width")?setTimeout(n,100):null!=e&&setTimeout(e,100)};n()}else null!=e&&e()}();},function(){ld(["js/popup.e4c4f9.js"]);});ld(["js/woolite.e4c4f9.js"],function(){wl.addAnimation('.un19',"3.00s","0.00s",1,100);wl.addAnimation('.un20',"2.50s","0.00s",1,100);wl.addAnimation('.un21',"2.50s","0.00s",1,100);wl.addAnimation('.un22',"2.50s","0.00s",1,100);wl.addAnimation('.un23',"2.50s","0.00s",1,0);wl.addAnimation('.un24',"2.50s","0.00s",1,0);wl.addAnimation('.un25',"1.50s","0.00s",1,100);wl.addAnimation('.un26',"2.50s","0.00s",1,100);wl.addAnimation('.un27',"1.50s","0.00s",1,100);wl.addAnimation('.un28',"2.50s","0.00s",1,100);wl.addAnimation('.un29',"2.50s","0.00s",1,100);wl.addAnimation('.un30',"2.50s","0.00s",1,100);wl.addAnimation('.un31',"1.50s","0.00s",1,100);wl.addAnimation('.un32',"2.50s","0.00s",1,100);wl.addAnimation('.un33',"2.50s","0.00s",1,100);wl.addAnimation('.un34',"1.50s","0.00s",1,100);wl.addAnimation('.un35',"2.50s","0.00s",1,100);wl.addAnimation('.un36',"2.50s","0.00s",1,100);wl.addAnimation('.un37',"2.50s","0.00s",1,100);wl.addAnimation('.un38',"1.50s","0.00s",1,100);wl.addAnimation('.un39',"2.50s","0.00s",1,100);wl.addAnimation('.un40',"2.50s","0.00s",1,100);wl.addAnimation('.un41',"1.50s","0.00s",1,100);wl.addAnimation('.un42',"2.50s","0.00s",1,100);wl.addAnimation('.un43',"2.50s","0.00s",1,100);wl.addAnimation('.un44',"1.50s","0.00s",1,100);wl.addAnimation('.un45',"2.50s","0.00s",1,100);wl.addAnimation('.un46',"2.50s","0.00s",1,100);wl.addAnimation('.un47',"1.50s","0.00s",1,100);wl.addAnimation('.un48',"2.50s","0.00s",1,100);wl.addAnimation('.un49',"2.50s","0.00s",1,100);wl.addAnimation('.un50',"1.50s","0.00s",1,100);wl.addAnimation('.un51',"2.50s","0.00s",1,100);wl.addAnimation('.un52',"2.50s","0.00s",1,100);wl.addAnimation('.un53',"1.50s","0.00s",1,100);wl.addAnimation('.un54',"2.50s","0.00s",1,100);wl.addAnimation('.un55',"2.50s","0.00s",1,100);wl.addAnimation('.un56',"1.50s","0.00s",1,100);wl.addAnimation('.un57',"2.50s","0.00s",1,100);wl.addAnimation('.un58',"2.50s","0.00s",1,100);wl.addAnimation('.un59',"1.50s","0.00s",1,100);wl.start();});</script>
+</body>
+</html>

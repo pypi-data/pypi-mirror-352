@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>tracing</title>
+<meta name="referrer" content="same-origin">
+<link rel="canonical" href="https://pypi.org/project/metabolabpytools/tracing.html">
+<meta name="robots" content="max-image-preview:large">
+<meta name="viewport" content="width=1200">
+<style>.anim{visibility:hidden}</style>
+<link rel="preload" href="css/Roboto-Thin.woff2" as="font" crossorigin>
+<style>html,body{-webkit-text-zoom:reset !important}@font-face{font-display:block;font-family:"Roboto 1";src:url('css/Roboto-Light.woff2') format('woff2'),url('css/Roboto-Light.woff') format('woff');font-weight:300}@font-face{font-display:block;font-family:Roboto;src:url('css/Roboto-Thin.woff2') format('woff2'),url('css/Roboto-Thin.woff') format('woff');font-weight:100}@font-face{font-display:block;font-family:"Roboto 2";src:url('css/Roboto-Regular.woff2') format('woff2'),url('css/Roboto-Regular.woff') format('woff');font-weight:400}@font-face{font-display:block;font-family:"Hanken Grotesk 3";src:url('css/HankenGrotesk_wght_.woff2') format('woff2'),url('css/HankenGrotesk_wght_.woff') format('woff');font-weight:400}@font-face{font-display:block;font-family:"Roboto 4";src:url('css/Roboto-Bold.woff2') format('woff2'),url('css/Roboto-Bold.woff') format('woff');font-weight:700}body>div{font-size:0}p,span,h1,h2,h3,h4,h5,h6,a,li{margin:0;word-spacing:normal;word-wrap:break-word;-ms-word-wrap:break-word;pointer-events:auto;-ms-text-size-adjust:none !important;-moz-text-size-adjust:none !important;-webkit-text-size-adjust:none !important;text-size-adjust:none !important;max-height:10000000px}sup{font-size:inherit;vertical-align:baseline;position:relative;top:-0.4em}sub{font-size:inherit;vertical-align:baseline;position:relative;top:0.4em}ul{display:block;word-spacing:normal;word-wrap:break-word;line-break:normal;list-style-type:none;padding:0;margin:0;-moz-padding-start:0;-khtml-padding-start:0;-webkit-padding-start:0;-o-padding-start:0;-padding-start:0;-webkit-margin-before:0;-webkit-margin-after:0}li{display:block;white-space:normal}[data-marker]::before{content:attr(data-marker) ' ';-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}li p{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}form{display:inline-block}a{text-decoration:inherit;color:inherit;-webkit-tap-highlight-color:rgba(0,0,0,0)}textarea{resize:none}.shm-l{float:left;clear:left}.shm-r{float:right;clear:right;shape-outside:content-box}.btf{display:none}.plyr{min-width:0 !important}html{font-family:sans-serif}body{font-size:0;margin:0;--z:1;zoom:var(--z)}audio,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0;outline:0}b,strong{font-weight:700}dfn{font-style:italic}h1,h2,h3,h4,h5,h6{font-size:1em;line-height:1;margin:0}img{border:0}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=submit]{-webkit-appearance:button;cursor:pointer;box-sizing:border-box;white-space:normal}input[type=date],input[type=email],input[type=number],input[type=password],input[type=text],textarea{-webkit-appearance:none;appearance:none;box-sizing:border-box}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}textarea{overflow:auto;box-sizing:border-box;border-color:#ddd}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}blockquote{margin-block-start:0;margin-block-end:0;margin-inline-start:0;margin-inline-end:0}:-webkit-full-screen-ancestor:not(iframe){-webkit-clip-path:initial !important}
+html{-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale}@-webkit-keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.animated{-webkit-animation-fill-mode:both;animation-fill-mode:both}.animated.infinite{-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}@-webkit-keyframes fadeInLeft{from{opacity:0;-webkit-transform:translate3d(-100%,0,0)}to{opacity:1;-webkit-transform:translate3d(0, 0, 0)}}@keyframes fadeInLeft{from{opacity:0;transform:translate3d(-100%,0,0)}to{opacity:1;transform:translate3d(0, 0, 0)}}.fadeInLeft{-webkit-animation-name:fadeInLeft;animation-name:fadeInLeft}
+#b{background-color:#191919}.v16{display:inline-block;vertical-align:top}.ps326{position:relative;margin-top:0}.s361{width:100%;min-width:1200px;height:889px}.c73{border:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;z-index:2}.z209{z-index:2;pointer-events:none}.c74{position:absolute}.s362{width:100%;height:100%;box-sizing:border-box}.fx30{background-attachment:fixed;background-color:transparent;background-repeat:no-repeat;background-position:0 50%;background-size:cover;background-image:url(images/screenshot-2023-07-24-at-19.55.07-1200-1.png);opacity:0.3}.webp .fx30{background-image:url(images/screenshot-2023-07-24-at-19.55.07-1200-1.webp);background-attachment:fixed}.ps327{position:relative;margin-top:15px}.v17{display:block}.s363{width:1200px;margin-left:auto;margin-right:auto;min-height:456px}.ps328{position:relative;margin-left:0;margin-top:0}.s364{min-width:1180px;width:1180px;min-height:213px}.s365{min-width:348px;width:348px;min-height:147px;height:147px}.z210{z-index:5;pointer-events:auto}.i74{position:absolute;left:27px;width:294px;height:147px;top:0;border:0}.ps329{position:relative;margin-left:469px;margin-top:0}.s366{min-width:363px;width:363px;min-height:213px;line-height:0}.ps330{position:relative;margin-left:129px;margin-top:0}.s367{min-width:234px;width:234px;overflow:hidden;height:42px}.z211{z-index:6;pointer-events:auto}.p22{text-indent:0;padding-bottom:0;padding-right:0;text-align:right}.f48{font-family:"Roboto 1";font-size:24px;font-size:calc(24px * var(--f));line-height:1.626;font-weight:300;font-style:normal;text-decoration:underline;text-transform:none;letter-spacing:normal;color:#268bd2;background-color:initial;text-shadow:none}.ps331{position:relative;margin-left:27px;margin-top:0}.s368{min-width:336px;width:336px;overflow:hidden;height:40px}.z212{z-index:7;pointer-events:auto}.s369{min-width:363px;width:363px;overflow:hidden;height:49px}.z213{z-index:8;pointer-events:auto}.ps332{position:relative;margin-left:0;margin-top:-8px}.s370{min-width:363px;width:363px;min-height:90px}.s371{min-width:363px;width:363px;min-height:90px;line-height:0}.z214{z-index:35;pointer-events:auto}.z215{z-index:74;pointer-events:auto}.ps333{position:relative;margin-left:68px;margin-top:28px}.s372{min-width:895px;width:895px;min-height:215px}.s373{min-width:895px;width:895px;min-height:215px;line-height:0}.s374{min-width:641px;width:641px;overflow:hidden;height:181px}.z216{z-index:9;pointer-events:auto}.p23{text-indent:0;padding-bottom:0;padding-right:0;text-align:left}.f49{font-family:Roboto;font-size:103px;font-size:calc(103px * var(--f));line-height:1.642;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps334{position:relative;margin-left:0;margin-top:-49px}.s375{min-width:895px;width:895px;overflow:hidden;height:83px}.z217{z-index:10;pointer-events:auto}.f50{font-family:Roboto;font-size:48px;font-size:calc(48px * var(--f));line-height:1.626;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps335{position:relative;margin-left:0;margin-top:-471px}.s376{min-width:1200px;width:1200px;min-height:1px}@media (min-width:1200px) and (-webkit-min-device-pixel-ratio:1.7), (min-width:1200px) and (min-resolution:144dpi) {.fx30{background-image:url(images/screenshot-2023-07-24-at-19.55.07-2400-1.png);background-attachment:fixed}.webp .fx30{background-image:url(images/screenshot-2023-07-24-at-19.55.07-2400-1.webp);background-attachment:fixed}}@media (min-width:1200px) {.fx30{background-attachment:fixed;background-image:url(images/screenshot-2023-07-24-at-19.55.07-1600-1.png)}.webp .fx30{background-image:url(images/screenshot-2023-07-24-at-19.55.07-1600-1.webp);background-attachment:fixed}}@media (min-width:1600px) {.fx30{background-attachment:fixed;background-image:url(images/screenshot-2023-07-24-at-19.55.07-2000-1.png)}.webp .fx30{background-image:url(images/screenshot-2023-07-24-at-19.55.07-2000-1.webp);background-attachment:fixed}}@media (min-width:2000px) {.fx30{background-attachment:fixed;background-image:url(images/screenshot-2023-07-24-at-19.55.07-2560-1.png)}.webp .fx30{background-image:url(images/screenshot-2023-07-24-at-19.55.07-2560-1.webp);background-attachment:fixed}}</style>
+<script>!function(){var A=new Image;A.onload=A.onerror=function(){1!=A.height&&document.body.classList.remove("webp")},A.src="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAD8D+JaQAA3AA/ua1AAA"}();
+</script>
+<link onload="this.media='all';this.onload=null;" rel="stylesheet" href="css/site.8b81ba.css" media="print">
+<noscript><link rel="stylesheet" href="css/site.8b81ba.css" type="text/css"></noscript>
+</head>
+<body class="webp" id="b">
+<script>!function(){var e=document.createElement("P");e.innerHTML="&nbsp;",e.style.cssText="position:fixed;visible:hidden;font-size:100px;zoom:1",document.body.appendChild(e);var t=function(e){return function(){var t=Math.trunc(1e4/parseFloat(window.getComputedStyle(e).getPropertyValue("font-size")))/100,n=document.body;t!=n.style.getPropertyValue("--f")&&n.style.setProperty("--f",t)}}(e);if("ResizeObserver"in window)new ResizeObserver(t).observe(e);else if("requestAnimationFrame"in window){var n=function(){t(),requestAnimationFrame(n)};requestAnimationFrame(n)}else setInterval(t,100)}()</script>
+
+<div data-ffbk class="fbk v16 ps326 s361 c73 z209 fx30" data-fbk="fx30">
+<div class="c74 s362">
+</div>
+<div class="ps327 v17 s363">
+<div class="v16 ps328 s364">
+<div class="anim fadeIn un146 v16 ps328 s365 c75 z210">
+<picture>
+<source srcset="images/metabolabpy_dark_transparency-294.webp 1x, images/metabolabpy_dark_transparency-588.webp 2x" type="image/webp">
+<source srcset="images/metabolabpy_dark_transparency-294.png 1x, images/metabolabpy_dark_transparency-588.png 2x">
+<img src="images/metabolabpy_dark_transparency-588.png" class="i74">
+</picture>
+</div>
+<div class="v16 ps329 s366">
+<div class="anim fadeIn un147 v16 ps330 s367 c75 z211">
+<p class="p22"><a href="./#top" class="f48">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un148 v16 ps331 s368 c75 z212">
+<p class="p22"><a href="./#documentation" class="f48">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un149 v16 ps328 s369 c75 z213">
+<p class="p22"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f48">Introduction</a></p>
+</div>
+<div class="v16 ps332 s370">
+<div class="v16 ps328 s371">
+<div class="anim fadeIn un150 v16 ps328 s369 c75 z214">
+<p class="p22"><a onclick="return window.smoothScroll(event, '[name=\'multipletanalysis\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#multipletanalysis" class="f48">Multiplet Analysis</a></p>
+</div>
+<div class="anim fadeIn un151 v16 ps332 s369 c75 z215">
+<p class="p22"><a onclick="return window.smoothScroll(event, '[name=\'isotopomeranalysis\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#isotopomeranalysis" class="f48">Isotopomer Analysis</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="v16 ps333 s372">
+<div class="v16 ps328 s373">
+<div class="anim fadeInLeft un152 v16 ps328 s374 c75 z216">
+<p class="p23 f49">MetaboLabPy</p>
+</div>
+<div class="anim fadeInLeft un153 v16 ps334 s375 c75 z217">
+<p class="p23 f50">Stable Isotope Tracing Analysis</p>
+</div>
+</div>
+</div>
+</div>
+<a name="top" class="v17 ps335 s376"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps292 s316 c67 z7 fx27" data-fbk="fx27">
+<div class="c68 s2">
+</div>
+<div class="ps293 v2 s317">
+<div class="v1 ps175 s318">
+<div class="v1 ps257 s5 c3 z196"></div>
+<div class="anim slideInDown un154 v1 ps258 s6 c4 z6">
+<p class="p1 f1">Introduction</p>
+</div>
+<div class="v1 ps184 s319 c4 z33">
+<p class="p2 f2">Sample data for this tutorial can be downloaded <a href="https://tinyurl.com/hsqcData" class="f3">here</a>. The NMR data with a highly resolved 2D-<sup class="f2">1</sup>H,<sup class="f2">13</sup>C HSQC NMR experiment is stored in experiment 2. We read in the NMRPipe processed 2D-NMR spectrum by clicking on <span class="f37">Open NMRPipe</span> or by using the keyboard shortcut Ctrl + n (<span class="f4">&#x2318;</span><span class="f4"> + </span><span class="f4">n on macOS). We phase correct, baseline correct and reference the spectrum to the methyl group resonance of lactate as described in </span><a href="basic2dprocessing.html#hsqcprocessing" class="f22">Basic 2D-NMR Data Processing</a><span class="f4">. Because of the high resolution in the </span><sup class="f4">13</sup><span class="f4">C and because the pulse sequence used echo/anti-echo for quadrature detection, the signals in the </span><sup class="f4">13</sup><span class="f4">C dimension show up as multiplets with dispersive line shape components due to the non-zero </span><sup class="f4">13</sup><span class="f4">C-</span><sup class="f4">13</sup><span class="f4">C J coupling evolution in the first increment. We can use this line shape property to help with phase correction by ensuring that the minima of the line shape are at the same level (see below).</span></p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2"><br></p>
+</div>
+<div class="v1 ps294 s320">
+<div class="anim fadeIn un155 v1 ps175 s167 c4 z22">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un156 v1 ps264 s168 c4 z168">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un157 v1 ps264 s168 c4 z9">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Stable Isotope Tracing Analysis</a></p>
+</div>
+<div class="anim fadeIn un158 v1 ps34 s282 c4 z45">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'multipletanalysis\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#multipletanalysis" class="f5">Multiplet Analysis</a></p>
+</div>
+<div class="anim fadeIn un159 v1 ps295 s282 c4 z173">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'isotopomeranalysis\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#isotopomeranalysis" class="f5">Isotopomer Analysis</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps275 s321">
+<div class="v1 ps34 s322">
+<div class="v1 ps34 s323 c4 z11">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-17.37.32-815.webp 1x, images/screenshot-2023-07-25-at-17.37.32-1630.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-17.37.32-815.png 1x, images/screenshot-2023-07-25-at-17.37.32-1630.png 2x">
+<img src="images/screenshot-2023-07-25-at-17.37.32-1630.png" loading="lazy" class="i60">
+</picture>
+</div>
+<div class="v1 ps296 s324 c4 z35">
+<p class="p2 f2">Before phase correction</p>
+<p class="p2 f2"><br></p>
+</div>
+<div class="v1 ps297 s325 c4 z12">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-17.40.43-296.webp 1x, images/screenshot-2023-07-25-at-17.40.43-592.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-17.40.43-296.png 1x, images/screenshot-2023-07-25-at-17.40.43-592.png 2x">
+<img src="images/screenshot-2023-07-25-at-17.40.43-592.png" loading="lazy" class="i61">
+</picture>
+</div>
+<div class="v1 ps298 s326 c4 z36">
+<p class="p2 f2">After phase correction</p>
+<p class="p2 f2"><br></p>
+</div>
+<div class="v1 ps299 s327 c4 z10">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-17.40.22-290.webp 1x, images/screenshot-2023-07-25-at-17.40.22-580.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-17.40.22-290.jpg 1x, images/screenshot-2023-07-25-at-17.40.22-580.jpg 2x">
+<img src="images/screenshot-2023-07-25-at-17.40.22-580.jpg" loading="lazy" class="i62">
+</picture>
+</div>
+</div>
+</div>
+<div class="v1 ps300 s328 c4 z170">
+<p class="p2 f2">The phased, baseline corrected and referenced spectrum should look like the example below, where also the methyl group resonance of lactate is indicated.</p>
+<p class="p2 f2"><br></p>
+</div>
+<div class="v1 ps240 s329">
+<div class="v1 ps34 s330">
+<div class="v1 ps34 s331 c4 z41">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-17.46.05-815.webp 1x, images/screenshot-2023-07-25-at-17.46.05-1630.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-17.46.05-815.png 1x, images/screenshot-2023-07-25-at-17.46.05-1630.png 2x">
+<img src="images/screenshot-2023-07-25-at-17.46.05-1630.png" loading="lazy" class="i63">
+</picture>
+</div>
+<div class="v1 ps301 s332 c4 z43">
+<p class="p2 f2">L-Lactic Acid</p>
+<p class="p2 f2"><br></p>
+</div>
+</div>
+</div>
+<div class="v1 ps188 s190 c4 z42">
+<p class="p2 f2">Tracing analysis by NMR spectroscopy is a two-step process. We have to describe the NMR multiplet composition (multiplet analysis) and then combine this information with per carbon <sup class="f2">13</sup>C percentages or gas chromatography-mass spectrometry (GC-MS) data, which is described <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.201611634" class="f3">here</a>.</p>
+</div>
+<a name="multipletanalysis" class="v1 ps86 s11"></a>
+</div>
+<a name="introduction" class="v2 ps302 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps1 s333 c69 z74 fx28" data-fbk="fx28">
+<div class="c70 s2">
+</div>
+<div class="ps303 v2 s334">
+<div class="v1 ps175 s335">
+<div class="v1 ps257 s5 c3 z166"></div>
+<div class="anim slideInDown un160 v1 ps258 s336 c4 z167">
+<p class="p1 f1">Multiplet Analysis</p>
+</div>
+<div class="v1 ps304 s294 c4 z67">
+<p class="p2 f2">When the software detects that a 2D-<sup class="f2">1</sup>H,<sup class="f2">13</sup>C HSQC NMR spectrum has been read in, the <span class="f37">HSQC Analysis</span> checkbox appears on the main window. Once this is checked, an additional tab appears which allows to perform multiplet analysis. In order to be able to perform multiplet analysis, pygamma (<span class="f24">pip install pygamma</span>) needs to be installed.</p>
+</div>
+<div class="v1 ps305 s320">
+<div class="anim fadeIn un161 v1 ps175 s167 c4 z51">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un162 v1 ps264 s168 c4 z49">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un163 v1 ps264 s168 c4 z52">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Stable Isotope Tracing Analysis</a></p>
+</div>
+<div class="anim fadeIn un164 v1 ps34 s282 c4 z172">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f5">Introduction</a></p>
+</div>
+<div class="anim fadeIn un165 v1 ps295 s282 c4 z60">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'isotopomeranalysis\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#isotopomeranalysis" class="f5">Isotopomer Analysis</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps275 s321">
+<div class="v1 ps34 s322">
+<div class="v1 ps34 s323 c4 z187">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-18.23.32-815.webp 1x, images/screenshot-2023-07-25-at-18.23.32-1630.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-18.23.32-815.png 1x, images/screenshot-2023-07-25-at-18.23.32-1630.png 2x">
+<img src="images/screenshot-2023-07-25-at-18.23.32-1630.png" loading="lazy" class="i64">
+</picture>
+</div>
+<div class="v1 ps306 s337 c4 z61">
+<p class="p2 f2">Chemical Structure</p>
+</div>
+<div class="v1 ps307 s338 c4 z76">
+<p class="p2 f2">2D-Multiplet</p>
+</div>
+<div class="v1 ps308 s338 c4 z79">
+<p class="p2 f2">1D-Multiplet</p>
+</div>
+<div class="v1 ps309 s337 c4 z71">
+<p class="p21 f2">Metabolites</p>
+</div>
+<div class="v1 ps310 s339 c4 z80">
+<p class="p21 f2">Assigned Metabolites</p>
+</div>
+</div>
+</div>
+<div class="v1 ps311 s72 c4 z171">
+<p class="p2 f2">The <span class="f37">HSQC Analysis</span> tab has several GUI elements to facilitate multiplet analysis. Both the 2D-multiplet as well as a 1D-trace are being displayed. Once a metabolite has been selected a series of buttons, depending on the number of NMR signals for the selected metabolite, appear in the lower area of the middle of the tab. The chemical structure is displayed for each selected metabolite, and so are web links to HMDB and SMPDB. Once a metabolite is selected, <span class="f37">Metabolite Information</span> is filled in as well as demonstrated below.</p>
+</div>
+<div class="v1 ps190 s340 c4 z84">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-18.43.57-815.webp 1x, images/screenshot-2023-07-25-at-18.43.57-1630.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-18.43.57-815.png 1x, images/screenshot-2023-07-25-at-18.43.57-1630.png 2x">
+<img src="images/screenshot-2023-07-25-at-18.43.57-1630.png" loading="lazy" class="i65">
+</picture>
+</div>
+<div class="v1 ps275 s341 c4 z87">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-18.42.20-815.webp 1x, images/screenshot-2023-07-25-at-18.42.20-1630.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-18.42.20-815.png 1x, images/screenshot-2023-07-25-at-18.42.20-1630.png 2x">
+<img src="images/screenshot-2023-07-25-at-18.42.20-1630.png" loading="lazy" class="i66">
+</picture>
+</div>
+<div class="v1 ps234 s319 c4 z88">
+<p class="p2 f2">The peak display can be switched between the different metabolite signals using the buttons at the bottom of the tab. Peaks can be picked by clicking + (top right) or removed by clicking - and then selecting the desired peak. Alternatively an automatic peak picking algorithm (<a href="https://wellcomeopenresearch.org/articles/7-262/v2" class="f3">Ferrante et al.</a>) can be employed by clicking <span class="f37">Autopick</span>. While only the currently selected peak is displayed, all peaks of the metabolite are picked using the automatic algorithm. A multiplet analysis can then be carried out by clicking on the <span class="f37">Multiplet Analysis</span> tab and then clicking on <span class="f37">Fit</span>. Alternativelyall peaks of the metabolite can be fitted automatically by clicking on <span class="f37">Autofit</span> in the <span class="f37">HSQC Peak Picking</span> tab. Once the line shape simulation is finished, the simulated trace through the 2D signal is displayed in yellow in the 1D-multiplet window. A confidence value (coefficient of Determination) is calculated indicating the quality of signal analysis. The display of this coefficient is colour coded (<span class="f45">good</span>, <span class="f46">borderline</span>, <span class="f47">unreliable</span>).</p>
+</div>
+<div class="v1 ps312 s342 c4 z174">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-19.23.55-814.webp 1x, images/screenshot-2023-07-25-at-19.23.55-1628.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-19.23.55-814.png 1x, images/screenshot-2023-07-25-at-19.23.55-1628.png 2x">
+<img src="images/screenshot-2023-07-25-at-19.23.55-1628.png" loading="lazy" class="i67">
+</picture>
+</div>
+<div class="v1 ps313 s343 c4 z95">
+<p class="p2 f2">This analysis is then repeated for all metabolites of interest in all loaded HSQC experiments. The data can then be exported into an Excel spreadsheet for isotopomer analysis.&nbsp;</p>
+</div>
+</div>
+<a name="isotopomeranalysis" class="v2 ps314 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps100 s344 c71 z100 fx29" data-fbk="fx29">
+<div class="c72 s2">
+</div>
+<div class="ps315 v2 s345">
+<div class="v1 ps175 s346">
+<div class="v1 ps257 s5 c3 z208"></div>
+<div class="v1 ps258 s347">
+<div class="anim slideInDown un166 v1 ps34 s348 c4 z97">
+<p class="p1 f1">Isotopomer Analysis</p>
+</div>
+<div class="v1 ps316 s349 c4 z119">
+<p class="p2 f2">Isotopomer analysis is implemented within the metabolabpytools package and can most comfortably be carried out inside a jupyter notebook interface.&nbsp;</p>
+<p class="p2 f2">Please note: In order to be able to run jupyter notebooks, you must have the following to packages installed</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">&nbsp;- jupyter</p>
+<p class="p2 f2">&nbsp;- jupyterthemes</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">These packages can be installed with the command <span class="f24">pip install jupyter jupyterthemes</span><span class="f2"> in an Anaconda powershelgl prompt or in a macOS Terminal, after the metabolabpy environment has been activated. For convenience, a zip archive with an example notebook (read_isotopomer_data.ipynb) as well as e</span><span class="f2">xample spreadsheets for multiplet data, GC-MS data and per carbon </span><sup class="f2">13</sup><span class="f2">C percentages can be downloaded </span><a href="https://tinyurl.com/isotopomerAnalysis" class="f3">here</a><span class="f2">.</span></p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">This is an example of a HSQC multiplet data spreadsheet:</p>
+</div>
+</div>
+<div class="v1 ps317 s350 c4 z106">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-19.57.48-965.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-19.57.48-965.png 1x">
+<img src="images/screenshot-2023-07-25-at-19.57.48-965.png" loading="lazy" class="i68">
+</picture>
+</div>
+<div class="v1 ps318 s320">
+<div class="anim fadeIn un167 v1 ps175 s167 c4 z175">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un168 v1 ps264 s168 c4 z105">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un169 v1 ps264 s168 c4 z102">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Stable Isotope Tracing Analysis</a></p>
+</div>
+<div class="anim fadeIn un170 v1 ps34 s282 c4 z176">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f5">Introduction</a></p>
+</div>
+<div class="anim fadeIn un171 v1 ps295 s282 c4 z122">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'multipletanalysis\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#multipletanalysis" class="f5">Multiplet Analysis</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps276 s351 c4 z124">
+<p class="p2 f2">Each metabolite is saved as its own worksheet, with all experiments for a single metabolite being contained in a single worksheet. The same is true for GC-MS and per carbon <sup class="f2">13</sup>C percentages spreadsheets as demonstrated below.</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">GC-MS data spreadsheet:</p>
+</div>
+<div class="v1 ps277 s352 c4 z123">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-19.58.07-784.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-19.58.07-784.png 1x">
+<img src="images/screenshot-2023-07-25-at-19.58.07-784.png" loading="lazy" class="i69">
+</picture>
+</div>
+<div class="v1 ps319 s353 c4 z31">
+<p class="p2 f2">Per carbon <sup class="f2">13</sup><span class="f2">C percentages spreadsheet:</span></p>
+</div>
+<div class="v1 ps237 s354 c4 z44">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-19.58.19-786.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-19.58.19-786.png 1x">
+<img src="images/screenshot-2023-07-25-at-19.58.19-786.png" loading="lazy" class="i70">
+</picture>
+</div>
+<div class="v1 ps320 s294 c4 z53">
+<p class="p2 f2">the data from these spreadsheets is then loaded into the jupyter notebook. Please note: Although we are loading in all three possible data sources, isotopomer analysis should be possible with a subset of these and we are only going to use multiplet and GC-MS data in the notebook to perform the isotopomer analysis.</p>
+</div>
+<div class="v1 ps321 s355 c4 z62">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-20.14.19-975.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-20.14.19-975.png 1x">
+<img src="images/screenshot-2023-07-25-at-20.14.19-975.png" loading="lazy" class="i71">
+</picture>
+</div>
+<div class="v1 ps322 s356 c4 z68">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-20.14.32-971.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-20.14.32-971.jpg 1x">
+<img src="images/screenshot-2023-07-25-at-20.14.32-971.jpg" loading="lazy" class="i72">
+</picture>
+</div>
+<div class="v1 ps323 s296 c4 z77">
+<p class="p2 f2">The final Excel spreadsheet with the results of the isotopomer analysis looks like this:</p>
+</div>
+<div class="v1 ps322 s357 c4 z85">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-20.17.13-627.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-20.17.13-627.png 1x">
+<img src="images/screenshot-2023-07-25-at-20.17.13-627.png" loading="lazy" class="i73">
+</picture>
+</div>
+<div class="v1 ps220 s358 c4 z93">
+<p class="p2 f2">Despite per carbon <sup class="f2">13</sup>C percentages were not used in the analysis, they are included as part of the simulated data.&nbsp;</p>
+</div>
+<div class="anim fadeIn un172 v1 ps324 s167 c4 z103">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un173 v1 ps205 s168 c4 z120">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un174 v1 ps205 s168 c4 z54">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Stable Isotope Tracing Analysis</a></p>
+</div>
+<div class="v1 ps279 s359">
+<div class="v1 ps34 s360">
+<div class="anim fadeIn un175 v1 ps34 s282 c4 z63">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f5">Introduction</a></p>
+</div>
+<div class="anim fadeIn un176 v1 ps295 s282 c4 z72">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'multipletanalysis\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#multipletanalysis" class="f5">Multiplet Analysis</a></p>
+</div>
+<div class="anim fadeIn un177 v1 ps325 s282 c4 z81">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'isotopomeranalysis\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#isotopomeranalysis" class="f5">Isotopomer Analysis</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="btf c8">
+</div>
+<script>!function(){if("Promise"in window&&void 0!==window.performance){var e,t,r=document,n=function(){return r.createElement("link")},o=new Set,a=n(),i=a.relList&&a.relList.supports&&a.relList.supports("prefetch"),s=location.href.replace(/#[^#]+$/,"");o.add(s);var c=function(e){var t=location,r="http:",n="https:";if(e&&e.href&&e.origin==t.origin&&[r,n].includes(e.protocol)&&(e.protocol!=r||t.protocol!=n)){var o=e.pathname;if(!(e.hash&&o+e.search==t.pathname+t.search||"?preload=no"==e.search.substr(-11)||".html"!=o.substr(-5)&&".html"!=o.substr(-5)&&"/"!=o.substr(-1)))return!0}},u=function(e){var t=e.replace(/#[^#]+$/,"");if(!o.has(t)){if(i){var a=n();a.rel="prefetch",a.href=t,r.head.appendChild(a)}else{var s=new XMLHttpRequest;s.open("GET",t,s.withCredentials=!0),s.send()}o.add(t)}},p=function(e){return e.target.closest("a")},f=function(t){var r=t.relatedTarget;r&&p(t)==r.closest("a")||e&&(clearTimeout(e),e=void 0)},d={capture:!0,passive:!0};r.addEventListener("touchstart",function(e){t=performance.now();var r=p(e);c(r)&&u(r.href)},d),r.addEventListener("mouseover",function(r){if(!(performance.now()-t<1200)){var n=p(r);c(n)&&(n.addEventListener("mouseout",f,{passive:!0}),e=setTimeout(function(){u(n.href),e=void 0},80))}},d)}}();dpth="/";!function(){var e={},t={},n={};window.ld=function(a,r,o){var c=function(){"interactive"==document.readyState?(r&&r(),document.addEventListener("readystatechange",function(){"complete"==document.readyState&&o&&o()})):"complete"==document.readyState?(r&&r(),o&&o()):document.addEventListener("readystatechange",function(){"interactive"==document.readyState&&r&&r(),"complete"==document.readyState&&o&&o()})},d=(1<<a.length)-1,u=0,i=function(r){var o=a[r],i=function(){for(var t=0;t<a.length;t++){var r=(1<<t)-1;if((u&r)==r&&n[a[t]]){if(!e[a[t]]){var o=document.createElement("script");o.textContent=n[a[t]],document.body.appendChild(o),e[a[t]]=!0}if((u|=1<<t)==d)return c(),0}}return 1};if(null==t[o]){t[o]=[];var f=new XMLHttpRequest;f.open("GET",o,!0),f.onload=function(){n[o]=f.responseText,[].forEach.call(t[o],function(e){e()})},t[o].push(i),f.send()}else{if(e[o])return i();t[o].push(i)}return 1};if(a.length)for(var f=0;f<a.length&&i(f);f++);else c()}}();ld(["js/fixed.e4c4f9.js"]);ld([],function(){!function(){var e=document.querySelectorAll('a[href^="#"]');[].forEach.call(e,function(e){var t=navigator.userAgent,a=/chrome/i.test(t),o=/firefox/i.test(t),n=/iPad|iPhone|iPod/.test(t)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1;e.addEventListener("click",function(t){var r=!1,i=document.body.parentNode;n&&"none"!=getComputedStyle(i).getPropertyValue("scroll-snap-type")&&(i.setAttribute("data-snap",i.style.scrollSnapType),i.style.scrollSnapType="none",r=!0);var s=0;if(e.hash.length>1){var u=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!o&&u||(u=1);var l=e.hash.slice(1),c=document.getElementById(l);if(null===c&&null===(c=document.querySelector('[name="'+l+'"]')))return;s=a?c.getBoundingClientRect().top*u+pageYOffset:(c.getBoundingClientRect().top+pageYOffset)*u}else if(r)for(var m=document.querySelectorAll("[data-block-group]"),p=0;p<m.length;p++)if("none"!=getComputedStyle(m[p]).getPropertyValue("scroll-snap-align")){c=m[p];break}if(r)window.smoothScroll(t,c,1);else if("scrollBehavior"in document.documentElement.style)scroll({top:s,left:0,behavior:"smooth"});else if("requestAnimationFrame"in window){var d=pageYOffset,f=null;requestAnimationFrame(function e(t){f||(f=t);var a=(t-f)/400;scrollTo(0,d<s?(s-d)*a+d:d-(d-s)*a),a<1?requestAnimationFrame(e):scrollTo(0,s)})}else scrollTo(0,s);t.preventDefault()},!1)})}(),window.smoothScroll=function(e,t,a,o){e.stopImmediatePropagation();var n,r=pageYOffset;t?(("string"==typeof t||t instanceof String)&&(t=document.querySelector(t)),n=t.getBoundingClientRect().top):n=-r;var i=navigator.userAgent,s=/chrome/i.test(i),u=/firefox/i.test(i),l=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!u&&l||(l=1);var c=n*l+(s?0:r*(l-1)),m=null;function p(){d(window.performance.now?window.performance.now():Date.now())}function d(e){null===m&&(m=e);var n=(e-m)/1e3,i=function(e,t,a){switch(o){case"linear":break;case"easeInQuad":e*=e;break;case"easeOutQuad":e=1-(1-e)*(1-e);break;case"easeInCubic":e*=e*e;break;case"easeOutCubic":e=1-Math.pow(1-e,3);break;case"easeInOutCubic":e=e<.5?4*e*e*e:1-Math.pow(-2*e+2,3)/2;break;case"easeInQuart":e*=e*e*e;break;case"easeOutQuart":e=1-Math.pow(1-e,4);break;case"easeInOutQuart":e=e<.5?8*e*e*e*e:1-Math.pow(-2*e+2,4)/2;break;case"easeInQuint":e*=e*e*e*e;break;case"easeOutQuint":e=1-Math.pow(1-e,5);break;case"easeInOutQuint":e=e<.5?16*e*e*e*e*e:1-Math.pow(-2*e+2,5)/2;break;case"easeInCirc":e=1-Math.sqrt(1-Math.pow(e,2));break;case"easeOutCirc":e=Math.sqrt(1-Math.pow(0,2));break;case"easeInOutCirc":e=e<.5?(1-Math.sqrt(1-Math.pow(2*e,2)))/2:(Math.sqrt(1-Math.pow(-2*e+2,2))+1)/2;break;case"easeInOutQuad":default:e=e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2}e>1&&(e=1);return t+a*e}(n/a,r,c);window.scrollTo(0,i),n<a?"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120):(/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1)&&(t&&t.scrollIntoView(),setTimeout(function(){var e=document.body.parentNode;e.style.scrollSnapType=e.getAttribute("data-snap"),e.removeAttribute("data-snap")},100))}return"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120),!1};!function(){var e=null;if(location.hash){var t=location.hash.replace("#",""),n=function(){var o=document.getElementById(t);null===o&&(o=document.querySelector('[name="'+t+'"]')),o&&o.scrollIntoView(!0),"0px"===window.getComputedStyle(document.body).getPropertyValue("min-width")?setTimeout(n,100):null!=e&&setTimeout(e,100)};n()}else null!=e&&e()}();});ld(["js/woolite.e4c4f9.js"],function(){wl.addAnimation('.un146',"3.00s","0.00s",1,100);wl.addAnimation('.un147',"2.50s","0.00s",1,100);wl.addAnimation('.un148',"2.50s","0.00s",1,100);wl.addAnimation('.un149',"2.50s","0.00s",1,100);wl.addAnimation('.un150',"2.50s","0.00s",1,100);wl.addAnimation('.un151',"2.50s","0.00s",1,100);wl.addAnimation('.un152',"2.50s","0.00s",1,0);wl.addAnimation('.un153',"2.50s","0.00s",1,0);wl.addAnimation('.un154',"1.50s","0.00s",1,100);wl.addAnimation('.un155',"2.50s","0.00s",1,100);wl.addAnimation('.un156',"2.50s","0.00s",1,100);wl.addAnimation('.un157',"2.50s","0.00s",1,100);wl.addAnimation('.un158',"2.50s","0.00s",1,100);wl.addAnimation('.un159',"2.50s","0.00s",1,100);wl.addAnimation('.un160',"1.50s","0.00s",1,100);wl.addAnimation('.un161',"2.50s","0.00s",1,100);wl.addAnimation('.un162',"2.50s","0.00s",1,100);wl.addAnimation('.un163',"2.50s","0.00s",1,100);wl.addAnimation('.un164',"2.50s","0.00s",1,100);wl.addAnimation('.un165',"2.50s","0.00s",1,100);wl.addAnimation('.un166',"1.50s","0.00s",1,100);wl.addAnimation('.un167',"2.50s","0.00s",1,100);wl.addAnimation('.un168',"2.50s","0.00s",1,100);wl.addAnimation('.un169',"2.50s","0.00s",1,100);wl.addAnimation('.un170',"2.50s","0.00s",1,100);wl.addAnimation('.un171',"2.50s","0.00s",1,100);wl.addAnimation('.un172',"2.50s","0.00s",1,100);wl.addAnimation('.un173',"2.50s","0.00s",1,100);wl.addAnimation('.un174',"2.50s","0.00s",1,100);wl.addAnimation('.un175',"2.50s","0.00s",1,100);wl.addAnimation('.un176',"2.50s","0.00s",1,100);wl.addAnimation('.un177',"2.50s","0.00s",1,100);wl.start();});</script>
+</body>
+</html>

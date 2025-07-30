@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BasicNMRDataProcessing</title>
+<meta name="referrer" content="origin-when-cross-origin">
+<link rel="canonical" href="https://pypi.org/project/metabolabpytools/basicnmrdataprocessing.html">
+<meta name="robots" content="max-image-preview:large">
+<meta name="viewport" content="width=1200">
+<style>.anim{visibility:hidden}</style>
+<link rel="preload" href="css/Roboto-Thin.woff2" as="font" crossorigin>
+<style>html,body{-webkit-text-zoom:reset !important}@font-face{font-display:block;font-family:"Roboto 1";src:url('css/Roboto-Light.woff2') format('woff2'),url('css/Roboto-Light.woff') format('woff');font-weight:300}@font-face{font-display:block;font-family:Roboto;src:url('css/Roboto-Thin.woff2') format('woff2'),url('css/Roboto-Thin.woff') format('woff');font-weight:100}@font-face{font-display:block;font-family:"Roboto 2";src:url('css/Roboto-Regular.woff2') format('woff2'),url('css/Roboto-Regular.woff') format('woff');font-weight:400}@font-face{font-display:block;font-family:"Hanken Grotesk 3";src:url('css/HankenGrotesk_wght_.woff2') format('woff2'),url('css/HankenGrotesk_wght_.woff') format('woff');font-weight:400}body>div{font-size:0}p,span,h1,h2,h3,h4,h5,h6,a,li{margin:0;word-spacing:normal;word-wrap:break-word;-ms-word-wrap:break-word;pointer-events:auto;-ms-text-size-adjust:none !important;-moz-text-size-adjust:none !important;-webkit-text-size-adjust:none !important;text-size-adjust:none !important;max-height:10000000px}sup{font-size:inherit;vertical-align:baseline;position:relative;top:-0.4em}sub{font-size:inherit;vertical-align:baseline;position:relative;top:0.4em}ul{display:block;word-spacing:normal;word-wrap:break-word;line-break:normal;list-style-type:none;padding:0;margin:0;-moz-padding-start:0;-khtml-padding-start:0;-webkit-padding-start:0;-o-padding-start:0;-padding-start:0;-webkit-margin-before:0;-webkit-margin-after:0}li{display:block;white-space:normal}[data-marker]::before{content:attr(data-marker) ' ';-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}li p{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}form{display:inline-block}a{text-decoration:inherit;color:inherit;-webkit-tap-highlight-color:rgba(0,0,0,0)}textarea{resize:none}.shm-l{float:left;clear:left}.shm-r{float:right;clear:right;shape-outside:content-box}.btf{display:none}.plyr{min-width:0 !important}html{font-family:sans-serif}body{font-size:0;margin:0;--z:1;zoom:var(--z)}audio,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0;outline:0}b,strong{font-weight:700}dfn{font-style:italic}h1,h2,h3,h4,h5,h6{font-size:1em;line-height:1;margin:0}img{border:0}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=submit]{-webkit-appearance:button;cursor:pointer;box-sizing:border-box;white-space:normal}input[type=date],input[type=email],input[type=number],input[type=password],input[type=text],textarea{-webkit-appearance:none;appearance:none;box-sizing:border-box}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}textarea{overflow:auto;box-sizing:border-box;border-color:#ddd}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}blockquote{margin-block-start:0;margin-block-end:0;margin-inline-start:0;margin-inline-end:0}:-webkit-full-screen-ancestor:not(iframe){-webkit-clip-path:initial !important}
+html{-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale}@-webkit-keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.animated{-webkit-animation-fill-mode:both;animation-fill-mode:both}.animated.infinite{-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}@-webkit-keyframes fadeInLeft{from{opacity:0;-webkit-transform:translate3d(-100%,0,0)}to{opacity:1;-webkit-transform:translate3d(0, 0, 0)}}@keyframes fadeInLeft{from{opacity:0;transform:translate3d(-100%,0,0)}to{opacity:1;transform:translate3d(0, 0, 0)}}.fadeInLeft{-webkit-animation-name:fadeInLeft;animation-name:fadeInLeft}
+#b{background-color:#191919}.v10{display:inline-block;vertical-align:top}.ps206{position:relative;margin-top:0}.s203{width:100%;min-width:1200px;height:866px}.c50{border:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;z-index:2}.z177{z-index:2;pointer-events:none}.c51{position:absolute}.s204{width:100%;height:100%;box-sizing:border-box}.fx20{background-attachment:fixed;background-color:transparent;background-repeat:no-repeat;background-position:0 50%;background-size:cover;background-image:url(images/screenshot-2023-07-22-at-14.44.11-1200.png);opacity:0.3}.webp .fx20{background-image:url(images/screenshot-2023-07-22-at-14.44.11-1200.webp);background-attachment:fixed}.ps207{position:relative;margin-top:15px}.v11{display:block}.s205{width:1200px;margin-left:auto;margin-right:auto;min-height:456px}.ps208{position:relative;margin-left:0;margin-top:0}.s206{min-width:1180px;width:1180px;min-height:162px}.s207{min-width:348px;width:348px;min-height:147px;height:147px}.z178{z-index:5;pointer-events:auto}.i41{position:absolute;left:27px;width:294px;height:147px;top:0;border:0}.ps209{position:relative;margin-left:496px;margin-top:0}.s208{min-width:336px;width:336px;min-height:162px;line-height:0}.ps210{position:relative;margin-left:102px;margin-top:0}.s209{min-width:234px;width:234px;overflow:hidden;height:42px}.z179{z-index:6;pointer-events:auto}.p15{text-indent:0;padding-bottom:0;padding-right:0;text-align:right}.f32{font-family:"Roboto 1";font-size:24px;font-size:calc(24px * var(--f));line-height:1.626;font-weight:300;font-style:normal;text-decoration:underline;text-transform:none;letter-spacing:normal;color:#268bd2;background-color:initial;text-shadow:none}.s210{min-width:336px;width:336px;overflow:hidden;height:40px}.z180{z-index:7;pointer-events:auto}.z181{z-index:10;pointer-events:auto}.z182{z-index:40;pointer-events:auto}.ps211{position:relative;margin-left:844px;margin-top:0}.z183{z-index:41;pointer-events:auto}.ps212{position:relative;margin-left:68px;margin-top:39px}.s211{min-width:895px;width:895px;min-height:215px}.s212{min-width:895px;width:895px;min-height:215px;line-height:0}.s213{min-width:641px;width:641px;overflow:hidden;height:181px}.z184{z-index:8;pointer-events:auto}.p16{text-indent:0;padding-bottom:0;padding-right:0;text-align:left}.f33{font-family:Roboto;font-size:103px;font-size:calc(103px * var(--f));line-height:1.642;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps213{position:relative;margin-left:0;margin-top:-49px}.s214{min-width:895px;width:895px;overflow:hidden;height:83px}.z185{z-index:9;pointer-events:auto}.f34{font-family:Roboto;font-size:48px;font-size:calc(48px * var(--f));line-height:1.626;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps214{position:relative;margin-left:0;margin-top:-471px}.s215{min-width:1200px;width:1200px;min-height:1px}@media (min-width:1200px) and (-webkit-min-device-pixel-ratio:1.7), (min-width:1200px) and (min-resolution:144dpi) {.fx20{background-image:url(images/screenshot-2023-07-22-at-14.44.11-2400.png);background-attachment:fixed}.webp .fx20{background-image:url(images/screenshot-2023-07-22-at-14.44.11-2400.webp);background-attachment:fixed}}@media (min-width:1200px) {.fx20{background-attachment:fixed;background-image:url(images/screenshot-2023-07-22-at-14.44.11-1600.png)}.webp .fx20{background-image:url(images/screenshot-2023-07-22-at-14.44.11-1600.webp);background-attachment:fixed}}@media (min-width:1600px) {.fx20{background-attachment:fixed;background-image:url(images/screenshot-2023-07-22-at-14.44.11-2000.png)}.webp .fx20{background-image:url(images/screenshot-2023-07-22-at-14.44.11-2000.webp);background-attachment:fixed}}@media (min-width:2000px) {.fx20{background-attachment:fixed;background-image:url(images/screenshot-2023-07-22-at-14.44.11-2560.png)}.webp .fx20{background-image:url(images/screenshot-2023-07-22-at-14.44.11-2560.webp);background-attachment:fixed}}</style>
+<script>!function(){var A=new Image;A.onload=A.onerror=function(){1!=A.height&&document.body.classList.remove("webp")},A.src="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAD8D+JaQAA3AA/ua1AAA"}();
+</script>
+<link onload="this.media='all';this.onload=null;" rel="stylesheet" href="css/site.8b81ba.css" media="print">
+<noscript><link rel="stylesheet" href="css/site.8b81ba.css" type="text/css"></noscript>
+</head>
+<body class="webp" id="b">
+<script>!function(){var e=document.createElement("P");e.innerHTML="&nbsp;",e.style.cssText="position:fixed;visible:hidden;font-size:100px;zoom:1",document.body.appendChild(e);var t=function(e){return function(){var t=Math.trunc(1e4/parseFloat(window.getComputedStyle(e).getPropertyValue("font-size")))/100,n=document.body;t!=n.style.getPropertyValue("--f")&&n.style.setProperty("--f",t)}}(e);if("ResizeObserver"in window)new ResizeObserver(t).observe(e);else if("requestAnimationFrame"in window){var n=function(){t(),requestAnimationFrame(n)};requestAnimationFrame(n)}else setInterval(t,100)}()</script>
+
+<div data-ffbk class="fbk v10 ps206 s203 c50 z177 fx20" data-fbk="fx20">
+<div class="c51 s204">
+</div>
+<div class="ps207 v11 s205">
+<div class="v10 ps208 s206">
+<div class="anim fadeIn un60 v10 ps208 s207 c52 z178">
+<picture>
+<source srcset="images/metabolabpy_dark_transparency-294.webp 1x, images/metabolabpy_dark_transparency-588.webp 2x" type="image/webp">
+<source srcset="images/metabolabpy_dark_transparency-294.png 1x, images/metabolabpy_dark_transparency-588.png 2x">
+<img src="images/metabolabpy_dark_transparency-588.png" class="i41">
+</picture>
+</div>
+<div class="v10 ps209 s208">
+<div class="anim fadeIn un61 v10 ps210 s209 c52 z179">
+<p class="p15"><a href="./#top" class="f32">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un62 v10 ps208 s210 c52 z180">
+<p class="p15"><a href="./#documentation" class="f32">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un63 v10 ps208 s210 c52 z181">
+<p class="p15"><a onclick="return window.smoothScroll(event, '[name=\'processing1\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#processing1" class="f32">Introduction</a></p>
+</div>
+<div class="anim fadeIn un64 v10 ps208 s210 c52 z182">
+<p class="p15"><a onclick="return window.smoothScroll(event, '[name=\'phasecorrection\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#phasecorrection" class="f32">Phase Correction</a></p>
+</div>
+</div>
+</div>
+<div class="anim fadeIn un65 v10 ps211 s210 c52 z183">
+<p class="p15"><a onclick="return window.smoothScroll(event, '[name=\'preprocessing\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#preprocessing" class="f32">Data pre-Processing&nbsp;</a></p>
+</div>
+<div class="v10 ps212 s211">
+<div class="v10 ps208 s212">
+<div class="anim fadeInLeft un66 v10 ps208 s213 c52 z184">
+<p class="p16 f33">MetaboLabPy</p>
+</div>
+<div class="anim fadeInLeft un67 v10 ps213 s214 c52 z185">
+<p class="p16 f34">Basic 1D-NMR Data Processing</p>
+</div>
+</div>
+</div>
+</div>
+<a name="top" class="v11 ps214 s215"></a>
+<a name="processing1" class="v2 ps173 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps1 s162 c44 z74 fx17" data-fbk="fx17">
+<div class="c45 s2">
+</div>
+<div class="ps174 v2 s163">
+<div class="v1 ps175 s164">
+<div class="v1 ps176 s5 c3 z166"></div>
+<div class="anim slideInDown un68 v1 ps177 s6 c4 z167">
+<p class="p1 f1">Introduction</p>
+</div>
+<div class="v1 ps178 s165 c4 z168">
+<p class="p2 f2">To demonstrate basic 1D NMR data processing in MetaboLabPy, we are using two&nbsp;&nbsp;metabolite standard NMR datasets available at the BMRB NMR database (<a href="https://bmrb.io/metabolomics/" class="f3">https://bmrb.io/metabolomics/</a>). The metabolites we are going to use for this demonstration are <a href="https://bmrb.io/metabolomics/mol_summary/zip_entry_directory.php?experiment=2&id=bmse000208" class="f3">L-Lactate</a> and <a href="https://bmrb.io/metabolomics/mol_summary/zip_entry_directory.php?experiment=2&id=bmse000037" class="f3">L-Glutamate</a>.</p>
+<p class="p2 f2">We load the NMR data into MetaboLabPy by clicking on &ldquo;Open NMR Spectrum&rdquo; in the file menu or by using the keyboard shortcut Ctrl + O in windows or <span class="f2">&#x2318;</span><span class="f2"> +</span><span class="f2"> O in macOS to load in the data for L-Lactate and then repeat the same procedure to read in the data for L-Glutamate. In order to plot each spectrum in a different colour, we select the Display Parameters tab and select a colour for each of the spectra.&nbsp;</span></p>
+<p class="p2 f2">There are a few steps as part of every basic NMR data processing protocol. This includes the following steps:</p>
+<p class="p2 f2"><br></p>
+<ul class="ps38">
+<li data-marker="1." class="p6 f2"><span class="f2">Define the apodisation function with associated parameters. For 1D-NMR metabolomics data processing this is usually an exponential line-broadening of 0.3 Hz.</span></li>
+<li data-marker="2." class="p6 f2"><span class="f2">Select the post-acquisition water suppression if necessary.</span></li>
+<li data-marker="3." class="p6 f2"><span class="f2">Select the amount of zero-filling. In the example figure below we are using 131072 data points, the experimental data have a length of 32768 data points.</span></li>
+<li data-marker="4." class="p6 f2"><span class="f2">Fourier Transform the NMR spectrum.</span></li>
+<li data-marker="5." class="p6 f2"><span class="f2">Phase correction of the NMR spectrum. These NMR spectra were already phase corrected and had the TopSpin phase value stored inside the raw NMR dataset. MetaboLabPy reads in and uses these phase values, which is why these spectra are well phase corrected. To exercise interactive phase correction, we change the indicated values for ph0 and ph1 to be zero prior to Fourier Transform as indicated in the figure below.</span></li>
+<li data-marker="6." class="p6 f2"><span class="f2">Finally, we need to check whether the spectra are referenced. The samples used to acquire these spectra did contain TMSP, which resonated at 0 ppm. If the singlet resonance close to 0 ppm is not sitting at precisely 0 ppm, we enter autoref() into the MetaboLabPy command line to perform an automatic spectrum reference.</span></li>
+</ul>
+</div>
+<div class="v1 ps179 s166">
+<div class="anim fadeIn un69 v1 ps180 s167 c4 z4">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un70 v1 ps34 s168 c4 z6">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un71 v1 ps34 s168 c4 z22">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Basic 1D-NMR Data Processing</a></p>
+</div>
+<div class="anim fadeIn un72 v1 ps34 s168 c4 z33">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'phasecorrection\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#phasecorrection" class="f5">Phase Correction</a></p>
+</div>
+<div class="anim fadeIn un73 v1 ps34 s168 c4 z60">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'preprocessing\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#preprocessing" class="f5">Data pre-Processing&nbsp;</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps181 s169 c4 z9">
+<picture>
+<source srcset="images/screenshot-2023-07-22-at-18.16.12-980.webp 1x, images/screenshot-2023-07-22-at-18.16.12-1960.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-22-at-18.16.12-980.png 1x, images/screenshot-2023-07-22-at-18.16.12-1960.png 2x">
+<img src="images/screenshot-2023-07-22-at-18.16.12-1960.png" loading="lazy" class="i31">
+</picture>
+</div>
+</div>
+<a name="phasecorrection" class="v2 ps182 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps60 s170 c46 z7 fx18" data-fbk="fx18">
+<div class="c47 s2">
+</div>
+<div class="ps183 v2 s171">
+<div class="v1 ps175 s172">
+<div class="v1 ps4 s5 c3 z169"></div>
+<div class="anim slideInDown un74 v1 ps5 s173 c4 z67">
+<p class="p1 f1">Phase Correction</p>
+</div>
+<div class="v1 ps184 s174 c4 z36">
+<p class="p2 f2">To enter into the interactive phase correction mode, we click on Phase/Baseline Correction and then on Interactive Phase Correction in the Data menu. Alternatively, we can also use the keyboard shortcut Alt + p (<span class="f2">&#x2325;</span> + p). However, before we enter into interactive phase correction mode, we select the first NMR spectrum as phaseReference experiment in the Display Parameters tab of the first NMR spectrum.</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">When the interactive phase correction mode is active, the status line on the bottom of the main window changes and indicates mouse actions to perform an interactive phase correction on the current spectrum. In addition to the spectrum, a red line appears, which indicates the position of the pivot, i.e. the position in the NMR spectrum at which first order phase correction has no effect. Please also note that in order to zoom in and out of the spectrum, we need to click on zoom to switch into zoom mode. Once we adjusted the view, we need to exit zoom mode to return to the phase correction mode.</p>
+</div>
+<div class="v1 ps185 s175 c4 z43">
+<picture>
+<source srcset="images/screenshot-2023-07-22-at-18.37.53-767.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-22-at-18.37.53-767.png 1x">
+<img src="images/screenshot-2023-07-22-at-18.37.53-767.png" loading="lazy" class="i32">
+</picture>
+</div>
+<div class="v1 ps186 s166">
+<div class="anim fadeIn un75 v1 ps180 s167 c4 z11">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un76 v1 ps34 s168 c4 z12">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un77 v1 ps34 s168 c4 z10">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Basic 1D-NMR Data Processing</a></p>
+</div>
+<div class="anim fadeIn un78 v1 ps34 s168 c4 z35">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'processing1\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#processing1" class="f5">Introduction</a></p>
+</div>
+<div class="anim fadeIn un79 v1 ps34 s168 c4 z45">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'preprocessing\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#preprocessing" class="f5">Data pre-Processing&nbsp;</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps187 s176 c4 z170">
+<picture>
+<source srcset="images/screenshot-2023-07-22-at-18.33.10-984.webp 1x, images/screenshot-2023-07-22-at-18.33.10-1968.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-22-at-18.33.10-984.png 1x, images/screenshot-2023-07-22-at-18.33.10-1968.png 2x">
+<img src="images/screenshot-2023-07-22-at-18.33.10-1968.png" loading="lazy" class="i33">
+</picture>
+</div>
+<div class="v1 ps188 s177 c4 z41">
+<p class="p2 f2">To enter into the interactive phase correction mode, we click on Phase/Baseline Correction and then on Interactive Phase Correction in the Data menu. Alternatively, we can also use the keyboard shortcut Alt + p (<span class="f2">&#x2325;</span><span class="f2"> + p). When the interactive phase correction mode is active, the status line on the bottom of the main window changes and indicates mouse actions to perform an interactive phase correction on the current spectrum. In addition to the spectrum, a red line appears, which indicates the position of the pivot, i.e. the position in the NMR spectrum at which first order phase correction has no effect. Please also note that in order to zoom in and out of the spectrum, we need to click on zoom to switch into zoom mode. Once we adjusted the view, we need to exit zoom mode to return to the phase correction mode.</span></p>
+<p class="p2 f2">Once the first NMR spectrum is sufficiently phase corrected, we can change to the next NMR spectrum but either clicking the up-arrow in the Exp counter, enter the number 2 into the text field followed by pressing enter, or&nbsp;&nbsp;by using the keyboard shortcut Alt + cursor key up (<span class="f2">&#x2325;</span> + <span class="f31"><x-svg class="s178"><svg style='fill:currentColor' height='100%' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512' role='graphics-object'><title>Arrow Up</title><path d='M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z'/></svg></x-svg></span>). The next spectrum will be displayed together with the previously selected phase reference spectrum, although phase correction will only be executed for the current NMR experiment. This allows for a consistent phase correction across series of NMR spectra.</p>
+<p class="p2 f2">Once the last spectrum has been phase corrected, interactive phase correction mode can be left by clicking on Exit or through the keyboard shortcut Alt + p (<span class="f2">&#x2325;</span> + p).</p>
+</div>
+<div class="v1 ps189 s179 c4 z42">
+<picture>
+<source srcset="images/screenshot-2023-07-22-at-18.39.05-981.webp 1x, images/screenshot-2023-07-22-at-18.39.05-1962.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-22-at-18.39.05-981.png 1x, images/screenshot-2023-07-22-at-18.39.05-1962.png 2x">
+<img src="images/screenshot-2023-07-22-at-18.39.05-1962.png" loading="lazy" class="i34">
+</picture>
+</div>
+<div class="v1 ps190 s180 c4 z76">
+<p class="p2 f2">A video showing another interactive demonstration of basic 1D NMR data processing in MetaboLabPy can be found below:</p>
+</div>
+<div class="v1 ps191 s181 c4 z80">
+<div class="vd2">
+<div id="pl2" class="iwr1">
+</div>
+</div>
+</div>
+<div class="v1 ps192 s182 c4 z44">
+<p class="p2 f2">After the NMR spectra have been phase corrected, automated baseline correction can be used to correct the spectral baseline. MetaboLabPy uses the pybaselines package, documentation can be found here:&nbsp;</p>
+<p class="p2"><a href="https://pybaselines.readthedocs.io" class="f3">https://pybaselines.readthedocs.io</a></p>
+</div>
+</div>
+<a name="preprocessing" class="v2 ps193 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps60 s183 c48 z100 fx19" data-fbk="fx19">
+<div class="c49 s2">
+</div>
+<div class="ps70 v2 s184">
+<div class="v1 ps175 s185">
+<div class="v1 ps34 s186">
+<div class="v1 ps34 s187">
+<div class="v1 ps4 s5 c3 z78"></div>
+<div class="v1 ps5 s188">
+<div class="anim slideInDown un80 v1 ps34 s189 c4 z79">
+<p class="p1 f1">Data Pre-Processing</p>
+</div>
+<div class="v1 ps194 s190 c4 z171">
+<p class="p2 f2">In order to prepare a set of 1D NMR spectra for statistical data analysis, several steps have to be performed. MetaboLabPy provides GUI elements to facilitate this process, which is also known as data pre-processing. The data pre-processing GUI is made available by clicking on the &ldquo;Data Pre-Processing&rdquo; checkbox. Data to follow this tutorial can be downloaded <a href="https://tinyurl.com/nmrDataPreProcessing" class="f3">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="v1 ps108 s191 c4 z84">
+<picture>
+<source srcset="images/screenshot-2023-07-22-at-22.23.11-833.webp 1x, images/screenshot-2023-07-22-at-22.23.11-1666.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-22-at-22.23.11-833.png 1x, images/screenshot-2023-07-22-at-22.23.11-1666.png 2x">
+<img src="images/screenshot-2023-07-22-at-22.23.11-1666.png" loading="lazy" class="i35">
+</picture>
+</div>
+</div>
+<div class="v1 ps195 s166">
+<div class="anim fadeIn un81 v1 ps180 s167 c4 z52">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un82 v1 ps34 s168 c4 z49">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un83 v1 ps34 s168 c4 z51">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Basic 1D-NMR Data Processing</a></p>
+</div>
+<div class="anim fadeIn un84 v1 ps34 s168 c4 z172">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'processing1\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processing1" class="f5">Introduction</a></p>
+</div>
+<div class="anim fadeIn un85 v1 ps34 s168 c4 z173">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'phasecorrection\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#phasecorrection" class="f5">Phase Correction</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps196 s192 c4 z87">
+<p class="p2 f2">In the following paragraphs we will systematically go through all different steps of NMR data pre-processing in the order they are performed during data pre-processing.</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">Normally 1D NMR spectra for metabolomics studies are acquired with a few ppm worthwhile of empty spectrum at the edges of the NMR spectrum. This is done deliberately to achieve a flat baseline in all peak-containing regions of the spectrum. Because those areas of the NMR spectra do not contain any signals and only noise, this spectral noise can negatively impact statistical data analysis. Therefore, these regions are excluded from analysis. Because most metabolomics samples are in aqueous environments, the middle of the spectrum is usually centred on the water signal. This signal is suppressed. However, there will still be a residual water signal left and therefore this spectral region is excluded from the analysis as well. Finally, we need to exclude the TMSP signal, because we are only interested in differences of endogenous metabolites. Because the TMSP signal is usually the rightmost signal in these NMR spectra, the exclusion area on the right-hand side of the spectrum is usually extended to include the TMSP signal.</p>
+</div>
+<div class="v1 ps175 s193 c4 z174">
+<picture>
+<source srcset="images/screenshot-2023-07-22-at-22.28.36-831.webp 1x, images/screenshot-2023-07-22-at-22.28.36-1662.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-22-at-22.28.36-831.png 1x, images/screenshot-2023-07-22-at-22.28.36-1662.png 2x">
+<img src="images/screenshot-2023-07-22-at-22.28.36-1662.png" loading="lazy" class="i36">
+</picture>
+</div>
+<div class="v1 ps197 s194 c4 z88">
+<p class="p2 f2">Because different samples may have small differences in their pH values, we may find some areas in the NMR spectra where NMR peaks move from sample to sample. To facilitate statistical analysis, we can align those areas independent of the rest of the NMR spectra through segmental alignment.&nbsp;</p>
+</div>
+<div class="v1 ps34 s195">
+<div class="v1 ps34 s196 c4 z97">
+<picture>
+<source srcset="images/screenshot-2023-07-22-at-22.31.38-349.webp 1x, images/screenshot-2023-07-22-at-22.31.38-698.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-22-at-22.31.38-349.png 1x, images/screenshot-2023-07-22-at-22.31.38-698.png 2x">
+<img src="images/screenshot-2023-07-22-at-22.31.38-698.png" loading="lazy" class="i37">
+</picture>
+</div>
+<div class="v1 ps198 s193 c4 z92">
+<picture>
+<source srcset="images/screenshot-2023-07-22-at-22.31.10-831.webp 1x, images/screenshot-2023-07-22-at-22.31.10-1662.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-22-at-22.31.10-831.png 1x, images/screenshot-2023-07-22-at-22.31.10-1662.png 2x">
+<img src="images/screenshot-2023-07-22-at-22.31.10-1662.png" loading="lazy" class="i38">
+</picture>
+</div>
+</div>
+<div class="v1 ps199 s197 c4 z95">
+<p class="p2 f2">Furthermore, any area in the NMR spectra below a certain noise threshold can be removed from the data matrix to minimise noise. NMR spectra are then bucketed so that each individual data point represents a width of 0.005 ppm. After that, especially for urine and blood samples, it is important to scale the different NMR spectra to minimise effects from different sample dilutions. This is usually achieved using probabilistic quotient normalisation.&nbsp;</p>
+</div>
+<div class="v1 ps200 s198">
+<div class="v1 ps34 s199 c4 z102">
+<picture>
+<source srcset="images/screenshot-2023-07-22-at-22.34.14-600.webp 1x, images/screenshot-2023-07-22-at-22.34.14-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-22-at-22.34.14-600.png 1x, images/screenshot-2023-07-22-at-22.34.14-1200.png 2x">
+<img src="images/screenshot-2023-07-22-at-22.34.14-1200.png" loading="lazy" class="i39">
+</picture>
+</div>
+<div class="v1 ps201 s200 c4 z105">
+<picture>
+<source srcset="images/screenshot-2023-07-22-at-22.36.09-599.webp 1x, images/screenshot-2023-07-22-at-22.36.09-1198.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-22-at-22.36.09-599.png 1x, images/screenshot-2023-07-22-at-22.36.09-1198.png 2x">
+<img src="images/screenshot-2023-07-22-at-22.36.09-1198.png" loading="lazy" class="i40">
+</picture>
+</div>
+</div>
+<div class="v1 ps202 s201 c4 z175">
+<p class="p2 f2">The final step of data pre-processing, before export to a useful data format, is then variance stabilisation, which is usually achieved using Pareto scaling of the data. The exact data format for export depends which platform should then be used for statistical data analysis. The Phenome Centre Birmingham (PCB) uses an Excel spreadsheet format, which e.g. MetaboAnalyst uses a csv-based format. Please have a look at the video to see a practical demonstration of all these steps.</p>
+</div>
+<div class="v1 ps203 s202 c4 z176">
+<div class="vd3">
+<div id="pl3" class="iwr1">
+</div>
+</div>
+</div>
+<div class="anim fadeIn un86 v1 ps204 s167 c4 z122">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un87 v1 ps205 s168 c4 z119">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un88 v1 ps205 s168 c4 z106">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Basic 1D-NMR Data Processing</a></p>
+</div>
+<div class="anim fadeIn un89 v1 ps205 s168 c4 z124">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'processing1\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#processing1" class="f5">Introduction</a></p>
+</div>
+<div class="anim fadeIn un90 v1 ps205 s168 c4 z123">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'phasecorrection\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#phasecorrection" class="f5">Phase Correction</a></p>
+</div>
+<div class="anim fadeIn un91 v1 ps205 s168 c4 z31">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'preprocessing\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#preprocessing" class="f5">Data pre-Processing&nbsp;</a></p>
+</div>
+</div>
+</div>
+<div class="btf c8">
+</div>
+<script>var notifyyt,notifyqueue;function onYouTubeIframeAPIReady(){notifyyt(),window.loadyt=function(e){e()}}window.loadyt=function(e){var t=document.createElement("script");t.src="https://www.youtube.com/player_api";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n),notifyqueue||(notifyqueue=[],notifyyt=function(){var e;for(e=0;e<notifyqueue.length;++e){(0,notifyqueue[e])()}}),notifyqueue.push(e)};window.plstp||(window.plstp=[]),plst=function(p,w){for(var n in window.plstp)window.plstp[n]();window.plstp=[],void 0!==p&&(window.plstp[p]=w)},plrm=function(w){delete window.plstp[w]};!function(){if("Promise"in window&&void 0!==window.performance){var e,t,r=document,n=function(){return r.createElement("link")},o=new Set,a=n(),i=a.relList&&a.relList.supports&&a.relList.supports("prefetch"),s=location.href.replace(/#[^#]+$/,"");o.add(s);var c=function(e){var t=location,r="http:",n="https:";if(e&&e.href&&e.origin==t.origin&&[r,n].includes(e.protocol)&&(e.protocol!=r||t.protocol!=n)){var o=e.pathname;if(!(e.hash&&o+e.search==t.pathname+t.search||"?preload=no"==e.search.substr(-11)||".html"!=o.substr(-5)&&".html"!=o.substr(-5)&&"/"!=o.substr(-1)))return!0}},u=function(e){var t=e.replace(/#[^#]+$/,"");if(!o.has(t)){if(i){var a=n();a.rel="prefetch",a.href=t,r.head.appendChild(a)}else{var s=new XMLHttpRequest;s.open("GET",t,s.withCredentials=!0),s.send()}o.add(t)}},p=function(e){return e.target.closest("a")},f=function(t){var r=t.relatedTarget;r&&p(t)==r.closest("a")||e&&(clearTimeout(e),e=void 0)},d={capture:!0,passive:!0};r.addEventListener("touchstart",function(e){t=performance.now();var r=p(e);c(r)&&u(r.href)},d),r.addEventListener("mouseover",function(r){if(!(performance.now()-t<1200)){var n=p(r);c(n)&&(n.addEventListener("mouseout",f,{passive:!0}),e=setTimeout(function(){u(n.href),e=void 0},80))}},d)}}();dpth="/";!function(){var e={},t={},n={};window.ld=function(a,r,o){var c=function(){"interactive"==document.readyState?(r&&r(),document.addEventListener("readystatechange",function(){"complete"==document.readyState&&o&&o()})):"complete"==document.readyState?(r&&r(),o&&o()):document.addEventListener("readystatechange",function(){"interactive"==document.readyState&&r&&r(),"complete"==document.readyState&&o&&o()})},d=(1<<a.length)-1,u=0,i=function(r){var o=a[r],i=function(){for(var t=0;t<a.length;t++){var r=(1<<t)-1;if((u&r)==r&&n[a[t]]){if(!e[a[t]]){var o=document.createElement("script");o.textContent=n[a[t]],document.body.appendChild(o),e[a[t]]=!0}if((u|=1<<t)==d)return c(),0}}return 1};if(null==t[o]){t[o]=[];var f=new XMLHttpRequest;f.open("GET",o,!0),f.onload=function(){n[o]=f.responseText,[].forEach.call(t[o],function(e){e()})},t[o].push(i),f.send()}else{if(e[o])return i();t[o].push(i)}return 1};if(a.length)for(var f=0;f<a.length&&i(f);f++);else c()}}();ld(["js/fixed.e4c4f9.js"]);ld([],function(){!function(){var e=document.querySelectorAll('a[href^="#"]');[].forEach.call(e,function(e){var t=navigator.userAgent,a=/chrome/i.test(t),o=/firefox/i.test(t),n=/iPad|iPhone|iPod/.test(t)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1;e.addEventListener("click",function(t){var r=!1,i=document.body.parentNode;n&&"none"!=getComputedStyle(i).getPropertyValue("scroll-snap-type")&&(i.setAttribute("data-snap",i.style.scrollSnapType),i.style.scrollSnapType="none",r=!0);var s=0;if(e.hash.length>1){var u=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!o&&u||(u=1);var l=e.hash.slice(1),c=document.getElementById(l);if(null===c&&null===(c=document.querySelector('[name="'+l+'"]')))return;s=a?c.getBoundingClientRect().top*u+pageYOffset:(c.getBoundingClientRect().top+pageYOffset)*u}else if(r)for(var m=document.querySelectorAll("[data-block-group]"),p=0;p<m.length;p++)if("none"!=getComputedStyle(m[p]).getPropertyValue("scroll-snap-align")){c=m[p];break}if(r)window.smoothScroll(t,c,1);else if("scrollBehavior"in document.documentElement.style)scroll({top:s,left:0,behavior:"smooth"});else if("requestAnimationFrame"in window){var d=pageYOffset,f=null;requestAnimationFrame(function e(t){f||(f=t);var a=(t-f)/400;scrollTo(0,d<s?(s-d)*a+d:d-(d-s)*a),a<1?requestAnimationFrame(e):scrollTo(0,s)})}else scrollTo(0,s);t.preventDefault()},!1)})}(),window.smoothScroll=function(e,t,a,o){e.stopImmediatePropagation();var n,r=pageYOffset;t?(("string"==typeof t||t instanceof String)&&(t=document.querySelector(t)),n=t.getBoundingClientRect().top):n=-r;var i=navigator.userAgent,s=/chrome/i.test(i),u=/firefox/i.test(i),l=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!u&&l||(l=1);var c=n*l+(s?0:r*(l-1)),m=null;function p(){d(window.performance.now?window.performance.now():Date.now())}function d(e){null===m&&(m=e);var n=(e-m)/1e3,i=function(e,t,a){switch(o){case"linear":break;case"easeInQuad":e*=e;break;case"easeOutQuad":e=1-(1-e)*(1-e);break;case"easeInCubic":e*=e*e;break;case"easeOutCubic":e=1-Math.pow(1-e,3);break;case"easeInOutCubic":e=e<.5?4*e*e*e:1-Math.pow(-2*e+2,3)/2;break;case"easeInQuart":e*=e*e*e;break;case"easeOutQuart":e=1-Math.pow(1-e,4);break;case"easeInOutQuart":e=e<.5?8*e*e*e*e:1-Math.pow(-2*e+2,4)/2;break;case"easeInQuint":e*=e*e*e*e;break;case"easeOutQuint":e=1-Math.pow(1-e,5);break;case"easeInOutQuint":e=e<.5?16*e*e*e*e*e:1-Math.pow(-2*e+2,5)/2;break;case"easeInCirc":e=1-Math.sqrt(1-Math.pow(e,2));break;case"easeOutCirc":e=Math.sqrt(1-Math.pow(0,2));break;case"easeInOutCirc":e=e<.5?(1-Math.sqrt(1-Math.pow(2*e,2)))/2:(Math.sqrt(1-Math.pow(-2*e+2,2))+1)/2;break;case"easeInOutQuad":default:e=e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2}e>1&&(e=1);return t+a*e}(n/a,r,c);window.scrollTo(0,i),n<a?"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120):(/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1)&&(t&&t.scrollIntoView(),setTimeout(function(){var e=document.body.parentNode;e.style.scrollSnapType=e.getAttribute("data-snap"),e.removeAttribute("data-snap")},100))}return"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120),!1};!function(){var e=null;if(location.hash){var t=location.hash.replace("#",""),n=function(){var o=document.getElementById(t);null===o&&(o=document.querySelector('[name="'+t+'"]')),o&&o.scrollIntoView(!0),"0px"===window.getComputedStyle(document.body).getPropertyValue("min-width")?setTimeout(n,100):null!=e&&setTimeout(e,100)};n()}else null!=e&&e()}();},function(){window.loadyt(function(){var f=0;uq=new YT.Player('pl2',{host:'https://www.youtube-nocookie.com',videoId: 'uUNRintjUIo',playerVars:{'playsinline':1,'rel':0},events:{onStateChange:function(e){if(1===e.data&&!f){f=1;plst('pl2',function(){e.target.pauseVideo()})};if(2===e.data){f=0;plrm('pl2')}if(0===e.data){f=0;plrm('pl2')}}}});});window.loadyt(function(){var f=0;uq2=new YT.Player('pl3',{host:'https://www.youtube-nocookie.com',videoId: 'AeEoq0bwLJg',playerVars:{'playsinline':1,'rel':0},events:{onStateChange:function(e){if(1===e.data&&!f){f=1;plst('pl3',function(){e.target.pauseVideo()})};if(2===e.data){f=0;plrm('pl3')}if(0===e.data){f=0;plrm('pl3')}}}});});});ld(["js/woolite.e4c4f9.js"],function(){wl.addAnimation('.un60',"3.00s","0.00s",1,100);wl.addAnimation('.un61',"2.50s","0.00s",1,100);wl.addAnimation('.un62',"2.50s","0.00s",1,100);wl.addAnimation('.un63',"2.50s","0.00s",1,100);wl.addAnimation('.un64',"2.50s","0.00s",1,100);wl.addAnimation('.un65',"2.50s","0.00s",1,100);wl.addAnimation('.un66',"2.50s","0.00s",1,0);wl.addAnimation('.un67',"2.50s","0.00s",1,0);wl.addAnimation('.un68',"1.50s","0.00s",1,100);wl.addAnimation('.un69',"2.50s","0.00s",1,100);wl.addAnimation('.un70',"2.50s","0.00s",1,100);wl.addAnimation('.un71',"2.50s","0.00s",1,100);wl.addAnimation('.un72',"2.50s","0.00s",1,100);wl.addAnimation('.un73',"2.50s","0.00s",1,100);wl.addAnimation('.un74',"1.50s","0.00s",1,100);wl.addAnimation('.un75',"2.50s","0.00s",1,100);wl.addAnimation('.un76',"2.50s","0.00s",1,100);wl.addAnimation('.un77',"2.50s","0.00s",1,100);wl.addAnimation('.un78',"2.50s","0.00s",1,100);wl.addAnimation('.un79',"2.50s","0.00s",1,100);wl.addAnimation('.un80',"1.50s","0.00s",1,100);wl.addAnimation('.un81',"2.50s","0.00s",1,100);wl.addAnimation('.un82',"2.50s","0.00s",1,100);wl.addAnimation('.un83',"2.50s","0.00s",1,100);wl.addAnimation('.un84',"2.50s","0.00s",1,100);wl.addAnimation('.un85',"2.50s","0.00s",1,100);wl.addAnimation('.un86',"2.50s","0.00s",1,100);wl.addAnimation('.un87',"2.50s","0.00s",1,100);wl.addAnimation('.un88',"2.50s","0.00s",1,100);wl.addAnimation('.un89',"2.50s","0.00s",1,100);wl.addAnimation('.un90',"2.50s","0.00s",1,100);wl.addAnimation('.un91',"2.50s","0.00s",1,100);wl.start();});</script>
+</body>
+</html>

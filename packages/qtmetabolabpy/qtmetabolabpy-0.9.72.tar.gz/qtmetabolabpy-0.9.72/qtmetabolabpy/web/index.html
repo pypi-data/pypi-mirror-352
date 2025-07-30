@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MetaboLabPy</title>
+<meta name="referrer" content="same-origin">
+<link rel="canonical" href="https://pypi.org/project/metabolabpytools">
+<meta name="robots" content="max-image-preview:large">
+<meta name="viewport" content="width=1200">
+<style>.anim{visibility:hidden}</style>
+<link rel="preload" href="css/Roboto-Thin.woff2" as="font" crossorigin>
+<style>html,body{-webkit-text-zoom:reset !important}@font-face{font-display:block;font-family:"Roboto 1";src:url('css/Roboto-Light.woff2') format('woff2'),url('css/Roboto-Light.woff') format('woff');font-weight:300}@font-face{font-display:block;font-family:Roboto;src:url('css/Roboto-Thin.woff2') format('woff2'),url('css/Roboto-Thin.woff') format('woff');font-weight:100}@font-face{font-display:block;font-family:"Roboto 2";src:url('css/Roboto-Regular.woff2') format('woff2'),url('css/Roboto-Regular.woff') format('woff');font-weight:400}body>div{font-size:0}p,span,h1,h2,h3,h4,h5,h6,a,li{margin:0;word-spacing:normal;word-wrap:break-word;-ms-word-wrap:break-word;pointer-events:auto;-ms-text-size-adjust:none !important;-moz-text-size-adjust:none !important;-webkit-text-size-adjust:none !important;text-size-adjust:none !important;max-height:10000000px}sup{font-size:inherit;vertical-align:baseline;position:relative;top:-0.4em}sub{font-size:inherit;vertical-align:baseline;position:relative;top:0.4em}ul{display:block;word-spacing:normal;word-wrap:break-word;line-break:normal;list-style-type:none;padding:0;margin:0;-moz-padding-start:0;-khtml-padding-start:0;-webkit-padding-start:0;-o-padding-start:0;-padding-start:0;-webkit-margin-before:0;-webkit-margin-after:0}li{display:block;white-space:normal}[data-marker]::before{content:attr(data-marker) ' ';-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}li p{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}form{display:inline-block}a{text-decoration:inherit;color:inherit;-webkit-tap-highlight-color:rgba(0,0,0,0)}textarea{resize:none}.shm-l{float:left;clear:left}.shm-r{float:right;clear:right;shape-outside:content-box}.btf{display:none}.plyr{min-width:0 !important}html{font-family:sans-serif}body{font-size:0;margin:0;--z:1;zoom:var(--z)}audio,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0;outline:0}b,strong{font-weight:700}dfn{font-style:italic}h1,h2,h3,h4,h5,h6{font-size:1em;line-height:1;margin:0}img{border:0}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=submit]{-webkit-appearance:button;cursor:pointer;box-sizing:border-box;white-space:normal}input[type=date],input[type=email],input[type=number],input[type=password],input[type=text],textarea{-webkit-appearance:none;appearance:none;box-sizing:border-box}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}textarea{overflow:auto;box-sizing:border-box;border-color:#ddd}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}blockquote{margin-block-start:0;margin-block-end:0;margin-inline-start:0;margin-inline-end:0}:-webkit-full-screen-ancestor:not(iframe){-webkit-clip-path:initial !important}
+html{-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale}@-webkit-keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.animated{-webkit-animation-fill-mode:both;animation-fill-mode:both}.animated.infinite{-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}@-webkit-keyframes fadeInLeft{from{opacity:0;-webkit-transform:translate3d(-100%,0,0)}to{opacity:1;-webkit-transform:translate3d(0, 0, 0)}}@keyframes fadeInLeft{from{opacity:0;transform:translate3d(-100%,0,0)}to{opacity:1;transform:translate3d(0, 0, 0)}}.fadeInLeft{-webkit-animation-name:fadeInLeft;animation-name:fadeInLeft}
+#b{background-color:#191919}.v3{display:inline-block;vertical-align:top}.ps21{position:relative;margin-top:0}.s19{width:100%;min-width:1200px;height:866px}.c9{border:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;z-index:1}.z14{z-index:1;pointer-events:none}.c10{position:absolute}.s20{width:100%;height:100%;box-sizing:border-box}.fx3{background-attachment:fixed;background-color:transparent;background-repeat:no-repeat;background-position:50% 50%;background-size:cover;background-image:url(images/metabolismmap12-1200.png);opacity:0.3}.webp .fx3{background-image:url(images/metabolismmap12-1200.webp);background-attachment:fixed}.ps22{position:relative;margin-top:15px}.v4{display:block}.s21{width:1200px;margin-left:auto;margin-right:auto;min-height:456px}.ps23{position:relative;margin-left:0;margin-top:0}.s22{min-width:1180px;width:1180px;min-height:147px}.s23{min-width:348px;width:348px;min-height:147px;height:147px}.z15{z-index:13;pointer-events:auto}.i1{position:absolute;left:27px;width:294px;height:147px;top:0;border:0}.ps24{position:relative;margin-left:656px;margin-top:0}.s24{min-width:176px;width:176px;min-height:95px;line-height:0}.ps25{position:relative;margin-left:22px;margin-top:0}.s25{min-width:154px;width:154px;overflow:hidden;height:45px}.z16{z-index:4;pointer-events:auto}.p4{text-indent:0;padding-bottom:0;padding-right:0;text-align:right}.f7{font-family:"Roboto 1";font-size:24px;font-size:calc(24px * var(--f));line-height:1.626;font-weight:300;font-style:normal;text-decoration:underline;text-transform:none;letter-spacing:normal;color:#268bd2;background-color:initial;text-shadow:none}.s26{min-width:176px;width:176px;overflow:hidden;height:50px}.z17{z-index:5;pointer-events:auto}.ps26{position:relative;margin-left:68px;margin-top:94px}.s27{min-width:895px;width:895px;min-height:215px}.s28{min-width:895px;width:895px;min-height:215px;line-height:0}.s29{min-width:641px;width:641px;overflow:hidden;height:181px}.z18{z-index:6;pointer-events:auto}.p5{text-indent:0;padding-bottom:0;padding-right:0;text-align:left}.f8{font-family:Roboto;font-size:103px;font-size:calc(103px * var(--f));line-height:1.642;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps27{position:relative;margin-left:0;margin-top:-49px}.s30{min-width:895px;width:895px;overflow:hidden;height:83px}.z19{z-index:7;pointer-events:auto}.f9{font-family:Roboto;font-size:48px;font-size:calc(48px * var(--f));line-height:1.626;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps28{position:relative;margin-left:0;margin-top:394px}.s31{min-width:1200px;width:1200px;min-height:1px}.ps29{position:relative;margin-left:0;margin-top:-866px}@media (min-width:1200px) and (-webkit-min-device-pixel-ratio:1.7), (min-width:1200px) and (min-resolution:144dpi) {.fx3{background-image:url(images/metabolismmap12-2400.png);background-attachment:fixed}.webp .fx3{background-image:url(images/metabolismmap12-2400.webp);background-attachment:fixed}}@media (min-width:1200px) {.fx3{background-attachment:fixed;background-image:url(images/metabolismmap12-1600.png)}.webp .fx3{background-image:url(images/metabolismmap12-1600.webp);background-attachment:fixed}}@media (min-width:1200px) and (-webkit-min-device-pixel-ratio:1.7),(min-width:1200px) and (min-resolution:144dpi) {.fx3{background-image:url(images/metabolismmap12-3200.png);background-attachment:fixed}.webp .fx3{background-image:url(images/metabolismmap12-3200.webp);background-attachment:fixed}}@media (min-width:1600px) {.fx3{background-attachment:fixed;background-image:url(images/metabolismmap12-2000.png)}.webp .fx3{background-image:url(images/metabolismmap12-2000.webp);background-attachment:fixed}}@media (min-width:1600px) and (-webkit-min-device-pixel-ratio:1.7),(min-width:1600px) and (min-resolution:144dpi) {.fx3{background-image:url(images/metabolismmap12-4000.png);background-attachment:fixed}.webp .fx3{background-image:url(images/metabolismmap12-4000.webp);background-attachment:fixed}}@media (min-width:2000px) {.fx3{background-attachment:fixed;background-image:url(images/metabolismmap12-2560.png)}.webp .fx3{background-image:url(images/metabolismmap12-2560.webp);background-attachment:fixed}}@media (min-width:2000px) and (-webkit-min-device-pixel-ratio:1.7),(min-width:2000px) and (min-resolution:144dpi) {.fx3{background-image:url(images/metabolismmap12-5120.png);background-attachment:fixed}.webp .fx3{background-image:url(images/metabolismmap12-5120.webp);background-attachment:fixed}}</style>
+<script>!function(){var A=new Image;A.onload=A.onerror=function(){1!=A.height&&document.body.classList.remove("webp")},A.src="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAD8D+JaQAA3AA/ua1AAA"}();
+</script>
+<link onload="this.media='all';this.onload=null;" rel="stylesheet" href="css/site.8b81ba.css" media="print">
+<noscript><link rel="stylesheet" href="css/site.8b81ba.css" type="text/css"></noscript>
+</head>
+<body class="webp" id="b">
+<script>!function(){var e=document.createElement("P");e.innerHTML="&nbsp;",e.style.cssText="position:fixed;visible:hidden;font-size:100px;zoom:1",document.body.appendChild(e);var t=function(e){return function(){var t=Math.trunc(1e4/parseFloat(window.getComputedStyle(e).getPropertyValue("font-size")))/100,n=document.body;t!=n.style.getPropertyValue("--f")&&n.style.setProperty("--f",t)}}(e);if("ResizeObserver"in window)new ResizeObserver(t).observe(e);else if("requestAnimationFrame"in window){var n=function(){t(),requestAnimationFrame(n)};requestAnimationFrame(n)}else setInterval(t,100)}()</script>
+
+<div data-ffbk class="fbk v3 ps21 s19 c9 z14 fx3" data-fbk="fx3">
+<div class="c10 s20">
+</div>
+<div class="ps22 v4 s21">
+<div class="v3 ps23 s22">
+<div class="anim fadeIn un1 v3 ps23 s23 c11 z15">
+<picture>
+<source srcset="images/metabolabpy_dark_transparency-294.webp 1x, images/metabolabpy_dark_transparency-588.webp 2x" type="image/webp">
+<source srcset="images/metabolabpy_dark_transparency-294.png 1x, images/metabolabpy_dark_transparency-588.png 2x">
+<img src="images/metabolabpy_dark_transparency-588.png" class="i1">
+</picture>
+</div>
+<div class="v3 ps24 s24">
+<div class="anim fadeIn un2 v3 ps25 s25 c11 z16">
+<p class="p4"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f7">Introduction</a></p>
+</div>
+<div class="anim fadeIn un3 v3 ps23 s26 c11 z17">
+<p class="p4"><a onclick="return window.smoothScroll(event, '[name=\'documentation\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#documentation" class="f7">Documentation</a></p>
+</div>
+</div>
+</div>
+<div class="v3 ps26 s27">
+<div class="v3 ps23 s28">
+<div class="anim fadeInLeft un4 v3 ps23 s29 c11 z18">
+<p class="p5 f8">MetaboLabPy</p>
+</div>
+<div class="anim fadeInLeft un5 v3 ps27 s30 c11 z19">
+<p class="p5 f9">Advanced NMR Data Processing in Python</p>
+</div>
+</div>
+</div>
+</div>
+<a name="introduction" class="v4 ps28 s31"></a>
+<a name="top" class="v4 ps29 s31"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps1 s1 c1 z1 fx1" data-fbk="fx1">
+<div class="c2 s2">
+</div>
+<div class="ps2 v2 s3">
+<div class="v1 ps3 s4">
+<div class="v1 ps4 s5 c3 z2"></div>
+<div class="anim slideInDown un6 v1 ps5 s6 c4 z3">
+<p class="p1 f1">Introduction</p>
+</div>
+<div class="v1 ps6 s7 c4 z4">
+<p class="p2 f2">MetaboLabPy is a software package for NMR processing written in Python for the Apple macOS, Linux and Windows platforms, currently developed at the <a href="https://www.birmingham.ac.uk/research/metabolism-systems/index.aspx" class="f3">University of Birmingham</a>. It contains of a series of processing algorithms for 1D and 2D processing including apodization functions, Fourier transformation and baseline correction. A simple interface is available to set up processing parameters. The current version supports Bruker and Varian file formats.</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">MetaboLabPy includes routines for Bruker and Varian data, including alignment tools, various scaling algorithms (autoscale, Pareto scaling and glog transform), graphical selection of exclusion regions, bucketing and links to PCA and PLS algorithms. The software is fully opensource and can be installed via PyPI.</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">The software is packaged into three different python packages, which are called <a href="https://pypi.org/project/metabolabpy/" class="f3">metabolabpy</a>, <a href="https://pypi.org/project/qtmetabolabpy/" class="f3">qtmetabolabpy</a> and <a href="https://pypi.org/project/metabolabpytools/" class="f3">metabolabpytools</a>. The metabolabpy package contains all computational routines to read and process Bruker or Varian raw NMR data files. The qtmetabolabpy package contains everything related to the graphical user interface (GUI), which is implemented in Qt using Pyside2 (also known as Qt for python).</p>
+<p class="p2 f4"><br></p>
+</div>
+<div class="v1 ps7 s8">
+<div class="anim fadeIn un7 v1 ps8 s9 c4 z5">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Home</a></p>
+</div>
+<div class="anim fadeIn un8 v1 ps9 s10 c4 z6">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'documentation\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#documentation" class="f5">Documentation</a></p>
+</div>
+</div>
+</div>
+</div>
+<a name="documentation" class="v2 ps10 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps11 s12 c5 z7 fx2" data-fbk="fx2">
+<div class="c6 s2">
+</div>
+<div class="ps12 v2 s13">
+<div class="v1 ps13 s14">
+<div class="v1 ps14 s5 c3 z8"></div>
+<div class="anim slideInDown un9 v1 ps15 s6 c4 z9">
+<p class="p1 f1">Documentation</p>
+</div>
+<div class="v1 ps16 s15 c4 z10">
+<p class="p1"><a href="softwareinstall.html" class="f6">Software Installation</a></p>
+<p class="p1"><a href="gui.html#top" class="f6">The Graphical User Interface (GUI)</a></p>
+<p class="p1"><a href="basicnmrdataprocessing.html#top" class="f6">Basic 1D-NMR Data Processing</a></p>
+<p class="p1"><a href="basic2dprocessing.html#top" class="f6">Basic 2D-NMR Data Processing</a></p>
+<p class="p1"><a href="scripts.html#top" class="f6">MetaboLabPy Scripts and Jupyter Notebooks</a></p>
+<p class="p1"><a href="tracing.html#top" class="f6">Tracing analysis in MetaboLabPy</a></p>
+</div>
+<div class="v1 ps17 s16">
+<div class="anim fadeIn un10 v1 ps18 s9 c4 z11">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Home</a></p>
+</div>
+<div class="anim fadeIn un11 v1 ps19 s17 c4 z12">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f5">Introduction</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps20 s18 c7 z13"></div>
+</div>
+</div>
+<div class="btf c8">
+</div>
+<script>!function(){if("Promise"in window&&void 0!==window.performance){var e,t,r=document,n=function(){return r.createElement("link")},o=new Set,a=n(),i=a.relList&&a.relList.supports&&a.relList.supports("prefetch"),s=location.href.replace(/#[^#]+$/,"");o.add(s);var c=function(e){var t=location,r="http:",n="https:";if(e&&e.href&&e.origin==t.origin&&[r,n].includes(e.protocol)&&(e.protocol!=r||t.protocol!=n)){var o=e.pathname;if(!(e.hash&&o+e.search==t.pathname+t.search||"?preload=no"==e.search.substr(-11)||".html"!=o.substr(-5)&&".html"!=o.substr(-5)&&"/"!=o.substr(-1)))return!0}},u=function(e){var t=e.replace(/#[^#]+$/,"");if(!o.has(t)){if(i){var a=n();a.rel="prefetch",a.href=t,r.head.appendChild(a)}else{var s=new XMLHttpRequest;s.open("GET",t,s.withCredentials=!0),s.send()}o.add(t)}},p=function(e){return e.target.closest("a")},f=function(t){var r=t.relatedTarget;r&&p(t)==r.closest("a")||e&&(clearTimeout(e),e=void 0)},d={capture:!0,passive:!0};r.addEventListener("touchstart",function(e){t=performance.now();var r=p(e);c(r)&&u(r.href)},d),r.addEventListener("mouseover",function(r){if(!(performance.now()-t<1200)){var n=p(r);c(n)&&(n.addEventListener("mouseout",f,{passive:!0}),e=setTimeout(function(){u(n.href),e=void 0},80))}},d)}}();dpth="/";!function(){var e={},t={},n={};window.ld=function(a,r,o){var c=function(){"interactive"==document.readyState?(r&&r(),document.addEventListener("readystatechange",function(){"complete"==document.readyState&&o&&o()})):"complete"==document.readyState?(r&&r(),o&&o()):document.addEventListener("readystatechange",function(){"interactive"==document.readyState&&r&&r(),"complete"==document.readyState&&o&&o()})},d=(1<<a.length)-1,u=0,i=function(r){var o=a[r],i=function(){for(var t=0;t<a.length;t++){var r=(1<<t)-1;if((u&r)==r&&n[a[t]]){if(!e[a[t]]){var o=document.createElement("script");o.textContent=n[a[t]],document.body.appendChild(o),e[a[t]]=!0}if((u|=1<<t)==d)return c(),0}}return 1};if(null==t[o]){t[o]=[];var f=new XMLHttpRequest;f.open("GET",o,!0),f.onload=function(){n[o]=f.responseText,[].forEach.call(t[o],function(e){e()})},t[o].push(i),f.send()}else{if(e[o])return i();t[o].push(i)}return 1};if(a.length)for(var f=0;f<a.length&&i(f);f++);else c()}}();ld(["js/fixed.e4c4f9.js"]);ld([],function(){!function(){var e=document.querySelectorAll('a[href^="#"]');[].forEach.call(e,function(e){var t=navigator.userAgent,a=/chrome/i.test(t),o=/firefox/i.test(t),n=/iPad|iPhone|iPod/.test(t)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1;e.addEventListener("click",function(t){var r=!1,i=document.body.parentNode;n&&"none"!=getComputedStyle(i).getPropertyValue("scroll-snap-type")&&(i.setAttribute("data-snap",i.style.scrollSnapType),i.style.scrollSnapType="none",r=!0);var s=0;if(e.hash.length>1){var u=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!o&&u||(u=1);var l=e.hash.slice(1),c=document.getElementById(l);if(null===c&&null===(c=document.querySelector('[name="'+l+'"]')))return;s=a?c.getBoundingClientRect().top*u+pageYOffset:(c.getBoundingClientRect().top+pageYOffset)*u}else if(r)for(var m=document.querySelectorAll("[data-block-group]"),p=0;p<m.length;p++)if("none"!=getComputedStyle(m[p]).getPropertyValue("scroll-snap-align")){c=m[p];break}if(r)window.smoothScroll(t,c,1);else if("scrollBehavior"in document.documentElement.style)scroll({top:s,left:0,behavior:"smooth"});else if("requestAnimationFrame"in window){var d=pageYOffset,f=null;requestAnimationFrame(function e(t){f||(f=t);var a=(t-f)/400;scrollTo(0,d<s?(s-d)*a+d:d-(d-s)*a),a<1?requestAnimationFrame(e):scrollTo(0,s)})}else scrollTo(0,s);t.preventDefault()},!1)})}(),window.smoothScroll=function(e,t,a,o){e.stopImmediatePropagation();var n,r=pageYOffset;t?(("string"==typeof t||t instanceof String)&&(t=document.querySelector(t)),n=t.getBoundingClientRect().top):n=-r;var i=navigator.userAgent,s=/chrome/i.test(i),u=/firefox/i.test(i),l=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!u&&l||(l=1);var c=n*l+(s?0:r*(l-1)),m=null;function p(){d(window.performance.now?window.performance.now():Date.now())}function d(e){null===m&&(m=e);var n=(e-m)/1e3,i=function(e,t,a){switch(o){case"linear":break;case"easeInQuad":e*=e;break;case"easeOutQuad":e=1-(1-e)*(1-e);break;case"easeInCubic":e*=e*e;break;case"easeOutCubic":e=1-Math.pow(1-e,3);break;case"easeInOutCubic":e=e<.5?4*e*e*e:1-Math.pow(-2*e+2,3)/2;break;case"easeInQuart":e*=e*e*e;break;case"easeOutQuart":e=1-Math.pow(1-e,4);break;case"easeInOutQuart":e=e<.5?8*e*e*e*e:1-Math.pow(-2*e+2,4)/2;break;case"easeInQuint":e*=e*e*e*e;break;case"easeOutQuint":e=1-Math.pow(1-e,5);break;case"easeInOutQuint":e=e<.5?16*e*e*e*e*e:1-Math.pow(-2*e+2,5)/2;break;case"easeInCirc":e=1-Math.sqrt(1-Math.pow(e,2));break;case"easeOutCirc":e=Math.sqrt(1-Math.pow(0,2));break;case"easeInOutCirc":e=e<.5?(1-Math.sqrt(1-Math.pow(2*e,2)))/2:(Math.sqrt(1-Math.pow(-2*e+2,2))+1)/2;break;case"easeInOutQuad":default:e=e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2}e>1&&(e=1);return t+a*e}(n/a,r,c);window.scrollTo(0,i),n<a?"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120):(/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1)&&(t&&t.scrollIntoView(),setTimeout(function(){var e=document.body.parentNode;e.style.scrollSnapType=e.getAttribute("data-snap"),e.removeAttribute("data-snap")},100))}return"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120),!1};!function(){var e=null;if(location.hash){var t=location.hash.replace("#",""),n=function(){var o=document.getElementById(t);null===o&&(o=document.querySelector('[name="'+t+'"]')),o&&o.scrollIntoView(!0),"0px"===window.getComputedStyle(document.body).getPropertyValue("min-width")?setTimeout(n,100):null!=e&&setTimeout(e,100)};n()}else null!=e&&e()}();});ld(["js/woolite.e4c4f9.js"],function(){wl.addAnimation('.un1',"3.00s","0.00s",1,100);wl.addAnimation('.un2',"2.50s","0.00s",1,100);wl.addAnimation('.un3',"2.50s","0.00s",1,100);wl.addAnimation('.un4',"2.50s","0.00s",1,0);wl.addAnimation('.un5',"2.50s","0.00s",1,0);wl.addAnimation('.un6',"1.50s","0.00s",1,100);wl.addAnimation('.un7',"2.50s","0.00s",1,100);wl.addAnimation('.un8',"2.50s","0.00s",1,100);wl.addAnimation('.un9',"1.50s","0.00s",1,100);wl.addAnimation('.un10',"2.50s","0.00s",1,100);wl.addAnimation('.un11',"2.50s","0.00s",1,100);wl.start();});</script>
+</body>
+</html>

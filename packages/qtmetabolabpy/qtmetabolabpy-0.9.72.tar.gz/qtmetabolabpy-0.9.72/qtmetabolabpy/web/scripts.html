@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>scripts</title>
+<meta name="referrer" content="same-origin">
+<link rel="canonical" href="https://pypi.org/project/metabolabpytools/scripts.html">
+<meta name="robots" content="max-image-preview:large">
+<meta name="viewport" content="width=1200">
+<style>.anim{visibility:hidden}</style>
+<link rel="preload" href="css/Roboto-Thin.woff2" as="font" crossorigin>
+<style>html,body{-webkit-text-zoom:reset !important}@font-face{font-display:block;font-family:"Roboto 1";src:url('css/Roboto-Light.woff2') format('woff2'),url('css/Roboto-Light.woff') format('woff');font-weight:300}@font-face{font-display:block;font-family:Roboto;src:url('css/Roboto-Thin.woff2') format('woff2'),url('css/Roboto-Thin.woff') format('woff');font-weight:100}@font-face{font-display:block;font-family:"Roboto 2";src:url('css/Roboto-Regular.woff2') format('woff2'),url('css/Roboto-Regular.woff') format('woff');font-weight:400}@font-face{font-display:block;font-family:"Hanken Grotesk 3";src:url('css/HankenGrotesk_wght_.woff2') format('woff2'),url('css/HankenGrotesk_wght_.woff') format('woff');font-weight:400}@font-face{font-display:block;font-family:"Roboto 4";src:url('css/Roboto-Bold.woff2') format('woff2'),url('css/Roboto-Bold.woff') format('woff');font-weight:700}body>div{font-size:0}p,span,h1,h2,h3,h4,h5,h6,a,li{margin:0;word-spacing:normal;word-wrap:break-word;-ms-word-wrap:break-word;pointer-events:auto;-ms-text-size-adjust:none !important;-moz-text-size-adjust:none !important;-webkit-text-size-adjust:none !important;text-size-adjust:none !important;max-height:10000000px}sup{font-size:inherit;vertical-align:baseline;position:relative;top:-0.4em}sub{font-size:inherit;vertical-align:baseline;position:relative;top:0.4em}ul{display:block;word-spacing:normal;word-wrap:break-word;line-break:normal;list-style-type:none;padding:0;margin:0;-moz-padding-start:0;-khtml-padding-start:0;-webkit-padding-start:0;-o-padding-start:0;-padding-start:0;-webkit-margin-before:0;-webkit-margin-after:0}li{display:block;white-space:normal}[data-marker]::before{content:attr(data-marker) ' ';-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}li p{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}form{display:inline-block}a{text-decoration:inherit;color:inherit;-webkit-tap-highlight-color:rgba(0,0,0,0)}textarea{resize:none}.shm-l{float:left;clear:left}.shm-r{float:right;clear:right;shape-outside:content-box}.btf{display:none}.plyr{min-width:0 !important}html{font-family:sans-serif}body{font-size:0;margin:0;--z:1;zoom:var(--z)}audio,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0;outline:0}b,strong{font-weight:700}dfn{font-style:italic}h1,h2,h3,h4,h5,h6{font-size:1em;line-height:1;margin:0}img{border:0}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=submit]{-webkit-appearance:button;cursor:pointer;box-sizing:border-box;white-space:normal}input[type=date],input[type=email],input[type=number],input[type=password],input[type=text],textarea{-webkit-appearance:none;appearance:none;box-sizing:border-box}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}textarea{overflow:auto;box-sizing:border-box;border-color:#ddd}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}blockquote{margin-block-start:0;margin-block-end:0;margin-inline-start:0;margin-inline-end:0}:-webkit-full-screen-ancestor:not(iframe){-webkit-clip-path:initial !important}
+html{-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale}@-webkit-keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.animated{-webkit-animation-fill-mode:both;animation-fill-mode:both}.animated.infinite{-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}@-webkit-keyframes fadeInLeft{from{opacity:0;-webkit-transform:translate3d(-100%,0,0)}to{opacity:1;-webkit-transform:translate3d(0, 0, 0)}}@keyframes fadeInLeft{from{opacity:0;transform:translate3d(-100%,0,0)}to{opacity:1;transform:translate3d(0, 0, 0)}}.fadeInLeft{-webkit-animation-name:fadeInLeft;animation-name:fadeInLeft}
+#b{background-color:#191919}.v14{display:inline-block;vertical-align:top}.ps281{position:relative;margin-top:0}.s302{width:100%;min-width:1200px;height:866px}.c64{border:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;z-index:3}.z199{z-index:3;pointer-events:none}.c65{position:absolute}.s303{width:100%;height:100%;box-sizing:border-box}.fx26{background-attachment:fixed;background-color:transparent;background-repeat:no-repeat;background-position:0 50%;background-size:cover;background-image:url(images/screenshot-2023-07-24-at-19.18.26-1200.jpg);opacity:0.3}.webp .fx26{background-image:url(images/screenshot-2023-07-24-at-19.18.26-1200-1.webp);background-attachment:fixed}.ps282{position:relative;margin-top:15px}.v15{display:block}.s304{width:1200px;margin-left:auto;margin-right:auto;min-height:456px}.ps283{position:relative;margin-left:0;margin-top:0}.s305{min-width:1180px;width:1180px;min-height:160px}.s306{min-width:348px;width:348px;min-height:147px;height:147px}.z200{z-index:4;pointer-events:auto}.i59{position:absolute;left:27px;width:294px;height:147px;top:0;border:0}.ps284{position:relative;margin-left:469px;margin-top:0}.s307{min-width:363px;width:363px;min-height:160px;line-height:0}.ps285{position:relative;margin-left:129px;margin-top:0}.s308{min-width:234px;width:234px;overflow:hidden;height:42px}.z201{z-index:5;pointer-events:auto}.p19{text-indent:0;padding-bottom:0;padding-right:0;text-align:right}.f42{font-family:"Roboto 1";font-size:24px;font-size:calc(24px * var(--f));line-height:1.626;font-weight:300;font-style:normal;text-decoration:underline;text-transform:none;letter-spacing:normal;color:#268bd2;background-color:initial;text-shadow:none}.ps286{position:relative;margin-left:27px;margin-top:0}.s309{min-width:336px;width:336px;overflow:hidden;height:40px}.z202{z-index:6;pointer-events:auto}.s310{min-width:363px;width:363px;overflow:hidden;height:49px}.z203{z-index:7;pointer-events:auto}.ps287{position:relative;margin-left:27px;margin-top:-11px}.z204{z-index:51;pointer-events:auto}.ps288{position:relative;margin-left:844px;margin-top:0}.z205{z-index:52;pointer-events:auto}.ps289{position:relative;margin-left:68px;margin-top:41px}.s311{min-width:895px;width:895px;min-height:215px}.s312{min-width:895px;width:895px;min-height:215px;line-height:0}.s313{min-width:641px;width:641px;overflow:hidden;height:181px}.z206{z-index:8;pointer-events:auto}.p20{text-indent:0;padding-bottom:0;padding-right:0;text-align:left}.f43{font-family:Roboto;font-size:103px;font-size:calc(103px * var(--f));line-height:1.642;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps290{position:relative;margin-left:0;margin-top:-49px}.s314{min-width:895px;width:895px;overflow:hidden;height:83px}.z207{z-index:9;pointer-events:auto}.f44{font-family:Roboto;font-size:48px;font-size:calc(48px * var(--f));line-height:1.626;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps291{position:relative;margin-left:0;margin-top:-471px}.s315{min-width:1200px;width:1200px;min-height:1px}@media (min-width:1200px) and (-webkit-min-device-pixel-ratio:1.7), (min-width:1200px) and (min-resolution:144dpi) {.fx26{background-image:url(images/screenshot-2023-07-24-at-19.18.26-2400.jpg);background-attachment:fixed}.webp .fx26{background-image:url(images/screenshot-2023-07-24-at-19.18.26-2400-1.webp);background-attachment:fixed}}@media (min-width:1200px) {.fx26{background-attachment:fixed;background-image:url(images/screenshot-2023-07-24-at-19.18.26-1600.jpg)}.webp .fx26{background-image:url(images/screenshot-2023-07-24-at-19.18.26-1600-1.webp);background-attachment:fixed}}@media (min-width:1600px) {.fx26{background-attachment:fixed;background-image:url(images/screenshot-2023-07-24-at-19.18.26-2000.jpg)}.webp .fx26{background-image:url(images/screenshot-2023-07-24-at-19.18.26-2000-1.webp);background-attachment:fixed}}@media (min-width:2000px) {.fx26{background-attachment:fixed;background-image:url(images/screenshot-2023-07-24-at-19.18.26-2560.jpg)}.webp .fx26{background-image:url(images/screenshot-2023-07-24-at-19.18.26-2560-1.webp);background-attachment:fixed}}</style>
+<script>!function(){var A=new Image;A.onload=A.onerror=function(){1!=A.height&&document.body.classList.remove("webp")},A.src="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAD8D+JaQAA3AA/ua1AAA"}();
+</script>
+<link onload="this.media='all';this.onload=null;" rel="stylesheet" href="css/site.8b81ba.css" media="print">
+<noscript><link rel="stylesheet" href="css/site.8b81ba.css" type="text/css"></noscript>
+</head>
+<body class="webp" id="b">
+<script>!function(){var e=document.createElement("P");e.innerHTML="&nbsp;",e.style.cssText="position:fixed;visible:hidden;font-size:100px;zoom:1",document.body.appendChild(e);var t=function(e){return function(){var t=Math.trunc(1e4/parseFloat(window.getComputedStyle(e).getPropertyValue("font-size")))/100,n=document.body;t!=n.style.getPropertyValue("--f")&&n.style.setProperty("--f",t)}}(e);if("ResizeObserver"in window)new ResizeObserver(t).observe(e);else if("requestAnimationFrame"in window){var n=function(){t(),requestAnimationFrame(n)};requestAnimationFrame(n)}else setInterval(t,100)}()</script>
+
+<div data-ffbk class="fbk v14 ps281 s302 c64 z199 fx26" data-fbk="fx26">
+<div class="c65 s303">
+</div>
+<div class="ps282 v15 s304">
+<div class="v14 ps283 s305">
+<div class="anim fadeIn un114 v14 ps283 s306 c66 z200">
+<picture>
+<source srcset="images/metabolabpy_dark_transparency-294.webp 1x, images/metabolabpy_dark_transparency-588.webp 2x" type="image/webp">
+<source srcset="images/metabolabpy_dark_transparency-294.png 1x, images/metabolabpy_dark_transparency-588.png 2x">
+<img src="images/metabolabpy_dark_transparency-588.png" class="i59">
+</picture>
+</div>
+<div class="v14 ps284 s307">
+<div class="anim fadeIn un115 v14 ps285 s308 c66 z201">
+<p class="p19"><a href="./#top" class="f42">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un116 v14 ps286 s309 c66 z202">
+<p class="p19"><a href="./#documentation" class="f42">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un117 v14 ps283 s310 c66 z203">
+<p class="p19"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f42">Introduction</a></p>
+</div>
+<div class="anim fadeIn un118 v14 ps287 s309 c66 z204">
+<p class="p19"><a onclick="return window.smoothScroll(event, '[name=\'scripts\']', 3.75, 'easeInOutQuad')" style="cursor:pointer;" href="#scripts" class="f42">Scripts</a></p>
+</div>
+</div>
+</div>
+<div class="anim fadeIn un119 v14 ps288 s309 c66 z205">
+<p class="p19"><a onclick="return window.smoothScroll(event, '[name=\'jupyter\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#jupyter" class="f42">Jupyter Notebooks</a></p>
+</div>
+<div class="v14 ps289 s311">
+<div class="v14 ps283 s312">
+<div class="anim fadeInLeft un120 v14 ps283 s313 c66 z206">
+<p class="p20 f43">MetaboLabPy</p>
+</div>
+<div class="anim fadeInLeft un121 v14 ps290 s314 c66 z207">
+<p class="p20 f44">Scripts &amp; Jupyter Notebooks</p>
+</div>
+</div>
+</div>
+</div>
+<a name="top" class="v15 ps291 s315"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps69 s273 c60 z1 fx24" data-fbk="fx24">
+<div class="c61 s2">
+</div>
+<div class="ps256 v2 s274">
+<div class="v1 ps175 s275">
+<div class="v1 ps257 s5 c3 z196"></div>
+<div class="anim slideInDown un122 v1 ps258 s6 c4 z5">
+<p class="p1 f1">Introduction</p>
+</div>
+<div class="v1 ps184 s276 c4 z9">
+<p class="p2 f2">While most everyday data analysis options can be easily set and executed via the MetaboLabPy GUI, at least partially automated tasks can make data analysis quicker and more reproducible. Reading in a series of 1D-NMR spectra is such an example. While we could click the <span class="f37">Open NMR Spectrum</span> for each spectrum separately, this procedure is not very efficient. Because MetaboLabPy is built as a set of python classes, computational actions can be easily scripted in MetaboLabPy. The <span class="f37">Script</span> tab in the GUI is a good example for this. To facilitate standard actions such as reading in NMR spectra or setting processing parameters, a set of example scripts is included in MetaboLabPy. Each example script is well documented using comments at the end of each code line. In addition we can use non-GUI MetaboLabPy classes and methods via a Jupyter-notebook. There is a series of example Jupyter notebooks distributed with the metabolabpy package.</p>
+<p class="p2 f2">In the following we will look at two specific examples, highlighting small differences when using the scripting interface from within the MetaboLabPy GUI and when using Jupyter notebooks.</p>
+<p class="p2 f2"><br></p>
+</div>
+<div class="v1 ps259 s166">
+<div class="anim fadeIn un123 v1 ps180 s167 c4 z6">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un124 v1 ps34 s168 c4 z22">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un125 v1 ps34 s168 c4 z168">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Scripts &amp; Jupyter Notebooks</a></p>
+</div>
+<div class="anim fadeIn un126 v1 ps34 s168 c4 z79">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'scripts\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#scripts" class="f5">Scripts</a></p>
+</div>
+<div class="anim fadeIn un127 v1 ps34 s168 c4 z87">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'jupyter\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#jupyter" class="f5">Jupyter Notebooks</a></p>
+</div>
+</div>
+</div>
+<div class="anim fadeIn un128 v1 ps260 s167 c4 z58">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="v1 ps175 s277">
+<div class="v1 ps261 s5 c3 z197"></div>
+<div class="v1 ps262 s278">
+<div class="anim slideInDown un129 v1 ps34 s279 c4 z33">
+<p class="p1 f1">MetaboLabPy Scripts</p>
+</div>
+<div class="v1 ps233 s280 c4 z10">
+<p class="p2 f2">Let&rsquo;s start<span class="f2"> with a script to read in a series of 1D-</span><sup class="f2">1</sup><span class="f2">H NMR data. Please download an example 1D-NMR dataset </span><a href="https://tinyurl.com/nmr1dSeries" class="f3">here</a><span class="f2">. Locate the example scripts pop-up menu located on the lower left corner of the </span><span class="f37">Script</span><span class="f2"> tab. Click on </span><span class="f24">&lsquo;1D Example Script&rsquo;</span><span class="f2">. This will load the text for the 1D example script. Now, change </span><span class="f24">&lsquo;Replace with directory containing Bruker data&rsquo;</span><span class="f2"> with </span><span class="f24">&lsquo;interactive&rsquo;</span><span class="f2"> and replace the square brackets in the line below with the expression </span><span class="f24">np.linspace(1, 4, 4, dtype=int)</span><span class="f2">. This creates a numpy array with the numbers 1, 2, 3 &amp; 4. Alternatively we could have specified each dataset number explicitly and replaced </span><span class="f24">[]</span><span class="f2"> with </span><span class="f24">[1, 2, 3, 4]</span><span class="f2">. After these modifications, we should have a script like this:</span></p>
+<p class="p2 f2"><br></p>
+</div>
+</div>
+<div class="v1 ps263 s281">
+<div class="anim fadeIn un130 v1 ps264 s168 c4 z167">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un131 v1 ps264 s168 c4 z70">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Scripts &amp; Jupyter Notebooks</a></p>
+</div>
+<div class="anim fadeIn un132 v1 ps34 s282 c4 z187">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f5">Introduction</a></p>
+</div>
+<div class="anim fadeIn un133 v1 ps265 s168 c4 z67">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'jupyter\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#jupyter" class="f5">Jupyter Notebooks</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps266 s283 c4 z12">
+<p class="p2 f24">msg = self.clear()</p>
+<p class="p2 f24">data_path = 'interactive' # select directory containing bruker data, interactive for file dialog</p>
+<p class="p2 f24">data_sets = np.linspace(1, 4, 4, dtyp=int)&nbsp;&nbsp;&nbsp;&nbsp;# add comma separated list of experiment numbers&nbsp;</p>
+<p class="p2 f24">self.read_spcs([data_path],data_sets)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # reading Bruker spectra</p>
+<p class="p2 f24">msg = self.nd.set_zero_fill([131072])&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # zero fill to 131072 data points</p>
+<p class="p2 f24">msg = self.nd.set_lb([0.3])&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 0.3 Hz line broadening</p>
+<p class="p2 f24">msg = self.nd.set_window_type([1])&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# exponential window function</p>
+<p class="p2 f24">msg = self.nd.ft_all()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Fourier Transform all NMR spectra</p>
+<p class="p2 f24">msg = self.nd.auto_ref_all()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# automatically reference to TMSP</p>
+<p class="p2 f24">self.nd.e = 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # make first spectrum the current experiment</p>
+<p class="p2 f24">self.set_ph_ref_exp(1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# select reference spectrum for manual phase correction</p>
+</div>
+<div class="v1 ps267 s284 c4 z35">
+<p class="p2 f2">After script execution (either clicking <span class="f37">eXecute Script</span> or via the keyboard shortcut Ctrl + x on Windows or <span class="f4">&#x2318;</span><span class="f4"> + </span><span class="f4">x on macOS) the four spectra in that dataset should have been read in, all FIDs will be exponentially line broadened by 0.3 Hz, zero-filled to 131072 data points and auto referenced to TMSP.</span></p>
+<p class="p2 f4">The other example scripts show further examples how to use the script interface.</p>
+</div>
+<a name="scripts" class="v1 ps268 s11"></a>
+</div>
+<a name="introduction" class="v2 ps269 s11"></a>
+<a name="jupyter" class="v2 ps270 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps69 s285 c62 z100 fx25" data-fbk="fx25">
+<div class="c63 s2">
+</div>
+<div class="ps271 v2 s286">
+<div class="v1 ps175 s287">
+<div class="v1 ps4 s5 c3 z198"></div>
+<div class="v1 ps5 s288">
+<div class="anim slideInDown un134 v1 ps34 s279 c4 z170">
+<p class="p1 f1">Jupyter Notebooks</p>
+</div>
+<div class="v1 ps272 s289 c4 z41">
+<p class="p2 f2">MetaboLabPy ships with a few example Jupyter notebooks (in the metabolabpy/nmr/jupyter subdirectory in the site-packages directory. Please note: In order to be able to run jupyter notebooks, you must have the following to packages installed</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">&nbsp;- jupyter</p>
+<p class="p2 f2">&nbsp;- jupyterthemes</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2">These packages can be installed with the command <span class="f24">pip install jupyter jupyterthemes</span> in an Anaconda powershelgl prompt or in a macOS Terminal, after the metabolabpy environment has been activated. For convenience, a zip archive with example notebooks can also be downloaded <a href="https://tinyurl.com/jupyterMlPy" class="f3">here</a>.&nbsp;&nbsp;For this tutorial, we are using the file mlpy_2d_spc.ipynb.</p>
+<p class="p2 f2">Each jupyter notebook contains several code cells. Each cell can be executed by clicking into the cell and the typing <span class="f4">&#x21e7;</span><span class="f4"> +</span><span class="f4"> Enter.</span></p>
+</div>
+</div>
+<div class="v1 ps273 s290">
+<div class="anim fadeIn un135 v1 ps175 s167 c4 z76">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un136 v1 ps264 s168 c4 z61">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un137 v1 ps264 s168 c4 z71">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Scripts &amp; Jupyter Notebooks</a></p>
+</div>
+<div class="anim fadeIn un138 v1 ps34 s282 c4 z80">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f5">Introduction</a></p>
+</div>
+<div class="anim fadeIn un139 v1 ps265 s168 c4 z171">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'scripts\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#scripts" class="f5">Scripts</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps274 s291 c4 z42">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-00.03.38-889.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-00.03.38-889.jpg 1x">
+<img src="images/screenshot-2023-07-25-at-00.03.38-889.jpg" loading="lazy" class="i54">
+</picture>
+</div>
+<div class="v1 ps275 s292 c4 z43">
+<p class="p2 f2">The first cell in this notebook loads necessary modules from installed packages. The second cell then downloads the sample dataset via an installed web browser.</p>
+</div>
+<div class="v1 ps276 s293 c4 z45">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-22.46.40-889.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-22.46.40-889.jpg 1x">
+<img src="images/screenshot-2023-07-24-at-22.46.40-889.jpg" loading="lazy" class="i55">
+</picture>
+</div>
+<div class="v1 ps190 s294 c4 z173">
+<p class="p2 f2">The downloaded dataset is then loaded into a MetaboLabPy nmrDataSet object, phase correction values for zero and first order phase correction are set for both dimensions, the spectrum is phase corrected, referenced and baseline corrected. Then plot parameters are set to ensure that the 2D plot does not render too much noise.</p>
+</div>
+<div class="v1 ps236 s295 c4 z51">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-22.46.53-889.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-22.46.53-889.jpg 1x">
+<img src="images/screenshot-2023-07-24-at-22.46.53-889.jpg" loading="lazy" class="i56">
+</picture>
+</div>
+<div class="v1 ps274 s296 c4 z49">
+<p class="p2 f2">At the end, the resulting spectrum is plotted.</p>
+</div>
+<div class="v1 ps237 s297 c4 z52">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-22.47.04-886.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-22.47.04-886.png 1x">
+<img src="images/screenshot-2023-07-24-at-22.47.04-886.png" loading="lazy" class="i57">
+</picture>
+</div>
+<div class="v1 ps277 s296 c4 z172">
+<p class="p2 f2">The spectrum is then saved as a MetaboLabPy data file.</p>
+</div>
+<div class="v1 ps237 s298 c4 z60">
+<picture>
+<source srcset="images/screenshot-2023-07-25-at-00.12.19-889.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-25-at-00.12.19-889.jpg 1x">
+<img src="images/screenshot-2023-07-25-at-00.12.19-889.jpg" loading="lazy" class="i58">
+</picture>
+</div>
+<div class="anim fadeIn un140 v1 ps278 s167 c4 z84">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un141 v1 ps205 s168 c4 z88">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un142 v1 ps205 s168 c4 z174">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Scripts &amp; Jupyter Notebooks</a></p>
+</div>
+<div class="v1 ps279 s299">
+<div class="v1 ps34 s300">
+<div class="anim fadeIn un143 v1 ps34 s282 c4 z95">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f5">Introduction</a></p>
+</div>
+<div class="anim fadeIn un144 v1 ps280 s301 c4 z92">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'scripts\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#scripts" class="f5">Scripts</a></p>
+</div>
+</div>
+</div>
+<div class="anim fadeIn un145 v1 ps205 s168 c4 z97">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'jupyter\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#jupyter" class="f5">Jupyter Notebooks</a></p>
+</div>
+</div>
+</div>
+<div class="btf c8">
+</div>
+<script>!function(){if("Promise"in window&&void 0!==window.performance){var e,t,r=document,n=function(){return r.createElement("link")},o=new Set,a=n(),i=a.relList&&a.relList.supports&&a.relList.supports("prefetch"),s=location.href.replace(/#[^#]+$/,"");o.add(s);var c=function(e){var t=location,r="http:",n="https:";if(e&&e.href&&e.origin==t.origin&&[r,n].includes(e.protocol)&&(e.protocol!=r||t.protocol!=n)){var o=e.pathname;if(!(e.hash&&o+e.search==t.pathname+t.search||"?preload=no"==e.search.substr(-11)||".html"!=o.substr(-5)&&".html"!=o.substr(-5)&&"/"!=o.substr(-1)))return!0}},u=function(e){var t=e.replace(/#[^#]+$/,"");if(!o.has(t)){if(i){var a=n();a.rel="prefetch",a.href=t,r.head.appendChild(a)}else{var s=new XMLHttpRequest;s.open("GET",t,s.withCredentials=!0),s.send()}o.add(t)}},p=function(e){return e.target.closest("a")},f=function(t){var r=t.relatedTarget;r&&p(t)==r.closest("a")||e&&(clearTimeout(e),e=void 0)},d={capture:!0,passive:!0};r.addEventListener("touchstart",function(e){t=performance.now();var r=p(e);c(r)&&u(r.href)},d),r.addEventListener("mouseover",function(r){if(!(performance.now()-t<1200)){var n=p(r);c(n)&&(n.addEventListener("mouseout",f,{passive:!0}),e=setTimeout(function(){u(n.href),e=void 0},80))}},d)}}();dpth="/";!function(){var e={},t={},n={};window.ld=function(a,r,o){var c=function(){"interactive"==document.readyState?(r&&r(),document.addEventListener("readystatechange",function(){"complete"==document.readyState&&o&&o()})):"complete"==document.readyState?(r&&r(),o&&o()):document.addEventListener("readystatechange",function(){"interactive"==document.readyState&&r&&r(),"complete"==document.readyState&&o&&o()})},d=(1<<a.length)-1,u=0,i=function(r){var o=a[r],i=function(){for(var t=0;t<a.length;t++){var r=(1<<t)-1;if((u&r)==r&&n[a[t]]){if(!e[a[t]]){var o=document.createElement("script");o.textContent=n[a[t]],document.body.appendChild(o),e[a[t]]=!0}if((u|=1<<t)==d)return c(),0}}return 1};if(null==t[o]){t[o]=[];var f=new XMLHttpRequest;f.open("GET",o,!0),f.onload=function(){n[o]=f.responseText,[].forEach.call(t[o],function(e){e()})},t[o].push(i),f.send()}else{if(e[o])return i();t[o].push(i)}return 1};if(a.length)for(var f=0;f<a.length&&i(f);f++);else c()}}();ld(["js/fixed.e4c4f9.js"]);ld([],function(){!function(){var e=document.querySelectorAll('a[href^="#"]');[].forEach.call(e,function(e){var t=navigator.userAgent,a=/chrome/i.test(t),o=/firefox/i.test(t),n=/iPad|iPhone|iPod/.test(t)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1;e.addEventListener("click",function(t){var r=!1,i=document.body.parentNode;n&&"none"!=getComputedStyle(i).getPropertyValue("scroll-snap-type")&&(i.setAttribute("data-snap",i.style.scrollSnapType),i.style.scrollSnapType="none",r=!0);var s=0;if(e.hash.length>1){var u=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!o&&u||(u=1);var l=e.hash.slice(1),c=document.getElementById(l);if(null===c&&null===(c=document.querySelector('[name="'+l+'"]')))return;s=a?c.getBoundingClientRect().top*u+pageYOffset:(c.getBoundingClientRect().top+pageYOffset)*u}else if(r)for(var m=document.querySelectorAll("[data-block-group]"),p=0;p<m.length;p++)if("none"!=getComputedStyle(m[p]).getPropertyValue("scroll-snap-align")){c=m[p];break}if(r)window.smoothScroll(t,c,1);else if("scrollBehavior"in document.documentElement.style)scroll({top:s,left:0,behavior:"smooth"});else if("requestAnimationFrame"in window){var d=pageYOffset,f=null;requestAnimationFrame(function e(t){f||(f=t);var a=(t-f)/400;scrollTo(0,d<s?(s-d)*a+d:d-(d-s)*a),a<1?requestAnimationFrame(e):scrollTo(0,s)})}else scrollTo(0,s);t.preventDefault()},!1)})}(),window.smoothScroll=function(e,t,a,o){e.stopImmediatePropagation();var n,r=pageYOffset;t?(("string"==typeof t||t instanceof String)&&(t=document.querySelector(t)),n=t.getBoundingClientRect().top):n=-r;var i=navigator.userAgent,s=/chrome/i.test(i),u=/firefox/i.test(i),l=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!u&&l||(l=1);var c=n*l+(s?0:r*(l-1)),m=null;function p(){d(window.performance.now?window.performance.now():Date.now())}function d(e){null===m&&(m=e);var n=(e-m)/1e3,i=function(e,t,a){switch(o){case"linear":break;case"easeInQuad":e*=e;break;case"easeOutQuad":e=1-(1-e)*(1-e);break;case"easeInCubic":e*=e*e;break;case"easeOutCubic":e=1-Math.pow(1-e,3);break;case"easeInOutCubic":e=e<.5?4*e*e*e:1-Math.pow(-2*e+2,3)/2;break;case"easeInQuart":e*=e*e*e;break;case"easeOutQuart":e=1-Math.pow(1-e,4);break;case"easeInOutQuart":e=e<.5?8*e*e*e*e:1-Math.pow(-2*e+2,4)/2;break;case"easeInQuint":e*=e*e*e*e;break;case"easeOutQuint":e=1-Math.pow(1-e,5);break;case"easeInOutQuint":e=e<.5?16*e*e*e*e*e:1-Math.pow(-2*e+2,5)/2;break;case"easeInCirc":e=1-Math.sqrt(1-Math.pow(e,2));break;case"easeOutCirc":e=Math.sqrt(1-Math.pow(0,2));break;case"easeInOutCirc":e=e<.5?(1-Math.sqrt(1-Math.pow(2*e,2)))/2:(Math.sqrt(1-Math.pow(-2*e+2,2))+1)/2;break;case"easeInOutQuad":default:e=e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2}e>1&&(e=1);return t+a*e}(n/a,r,c);window.scrollTo(0,i),n<a?"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120):(/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1)&&(t&&t.scrollIntoView(),setTimeout(function(){var e=document.body.parentNode;e.style.scrollSnapType=e.getAttribute("data-snap"),e.removeAttribute("data-snap")},100))}return"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120),!1};!function(){var e=null;if(location.hash){var t=location.hash.replace("#",""),n=function(){var o=document.getElementById(t);null===o&&(o=document.querySelector('[name="'+t+'"]')),o&&o.scrollIntoView(!0),"0px"===window.getComputedStyle(document.body).getPropertyValue("min-width")?setTimeout(n,100):null!=e&&setTimeout(e,100)};n()}else null!=e&&e()}();});ld(["js/woolite.e4c4f9.js"],function(){wl.addAnimation('.un114',"3.00s","0.00s",1,100);wl.addAnimation('.un115',"2.50s","0.00s",1,100);wl.addAnimation('.un116',"2.50s","0.00s",1,100);wl.addAnimation('.un117',"2.50s","0.00s",1,100);wl.addAnimation('.un118',"2.50s","0.00s",1,100);wl.addAnimation('.un119',"2.50s","0.00s",1,100);wl.addAnimation('.un120',"2.50s","0.00s",1,0);wl.addAnimation('.un121',"2.50s","0.00s",1,0);wl.addAnimation('.un122',"1.50s","0.00s",1,100);wl.addAnimation('.un123',"2.50s","0.00s",1,100);wl.addAnimation('.un124',"2.50s","0.00s",1,100);wl.addAnimation('.un125',"2.50s","0.00s",1,100);wl.addAnimation('.un126',"2.50s","0.00s",1,100);wl.addAnimation('.un127',"2.50s","0.00s",1,100);wl.addAnimation('.un128',"2.50s","0.00s",1,100);wl.addAnimation('.un129',"1.50s","0.00s",1,100);wl.addAnimation('.un130',"2.50s","0.00s",1,100);wl.addAnimation('.un131',"2.50s","0.00s",1,100);wl.addAnimation('.un132',"2.50s","0.00s",1,100);wl.addAnimation('.un133',"2.50s","0.00s",1,100);wl.addAnimation('.un134',"1.50s","0.00s",1,100);wl.addAnimation('.un135',"2.50s","0.00s",1,100);wl.addAnimation('.un136',"2.50s","0.00s",1,100);wl.addAnimation('.un137',"2.50s","0.00s",1,100);wl.addAnimation('.un138',"2.50s","0.00s",1,100);wl.addAnimation('.un139',"2.50s","0.00s",1,100);wl.addAnimation('.un140',"2.50s","0.00s",1,100);wl.addAnimation('.un141',"2.50s","0.00s",1,100);wl.addAnimation('.un142',"2.50s","0.00s",1,100);wl.addAnimation('.un143',"2.50s","0.00s",1,100);wl.addAnimation('.un144',"2.50s","0.00s",1,100);wl.addAnimation('.un145',"2.50s","0.00s",1,100);wl.start();});</script>
+</body>
+</html>

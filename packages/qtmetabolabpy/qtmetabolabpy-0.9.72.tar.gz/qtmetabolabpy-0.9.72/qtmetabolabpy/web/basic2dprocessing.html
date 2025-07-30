@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>basic2dProcessing</title>
+<meta name="referrer" content="same-origin">
+<link rel="canonical" href="https://pypi.org/project/metabolabpytools/basic2dprocessing.html">
+<meta name="robots" content="max-image-preview:large">
+<meta name="viewport" content="width=1200">
+<style>.anim{visibility:hidden}</style>
+<link rel="preload" href="css/Roboto-Thin.woff2" as="font" crossorigin>
+<style>html,body{-webkit-text-zoom:reset !important}@font-face{font-display:block;font-family:"Roboto 1";src:url('css/Roboto-Light.woff2') format('woff2'),url('css/Roboto-Light.woff') format('woff');font-weight:300}@font-face{font-display:block;font-family:Roboto;src:url('css/Roboto-Thin.woff2') format('woff2'),url('css/Roboto-Thin.woff') format('woff');font-weight:100}@font-face{font-display:block;font-family:"Roboto 2";src:url('css/Roboto-Regular.woff2') format('woff2'),url('css/Roboto-Regular.woff') format('woff');font-weight:400}@font-face{font-display:block;font-family:"Hanken Grotesk 3";src:url('css/HankenGrotesk_wght_.woff2') format('woff2'),url('css/HankenGrotesk_wght_.woff') format('woff');font-weight:400}@font-face{font-display:block;font-family:"Roboto 4";src:url('css/Roboto-Bold.woff2') format('woff2'),url('css/Roboto-Bold.woff') format('woff');font-weight:700}body>div{font-size:0}p,span,h1,h2,h3,h4,h5,h6,a,li{margin:0;word-spacing:normal;word-wrap:break-word;-ms-word-wrap:break-word;pointer-events:auto;-ms-text-size-adjust:none !important;-moz-text-size-adjust:none !important;-webkit-text-size-adjust:none !important;text-size-adjust:none !important;max-height:10000000px}sup{font-size:inherit;vertical-align:baseline;position:relative;top:-0.4em}sub{font-size:inherit;vertical-align:baseline;position:relative;top:0.4em}ul{display:block;word-spacing:normal;word-wrap:break-word;line-break:normal;list-style-type:none;padding:0;margin:0;-moz-padding-start:0;-khtml-padding-start:0;-webkit-padding-start:0;-o-padding-start:0;-padding-start:0;-webkit-margin-before:0;-webkit-margin-after:0}li{display:block;white-space:normal}[data-marker]::before{content:attr(data-marker) ' ';-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}li p{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}form{display:inline-block}a{text-decoration:inherit;color:inherit;-webkit-tap-highlight-color:rgba(0,0,0,0)}textarea{resize:none}.shm-l{float:left;clear:left}.shm-r{float:right;clear:right;shape-outside:content-box}.btf{display:none}.plyr{min-width:0 !important}html{font-family:sans-serif}body{font-size:0;margin:0;--z:1;zoom:var(--z)}audio,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0;outline:0}b,strong{font-weight:700}dfn{font-style:italic}h1,h2,h3,h4,h5,h6{font-size:1em;line-height:1;margin:0}img{border:0}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=submit]{-webkit-appearance:button;cursor:pointer;box-sizing:border-box;white-space:normal}input[type=date],input[type=email],input[type=number],input[type=password],input[type=text],textarea{-webkit-appearance:none;appearance:none;box-sizing:border-box}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}textarea{overflow:auto;box-sizing:border-box;border-color:#ddd}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}blockquote{margin-block-start:0;margin-block-end:0;margin-inline-start:0;margin-inline-end:0}:-webkit-full-screen-ancestor:not(iframe){-webkit-clip-path:initial !important}
+html{-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale}@-webkit-keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.animated{-webkit-animation-fill-mode:both;animation-fill-mode:both}.animated.infinite{-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}@-webkit-keyframes fadeInLeft{from{opacity:0;-webkit-transform:translate3d(-100%,0,0)}to{opacity:1;-webkit-transform:translate3d(0, 0, 0)}}@keyframes fadeInLeft{from{opacity:0;transform:translate3d(-100%,0,0)}to{opacity:1;transform:translate3d(0, 0, 0)}}.fadeInLeft{-webkit-animation-name:fadeInLeft;animation-name:fadeInLeft}
+#b{background-color:#191919}.v12{display:inline-block;vertical-align:top}.ps247{position:relative;margin-top:0}.s259{width:100%;min-width:1200px;height:866px}.c57{border:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;z-index:3}.z188{z-index:3;pointer-events:none}.c58{position:absolute}.s260{width:100%;height:100%;box-sizing:border-box}.fx23{background-attachment:fixed;background-color:transparent;background-repeat:no-repeat;background-position:0 50%;background-size:cover;background-image:url(images/screenshot-2023-07-22-at-23.33.51-1200.jpg);opacity:0.3}.webp .fx23{background-image:url(images/screenshot-2023-07-22-at-23.33.51-1200.webp);background-attachment:fixed}.ps248{position:relative;margin-top:15px}.v13{display:block}.s261{width:1200px;margin-left:auto;margin-right:auto;min-height:456px}.ps249{position:relative;margin-left:0;margin-top:0}.s262{min-width:1180px;width:1180px;min-height:171px}.s263{min-width:348px;width:348px;min-height:147px;height:147px}.z189{z-index:4;pointer-events:auto}.i53{position:absolute;left:27px;width:294px;height:147px;top:0;border:0}.ps250{position:relative;margin-left:469px;margin-top:0}.s264{min-width:363px;width:363px;min-height:171px;line-height:0}.ps251{position:relative;margin-left:129px;margin-top:0}.s265{min-width:234px;width:234px;overflow:hidden;height:42px}.z190{z-index:5;pointer-events:auto}.p17{text-indent:0;padding-bottom:0;padding-right:0;text-align:right}.f39{font-family:"Roboto 1";font-size:24px;font-size:calc(24px * var(--f));line-height:1.626;font-weight:300;font-style:normal;text-decoration:underline;text-transform:none;letter-spacing:normal;color:#268bd2;background-color:initial;text-shadow:none}.ps252{position:relative;margin-left:27px;margin-top:0}.s266{min-width:336px;width:336px;overflow:hidden;height:40px}.z191{z-index:6;pointer-events:auto}.s267{min-width:363px;width:363px;overflow:hidden;height:49px}.z192{z-index:7;pointer-events:auto}.z193{z-index:60;pointer-events:auto}.ps253{position:relative;margin-left:68px;margin-top:70px}.s268{min-width:895px;width:895px;min-height:215px}.s269{min-width:895px;width:895px;min-height:215px;line-height:0}.s270{min-width:641px;width:641px;overflow:hidden;height:181px}.z194{z-index:8;pointer-events:auto}.p18{text-indent:0;padding-bottom:0;padding-right:0;text-align:left}.f40{font-family:Roboto;font-size:103px;font-size:calc(103px * var(--f));line-height:1.642;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps254{position:relative;margin-left:0;margin-top:-49px}.s271{min-width:895px;width:895px;overflow:hidden;height:83px}.z195{z-index:9;pointer-events:auto}.f41{font-family:Roboto;font-size:48px;font-size:calc(48px * var(--f));line-height:1.626;font-weight:100;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:normal;color:#d1d4da;background-color:initial;text-shadow:none}.ps255{position:relative;margin-left:0;margin-top:-471px}.s272{min-width:1200px;width:1200px;min-height:1px}@media (min-width:1200px) {.fx23{background-attachment:fixed;background-image:url(images/screenshot-2023-07-22-at-23.33.51-1600.jpg)}.webp .fx23{background-image:url(images/screenshot-2023-07-22-at-23.33.51-1600.webp);background-attachment:fixed}}@media (min-width:1600px) {.fx23{background-attachment:fixed;background-image:url(images/screenshot-2023-07-22-at-23.33.51-2000.jpg)}.webp .fx23{background-image:url(images/screenshot-2023-07-22-at-23.33.51-2000.webp);background-attachment:fixed}}@media (min-width:2000px) {.fx23{background-attachment:fixed;background-image:url(images/screenshot-2023-07-22-at-23.33.51-2560.jpg)}.webp .fx23{background-image:url(images/screenshot-2023-07-22-at-23.33.51-2560.webp);background-attachment:fixed}}</style>
+<script>!function(){var A=new Image;A.onload=A.onerror=function(){1!=A.height&&document.body.classList.remove("webp")},A.src="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAD8D+JaQAA3AA/ua1AAA"}();
+</script>
+<link onload="this.media='all';this.onload=null;" rel="stylesheet" href="css/site.8b81ba.css" media="print">
+<noscript><link rel="stylesheet" href="css/site.8b81ba.css" type="text/css"></noscript>
+</head>
+<body class="webp" id="b">
+<script>!function(){var e=document.createElement("P");e.innerHTML="&nbsp;",e.style.cssText="position:fixed;visible:hidden;font-size:100px;zoom:1",document.body.appendChild(e);var t=function(e){return function(){var t=Math.trunc(1e4/parseFloat(window.getComputedStyle(e).getPropertyValue("font-size")))/100,n=document.body;t!=n.style.getPropertyValue("--f")&&n.style.setProperty("--f",t)}}(e);if("ResizeObserver"in window)new ResizeObserver(t).observe(e);else if("requestAnimationFrame"in window){var n=function(){t(),requestAnimationFrame(n)};requestAnimationFrame(n)}else setInterval(t,100)}()</script>
+
+<div data-ffbk class="fbk v12 ps247 s259 c57 z188 fx23" data-fbk="fx23">
+<div class="c58 s260">
+</div>
+<div class="ps248 v13 s261">
+<div class="v12 ps249 s262">
+<div class="anim fadeIn un92 v12 ps249 s263 c59 z189">
+<picture>
+<source srcset="images/metabolabpy_dark_transparency-294.webp 1x, images/metabolabpy_dark_transparency-588.webp 2x" type="image/webp">
+<source srcset="images/metabolabpy_dark_transparency-294.png 1x, images/metabolabpy_dark_transparency-588.png 2x">
+<img src="images/metabolabpy_dark_transparency-588.png" class="i53">
+</picture>
+</div>
+<div class="v12 ps250 s264">
+<div class="anim fadeIn un93 v12 ps251 s265 c59 z190">
+<p class="p17"><a href="./#top" class="f39">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un94 v12 ps252 s266 c59 z191">
+<p class="p17"><a href="./#documentation" class="f39">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un95 v12 ps249 s267 c59 z192">
+<p class="p17"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#introduction" class="f39">Introduction / 2D JRes Processing</a></p>
+</div>
+<div class="anim fadeIn un96 v12 ps252 s266 c59 z193">
+<p class="p17"><a onclick="return window.smoothScroll(event, '[name=\'hsqcprocessing\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#hsqcprocessing" class="f39">2D-HSQC data processing</a></p>
+</div>
+</div>
+</div>
+<div class="v12 ps253 s268">
+<div class="v12 ps249 s269">
+<div class="anim fadeInLeft un97 v12 ps249 s270 c59 z194">
+<p class="p18 f40">MetaboLabPy</p>
+</div>
+<div class="anim fadeInLeft un98 v12 ps254 s271 c59 z195">
+<p class="p18 f41">Basic 2D-NMR Data Processing</p>
+</div>
+</div>
+</div>
+</div>
+<a name="top" class="v13 ps255 s272"></a>
+<a name="introduction" class="v2 ps215 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps60 s216 c53 z1 fx21" data-fbk="fx21">
+<div class="c54 s2">
+</div>
+<div class="ps216 v2 s217">
+<div class="v1 ps175 s218">
+<div class="v1 ps176 s5 c3 z186"></div>
+<div class="anim slideInDown un99 v1 ps177 s6 c4 z4">
+<p class="p1 f1">Introduction</p>
+</div>
+<div class="v1 ps184 s219 c4 z9">
+<p class="p2 f2">To demonstrate basic 2D NMR data processing in MetaboLabPy, we are going to look into two different datasets. The first dataset contains four 2D-Jres NMR experiments, which can be downloaded <a href="https://tinyurl.com/jres2dData" class="f3">here</a>, and the second example contains a 2D-1H,13C HSQC NMR spectrum, which can be downloaded <a href="https://tinyurl.com/hsqcData" class="f3">here</a>.</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2"><br></p>
+</div>
+<div class="v1 ps179 s220">
+<div class="anim fadeIn un100 v1 ps180 s167 c4 z6">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un101 v1 ps34 s168 c4 z22">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un102 v1 ps34 s168 c4 z168">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Basic 2D-NMR Data Processing</a></p>
+</div>
+<div class="anim fadeIn un103 v1 ps34 s168 c4 z12">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'hsqcprocessing\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#hsqcprocessing" class="f5">2D-HSQC data processing</a></p>
+</div>
+</div>
+</div>
+<div class="v1 ps217 s221">
+<div class="v1 ps4 s5 c3 z8"></div>
+<div class="v1 ps5 s222">
+<div class="v1 ps34 s223 c4 z11">
+<p class="p1 f1">2D-Jres Data Processing</p>
+</div>
+<div class="v1 ps218 s224 c4 z10">
+<p class="p2 f2">To read in the 2D-Jres NMR dataset, we use the 2D-Jres example script in the script tab, as indicated below. The phrase <span class="f35">&lsquo;Replace with directory containing Bruker data&rsquo;</span> should be replaced by <span class="f35">&lsquo;interactive&rsquo;</span>. <span class="f35">data_sets = []</span> needs to be replaced by <span class="f36">data_sets = [1, 2, 3, 4]</span>, which is also indicated in the figure below.</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2"><br></p>
+</div>
+</div>
+</div>
+<div class="v1 ps120 s225">
+<div class="v1 ps34 s226">
+<div class="v1 ps34 s227 c4 z35">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-16.50.22-905.webp 1x, images/screenshot-2023-07-24-at-16.50.22-1810.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-16.50.22-905.png 1x, images/screenshot-2023-07-24-at-16.50.22-1810.png 2x">
+<img src="images/screenshot-2023-07-24-at-16.50.22-1810.png" loading="lazy" class="i42">
+</picture>
+</div>
+<div class="v1 ps219 s228 c4 z36">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-16.48.36-273.webp 1x, images/screenshot-2023-07-24-at-16.48.36-546.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-16.48.36-273.png 1x, images/screenshot-2023-07-24-at-16.48.36-546.png 2x">
+<img src="images/screenshot-2023-07-24-at-16.48.36-546.png" loading="lazy" class="i43">
+</picture>
+</div>
+</div>
+</div>
+<div class="v1 ps220 s194 c4 z170">
+<p class="p2 f2">The script can then be executed either by clicking on eXecute Script in the bottom right hand corner, or via the keyboard shortcut Ctrl + x (or <span class="f4">&#x2318;</span><span class="f4"> +</span><span class="f4"> x on macOS). Please select the folder containing the directories 1, 2, 3 and 4. The program window should look like the following:</span></p>
+</div>
+<div class="v1 ps221 s229 c4 z41">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-17.00.58-905.webp 1x, images/screenshot-2023-07-24-at-17.00.58-1810.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-17.00.58-905.png 1x, images/screenshot-2023-07-24-at-17.00.58-1810.png 2x">
+<img src="images/screenshot-2023-07-24-at-17.00.58-1810.png" loading="lazy" class="i44">
+</picture>
+</div>
+<div class="v1 ps222 s230 c4 z43">
+<p class="p2 f2">Please note, despite reading in a 2D-NMR spectrum, a 1D-NMR spectrum is displayed. This is a 1D-projection of the 2D-Jres spectrum, which is performed as part of the data processing script. Please refer to the comments in the script for details.</p>
+<p class="p2 f2">In order to see, the corresponding 2D-Jres spectrum, we need to change the dataset number from 2 to 1.</p>
+<p class="p2 f2">Processing options for 2D-NMR spectra are very similar to those for 1D-NMR data. The biggest difference is, that we have an independent set of NMR data processing parameters for every dimension. To demonstrate the effect of some processing parameters specific to 2D-Jres NMR spectra (Tilt and Symmetrize). The standard setting for these parameters is Yes for both. The Tilt option changes the spectrum, so that different components of a spectral multiplet are collapsed to the same resonance position. Symmetrize then helps to remove some 2D-Jres specific spectral artefacts.</p>
+</div>
+<div class="v1 ps223 s231 c4 z45">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-17.28.34-905.webp 1x, images/screenshot-2023-07-24-at-17.28.34-1810.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-17.28.34-905.png 1x, images/screenshot-2023-07-24-at-17.28.34-1810.png 2x">
+<img src="images/screenshot-2023-07-24-at-17.28.34-1810.png" loading="lazy" class="i45">
+</picture>
+</div>
+<div class="v1 ps190 s180 c4 z42">
+<p class="p2 f2">A spectrum, which was processed with both options set to No is shown below together with the corresponding 1D-projected Jres spectrum.</p>
+</div>
+<div class="v1 ps224 s232">
+<div class="v1 ps34 s233 c4 z51">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-17.28.50-600.webp 1x, images/screenshot-2023-07-24-at-17.28.50-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-17.28.50-600.jpg 1x, images/screenshot-2023-07-24-at-17.28.50-1200.jpg 2x">
+<img src="images/screenshot-2023-07-24-at-17.28.50-1200.jpg" loading="lazy" class="i46">
+</picture>
+</div>
+<div class="v1 ps225 s233 c4 z49">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-17.29.53-600.webp 1x, images/screenshot-2023-07-24-at-17.29.53-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-17.29.53-600.png 1x, images/screenshot-2023-07-24-at-17.29.53-1200.png 2x">
+<img src="images/screenshot-2023-07-24-at-17.29.53-1200.png" loading="lazy" class="i46">
+</picture>
+</div>
+</div>
+<div class="v1 ps226 s180 c4 z173">
+<p class="p2 f2">We find, that the projected Jres spectrum looks very similar to a basic 1D-<sup class="f2">1</sup>H NMR spectrum. However, once we turn the two options back on, get the following result.</p>
+</div>
+<div class="v1 ps223 s234">
+<div class="v1 ps34 s233 c4 z52">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-17.30.35-600.webp 1x, images/screenshot-2023-07-24-at-17.30.35-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-17.30.35-600.png 1x, images/screenshot-2023-07-24-at-17.30.35-1200.png 2x">
+<img src="images/screenshot-2023-07-24-at-17.30.35-1200.png" loading="lazy" class="i46">
+</picture>
+</div>
+<div class="v1 ps227 s233 c4 z172">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-17.30.52-600.webp 1x, images/screenshot-2023-07-24-at-17.30.52-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-17.30.52-600.png 1x, images/screenshot-2023-07-24-at-17.30.52-1200.png 2x">
+<img src="images/screenshot-2023-07-24-at-17.30.52-1200.png" loading="lazy" class="i46">
+</picture>
+</div>
+</div>
+<div class="v1 ps228 s235 c4 z60">
+<p class="p2 f2">The result of using these processing options is, that the projected 1D-NMR spectrum basically looks like a proton-decoupled 1D-<sup class="f2">1</sup>H NMR spectrum. This can be useful if spectral congestion is a problem. Please also note, that the data pre-processing option is available for projected Jres spectra, so that projected Jres spectra can be prepared for multivariate data analysis in the same way as normal 1D-<sup class="f2">1</sup>H NMR spectra.</p>
+<p class="p2 f2">Because 2D-Jres NMR spectra are magnitude spectra, there is no need for a two-dimensional phase correction. Therefore, we will look into 2D-phase correction using phase-sensitive 2D-<sup class="f2">1</sup>H,<sup class="f2">13</sup>C HSQC NMR spectra.&nbsp;</p>
+</div>
+</div>
+<a name="hsqcprocessing" class="v2 ps229 s11"></a>
+</div>
+<div data-ffbk class="fbk btf v1 ps60 s236 c55 z100 fx22" data-fbk="fx22">
+<div class="c56 s2">
+</div>
+<div class="ps230 v2 s237">
+<div class="anim fadeIn un104 v1 ps231 s167 c4 z70">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un105 v1 ps205 s168 c4 z67">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un106 v1 ps205 s168 c4 z187">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Basic 2D-NMR Data Processing</a></p>
+</div>
+<div class="anim fadeIn un107 v1 ps205 s238 c4 z79">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 5, 'easeOutQuad')" style="cursor:pointer;" href="#introduction" class="f5">Introduction</a></p>
+</div>
+<div class="v1 ps232 s239">
+<div class="v1 ps4 s5 c3 z166"></div>
+<div class="v1 ps5 s240">
+<div class="anim slideInDown un108 v1 ps34 s241 c4 z167">
+<p class="p1 f1">2D-HSQC Data Processing</p>
+</div>
+<div class="v1 ps233 s242 c4 z76">
+<p class="p2 f2">The 2D-HSQC NMR dataset<span class="f2"> can be downloaded </span><a href="https://tinyurl.com/hsqcData" class="f3">here</a><span class="f2">. This dataset contains two 2D-</span><sup class="f2">1</sup><span class="f2">H,</span><sup class="f2">13</sup><span class="f2">C HSQC NMR spectra. The first dataset was acquired using conventional sampling and can be Fourier transformed within MetaboLabPy. This dataset can be opened by clicking &ldquo;Open NMR Spectrum&rdquo; in the File menu or by using the keyboard shortcut Ctrl + o (</span><span class="f4">&#x2318;</span><span class="f4"> + </span><span class="f4">o on macOS). Please select the folder number 1 to read in the spectrum. The resulting spectrum display should look similar to this:</span></p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2"><br></p>
+</div>
+</div>
+</div>
+<div class="v1 ps120 s243 c4 z61">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-18.05.08-905.webp 1x, images/screenshot-2023-07-24-at-18.05.08-1810.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-18.05.08-905.jpg 1x, images/screenshot-2023-07-24-at-18.05.08-1810.jpg 2x">
+<img src="images/screenshot-2023-07-24-at-18.05.08-1810.jpg" loading="lazy" class="i47">
+</picture>
+</div>
+<div class="v1 ps234 s244 c4 z71">
+<p class="p2 f2">The red contour lines correspond to negative values in the 2D-NMR spectrum and the blue contour lines to positive parts of the 2D-NMR spectrum. To phase correct this 2D-NMR spectrum, we need to enter phase correction mode by clicking on <span class="f37">Phase/Baseline Correction</span> and then on <span class="f37">Interactive Phase Correction</span> in the <span class="f37">Data</span> menu. This will add six buttons to the GUI.</p>
+<p class="p2 f2"><br></p>
+<p class="p2 f2"><br></p>
+</div>
+<div class="v1 ps235 s245 c4 z80">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-18.26.45-643.webp 1x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-18.26.45-643.png 1x">
+<img src="images/screenshot-2023-07-24-at-18.26.45-643.png" loading="lazy" class="i48">
+</picture>
+</div>
+<div class="v1 ps236 s246 c4 z171">
+<p class="p2 f2">In order to perform a 2D-phase correction, we need to pick at least 2 peaks. One of the peaks should be at the right hand side of the visible signals and another peak on the left-hand side. To select a peak, click on <span class="f37">Pick Row/Col</span> and then click the horizontal centre of a peak. We can zoom in and out to easily select the centre of the peaks. The selected peaks are displayed a coloured crosses as demonstrated below:</p>
+<p class="p2 f2"><br></p>
+</div>
+<div class="v1 ps237 s247">
+<div class="v1 ps34 s233 c4 z87">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-18.30.28-600.webp 1x, images/screenshot-2023-07-24-at-18.30.28-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-18.30.28-600.png 1x, images/screenshot-2023-07-24-at-18.30.28-1200.png 2x">
+<img src="images/screenshot-2023-07-24-at-18.30.28-1200.png" loading="lazy" class="i46">
+</picture>
+</div>
+<div class="v1 ps238 s248 c4 z84">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-18.30.46-600.webp 1x, images/screenshot-2023-07-24-at-18.30.46-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-18.30.46-600.png 1x, images/screenshot-2023-07-24-at-18.30.46-1200.png 2x">
+<img src="images/screenshot-2023-07-24-at-18.30.46-1200.png" loading="lazy" class="i49">
+</picture>
+</div>
+</div>
+<div class="v1 ps188 s249 c4 z88">
+<p class="p2 f2">Selected peaks can be removed by clicking on <span class="f37">Empty Row/Col</span> (this will remove all selected peaks) or by clicking on <span class="f37">Remove last Row/Col</span>, which will remove only the peak selected last. Once enough peaks have been selected, we can start with the horizontal phase correction by clicking on <span class="f37">Hor. PhCorr</span>. The spectrum display will then display the selected rows of the spectrum with colours indicating, which peak was selected. The plotted spectra also display the pivot, which if it was not set previously, will be in the middle of the spectrum. As for 1D phase correction, it can be moved by dragging the middle mouse button over to either the right-most or left-most peaks. If there is no 3-button mouse available Ctrl + left mouse button (<span class="f4">&#x2318;</span><span class="f4"> + </span><span class="f4"> left mouse button on macOS) can be used instead. The horizontal dimension can then be phase corrected by dragging the left (zero order) or right (first order, </span><span class="f4">&#x21e7;</span><span class="f4"> + </span><span class="f4">left mouse button) mouse button until all peaks are phase corrected.</span></p>
+<p class="p2 f2"><br></p>
+</div>
+<div class="v1 ps237 s250">
+<div class="v1 ps34 s233 c4 z174">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-18.42.05-600.webp 1x, images/screenshot-2023-07-24-at-18.42.05-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-18.42.05-600.png 1x, images/screenshot-2023-07-24-at-18.42.05-1200.png 2x">
+<img src="images/screenshot-2023-07-24-at-18.42.05-1200.png" loading="lazy" class="i46">
+</picture>
+</div>
+<div class="v1 ps239 s233 c4 z95">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-18.42.44-600.webp 1x, images/screenshot-2023-07-24-at-18.42.44-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-18.42.44-600.png 1x, images/screenshot-2023-07-24-at-18.42.44-1200.png 2x">
+<img src="images/screenshot-2023-07-24-at-18.42.44-1200.png" loading="lazy" class="i46">
+</picture>
+</div>
+</div>
+<div class="v1 ps222 s251 c4 z92">
+<p class="p2 f2">Once all peaks are phase corrected in this 1D display, the 2D-NMR spectrum can be horizontally phase corrected by clicking on <span class="f37">Apply 2D PhCorr</span>, alternatively the procedure can be cancelled. The 2D-NMR spectrum will be displayed again.</p>
+<p class="p2 f2">To phase correct the vertical dimension, remove all previously selected peaks by clicking <span class="f37">Empty Row/Col</span> and select a peak on top and one from the lower end of the 2D-NMR spectrum. Use zoom to ensure to select the centre of the peaks.</p>
+</div>
+<div class="v1 ps240 s252">
+<div class="v1 ps34 s233 c4 z97">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-18.47.21-600.webp 1x, images/screenshot-2023-07-24-at-18.47.21-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-18.47.21-600.png 1x, images/screenshot-2023-07-24-at-18.47.21-1200.png 2x">
+<img src="images/screenshot-2023-07-24-at-18.47.21-1200.png" loading="lazy" class="i46">
+</picture>
+</div>
+<div class="v1 ps241 s253 c4 z175">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-18.47.40-600.webp 1x, images/screenshot-2023-07-24-at-18.47.40-1200.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-18.47.40-600.png 1x, images/screenshot-2023-07-24-at-18.47.40-1200.png 2x">
+<img src="images/screenshot-2023-07-24-at-18.47.40-1200.png" loading="lazy" class="i50">
+</picture>
+</div>
+</div>
+<div class="v1 ps240 s254 c4 z105">
+<p class="p2 f2">Now select <span class="f37">Vert. PhCorr</span> and repeat the procedure as for horizontal phase correction. After applying the vertical phase correction, phase correction mode can be exited by clicking on <span class="f37">Exit</span>.</p>
+</div>
+<div class="v1 ps242 s255 c4 z102">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-18.52.07-797.webp 1x, images/screenshot-2023-07-24-at-18.52.07-1594.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-18.52.07-797.png 1x, images/screenshot-2023-07-24-at-18.52.07-1594.png 2x">
+<img src="images/screenshot-2023-07-24-at-18.52.07-1594.png" loading="lazy" class="i51">
+</picture>
+</div>
+<div class="v1 ps190 s235 c4 z176">
+<p class="p2 f2">To reference 2D-NMR spectrum, zoom in to the signal to be used for referencing. Depending on the signal, there are two ways to reference the 2D spectrum. If you know the spectral coordinates, you can reference the spectrum by typing <span class="f24">reference2d([1H chemical shift, 13C chemical shift])</span>and then clicking the centre of the peak, or if the metabolite causing the peak signal is known, typing <span class="f24">reference2d(&lsquo;L-LacticAcid&rsquo;, 2)</span> and clicking the centre of the peak. &lsquo;L-LacticAcid&rsquo; is an example, because the signal selected is the methyl group signal of lactate. There will be further examples in Tracing Analysis in MetaboLabPy.</p>
+</div>
+<div class="v1 ps243 s256 c4 z122">
+<picture>
+<source srcset="images/screenshot-2023-07-24-at-19.01.00-798.webp 1x, images/screenshot-2023-07-24-at-19.01.00-1596.webp 2x" type="image/webp">
+<source srcset="images/screenshot-2023-07-24-at-19.01.00-798.jpg 1x, images/screenshot-2023-07-24-at-19.01.00-1596.jpg 2x">
+<img src="images/screenshot-2023-07-24-at-19.01.00-1596.jpg" loading="lazy" class="i52">
+</picture>
+</div>
+<div class="v1 ps244 s257 c4 z53">
+<p class="p2 f2">If NMR spectra were processed with the help of the excellent NMRPipe software, processed 2D-NMR spectra can be read in by clicking on <span class="f37">Open NMRPipe</span> in the <span class="f37">File</span> menu or by using the keyboard shortcut Ctrl + n (<span class="f4">&#x2318;</span><span class="f4"> + </span><span class="f4">n in macOS).&nbsp;</span></p>
+<p class="p2 f4">In order to successfully read in a NMRPipe processed NMR spectrum, the data needs to be organised in a specific way. If NMRPipe in conjunction with MDDNMR is used to reconstruct 2D-NMR spectra from non-uniformly sampled NMR data, the structure already exists. The original Bruker data folder containing the originally acquired spectrum (e.g. 2) needs to be in the same folder as the directory containing the processed data (e.g. 2.proc). Please note that both folder names start with the same number, but the folder containing the processed spectrum adds .proc to that.</p>
+<p class="p2 f4">After clicking <span class="f38">Open NMRPipe</span>, you will be presented with a GUI file selected. Navigate to the folder containing the processed spectrum and select the spectrum file (test.dat in our example dataset), all acquisition data will then be read from the Bruker data folder together with the processed 2D spectrum. The spectrum can be phase corrected and referenced in the same way a conventionally processed 2D-NMR spectrum can be phase corrected and referenced.</p>
+<p class="p2 f4">Lastly, quite often highly-resolved 2D-<sup class="f4">1</sup>H,<sup class="f4">13</sup>C HSQC NMR spectra benefit from baseline correction. This can be performed automatically using a polynomial baseline correction, by typing <span class="f11">autobaseline2d()</span> at the MetaboLabPy command line.</p>
+</div>
+<div class="anim fadeIn un109 v1 ps245 s167 c4 z119">
+<p class="p3"><a href="./#top" class="f5">MetaboLabPy - Home</a></p>
+</div>
+<div class="anim fadeIn un110 v1 ps205 s168 c4 z106">
+<p class="p3"><a href="./#documentation" class="f5">MetaboLabPy - Documentation</a></p>
+</div>
+<div class="anim fadeIn un111 v1 ps205 s168 c4 z124">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'top\']', 5, 'easeInOutQuad')" style="cursor:pointer;" href="#top" class="f5">Basic 2D-NMR Data Processing</a></p>
+</div>
+<div class="anim fadeIn un112 v1 ps246 s258 c4 z123">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'introduction\']', 5, 'easeOutQuad')" style="cursor:pointer;" href="#introduction" class="f5">Introduction / 2D-Jres data processing</a></p>
+</div>
+<div class="anim fadeIn un113 v1 ps205 s168 c4 z44">
+<p class="p3"><a onclick="return window.smoothScroll(event, '[name=\'hsqcprocessing\']', 2.5, 'easeInOutQuad')" style="cursor:pointer;" href="#hsqcprocessing" class="f5">2D-HSQC data processing</a></p>
+</div>
+</div>
+</div>
+<div class="btf c8">
+</div>
+<script>!function(){if("Promise"in window&&void 0!==window.performance){var e,t,r=document,n=function(){return r.createElement("link")},o=new Set,a=n(),i=a.relList&&a.relList.supports&&a.relList.supports("prefetch"),s=location.href.replace(/#[^#]+$/,"");o.add(s);var c=function(e){var t=location,r="http:",n="https:";if(e&&e.href&&e.origin==t.origin&&[r,n].includes(e.protocol)&&(e.protocol!=r||t.protocol!=n)){var o=e.pathname;if(!(e.hash&&o+e.search==t.pathname+t.search||"?preload=no"==e.search.substr(-11)||".html"!=o.substr(-5)&&".html"!=o.substr(-5)&&"/"!=o.substr(-1)))return!0}},u=function(e){var t=e.replace(/#[^#]+$/,"");if(!o.has(t)){if(i){var a=n();a.rel="prefetch",a.href=t,r.head.appendChild(a)}else{var s=new XMLHttpRequest;s.open("GET",t,s.withCredentials=!0),s.send()}o.add(t)}},p=function(e){return e.target.closest("a")},f=function(t){var r=t.relatedTarget;r&&p(t)==r.closest("a")||e&&(clearTimeout(e),e=void 0)},d={capture:!0,passive:!0};r.addEventListener("touchstart",function(e){t=performance.now();var r=p(e);c(r)&&u(r.href)},d),r.addEventListener("mouseover",function(r){if(!(performance.now()-t<1200)){var n=p(r);c(n)&&(n.addEventListener("mouseout",f,{passive:!0}),e=setTimeout(function(){u(n.href),e=void 0},80))}},d)}}();dpth="/";!function(){var e={},t={},n={};window.ld=function(a,r,o){var c=function(){"interactive"==document.readyState?(r&&r(),document.addEventListener("readystatechange",function(){"complete"==document.readyState&&o&&o()})):"complete"==document.readyState?(r&&r(),o&&o()):document.addEventListener("readystatechange",function(){"interactive"==document.readyState&&r&&r(),"complete"==document.readyState&&o&&o()})},d=(1<<a.length)-1,u=0,i=function(r){var o=a[r],i=function(){for(var t=0;t<a.length;t++){var r=(1<<t)-1;if((u&r)==r&&n[a[t]]){if(!e[a[t]]){var o=document.createElement("script");o.textContent=n[a[t]],document.body.appendChild(o),e[a[t]]=!0}if((u|=1<<t)==d)return c(),0}}return 1};if(null==t[o]){t[o]=[];var f=new XMLHttpRequest;f.open("GET",o,!0),f.onload=function(){n[o]=f.responseText,[].forEach.call(t[o],function(e){e()})},t[o].push(i),f.send()}else{if(e[o])return i();t[o].push(i)}return 1};if(a.length)for(var f=0;f<a.length&&i(f);f++);else c()}}();ld(["js/fixed.e4c4f9.js"]);ld([],function(){!function(){var e=document.querySelectorAll('a[href^="#"]');[].forEach.call(e,function(e){var t=navigator.userAgent,a=/chrome/i.test(t),o=/firefox/i.test(t),n=/iPad|iPhone|iPod/.test(t)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1;e.addEventListener("click",function(t){var r=!1,i=document.body.parentNode;n&&"none"!=getComputedStyle(i).getPropertyValue("scroll-snap-type")&&(i.setAttribute("data-snap",i.style.scrollSnapType),i.style.scrollSnapType="none",r=!0);var s=0;if(e.hash.length>1){var u=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!o&&u||(u=1);var l=e.hash.slice(1),c=document.getElementById(l);if(null===c&&null===(c=document.querySelector('[name="'+l+'"]')))return;s=a?c.getBoundingClientRect().top*u+pageYOffset:(c.getBoundingClientRect().top+pageYOffset)*u}else if(r)for(var m=document.querySelectorAll("[data-block-group]"),p=0;p<m.length;p++)if("none"!=getComputedStyle(m[p]).getPropertyValue("scroll-snap-align")){c=m[p];break}if(r)window.smoothScroll(t,c,1);else if("scrollBehavior"in document.documentElement.style)scroll({top:s,left:0,behavior:"smooth"});else if("requestAnimationFrame"in window){var d=pageYOffset,f=null;requestAnimationFrame(function e(t){f||(f=t);var a=(t-f)/400;scrollTo(0,d<s?(s-d)*a+d:d-(d-s)*a),a<1?requestAnimationFrame(e):scrollTo(0,s)})}else scrollTo(0,s);t.preventDefault()},!1)})}(),window.smoothScroll=function(e,t,a,o){e.stopImmediatePropagation();var n,r=pageYOffset;t?(("string"==typeof t||t instanceof String)&&(t=document.querySelector(t)),n=t.getBoundingClientRect().top):n=-r;var i=navigator.userAgent,s=/chrome/i.test(i),u=/firefox/i.test(i),l=parseFloat(getComputedStyle(document.body).getPropertyValue("zoom"));!u&&l||(l=1);var c=n*l+(s?0:r*(l-1)),m=null;function p(){d(window.performance.now?window.performance.now():Date.now())}function d(e){null===m&&(m=e);var n=(e-m)/1e3,i=function(e,t,a){switch(o){case"linear":break;case"easeInQuad":e*=e;break;case"easeOutQuad":e=1-(1-e)*(1-e);break;case"easeInCubic":e*=e*e;break;case"easeOutCubic":e=1-Math.pow(1-e,3);break;case"easeInOutCubic":e=e<.5?4*e*e*e:1-Math.pow(-2*e+2,3)/2;break;case"easeInQuart":e*=e*e*e;break;case"easeOutQuart":e=1-Math.pow(1-e,4);break;case"easeInOutQuart":e=e<.5?8*e*e*e*e:1-Math.pow(-2*e+2,4)/2;break;case"easeInQuint":e*=e*e*e*e;break;case"easeOutQuint":e=1-Math.pow(1-e,5);break;case"easeInOutQuint":e=e<.5?16*e*e*e*e*e:1-Math.pow(-2*e+2,5)/2;break;case"easeInCirc":e=1-Math.sqrt(1-Math.pow(e,2));break;case"easeOutCirc":e=Math.sqrt(1-Math.pow(0,2));break;case"easeInOutCirc":e=e<.5?(1-Math.sqrt(1-Math.pow(2*e,2)))/2:(Math.sqrt(1-Math.pow(-2*e+2,2))+1)/2;break;case"easeInOutQuad":default:e=e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2}e>1&&(e=1);return t+a*e}(n/a,r,c);window.scrollTo(0,i),n<a?"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120):(/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream||"MacIntel"===navigator.platform&&navigator.maxTouchPoints>1)&&(t&&t.scrollIntoView(),setTimeout(function(){var e=document.body.parentNode;e.style.scrollSnapType=e.getAttribute("data-snap"),e.removeAttribute("data-snap")},100))}return"requestAnimationFrame"in window?requestAnimationFrame(d):setTimeout(p,1e3/120),!1};!function(){var e=null;if(location.hash){var t=location.hash.replace("#",""),n=function(){var o=document.getElementById(t);null===o&&(o=document.querySelector('[name="'+t+'"]')),o&&o.scrollIntoView(!0),"0px"===window.getComputedStyle(document.body).getPropertyValue("min-width")?setTimeout(n,100):null!=e&&setTimeout(e,100)};n()}else null!=e&&e()}();});ld(["js/woolite.e4c4f9.js"],function(){wl.addAnimation('.un92',"3.00s","0.00s",1,100);wl.addAnimation('.un93',"2.50s","0.00s",1,100);wl.addAnimation('.un94',"2.50s","0.00s",1,100);wl.addAnimation('.un95',"2.50s","0.00s",1,100);wl.addAnimation('.un96',"2.50s","0.00s",1,100);wl.addAnimation('.un97',"2.50s","0.00s",1,0);wl.addAnimation('.un98',"2.50s","0.00s",1,0);wl.addAnimation('.un99',"1.50s","0.00s",1,100);wl.addAnimation('.un100',"2.50s","0.00s",1,100);wl.addAnimation('.un101',"2.50s","0.00s",1,100);wl.addAnimation('.un102',"2.50s","0.00s",1,100);wl.addAnimation('.un103',"2.50s","0.00s",1,100);wl.addAnimation('.un104',"2.50s","0.00s",1,100);wl.addAnimation('.un105',"2.50s","0.00s",1,100);wl.addAnimation('.un106',"2.50s","0.00s",1,100);wl.addAnimation('.un107',"2.50s","0.00s",1,100);wl.addAnimation('.un108',"1.50s","0.00s",1,100);wl.addAnimation('.un109',"2.50s","0.00s",1,100);wl.addAnimation('.un110',"2.50s","0.00s",1,100);wl.addAnimation('.un111',"2.50s","0.00s",1,100);wl.addAnimation('.un112',"2.50s","0.00s",1,100);wl.addAnimation('.un113',"2.50s","0.00s",1,100);wl.start();});</script>
+</body>
+</html>
