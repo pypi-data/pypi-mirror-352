@@ -1,0 +1,24 @@
+[build-system]
+requires = [ "hatchling >= 1.26",]
+build-backend = "hatchling.build"
+
+[project]
+name = "j_vault_http_client_xethhung12"
+version = "0.1.0"
+description = "A small example package"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [ "Programming Language :: Python :: 3", "Operating System :: OS Independent",]
+license = "MIT"
+license-files = [ "LICEN[CS]E*",]
+dependencies = [ "requests",]
+[[project.authors]]
+name = "Xeth Hung"
+email = "admin@xethh.me"
+
+[project.urls]
+Homepage = "https://github.com/xh-dev/j_vault_http_client_xethhung12"
+Issues = "https://github.com/xh-dev/j_vault_http_client_xethhung12/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = [ "src/j_vault_http_client_xethhung12",]
