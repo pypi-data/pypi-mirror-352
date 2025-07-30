@@ -1,0 +1,1943 @@
+# French translations for lino-noi.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the lino-noi project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lino-noi 0.0.2\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-05-07 17:29+0300\n"
+"PO-Revision-Date: 2015-11-30 22:41+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fr\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: lino_prima/lib/cert/__init__.py:13 lino_prima/lib/cert/models.py:93
+#: lino_prima/lib/school/models.py:209
+msgid "Certificates"
+msgstr ""
+
+#: lino_prima/lib/cert/mixins.py:12
+msgid "Certificate state"
+msgstr ""
+
+#: lino_prima/lib/cert/mixins.py:13
+msgid "Certificate states"
+msgstr ""
+
+#: lino_prima/lib/cert/mixins.py:16
+msgid "Draft"
+msgstr ""
+
+#: lino_prima/lib/cert/mixins.py:17
+msgid "To discuss"
+msgstr ""
+
+#: lino_prima/lib/cert/mixins.py:18
+msgid "Ready"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:25
+msgid "Certificate template"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:26
+msgid "Certificate templates"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:32
+msgid "Certificate section template"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:33
+msgid "Certificate section templates"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:39 lino_prima/lib/cert/models.py:183
+#: lino_prima/lib/projects/models.py:108 lino_prima/lib/ratings/models.py:268
+#: lino_prima/lib/ratings/ui.py:264 lino_prima/lib/school/models.py:69
+#: lino_prima/lib/school/models.py:109
+msgid "Remark"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:60
+#, python-brace-format
+msgid " (in {cert_template})"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:74
+msgid "Certificate element template"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:75
+msgid "Certificate element templates"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:92
+msgid "Certificate"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:98 lino_prima/lib/prima/user_types.py:28
+#: lino_prima/lib/projects/models.py:105 lino_prima/lib/projects/ui.py:186
+#: lino_prima/lib/ratings/models.py:175 lino_prima/lib/ratings/models.py:266
+#: lino_prima/lib/ratings/models.py:367 lino_prima/lib/ratings/models.py:397
+#: lino_prima/lib/ratings/ui.py:257 lino_prima/lib/school/models.py:186
+#: lino_prima/lib/school/ui.py:98
+msgid "Pupil"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:101
+msgid "Social skills comment"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:102
+msgid "Final verdict"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:104
+msgid "Absences with parental excuse"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:106
+msgid "Absences with medical certificate"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:107
+msgid "Unexcused absences"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:109
+msgid "Fill missing sections"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:144
+msgid "AbsM"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:145
+msgid "AbsP"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:146
+msgid "AbsU"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:172
+msgid "Certificate section"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:173
+msgid "Certificate sections"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:238 lino_prima/lib/cert/models.py:362
+msgid "Override score"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:249
+msgid "Certificate element"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:250
+msgid "Certificate elements"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:311
+msgid "Computed rating"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:320
+msgid "Ratings detail"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:366
+msgid "Check for missing or duplicate certificate ratings"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:368
+#, python-brace-format
+msgid "No certificate rating for {} elements."
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:369
+#, python-brace-format
+msgid "Duplicate certificate rating(s) for {} elements."
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:420
+msgid "Check for missing or duplicate certificates"
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:422
+#, python-brace-format
+msgid "No certificate in {} for {} enrolments."
+msgstr ""
+
+#: lino_prima/lib/cert/models.py:423
+#, python-brace-format
+msgid "Multiple certificates {} for {}."
+msgstr ""
+
+#: lino_prima/lib/cert/ui.py:28 lino_prima/lib/ratings/__init__.py:10
+#: lino_prima/lib/ratings/models.py:289 lino_prima/lib/ratings/ui.py:435
+#: lino_prima/lib/school/ui.py:309
+msgid "Ratings"
+msgstr ""
+
+#: lino_prima/lib/cert/ui.py:34
+msgid "Verdict"
+msgstr ""
+
+#: lino_prima/lib/prima/help_texts.py:7
+msgid "The pupil for whom this certificate has been issued."
+msgstr ""
+
+#: lino_prima/lib/prima/help_texts.py:8
+msgid "The number of absences for medical reasons."
+msgstr ""
+
+#: lino_prima/lib/prima/help_texts.py:9
+msgid "The number of excused absences with parental proof."
+msgstr ""
+
+#: lino_prima/lib/prima/help_texts.py:10
+msgid "The number of unexcused absences."
+msgstr ""
+
+#: lino_prima/lib/prima/help_texts.py:11
+msgid ""
+"Django model to represent a group of pupils working together during an "
+"academic year (a class)."
+msgstr ""
+
+#: lino_prima/lib/prima/help_texts.py:12
+msgid "Django model to represent an enrolment of a given pupil in a given group."
+msgstr ""
+
+#: lino_prima/lib/prima/settings.py:61
+msgid "Academic year"
+msgstr ""
+
+#: lino_prima/lib/prima/settings.py:62
+msgid "Academic years"
+msgstr ""
+
+#: lino_prima/lib/prima/settings.py:63
+msgid "Period"
+msgstr ""
+
+#: lino_prima/lib/prima/settings.py:64
+msgid "Periods"
+msgstr ""
+
+#: lino_prima/lib/prima/user_types.py:21
+msgid "Anonymous"
+msgstr ""
+
+#: lino_prima/lib/prima/user_types.py:26
+msgid "User"
+msgstr ""
+
+#: lino_prima/lib/prima/user_types.py:27 lino_prima/lib/ratings/mixins.py:199
+#: lino_prima/lib/ratings/models.py:94 lino_prima/lib/school/models.py:175
+#: lino_prima/lib/school/ui.py:96
+msgid "Teacher"
+msgstr ""
+
+#: lino_prima/lib/prima/user_types.py:29
+msgid "Staff"
+msgstr ""
+
+#: lino_prima/lib/prima/user_types.py:30
+msgid "Administrator"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/csv2db.py:143
+#: lino_prima/lib/prima/fixtures/demo.py:127
+msgid "First grade"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/csv2db.py:144
+#: lino_prima/lib/prima/fixtures/demo.py:128
+msgid "Second grade"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/csv2db.py:145
+#: lino_prima/lib/prima/fixtures/demo.py:129
+msgid "Third grade"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/csv2db.py:146
+#: lino_prima/lib/prima/fixtures/demo.py:130
+msgid "Fourth grade"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/csv2db.py:147
+#: lino_prima/lib/prima/fixtures/demo.py:131
+msgid "Fifth grade"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/csv2db.py:148
+#: lino_prima/lib/prima/fixtures/demo.py:132
+msgid "Sixth grade"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/csv2db.py:149
+#: lino_prima/lib/prima/fixtures/demo.py:133
+msgid "Alumni"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:33
+msgid "cool"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:33
+msgid "weird"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:33
+msgid "obsolete"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:33
+msgid "great"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:140
+msgid "Class teacher"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:141
+msgid "Catholic religion"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:142
+msgid "Protestant religion"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:147
+#: lino_prima/lib/prima/fixtures/demo.py:181
+msgid "Music"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:148
+#: lino_prima/lib/prima/fixtures/demo.py:184
+msgid "Sport"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:149
+#: lino_prima/lib/projects/__init__.py:10 lino_prima/lib/projects/models.py:102
+#: lino_prima/lib/projects/ui.py:129
+msgid "Projects"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:174
+msgid "Science"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:175
+msgid "Geography"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:176
+msgid "History"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:177
+msgid "Natural science"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:178
+msgid "Art"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:179
+msgid "Painting"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:180
+msgid "Textile"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:182
+msgid "Choir"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:183
+msgid "Flute"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:185
+msgid "Jogging"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:186
+msgid "Swimming"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:187
+msgid "French"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:188
+#: lino_prima/lib/prima/fixtures/demo.py:202
+msgid "Reading"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:189
+#: lino_prima/lib/prima/fixtures/demo.py:204
+msgid "Writing"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:190
+#: lino_prima/lib/prima/fixtures/demo.py:205
+msgid "Speaking"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:191
+#: lino_prima/lib/prima/fixtures/demo.py:206
+msgid "Listening"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:193
+#: lino_prima/lib/prima/fixtures/demo.py:208
+msgid "Dealing with texts and media"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:194
+msgid "Religion"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:195
+msgid "Knowledge"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:196
+msgid "Caring"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:197
+msgid "Trusting"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:198
+msgid "Mathematics"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:199
+msgid "Arithmetics"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:200
+msgid "Stochastics"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:201
+msgid "German"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:203
+msgid "Reading comprehension"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:209
+msgid "Linguistical thinking"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:212
+msgid "Telling experiences in an exciting way"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:213
+#: lino_prima/lib/prima/fixtures/demo.py:215
+msgid "Presentation"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:214
+msgid "About animals"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:216
+msgid "Video"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:217
+msgid "Reporting"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:218
+msgid "Describing"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:220
+msgid "Tell real-life stories "
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:221
+msgid "Read silently: The storm"
+msgstr ""
+
+#: lino_prima/lib/prima/fixtures/demo.py:225
+#, python-brace-format
+msgid "This {model} is {adjective}."
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:11
+msgid "Project state"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:12
+msgid "Project states"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:15
+msgid "Not started"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:16
+msgid "Started"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:17
+msgid "Done"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:28
+#: lino_prima/lib/ratings/choicelists.py:73
+#, python-brace-format
+msgid "{} ({} points)"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:35
+#: lino_prima/lib/ratings/choicelists.py:79
+msgid "General rating"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:36
+#: lino_prima/lib/projects/config/ratings/Project/default.weasy.html:42
+#: lino_prima/lib/ratings/choicelists.py:80
+msgid "General ratings"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:40
+#: lino_prima/lib/ratings/choicelists.py:84
+msgid "Cleanliness"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:41
+#: lino_prima/lib/ratings/choicelists.py:85
+msgid "Correction"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:42
+#: lino_prima/lib/ratings/choicelists.py:86
+msgid "Time managment"
+msgstr ""
+
+#: lino_prima/lib/projects/choicelists.py:43
+#: lino_prima/lib/ratings/choicelists.py:87
+msgid "Work behaviour"
+msgstr ""
+
+#: lino_prima/lib/projects/models.py:31
+msgid "Project template"
+msgstr ""
+
+#: lino_prima/lib/projects/models.py:32
+msgid "Project templates"
+msgstr ""
+
+#: lino_prima/lib/projects/models.py:35
+msgid "Short header"
+msgstr ""
+
+#: lino_prima/lib/projects/models.py:36
+msgid "Main skill"
+msgstr ""
+
+#: lino_prima/lib/projects/models.py:55
+msgid "Project section"
+msgstr ""
+
+#: lino_prima/lib/projects/models.py:56
+msgid "Project sections"
+msgstr ""
+
+#: lino_prima/lib/projects/models.py:70
+#, python-brace-format
+msgid " (in {project_template})"
+msgstr ""
+
+#: lino_prima/lib/projects/models.py:101
+msgid "Project"
+msgstr ""
+
+#: lino_prima/lib/projects/models.py:107
+msgid "Started on"
+msgstr ""
+
+#: lino_prima/lib/projects/ui.py:73 lino_prima/lib/ratings/ui.py:124
+#: lino_prima/lib/school/ui.py:36 lino_prima/lib/school/ui.py:68
+#: lino_prima/lib/school/ui.py:162 lino_prima/lib/school/ui.py:306
+#: lino_prima/lib/users/ui.py:16
+msgid "General"
+msgstr ""
+
+#: lino_prima/lib/projects/ui.py:79 lino_prima/lib/ratings/ui.py:133
+#: lino_prima/lib/school/ui.py:85 lino_prima/lib/school/ui.py:167
+msgid "More"
+msgstr ""
+
+#: lino_prima/lib/projects/ui.py:143
+#, python-brace-format
+msgid "There are no {projects} configured for grade {grade}."
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:10
+msgid "Smiley"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:11
+#: lino_prima/lib/ratings/choicelists.py:61
+msgid "Smilies"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:24
+msgid "Predicate"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:25
+#: lino_prima/lib/ratings/choicelists.py:62
+msgid "Predicates"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:29
+msgctxt "rating predicate"
+msgid "Excellent"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:30
+msgctxt "rating predicate"
+msgid "E"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:31
+msgctxt "rating predicate"
+msgid "Good"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:32
+msgctxt "rating predicate"
+msgid "G"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:33
+msgctxt "rating predicate"
+msgid "Sufficient"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:34
+msgctxt "rating predicate"
+msgid "S"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:35
+msgctxt "rating predicate"
+msgid "Deficient"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:36
+msgctxt "rating predicate"
+msgid "D"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:37
+msgctxt "rating predicate"
+msgid "Insufficient"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:38
+msgctxt "rating predicate"
+msgid "I"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:55
+msgid "Rating type"
+msgstr ""
+
+#: lino_prima/lib/ratings/choicelists.py:56
+msgid "Rating types"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:25 lino_prima/lib/ratings/models.py:398
+msgid "Score"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:32 lino_prima/lib/ratings/mixins.py:182
+msgid "Max. score"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:40
+msgid "Set score value"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:186 lino_prima/lib/ratings/mixins.py:275
+#: lino_prima/lib/ratings/utils.py:145
+msgid "N/A"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:188
+msgid "Rate it"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:202
+msgid "Done since"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:235
+msgid "Ratings done"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:236
+msgid "Total score"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:237
+msgid "Total max score"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:281
+msgid "Examination type"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:282
+msgid "Examination types"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:285
+msgid "ProjectTemplates"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:286
+msgid "Tests"
+msgstr ""
+
+#: lino_prima/lib/ratings/mixins.py:287
+msgid "Final tests"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:32
+msgid "Exam"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:33
+msgid "Exams"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:38
+msgid "Title"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:40
+msgid "Date"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:76
+#, python-brace-format
+msgid "Period {} must be in {}"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:80
+msgid "Completion"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:100
+msgid "Challenge"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:101
+msgid "Challenges"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:117
+msgid "Section"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:140
+#, python-brace-format
+msgid "{skill} /{max_score} in {exam_or_section}"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:171
+msgid "Challenge rating"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:172 lino_prima/lib/ratings/ui.py:73
+#: lino_prima/lib/ratings/ui.py:497
+msgid "Challenge ratings"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:200
+#, python-brace-format
+msgid "in {subject}:{skill}"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:204
+#, python-brace-format
+msgid "for {pupil}"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:245
+msgid "20241212 Oops"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:248
+#, python-brace-format
+msgid "{} has multiple challenges with seqno {}"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:260
+msgid "Exam response"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:261
+msgid "Exam responses"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:303
+#, python-brace-format
+msgid "No {challenges} in {exam}."
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:342 lino_prima/lib/ratings/models.py:347
+msgid "Final exam"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:343
+msgid "Final exams"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:360
+msgid "Final exam rating"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:361
+msgid "Final exam ratings"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:389
+msgid "Rating summary"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:390
+msgid "Rating summaries"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:400
+msgid "Max score"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:407
+#, python-brace-format
+msgid "{subject}:{skill} in {group}"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:473
+msgid "Check for missing or duplicate challenge ratings"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:475
+#, python-brace-format
+msgid "No challenge rating for {} pupils."
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:476
+#, python-brace-format
+msgid "Duplicate challenge rating(s) for {} pupils."
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:513
+msgid "Check for missing or duplicate exam responses"
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:515
+#, python-brace-format
+msgid "No response for {} enrolments."
+msgstr ""
+
+#: lino_prima/lib/ratings/models.py:516
+#, python-brace-format
+msgid "Duplicate response(s) for {} enrolments."
+msgstr ""
+
+#: lino_prima/lib/ratings/ui.py:55
+msgid "Skills overview"
+msgstr ""
+
+#: lino_prima/lib/ratings/ui.py:99
+msgid "Pupil ratings"
+msgstr ""
+
+#: lino_prima/lib/ratings/ui.py:216
+msgid "Pupils and ratings"
+msgstr ""
+
+#: lino_prima/lib/ratings/ui.py:229
+#, python-brace-format
+msgid "There are no {challenges} configured for {exam}."
+msgstr ""
+
+#: lino_prima/lib/ratings/ui.py:408
+msgid "Ratings by response"
+msgstr ""
+
+#: lino_prima/lib/ratings/utils.py:28
+msgid "No data"
+msgstr ""
+
+#: lino_prima/lib/school/__init__.py:10
+msgid "School"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:22
+msgid "Grade"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:23
+msgid "Grades"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:28
+msgid "Rating conditions"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:33
+msgctxt "in school"
+msgid "Subject"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:34
+msgid "Subjects"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:36
+msgid "Advanced"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:37
+msgid "Icon"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:40
+msgid "Image"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:45
+msgid "Skill"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:46
+msgid "Skills"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:49
+msgid "With final exams"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:60
+msgid "Group"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:61
+msgid "Groups"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:65
+msgid "Fill missing courses and certificates"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:91 lino_prima/lib/school/models.py:97
+#, python-brace-format
+msgid " ({year})"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:103
+msgid "Course"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:104
+msgid "Courses"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:114
+#, python-brace-format
+msgid "{subject} in {group}"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:121 lino_prima/lib/school/models.py:152
+#: lino_prima/lib/school/models.py:160 lino_prima/lib/school/models.py:197
+#, python-brace-format
+msgid "in {group}"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:126
+msgid "Role"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:127
+msgid "Roles"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:134
+msgid "Cast"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:135
+msgid "Casts"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:149
+#, python-brace-format
+msgid "{teacher}"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:151
+#, python-brace-format
+msgid "as {role}"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:157
+#, python-brace-format
+msgid "{teacher} as"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:180
+msgid "Enrolment"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:181
+msgid "Enrolments"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:234
+msgid "Check for missing courses"
+msgstr ""
+
+#: lino_prima/lib/school/models.py:236
+#, python-brace-format
+msgid "No course for {subject} in {group}."
+msgstr ""
+
+#: lino_prima/lib/school/ui.py:111
+msgid "My groups"
+msgstr ""
+
+#: lino_prima/lib/users/ui.py:28
+msgid "Contact"
+msgstr ""
+
+#~ msgid "End session"
+#~ msgstr ""
+
+#~ msgid "Stop time-tracking this session."
+#~ msgstr ""
+
+#~ msgid "Show tickets which are closed."
+#~ msgstr ""
+
+#~ msgid "Show tickets which are in standby mode."
+#~ msgstr ""
+
+#~ msgid "Work effort"
+#~ msgstr ""
+
+#~ msgid "Care recipient"
+#~ msgstr ""
+
+#~ msgid "Care provider"
+#~ msgstr ""
+
+#~ msgid "Start session"
+#~ msgstr ""
+
+#~ msgid "Only tickets interesting for this site."
+#~ msgstr ""
+
+#~ msgid "Product"
+#~ msgstr ""
+
+#~ msgid "The category of products to use for specifying additional options."
+#~ msgstr ""
+
+#~ msgid "Child faculties"
+#~ msgstr ""
+
+#~ msgid "Interest"
+#~ msgstr ""
+
+#~ msgid "Interests"
+#~ msgstr ""
+
+#~ msgid "Only project interesting for this site."
+#~ msgstr ""
+
+#~ msgctxt "Ticketing"
+#~ msgid "Sites"
+#~ msgstr ""
+
+#~ msgid "Unassigned tickets"
+#~ msgstr ""
+
+#~ msgid "Tickets Fixed"
+#~ msgstr ""
+
+#~ msgid "Clocking"
+#~ msgstr ""
+
+#~ msgid "End this session."
+#~ msgstr ""
+
+#~ msgid "Close {0} sessions."
+#~ msgstr ""
+
+#~ msgid "Are you sure?"
+#~ msgstr ""
+
+#~ msgid "End the active session on this ticket."
+#~ msgstr ""
+
+#~ msgid "Start a session on this ticket."
+#~ msgstr ""
+
+#~ msgid "Activity report"
+#~ msgstr ""
+
+#~ msgid "Show remarks"
+#~ msgstr ""
+
+#~ msgid "Show states"
+#~ msgstr ""
+
+#~ msgid "Session Type"
+#~ msgstr ""
+
+#~ msgid "Session Types"
+#~ msgstr ""
+
+#~ msgid "Session"
+#~ msgstr ""
+
+#~ msgid "Sessions"
+#~ msgstr ""
+
+#~ msgctxt "Ticket"
+#~ msgid "Summary"
+#~ msgstr ""
+
+#~ msgid "Summary of the session."
+#~ msgstr ""
+
+#~ msgid "Description"
+#~ msgstr ""
+
+#~ msgid "Break Time"
+#~ msgstr ""
+
+#~ msgid "Worker"
+#~ msgstr ""
+
+#~ msgid "You are busy with "
+#~ msgstr ""
+
+#~ msgid "Has been worked on"
+#~ msgstr ""
+
+#~ msgid "Total %s hours."
+#~ msgstr ""
+
+#~ msgid "Active sessions"
+#~ msgstr ""
+
+#~ msgid "My sessions by date"
+#~ msgstr ""
+
+#~ msgid "Time"
+#~ msgstr ""
+
+#~ msgctxt "Ticketing"
+#~ msgid "Site"
+#~ msgstr ""
+
+#~ msgid "Reporter"
+#~ msgstr ""
+
+#~ msgid "Project"
+#~ msgstr ""
+
+#~ msgid "Topic"
+#~ msgstr ""
+
+#~ msgid "Tickets"
+#~ msgstr ""
+
+#~ msgid "Faculties"
+#~ msgstr ""
+
+#~ msgid "Faculty"
+#~ msgstr ""
+
+#~ msgid "Affinity"
+#~ msgstr ""
+
+#~ msgid ""
+#~ msgstr ""
+
+#~ msgid "Options category"
+#~ msgstr ""
+
+#~ msgid "The topic group to use for specifying additional options."
+#~ msgstr ""
+
+#~ msgid "Parent faculty"
+#~ msgstr ""
+
+#~ msgid "Competence"
+#~ msgstr ""
+
+#~ msgid "Competences"
+#~ msgstr ""
+
+#~ msgid "Option"
+#~ msgstr ""
+
+#~ msgid "Some faculties can require additional options for a competence."
+#~ msgstr ""
+
+#~ msgid "Faculties (all)"
+#~ msgstr ""
+
+#~ msgid "Faculties (tree)"
+#~ msgstr ""
+
+#~ msgid "Assignable workers"
+#~ msgstr ""
+
+#~ msgid "The possible values of a lino_noi.lib.tickets.models.Link."
+#~ msgstr ""
+
+#~ msgid "Special state for permanent tickets which have no lifecycle."
+#~ msgstr ""
+
+#~ msgid "The parent ticket requires the child ticket."
+#~ msgstr ""
+
+#~ msgid "The time (in hours) we plan to work on this project or ticket."
+#~ msgstr ""
+
+#~ msgid "A Session is when a user works on a given ticket."
+#~ msgstr ""
+
+#~ msgid "Defines and instantiates a demo version of Lino Noi."
+#~ msgstr ""
+
+#~ msgid "A user who is responsible for triaging new tickets."
+#~ msgstr ""
+
+#~ msgid "A user who is candidate for working on a ticket."
+#~ msgstr ""
+
+#~ msgid "alias of Session"
+#~ msgstr ""
+
+#~ msgid "This panel shows:"
+#~ msgstr ""
+
+#~ msgid "The state of this ticket. See TicketStates"
+#~ msgstr ""
+
+#~ msgid "The standard migrator for Lino Noi."
+#~ msgstr ""
+
+#~ msgid "The user who is reported this ticket."
+#~ msgstr ""
+
+#~ msgid "Global list of all tickets."
+#~ msgstr ""
+
+#~ msgid "Defines and instantiates a demo version of Lino Care."
+#~ msgstr ""
+
+#~ msgid "The type of a Project."
+#~ msgstr ""
+
+#~ msgid "The parent ticket is a deployment which deploys the child ticket."
+#~ msgstr ""
+
+#~ msgid "alias of Project"
+#~ msgstr ""
+
+#~ msgid "alias of CareUser"
+#~ msgstr ""
+
+#~ msgid "A project is something on which several users work together."
+#~ msgstr ""
+
+#~ msgid "The type of a Ticket."
+#~ msgstr ""
+
+#~ msgid "The \"Sessions\" panel in the detail of a ticket."
+#~ msgstr ""
+
+#~ msgid "The milestone (and site) of this deployment."
+#~ msgstr ""
+
+#~ msgid "A pointer to the ticket which is the cause of this ticket."
+#~ msgstr ""
+
+#~ msgid "Like a developer, plus site admin and staff"
+#~ msgstr ""
+
+#~ msgid "The parent ticket triggers the child ticket."
+#~ msgstr ""
+
+#~ msgid "alias of Ticket"
+#~ msgstr ""
+
+#~ msgid "The state of a ticket (new, open, closed, ...)"
+#~ msgstr ""
+
+#~ msgid "alias of Milestone"
+#~ msgstr ""
+
+#~ msgid "The user who is working on this ticket."
+#~ msgstr ""
+
+#~ msgid "Closed milestones are hidden in most lists."
+#~ msgstr ""
+
+#~ msgid "The type of a Session."
+#~ msgstr ""
+
+#~ msgid "Layout of User Detail in Lino Welfare."
+#~ msgstr ""
+
+#~ msgid "Show a list of active projects."
+#~ msgstr ""
+
+#~ msgid "To close a session means to stop working on that ticket for this time."
+#~ msgstr ""
+
+#~ msgid "It has been decided that we won't fix this ticket."
+#~ msgstr ""
+
+#~ msgid "Consultant"
+#~ msgstr ""
+
+#~ msgid "Hoster"
+#~ msgstr ""
+
+#~ msgid "Developer"
+#~ msgstr ""
+
+#~ msgid "Senior developer"
+#~ msgstr ""
+
+#~ msgid "Observed event"
+#~ msgstr ""
+
+#~ msgid "Observed events"
+#~ msgstr ""
+
+#~ msgid "Created"
+#~ msgstr ""
+
+#~ msgid "Modified"
+#~ msgstr ""
+
+#~ msgid "To do"
+#~ msgstr ""
+
+#~ msgid "New"
+#~ msgstr ""
+
+#~ msgid "Talk"
+#~ msgstr ""
+
+#~ msgid "ToDo"
+#~ msgstr ""
+
+#~ msgid "Sticky"
+#~ msgstr ""
+
+#~ msgid "Sleeping"
+#~ msgstr ""
+
+#~ msgid "Ready"
+#~ msgstr ""
+
+#~ msgid "Has been fixed. Ready for release. Waiting to be tested."
+#~ msgstr ""
+
+#~ msgid "Done"
+#~ msgstr ""
+
+#~ msgid "Refused"
+#~ msgstr ""
+
+#~ msgid "Dependency type"
+#~ msgstr ""
+
+#~ msgid "Dependency types"
+#~ msgstr ""
+
+#~ msgid "Requires"
+#~ msgstr ""
+
+#~ msgid "Required by"
+#~ msgstr ""
+
+#~ msgid "Triggers"
+#~ msgstr ""
+
+#~ msgid "Triggered by"
+#~ msgstr ""
+
+#~ msgid "Suggests"
+#~ msgstr ""
+
+#~ msgid "Suggested by"
+#~ msgstr ""
+
+#~ msgid "Obsoletes"
+#~ msgstr ""
+
+#~ msgid "Obsoleted by"
+#~ msgstr ""
+
+#~ msgid "Closed"
+#~ msgstr ""
+
+#~ msgid "Private"
+#~ msgstr ""
+
+#~ msgid "Planned time"
+#~ msgstr ""
+
+#~ msgid "Project Type"
+#~ msgstr ""
+
+#~ msgid "Project Types"
+#~ msgstr ""
+
+#~ msgid "Ticket type"
+#~ msgstr ""
+
+#~ msgid "Ticket types"
+#~ msgstr ""
+
+#~ msgid "Projects"
+#~ msgstr ""
+
+#~ msgid "Name"
+#~ msgstr ""
+
+#~ msgid "Assign tickets to"
+#~ msgstr ""
+
+#~ msgid "The user to whom new tickets will be assigned."
+#~ msgstr ""
+
+#~ msgid "Activity overview"
+#~ msgstr ""
+
+#~ msgid "Designation"
+#~ msgstr ""
+
+#~ msgid "Remark"
+#~ msgstr ""
+
+#~ msgid "Milestone"
+#~ msgstr ""
+
+#~ msgid "Milestones"
+#~ msgstr ""
+
+#~ msgid "Label"
+#~ msgstr ""
+
+#~ msgid "Expected for"
+#~ msgstr ""
+
+#~ msgid "Reached"
+#~ msgstr ""
+
+#~ msgid "Changes since"
+#~ msgstr ""
+
+#~ msgid "In printed document include a list of other changes since this date"
+#~ msgstr ""
+
+#~ msgid "Dependency"
+#~ msgstr ""
+
+#~ msgid "Dependencies"
+#~ msgstr ""
+
+#~ msgid "Parent"
+#~ msgstr ""
+
+#~ msgid "Child"
+#~ msgstr ""
+
+#~ msgid "Type"
+#~ msgstr ""
+
+#~ msgid "%(child)s is %(what)s"
+#~ msgstr ""
+
+#~ msgid "%(type)s of %(parent)s"
+#~ msgstr ""
+
+#~ msgid "Spawn a new child ticket {0} this one."
+#~ msgstr ""
+
+#~ msgid "New ticket {0} #{1}"
+#~ msgstr ""
+
+#~ msgid "New ticket {0} has been spawned as child of {1}."
+#~ msgstr ""
+
+#~ msgid "Ticket"
+#~ msgstr ""
+
+#~ msgid "Nickname"
+#~ msgstr ""
+
+#~ msgid "Short summary of the problem."
+#~ msgstr ""
+
+#~ msgid "Upgrade notes"
+#~ msgstr ""
+
+#~ msgid "Duplicate of"
+#~ msgstr ""
+
+#~ msgid "Milestone for which this ticket has been reported."
+#~ msgstr ""
+
+#~ msgid "The milestone for which this ticket has been fixed."
+#~ msgstr ""
+
+#~ msgid "Assigned to"
+#~ msgstr ""
+
+#~ msgid "The user who works on this ticket."
+#~ msgstr ""
+
+#~ msgid "The user who reported this ticket."
+#~ msgstr ""
+
+#~ msgid "Waiting for"
+#~ msgstr ""
+
+#~ msgid "What to do next."
+#~ msgstr ""
+
+#~ msgid "Deadline"
+#~ msgstr ""
+
+#~ msgid "Priority"
+#~ msgstr ""
+
+#~ msgid "Value between 0 and 100."
+#~ msgstr ""
+
+#~ msgid "Feedback"
+#~ msgstr ""
+
+#~ msgid "Ticket is waiting for feedback from somebody else."
+#~ msgstr ""
+
+#~ msgid "Standby"
+#~ msgstr ""
+
+#~ msgid "Spawn triggered ticket"
+#~ msgstr ""
+
+#~ msgid "Overview"
+#~ msgstr ""
+
+#~ msgid "{user} worked on [ticket {t}]"
+#~ msgstr ""
+
+#~ msgid "Deployment"
+#~ msgstr ""
+
+#~ msgid "Deployments"
+#~ msgstr ""
+
+#~ msgid "Current project"
+#~ msgstr ""
+
+#~ msgid "Timeline"
+#~ msgstr ""
+
+#~ msgid "Interesting for"
+#~ msgstr ""
+
+#~ msgid "Only projects interesting for this partner."
+#~ msgstr ""
+
+#~ msgid "Active projects"
+#~ msgstr ""
+
+#~ msgid "Subprojects"
+#~ msgstr ""
+
+#~ msgid "Projects (tree)"
+#~ msgstr ""
+
+#~ msgid "Create dependency as "
+#~ msgstr ""
+
+#~ msgid "History"
+#~ msgstr ""
+
+#~ msgid "More"
+#~ msgstr ""
+
+#~ msgid "Only rows reporter by this user."
+#~ msgstr ""
+
+#~ msgid "Only tickets assigned to this user."
+#~ msgstr ""
+
+#~ msgid "Only tickets interesting for this partner."
+#~ msgstr ""
+
+#~ msgid "Only rows having this state."
+#~ msgstr ""
+
+#~ msgid "Show tickets which are assigned to somebody."
+#~ msgstr ""
+
+#~ msgid "Show tickets which are active (Talk or ToDo)."
+#~ msgstr ""
+
+#~ msgid "Show tickets with project assigned."
+#~ msgstr ""
+
+#~ msgid "Show tickets which are private."
+#~ msgstr ""
+
+#~ msgid "Duplicates"
+#~ msgstr ""
+
+#~ msgid "Unassigned Tickets"
+#~ msgstr ""
+
+#~ msgid "Public tickets"
+#~ msgstr ""
+
+#~ msgid "Tickets to triage"
+#~ msgstr ""
+
+#~ msgid "Triage"
+#~ msgstr ""
+
+#~ msgid "You have {0} tickets to triage."
+#~ msgstr ""
+
+#~ msgid "Tickets to talk"
+#~ msgstr ""
+
+#~ msgid "Tickets to do"
+#~ msgstr ""
+
+#~ msgid "Active tickets are those which are neither closed nor in standby mode."
+#~ msgstr ""
+
+#~ msgid "Active tickets"
+#~ msgstr ""
+
+#~ msgid "Fixed tickets"
+#~ msgstr ""
+
+#~ msgid "Reported tickets"
+#~ msgstr ""
+
+#~ msgid "Reported tickets "
+#~ msgstr ""
+
+#~ msgid "Known problems"
+#~ msgstr ""
+
+#~ msgid "My known problems"
+#~ msgstr ""
+
+#~ msgid "Only for users whose `user_site` is set."
+#~ msgstr ""
+
+#~ msgid "There are {0} known problems for {1}."
+#~ msgstr ""
+
+#~ msgid "Show milestons which are closed."
+#~ msgstr ""
+
+#~ msgid "Show deployments on closed milestones."
+#~ msgstr ""
+
+#~ msgid "Deployed tickets"
+#~ msgstr ""
+
+#~ msgid "Callback"
+#~ msgstr ""
+
+#~ msgid "Duplicate"
+#~ msgstr ""
+
+#~ msgid "Manager"
+#~ msgstr ""
+
+#~ msgid "Pleas"
+#~ msgstr ""
+
+#~ msgid "Plea"
+#~ msgstr ""
+
+#~ msgid "Active pleas"
+#~ msgstr ""
+
+#~ msgid "Unassigned pleas"
+#~ msgstr ""
+
+#~ msgid "Public pleas"
+#~ msgstr ""
+
+#~ msgid "Pleas to triage"
+#~ msgstr ""
+
+#~ msgid "Pleas to talk"
+#~ msgstr ""
+
+#~ msgid "Fixed pleas"
+#~ msgstr ""
+
+#~ msgid "Introduced pleas"
+#~ msgstr ""
+
+#~ msgid "Languages"
+#~ msgstr ""
+
+#~ msgid "French"
+#~ msgstr ""
+
+#~ msgid "German"
+#~ msgstr ""
+
+#~ msgid "English"
+#~ msgstr ""
+
+#~ msgid "Open session on new ticket"
+#~ msgstr ""
+
+#~ msgid "Service Report"
+#~ msgstr ""
+
+#~ msgid "Service Reports"
+#~ msgstr ""
+
+#~ msgid "Only tickets in this state."
+#~ msgstr ""
+
+#~ msgid "Worked hours"
+#~ msgstr ""
+
+#~ msgid "Total"
+#~ msgstr ""
+
+#~ msgid "Other tickets"
+#~ msgstr ""
+
+#~ msgid "Changes since {0}"
+#~ msgstr ""
+
+#~ msgid "Total time"
+#~ msgstr ""
+
+#~ msgid "Bugfix"
+#~ msgstr ""
+
+#~ msgid "Enhancement"
+#~ msgstr ""
+
+#~ msgid "Upgrade"
+#~ msgstr ""
+
+#~ msgid "See lino.core.plugin.Plugin."
+#~ msgstr ""
+
+#~ msgid "Layout of User Detail in Lino Prima."
+#~ msgstr ""
+
+#~ msgid "Local Exchange"
+#~ msgstr ""
+
+#~ msgid "Subject"
+#~ msgstr ""
+
+#~ msgid "{obj.subject} by {obj.user} in {obj.group}"
+#~ msgstr ""
+
+#~ msgid " by {}"
+#~ msgstr ""
+
+#~ msgid " in {}"
+#~ msgstr ""
+
+#~ msgid "Subjects given"
+#~ msgstr ""
+
+#~ msgid "{cast.subject} as {cast.role}"
+#~ msgstr ""
+
+#~ msgid "Date"
+#~ msgstr ""
+
+#~ msgid "Rating criterion"
+#~ msgstr ""
+
+#~ msgid "Rating criteria"
+#~ msgstr ""
+
+#~ msgid "Project rating"
+#~ msgstr ""
+
+#~ msgid "Project ratings"
+#~ msgstr ""
+
+#~ msgid "Check for missing or duplicate project ratings"
+#~ msgstr ""
+
+#~ msgid "No rating for {} project skills."
+#~ msgstr ""
+
+#~ msgid "Duplicate rating(s) for {} project skills."
+#~ msgstr ""
+
+#~ msgid "Certificate rating"
+#~ msgstr ""
+
+#~ msgid "Certificate ratings"
+#~ msgstr ""
+
+#~ msgid "Override rating"
+#~ msgstr ""
+
+#~ msgid "computed"
+#~ msgstr ""
+
+#~ msgid "Max. rating"
+#~ msgstr ""
+
+#~ msgid "Rating"
+#~ msgstr ""
+
+#~ msgid "Total rating"
+#~ msgstr ""
+
+#~ msgid "Total max rating"
+#~ msgstr ""
+
+#~ msgid " ({}:{})"
+#~ msgstr ""
+
+#~ msgid "Subject response"
+#~ msgstr ""
+
+#~ msgid "Subject responses"
+#~ msgstr ""
+
+#~ msgid "Responses"
+#~ msgstr ""
+
+#~ msgid "Challenge summary"
+#~ msgstr ""
+
+#~ msgid "Challenge summaries"
+#~ msgstr ""
+
+#~ msgid "Pupils"
+#~ msgstr ""
+
+#~ msgid "Projects by group"
+#~ msgstr ""
+
+#~ msgid "{max_score} for {skill}"
+#~ msgstr ""
+
+#~ msgid "Ratings summary"
+#~ msgstr ""
+
+#~ msgid "Ratings summaries"
+#~ msgstr ""
+
+#~ msgid "{role}"
+#~ msgstr ""
+
+#~ msgid "by {teacher}"
+#~ msgstr ""
+
+#~ msgid "The standard migrator for Lino Prima."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Django model user to represent a "
+#~ "subject that can potentially be given"
+#~ " at this school."
+#~ msgstr ""
+
+#~ msgid "Whether this subject uses exams for evaluating the pupil’s progress."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A single character to use as "
+#~ "pictogram in the printed certificate. "
+#~ "This is meant to contain a Unicode"
+#~ " symbold or pictogram, e.g. from "
+#~ "https://www.compart.com/en/unicode/block/U+1F300"
+#~ msgstr ""
+
+#~ msgid "++"
+#~ msgstr ""
+
+#~ msgid "+"
+#~ msgstr ""
+
+#~ msgid "-"
+#~ msgstr ""
+
+#~ msgid "--"
+#~ msgstr ""
+
+#~ msgid "very good"
+#~ msgstr ""
+
+#~ msgid "good"
+#~ msgstr ""
+
+#~ msgid "sufficient"
+#~ msgstr ""
+
+#~ msgid "deficient"
+#~ msgstr ""
+
+#~ msgid "insufficient"
+#~ msgstr ""
+
