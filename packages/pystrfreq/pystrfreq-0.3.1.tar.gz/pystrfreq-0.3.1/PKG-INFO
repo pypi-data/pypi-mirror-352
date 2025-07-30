@@ -1,0 +1,40 @@
+Metadata-Version: 2.4
+Name: pystrfreq
+Version: 0.3.1
+Summary: Tabulate the frequency of string object in a python codebase
+Project-URL: Repository, https://github.com/plwg/pystrfreq
+Author-email: plwg <56353330+plwg@users.noreply.github.com>
+License-Expression: MIT
+License-File: LICENSE
+Keywords: ast,python,statistics,utility
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+
+## Usage
+
+```bash
+uvx pystrfreq
+```
+
+The tool will walk through the current directory, parse all `.py` file and then tabluate the frequency of string in the parsed files.
+
+## Options
+
+To check all usage options:
+
+```bash
+uvx pystrfreq -h
+```
+
+## Known Caveats
+
+- This package does not support parsing python version < 3.9
+- `FormmatedValue` in `f-string` are not supported, while the `f-string` will be broken into its constant parts and tabulated.
+
+## License
+
+This project is licensed under the MIT License.
