@@ -1,0 +1,66 @@
+Metadata-Version: 2.4
+Name: kolektor-mcp
+Version: 0.1.2
+Summary: Secure IFC processing MCP server for Claude Desktop
+Author: Kolektor Development Team
+License: Proprietary
+Keywords: ifc,bim,mcp,claude
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Cython
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: fastmcp>=2.5.1
+Requires-Dist: ifcopenshell>=0.8.0
+Dynamic: requires-python
+
+# Kolektor MCP
+
+Secure IFC processing MCP server for Claude Desktop.
+
+## Installation
+
+```bash
+pip install kolektor-mcp
+```
+
+Or with uvx:
+
+```bash
+uvx kolektor-mcp
+```
+
+## Claude Desktop Configuration
+
+Add to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "kolektor-mcp": {
+      "command": "uvx",
+      "args": ["kolektor-mcp"]
+    }
+  }
+}
+```
+
+## Available Tools
+
+- **load_ifc_file**: Load an IFC file for analysis
+- **query_elements**: Query elements by type and properties
+- **extract_properties**: Extract properties from IFC elements
+- **get_spatial_structure**: Analyze the spatial hierarchy
+- **analyze_systems**: Analyze MEP systems
+- **export_data**: Export data in various formats (JSON, CSV, Excel)
+
+## License
+
+Proprietary - All rights reserved.
