@@ -1,0 +1,39 @@
+Metadata-Version: 2.4
+Name: kajaani-passgen
+Version: 0.1.0
+Summary: A simple password generator package
+Author-email: Kajaani Balabavan <kajaani.20@cse.mrt.ac.lk>
+License: MIT
+Project-URL: Homepage, https://github.com/Kajaani-Balabavan/kajaani-passgen
+Keywords: password,generator,random,secure
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# kajaani-passgen
+
+A simple Python library to generate secure random passwords.
+
+## Installation
+
+```bash
+pip install kajaani-passgen
+```
+
+## Usage
+
+```python
+from kajaani-passgen import generate_password
+
+password = generate_password(length=16, use_digits=True, use_specials=True)
+print(password)
+```
+
+## Features
+
+- Control password length
+- Optionally include digits and special characters
