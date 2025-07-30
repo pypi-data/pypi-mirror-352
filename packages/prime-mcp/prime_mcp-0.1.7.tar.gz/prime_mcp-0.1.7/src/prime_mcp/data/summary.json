@@ -1,0 +1,5 @@
+{
+    "issue_id": "JIRA-123",
+    "summary": "Implement idempotency key mechanism for the transaction processing API to prevent duplicate charges. This requires extending the TransactionRequest model with an idempotency key field, modifying the transaction service to check for existing transactions with the same key, storing keys with a 24-hour TTL, and updating documentation. The feature ensures that identical transaction requests submitted multiple times (due to network issues, user error, etc.) will only process once, protecting customers from being charged twice while maintaining transaction integrity.",
+    "short": "Add idempotency support to transaction API to prevent duplicate charges when the same transaction is submitted multiple times."
+}
