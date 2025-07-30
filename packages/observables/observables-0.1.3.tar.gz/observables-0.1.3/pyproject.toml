@@ -1,0 +1,69 @@
+[project]
+name = "observables"
+version = "0.1.3"
+description = "Observable variables for Python, similar to Vue, Redux, etc."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/observables"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+src = ["src/observables"]
+
+[tool.ruff.lint]
+select = [
+    "F",      # pyflakes, checks basic things
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "I",      # sorts imports
+    "UP",     # upgrades syntax (right now for python 3.8)
+    "YTT",    # checks that we're not breaking anything on python 3.10
+    "S",      # bandit, checks security vulnerabilities
+    "BLE",    # bans "except BaseException" / "except Exception", sometimes has to be explicitly overridden
+    "B",      # bugbear, finds common bugs
+    "A001",
+    "A002",   # checks that variable names don't coincide with builtins names
+    "C4",     # cleans up useless list comprehensions
+    "ISC",    # tidies up literal string concatenation
+    "PIE",    # misc. lints - https://pypi.org/project/flake8-pie/
+    "T20",    # bans print statements
+    "TID252", # bans relative imports (from . import SomeFile)
+    "PL",     # some pylint rules, but we're disabling the most annoying and cringe ones below
+]
+
+ignore = [
+    "S101", # bans assert
+    "S311", # bans random.X(), which is fine because we're not using that for cryptographic bytes
+    "B007", # 'loop control variable not used within loop body', which happens sometimes with tuple unpacking
+    "B024", # bans abstract base classes without abstract methods, which are USEFUL
+    "B027", # bans empty non-abstract methods in abstract classes, which are USEFUL when default = do nothing
+    "B028", # something with warnings.warn apparently
+    # A003 - Class attribute is shadowing a python builtin. Good code shouldn't care
+    #        (not technically excluded, but only A001 and A002 are included)
+    "C408",   # allow using dict(a=A, b=B, c=C)
+    "ISC001", # conflicts with formatter
+    "PLR09",  # tests like too many branches, too many arguments, etc.
+    # those don't actually evaluate anything relevant. clown rules.
+    "PLR2004", # magic value
+    "PLW2901", # `for` loop variable overwritten
+]
+
+[tool.pyright]
+ignore = []
+pythonVersion = "3.9"
+
+reportExplicitAny = false
+reportAny = false
+reportImplicitOverride = false
+reportImplicitStringConcatenation = false
+
+[dependency-groups]
+dev = ["pytest>=8.3.4", "ruff>=0.9.3"]
