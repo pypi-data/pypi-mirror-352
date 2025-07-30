@@ -1,0 +1,58 @@
+[project]
+name = "fastapi-tortoise-crud"
+version = "1.1.0"
+description = "A powerful FastAPI + Tortoise ORM CRUD library with advanced features: auto-relation queries, time-range filters, fine-grained dependency injection, unified response format, and intelligent caching"
+keywords = [
+    "FastAPI",
+    "Tortoise-ORM",
+    "CRUD",
+    "Cache",
+    "Hooks",
+    "REST-API",
+    "Auto-Relations",
+    "Time-Filters",
+    "Dependency-Injection",
+    "Schema-Generation",
+]
+authors = [
+    { name = "moxiaoying", email = "768091671@qq.com" },
+]
+
+requires-python = ">=3.11"
+readme = "README_zh.md"
+license = { text = "MIT" }
+
+dependencies = [
+    "tortoise-orm>=0.20.0",
+    "fastapi>=0.115.12",
+    "pydantic>=2.0.0",
+    "typing-extensions>=4.0.0"
+]
+
+[project.optional-dependencies]
+redis = [
+    "redis>=4.0.0"
+]
+
+
+
+
+
+[tool]
+[tool.pdm]
+[tool.pdm.build]
+includes = [
+    "fastapi_tortoise_crud/**",
+]
+
+[[tool.pdm.source]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+verify_ssl = true
+name = "pypi"
+
+[dependency-groups]
+dev = [
+    "uvicorn>=0.34.0",
+    "pytest>=8.4.0",
+    "httpx>=0.28.1",
+]
