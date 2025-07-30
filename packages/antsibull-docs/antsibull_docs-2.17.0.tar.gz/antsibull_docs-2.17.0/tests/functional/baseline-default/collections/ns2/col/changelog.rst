@@ -1,0 +1,1 @@
+The changelog of ns2.col is empty.
