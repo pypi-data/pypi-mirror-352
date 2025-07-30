@@ -1,0 +1,55 @@
+# [build-system]
+# requires = ["setuptools"]
+# build-backend = "setuptools.build_meta"
+
+[project]
+name = "LinuxMemoryStatistics"
+version = "0.0.1"
+dependencies = []
+authors = [
+    {name = "Maurice Lambert", email = "mauricelambert434@gmail.com"},
+]
+maintainers = [
+    {name = "Maurice Lambert", email = "mauricelambert434@gmail.com"},
+]
+description = 'This script prints memory usages and statistics (by process, executable and for the full system).'
+readme = {file = "README.md", content-type = "text/markdown"}
+# url = "https://github.com/mauricelambert/LinuxMemoryStatistics"
+# download-url = "https://mauricelambert.github.io/info/python/code/LinuxMemoryStatistics.pyz"
+classifiers = [
+    "Topic :: System",
+    "Environment :: Console",
+    "Topic :: System :: Shells",
+    'Operating System :: POSIX',
+    "Natural Language :: English",
+    "Programming Language :: Python",
+    "Topic :: System :: System Shells",
+    "Programming Language :: Python :: 3.8",
+    'Operating System :: Microsoft :: Windows',
+    "Topic :: System :: Systems Administration",
+    "Intended Audience :: System Administrators",
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+]
+keywords = ['memory', 'executable', 'process', 'system', 'linux', 'usages']
+license = {text = "GPL-3.0 License"}
+requires-python = ">=3.8"
+
+[project.scripts]
+LinuxMemoryStatistics = "LinuxMemoryStatistics:main"
+
+[project.urls]
+"Github" = "https://github.com/mauricelambert/LinuxMemoryStatistics"
+"Documentation" = "https://mauricelambert.github.io/info/python/code/LinuxMemoryStatistics.html"
+"Python Executable" = "https://mauricelambert.github.io/info/python/code/LinuxMemoryStatistics.pyz"
+"Windows Executable" = "https://mauricelambert.github.io/info/python/code/LinuxMemoryStatistics.exe"
+
+[tool.setuptools]
+include-package-data = true
+platforms = ['Windows', 'Linux', "MacOS"]
+py-modules = ['LinuxMemoryStatistics']
+packages = []
+script-files = []
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"], content-type = "text/markdown"}
