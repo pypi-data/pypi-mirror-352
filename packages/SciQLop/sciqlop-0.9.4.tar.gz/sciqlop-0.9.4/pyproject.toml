@@ -1,0 +1,82 @@
+[build-system]
+build-backend = "flit_core.buildapi"
+requires = ["flit_core"]
+
+[project]
+name = 'SciQLop'
+version = "0.9.4"
+description = "An ergonomic and efficient application to browse and label in situ plasma measurements from multi-mission satellite data."
+keywords = ["machine-learning", "satellite", "plasma-physics", "nasa-data", "amda", "cdpp"]
+authors = [
+    { name = "Alexis Jeandet", email = "alexis.jeandet@member.fsf.org" }
+]
+
+maintainers = [
+    { name = "Alexis Jeandet", email = "alexis.jeandet@member.fsf.org" }
+]
+
+requires-python = ">=3.8"
+license = { file = "COPYING" }
+readme = "README.md"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13"
+]
+dependencies = [
+    'SciQLopPlots==0.15.1',
+    'speasy>=1.5.2',
+    'qtconsole',
+    'tscat_gui==0.4.*',
+    'tscat==0.4.*',
+    "humanize",
+    'platformdirs',
+    'seaborn',
+    "scipy",
+    "pyside6==6.9.0",
+    "shiboken6==6.9.0",
+    "PySide6-QtAds==4.4.0",
+    "IPython",
+    "ipykernel",
+    "jupyterlab>=4,!=4.1.0",
+    "notebook",
+    "ipympl",
+    "qasync",
+    "jinja2",
+    "pyzstd",
+    "PyGitHub",
+    "numpy",
+    "expression",
+    "httpx_ws>=0.7.1,<0.8.0",
+    "pycrdt-websocket>=0.15.4,<0.16.0",
+    "pycrdt",
+]
+[project.urls]
+homepage = "https://github.com/SciQLop/SciQLop"
+bug_tracker = "https://github.com/SciQLop/SciQLop/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest-runner",
+    "pytest",
+    "pytest-cov",
+    "pytest-qt",
+    'pytest-xvfb; platform_system == "Linux"',
+]
+
+[project.gui-scripts]
+sciqlop = "SciQLop.app:main"
+
+[project.entry-points."jupyter_client.kernel_provisioners"]
+sciqlop-kernel-provisioner = "SciQLop.Jupyter:SciQLopProvisioner"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+qt_api = "pyside6"
