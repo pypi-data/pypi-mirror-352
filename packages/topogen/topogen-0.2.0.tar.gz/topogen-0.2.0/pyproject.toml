@@ -1,0 +1,74 @@
+[project]
+name = "topogen"
+version = "0.2.0"
+authors = [{ name = "Ralph Schmieder", email = "rschmied@cisco.com" }]
+description = "Generate test topology files and configurations for CML2"
+readme = "README.md"
+license = { text = "MIT" }
+keywords = [
+  "automation",
+  "tools",
+  "simulation",
+  "virtualization",
+  "network-programming",
+]
+
+classifiers = [
+  # How mature is this project? Common values are
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+  "Development Status :: 4 - Beta",
+
+  "Environment :: Console",
+
+  # Indicate who your project is intended for
+  "Intended Audience :: Telecommunications Industry",
+  # "Topic :: Software Development :: Build Tools",
+  "Topic :: Internet",
+
+  # Pick your license as you wish (see also "license" above)
+  "License :: OSI Approved :: MIT License",
+
+  # Operating system
+  "Operating System :: OS Independent",
+
+  # Specify the Python versions you support here.
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+requires-python = ">=3.12"
+dependencies = [
+  "enlighten==1.13.0",
+  "jinja2==3.1.4",
+  "networkx==3.4.2",
+  "pyserde[toml]>=0.22.2",
+  "virl2-client>=2.7.0",
+]
+
+[project.urls]
+Homepage = "https://developer.cisco.com/modeling-labs"
+Repository = "https://github.com/rschmied/topogen"
+Issues = "https://github.com/rschmied/topogen/issues"
+Changelog = "https://github.com/crschmied/topogen/blob/master/CHANGELOG.md"
+
+[project.scripts]
+topogen = "topogen:main"
+
+[project.optional-dependencies]
+all = ["numpy>=2.2.0", "scipy>=1.14.1"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["mypy>=1.16.0", "ruff>=0.8.3", "types-networkx>=3.5.0.20250531"]
+
+[[tool.mypy.overrides]]
+module = ["enlighten.*", "virl2_client.*"]
+follow_untyped_imports = true
