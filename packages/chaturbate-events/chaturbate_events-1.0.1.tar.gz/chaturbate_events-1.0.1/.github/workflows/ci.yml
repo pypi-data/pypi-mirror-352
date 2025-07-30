@@ -1,0 +1,157 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+  merge_group:
+  workflow_dispatch:
+
+env:
+  UV_CACHE_DIR: /tmp/uv-cache
+  DEFAULT_PYTHON: "3.13"
+  FORCE_COLOR: "1"
+  PY_COLORS: "1"
+
+permissions:
+  contents: read
+  pull-requests: write
+  actions: read
+  checks: write
+
+jobs:
+  setup:
+    name: Setup Environment
+    runs-on: ubuntu-24.04
+    outputs:
+      python-version: ${{ steps.set.outputs.python }}
+    steps:
+      - id: set
+        run: echo "python=${{ env.DEFAULT_PYTHON }}" >> "$GITHUB_OUTPUT"
+
+  lint-test:
+    name: Lint, Typecheck & Test
+    needs: setup
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        python-version: [3.12, 3.13]
+      fail-fast: false # Continue with other versions if one fails
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up UV & Python
+        uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb # v6
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+          cache-dependency-glob: uv.lock
+
+      - name: Verify Python Version
+        run: python --version
+
+      - name: Install Dependencies
+        run: uv sync
+
+      - name: Cache pre-commit hooks
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Lint & Typecheck
+        id: lint
+        continue-on-error: true # Continue to tests even if linting fails
+        run: |
+          set -e
+          echo "::group::Formatting with ruff"
+          uv run ruff format ./ --check --diff
+          echo "::endgroup::"
+
+          echo "::group::Linting with ruff"
+          uv run ruff check ./
+          echo "::endgroup::"
+
+          echo "::group::Type checking with mypy"
+          uv run mypy ./
+          echo "::endgroup::"
+
+          echo "::group::Type checking with basedpyright"
+          uv run pyright ./
+          echo "::endgroup::"
+
+          echo "::group::Code quality with pylint"
+          uv run pylint ./
+          echo "::endgroup::"
+
+      - name: Run Tests with Coverage
+        id: test
+        run: |
+          uv run pytest \
+            --cov=src \
+            --cov-report=xml \
+            --cov-report=term \
+            --cov-report=html \
+            --junit-xml=test-results.xml \
+            --maxfail=10 \
+            -n auto
+
+      - name: Generate Test Summary
+        uses: test-summary/action@31493c76ec9e7aa675f1585d3ed6f1da69269a86 # v2
+        if: always()
+        with:
+          paths: test-results.xml
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.python-version }}
+          path: |
+            test-results.xml
+            htmlcov/
+            coverage.xml
+          retention-days: 30
+
+      - name: Fail on Linting Errors
+        if: steps.lint.outcome == 'failure' && steps.test.outcome == 'success'
+        run: |
+          echo "::error::Linting failed but tests passed. Please fix linting issues before merging."
+          exit 1
+
+  docs:
+    name: Build & Deploy Documentation
+    needs: lint-test
+    runs-on: ubuntu-24.04
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb # v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - run: uv sync --group=docs
+
+      - name: Build Docs with Sphinx
+        run: uv run -m sphinx docs -T -E -a -j 1 -b html -D language=en docs/_build/html
+
+      - name: Check Links
+        run: uv run -m sphinx docs -b linkcheck docs/_build/linkcheck
+
+      - name: Deploy Docs to GitHub Pages
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_build/html
+          force_orphan: true # Creates a clean deployment
+          full_commit_message: "docs: update documentation site"

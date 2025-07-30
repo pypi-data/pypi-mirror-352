@@ -1,0 +1,122 @@
+Metadata-Version: 2.4
+Name: chaturbate-events
+Version: 1.0.1
+Summary: Python wrapper for the Chaturbate Events API
+Project-URL: Changelog, https://github.com/MountainGod2/chaturbate_events/blob/main/CHANGELOG.md
+Project-URL: Documentation, https://mountaingod2.github.io/chaturbate_events/
+Project-URL: Homepage, https://github.com/MountainGod2/chaturbate_events
+Project-URL: Issues, https://github.com/MountainGod2/chaturbate_events/issues
+Project-URL: Repository, https://github.com/MountainGod2/chaturbate_events
+Author-email: MountainGod2 <admin@reid.ca>
+License: 
+        
+        Copyright 2025 MountainGod2
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+License-File: LICENSE
+Keywords: api,chaturbate,python
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.12
+Requires-Dist: httpx==0.28.1
+Requires-Dist: pydantic>=2.5.0
+Description-Content-Type: text/markdown
+
+# Chaturbate Events
+
+Python wrapper for the Chaturbate Events API.
+
+## Features
+
+- Stream events in real-time
+- Type-safe with Pydantic models
+- Async/await support
+- Event filtering
+- Built-in retry logic
+
+## Installation
+
+```bash
+pip install chaturbate-events
+```
+
+## Quick Start
+
+```python
+import asyncio
+from chaturbate_events import ChaturbateEventsClient, TipEvent
+
+async def main():
+    async with ChaturbateEventsClient("username", "api_token") as client:
+        async for event in client.stream_events():
+            if isinstance(event, TipEvent):
+                print(f"{event.user.username} tipped {event.tip.tokens} tokens")
+
+asyncio.run(main())
+```
+
+## Event Types
+
+Supported events:
+
+- `TipEvent` - Token tips
+- `ChatMessageEvent` / `PrivateMessageEvent` - Messages  
+- `UserEnterEvent` / `UserLeaveEvent` - Room activity
+- `FollowEvent` / `UnfollowEvent` - Followers
+- `FanclubJoinEvent` - Fanclub joins
+- `MediaPurchaseEvent` - Media purchases
+- `BroadcastStartEvent` / `BroadcastStopEvent` - Stream status
+- `RoomSubjectChangeEvent` - Topic changes
+
+## Usage Examples
+
+### Basic streaming
+```python
+async with ChaturbateEventsClient("broadcaster", "token") as client:
+    async for event in client.stream_events():
+        print(f"{event.method} from {event.user.username}")
+```
+
+### Event filtering
+```python
+events = {EventMethod.TIP, EventMethod.CHAT_MESSAGE}
+async for event in client.stream_events(event_filter=events):
+    # Handle filtered events
+    pass
+```
+
+### Configuration
+```python
+client = ChaturbateEventsClient(
+    broadcaster="username",
+    api_token="token",
+    testbed=False,
+    timeout=30.0,
+    max_retries=3
+)
+```
+
+## Requirements
+
+- Python 3.12+
+- Chaturbate API token
+
+## Development
+
+```bash
+pip install -e ".[dev]"
+pytest
+ruff format && ruff check
+```
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.

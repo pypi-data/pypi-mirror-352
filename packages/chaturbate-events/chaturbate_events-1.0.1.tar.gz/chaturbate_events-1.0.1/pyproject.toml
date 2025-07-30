@@ -1,0 +1,114 @@
+[project]
+authors = [{ name = "MountainGod2", email = "admin@reid.ca" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = ["httpx==0.28.1", "pydantic>=2.5.0"]
+description = "Python wrapper for the Chaturbate Events API"
+keywords = ["api", "chaturbate", "python"]
+license = { file = "LICENSE" }
+name = "chaturbate-events"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.12"
+version = "1.0.1"
+
+[project.urls]
+Changelog = "https://github.com/MountainGod2/chaturbate_events/blob/main/CHANGELOG.md"
+Documentation = "https://mountaingod2.github.io/chaturbate_events/"
+Homepage = "https://github.com/MountainGod2/chaturbate_events"
+Issues = "https://github.com/MountainGod2/chaturbate_events/issues"
+Repository = "https://github.com/MountainGod2/chaturbate_events"
+
+[dependency-groups]
+dev = [
+  "bandit-sarif-formatter>=1.1.1",
+  "mypy==1.16.0",
+  "pylint==3.3.7",
+  "pyright==1.1.401",
+  "pytest-asyncio==1.0.0",
+  "pytest-cov==6.1.1",
+  "pytest-xdist==3.7.0",
+  "pytest==8.3.5",
+  "python-semantic-release>=10.0.2",
+  "ruff==0.11.12",
+  "ty==0.0.1a7",
+]
+
+docs = [
+  "myst-nb==1.2.0",
+  "sphinx-autoapi==3.6.0",
+  "sphinx-autodoc-typehints==3.2.0",
+  "sphinx-copybutton==0.5.2",
+  "sphinx-design==0.6.1",
+  "sphinx-rtd-theme==3.0.2",
+]
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatch-fancy-pypi-readme==25.1.0", "hatchling==1.27.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/chaturbate_events"]
+
+[tool.semantic_release]
+branch = "main"
+build_command = "pip install uv && uv build"
+changelog_file = "CHANGELOG.md"
+version_toml = ["pyproject.toml:project.version"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "double"
+
+[tool.ruff.lint]
+ignore = ["COM812", "D203", "D213"]
+select = ["ALL"]
+
+[tool.ruff.lint.per-file-ignores]
+"docs/*" = ["ANN201", "D", "INP001", "T201"]
+"docs/example.ipynb" = ["S105"]
+"examples/*" = ["ANN201", "D", "INP001", "T201"]
+"tests/*" = ["PLR2004", "S101", "SLF001"]
+
+[tool.mypy]
+check_untyped_defs = true
+disable_error_code = ["prop-decorator"]
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+exclude = ["examples"]
+no_implicit_optional = true
+plugins = ["pydantic.mypy"]
+python_version = "3.12"
+strict = true
+warn_no_return = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+addopts = "--cov=src/chaturbate_events --cov-report=term-missing"
+asyncio_default_fixture_loop_scope = "function"
+asyncio_mode = "auto"
+python_classes = "Test*"
+python_files = "test_*.py"
+python_functions = "test_*"
+testpaths = ["tests"]
+
+[tool.bandit]
+exclude_dirs = [".venv", "tests"]
+
+[tool.pylint]
+fail-under = 8.0
+ignore-paths = [".venv", "build", "dist", "docs", "examples", "out", "tests"]
