@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aibox-nlp"
+authors = [{name = "AiBox Lab"}]
+maintainers = [{name = "Moésio Filho", email = "moesio.f@gmail.com"}]
+version = "0.4.0"
+description = "AiBox Natural Language Processing Toolkit."
+readme = "README.md"
+classifiers = ["Programming Language :: Python :: 3.10", "Programming Language :: Python :: 3.11", "Development Status :: 3 - Alpha"]
+requires-python = ">=3.10"
+dynamic = ["dependencies", "optional-dependencies"]
+
+[project.urls]
+Homepage = "https://aiboxlab.org/nlp/"
+Documentation = "https://aiboxlab.org/nlp/"
+Repository = "https://github.com/aiboxlab/nlp.git"
+Issues = "https://github.com/aiboxlab/nlp/issues"
+Changelog = "https://github.com/aiboxlab/nlp/blob/main/CHANGELOG.md"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements/core.txt"]}
+
+[tool.setuptools.dynamic.optional-dependencies]
+trees = {file = ["requirements/trees.txt"]}
+embeddings = {file = ["requirements/embeddings.txt",
+                      "requirements/transformers.txt"]}
+BR = {file = ["requirements/BR.txt",
+              "requirements/transformers.txt"]}
+dev = {file = ["requirements/dev.txt"]}
+all = {file = ["requirements/trees.txt",
+               "requirements/embeddings.txt",
+               "requirements/BR.txt",
+               "requirements/core.txt",
+               "requirements/transformers.txt"]}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["aibox*"]
+namespaces = true
+
+[tool.setuptools.package-data]
+"aibox.nlp.factory" = ["*.json"]
