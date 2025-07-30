@@ -1,0 +1,97 @@
+---
+# Copier Settings for the project
+!include copier-settings.yml
+---
+author_full_name:
+    type: str
+    help: What is your full name?
+    placeholder: "Jermiah Joseph"
+    validator: "{% from pathjoin('includes', 'validators.jinja') import validate_full_name %}{{ validate_full_name(author_full_name) }}"
+
+author_email:
+    type: str
+    help: What is your bhklab email address?
+    default: "{% from pathjoin('includes', 'slugify.jinja') import slugify_email%}{{ slugify_email(author_full_name) }}"
+    validator: "{% from pathjoin('includes', 'validators.jinja') import validate_email %}{{ validate_email(author_email) }}"
+
+github_username:
+    type: str
+    help: What is YOUR GitHub username?
+    placeholder: "username"
+    validator: "{% from pathjoin('includes', 'validators.jinja') import validate_github_username %}{{ validate_github_username(github_username) }}"
+
+has_additional_authors:
+    type: bool
+    help: Are there any additional authors for this project?
+    default: true
+    choices:
+        - true
+        - false
+
+additional_authors_raw:
+    type: str
+    help: Enter comma-separated list of additional authors (if any).
+    default: ""
+    placeholder: "Jane Doe, John Smith"
+    when: "{{ has_additional_authors == true }}"
+    validator: "{% from pathjoin('includes', 'validators.jinja') import validate_additional_authors %}{{ validate_additional_authors(additional_authors_raw) }}"
+
+# This is a nice trick to convert the comma-separated list into a list that
+# can be used in the template
+additional_authors:
+    help: Verify additional authors
+    type: yaml
+    when: false
+    default: |
+        {% set authors = additional_authors_raw.split(',') %}
+        {% for author in authors %}
+        - {{ author.strip() }}
+        {% endfor %}
+
+repo_location:
+    type: str
+    help: Is this project going to be hosted in the 'bhklab', 'BHKLAB-DataProcessing' or your {{ github_username }} GitHub organization?
+    default: "bhklab"
+    choices:
+        - bhklab
+        - BHKLAB-DataProcessing
+        - "{{ github_username }}"
+
+project_name:
+    type: str # Any value will be treated raw as a string
+    help: What is your project name? (human readable allowed i.e spaces, special characters)
+    placeholder: "{{ _folder_name.replace('_', ' ').replace('-', ' ').title() }}"
+    validator: "{% from pathjoin('includes', 'validators.jinja') import validate_project_name %}{{ validate_project_name(project_name) }}"
+
+project_slug:
+    type: str
+    help: UNIQUE Project identifier for use in URLs, filenames, Github repo
+        (should be lowercase and contain only letters, numbers, underscores, and hyphens).
+    default: "{% from pathjoin('includes', 'slugify.jinja') import slugify%}{{ slugify(project_name) }}"
+    validator: "{% from pathjoin('includes', 'validators.jinja') import validate_slug %}{{ validate_slug(project_slug) }}"
+
+project_description:
+    type: str
+    help: A short description of your {{ project_name }} project.
+    placeholder: "{{ project_name }} is a project that does XYZ"
+    # description cannot have any newline characters or it will break in the toml file
+    validator: >-
+        {% if project_description | regex_search('[\r\n]') %}
+        {{ "Project description cannot contain newlines." }}
+        {% endif %}
+
+python_version:
+    type: str
+    help: If you want to use a specific Python version, please specify it here.
+    default: "3.12"
+    choices:
+        - "3.10"
+        - "3.11"
+        - "3.12"
+        - "3.13"
+
+publish_to_github:
+    type: bool
+    help: Would you like to publish this project to GitHub now after generation?
+        (can be down manually later)
+    default: false

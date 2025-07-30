@@ -1,0 +1,64 @@
+[workspace]
+authors = ["Jermiah Joseph <jermiahjoseph98@gmail.com>"]
+channels = ["conda-forge"]
+name = "bhklab_test_template"
+platforms = ["osx-arm64", "linux-64"]
+description = "A simple template for BHKLAB projects using pixi"
+license = "MIT"
+
+[tasks]
+
+[environments]
+docs = { features = ["docs"] }
+quality = { features = ["lint"] }
+publish = { features = ["publish"] }
+
+[pypi-dependencies]
+bhklab-project-template = { path = ".", editable = true }
+
+############################################### LINT ###############################################
+
+[feature.lint.dependencies]
+pre-commit-hooks = ">=4.6.0,<4.7"
+pre-commit = ">=3.7.1,<3.8"
+yamllint = ">=1.35.1,<1.36"
+
+[feature.lint.tasks]
+_pre-commit_setup = { cmd = "pre-commit install" }
+pre-commit_run = { cmd = "pre-commit run --all-files", depends-on = [
+    "_pre-commit_setup"
+], description = "Run basic pre-commit quality checks" }
+
+[dependencies]
+python = ">=3.13.3,<3.14"
+
+############################################ PUBLISH ################################################
+
+# Publish
+[feature.publish.dependencies]
+hatch = ">=1.2.0,<2"
+hatchling = ">=1.0.0,<2"
+
+[feature.publish.tasks]
+build = { cmd = ["hatch", "build", "--clean"], inputs = [
+    "src",
+    "pyproject.toml",
+], outputs = ["dist/*"], description = "🛠️ Builds the packages" }
+
+
+############################################## DOCS ################################################
+
+[feature.docs.dependencies]
+mkdocs = "*"
+
+[feature.docs.tasks.doc-build]
+cmd = "mkdocs build -f mkdocs.yaml"
+inputs = ["docs"]
+outputs = ["site"]
+description = "Build documentation with mkdocs"
+
+[feature.docs.tasks.doc-serve]
+cmd = "mkdocs serve -f mkdocs.yaml"
+depends-on = ["doc-build"]
+inputs = ["docs"]
+description = "Serve documentation with mkdocs, runs doc-build first"
