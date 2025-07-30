@@ -1,0 +1,177 @@
+{
+  "properties": {
+    "pids": {
+      "type": "object",
+      "marshmallow": {
+        "generate": false,
+        "field": "{{marshmallow.fields.Dict}}( keys={{marshmallow_utils.fields.SanitizedUnicode}}(validate={{invenio_rdm_records.services.schemas.record.validate_scheme}}),values={{marshmallow.fields.Nested}}({{invenio_rdm_records.services.schemas.pids.PIDSchema}}),)"
+      },
+      "ui": {
+        "marshmallow": {
+          "generate": false,
+          "read": false,
+          "write": false
+        }
+      },
+      "json-schema": {
+        "type": "object",
+        "propertyNames": {
+          "pattern": "^[a-z_-][a-z0-9_-]*$"
+        },
+        "uniqueItems": true,
+        "additionalProperties": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "identifier": {
+              "type": "string"
+            },
+            "provider": {
+              "type": "string"
+            },
+            "client": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "access": {
+      "marshmallow": {
+        "generate": false,
+        "field-class": "marshmallow_utils.fields.nestedattr.NestedAttribute",
+        "class": "invenio_rdm_records.services.schemas.access.AccessSchema"
+      },
+      "ui": {
+        "marshmallow": {
+          "generate": false,
+          "read": false,
+          "write": false
+        }
+      },
+      "sample": {
+        "skip": true
+      },
+      "properties": {
+        "record": {
+          "type": "keyword",
+          "sample": {
+            "skip": true
+          }
+        },
+        "files": {
+          "type": "keyword",
+          "sample": {
+            "skip": true
+          }
+        },
+        "embargo": {
+          "properties": {
+            "active": {
+              "type": "boolean",
+              "sample": {
+                "skip": true
+              },
+              "json-schema": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            },
+            "until": {
+              "type": "date",
+              "sample": {
+                "skip": true
+              },
+              "json-schema": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "reason": {
+              "type": "fulltext",
+              "sample": {
+                "skip": true
+              },
+              "json-schema": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "status": {
+          "type": "keyword",
+          "sample": {
+            "skip": true
+          }
+        }
+      }
+    }
+  },
+  "mapping": {
+    "template": {
+      "mappings": {
+        "dynamic_templates": [
+          {
+            "pids": {
+              "path_match": "pids.*",
+              "match_mapping_type": "object",
+              "mapping": {
+                "type": "object",
+                "properties": {
+                  "identifier": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "provider": {
+                    "type": "keyword"
+                  },
+                  "client": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "parent_pids": {
+              "path_match": "parent.pids.*",
+              "match_mapping_type": "object",
+              "mapping": {
+                "type": "object",
+                "properties": {
+                  "identifier": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "provider": {
+                    "type": "keyword"
+                  },
+                  "client": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

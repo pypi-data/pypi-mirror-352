@@ -1,0 +1,24 @@
+{{ vars.record_metadata|imports }}
+from invenio_rdm_records.records.systemfields.deletion_status import RecordDeletionStatusEnum
+from sqlalchemy_utils.types import ChoiceType, UUIDType
+from invenio_files_rest.models import Bucket
+class {{ vars.record_metadata|class_header }}:
+    """Model for {{ vars.record.class|base_name }} metadata."""
+
+    __tablename__ = "{{ vars.record_metadata.table }}"
+
+    {% if vars.record_metadata.use_versioning %}
+    # Enables SQLAlchemy-Continuum versioning
+    __versioned__ = {}
+    {% endif %}
+    deletion_status = db.Column(
+        ChoiceType(RecordDeletionStatusEnum, impl=db.String(1)),
+        nullable=False,
+        default=RecordDeletionStatusEnum.PUBLISHED.value,
+    )
+
+    media_bucket_id = db.Column(UUIDType, db.ForeignKey(Bucket.id), index=True)
+    media_bucket = db.relationship(Bucket, foreign_keys=[media_bucket_id])
+
+
+{{ vars.record_metadata|extra_code }}
