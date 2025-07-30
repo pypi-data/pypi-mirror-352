@@ -1,0 +1,142 @@
+Metadata-Version: 2.4
+Name: pydriftn
+Version: 0.1.3
+Summary: Microlensing Driftscan Project
+Author-email: Kenneth Freeman <kenneth.freeman@anu.edu.au>, Renee Grace Key <rkey@swin.edu.au>, Brent Miszalski <brent.miszalski@mq.edu.au>
+License: MIT License
+        
+        Copyright (c) 2023 Renee Key
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Source, https://dev.aao.org.au/adacs-odc/freeman-2022b
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# pydriftn - The Microlensing Driftscan Project
+
+Driftscan techniques have not been widely used so far for fast photometry, and a fair amount of development of new techniques has been required to extract photometric time series with sub-arcsecond sampling from photometric data.
+The functions presented in this repository are designed to accomplish the drift scan time series extraction, and work on a single selected field of interest without dithering patterns.
+
+For this science case, the input to the pipeline is two pointed optical colour images of a field (in this case DECam g and r-band images) and a series of 20 second rapid-cadence (VR) images of the field with a constant drift rate in Declination. 
+The output is a catalogue of light curves for stars across the field, with brightness measurements subsampled along the drifted image, producing an effective candence much shorter than the exposure duration. 
+The driftscan image, or DSI, can be searched for sub-second transient signals. The Driftscan techique is especially powerful in searching for very short duration microlensing signals produced by a population of asteroid-mas primordial black holes.
+
+Other science applications include the ability to screen for milli-second optical transient phenomena (e.g counterparts to GRBs, FRBs) by distinguishing between DSI trails from field stars, and point sources from out-of-nowhere signals.
+
+
+## Contents
+
+1. Main Catalogue Generation in GenerateCatalogue.py
+   
+Generates a deep catalogue from pointed g, r images from the sky. Use is for linking coordinates of DSIs, WCS corrections across the detector plane.
+Finds a number of bright, isolated reference stars per CCD chip. Use is for WCS corrections and measuring DSI singal-to-noise contamination from atmospheric seeing.
+
+2. DSI centroiding in DriftAstrom.py
+   
+Locates the centroids of DSI on CCD chip by convolution with a DSI template and centroiding function. Centroids are matched to reference stars to WCS correct each exposure for tangent plane distortions. 
+
+3. Sky value estimation in DriftSkysub.py 
+
+4. DSI extraction in DriftExtract.py
+   
+Extraction function is run on all located DSI, and then matched to reference star with the most similar drift patten. The best match reference star is used to normalise out atmospheric seeing pattens in the DSI.
+
+5. Point Source detection in DriftClassify.py WORK IN PROGRESS
+    
+Uses the reference catalgoue and the DSI shape to distinguish between drifted stars, millisecond optical transients and other phenomena (like satellites)
+
+6. Drift Recalibration of Astrometry WORK IN PROGRESS
+
+
+## Generalised Flow of Pipeline
+
+![driftIO](https://github.com/rgkey/DriftScanning/assets/45152240/8d6e5026-2efe-4a16-afe5-10efcb837edc)
+
+
+## Getting Started
+Python 3.x is needed to run the pipeline.
+To install the required packages, run:
+```
+python3 -m build
+```
+Alternatively, run:
+```
+pip3 install -r requirements.txt
+```
+
+## Data
+The 10-night DECam data is stored in Data Central and NOIRLab.
+Access to data is TBD.
+
+## Docker development environment
+1. Edit Dockerfile to have user account details (UID and GID) to match the user on your system. You would need to run `echo $UID` on your local terminal, then copy and paste the output UID into the Dockerfile.
+2. Run `sh build.sh`
+3. Edit `load.sh` to your liking, especially the `source` part. You may remove ~/.vimrc from the mounts
+4. Run `sh load.sh`
+5. Develop as usual.
+
+## Building the documentation
+- Requires sphinx
+- In the Docker environment run:
+```
+pip install . --break-system-packages
+cd docs
+make html
+```
+
+## Demo
+Example parameters are stored in `demo/demo_values.yaml`.
+You can create and use a different one that suits your purpose.
+
+To run:
+```
+cd src
+python3 demo.py -y /path/to/values/yaml
+```
+This script currently ignores `GenerateCatalogue.py` and uses an existing master catalogue in `demo`.
+
+Expected output:
+1. `demo/{your_output_path}/driftastrom-exp_{exposure_number}.csv` - output of DriftAstrometry.
+2. `demo/{your_output_path}/driftskysub-exp_{exposure_number}.csv` - output of SkyEstimator.
+3. `demo/{your_output_path}/'target-driftextract-exp_{exposure_number}.csv` - output of TimeSeriesGenerator for the input target star(s).
+4. `demo/{your_output_path}/{your_pdf_output_path}.pdf` - plots.
+
+Sample timeseries plot:
+![sample_plot](https://dev.aao.org.au/adacs-odc/freeman-2022b/-/blob/issue14/demo/timeseries-N28.png)
+
+To find which CCD does a pair of coordinates (ra,dec) belong to, run:
+```
+python3 src/demo_find_ccd.py
+```
+
+## Work in Progress
+1. Parameters for drift_model function (DriftAstrom.py),
+2. Linear shift values (DriftAstrom.py),
+3. Saving new WCS (DriftAstrom.py),
+4. Adding sum functionality to cosmic ray masking function(DriftAstrom.py),
+5. Saving annulus data (DriftSkysub.py),
+6. Bug fixes for the fitting function (DriftExtract.py),
+7. Zero pointing.
