@@ -1,0 +1,19 @@
+{
+    "api_key": ["http://localhost:52380/v1", "http://localhost:52381/v1", "http://localhost:52382/v1", "http://localhost:52383/v1", "http://localhost:52384/v1", "http://localhost:52385/v1", "http://localhost:52386/v1", "http://localhost:52387/v1"],
+    "api_model": "/nvme10/yzh/EasyR1/converted_ckpts/v7_20250523_step28/",
+    "api_base": ["http://localhost:52380/v1", "http://localhost:52381/v1", "http://localhost:52382/v1", "http://localhost:52383/v1", "http://localhost:52384/v1", "http://localhost:52385/v1", "http://localhost:52386/v1", "http://localhost:52387/v1"],
+    "api_timeout": 120.0,
+    "api_max_retries": 3,
+    "generation_config": {
+        "temperature": 0.0,
+        "max_tokens": 4096,
+        "top_p": 1.0,
+        "frequency_penalty": 0.0,
+        "presence_penalty": 0.0
+    },
+    "num_workers": 16,
+    "request_limit": 500,
+    "request_limit_period": 60,
+    "max_error_count": 30,
+    "dump_individual_rsp": false
+}
