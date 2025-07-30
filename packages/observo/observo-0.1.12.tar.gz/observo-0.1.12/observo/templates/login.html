@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>observo</title>
+    <style>
+        body { font-family: monospace; margin: 40px; }
+        .login-container { max-width: 400px; margin: 0 auto; }
+        .form-row { margin-bottom: 15px; }
+        .form-row label { display: block; margin-bottom: 5px; }
+        .form-row input { width: 100%; padding: 8px; font-family: monospace; }
+        .submit-button { 
+            padding: 8px 15px;
+            background: none;
+            border: 1px solid #2c3e50;
+            color: #2c3e50;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        .submit-button:hover { background: #f8f9fa; }
+        .error-message { 
+            color: #ef4444; 
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>observo</h1>
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post" action="{{ url_for('login') }}">
+            <div class="form-row">
+                <label for="username">username</label>
+                <input type="text" id="username" name="username">
+            </div>
+
+            <div class="form-row">
+                <label for="password">password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="submit-button">log in</button>
+        </form>
+    </div>
+</body>
+</html>
