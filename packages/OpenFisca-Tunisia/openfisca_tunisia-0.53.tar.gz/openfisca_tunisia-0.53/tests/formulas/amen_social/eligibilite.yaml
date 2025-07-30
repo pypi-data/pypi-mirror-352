@@ -1,0 +1,230 @@
+- name: Eligibilité au programe Amen social selon la taille du ménage et le revenu
+  period: 2022-02
+  relative_error_margin: 0.01
+  input:
+    individus:
+      parent1:
+        date_naissance: 1980-01-01
+      enfant1:
+        date_naissance: 2016-01-01
+        eleve:
+          2022: true
+      enfant2:
+        date_naissance: 2015-01-01
+        eleve:
+          2022: true
+    menage:
+      personne_de_reference: parent1
+      enfants:
+        - enfant1
+        - enfant2
+  output:
+    amen_social_enfants_a_charge: 2
+    amen_social_eligible: true
+
+
+- name: Eligibilité au programe Amen social 2 enfants 1000 DT en 2024
+  period: 2024-10
+  relative_error_margin: 0.01
+  input:
+    individus:
+      parent1:
+        date_naissance: 1980-01-01
+      parent2:
+        date_naissance: 1980-01-01
+      enfant1:
+        date_naissance: 2016-01-01
+        eleve:
+          2024: true
+      enfant2:
+        date_naissance: 2015-01-01
+        eleve:
+          2024: true
+    menage:
+      personne_de_reference: parent1
+      conjoint: parent2
+      enfants:
+        - enfant1
+        - enfant2
+      amen_social_revenu: 645
+  output:
+    amen_social_eligible: true
+
+
+- name: Eligibilité au programe Amen social 3 enfants 500 DT en 2022
+  period: 2022-02
+  relative_error_margin: 0.01
+  input:
+    individus:
+      parent1:
+        date_naissance: 1980-01-01
+        salaire_de_base: 500
+      enfant1:
+        date_naissance: 2016-01-01
+        eleve:
+          2022: true
+      enfant2:
+        date_naissance: 2015-01-01
+        eleve:
+          2022: true
+    menage:
+      personne_de_reference: parent1
+      enfants:
+        - enfant1
+        - enfant2
+  output:
+    amen_social_eligible: true
+
+
+- name: Eligibilité au programe Amen social 3 enfants 500 DT en 2022
+  period: 2022-02
+  relative_error_margin: 0.01
+  input:
+    individus:
+      parent1:
+        date_naissance: 1980-01-01
+        salaire_de_base: 500
+      enfant1:
+        date_naissance: 2016-01-01
+        eleve:
+          2022: true
+      enfant2:
+        date_naissance: 2015-01-01
+        eleve:
+          2022: true
+    menage:
+      personne_de_reference: parent1
+      enfants:
+        - enfant1
+        - enfant2
+  output:
+    amen_social_eligible: true
+
+
+- name: Eligibilité au programe Amen social 3 enfants 1000 DT en 2022
+  period: 2022-02
+  relative_error_margin: 0.01
+  input:
+    individus:
+      parent1:
+        date_naissance: 1980-01-01
+        salaire_de_base: 1000
+      enfant1:
+        date_naissance: 2016-01-01
+        eleve:
+          2022: true
+      enfant2:
+        date_naissance: 2015-01-01
+        eleve:
+          2022: true
+      enfant3:
+        date_naissance: 2020-01-01
+        eleve:
+          2022: true
+    menage:
+      personne_de_reference: parent1
+      enfants:
+        - enfant1
+        - enfant2
+        - enfant3
+  output:
+    amen_social_eligible: false
+
+
+- name: Eligibilité au programe Amen social 3 enfants 1000 DT en 2022 dont un handicapé lourd
+  period: 2022-02
+  relative_error_margin: 0.01
+  input:
+    individus:
+      parent1:
+        date_naissance: 1980-01-01
+        salaire_de_base: 800
+      enfant1:
+        date_naissance: 2016-01-01
+        eleve:
+          2022: true
+      enfant2:
+        date_naissance: 2015-01-01
+        eleve:
+          2022: true
+      enfant3:
+        date_naissance: 2020-01-01
+        eleve:
+          2022: true
+        handicap:
+          2022: 3
+    menage:
+      personne_de_reference: parent1
+      enfants:
+        - enfant1
+        - enfant2
+        - enfant3
+  output:
+    amen_social_presence_handicap_lourd: true
+    amen_social_eligible: true
+
+
+- name: Eligibilité au programe Amen social 3 enfants 1000 DT en 2022 dont un handicapé intermédiaire
+  period: 2022-02
+  relative_error_margin: 0.01
+  input:
+    individus:
+      parent1:
+        date_naissance: 1980-01-01
+        salaire_de_base: 800
+      enfant1:
+        date_naissance: 2016-01-01
+        eleve:
+          2022: true
+      enfant2:
+        date_naissance: 2015-01-01
+        eleve:
+          2022: true
+      enfant3:
+        date_naissance: 2020-01-01
+        eleve:
+          2022: true
+        handicap:
+          2022: 2
+    menage:
+      personne_de_reference: parent1
+      enfants:
+        - enfant1
+        - enfant2
+        - enfant3
+  output:
+    amen_social_presence_handicap_lourd: false
+    amen_social_eligible: false
+
+
+- name: Eligibilité au programe Amen social 3 enfants 1000 DT en 2022 dont un handicapé lourd
+  period: 2022-02
+  relative_error_margin: 0.01
+  input:
+    individus:
+      parent1:
+        date_naissance: 1980-01-01
+        salaire_de_base: 1000
+      enfant1:
+        date_naissance: 2016-01-01
+        eleve:
+          2022: true
+      enfant2:
+        date_naissance: 2015-01-01
+        eleve:
+          2022: true
+      enfant3:
+        date_naissance: 2020-01-01
+        eleve:
+          2022: true
+        handicap:
+          2022: 3
+    menage:
+      personne_de_reference: parent1
+      enfants:
+        - enfant1
+        - enfant2
+        - enfant3
+  output:
+    amen_social_presence_handicap_lourd: true
+    amen_social_eligible: false
