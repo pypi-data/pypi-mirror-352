@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pmss"
+version = "0.0.3"
+authors = [
+  { name="Piotr Mitros", email="piotr@mitros.org" },
+  { name="Bradley Erickson" },
+]
+description = "Cascading Python settings"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "ply",
+    "pyyaml"
+]
+
+[project.urls]
+Homepage = "https://github.com/ETS-Next-Gen/pmss"
