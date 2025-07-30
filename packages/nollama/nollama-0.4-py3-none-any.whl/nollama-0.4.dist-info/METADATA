@@ -1,0 +1,155 @@
+Metadata-Version: 2.4
+Name: nollama
+Version: 0.4
+Summary: A terminal-based interface for interacting with large language models (LLMs)
+Home-page: https://github.com/spignelon/nollama
+Author: Ujjawal Saini
+Author-email: spignelon@proton.me
+License: GPL-3.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiohappyeyeballs==2.6.1
+Requires-Dist: aiohttp==3.12.7
+Requires-Dist: aiosignal==1.3.2
+Requires-Dist: annotated-types==0.7.0
+Requires-Dist: anyio==4.9.0
+Requires-Dist: attrs==25.3.0
+Requires-Dist: blessed==1.21.0
+Requires-Dist: cachetools==5.5.2
+Requires-Dist: certifi==2025.4.26
+Requires-Dist: charset-normalizer==3.4.2
+Requires-Dist: editor==1.6.6
+Requires-Dist: frozenlist==1.6.2
+Requires-Dist: google-auth==2.40.2
+Requires-Dist: google-genai==1.18.0
+Requires-Dist: h11==0.16.0
+Requires-Dist: httpcore==1.0.9
+Requires-Dist: httpx==0.28.1
+Requires-Dist: idna==3.10
+Requires-Dist: inquirer==3.4.0
+Requires-Dist: markdown-it-py==3.0.0
+Requires-Dist: mdurl==0.1.2
+Requires-Dist: multidict==6.4.4
+Requires-Dist: propcache==0.3.1
+Requires-Dist: pyasn1==0.6.1
+Requires-Dist: pyasn1_modules==0.4.2
+Requires-Dist: pydantic==2.11.5
+Requires-Dist: pydantic_core==2.33.2
+Requires-Dist: Pygments==2.19.1
+Requires-Dist: readchar==4.2.1
+Requires-Dist: requests==2.32.3
+Requires-Dist: rich==14.0.0
+Requires-Dist: rsa==4.9.1
+Requires-Dist: runs==1.2.2
+Requires-Dist: sniffio==1.3.1
+Requires-Dist: termcolor==2.3.0
+Requires-Dist: typing-inspection==0.4.1
+Requires-Dist: typing_extensions==4.14.0
+Requires-Dist: urllib3==2.4.0
+Requires-Dist: wcwidth==0.2.13
+Requires-Dist: websockets==15.0.1
+Requires-Dist: xmod==1.8.1
+Requires-Dist: yarl==1.20.0
+Requires-Dist: yaspin==3.1.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# NoLlama
+
+NoLlama is a terminal-based interface for interacting with Google's Gemini API directly from your terminal. Inspired by [Ollama](https://ollama.com/), NoLlama provides a streamlined experience for chatting with Gemini models like Gemini 2.0 Flash, Gemini 2.5 Flash Preview, and Gemini 2.5 Pro Preview, etc. **Ollama, Groq and OpenRouter support will be added soon**.
+
+NoLlama offers a neat terminal interface for powerful language models that aren't easily available for local execution, complete with colorful markdown rendering, multiple model choices, and efficient memory usage.
+
+![NoLlama](https://i.imgur.com/0ZOaXwv.png)
+
+## Features
+
+- **Google Gemini Models:** Access to powerful models like Gemini 2.0 Flash, Gemini 2.5 Flash Preview, and Gemini 2.5 Pro Preview.
+- **Multi-turn Conversations:** Maintain context between prompts for more coherent conversations.
+- **Neat Terminal UI:** Enjoy a clean and intuitive interface for your interactions.
+- **Live Streaming Responses:** Watch responses appear in real-time as they're generated.
+- **Colorful Markdown Rendering:** Rich text formatting and syntax highlighting in your terminal.
+- **Low Memory Usage:** Efficient memory management makes it lightweight compared to using a browser.
+- **Easy Model Switching:** Simply type `model` in the chat to switch between models.
+- **Clear Chat History:** Type `clear` to clear the chat history.
+- **Exit Commands:** Type `q`, `quit`, or `exit` to leave the chat, or use Ctrl+C or Ctrl+D.
+
+## Setup
+
+1. **API Key Configuration:**
+
+   Create a `.nollama` file in your home directory with your Gemini API key:
+
+   ```bash
+   echo "GEMINI=your_api_key_here" > ~/.nollama
+   ```
+   
+   You can get a free API key from [Google AI Studio](https://aistudio.google.com/).
+
+2. **Installation:**
+
+   a. Install from PyPI (recommended):
+
+   ```bash
+   pip install nollama
+   ```
+
+   b. Or clone and install from source:
+
+   ```bash
+   git clone https://github.com/spignelon/nollama.git
+   cd nollama
+   pip install -e .
+   ```
+
+3. **Run NoLlama:**
+
+   ```bash
+   nollama
+   ```
+
+## Usage
+
+- **Select a Model:** At startup, choose from available Gemini models.
+- **Chat Normally:** Type your questions and see the responses with rich formatting.
+- **Switch Models:** Type `model` in the chat to choose a different model.
+- **Clear Chat:** Type `clear` to clear the chat history.
+- **Exit:** Type `q`, `quit`, or `exit` to leave the chat, or press Ctrl+C or Ctrl+D.
+
+# Todos
+- [x] Add context window
+- [ ] Web interface
+- [ ] Add support for Groq
+- [ ] Add support for OpenRouter
+- [ ] Add support for Ollama API
+- [ ] Support for custom APIs
+
+## Contribution
+
+Contributions are welcome! If you have suggestions for new features or improvements, feel free to open an issue or submit a pull request.
+
+## Disclaimer
+
+NoLlama is not affiliated with Ollama. It is an independent project inspired by the concept of providing a neat terminal interface for interacting with language models.
+
+## License
+
+This project is licensed under the [GPL-3.0 License](LICENSE). <br>
+[![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)
