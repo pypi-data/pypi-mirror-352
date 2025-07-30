@@ -1,0 +1,8 @@
+gpu:
+  memory: 16  # Minimum GPU memory required in GB
+
+commands:
+  - "nvidia-smi"
+  - "module load cuda/12.4"
+  - "uv sync --extra cu124 --verbose"
+  - "uv run examples/mnist/main.py"
