@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools >= 69.5.1", "setuptools_scm[toml]>=8.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "f4enix"
+license = {file = "LICENSE.txt"}
+dynamic = ["version"]
+authors = [
+  { name="F4E neutronics team", email="sc-radiationtransport@f4e.europa.eu" },
+]
+description = "API for Monte Carlo input and output parsing"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy <= 1.26.4",
+    "numjuggler >= 2.42.37",
+    "pyvista >= 0.39.1",
+    "pandas",
+    "numba",
+    "scipy",
+    "tqdm",
+    "python-docx",
+    "openpyxl",
+    "tables",
+    "endf"
+]
+[project.optional-dependencies]
+tests = [
+    "pytest",
+    "pytest-cov",
+    "nbformat",
+    "nbconvert",
+    "ipykernel",
+]
+
+[project.urls]
+Homepage = "https://github.com/fusion4energy"
+Repository = "https://github.com/Fusion4Energy/F4Enix"
+Documentation = "https://f4enix.readthedocs.io/en/latest/"
+
+[tool.setuptools_scm]
+write_to = "src/_version.py"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"f4enix" = ["**/*.xlsx", "**/*.txt", "**/*.csv"]
