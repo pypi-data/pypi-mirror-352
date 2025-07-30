@@ -1,0 +1,32 @@
+version: 0.1.0
+project: _pytest-project_
+jobs:
+  simple_job:
+    type: test
+    runtime:
+      simulator: turtlesim
+      framework: ros1:noetic
+    scenarios:
+      settings:
+        - name: basic-tests
+          ros_testpackage: mytests
+          ros_testfile: mytest.launch
+        - name: other-tests
+          ros_testpackage: mytests
+          ros_testfile: mytest.launch
+  tests:
+    type: test
+    runtime:
+      simulator: turtlesim
+      framework: ros1:noetic
+    scenarios:
+      defaults:
+        ros_testpackage: mytests
+        ros_testfile: mytest.launch
+        params:
+          gravity: [9.807, 1.62]
+      settings:
+        - name: basic-tests
+        - name: param-grid
+          params:
+            gravity: [9.807, 1.62, 0]

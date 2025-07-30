@@ -1,0 +1,59 @@
+version: 0.1.0
+
+project: artefacts/cli-run-remote-testing
+
+on:
+  push:
+    jobs:
+      - ros1_turtlesim
+      - ros2_turtlesim
+
+jobs:
+  ros1_turtlesim:
+    type: test
+    package:
+      custom:
+        os: public.ecr.aws/artefacts/ros1:noetic-turtlesim-noartefacts
+        commands:
+          - pip3 install --upgrade setuptools pip && pip3 install ./src
+    runtime:
+      simulator: turtlesim
+      framework: ros1:noetic
+      pre_launch: echo hello  # command to be executed before launching the test. use it to perform any setup before simulator launch
+    timeout: 5 # minutes
+    scenarios:
+      defaults: # Global to all scenarios, and overriden in specific scenarios.
+        output_dirs:
+          - /tmp/outputs/
+        subscriptions:
+          pose: turtle1/pose
+          result: turtle1/odometry
+        rosbag_record: subscriptions
+        ros_testpackage: turtle_odometry
+        ros_testfile: turtle_odometry.launch
+        rosbag_postprocess: turtle_post_process.py
+      settings:
+        - name: turtle_quick
+          params:
+            test/start_pose: [[1, 1, 0]]  # [x, y, theta]
+            test/segment_length: 1  # for square trajectory
+            test/odom_tuning_theta: 0.01   # demo: tune odometry algorithm
+            test/odom_tuning_forward: 0.1  # demo: tune odometry algorithm
+  ros2_turtlesim:
+    type: test
+    package:
+      custom:
+        os: public.ecr.aws/artefacts/ros2:humble-turtlesim-noartefacts
+        commands:
+          - cd src
+          - pip3 install .
+    runtime:
+      simulator: turtlesim
+      framework: ros2:humble
+    scenarios:
+      defaults:
+        subscriptions:
+          pose: turtle1/pose
+      settings:
+        - name: turtle
+          ros_testfile: infra-tests/turtlesim2/launch_turtle.py

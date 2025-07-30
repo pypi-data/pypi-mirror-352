@@ -1,0 +1,23 @@
+version: 0.1.0
+project: _pytest-project_
+jobs:
+  ros1_job:
+    type: test
+    runtime:
+      simulator: turtlesim
+      framework: ros1:0
+    scenarios:
+      settings:
+        - name: basic-tests
+          ros_testpackage: mytests
+          ros_testfile: mytest.launch
+  ros2_job:
+    type: test
+    runtime:
+      simulator: turtlesim
+      framework: ros2:0
+    scenarios:
+      settings:
+        - name: basic-tests
+          ros_testpackage: mytests
+          ros_testfile: mytest.launch

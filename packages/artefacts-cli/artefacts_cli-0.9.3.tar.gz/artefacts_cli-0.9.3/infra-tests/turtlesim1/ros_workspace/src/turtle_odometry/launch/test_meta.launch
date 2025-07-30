@@ -1,0 +1,50 @@
+<!-- top-level launch test file
+provides resources as requested by the user in the artefacts.yaml file
+includes the launch test file defined by the user in the artefacts.yaml file
+ -->
+ <!-- for testing (without Artefacts) use this example CLI command
+rostest path_to_file ros_testpackage:=testing ros_testfile:=test_odometry.launch simulator:=none rosbag_args:=none
+  -->
+
+<launch>
+  <!-- mandatory interfaces. CLI arguments populated by the artefacts ros1 runner based on the user's artefacts.yaml -->
+  <arg name="param_file" />
+  <arg name="ros_testpackage" />
+  <arg name="ros_testfile" />
+  <arg name="simulator" />
+  <arg name="rosbag_args" />
+
+  <!-- provide parameters from artefacts.yaml onto rosparam server -->
+  <rosparam
+    file="$(arg param_file)"
+    command="load"
+  />
+  <!-- <rosparam>
+    test/start_pose: [1, 1, 0]
+    test/segment_length: 1
+    test/odom_tuning_theta: 0.01
+    test/odom_tuning_forward: 0.1
+  </rosparam> -->
+
+  <!-- provide a simulator environment -->
+  <node if="$(eval arg('simulator') == 'turtlesim')"
+    name="turtlesim"
+    pkg="turtlesim"
+    type="turtlesim_node"
+  />
+
+  <!-- provide a data recorder -->
+  <node if="$(eval not arg('rosbag_args')=='none')"
+    pkg="rosbag"
+    type="record"
+    name="rosbag_recorder"
+    output="screen"
+    args="$(arg rosbag_args)"
+  />
+
+  <!-- include the launch test file defined by the user in artefacts.yaml -->
+  <include
+    file="$(eval find(ros_testpackage) + '/launch/' + ros_testfile)"
+  />
+
+</launch>
