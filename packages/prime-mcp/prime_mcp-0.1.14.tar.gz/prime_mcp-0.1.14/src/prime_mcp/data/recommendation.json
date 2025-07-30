@@ -1,0 +1,142 @@
+{
+    "issue_id": "AI-573",
+    "fire_summary": "sensitive financial data collection, vulnerable test credentials, potential architecture exposure, and lack of transparency/user control over personal data.",
+    "recommendations": [
+        {
+            "concern": "Authentication & Authorization Vulnerabilities",
+            "issues": [
+                "Test credentials enable unauthorized access",
+                "Privilege escalation risks",
+                "Identity linking via test account (gabrieal12@archint.com)"
+            ],
+            "recommendation": "Implement OAuth 2.0/JWT with RBAC, secure key management, and eliminate specific test accounts from documentation",
+            "method": [
+                "Mitre:Credential Access",
+                "Mitre:Privilege Escalation",
+                "Linddun:Linkability",
+                "Linddun:Identifiability"
+            ],
+            "controls": "NIST:SC-13,IA-05|PCI:6.5.4"
+        },
+        {
+            "concern": "Data Privacy & Excessive Disclosure",
+            "issues": [
+                "Excessive financial data collection",
+                "Potential data exfiltration",
+                "Lack of user awareness/control"
+            ],
+            "recommendation": "Apply data minimization principles, implement HTTPS/encryption, provide transparent privacy policies with user controls",
+            "method": [
+                "Linddun:Disclosure",
+                "Mitre:Exfiltration",
+                "Linddun:Unawareness"
+            ],
+            "controls": "NIST:SC-13,IA-05|PCI:6.5.4"
+        },
+        {
+            "concern": "API Security & Information Exposure",
+            "issues": [
+                "Architecture/infrastructure details exposure",
+                "Inadequate secure design practices"
+            ],
+            "recommendation": "Implement secure API design with input validation, limit sensitive data exposure, enforce HTTPS with comprehensive logging/monitoring",
+            "method": [
+                "Mitre:Discovery"
+            ],
+            "controls": "NIST:SC-13,IA-05|PCI:6.5.4"
+        },
+        {
+            "concern": "Regulatory Compliance Gap",
+            "issues": [
+                "No compliance framework mentioned",
+                "Missing data protection standards"
+            ],
+            "recommendation": "Ensure compliance with data protection regulations, implement MFA and comprehensive security standards",
+            "method": [
+                "Linddun:Non-compliance"
+            ],
+            "controls": "NIST:SC-13,IA-05|PCI:6.5.4"
+        },
+        {
+            "concern": "Testing & Training Security",
+            "issues": [
+                "Test user account enables identity linking",
+                "Insufficient security testing procedures",
+                "Lack of privacy-aware testing protocols"
+            ],
+            "recommendation": "Develop comprehensive security testing policies, implement automated testing mechanisms, and establish privacy-preserving test data practices",
+            "method": [
+                "Linddun:Linkability",
+                "Linddun:Identifiability"
+            ],
+            "controls": "NIST:PM-14,SI-06(02),SA-11"
+        },
+        {
+            "concern": "PKI & Certificate Management",
+            "issues": [
+                "Inadequate PKI trust store management",
+                "Missing certificate lifecycle controls"
+            ],
+            "recommendation": "Establish organization-wide PKI trust store management processes with automated mechanisms for certificate accuracy and updates",
+            "method": [
+                "Mitre:Credential Access"
+            ],
+            "controls": "NIST:IA-05(14)"
+        },
+        {
+            "concern": "Account Management & Access Control",
+            "issues": [
+                "Insufficient account lifecycle management",
+                "Missing role-based access controls",
+                "Inadequate account monitoring"
+            ],
+            "recommendation": "Implement comprehensive account management policies with defined account types, approval processes, and regular compliance reviews",
+            "method": [
+                "Mitre:Privilege Escalation",
+                "Linddun:Identifiability"
+            ],
+            "controls": "NIST:AC-01,AC-02,IA-01"
+        },
+        {
+            "concern": "Data Governance & PII Protection",
+            "issues": [
+                "Missing data governance framework",
+                "Inadequate PII identification and tagging",
+                "Insufficient data lifecycle management"
+            ],
+            "recommendation": "Establish Data Governance Body with defined roles, implement automated PII tagging and lifecycle management, and ensure proper data retention policies",
+            "method": [
+                "Linddun:Disclosure",
+                "Linddun:Unawareness"
+            ],
+            "controls": "NIST:SI-18(02),PM-05,AU-11(01)"
+        },
+        {
+            "concern": "Development Security & Code Quality",
+            "issues": [
+                "Insufficient developer screening",
+                "Missing secure development processes",
+                "Inadequate documentation standards"
+            ],
+            "recommendation": "Implement developer screening requirements, establish documented secure development processes, and ensure comprehensive security documentation",
+            "method": [
+                "Mitre:Collection"
+            ],
+            "controls": "NIST:SA-21,SA-15,SA-08(32)"
+        },
+        {
+            "concern": "Audit & Monitoring Framework",
+            "issues": [
+                "Missing comprehensive audit policies",
+                "Inadequate monitoring of PII access",
+                "Insufficient compliance tracking"
+            ],
+            "recommendation": "Develop organization-wide audit and accountability policies with automated monitoring capabilities and regular compliance assessments",
+            "method": [
+                "Linddun:Unawareness",
+                "Mitre:Collection"
+            ],
+            "controls": "NIST:AU-01,CA-07(05),CA-09(01)"
+        }
+    ]
+}
