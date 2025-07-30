@@ -1,0 +1,188 @@
+Metadata-Version: 2.1
+Name: c7n_trailcreator
+Version: 0.2.44
+Summary: Cloud Custodian - Retroactive Tag Resource Creators from CloudTrail
+Home-page: https://cloudcustodian.io
+License: Apache-2.0
+Author: Cloud Custodian Project
+Requires-Python: >=3.9.2,<4.0.0
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: System :: Distributed Computing
+Classifier: Topic :: System :: Systems Administration
+Requires-Dist: c7n (==0.9.45) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: c7n-org (==0.6.44) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: c7n (==0.9.45) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: c7n-org (==0.6.44) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: click (==8.1.8) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: argcomplete (==3.6.2) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: boto3 (==1.38.25) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: cryptography (==44.0.3) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: docutils (==0.18.1) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: importlib-metadata (==8.6.1) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: jsonschema (==4.24.0) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: python-dateutil (==2.9.0.post0) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: pyyaml (==6.0.2) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: tabulate (==0.9.0) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: urllib3 (==1.26.20) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: colorama (==0.4.6) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0" and platform_system == "Windows"
+Requires-Dist: botocore (==1.38.25) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: jmespath (==1.0.1) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: s3transfer (==0.13.0) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: cffi (==1.17.1) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0" and platform_python_implementation != "PyPy"
+Requires-Dist: zipp (==3.22.0) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: attrs (==25.3.0) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: jsonschema-specifications (==2025.4.1) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: referencing (==0.36.2) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: rpds-py (==0.25.1) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: six (==1.17.0) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0"
+Requires-Dist: pycparser (==2.22) ; python_full_version >= "3.9.2" and python_full_version < "4.0.0" and platform_python_implementation != "PyPy"
+Requires-Dist: typing-extensions (==4.13.2) ; python_full_version >= "3.9.2" and python_version < "3.13"
+Project-URL: Documentation, https://cloudcustodian.io/docs/tools/c7n-trailcreator.html
+Project-URL: Repository, https://github.com/cloud-custodian/cloud-custodian
+Description-Content-Type: text/markdown
+
+# c7n-trailcreator:  Retroactive Resource Creator Tagging
+
+This script will process cloudtrail records to create a sqlite db of
+resources and their creators, and then use that sqlitedb to tag
+the resources with their creator's name.
+
+In processing cloudtrail it can use either Athena or S3 Select. A
+config file of the events and resources of interest is required.
+
+## Install
+
+```shell
+$ pip install c7n-trailcreator
+
+$ c7n-trailcreator --help
+```
+
+## Config File
+
+The config file format here is similar to what custodian requires
+for lambda policies on cloudtrail api events as an event selector.
+
+First for each resource, the custodian resource-type is required
+to be specified, and then for each event, we need to know the
+name of the service, the event name, and a jmespath expression
+to get the resource ids.
+
+Here's a few examples, covering iam-user, iam-role, and an s3 bucket.
+
+
+```json
+{
+  "resources": [
+    {
+      "resource": "iam-role",
+      "events": [
+        {
+          "event": "CreateRole",
+          "ids": "requestParameters.roleName",
+          "service": "iam.amazonaws.com"
+        }
+      ]
+    },
+    {
+      "resource": "s3",
+      "events": [
+        {
+          "ids": "requestParameters.bucketName",
+          "event": "CreateBucket",
+          "service": "s3.amazonaws.com"
+        }
+      ]
+    },
+    {
+      "resource": "iam-user",
+      "events": [
+        {
+          "event": "CreateUser",
+          "ids": "requestParameters.userName",
+          "service": "iam.amazonaws.com"
+        }
+      ]
+    }]
+}
+```
+
+## Athena Usage
+
+Trail creators supports loading data from s3 using s3 select or from cloudtrail s3 using athena.
+
+Note you'll have to pre-create the athena table for cloudtrail per
+[https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html](https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html)
+
+Let's use the example config file to load up data for all the roles, buckets, and users created in 2019
+
+```
+c7n-trailcreator load-athena \
+    --region us-east-1 \
+	--resource-map resource_map.json \
+	--table cloudtrail_logs_custodian_skunk_trails \
+	--db "creators.db" \
+	--year 2019
+```
+
+By default we'll use the default s3 athena output used by the console,
+and the default db and primary workgroup, you can pass all of these in
+on the cli to be more explicit.
+
+You can also specify to just process a month with `--month 2019/11` or
+an individual day with `--day 2019/02/01`
+
+```
+INFO:c7n_trailowner:Athena query:569712dc-d1e9-4474-b86f-6579c53b5b46
+INFO:c7n_trailowner:Polling athena query progress scanned:489.24 Mb qexec:28.62s
+INFO:c7n_trailowner:Polling athena query progress scanned:1.29 Gb qexec:88.96s
+INFO:c7n_trailowner:Polling athena query progress scanned:2.17 Gb qexec:141.16s
+INFO:c7n_trailowner:processing athena result page 78 records
+INFO:c7n_trailowner:Athena Processed 78 records
+```
+
+Note you can reprocess a completed query's results, by passing in `--query-id` on the cli.
+
+## Tagging
+
+It supports this across all the resources that custodian supports.
+
+```
+$ c7n-trailcreator tag \
+	--db creators.db \
+	--creator-tag Owner \
+	--region us-east-1
+INFO:c7n_trailowner:account:644160558196 region:us-east-1 tag 13 iam-role resources users:5 population:97 not-found:84 records:124
+INFO:c7n_trailowner:account:644160558196 region:us-east-1 tag 5 iam-user resources users:4 population:6 not-found:1 records:18
+INFO:c7n_trailowner:account:644160558196 region:us-east-1 tag 9 s3 resources users:4 population:14 not-found:5 records:20
+INFO:c7n_trailowner:auto tag summary account:644160558196 region:us-east-1
+ iam-role-not-found: 84
+ iam-role: 13
+ iam-user-not-found: 1
+ iam-user: 5
+ s3-not-found: 5
+ s3: 9
+INFO:c7n_trailowner:Total resources tagged: 27
+```
+
+let's break down one of these log messages
+
+```
+INFO:c7n_trailowner:account:644160558196 region:us-east-1 tag 13 iam-role resources users:5 population:97 not-found:84 records:124
+```
+
+- records: the count of database create events we have for this resource type.
+- users: the number of unique users for whom we have create events.
+- not-found: the number of resources for which we do not have create events, i.e. created before or after our trail analysis period.
+- population: the total number of resources in the account region.
+
+## Multi Account / Multi Region
+
+c7n-trailcreator supports executing across multiple accounts and regions when tagging
+using the same file format that c7n-org uses to denote accounts. See `tag-org` subcommand.
+
+
