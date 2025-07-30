@@ -1,0 +1,69 @@
+Screen {
+    background: #1a1b26;
+    color: #a9b1d6;
+}
+
+Horizontal {
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+ListView {
+    align: left top;
+    margin: 0;
+    margin-bottom: 1;
+    background: black 0%;
+    border: round #565f89;
+    padding: 0;
+    overflow: auto;
+    overflow-x: hidden;
+    width: 30%;
+}
+
+ListItem {
+    padding: 1 2;
+}
+
+Button:focus {
+    text-style: bold;
+}
+
+#info-container {
+    margin: 1;
+    margin-top: 0;
+    padding: 1;
+    overflow: auto;
+}
+
+.info-label {
+    text-style: bold;
+}
+
+.info-widget {
+    background: #24283b;
+    color: #c0caf5;
+    width: 100%;
+    margin-bottom: 1;
+    padding: 1 4;
+}
+
+Tree {
+    padding: 1 2;
+    height: auto;
+}
+
+#navi-container {
+    dock: bottom;
+    height: 4;
+    padding: 0 3;
+}
+
+#run {
+    width: 30%;
+}
+
+#exit {
+    width: 20%;
+    dock: right;
+}
