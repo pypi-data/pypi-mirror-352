@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "cogent-mem"
+version = "0.0.1"
+description = "An agentic memory driven by cognitive computational models"
+authors = ["xmingc <chenxm35@gmail.com>"]
+readme = "README.md"
+packages = [{include = "cogmem"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api" 
