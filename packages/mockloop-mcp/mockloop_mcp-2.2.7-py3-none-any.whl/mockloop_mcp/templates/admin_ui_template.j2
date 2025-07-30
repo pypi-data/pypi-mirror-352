@@ -1,0 +1,3054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ api_title }} Admin - v{{ api_version }}</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-bg: #f8f9fa;
+            --dark-bg: #343a40;
+            --text-color: #333;
+            --light-text: #f8f9fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .container {
+            display: flex;
+            min-height: calc(100vh - 60px);
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem 0;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .content {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .stat {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        table th, table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table th {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .form-control.error {
+            border-color: var(--danger-color);
+            box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .json-viewer {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .badge-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .badge-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .badge-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .badge-info {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Pagination styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem 0;
+            gap: 0.5rem;
+        }
+        
+        .pagination button {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #ddd;
+            background-color: white;
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .pagination button:hover:not(:disabled) {
+            background-color: var(--light-bg);
+            border-color: var(--primary-color);
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .pagination-info {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0 1rem;
+        }
+        
+        .page-size-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .page-size-selector label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .page-size-selector select {
+            padding: 0.25rem 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        /* Chart styles */
+        .chart-container {
+            background: white;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .real-time-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .export-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .filter-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="data:text/javascript;base64,{{ analytics_charts_js | b64encode }}"></script>
+</head>
+<body>
+    <header class="header">
+        <h1>{{ api_title }} Admin UI</h1>
+        <div>
+            <span>Version: {{ api_version }}</span>
+        </div>
+    </header>
+    
+    <div class="container">
+        <nav class="sidebar">
+            <ul class="sidebar-nav">
+                <li><a href="#" class="nav-link active" data-tab="dashboard">Dashboard</a></li>
+                <li><a href="#" class="nav-link" data-tab="requests">Request Logs</a></li>
+                <li><a href="#" class="nav-link" data-tab="analytics">Log Analytics</a></li>
+                <li><a href="#" class="nav-link" data-tab="performance">Performance</a></li>
+                <li><a href="#" class="nav-link" data-tab="scenarios">Scenario Management</a></li>
+                <li><a href="#" class="nav-link" data-tab="webhooks">Webhooks</a></li>
+
+                <li><a href="#" class="nav-link" data-tab="auth">Authentication</a></li>
+                <li><a href="#" class="nav-link" data-tab="docs">API Documentation</a></li>
+                <li><a href="#" class="nav-link" data-tab="settings">Settings</a></li>
+            </ul>
+        </nav>
+        
+        <main class="content">
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <h2>Dashboard <span id="dashboard-refresh-indicator" style="font-size: 0.8em; color: #666; display: none;">🔄 Refreshing...</span></h2>
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3 class="card-title">Total Requests</h3>
+                        <div class="stat" id="total-requests">0</div>
+                        <p>Requests handled by this mock API</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Active Webhooks</h3>
+                        <div class="stat" id="active-webhooks">0</div>
+                        <p id="webhooks-description">Registered webhook endpoints</p>
+                    </div>
+                    
+
+                    
+                    <div class="card">
+                        <h3 class="card-title">Server Status</h3>
+                        <div><span class="badge badge-success">Running</span></div>
+                        <p>Mock server is operational</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Recent Requests</h3>
+                    <div class="page-size-selector">
+                        <label for="dashboard-page-size">Show:</label>
+                        <select id="dashboard-page-size">
+                            <option value="10" selected>10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span>entries</span>
+                    </div>
+                    <table id="recent-requests-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Method</th>
+                                <th>Path</th>
+                                <th>Status</th>
+                                <th>Response Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">No request logs available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination" id="dashboard-pagination" style="display: none;">
+                        <button id="dashboard-first-page" onclick="dashboardGoToPage(1)">First</button>
+                        <button id="dashboard-prev-page" onclick="dashboardPreviousPage()">Previous</button>
+                        <div class="pagination-info" id="dashboard-pagination-info">Page 1 of 1</div>
+                        <button id="dashboard-next-page" onclick="dashboardNextPage()">Next</button>
+                        <button id="dashboard-last-page" onclick="dashboardGoToLastPage()">Last</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Request Logs Tab -->
+            <div id="requests" class="tab-content">
+                <h2>Request Logs</h2>
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <div class="form-group" style="flex: 1; margin-right: 1rem;">
+                            <label for="filter-method">Filter by Method</label>
+                            <select id="filter-method" class="form-control">
+                                <option value="">All Methods</option>
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                                <option value="PATCH">PATCH</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label for="show-admin-requests">Admin Requests</label>
+                            <div class="form-control" style="display: flex; align-items: center;">
+                                <label class="switch" style="position: relative; display: inline-block; width: 60px; height: 34px; margin-right: 10px;">
+                                    <input type="checkbox" id="show-admin-requests">
+                                    <span class="slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px;"></span>
+                                </label>
+                                <span id="admin-toggle-status">Hide Admin Requests</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="page-size-selector">
+                        <label for="requests-page-size">Show:</label>
+                        <select id="requests-page-size">
+                            <option value="10">10</option>
+                            <option value="25" selected>25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span>entries</span>
+                    </div>
+                    
+                    <table id="requests-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Method</th>
+                                <th>Path</th>
+                                <th>Status</th>
+                                <th>Response Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            <tr>
+                <td colspan="6">No request logs available yet. Make some API requests to see them logged here.</td>
+            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="pagination" id="requests-pagination" style="display: none;">
+                        <button id="requests-first-page" onclick="requestsGoToPage(1)">First</button>
+                        <button id="requests-prev-page" onclick="requestsPreviousPage()">Previous</button>
+                        <div class="pagination-info" id="requests-pagination-info">Page 1 of 1</div>
+                        <button id="requests-next-page" onclick="requestsNextPage()">Next</button>
+                        <button id="requests-last-page" onclick="requestsGoToLastPage()">Last</button>
+                    </div>
+                </div>
+                
+                <div class="card" id="request-details" style="display: none;">
+                    <h3 class="card-title">Request Details</h3>
+                    <div class="form-group">
+                        <label>Headers</label>
+                        <div class="json-viewer" id="request-headers"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Request Body</label>
+                        <div class="json-viewer" id="request-body"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Response</label>
+                        <div class="json-viewer" id="response-body"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Log Analytics Tab -->
+            <div id="analytics" class="tab-content">
+                <h2>Log Analytics <span class="real-time-indicator"></span> <span style="font-size: 0.8em; color: #666;">Real-time</span></h2>
+                
+                <!-- Export Controls -->
+                <div class="export-controls">
+                    <label for="export-format">Export Format:</label>
+                    <select id="export-format" class="form-control" style="width: auto;">
+                        <option value="json">JSON</option>
+                        <option value="csv">CSV</option>
+                    </select>
+                    <button class="btn btn-success" onclick="exportAnalyticsData()">Export Analytics</button>
+                    <button class="btn btn-info" onclick="exportChartData()">Export Chart Data</button>
+                    <div style="margin-left: auto;">
+                        <label>
+                            <input type="checkbox" id="realtime-charts" checked> Real-time Updates
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Analytics Charts Dashboard -->
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Request Volume Trend</div>
+                        <div id="request-volume-chart" style="height: 200px;"></div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Response Time Distribution</div>
+                        <div id="response-time-chart" style="height: 200px;"></div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Status Code Distribution</div>
+                        <div id="status-code-pie-chart" style="height: 200px;"></div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Top Endpoints</div>
+                        <div id="top-endpoints-bar-chart" style="height: 200px;"></div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Filters -->
+                <div class="filter-controls">
+                    <div class="form-group">
+                        <label for="chart-time-range">Time Range</label>
+                        <select id="chart-time-range" class="form-control">
+                            <option value="1h" selected>Last Hour</option>
+                            <option value="6h">Last 6 Hours</option>
+                            <option value="24h">Last 24 Hours</option>
+                            <option value="7d">Last 7 Days</option>
+                            <option value="30d">Last 30 Days</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="chart-type-filter">Chart Focus</label>
+                        <select id="chart-type-filter" class="form-control">
+                            <option value="overview" selected>Overview</option>
+                            <option value="performance">Performance</option>
+                            <option value="endpoints">Endpoints</option>
+                            <option value="status">Status Codes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="chart-refresh-rate">Refresh Rate</label>
+                        <select id="chart-refresh-rate" class="form-control">
+                            <option value="5000" selected>5 seconds</option>
+                            <option value="10000">10 seconds</option>
+                            <option value="30000">30 seconds</option>
+                            <option value="60000">1 minute</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: end;">
+                        <button class="btn btn-primary" onclick="refreshCharts()">Refresh Charts</button>
+                    </div>
+                </div>
+                
+                <!-- Search Section -->
+                <div class="card">
+                    <h3 class="card-title">Advanced Log Search</h3>
+                    <form id="log-search-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label for="search-query">Search Query</label>
+                                <input type="text" id="search-query" class="form-control" placeholder="Search in paths, headers, body...">
+                            </div>
+                            <div class="form-group">
+                                <label for="search-method">Method</label>
+                                <select id="search-method" class="form-control">
+                                    <option value="">All Methods</option>
+                                    <option value="GET">GET</option>
+                                    <option value="POST">POST</option>
+                                    <option value="PUT">PUT</option>
+                                    <option value="DELETE">DELETE</option>
+                                    <option value="PATCH">PATCH</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label for="search-time-from">From Time</label>
+                                <input type="datetime-local" id="search-time-from" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="search-time-to">To Time</label>
+                                <input type="datetime-local" id="search-time-to" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label for="search-status">Status Code</label>
+                                <input type="number" id="search-status" class="form-control" placeholder="e.g., 200, 404, 500">
+                            </div>
+                            <div class="form-group">
+                                <label for="search-limit">Limit</label>
+                                <input type="number" id="search-limit" class="form-control" value="100" min="1" max="1000">
+                            </div>
+                            <div class="form-group">
+                                <label for="search-offset">Offset</label>
+                                <input type="number" id="search-offset" class="form-control" value="0" min="0">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="search-path-regex">Path Pattern (Regex)</label>
+                            <input type="text" id="search-path-regex" class="form-control" placeholder="e.g., /api/users/.*, /admin/.*">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Search Logs</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearSearchForm()">Clear</button>
+                    </form>
+                </div>
+                
+                <!-- Search Results -->
+                <div class="card" id="search-results" style="display: none;">
+                    <h3 class="card-title">Search Results</h3>
+                    <div id="search-results-summary"></div>
+                    <div class="page-size-selector">
+                        <label for="analytics-page-size">Show:</label>
+                        <select id="analytics-page-size">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50" selected>50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span>entries</span>
+                    </div>
+                    <table id="search-results-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Method</th>
+                                <th>Path</th>
+                                <th>Status</th>
+                                <th>Response Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="pagination" id="analytics-pagination" style="display: none;">
+                        <button id="analytics-first-page" onclick="analyticsGoToPage(1)">First</button>
+                        <button id="analytics-prev-page" onclick="analyticsPreviousPage()">Previous</button>
+                        <div class="pagination-info" id="analytics-pagination-info">Page 1 of 1</div>
+                        <button id="analytics-next-page" onclick="analyticsNextPage()">Next</button>
+                        <button id="analytics-last-page" onclick="analyticsGoToLastPage()">Last</button>
+                    </div>
+                </div>
+                
+                <!-- Analytics Section -->
+                <div class="card">
+                    <h3 class="card-title">Log Analysis</h3>
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <button type="button" class="btn btn-success" onclick="analyzeAllLogs()">Analyze All Logs</button>
+                        <button type="button" class="btn btn-warning" onclick="analyzeFilteredLogs()">Analyze Search Results</button>
+                        <button type="button" class="btn btn-info" onclick="analyzeTimeRange()">Analyze Time Range</button>
+                    </div>
+                    
+                    <div id="analysis-results" style="display: none;">
+                        <div class="dashboard-grid">
+                            <div class="card">
+                                <h4 class="card-title">Request Summary</h4>
+                                <div class="stat" id="analysis-total-requests">0</div>
+                                <p id="analysis-time-range">No data</p>
+                            </div>
+                            
+                            <div class="card">
+                                <h4 class="card-title">Performance</h4>
+                                <div class="stat" id="analysis-avg-response">0ms</div>
+                                <p id="analysis-performance-details">No data</p>
+                            </div>
+                            
+                            <div class="card">
+                                <h4 class="card-title">Success Rate</h4>
+                                <div class="stat" id="analysis-success-rate">0%</div>
+                                <p id="analysis-error-details">No data</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                            <div class="card">
+                                <h4 class="card-title">Top Endpoints</h4>
+                                <div id="analysis-top-endpoints"></div>
+                            </div>
+                            
+                            <div class="card">
+                                <h4 class="card-title">HTTP Methods</h4>
+                                <div id="analysis-methods"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h4 class="card-title">Insights & Recommendations</h4>
+                            <div id="analysis-insights"></div>
+                        </div>
+                        
+                        <div class="card">
+                            <h4 class="card-title">Detailed Analysis</h4>
+                            <div class="json-viewer" id="analysis-full-details"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Tab -->
+            <div id="performance" class="tab-content">
+                <h2>Performance Metrics</h2>
+                
+                <!-- Performance Summary -->
+                <div class="card">
+                    <h3 class="card-title">Performance Summary</h3>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h4 class="card-title">Response Time</h4>
+                            <div class="stat" id="perf-avg-response-time">0ms</div>
+                            <p id="perf-response-time-details">Min: 0ms, Max: 0ms</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h4 class="card-title">Memory Usage</h4>
+                            <div class="stat" id="perf-avg-memory">0MB</div>
+                            <p>Average memory consumption</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h4 class="card-title">CPU Usage</h4>
+                            <div class="stat" id="perf-avg-cpu">0%</div>
+                            <p>Average CPU utilization</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h4 class="card-title">Cache Performance</h4>
+                            <div class="stat" id="perf-cache-hit-ratio">0%</div>
+                            <p id="perf-cache-details">Hits: 0, Misses: 0</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1rem;">
+                        <button class="btn btn-primary" onclick="loadPerformanceSummary()">Refresh Summary</button>
+                        <button class="btn btn-secondary" onclick="loadPerformanceMetrics()">View Detailed Metrics</button>
+                    </div>
+                </div>
+                
+                <!-- Endpoint Performance -->
+                <div class="card">
+                    <h3 class="card-title">Endpoint Performance</h3>
+                    <table id="endpoint-performance-table">
+                        <thead>
+                            <tr>
+                                <th>Endpoint</th>
+                                <th>Method</th>
+                                <th>Request Count</th>
+                                <th>Avg Response Time</th>
+                                <th>Avg Memory Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">No performance data available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Test Sessions Performance -->
+                <div class="card">
+                    <h3 class="card-title">Test Sessions</h3>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h4 class="card-title">Total Sessions</h4>
+                            <div class="stat" id="perf-total-sessions">0</div>
+                            <p id="perf-active-sessions">Active: 0</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h4 class="card-title">Avg Requests/Session</h4>
+                            <div class="stat" id="perf-avg-requests-per-session">0</div>
+                            <p>Average requests per test session</p>
+                        </div>
+                    </div>
+                    
+                    <table id="test-sessions-table">
+                        <thead>
+                            <tr>
+                                <th>Session ID</th>
+                                <th>Scenario</th>
+                                <th>Status</th>
+                                <th>Total Requests</th>
+                                <th>Avg Response Time</th>
+                                <th>Started</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6">No test sessions available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Detailed Performance Metrics -->
+                <div class="card" id="detailed-performance-metrics" style="display: none;">
+                    <h3 class="card-title">Detailed Performance Metrics</h3>
+                    <div style="margin-bottom: 1rem;">
+                        <label for="perf-time-from">From:</label>
+                        <input type="datetime-local" id="perf-time-from" style="margin-right: 1rem;">
+                        <label for="perf-time-to">To:</label>
+                        <input type="datetime-local" id="perf-time-to" style="margin-right: 1rem;">
+                        <button class="btn btn-secondary" onclick="filterPerformanceMetrics()">Filter</button>
+                    </div>
+                    
+                    <table id="performance-metrics-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Endpoint</th>
+                                <th>Response Time</th>
+                                <th>Memory (MB)</th>
+                                <th>CPU (%)</th>
+                                <th>DB Queries</th>
+                                <th>Cache H/M</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="7">No detailed metrics available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Scenario Management Tab -->
+            <div id="scenarios" class="tab-content">
+                <h2>Scenario Management</h2>
+                
+                <!-- Active Scenario Display -->
+                <div class="card">
+                    <h3 class="card-title">Active Scenario</h3>
+                    <div id="active-scenario-display">
+                        <p id="active-scenario-name">No active scenario</p>
+                        <p id="active-scenario-description"></p>
+                        <button id="deactivate-scenario-btn" class="btn btn-warning" style="display: none;" onclick="deactivateScenario()">Deactivate</button>
+                    </div>
+                </div>
+                
+                <!-- Create New Scenario -->
+                <div class="card">
+                    <h3 class="card-title">Create New Scenario</h3>
+                    <form id="scenario-form">
+                        <div class="form-group">
+                            <label for="scenario-name">Scenario Name</label>
+                            <input type="text" id="scenario-name" class="form-control" placeholder="e.g., Error Testing, Happy Path" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="scenario-description">Description</label>
+                            <textarea id="scenario-description" class="form-control" rows="2" placeholder="Describe what this scenario tests or simulates"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="scenario-config">Configuration (JSON)</label>
+                            <textarea id="scenario-config" class="form-control" rows="8" placeholder='{"endpoint_path": {"status": 200, "data": {...}}, "responses": {...}}'></textarea>
+                            <small>Define custom responses for specific endpoints. Use endpoint paths as keys.</small>
+                        </div>
+                        <button type="submit" class="btn btn-success">Create Scenario</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearScenarioForm()">Clear</button>
+                    </form>
+                </div>
+                
+                <!-- Scenario List -->
+                <div class="card">
+                    <h3 class="card-title">All Scenarios</h3>
+                    <table id="scenarios-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">No scenarios created yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Scenario Editor Modal (will be created dynamically) -->
+            </div>
+            
+            <!-- Webhooks Tab -->
+            <div id="webhooks" class="tab-content">
+                <h2>Webhooks</h2>
+                {% if not webhooks_enabled %}
+                <div class="alert alert-warning">
+                    <strong>Webhooks feature is not enabled.</strong> This mock server was generated without webhook support.
+                </div>
+                {% else %}
+                <div class="card">
+                    <h3 class="card-title">Register New Webhook</h3>
+                    <form id="webhook-form">
+                        <div class="form-group">
+                            <label for="webhook-event">Event Type</label>
+                            <select id="webhook-event" class="form-control" required>
+                                <option value="" disabled selected>Select Event Type</option>
+                                <option value="data.created">Data Created</option>
+                                <option value="data.updated">Data Updated</option>
+                                <option value="data.deleted">Data Deleted</option>
+                                <option value="auth.login">Authentication</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="webhook-url">Callback URL</label>
+                            <input type="url" id="webhook-url" class="form-control" placeholder="https://your-server.com/webhook" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="webhook-description">Description</label>
+                            <input type="text" id="webhook-description" class="form-control" placeholder="Optional description">
+                        </div>
+                        <button type="submit" class="btn btn-success">Register Webhook</button>
+                    </form>
+                </div>
+                {% endif %}
+                
+                <div class="card">
+                    <h3 class="card-title">Registered Webhooks</h3>
+                    <table id="webhooks-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Event Type</th>
+                                <th>URL</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">{% if not webhooks_enabled %}Webhooks feature not enabled{% else %}No webhooks registered{% endif %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Webhook Delivery History</h3>
+                    <table id="webhook-history-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Event Type</th>
+                                <th>URL</th>
+                                <th>Status</th>
+                                <th>Attempts</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">{% if not webhooks_enabled %}Webhooks feature not enabled{% else %}No webhook delivery history{% endif %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+
+            
+            <!-- Authentication Tab -->
+            <div id="auth" class="tab-content">
+                <h2>Authentication</h2>
+                {% if auth_enabled %}
+                <div class="card">
+                    <h3 class="card-title">API Keys</h3>
+                    <div class="alert alert-info">
+                        For testing purposes, the following API key is available:
+                    </div>
+                    <div class="form-group">
+                        <label>API Key</label>
+                        <div class="form-control" id="api-key-display">mock-api-key-xxxxxxxx</div>
+                    </div>
+                    <p>Use this key in the X-API-Key header for authenticated endpoints.</p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">JWT Authentication</h3>
+                    <div class="alert alert-info">
+                        For testing JWT authentication, the following users are available:
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>Roles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>admin</td>
+                                <td><em>any password</em></td>
+                                <td>admin</td>
+                            </tr>
+                            <tr>
+                                <td>user</td>
+                                <td><em>any password</em></td>
+                                <td>user</td>
+                            </tr>
+                            <tr>
+                                <td>guest</td>
+                                <td><em>any password</em></td>
+                                <td>guest</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Get a JWT token by sending a POST request to /token with username and password.</p>
+                </div>
+                {% else %}
+                <div class="alert alert-warning">
+                    <strong>Authentication feature is not enabled.</strong> This mock server was generated without authentication support.
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- API Documentation Tab -->
+            <div id="docs" class="tab-content">
+                <h2>API Documentation</h2>
+                <div class="card">
+                    <h3 class="card-title">Swagger UI</h3>
+                    <p>View interactive API documentation at:</p>
+                    <p><a href="/docs" target="_blank" class="btn">/docs</a></p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">ReDoc</h3>
+                    <p>View alternative API documentation at:</p>
+                    <p><a href="/redoc" target="_blank" class="btn">/redoc</a></p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">OpenAPI Specification</h3>
+                    <p>Download the OpenAPI specification at:</p>
+                    <p><a href="/openapi.json" target="_blank" class="btn">/openapi.json</a></p>
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div id="settings" class="tab-content">
+                <h2>Settings</h2>
+                <div class="card">
+                    <h3 class="card-title">Mock Server Settings</h3>
+                    <form id="settings-form">
+                        <div class="form-group">
+                            <label for="response-delay">Response Delay (ms)</label>
+                            <input type="number" id="response-delay" class="form-control" min="0" value="0">
+                            <small>Add artificial delay to API responses to simulate network latency</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="error-rate">Error Rate (%)</label>
+                            <input type="number" id="error-rate" class="form-control" min="0" max="100" value="0">
+                            <small>Percentage chance of randomly returning a 5xx error</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="auto-refresh-interval">Auto-Refresh Interval (seconds)</label>
+                            <input type="number" id="auto-refresh-interval" class="form-control" min="1" max="60" value="5">
+                            <small>How often to automatically refresh request logs (0 to disable)</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="auto-refresh-enabled" checked> 
+                                Enable Auto-Refresh
+                            </label>
+                            <small>Automatically refresh request logs</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="validate-requests"> 
+                                Validate Requests
+                            </label>
+                            <small>Validate incoming requests against the API schema</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="cors-enabled" checked> 
+                                Enable CORS
+                            </label>
+                            <small>Allow cross-origin requests from any domain</small>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success">Save Settings</button>
+                    </form>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Data Export</h3>
+                    <p>Export all mock server data including request logs, database schema, and configuration.</p>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-warning" onclick="exportData()">
+                            <span id="export-status">Export Data</span>
+                        </button>
+                        <small>Downloads a ZIP file containing all server data and logs</small>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <footer class="footer">
+        <p>Mock API generated by <a href="https://mockloop.com" target="_blank">MockLoop</a> | 
+        <a href="https://github.com/MockLoop/mockloop-mcp" target="_blank">GitHub Repository</a></p>
+    </footer>
+    
+    <script>
+        // Basic tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and tabs
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    tabContents.forEach(tab => tab.classList.remove('active'));
+                    
+                    // Add active class to clicked link and corresponding tab
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Generate API key for display
+            document.getElementById('api-key-display').textContent = 'mock-api-key-' + Math.random().toString(36).substring(2, 10);
+            
+            // Load real dashboard stats
+            loadDashboardStats();
+        });
+        
+        // Function to load dashboard statistics from API endpoints
+        async function loadDashboardStats() {
+            try {
+                // Show refresh indicator if dashboard is active
+                const dashboardIndicator = document.getElementById('dashboard-refresh-indicator');
+                if (document.getElementById('dashboard').classList.contains('active')) {
+                    dashboardIndicator.style.display = 'inline';
+                }
+                
+                // Initialize stats to 0
+                document.getElementById('total-requests').textContent = '0';
+                
+                {% if webhooks_enabled %}
+                // Try to load webhooks count
+                try {
+                    const webhooksResponse = await fetch('/api/webhooks');
+                    if (webhooksResponse.ok) {
+                        const webhooks = await webhooksResponse.json();
+                        document.getElementById('active-webhooks').textContent = webhooks.length || '0';
+                    } else {
+                        document.getElementById('active-webhooks').textContent = '0';
+                    }
+                } catch (e) {
+                    document.getElementById('active-webhooks').textContent = '0';
+                }
+                {% else %}
+                document.getElementById('active-webhooks').textContent = 'N/A';
+                document.getElementById('webhooks-description').textContent = 'Webhooks feature not enabled';
+                {% endif %}
+                
+
+                
+                        // Try to load request logs
+                try {
+                    const requestsResponse = await fetch('/api/requests');
+                    if (requestsResponse.ok) {
+                        const requests = await requestsResponse.json();
+                        
+                        // Filter out admin requests for the dashboard display
+                        const nonAdminRequests = filterAdminRequests(requests, false);
+                        
+                        // Show non-admin request count in the dashboard
+                        document.getElementById('total-requests').textContent = nonAdminRequests.length || '0';
+                        
+                        // Update recent requests table with only non-admin requests
+                        if (nonAdminRequests.length > 0) {
+                            updateRecentRequestsTable(nonAdminRequests.slice(-10)); // Show last 10 non-admin requests
+                        } else {
+                            // Clear the table if no requests
+                            updateRecentRequestsTable([]);
+                        }
+                    }
+                } catch (e) {
+                    // If request logs endpoint doesn't exist, keep default 0
+                    console.log('Request logs endpoint not available');
+                }
+                
+            } catch (error) {
+                console.error('Error loading dashboard stats:', error);
+                // Keep default values on error
+            } finally {
+                // Hide refresh indicator
+                const dashboardIndicator = document.getElementById('dashboard-refresh-indicator');
+                if (dashboardIndicator) {
+                    dashboardIndicator.style.display = 'none';
+                }
+            }
+        }
+        
+        // Function to update recent requests table
+        function updateRecentRequestsTable(requests) {
+            // Store all requests for pagination
+            dashboardAllRequests = requests || [];
+            dashboardTotalItems = dashboardAllRequests.length;
+            dashboardCurrentPage = 1; // Reset to first page
+            
+            // Use paginated function
+            updateRecentRequestsTablePaginated();
+        }
+        
+        // Function to update the main requests table in the Requests tab
+        function updateRequestsTable(requests) {
+            // Store all requests for pagination
+            requestsAllRequests = requests || [];
+            requestsTotalItems = requestsAllRequests.length;
+            requestsCurrentPage = 1; // Reset to first page
+            
+            // Use paginated function
+            updateRequestsTablePaginated();
+        }
+        
+        // Function to show request details
+        async function showRequestDetails(requestId) {
+            try {
+                // Clear previous details first
+                document.getElementById('request-headers').textContent = 'Loading...';
+                document.getElementById('request-body').textContent = 'Loading...';
+                document.getElementById('response-body').textContent = 'Loading...';
+                document.getElementById('request-details').style.display = 'block';
+                
+                const response = await fetch(`/api/requests?id=${requestId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    // Handle both array and single object responses
+                    const req = Array.isArray(data) ? data[0] : data;
+                    
+                    if (req && req.id) {
+                        document.getElementById('request-headers').textContent = JSON.stringify(req.headers || {}, null, 2);
+                        document.getElementById('request-body').textContent = req.request_body || 'No request body';
+                        document.getElementById('response-body').textContent = req.response_body || 'No response body';
+                    } else {
+                        document.getElementById('request-headers').textContent = 'No data available';
+                        document.getElementById('request-body').textContent = 'No data available';
+                        document.getElementById('response-body').textContent = 'No data available';
+                    }
+                } else {
+                    document.getElementById('request-headers').textContent = 'Failed to load data';
+                    document.getElementById('request-body').textContent = 'Failed to load data';
+                    document.getElementById('response-body').textContent = 'Failed to load data';
+                }
+            } catch (error) {
+                console.error('Error fetching request details:', error);
+                document.getElementById('request-headers').textContent = 'Error loading data';
+                document.getElementById('request-body').textContent = 'Error loading data';
+                document.getElementById('response-body').textContent = 'Error loading data';
+            }
+        }
+        
+        // Function to get appropriate badge class for HTTP status codes
+        function getStatusBadgeClass(status) {
+            if (status >= 200 && status < 300) return 'badge-success';
+            if (status >= 300 && status < 400) return 'badge-info';
+            if (status >= 400 && status < 500) return 'badge-warning';
+            if (status >= 500) return 'badge-danger';
+            return 'badge-info';
+        }
+        
+        // Function to filter admin requests
+        function filterAdminRequests(requests, showAdmin = false) {
+            if (!showAdmin) {
+                return requests.filter(req => !req.path.startsWith('/admin'));
+            }
+            return requests;
+        }
+
+        // Initialize the application when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize admin toggle state
+            const showAdminToggle = document.getElementById('show-admin-requests');
+            const adminToggleStatus = document.getElementById('admin-toggle-status');
+            let showAdminRequests = false;
+            
+            // Auto-refresh settings
+            let autoRefreshEnabled = true;
+            let autoRefreshInterval = 5; // Default 5 seconds
+            let autoRefreshTimer = null;
+            
+            // Initialize auto-refresh controls
+            const autoRefreshToggle = document.getElementById('auto-refresh-enabled');
+            const autoRefreshIntervalInput = document.getElementById('auto-refresh-interval');
+            
+            // Style the toggle switch
+            const sliderStyle = document.querySelector('.slider');
+            if (sliderStyle) {
+                sliderStyle.style.backgroundColor = '#ccc';
+            }
+            
+            // Setup auto-refresh functionality
+            function setupAutoRefresh() {
+                // Clear any existing timer
+                if (autoRefreshTimer) {
+                    clearInterval(autoRefreshTimer);
+                    autoRefreshTimer = null;
+                }
+                
+                // Get settings
+                autoRefreshEnabled = autoRefreshToggle.checked;
+                autoRefreshInterval = parseInt(autoRefreshIntervalInput.value, 10) || 5;
+                
+                // If enabled, start a new timer
+                if (autoRefreshEnabled && autoRefreshInterval > 0) {
+                    autoRefreshTimer = setInterval(async () => {
+                        // Only refresh if we're on the requests tab
+                        if (document.getElementById('requests').classList.contains('active')) {
+                            await loadRequestsWithFilters();
+                            console.log('Auto-refreshed request logs');
+                        }
+                        
+                        // Also refresh dashboard if it's active
+                        if (document.getElementById('dashboard').classList.contains('active')) {
+                            await loadDashboardStats();
+                            console.log('Auto-refreshed dashboard');
+                        }
+                    }, autoRefreshInterval * 1000);
+                    console.log(`Auto-refresh enabled: every ${autoRefreshInterval} seconds`);
+                } else {
+                    console.log('Auto-refresh disabled');
+                }
+                
+                // Save settings to localStorage
+                try {
+                    localStorage.setItem('autoRefreshEnabled', autoRefreshEnabled);
+                    localStorage.setItem('autoRefreshInterval', autoRefreshInterval);
+                } catch (e) {
+                    console.error('Could not save settings to localStorage:', e);
+                }
+            }
+            
+            // Load auto-refresh settings from localStorage
+            try {
+                const savedEnabled = localStorage.getItem('autoRefreshEnabled');
+                const savedInterval = localStorage.getItem('autoRefreshInterval');
+                
+                if (savedEnabled !== null) {
+                    autoRefreshEnabled = savedEnabled === 'true';
+                    autoRefreshToggle.checked = autoRefreshEnabled;
+                }
+                
+                if (savedInterval !== null) {
+                    autoRefreshInterval = parseInt(savedInterval, 10) || 5;
+                    autoRefreshIntervalInput.value = autoRefreshInterval;
+                }
+            } catch (e) {
+                console.error('Could not load settings from localStorage:', e);
+            }
+            
+            // Setup event listeners for auto-refresh controls
+            autoRefreshToggle.addEventListener('change', setupAutoRefresh);
+            autoRefreshIntervalInput.addEventListener('change', setupAutoRefresh);
+            
+            // Initialize auto-refresh on page load
+            setupAutoRefresh();
+            
+            // Toggle show/hide admin requests
+            showAdminToggle.addEventListener('change', async function() {
+                showAdminRequests = this.checked;
+                adminToggleStatus.textContent = showAdminRequests ? 'Show Admin Requests' : 'Hide Admin Requests';
+                
+                // Update the slider color
+                if (this.checked) {
+                    this.nextElementSibling.style.backgroundColor = '#2196F3';
+                } else {
+                    this.nextElementSibling.style.backgroundColor = '#ccc';
+                }
+                
+                // Refresh the request table with current filter settings
+                await loadRequestsWithFilters();
+            });
+            
+            // Function to load requests with current filters
+            async function loadRequestsWithFilters() {
+                const methodFilter = document.getElementById('filter-method').value;
+                try {
+                    // Use the include_admin parameter directly in the API call
+                    let url = '/api/requests';
+                    const params = new URLSearchParams();
+                    
+                    if (methodFilter) {
+                        params.append('method', methodFilter);
+                    }
+                    
+                    // Pass the showAdminRequests state to the backend
+                    params.append('include_admin', showAdminRequests);
+                    
+                    // Add parameters to URL
+                    if (params.toString()) {
+                        url += '?' + params.toString();
+                    }
+                    
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        const requests = await response.json();
+                        // No need to filter here since the backend handles it now
+                        updateRequestsTable(requests);
+                    } else {
+                        console.error('API response error:', response.status, response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error loading requests:', error);
+                }
+            }
+            
+            // Load request logs for the Requests tab
+            document.querySelector('.nav-link[data-tab="requests"]').addEventListener('click', async function() {
+                await loadRequestsWithFilters();
+            });
+            
+            // Setup filter by method
+            document.getElementById('filter-method').addEventListener('change', async function() {
+                await loadRequestsWithFilters();
+            });
+            
+            // Webhook form submission
+            {% if webhooks_enabled %}
+            const webhookForm = document.getElementById('webhook-form');
+            if (webhookForm) {
+                webhookForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const eventTypeElement = document.getElementById('webhook-event');
+                    const urlElement = document.getElementById('webhook-url');
+                    const descriptionElement = document.getElementById('webhook-description');
+                    
+                    const eventType = eventTypeElement.value;
+                    const url = urlElement.value;
+                    const description = descriptionElement.value;
+                    
+                    // Clear any previous validation styling
+                    eventTypeElement.style.borderColor = '';
+                    urlElement.style.borderColor = '';
+                    
+                    // Validate required fields
+                    let hasErrors = false;
+                    
+                    if (!eventType || eventType === '') {
+                        eventTypeElement.style.borderColor = '#e74c3c';
+                        alert('Please select an event type from the dropdown');
+                        eventTypeElement.focus();
+                        hasErrors = true;
+                    }
+                    
+                    if (!url || url.trim() === '') {
+                        urlElement.style.borderColor = '#e74c3c';
+                        if (!hasErrors) {
+                            alert('Please enter a webhook URL');
+                            urlElement.focus();
+                        }
+                        hasErrors = true;
+                    }
+                    
+                    if (hasErrors) {
+                        return;
+                    }
+                    
+                    try {
+                        const response = await fetch('/api/webhooks', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                event_type: eventType,
+                                url: url,
+                                description: description || null
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            const result = await response.json();
+                            alert('Webhook registered successfully!');
+                            
+                            // Clear the form
+                            webhookForm.reset();
+                            
+                            // Refresh the webhooks table
+                            await loadWebhooks();
+                            
+                            // Update dashboard stats
+                            await loadDashboardStats();
+                        } else {
+                            const error = await response.text();
+                            alert(`Failed to register webhook: ${error}`);
+                        }
+                    } catch (error) {
+                        console.error('Error registering webhook:', error);
+                        alert('Error registering webhook. Please check the console for details.');
+                    }
+                });
+            }
+            
+            // Load webhooks when the webhooks tab is clicked
+            document.querySelector('.nav-link[data-tab="webhooks"]').addEventListener('click', async function() {
+                await loadWebhooks();
+                await loadWebhookHistory();
+            });
+            {% endif %}
+        });
+        
+        // Function to load webhooks
+        {% if webhooks_enabled %}
+        async function loadWebhooks() {
+            try {
+                const response = await fetch('/api/webhooks');
+                if (response.ok) {
+                    const webhooks = await response.json();
+                    updateWebhooksTable(webhooks);
+                } else {
+                    console.error('Failed to load webhooks');
+                }
+            } catch (error) {
+                console.error('Error loading webhooks:', error);
+            }
+        }
+        
+        // Function to update webhooks table
+        function updateWebhooksTable(webhooks) {
+            const tbody = document.querySelector('#webhooks-table tbody');
+            if (!webhooks || webhooks.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">No webhooks registered</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = webhooks.map(webhook => `
+                <tr>
+                    <td>${webhook.id}</td>
+                    <td><span class="badge badge-info">${webhook.event_type}</span></td>
+                    <td><a href="${webhook.url}" target="_blank">${webhook.url}</a></td>
+                    <td><span class="badge ${webhook.active ? 'badge-success' : 'badge-danger'}">${webhook.active ? 'Active' : 'Inactive'}</span></td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="testWebhook('${webhook.id}', '${webhook.url}', '${webhook.event_type}')" style="margin-right: 5px;">Test</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteWebhook('${webhook.id}')">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // Function to delete a webhook
+        async function deleteWebhook(webhookId) {
+            if (!confirm('Are you sure you want to delete this webhook?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/webhooks/${webhookId}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    alert('Webhook deleted successfully!');
+                    await loadWebhooks();
+                    await loadDashboardStats();
+                } else {
+                    const error = await response.text();
+                    alert(`Failed to delete webhook: ${error}`);
+                }
+            } catch (error) {
+                console.error('Error deleting webhook:', error);
+                alert('Error deleting webhook. Please check the console for details.');
+            }
+        }
+        
+        // Function to test a webhook
+        async function testWebhook(webhookId, webhookUrl, eventType) {
+            // Show test modal
+            showWebhookTestModal(webhookId, webhookUrl, eventType);
+            
+            try {
+                // Send test webhook request to the backend
+                const response = await fetch(`/api/webhooks/${webhookId}/test`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const result = await response.json();
+                
+                // Update modal with results
+                updateWebhookTestResults(result, response.ok);
+                
+            } catch (error) {
+                console.error('Error testing webhook:', error);
+                updateWebhookTestResults({
+                    error: 'Failed to send test webhook',
+                    details: error.message
+                }, false);
+            }
+        }
+        
+        // Function to show webhook test modal
+        function showWebhookTestModal(webhookId, webhookUrl, eventType) {
+            // Create modal if it doesn't exist
+            let modal = document.getElementById('webhook-test-modal');
+            if (!modal) {
+                modal = createWebhookTestModal();
+                document.body.appendChild(modal);
+            }
+            
+            // Update modal content
+            document.getElementById('test-webhook-id').textContent = webhookId;
+            document.getElementById('test-webhook-url').textContent = webhookUrl;
+            document.getElementById('test-webhook-event').textContent = eventType;
+            document.getElementById('test-webhook-status').innerHTML = '<span class="badge badge-warning">Testing...</span>';
+            document.getElementById('test-webhook-response').textContent = 'Sending test webhook...';
+            
+            // Show modal
+            modal.style.display = 'block';
+        }
+        
+        // Function to create webhook test modal
+        function createWebhookTestModal() {
+            const modal = document.createElement('div');
+            modal.id = 'webhook-test-modal';
+            modal.style.cssText = `
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background-color: white;
+                    margin: 5% auto;
+                    padding: 20px;
+                    border-radius: 5px;
+                    width: 80%;
+                    max-width: 600px;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                ">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3>Webhook Test Results</h3>
+                        <button onclick="closeWebhookTestModal()" style="
+                            background: none;
+                            border: none;
+                            font-size: 24px;
+                            cursor: pointer;
+                            color: #666;
+                        ">&times;</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><strong>Webhook ID:</strong></label>
+                        <div id="test-webhook-id"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><strong>URL:</strong></label>
+                        <div id="test-webhook-url"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><strong>Event Type:</strong></label>
+                        <div id="test-webhook-event"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><strong>Status:</strong></label>
+                        <div id="test-webhook-status"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><strong>Response:</strong></label>
+                        <div id="test-webhook-response" class="json-viewer" style="max-height: 300px; overflow-y: auto;"></div>
+                    </div>
+                    
+                    <div style="text-align: right; margin-top: 20px;">
+                        <button class="btn" onclick="closeWebhookTestModal()">Close</button>
+                    </div>
+                </div>
+            `;
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeWebhookTestModal();
+                }
+            });
+            
+            return modal;
+        }
+        
+        // Function to update webhook test results
+        function updateWebhookTestResults(result, success) {
+            const statusElement = document.getElementById('test-webhook-status');
+            const responseElement = document.getElementById('test-webhook-response');
+            
+            if (success) {
+                statusElement.innerHTML = '<span class="badge badge-success">Success</span>';
+                responseElement.textContent = JSON.stringify(result, null, 2);
+            } else {
+                statusElement.innerHTML = '<span class="badge badge-danger">Failed</span>';
+                responseElement.textContent = JSON.stringify(result, null, 2);
+            }
+        }
+        
+        // Function to close webhook test modal
+        function closeWebhookTestModal() {
+            const modal = document.getElementById('webhook-test-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Function to load webhook history
+        async function loadWebhookHistory() {
+            try {
+                const response = await fetch('/api/webhooks/history');
+                if (response.ok) {
+                    const history = await response.json();
+                    updateWebhookHistoryTable(history);
+                } else {
+                    console.error('Failed to load webhook history');
+                }
+            } catch (error) {
+                console.error('Error loading webhook history:', error);
+            }
+        }
+        
+        // Function to update webhook history table
+        function updateWebhookHistoryTable(history) {
+            const tbody = document.querySelector('#webhook-history-table tbody');
+            if (!history || history.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">No webhook delivery history</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = history.map(record => `
+                <tr>
+                    <td>${record.timestamp ? new Date(record.timestamp * 1000).toLocaleString() : 'N/A'}</td>
+                    <td><span class="badge badge-info">${record.payload?.event_type || 'N/A'}</span></td>
+                    <td><a href="${record.url}" target="_blank">${record.url}</a></td>
+                    <td><span class="badge ${getWebhookStatusBadgeClass(record.status)}">${record.status}</span></td>
+                    <td>${record.attempts || 0}</td>
+                </tr>
+            `).join('');
+        }
+        
+        // Function to get appropriate badge class for webhook status
+        function getWebhookStatusBadgeClass(status) {
+            switch (status) {
+                case 'success': return 'badge-success';
+                case 'failed': return 'badge-danger';
+                case 'pending': return 'badge-warning';
+                default: return 'badge-info';
+            }
+        }
+        {% endif %}
+        
+        // Export data functionality
+        async function exportData() {
+            const exportButton = document.getElementById('export-status');
+            const originalText = exportButton.textContent;
+            
+            try {
+                // Update button to show loading state
+                exportButton.textContent = 'Exporting...';
+                exportButton.parentElement.disabled = true;
+                
+                // Make request to export endpoint
+                const response = await fetch('/api/export');
+                
+                if (response.ok) {
+                    // Create a blob from the response
+                    const blob = await response.blob();
+                    
+                    // Create a temporary URL for the blob
+                    const url = window.URL.createObjectURL(blob);
+                    
+                    // Create a temporary anchor element and trigger download
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'mock-api-data.zip';
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    // Clean up
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    // Show success message
+                    exportButton.textContent = 'Export Complete!';
+                    setTimeout(() => {
+                        exportButton.textContent = originalText;
+                        exportButton.parentElement.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error(`Export failed: ${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                console.error('Export error:', error);
+                exportButton.textContent = 'Export Failed';
+                setTimeout(() => {
+                    exportButton.textContent = originalText;
+                    exportButton.parentElement.disabled = false;
+                }, 3000);
+                
+                // Show error alert
+                alert('Failed to export data. Please check the console for details.');
+            }
+        }
+        
+        // --- Log Analytics Functions ---
+        
+        // Clear search form
+        function clearSearchForm() {
+            document.getElementById('log-search-form').reset();
+            document.getElementById('search-results').style.display = 'none';
+        }
+        
+        // Handle log search form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.getElementById('log-search-form');
+            if (searchForm) {
+                searchForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    await performLogSearch();
+                });
+            }
+        });
+        
+        // Perform log search using the new search endpoint
+        async function performLogSearch() {
+            const query = document.getElementById('search-query').value;
+            const method = document.getElementById('search-method').value;
+            const timeFrom = document.getElementById('search-time-from').value;
+            const timeTo = document.getElementById('search-time-to').value;
+            const status = document.getElementById('search-status').value;
+            const limit = document.getElementById('search-limit').value || 100;
+            const offset = document.getElementById('search-offset').value || 0;
+            const pathRegex = document.getElementById('search-path-regex').value;
+            
+            try {
+                // Build query parameters
+                const params = new URLSearchParams();
+                if (query) params.append('q', query);
+                if (method) params.append('method', method);
+                if (timeFrom) params.append('time_from', new Date(timeFrom).toISOString());
+                if (timeTo) params.append('time_to', new Date(timeTo).toISOString());
+                if (status) params.append('status', status);
+                if (pathRegex) params.append('path_regex', pathRegex);
+                params.append('limit', limit);
+                params.append('offset', offset);
+                
+                const response = await fetch(`/api/logs/search?${params.toString()}`);
+                if (response.ok) {
+                    const results = await response.json();
+                    displaySearchResults(results);
+                } else {
+                    alert('Search failed. Please check your parameters.');
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                alert('Search failed. Please try again.');
+            }
+        }
+        
+        // Display search results
+        function displaySearchResults(results) {
+            const resultsDiv = document.getElementById('search-results');
+            const summaryDiv = document.getElementById('search-results-summary');
+            
+            // Show results section
+            resultsDiv.style.display = 'block';
+            
+            // Update summary
+            summaryDiv.innerHTML = `
+                <p><strong>Found ${results.logs ? results.logs.length : 0} results</strong></p>
+                ${results.total_count ? `<p>Total matching records: ${results.total_count}</p>` : ''}
+                ${results.search_time ? `<p>Search completed in ${results.search_time}ms</p>` : ''}
+            `;
+            
+            // Store all results for pagination
+            analyticsAllResults = results.logs || [];
+            analyticsTotalItems = analyticsAllResults.length;
+            analyticsCurrentPage = 1; // Reset to first page
+            
+            // Use paginated function
+            updateAnalyticsTablePaginated();
+        }
+        
+        // Analyze all logs
+        async function analyzeAllLogs() {
+            try {
+                const response = await fetch('/api/logs/analyze');
+                if (response.ok) {
+                    const analysis = await response.json();
+                    displayAnalysisResults(analysis);
+                } else {
+                    alert('Analysis failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Analysis error:', error);
+                alert('Analysis failed. Please try again.');
+            }
+        }
+        
+        // Analyze filtered logs (from search results)
+        async function analyzeFilteredLogs() {
+            // Get current search parameters
+            const query = document.getElementById('search-query').value;
+            const method = document.getElementById('search-method').value;
+            const timeFrom = document.getElementById('search-time-from').value;
+            const timeTo = document.getElementById('search-time-to').value;
+            const status = document.getElementById('search-status').value;
+            const pathRegex = document.getElementById('search-path-regex').value;
+            
+            try {
+                // Build query parameters for analysis
+                const params = new URLSearchParams();
+                if (query) params.append('q', query);
+                if (method) params.append('method', method);
+                if (timeFrom) params.append('time_from', new Date(timeFrom).toISOString());
+                if (timeTo) params.append('time_to', new Date(timeTo).toISOString());
+                if (status) params.append('status', status);
+                if (pathRegex) params.append('path_regex', pathRegex);
+                
+                const response = await fetch(`/api/logs/analyze?${params.toString()}`);
+                if (response.ok) {
+                    const analysis = await response.json();
+                    displayAnalysisResults(analysis);
+                } else {
+                    alert('Analysis failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Analysis error:', error);
+                alert('Analysis failed. Please try again.');
+            }
+        }
+        
+        // Analyze specific time range
+        async function analyzeTimeRange() {
+            const timeFrom = prompt('Enter start time (YYYY-MM-DD HH:MM:SS or ISO format):');
+            const timeTo = prompt('Enter end time (YYYY-MM-DD HH:MM:SS or ISO format):');
+            
+            if (!timeFrom || !timeTo) {
+                return;
+            }
+            
+            try {
+                const params = new URLSearchParams();
+                params.append('time_from', new Date(timeFrom).toISOString());
+                params.append('time_to', new Date(timeTo).toISOString());
+                
+                const response = await fetch(`/api/logs/analyze?${params.toString()}`);
+                if (response.ok) {
+                    const analysis = await response.json();
+                    displayAnalysisResults(analysis);
+                } else {
+                    alert('Analysis failed. Please check your time format.');
+                }
+            } catch (error) {
+                console.error('Analysis error:', error);
+                alert('Analysis failed. Please check your time format.');
+            }
+        }
+        
+        // Display analysis results
+        function displayAnalysisResults(analysis) {
+            const resultsDiv = document.getElementById('analysis-results');
+            resultsDiv.style.display = 'block';
+            
+            // Update summary cards
+            document.getElementById('analysis-total-requests').textContent = analysis.total_requests || 0;
+            
+            if (analysis.time_range) {
+                const timeRange = analysis.time_range;
+                document.getElementById('analysis-time-range').textContent =
+                    `${timeRange.duration_human || 'Unknown duration'} (${timeRange.total_entries || 0} entries)`;
+            }
+            
+            if (analysis.performance) {
+                const perf = analysis.performance;
+                document.getElementById('analysis-avg-response').textContent = `${perf.average_ms || 0}ms`;
+                document.getElementById('analysis-performance-details').textContent =
+                    `P95: ${perf.p95_ms || 0}ms, P99: ${perf.p99_ms || 0}ms`;
+            }
+            
+            if (analysis.status_codes) {
+                const status = analysis.status_codes;
+                document.getElementById('analysis-success-rate').textContent = `${status.success_rate || 0}%`;
+                document.getElementById('analysis-error-details').textContent =
+                    `Error rate: ${status.error_rate || 0}%`;
+            }
+            
+            // Update top endpoints
+            if (analysis.endpoints && analysis.endpoints.distribution) {
+                const endpointsHtml = Object.entries(analysis.endpoints.distribution)
+                    .slice(0, 5)
+                    .map(([path, count]) => `<div>${path}: <strong>${count}</strong></div>`)
+                    .join('');
+                document.getElementById('analysis-top-endpoints').innerHTML = endpointsHtml || 'No data';
+            }
+            
+            // Update methods distribution
+            if (analysis.methods && analysis.methods.distribution) {
+                const methodsHtml = Object.entries(analysis.methods.distribution)
+                    .map(([method, count]) => `<div>${method}: <strong>${count}</strong></div>`)
+                    .join('');
+                document.getElementById('analysis-methods').innerHTML = methodsHtml || 'No data';
+            }
+            
+            // Update insights
+            if (analysis.insights && analysis.insights.length > 0) {
+                const insightsHtml = analysis.insights
+                    .map(insight => `<div class="alert alert-info">${insight}</div>`)
+                    .join('');
+                document.getElementById('analysis-insights').innerHTML = insightsHtml;
+            } else {
+                document.getElementById('analysis-insights').innerHTML = '<p>No specific insights available.</p>';
+            }
+            
+            // Update full details
+            document.getElementById('analysis-full-details').textContent = JSON.stringify(analysis, null, 2);
+        }
+        
+        // --- Scenario Management Functions ---
+        
+        // Load scenarios when the scenarios tab is clicked
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.nav-link[data-tab="scenarios"]').addEventListener('click', async function() {
+                await loadScenarios();
+                await loadActiveScenario();
+            });
+            
+            // Scenario form submission
+            const scenarioForm = document.getElementById('scenario-form');
+            if (scenarioForm) {
+                scenarioForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    await createScenario();
+                });
+            }
+        });
+        
+        // Load all scenarios
+        async function loadScenarios() {
+            try {
+                const response = await fetch('/api/mock-data/scenarios');
+                if (response.ok) {
+                    const scenarios = await response.json();
+                    updateScenariosTable(scenarios);
+                } else {
+                    console.error('Failed to load scenarios');
+                }
+            } catch (error) {
+                console.error('Error loading scenarios:', error);
+            }
+        }
+        
+        // Load active scenario
+        async function loadActiveScenario() {
+            try {
+                const response = await fetch('/api/mock-data/scenarios/active');
+                if (response.ok) {
+                    const activeScenario = await response.json();
+                    updateActiveScenarioDisplay(activeScenario);
+                } else {
+                    updateActiveScenarioDisplay(null);
+                }
+            } catch (error) {
+                console.error('Error loading active scenario:', error);
+                updateActiveScenarioDisplay(null);
+            }
+        }
+        
+        // Update scenarios table
+        function updateScenariosTable(scenarios) {
+            const tbody = document.querySelector('#scenarios-table tbody');
+            if (!scenarios || scenarios.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">No scenarios created yet</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = scenarios.map(scenario => `
+                <tr>
+                    <td><strong>${scenario.name}</strong></td>
+                    <td>${scenario.description || 'No description'}</td>
+                    <td><span class="badge ${scenario.is_active ? 'badge-success' : 'badge-info'}">${scenario.is_active ? 'Active' : 'Inactive'}</span></td>
+                    <td>${scenario.created_at ? new Date(scenario.created_at).toLocaleDateString() : 'N/A'}</td>
+                    <td>
+                        ${!scenario.is_active ? `<button class="btn btn-success btn-sm" onclick="activateScenario(${scenario.id})" style="margin-right: 5px;">Activate</button>` : `<button class="btn btn-warning btn-sm" onclick="deactivateScenarioById(${scenario.id})" style="margin-right: 5px;">Deactivate</button>`}
+                        <button class="btn btn-warning btn-sm" onclick="editScenario(${scenario.id})" style="margin-right: 5px;">Edit</button>
+                        ${!scenario.is_active ? `<button class="btn btn-danger btn-sm" onclick="deleteScenario(${scenario.id})">Delete</button>` : ''}
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // Update active scenario display
+        function updateActiveScenarioDisplay(activeScenario) {
+            const nameElement = document.getElementById('active-scenario-name');
+            const descriptionElement = document.getElementById('active-scenario-description');
+            const deactivateBtn = document.getElementById('deactivate-scenario-btn');
+            
+            if (activeScenario) {
+                nameElement.textContent = `Active: ${activeScenario.name}`;
+                descriptionElement.textContent = activeScenario.description || 'No description';
+                deactivateBtn.style.display = 'inline-block';
+            } else {
+                nameElement.textContent = 'No active scenario';
+                descriptionElement.textContent = '';
+                deactivateBtn.style.display = 'none';
+            }
+        }
+        
+        // Create new scenario
+        async function createScenario() {
+            const name = document.getElementById('scenario-name').value;
+            const description = document.getElementById('scenario-description').value;
+            const configText = document.getElementById('scenario-config').value;
+            
+            if (!name.trim()) {
+                alert('Please enter a scenario name');
+                return;
+            }
+            
+            let config = {};
+            if (configText.trim()) {
+                try {
+                    config = JSON.parse(configText);
+                } catch (e) {
+                    alert('Invalid JSON configuration. Please check your syntax.');
+                    return;
+                }
+            }
+            
+            try {
+                const response = await fetch('/api/mock-data/scenarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        description: description,
+                        config: config
+                    })
+                });
+                
+                if (response.ok) {
+                    alert('Scenario created successfully!');
+                    clearScenarioForm();
+                    await loadScenarios();
+                } else {
+                    const error = await response.text();
+                    alert(`Failed to create scenario: ${error}`);
+                }
+            } catch (error) {
+                console.error('Error creating scenario:', error);
+                alert('Error creating scenario. Please check the console for details.');
+            }
+        }
+        
+        // Clear scenario form
+        function clearScenarioForm() {
+            document.getElementById('scenario-form').reset();
+        }
+        
+        // Activate scenario
+        async function activateScenario(scenarioId) {
+            if (!confirm('Are you sure you want to activate this scenario? This will deactivate any currently active scenario.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/mock-data/scenarios/${scenarioId}/activate`, {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(result.message);
+                    await loadScenarios();
+                    await loadActiveScenario();
+                } else {
+                    const error = await response.text();
+                    alert(`Failed to activate scenario: ${error}`);
+                }
+            } catch (error) {
+                console.error('Error activating scenario:', error);
+                alert('Error activating scenario. Please check the console for details.');
+            }
+        }
+        
+        // Deactivate current scenario
+        async function deactivateScenario() {
+            if (!confirm('Are you sure you want to deactivate the current scenario?')) {
+                return;
+            }
+            
+            try {
+                // Get active scenario first
+                const activeResponse = await fetch('/api/mock-data/scenarios/active');
+                if (!activeResponse.ok) {
+                    alert('No active scenario found');
+                    return;
+                }
+                
+                const activeScenario = await activeResponse.json();
+                if (!activeScenario || !activeScenario.id) {
+                    alert('No active scenario found');
+                    return;
+                }
+                
+                // Use the dedicated deactivate endpoint
+                await deactivateScenarioById(activeScenario.id);
+            } catch (error) {
+                console.error('Error deactivating scenario:', error);
+                alert('Error deactivating scenario. Please check the console for details.');
+            }
+        }
+        
+        // Deactivate scenario by ID (called from scenarios table)
+        async function deactivateScenarioById(scenarioId) {
+            if (!confirm('Are you sure you want to deactivate this scenario?')) {
+                return;
+            }
+            
+            try {
+                // Use the dedicated deactivate endpoint
+                const response = await fetch(`/api/mock-data/scenarios/${scenarioId}/deactivate`, {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(result.message || 'Scenario deactivated successfully!');
+                    await loadScenarios();
+                    await loadActiveScenario();
+                } else {
+                    const error = await response.text();
+                    alert(`Failed to deactivate scenario: ${error}`);
+                }
+            } catch (error) {
+                console.error('Error deactivating scenario:', error);
+                alert('Error deactivating scenario. Please check the console for details.');
+            }
+        }
+        
+        // Edit scenario
+        async function editScenario(scenarioId) {
+            try {
+                // Get scenario details
+                const response = await fetch('/api/mock-data/scenarios');
+                if (!response.ok) {
+                    alert('Failed to load scenario details');
+                    return;
+                }
+                
+                const scenarios = await response.json();
+                const scenario = scenarios.find(s => s.id === scenarioId);
+                if (!scenario) {
+                    alert('Scenario not found');
+                    return;
+                }
+                
+                // Show edit modal
+                showScenarioEditModal(scenario);
+            } catch (error) {
+                console.error('Error loading scenario for edit:', error);
+                alert('Error loading scenario details.');
+            }
+        }
+        
+        // Show scenario edit modal
+        function showScenarioEditModal(scenario) {
+            // Create modal if it doesn't exist
+            let modal = document.getElementById('scenario-edit-modal');
+            if (!modal) {
+                modal = createScenarioEditModal();
+                document.body.appendChild(modal);
+            }
+            
+            // Populate modal with scenario data
+            document.getElementById('edit-scenario-id').value = scenario.id;
+            document.getElementById('edit-scenario-name').value = scenario.name;
+            document.getElementById('edit-scenario-description').value = scenario.description || '';
+            document.getElementById('edit-scenario-config').value = JSON.stringify(scenario.config, null, 2);
+            
+            // Show modal
+            modal.style.display = 'block';
+        }
+        
+        // Create scenario edit modal
+        function createScenarioEditModal() {
+            const modal = document.createElement('div');
+            modal.id = 'scenario-edit-modal';
+            modal.style.cssText = `
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background-color: white;
+                    margin: 2% auto;
+                    padding: 20px;
+                    border-radius: 5px;
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    overflow-y: auto;
+                ">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3>Edit Scenario</h3>
+                        <button onclick="closeScenarioEditModal()" style="
+                            background: none;
+                            border: none;
+                            font-size: 24px;
+                            cursor: pointer;
+                            color: #666;
+                        ">&times;</button>
+                    </div>
+                    
+                    <form id="edit-scenario-form">
+                        <input type="hidden" id="edit-scenario-id">
+                        
+                        <div class="form-group">
+                            <label for="edit-scenario-name">Scenario Name</label>
+                            <input type="text" id="edit-scenario-name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit-scenario-description">Description</label>
+                            <textarea id="edit-scenario-description" class="form-control" rows="2"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit-scenario-config">Configuration (JSON)</label>
+                            <textarea id="edit-scenario-config" class="form-control" rows="12"></textarea>
+                        </div>
+                        
+                        <div style="text-align: right; margin-top: 20px;">
+                            <button type="button" class="btn btn-secondary" onclick="closeScenarioEditModal()" style="margin-right: 10px;">Cancel</button>
+                            <button type="submit" class="btn btn-success">Update Scenario</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            // Add form submission handler
+            modal.querySelector('#edit-scenario-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                await updateScenario();
+            });
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeScenarioEditModal();
+                }
+            });
+            
+            return modal;
+        }
+        
+        // Update scenario
+        async function updateScenario() {
+            const id = document.getElementById('edit-scenario-id').value;
+            const name = document.getElementById('edit-scenario-name').value;
+            const description = document.getElementById('edit-scenario-description').value;
+            const configText = document.getElementById('edit-scenario-config').value;
+            
+            if (!name.trim()) {
+                alert('Please enter a scenario name');
+                return;
+            }
+            
+            let config = {};
+            if (configText.trim()) {
+                try {
+                    config = JSON.parse(configText);
+                } catch (e) {
+                    alert('Invalid JSON configuration. Please check your syntax.');
+                    return;
+                }
+            }
+            
+            try {
+                const response = await fetch(`/api/mock-data/scenarios/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        description: description,
+                        config: config
+                    })
+                });
+                
+                if (response.ok) {
+                    alert('Scenario updated successfully!');
+                    closeScenarioEditModal();
+                    await loadScenarios();
+                    await loadActiveScenario();
+                } else {
+                    const error = await response.text();
+                    alert(`Failed to update scenario: ${error}`);
+                }
+            } catch (error) {
+                console.error('Error updating scenario:', error);
+                alert('Error updating scenario. Please check the console for details.');
+            }
+        }
+        
+        // Close scenario edit modal
+        function closeScenarioEditModal() {
+            const modal = document.getElementById('scenario-edit-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Delete scenario
+        async function deleteScenario(scenarioId) {
+            if (!confirm('Are you sure you want to delete this scenario? This action cannot be undone.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/mock-data/scenarios/${scenarioId}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    alert('Scenario deleted successfully!');
+                    await loadScenarios();
+                } else {
+                    const error = await response.text();
+                    alert(`Failed to delete scenario: ${error}`);
+                }
+            } catch (error) {
+                console.error('Error deleting scenario:', error);
+                alert('Error deleting scenario. Please check the console for details.');
+            }
+        }
+        
+        // --- Performance Tab Functions ---
+        
+        // Load performance summary
+        async function loadPerformanceSummary() {
+            try {
+                const response = await fetch('/api/performance/summary');
+                if (response.ok) {
+                    const data = await response.json();
+                    updatePerformanceSummary(data);
+                } else {
+                    console.error('Failed to load performance summary');
+                    // Show default/empty state
+                    updatePerformanceSummary({});
+                }
+            } catch (error) {
+                console.error('Error loading performance summary:', error);
+                // Show default/empty state
+                updatePerformanceSummary({});
+            }
+        }
+        
+        // Update performance summary display
+        function updatePerformanceSummary(data) {
+            const overall = data.overall_performance || {};
+            const sessions = data.session_summary || {};
+            
+            // Update overall performance metrics
+            document.getElementById('perf-avg-response-time').textContent = `${overall.avg_response_time_ms || 0}ms`;
+            document.getElementById('perf-response-time-details').textContent =
+                `Min: ${overall.min_response_time_ms || 0}ms, Max: ${overall.max_response_time_ms || 0}ms`;
+            
+            document.getElementById('perf-avg-memory').textContent = `${overall.avg_memory_usage_mb || 0}MB`;
+            document.getElementById('perf-avg-cpu').textContent = `${overall.avg_cpu_usage_percent || 0}%`;
+            document.getElementById('perf-cache-hit-ratio').textContent = `${overall.cache_hit_ratio || 0}%`;
+            document.getElementById('perf-cache-details').textContent =
+                `Hits: ${overall.total_cache_hits || 0}, Misses: ${overall.total_cache_misses || 0}`;
+            
+            // Update session summary
+            document.getElementById('perf-total-sessions').textContent = sessions.total_sessions || 0;
+            document.getElementById('perf-active-sessions').textContent = `Active: ${sessions.active_sessions || 0}`;
+            document.getElementById('perf-avg-requests-per-session').textContent = sessions.avg_requests_per_session || 0;
+            
+            // Update endpoint performance table
+            updateEndpointPerformanceTable(data.endpoint_performance || []);
+        }
+        
+        // Update endpoint performance table
+        function updateEndpointPerformanceTable(endpoints) {
+            const tbody = document.querySelector('#endpoint-performance-table tbody');
+            if (!endpoints || endpoints.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">No performance data available</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = endpoints.map(endpoint => `
+                <tr>
+                    <td>${endpoint.path || 'N/A'}</td>
+                    <td><span class="badge badge-info">${endpoint.method || 'N/A'}</span></td>
+                    <td>${endpoint.request_count || 0}</td>
+                    <td>${endpoint.avg_response_time_ms || 0}ms</td>
+                    <td>${endpoint.avg_memory_usage_mb || 0}MB</td>
+                </tr>
+            `).join('');
+        }
+        
+        // Load performance metrics
+        async function loadPerformanceMetrics() {
+            try {
+                const response = await fetch('/api/performance/metrics?limit=50');
+                if (response.ok) {
+                    const data = await response.json();
+                    updatePerformanceMetricsTable(data.metrics || []);
+                    document.getElementById('detailed-performance-metrics').style.display = 'block';
+                } else {
+                    console.error('Failed to load performance metrics');
+                    // Show empty state
+                    updatePerformanceMetricsTable([]);
+                    document.getElementById('detailed-performance-metrics').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error loading performance metrics:', error);
+                // Show empty state
+                updatePerformanceMetricsTable([]);
+                document.getElementById('detailed-performance-metrics').style.display = 'block';
+            }
+        }
+        
+        // Update performance metrics table
+        function updatePerformanceMetricsTable(metrics) {
+            const tbody = document.querySelector('#performance-metrics-table tbody');
+            if (!metrics || metrics.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7">No detailed metrics available</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = metrics.map(metric => `
+                <tr>
+                    <td>${metric.recorded_at ? new Date(metric.recorded_at).toLocaleString() : 'N/A'}</td>
+                    <td>${metric.method || ''} ${metric.path || 'N/A'}</td>
+                    <td>${metric.response_time_ms || 0}ms</td>
+                    <td>${metric.memory_usage_mb || 0}</td>
+                    <td>${metric.cpu_usage_percent || 0}%</td>
+                    <td>${metric.database_queries || 0}</td>
+                    <td>${metric.cache_hits || 0}/${metric.cache_misses || 0}</td>
+                </tr>
+            `).join('');
+        }
+        
+        // Load test sessions
+        async function loadTestSessions() {
+            try {
+                const response = await fetch('/api/performance/sessions');
+                if (response.ok) {
+                    const data = await response.json();
+                    updateTestSessionsTable(data.sessions || []);
+                } else {
+                    console.error('Failed to load test sessions');
+                    // Show empty state
+                    updateTestSessionsTable([]);
+                }
+            } catch (error) {
+                console.error('Error loading test sessions:', error);
+                // Show empty state
+                updateTestSessionsTable([]);
+            }
+        }
+        
+        // Update test sessions table
+        function updateTestSessionsTable(sessions) {
+            const tbody = document.querySelector('#test-sessions-table tbody');
+            if (!sessions || sessions.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6">No test sessions available</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = sessions.map(session => `
+                <tr>
+                    <td>${session.session_id || 'N/A'}</td>
+                    <td>${session.scenario_name || 'N/A'}</td>
+                    <td><span class="badge ${getSessionStatusBadgeClass(session.status)}">${session.status || 'unknown'}</span></td>
+                    <td>${session.total_requests || 0}</td>
+                    <td>${session.avg_response_time || 0}ms</td>
+                    <td>${session.start_time ? new Date(session.start_time).toLocaleString() : 'N/A'}</td>
+                </tr>
+            `).join('');
+        }
+        
+        // Get badge class for session status
+        function getSessionStatusBadgeClass(status) {
+            switch (status) {
+                case 'active': return 'badge-success';
+                case 'completed': return 'badge-info';
+                case 'failed': return 'badge-danger';
+                default: return 'badge-warning';
+            }
+        }
+        
+        // Filter performance metrics by time range
+        async function filterPerformanceMetrics() {
+            const timeFrom = document.getElementById('perf-time-from').value;
+            const timeTo = document.getElementById('perf-time-to').value;
+            
+            try {
+                const params = new URLSearchParams();
+                if (timeFrom) params.append('time_from', new Date(timeFrom).toISOString());
+                if (timeTo) params.append('time_to', new Date(timeTo).toISOString());
+                params.append('limit', '100');
+                
+                const response = await fetch(`/api/performance/metrics?${params.toString()}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    updatePerformanceMetricsTable(data.metrics || []);
+                } else {
+                    alert('Failed to filter performance metrics');
+                }
+            } catch (error) {
+                console.error('Error filtering performance metrics:', error);
+                alert('Error filtering performance metrics');
+            }
+        }
+        
+        // Load performance tab when clicked
+        document.addEventListener('DOMContentLoaded', function() {
+            const perfTab = document.querySelector('.nav-link[data-tab="performance"]');
+            if (perfTab) {
+                perfTab.addEventListener('click', async function() {
+                    // Load performance data automatically when tab is clicked
+                    await loadPerformanceSummary();
+                    await loadTestSessions();
+                    await loadPerformanceMetrics(); // Also load detailed metrics
+                });
+            }
+        });
+        
+        // --- Pagination Functions ---
+        
+        // Pagination state variables
+        let dashboardCurrentPage = 1;
+        let dashboardPageSize = 10;
+        let dashboardTotalItems = 0;
+        let dashboardAllRequests = [];
+        
+        let requestsCurrentPage = 1;
+        let requestsPageSize = 25;
+        let requestsTotalItems = 0;
+        let requestsAllRequests = [];
+        
+        let analyticsCurrentPage = 1;
+        let analyticsPageSize = 50;
+        let analyticsTotalItems = 0;
+        let analyticsAllResults = [];
+        
+        // Dashboard pagination functions
+        function dashboardGoToPage(page) {
+            dashboardCurrentPage = page;
+            updateRecentRequestsTablePaginated();
+        }
+        
+        function dashboardPreviousPage() {
+            if (dashboardCurrentPage > 1) {
+                dashboardCurrentPage--;
+                updateRecentRequestsTablePaginated();
+            }
+        }
+        
+        function dashboardNextPage() {
+            const totalPages = Math.ceil(dashboardTotalItems / dashboardPageSize);
+            if (dashboardCurrentPage < totalPages) {
+                dashboardCurrentPage++;
+                updateRecentRequestsTablePaginated();
+            }
+        }
+        
+        function dashboardGoToLastPage() {
+            const totalPages = Math.ceil(dashboardTotalItems / dashboardPageSize);
+            dashboardCurrentPage = totalPages;
+            updateRecentRequestsTablePaginated();
+        }
+        
+        // Function to update recent requests table with pagination
+        function updateRecentRequestsTablePaginated() {
+            const tbody = document.querySelector('#recent-requests-table tbody');
+            if (!dashboardAllRequests || dashboardAllRequests.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">No request logs available yet. Make some API requests to see them logged here.</td></tr>';
+                document.getElementById('dashboard-pagination').style.display = 'none';
+                return;
+            }
+            
+            // Calculate pagination
+            const totalPages = Math.ceil(dashboardTotalItems / dashboardPageSize);
+            const startIndex = (dashboardCurrentPage - 1) * dashboardPageSize;
+            const endIndex = startIndex + dashboardPageSize;
+            const pageRequests = dashboardAllRequests.slice(startIndex, endIndex);
+            
+            // Update table
+            tbody.innerHTML = pageRequests.map(req => `
+                <tr>
+                    <td>${req.timestamp ? new Date(req.timestamp).toLocaleString() : 'N/A'}</td>
+                    <td><span class="badge badge-info">${req.method || 'N/A'}</span></td>
+                    <td>${req.path || 'N/A'}</td>
+                    <td><span class="badge ${getStatusBadgeClass(req.status_code)}">${req.status_code || 'N/A'}</span></td>
+                    <td>${(req.process_time_ms !== undefined && req.process_time_ms !== null) ? req.process_time_ms + 'ms' : 'N/A'}</td>
+                </tr>
+            `).join('');
+            
+            // Update pagination controls
+            updateDashboardPagination(totalPages);
+        }
+        
+        // Function to update dashboard pagination controls
+        function updateDashboardPagination(totalPages) {
+            const pagination = document.getElementById('dashboard-pagination');
+            const paginationInfo = document.getElementById('dashboard-pagination-info');
+            const firstBtn = document.getElementById('dashboard-first-page');
+            const prevBtn = document.getElementById('dashboard-prev-page');
+            const nextBtn = document.getElementById('dashboard-next-page');
+            const lastBtn = document.getElementById('dashboard-last-page');
+            
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            pagination.style.display = 'flex';
+            paginationInfo.textContent = `Page ${dashboardCurrentPage} of ${totalPages} (${dashboardTotalItems} entries)`;
+            
+            firstBtn.disabled = dashboardCurrentPage === 1;
+            prevBtn.disabled = dashboardCurrentPage === 1;
+            nextBtn.disabled = dashboardCurrentPage === totalPages;
+            lastBtn.disabled = dashboardCurrentPage === totalPages;
+        }
+        
+        // Requests pagination functions
+        function requestsGoToPage(page) {
+            requestsCurrentPage = page;
+            updateRequestsTablePaginated();
+        }
+        
+        function requestsPreviousPage() {
+            if (requestsCurrentPage > 1) {
+                requestsCurrentPage--;
+                updateRequestsTablePaginated();
+            }
+        }
+        
+        function requestsNextPage() {
+            const totalPages = Math.ceil(requestsTotalItems / requestsPageSize);
+            if (requestsCurrentPage < totalPages) {
+                requestsCurrentPage++;
+                updateRequestsTablePaginated();
+            }
+        }
+        
+        function requestsGoToLastPage() {
+            const totalPages = Math.ceil(requestsTotalItems / requestsPageSize);
+            requestsCurrentPage = totalPages;
+            updateRequestsTablePaginated();
+        }
+        
+        // Function to update requests table with pagination
+        function updateRequestsTablePaginated() {
+            const tbody = document.querySelector('#requests-table tbody');
+            if (!requestsAllRequests || requestsAllRequests.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6">No request logs available yet. Make some API requests to see them logged here.</td></tr>';
+                document.getElementById('requests-pagination').style.display = 'none';
+                return;
+            }
+            
+            // Calculate pagination
+            const totalPages = Math.ceil(requestsTotalItems / requestsPageSize);
+            const startIndex = (requestsCurrentPage - 1) * requestsPageSize;
+            const endIndex = startIndex + requestsPageSize;
+            const pageRequests = requestsAllRequests.slice(startIndex, endIndex);
+            
+            // Update table
+            tbody.innerHTML = pageRequests.map(req => `
+                <tr>
+                    <td>${req.timestamp ? new Date(req.timestamp).toLocaleString() : 'N/A'}</td>
+                    <td><span class="badge badge-info">${req.method || 'N/A'}</span></td>
+                    <td>${req.path || 'N/A'}</td>
+                    <td><span class="badge ${getStatusBadgeClass(req.status_code)}">${req.status_code || 'N/A'}</span></td>
+                    <td>${(req.process_time_ms !== undefined && req.process_time_ms !== null) ? req.process_time_ms + 'ms' : 'N/A'}</td>
+                    <td>
+                        <button class="btn btn-info btn-sm" onclick="showRequestDetails(${req.id})">View Details</button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            // Update pagination controls
+            updateRequestsPagination(totalPages);
+        }
+        
+        // Function to update requests pagination controls
+        function updateRequestsPagination(totalPages) {
+            const pagination = document.getElementById('requests-pagination');
+            const paginationInfo = document.getElementById('requests-pagination-info');
+            const firstBtn = document.getElementById('requests-first-page');
+            const prevBtn = document.getElementById('requests-prev-page');
+            const nextBtn = document.getElementById('requests-next-page');
+            const lastBtn = document.getElementById('requests-last-page');
+            
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            pagination.style.display = 'flex';
+            paginationInfo.textContent = `Page ${requestsCurrentPage} of ${totalPages} (${requestsTotalItems} entries)`;
+            
+            firstBtn.disabled = requestsCurrentPage === 1;
+            prevBtn.disabled = requestsCurrentPage === 1;
+            nextBtn.disabled = requestsCurrentPage === totalPages;
+            lastBtn.disabled = requestsCurrentPage === totalPages;
+        }
+        
+        // Analytics pagination functions
+        function analyticsGoToPage(page) {
+            analyticsCurrentPage = page;
+            updateAnalyticsTablePaginated();
+        }
+        
+        function analyticsPreviousPage() {
+            if (analyticsCurrentPage > 1) {
+                analyticsCurrentPage--;
+                updateAnalyticsTablePaginated();
+            }
+        }
+        
+        function analyticsNextPage() {
+            const totalPages = Math.ceil(analyticsTotalItems / analyticsPageSize);
+            if (analyticsCurrentPage < totalPages) {
+                analyticsCurrentPage++;
+                updateAnalyticsTablePaginated();
+            }
+        }
+        
+        function analyticsGoToLastPage() {
+            const totalPages = Math.ceil(analyticsTotalItems / analyticsPageSize);
+            analyticsCurrentPage = totalPages;
+            updateAnalyticsTablePaginated();
+        }
+        
+        // Function to update analytics table with pagination
+        function updateAnalyticsTablePaginated() {
+            const tbody = document.querySelector('#search-results-table tbody');
+            if (!analyticsAllResults || analyticsAllResults.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6">No results found</td></tr>';
+                document.getElementById('analytics-pagination').style.display = 'none';
+                return;
+            }
+            
+            // Calculate pagination
+            const totalPages = Math.ceil(analyticsTotalItems / analyticsPageSize);
+            const startIndex = (analyticsCurrentPage - 1) * analyticsPageSize;
+            const endIndex = startIndex + analyticsPageSize;
+            const pageResults = analyticsAllResults.slice(startIndex, endIndex);
+            
+            // Update table
+            tbody.innerHTML = pageResults.map(log => `
+                <tr>
+                    <td>${log.timestamp ? new Date(log.timestamp).toLocaleString() : 'N/A'}</td>
+                    <td><span class="badge badge-info">${log.method || 'N/A'}</span></td>
+                    <td>${log.path || 'N/A'}</td>
+                    <td><span class="badge ${getStatusBadgeClass(log.status_code)}">${log.status_code || 'N/A'}</span></td>
+                    <td>${(log.process_time_ms !== undefined && log.process_time_ms !== null) ? log.process_time_ms + 'ms' : 'N/A'}</td>
+                    <td>
+                        <button class="btn btn-info btn-sm" onclick="showRequestDetails(${log.id})">View Details</button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            // Update pagination controls
+            updateAnalyticsPagination(totalPages);
+        }
+        
+        // Function to update analytics pagination controls
+        function updateAnalyticsPagination(totalPages) {
+            const pagination = document.getElementById('analytics-pagination');
+            const paginationInfo = document.getElementById('analytics-pagination-info');
+            const firstBtn = document.getElementById('analytics-first-page');
+            const prevBtn = document.getElementById('analytics-prev-page');
+            const nextBtn = document.getElementById('analytics-next-page');
+            const lastBtn = document.getElementById('analytics-last-page');
+            
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            pagination.style.display = 'flex';
+            paginationInfo.textContent = `Page ${analyticsCurrentPage} of ${totalPages} (${analyticsTotalItems} entries)`;
+            
+            firstBtn.disabled = analyticsCurrentPage === 1;
+            prevBtn.disabled = analyticsCurrentPage === 1;
+            nextBtn.disabled = analyticsCurrentPage === totalPages;
+            lastBtn.disabled = analyticsCurrentPage === totalPages;
+        }
+        
+        // Event listeners for page size changes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dashboard page size change
+            document.getElementById('dashboard-page-size').addEventListener('change', function() {
+                dashboardPageSize = parseInt(this.value, 10);
+                dashboardCurrentPage = 1; // Reset to first page
+                updateRecentRequestsTablePaginated();
+            });
+            
+            // Requests page size change
+            document.getElementById('requests-page-size').addEventListener('change', function() {
+                requestsPageSize = parseInt(this.value, 10);
+                requestsCurrentPage = 1; // Reset to first page
+                updateRequestsTablePaginated();
+            });
+            
+            // Analytics page size change
+            document.getElementById('analytics-page-size').addEventListener('change', function() {
+                analyticsPageSize = parseInt(this.value, 10);
+                analyticsCurrentPage = 1; // Reset to first page
+                updateAnalyticsTablePaginated();
+            });
+        });
+        
+        {{ analytics_functions_js }}
+    </script>
+</body>
+</html>
