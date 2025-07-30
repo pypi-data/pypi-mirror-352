@@ -1,0 +1,22 @@
+[project]
+name = "pocket2linkwarden"
+version = "0.1.1"
+description = "Convert your Pocket bookmarks export to a Linkwarden-compatible HTML file."
+readme = "README.md"
+authors = [
+    { name = "Mason Hall", email = "masonhall@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+keywords = ["pocket", "bookmarks", "linkwarden", "export"]
+license = "MIT"
+
+[project.urls]
+Repository = "https://github.com/fmhall/pocket2linkwarden"
+
+[project.scripts]
+pocket2linkwarden = "pocket2linkwarden:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
