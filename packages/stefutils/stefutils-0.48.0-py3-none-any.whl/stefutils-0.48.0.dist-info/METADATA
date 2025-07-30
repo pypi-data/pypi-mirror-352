@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: stefutils
+Version: 0.48.0
+Summary: Machine Learning project startup utilities
+Home-page: https://github.com/StefanHeng/stef-util
+Download-URL: https://github.com/StefanHeng/stef-util/archive/refs/tags/v0.48.0.tar.gz
+Author: Yuzhao Stefan Heng
+Author-email: stefan.hg@outlook.com
+License: MIT
+Keywords: python,utility,syntactic-sugar,prettier,formatting,nlp,machine-learning,deep-learning
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: MacOS X
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Utilities
+License-File: LICENSE
+Requires-Dist: click
+Requires-Dist: rich
+Requires-Dist: pydantic
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: tqdm
+Requires-Dist: icecream
+Provides-Extra: deep_learning
+Requires-Dist: spacy; extra == "deep-learning"
+Requires-Dist: torch; extra == "deep-learning"
+Requires-Dist: transformers>=4.33.2; extra == "deep-learning"
+Requires-Dist: sentence-transformers; extra == "deep-learning"
+Requires-Dist: tensorboard; extra == "deep-learning"
+Provides-Extra: legacy_styling
+Requires-Dist: sty; extra == "legacy-styling"
+Requires-Dist: colorama; extra == "legacy-styling"
+Provides-Extra: machine_learning
+Requires-Dist: scikit-learn; extra == "machine-learning"
+Provides-Extra: optional
+Requires-Dist: pygments; extra == "optional"
+Requires-Dist: pyinstrument; extra == "optional"
+Requires-Dist: sty; extra == "optional"
+Provides-Extra: plot
+Requires-Dist: matplotlib; extra == "plot"
+Provides-Extra: plot-optional
+Requires-Dist: seaborn; extra == "plot-optional"
+
+My commonly used utilities for machine learning projects
