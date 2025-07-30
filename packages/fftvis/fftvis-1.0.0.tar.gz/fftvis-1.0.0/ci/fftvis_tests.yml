@@ -1,0 +1,23 @@
+name: tests
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pip
+  - astropy
+  - numpy
+  - pytest
+  - scipy
+  - pyyaml
+  - pycodestyle
+  - psutil
+  - astropy-healpix
+  - future
+  - pytest-cov
+  - finufft
+  - matvis
+  - mpi4py
+  - pyuvdata
+  - pip:
+    - pyuvsim[sim]
+    - pyradiosky
