@@ -1,0 +1,41 @@
+[project]
+name = "mgplot"
+version = "0.1.6"
+description = "mgplot is a time-series/PeriodIndex frontend for matplotlib"
+readme = "README.md"
+requires-python = ">=3.12"
+
+dependencies = [
+    # - system
+    "typing",
+    "pathlib",
+
+    # - data science 
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "tabulate",
+]
+
+[dependency-groups]
+dev = [
+    # - tools
+    "black",
+    "mypy",
+    "pdoc",
+    "pylint",
+    "ruff",
+    
+    # - typing
+    "pandas-stubs",
+    "numpy-typing",
+    "types-tabulate",
+]
+
+[project.urls]
+Repository = "https://github.com/bpalmer4/mgplot"
+Homepage = "https://github.com/bpalmer4/mgplot"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
