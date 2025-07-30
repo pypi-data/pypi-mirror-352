@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "molass"
+version = "0.0.9"
+
+dependencies = [
+  "numpy",
+  "scipy",
+  "matplotlib",
+  "tqdm",
+  "pybaselines",
+  "molass_legacy",
+  "statsmodels",
+  "scikit-learn",
+  "toml",
+]
+
+requires-python = ">=3.9"
+
+authors = [
+  {name = "Molass Community"},
+]
+
+maintainers = [
+  {name = "Molass Community"}
+]
+
+description = "Matrix Optimization with Low-rank factorization for Automated analysis of SEC-SAXS"
+readme = "README.md"
+license = { text = "GNU General Public License v3.0" }
+
+keywords = ["SEC-SAXS"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Programming Language :: Python",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+]
+
+[project.urls]
+Repository = "https://github.com/nshimizu0721/molass-library"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
