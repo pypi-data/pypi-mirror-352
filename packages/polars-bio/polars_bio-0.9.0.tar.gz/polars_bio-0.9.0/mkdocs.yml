@@ -1,0 +1,113 @@
+site_name: polars-bio
+site_url: https://biodatageeks.org/polars-bio/
+repo_url: https://github.com/biodatageeks/polars-bio
+repo_name: biodatageeks/polars-bio
+nav:
+  - Home:
+      - polars-bio: index.md
+      - 🏃🏼‍♂️ Quick start: quickstart.md
+      - 🔨Features: features.md
+      - 👩‍🍳 Cookbook: notebooks/cookbook.ipynb
+      - 📚 Tutorial: notebooks/tutorial.ipynb
+      - 🚀 Performance: performance.md
+      - ⚙️ API reference: api.md
+      - ❓ FAQ : faq.md
+      - 🔬 Supplementary material: supplement.md
+
+  - Quick start: quickstart.md
+  - Features: features.md
+  - Cookbook: notebooks/cookbook.ipynb
+  - Tutorial: notebooks/tutorial.ipynb
+  - Performance: performance.md
+  - API reference: api.md
+  - FAQ : faq.md
+  - 🔬 Supplementary material: supplement.md
+
+plugins:
+  - search
+  - autorefs
+  - mkdocs-jupyter:
+      execute: false
+      allow_errors: false
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+          options:
+            docstring_style: google
+  - markdown-exec
+  - table-reader
+  - mkdocs_matplotlib
+  - exporter:
+      formats:
+        pdf:
+          enabled: !ENV [ MKDOCS_EXPORTER_PDF, false ]
+          concurrency: 8
+#          stylesheets:
+#            - resources/stylesheets/pdf.scss
+#          covers:
+#            front: resources/templates/covers/front.html.j2
+#            back: resources/templates/covers/back.html.j2
+          aggregator:
+            enabled: true
+            output: .well-known/site.pdf
+            covers: all
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  features:
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+    - content.tooltips
+    - toc.follow
+    - navigation.top
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.footer
+    - navigation.tracking
+    - navigation.instant
+    - content.footnote.tooltips
+  icon:
+    repo: fontawesome/brands/github
+extra:
+  version:
+    provider: mike
+    default:
+      - latest
+  analytics:
+    provider: google
+    property: G-1M9PLLGBYS
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: ..
+      dedent_subsections: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - md_in_html
+  - abbr
+  - attr_list
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - markdown.extensions.toc:
+      baselevel: 1
+      permalink: ""
