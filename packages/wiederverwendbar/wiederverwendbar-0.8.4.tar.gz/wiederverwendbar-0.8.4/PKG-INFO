@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: wiederverwendbar
+Version: 0.8.4
+Summary: A collection of scripts, classes and tools they are \"wiederverwendbar\".
+Author-Email: Julius Koenig <info@bastelquartier.de>
+License: GPL-3.0
+Requires-Python: >=3.9
+Requires-Dist: pydantic>=2.11.4
+Requires-Dist: pydantic-settings>=2.9.1
+Requires-Dist: devtools>=0.12.2
+Provides-Extra: full
+Requires-Dist: rich>=14.0.0; extra == "full"
+Requires-Dist: typer>=0.15.3; extra == "full"
+Requires-Dist: pythonping>=1.1.4; extra == "full"
+Requires-Dist: mongoengine>=0.29.1; extra == "full"
+Requires-Dist: nicegui>=2.17.0; extra == "full"
+Requires-Dist: uvicorn>=0.34.2; extra == "full"
+Requires-Dist: fastapi>=0.115.12; extra == "full"
+Requires-Dist: starlette-admin[i18n]>=0.14.1; extra == "full"
+Requires-Dist: pillow>=11.2.1; extra == "full"
+Requires-Dist: blinker>=1.9.0; extra == "full"
+Requires-Dist: kombu>=5.5.3; extra == "full"
+Requires-Dist: nest-asyncio>=1.6.0; extra == "full"
+Requires-Dist: sqlalchemy>=2.0.40; extra == "full"
+Provides-Extra: rich
+Requires-Dist: rich>=14.0.0; extra == "rich"
+Provides-Extra: typer
+Requires-Dist: typer>=0.15.3; extra == "typer"
+Provides-Extra: mongoengine
+Requires-Dist: mongoengine>=0.29.1; extra == "mongoengine"
+Requires-Dist: blinker>=1.9.0; extra == "mongoengine"
+Provides-Extra: uvicorn
+Requires-Dist: uvicorn>=0.34.2; extra == "uvicorn"
+Provides-Extra: fastapi
+Requires-Dist: fastapi>=0.115.12; extra == "fastapi"
+Provides-Extra: nicegui
+Requires-Dist: nicegui>=2.17.0; extra == "nicegui"
+Provides-Extra: starlette-admin
+Requires-Dist: starlette-admin[i18n]>=0.14.1; extra == "starlette-admin"
+Requires-Dist: pillow>=11.2.1; extra == "starlette-admin"
+Requires-Dist: kombu>=5.5.3; extra == "starlette-admin"
+Requires-Dist: nest-asyncio>=1.6.0; extra == "starlette-admin"
+Provides-Extra: fuctions
+Requires-Dist: pythonping>=1.1.4; extra == "fuctions"
+Provides-Extra: sqlalchemy
+Requires-Dist: sqlalchemy>=2.0.40; extra == "sqlalchemy"
+Description-Content-Type: text/markdown
+
+# wiederverwendbar
