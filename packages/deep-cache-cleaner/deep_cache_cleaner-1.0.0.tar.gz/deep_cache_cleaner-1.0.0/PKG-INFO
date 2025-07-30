@@ -1,0 +1,154 @@
+Metadata-Version: 2.4
+Name: deep-cache-cleaner
+Version: 1.0.0
+Summary: Comprehensive cache clearing utility for PyTorch, HuggingFace, and other ML libraries
+Author-email: Mihai Badea <mmihai.badea@gmail.com>
+Maintainer-email: Mihai Badea <mmihai.badea@gmail.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/mihai-badea/deep-cache-cleaner
+Project-URL: Documentation, https://github.com/mihai-badea/deep-cache-cleaner#readme
+Project-URL: Repository, https://github.com/mihai-badea/deep-cache-cleaner
+Project-URL: Bug Tracker, https://github.com/mihai-badea/deep-cache-cleaner/issues
+Keywords: cache,pytorch,huggingface,ml,cleanup,memory
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Systems Administration
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: gpu
+Requires-Dist: torch>=1.9.0; extra == "gpu"
+Provides-Extra: transformers
+Requires-Dist: transformers>=4.0.0; extra == "transformers"
+Provides-Extra: sentence-transformers
+Requires-Dist: sentence-transformers>=2.0.0; extra == "sentence-transformers"
+Provides-Extra: all
+Requires-Dist: torch>=1.9.0; extra == "all"
+Requires-Dist: transformers>=4.0.0; extra == "all"
+Requires-Dist: sentence-transformers>=2.0.0; extra == "all"
+Provides-Extra: dev
+Requires-Dist: pytest>=6.0; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: flake8; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Dynamic: license-file
+
+
+# File: README.md
+# Deep Cache Cleaner
+
+A comprehensive cache clearing utility for PyTorch, HuggingFace, and other ML libraries.
+
+## Features
+
+- 🧹 Clear PyTorch GPU memory cache
+- 🤗 Clear HuggingFace transformers cache  
+- 📝 Clear sentence-transformers cache
+- 🗑️ Clear Python __pycache__ directories
+- 📊 Check cache sizes and GPU memory usage
+- 💣 Aggressive cleanup mode (deletes downloaded models)
+- 🔧 Command-line interface
+- 📦 Easy to use Python API
+
+## Installation
+
+```bash
+pip install deep-cache-cleaner
+```
+
+### Optional Dependencies
+
+For full functionality, install with optional dependencies:
+
+```bash
+# For HuggingFace transformers support
+pip install deep-cache-cleaner[transformers]
+
+# For sentence-transformers support  
+pip install deep-cache-cleaner[sentence-transformers]
+
+# For development
+pip install deep-cache-cleaner[dev]
+```
+
+## Usage
+
+### Command Line Interface
+
+```bash
+# Clear all caches
+deep-cache-cleaner clear
+
+# Check cache sizes
+deep-cache-cleaner check  
+
+# Aggressive cleanup (deletes downloaded models)
+deep-cache-cleaner aggressive
+
+# Auto-confirm aggressive cleanup
+deep-cache-cleaner aggressive --yes
+
+# Quiet mode
+deep-cache-cleaner clear --quiet
+```
+
+### Python API
+
+```python
+import cache_cleaner
+
+# Clear all caches
+cache_cleaner.clear_all_caches()
+
+# Check cache sizes
+sizes = cache_cleaner.check_cache_sizes()
+print(f"Total cache size: {sizes['Total']:.2f} GB")
+
+# Aggressive cleanup
+cache_cleaner.aggressive_cache_clear()
+
+# Use the class interface for more control
+cleaner = cache_cleaner.CacheCleaner(verbose=True)
+cleaner.clear_all_caches()
+```
+
+## What Gets Cleared
+
+### Standard Cleanup (`clear`)
+- PyTorch GPU memory cache
+- Python garbage collection
+- In-memory HuggingFace model cache
+- Python __pycache__ directories
+- Reports on cache sizes and temp files
+
+### Aggressive Cleanup (`aggressive`) 
+⚠️ **Warning: This deletes downloaded models!**
+
+Everything from standard cleanup, plus:
+- HuggingFace cache directory (`~/.cache/huggingface`)
+- Sentence-transformers cache (`~/.cache/sentence_transformers`) 
+- Torch cache directory (`~/.cache/torch`)
+- Cache directories from environment variables
+
+## Requirements
+
+- Python 3.8+
+- PyTorch (for GPU cache clearing)
+- Optional: transformers, sentence-transformers
+
+## License
+
+MIT License
+
+## Contributing
+
+Contributions welcome! Please read our contributing guidelines and submit pull requests.
