@@ -1,0 +1,29 @@
+[project]
+name = "jp-range"
+version = "0.4.0"
+description = "Utilities for parsing Japanese numeric ranges."
+readme = "README.md"
+authors = [
+    { name = "neka-nat", email = "nekanat.stock@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "neologdn>=0.5.4",
+    "pandas>=2.2.3",
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+excel = [
+    "openpyxl>=3.1.5",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.0",
+    "ruff>=0.11.12",
+]
