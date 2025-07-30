@@ -1,0 +1,67 @@
+Metadata-Version: 2.4
+Name: openai-async-utils
+Version: 0.1.0
+Summary: Async helpers for OpenAI chat
+Author-email: Mubashir Ahmed Siddiqui <mubashirsidiki@gmail.com>
+License: MIT
+Keywords: openai,asyncio,utility
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: openai>=0.27.0
+Dynamic: license-file
+
+# openai-async-utils
+
+Lightweight async helpers for OpenAI chat completions:
+- **call_openai_api**: one-shot request with retries.
+- **stream_openai_api**: yields response chunks with retries.
+
+---
+
+## Install
+
+```bash
+pip install openai-async-utils
+export OPENAI_API_KEY="sk-…"
+````
+
+You can also pass `api_key="sk-…"` directly to functions.
+
+---
+
+## Quick Example
+
+```python
+import asyncio
+from openai_utils import call_openai_api, stream_openai_api
+
+async def main():
+    sys = "You are a helpful assistant."
+    prev = [{"role": "user", "content": "Hello!"}]
+
+    # Full response
+    text, usage = await call_openai_api(sys, prev)
+    print(text, usage)
+
+    # Streaming response
+    async for chunk in stream_openai_api(sys, prev):
+        print(chunk, end="")
+
+asyncio.run(main())
+```
+
+---
+
+## API
+
+* **call\_openai\_api(system\_prompt, previous\_prompts, api\_key=None, validation\_schema=None, model="gpt-3.5-turbo", max\_attempts=3)**
+  Returns `(response_str, {"prompt_tokens":…, "completion_tokens":…, "total_tokens":…})`.
+
+* **stream\_openai\_api(system\_prompt, previous\_prompts, api\_key=None, model="gpt-3.5-turbo", max\_attempts=3)**
+  Async generator yielding text chunks.
+
+---
+
+## License
+
+MIT
