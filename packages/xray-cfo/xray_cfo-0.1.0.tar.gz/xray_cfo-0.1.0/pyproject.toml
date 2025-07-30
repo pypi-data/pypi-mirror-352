@@ -1,0 +1,78 @@
+[project]
+name = "xray-cfo"
+version = "0.1.0"
+description = "This is a library for xray-core created using autogeneration with the betterproto2 plugin"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "CFOSUP", email = "cfosup@proton.me"}
+]
+requires-python = ">=3.13"
+dependencies = [
+    "betterproto2[all]>=0.5.1",
+    "cryptography>=44.0.3",
+    "grpcio-tools>=1.71.0",
+    "pydantic>=2.11.4",
+]
+
+[dependency-groups]
+dev = [
+    "betterproto2-compiler>=0.5.1",
+    "black>=25.1.0",
+    "isort>=6.0.1",
+    "ruff>=0.9.10",
+]
+
+[tool.isort]
+py_version = 313
+src_paths = ["xray_cfo"]
+line_length = 120
+multi_line_output = 3
+force_grid_wrap = 0
+include_trailing_comma = true
+split_on_trailing_comma = false
+single_line_exclusions = ["."]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+skip_gitignore = true
+extend_skip = ["__pycache__"]
+extend_skip_glob = ["app/bot/locales/*"]
+
+
+[tool.ruff]
+target-version = "py313"
+src = ["xray_cfo"]
+line-length = 120
+exclude = [
+    ".git",
+    ".ruff_cache",
+    "__pypackages__",
+    "__pycache__",
+    "*.pyi",
+    ".venv",
+    ".git-rewrite",
+    ".pytype",
+    ".scripts",
+    ".doc",
+    ".test"
+]
+
+[tool.ruff.lint]
+select = ["ALL"]
+preview = true
+ignore = [
+    "F401", "ANN101", "ANN401", "E712", "ERA001", "A002", "RUF029", "DOC201", "DTZ007", "DTZ005",
+    "ANN102", "TD003", "FIX002", "I001", "D101", "D102", "D", "ARG", "ANN003", "INP001",
+    "CPY", "COM812", "ISC001", "A003", "N818", "B024", "FBT", "PLR0913", "RUF001", "PLR6301", "PLR0917"
+]
+unfixable = ["B013", "B024", "E712"]
+
+[tool.ruff.format]
+preview = true
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402"]
+"**/{tests,docs,tools}/*" = ["E402"]
