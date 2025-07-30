@@ -1,0 +1,47 @@
+# MANIFEST.in - 指定需要包含在发布包中的文件
+
+# 核心文件
+include README.md
+include LICENSE
+include requirements.txt
+include pyproject.toml
+
+# 配置文件
+include MANIFEST.in
+include Makefile
+
+# 主要文档（整合后的两个文档）
+include README.md                # Loki Handler 使用指南
+include grafana-loki-push.md     # 部署和运维指南
+
+# Docker和配置文件
+include docker-compose.yml
+recursive-include config *.yml *.yaml *.json *.conf
+
+# 包含包中的所有Python文件
+recursive-include grafana_loki_push *.py
+recursive-include grafana_loki_push *.yml *.yaml *.json *.conf
+
+# 测试文件
+include test_package.py
+include test_logger_advanced.py
+
+# 排除不需要的文件
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .git*
+global-exclude .DS_Store
+global-exclude *.swp
+global-exclude *.swo
+
+# 排除构建产物
+prune dist/
+prune build/
+prune *.egg-info/
+
+# 排除开发工具配置
+exclude .gitignore
+exclude .pre-commit-config.yaml
+exclude .flake8
+exclude mypy.ini
+exclude pytest.ini 
