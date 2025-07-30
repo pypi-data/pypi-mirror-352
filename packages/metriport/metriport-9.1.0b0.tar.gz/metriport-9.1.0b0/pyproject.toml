@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "metriport"
+version = "9.1.0b0"
+description = ""
+readme = "README.md"
+authors = []
+packages = [
+    { include = "metriport", from = "src"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+httpx = ">=0.21.2"
+pydantic = ">= 1.9.2, < 2.5.0"
+python-dotenv = "^1.0.0"
+fastapi = "^0.109.1"
+
+[tool.poetry.dev-dependencies]
+mypy = "0.971"
+pytest = "^7.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
