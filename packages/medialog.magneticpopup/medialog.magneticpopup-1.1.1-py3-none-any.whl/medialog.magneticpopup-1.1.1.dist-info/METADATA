@@ -1,0 +1,164 @@
+Metadata-Version: 2.1
+Name: medialog.magneticpopup
+Version: 1.1.1
+Summary: Add magnetic popup to Plone 6
+Home-page: https://pypi.python.org/pypi/medialog.magneticpopup
+Author: Espen Moe-Nilssen
+Author-email: espen@medialog.no
+License: GPL version 2
+Keywords: Python Plone
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Plone
+Classifier: Framework :: Plone :: 5.0
+Classifier: Framework :: Plone :: 6.0
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Requires-Dist: plone.api
+Requires-Dist: Products.GenericSetup >=1.8.2
+Requires-Dist: setuptools
+Requires-Dist: z3c.jbot
+Provides-Extra: test
+Requires-Dist: plone.app.testing ; extra == 'test'
+Requires-Dist: plone.testing >=5.0.0 ; extra == 'test'
+Requires-Dist: plone.app.contenttypes ; extra == 'test'
+Requires-Dist: plone.app.robotframework[debug] ; extra == 'test'
+
+.. This README is meant for consumption by humans and pypi. Pypi can render rst files so please do not use Sphinx features.
+   If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
+   This text does not appear on pypi or github. It is a comment.
+
+==============================================================================
+medialog.magneticpopup
+==============================================================================
+Adds popup to images
+
+
+Features
+--------
+- Images embedded in a page, as well as the image shown on the ...jpg/view page, will popup in a jquery style lightbox.
+- If using a responsive theme, the popup image responds to the display size.
+- Upon clicking on embedded image, it pops up to its full size if display size permits, otherwise it scales down to size of display.
+- Title is taken from caption that was added to image or if none, from file name.
+- There is a control panel where you can choose image classes and image sizes
+
+
+Examples
+--------
+This add-on can be seen in action at the following sites:
+
+- classroom Plone site http://sci.mpls.k12.mn.us/
+
+
+Translations
+------------
+This product has been translated into
+- Klingon (thanks, K'Plai)
+
+
+Installation
+------------
+1. Install medialog.magneticpopup by adding it to your buildout::
+
+    [buildout]
+
+    ...
+
+    eggs =
+        medialog.magneticpopup
+
+
+2. Next, run: ``bin/buildout``.
+3. Finally, go to your site setup/addons and enable this new addon.
+
+Contribute
+----------
+
+- Issue Tracker: https://github.com/collective/medialog.magneticpopup/issues
+- Source Code: https://github.com/collective/medialog.magneticpopup
+
+
+
+Support
+-------
+
+If you are having issues, please let us know.
+
+
+
+License
+-------
+
+The project is licensed under the GPLv2.
+
+Upload pypi
+------------
+twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+
+
+Contributors
+============
+
+- Espen Moe-Nilssen, espen@medialog.no
+
+
+Changelog
+=========
+
+1.1 (25.03.2020)
+------------------
+
+- Plone 5.2 support  [espenmn]
+
+
+1.0 (12.05.2019)
+------------------
+
+- First official release  [espenmn]
+
+1.0a6 (30.03.2019)
+------------------
+
+- add data popup size
+  [espenmn]
+
+
+1.0a5 (14.03.2019)
+------------------
+
+- fix popup url so it works with news items
+  [espenmn]
+
+
+1.0a3 (12.12.2018)
+------------------
+
+- Add img/js selector
+  [espenmn]
+
+
+1.0a2 (05.05.2018)
+------------------
+
+- Change img selector to .image-left etc (local images)
+  [espenmn]
+
+
+1.0a2 (08.08.2017)
+------------------
+
+- Change #content-core selector to #content
+  [espenmn]
+
+1.0a1 (08.08.2017)
+------------------
+
+  - Initial release.
+    [espenmn]
+
+1.1 (05.06.2025)
+------------------
+
+  - Update for Plone 6 / python 3
+    [espenmn]
