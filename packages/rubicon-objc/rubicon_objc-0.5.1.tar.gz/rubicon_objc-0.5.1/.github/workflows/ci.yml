@@ -1,0 +1,101 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_call:
+    inputs:
+      attest-package:
+        description: "Create GitHub provenance attestation for the package."
+        default: "false"
+        type: string
+    outputs:
+      artifact-name:
+        description: "Name of the uploaded artifact; use for artifact retrieval."
+        value: ${{ jobs.package.outputs.artifact-name }}
+
+# Cancel active CI runs for a PR before starting another run
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  FORCE_COLOR: "1"
+
+jobs:
+  pre-commit:
+    name: Pre-commit checks
+    uses: beeware/.github/.github/workflows/pre-commit-run.yml@main
+    with:
+      runner-os: "macos-latest"
+
+  towncrier:
+    name: Check towncrier
+    uses: beeware/.github/.github/workflows/towncrier-run.yml@main
+    with:
+      runner-os: "macos-latest"
+
+  package:
+    name: Package Rubicon-ObjC
+    permissions:
+      id-token: write
+      contents: read
+      attestations: write
+    uses: beeware/.github/.github/workflows/python-package-create.yml@main
+    with:
+      attest: ${{ inputs.attest-package }}
+
+  unit-tests:
+    name: Unit tests
+    needs: [ pre-commit, towncrier, package ]
+    runs-on: ${{ matrix.platform }}
+    continue-on-error: false
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [
+          # X86-64 runners
+          "macos-13",
+          # M1 runners
+          "macos-14", "macos-15"
+        ]
+        python-version: [ "3.9", "3.10", "3.11", "3.12", "3.13", "3.14" ]
+        exclude:
+          # actions/setup-python doesn't provide Python 3.9 for M1.
+          - platform: "macos-14"
+            python-version : "3.9"
+
+          - platform: "macos-15"
+            python-version : "3.9"
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.2.2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5.6.0
+      with:
+        python-version: ${{ matrix.python-version }}
+        allow-prereleases: true
+
+    - name: Get packages
+      uses: actions/download-artifact@v4.3.0
+      with:
+        name: ${{ needs.package.outputs.artifact-name }}
+        path: dist
+
+    - name: Install Tox
+      uses: beeware/.github/.github/actions/install-requirement@main
+      with:
+        requirements: tox
+        extra: dev
+
+    - name: Test
+      run: tox -e py --installpkg dist/rubicon_objc-*.whl
