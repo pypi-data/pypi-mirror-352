@@ -1,0 +1,112 @@
+<configure
+    xmlns:zope="http://namespaces.zope.org/zope"
+    xmlns="http://namespaces.zope.org/browser"
+    i18n_domain="p01">
+
+  <!-- zope error views used by ZopePublication -->
+  <page
+      name="error"
+      class=".error.InternalErrorView"
+      for="zope.interface.common.interfaces.IException"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      permission="zope.Public"
+      />
+  <page
+      name="error"
+      class=".error.MethodNotFoundView"
+      for="zope.publisher.interfaces.INotFound"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      permission="zope.Public"
+      />
+  <page
+      name="error"
+      class=".error.MethodNotFoundView"
+      for="zope.publisher.interfaces.ITraversalException"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      permission="zope.Public"
+      />
+  <page
+      name="error"
+      class=".error.InternalErrorView"
+      for="zope.exceptions.interfaces.IUserError"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      permission="zope.Public"
+      />
+
+
+  <!-- JSON-RPC error views used by ZopePublication -->
+  <page
+      name="error"
+      class=".error.InternalErrorView"
+      for=".interfaces.IJSONRPCException"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      permission="zope.Public"
+      />
+  <page
+      name="error"
+      class=".error.ParseErrorView"
+      for=".exception.ParseError"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      permission="zope.Public"
+      />
+  <page
+      name="error"
+      class=".error.InvalidRequestErrorView"
+      for=".exception.InvalidRequest"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      permission="zope.Public"
+      />
+  <page
+      name="error"
+      class=".error.MethodNotFoundView"
+      for=".exception.MethodNotFound"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      permission="zope.Public"
+      />
+  <page
+      name="error"
+      class=".error.InvalidParamsErrorView"
+      for=".exception.InvalidParams"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      permission="zope.Public"
+      />
+  <page
+      name="error"
+      class=".error.InternalErrorView"
+      for=".exception.InternalError"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      permission="zope.Public"
+      />
+
+  <!-- default view names -->
+  <defaultView
+      name="error"
+      for=".interfaces.IJSONRPCException"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      />
+
+  <defaultView
+      name="error"
+      for="zope.interface.common.interfaces.IException"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      />
+
+  <defaultView
+      name="error"
+      for="zope.publisher.interfaces.ITraversalException"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      />
+
+  <defaultView
+      name="error"
+      for="zope.exceptions.interfaces.IUserError"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      />
+
+  <defaultView
+      name="error"
+      for="zope.publisher.interfaces.INotFound"
+      layer="p01.jsonrpc.layer.IJSONRPCLayer"
+      />
+
+</configure>
