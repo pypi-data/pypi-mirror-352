@@ -1,0 +1,56 @@
+# See: https://packaging.python.org/en/latest/tutorials/packaging-projects/
+# See: https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langchain-asimov"
+description = "LangChain integration with the ASIMOV platform."
+readme = "README.md"
+license = "Unlicense"
+license-files = ["UNLICENSE"]
+authors = [{ name = "ASIMOV Protocol", email = "support@asimov.so" }]
+requires-python = ">=3.9"
+dependencies = ["langchain-core>=0.3", "PyLD>=2"]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/asimov-platform"
+Repository = "https://github.com/asimov-platform/langchain-asimov"
+Changelog = "https://github.com/asimov-platform/langchain-asimov/blob/master/CHANGES.md"
+Releases = "https://github.com/asimov-platform/langchain-asimov/releases"
+Issues = "https://github.com/asimov-platform/langchain-asimov/issues"
+
+[dependency-groups]
+dev = []
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-git-committers-plugin-2>=2.5",
+    "mkdocs-git-revision-date-localized-plugin>=1.2",
+    "mkdocs-llmstxt>=0.2",
+    "mkdocs-material[imaging]>=9.5",
+    "mkdocstrings[python]>=0.29",
+]
+lint = ["ruff"]
+test = ["pytest"]
+
+[tool.hatch.version]
+source = "vcs"
+fallback-version = "0.0.0"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "langchain_asimov/_version.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [".*"]
+
+[tool.hatch.envs.default]
+installer = "uv"
+
+[tool.mypy]
+disallow_untyped_defs = true
+
+[tool.uv]
+default-groups = ["dev", "docs"]
