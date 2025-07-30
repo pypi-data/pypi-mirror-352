@@ -1,0 +1,33 @@
+[package]
+name = "lib_tsalign"
+description = "A sequence-to-sequence aligner that accounts for template switches"
+license.workspace = true
+authors = ["Sebastian Schmidt <sebastian.schmidt@helsinki.fi>"]
+version = "0.15.0"
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+
+[features]
+serde = [
+    "dep:serde",
+    "noisy_float/serde",
+    "ndarray/serde",
+    "generic_a_star/serde",
+]
+
+[dependencies]
+compact-genome.workspace = true
+traitsequence.workspace = true
+ndarray = "0.16.1"
+binary-heap-plus = "0.5.0"
+nom = "8.0.0"
+thiserror = "2.0.3"
+num-traits.workspace = true
+serde = { workspace = true, features = ["derive"], optional = true }
+noisy_float = { version = "0.2.0" }
+generic_a_star = { version = "0.15.0", path = "../generic_a_star" }
+log.workspace = true
+seed_chain = { version = "0.15.0", path = "../seed_chain" }
+deterministic_default_hasher = "0.14.2"
+extend_map = "0.14.3"

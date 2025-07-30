@@ -1,0 +1,18 @@
+[package]
+name = "generic_a_star"
+description = "A generic implementation of the A* algorithm"
+version = "0.15.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[features]
+serde = ["dep:serde"]
+
+[dependencies]
+binary-heap-plus = "0.5.0"
+deterministic_default_hasher = "0.14.2"
+num-traits.workspace = true
+serde = { workspace = true, features = ["derive"], optional = true }
+extend_map = "0.14.4"
