@@ -1,0 +1,7 @@
+[project]
+name="papers-please"
+dynamic = ["dependencies", "version"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+version = {attr = "papers_please.__version__"}
