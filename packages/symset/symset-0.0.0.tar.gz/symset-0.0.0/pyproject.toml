@@ -1,0 +1,108 @@
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+
+[project]
+name = "symset"
+version = "0.0.0"
+description = "Symbolic Sets for Python, written in Rust"
+readme = "README.md"
+authors = [{name = "Joren Hammudoglu", email = "jhammudoglu@gmail.com"}]
+license = "BSD-3-Clause"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Rust",
+    "Topic :: Scientific/Engineering",
+    "Typing :: Typed",
+]
+requires-python = ">=3.11"
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/jorenham/symset/"
+Issues = "https://github.com/jorenham/symset/issues"
+Changelog = "https://github.com/jorenham/symset/releases"
+
+
+[dependency-groups]
+dev = [
+    "maturin>=1.8.6",
+    "maturin-import-hook>=0.2.0",
+    "basedpyright>=1.29.2",
+    "pytest>=8.4.0",
+    "hypothesis>=6.135.0",
+    "ruff>=0.11.12",
+]
+
+
+[tool.maturin]
+module-name = "symset._core"
+python-packages = ["symset"]
+features = ["pyo3/extension-module"]
+
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = ["-ra", "--strict-config", "--strict-markers"]
+filterwarnings = ["error"]
+log_cli_level = "INFO"
+xfail_strict = true
+
+
+[tool.pyright]
+include = ["symset", "tests"]
+ignore = [".venv", "target"]
+stubPath = "."
+pythonPlatform = "All"
+typeCheckingMode = "strict"
+deprecateTypingAliases = true
+enableReachabilityAnalysis = false
+enableTypeIgnoreComments = false
+reportCallInDefaultInitializer = true
+reportImplicitOverride = true
+reportImplicitStringConcatenation = false
+reportImportCycles = true
+reportMissingSuperCall = true
+reportPrivateImportUsage = false
+reportPrivateUsage = false
+reportShadowedImports = true
+reportUninitializedInstanceVariable = true
+reportUnusedImport = false
+reportUnnecessaryTypeIgnoreComment = true
+
+
+[tool.ruff]
+src = ["symset", "tests"]
+extend-exclude = [".git", ".cache", ".mypy_cache", "debug", "target"]
+force-exclude = true
+preview = true
+
+[tool.ruff.format]
+line-ending = "lf"
+skip-magic-trailing-comma = true
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["CPY", "FIX", "TD", "COM812"]
+
+[tool.ruff.lint.isort]
+case-sensitive = true
+combine-as-imports = true
+extra-standard-library = ["_typeshed", "typing_extensions"]
+known-first-party = ["symset"]
+split-on-trailing-comma = false
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
