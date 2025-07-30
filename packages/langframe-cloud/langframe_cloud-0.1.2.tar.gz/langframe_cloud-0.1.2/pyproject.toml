@@ -1,0 +1,55 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langframe-cloud"
+version = "0.1.2"
+authors = [{ name = "typedef", email = "hello@typedef.ai" }]
+description = "Collection of utilities to allow langframe OSS to communicate with typedef cloud."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "License :: Other/Proprietary License",
+]
+license = "LicenseRef-Proprietary"
+license-files = ["LICEN[CS]E*"]
+
+dependencies = [
+  # pinned for compatibility with ariadne-codegen
+  "pydantic>=2.0.0,<3.0.0",
+  "httpx~=0.23",
+  "websockets~=11.0",
+  "requests>=2.31.0",
+  # for protobuf/grpc
+  "grpcio>=1.60.0",
+  "protobuf>=4.25.1",
+]
+
+[dependency-groups]
+dev = ["ariadne-codegen[subscriptions]>=0.14.0"]
+
+[tool.ariadne-codegen]
+schema_path = "../../../graphql/schema.graphql"
+queries_path = "../../../graphql/operations/"
+target_package_name = "generated_graphql_client"
+target_package_path = "src/langframe_cloud/hasura_client/"
+base_client_file_path = "src/langframe_cloud/hasura_client/custom_base_client/async_base_client.py"
+base_client_name = "AsyncBaseClient"
+
+[tool.ariadne-codegen.scalars.timestamptz]
+type = "datetime.datetime"
+
+[tool.ariadne-codegen.scalars.uuid]
+type = "uuid.UUID"
+
+[tool.ariadne-codegen.scalars.jsonb]
+type = "str"
+
+[tool.ariadne-codegen.scalars.json]
+type = "str"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/langframe_cloud"]
