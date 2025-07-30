@@ -1,0 +1,106 @@
+Metadata-Version: 2.4
+Name: multiplayer-opentelemetry
+Version: 0.0.8
+Summary: Multiplayer OpenTelemetry Python API
+Project-URL: Homepage, https://github.com/multiplayer-app/multiplayer-otlp-python
+Project-URL: Repository, https://github.com/multiplayer-app/multiplayer-otlp-python
+Author-email: Multiplayer Authors <hello@multiplayer.app>
+License: Apache-2.0
+License-File: LICENSE
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Framework :: OpenTelemetry
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Typing :: Typed
+Requires-Python: >=3.8
+Requires-Dist: opentelemetry-api>=1.29.0
+Requires-Dist: opentelemetry-exporter-otlp-proto-grpc>=1.29.0
+Requires-Dist: opentelemetry-exporter-otlp-proto-http>=1.29.0
+Requires-Dist: opentelemetry-sdk>=1.29.0
+Description-Content-Type: text/markdown
+
+multiplayer-opentelemetry
+============================================================================
+##  Introduction
+The multiplayer-opentelemetry module integrates OpenTelemetry with the Multiplayer platform to enable seamless trace collection and analysis. This library helps developers monitor, debug, and document application performance with detailed trace data. It supports flexible trace ID generation, sampling strategies.
+
+## Installation
+
+To install the `multiplayer-opentelemetry` module, use the following command:
+
+```bash
+pip install multiplayer-opentelemetry 
+```
+
+## Multiplayer Http Trace Exporter
+
+```python
+from multiplayer.opentelemetry.exporter.http.trace_exporter import MultiplayerOTLPSpanExporter
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+processor = BatchSpanProcessor(MultiplayerOTLPSpanExporter(
+    url = '<opentelemetry-collector-url>', # url is optional and can be omitted - default is https://api.multiplayer.app/v1/traces
+    apiKey = "<multiplayer-otel-key>"
+))
+```
+
+## Multiplayer Http Log Exporter
+
+```python
+from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
+from multiplayer.opentelemetry.exporter.http.log_exporter import MultiplayerOTLPLogExporter
+
+logProcessor = BatchLogRecordProcessor(MultiplayerOTLPLogExporter(
+    url = "<opentelemetry-collector-url>", # url is optional and can be omitted - default is https://api.multiplayer.app/v1/logs
+    apiKey = "<multiplayer-otel-key>"
+))
+```
+
+## Multiplayer Grpc Trace Exporter
+
+```python
+from multiplayer.opentelemetry.exporter.grpc.trace_exporter import MultiplayerOTLPSpanExporter
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+processor = BatchSpanProcessor(MultiplayerOTLPSpanExporter(
+    url = '<opentelemetry-collector-url>', # url is optional and can be omitted - default is https://api.multiplayer.app/v1/traces
+    apiKey = "<multiplayer-otel-key>"
+))
+```
+
+## Multiplayer Grpc Log Exporter
+
+```python
+from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
+from multiplayer.opentelemetry.exporter.grpc.log_exporter import MultiplayerOTLPLogExporter
+
+logProcessor = BatchLogRecordProcessor(MultiplayerOTLPLogExporter(
+    url = "<opentelemetry-collector-url>", # url is optional and can be omitted - default is https://api.multiplayer.app/v1/logs
+    apiKey = "<multiplayer-otel-key>"
+))
+```
+
+
+## Multiplayer trace Id generator
+
+```python
+from multiplayer.opentelemetry.trace.sampler import MultiplayerTraceIdRatioBasedSampler
+
+sampler = MultiplayerTraceIdRatioBasedSampler(rate = 1/2)
+```
+
+## Multiplayer trace id ratio based sampler
+
+```python
+from multiplayer.opentelemetry.trace.id_generator import MultiplayerRandomIdGenerator
+
+id_generator = MultiplayerRandomIdGenerator(autoDocTracesRatio = 1/1000)
+```
