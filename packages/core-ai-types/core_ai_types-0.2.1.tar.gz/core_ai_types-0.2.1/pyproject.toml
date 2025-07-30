@@ -1,0 +1,48 @@
+[project]
+name = "core-ai-types"
+version = "0.2.1"
+description = "Contains type definitions for CoreAI MCP integration."
+authors = [
+    { name = "Codify AG"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.11.5",
+]
+
+
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
+[tool.uv-dynamic-versioning]
+vcs = "git"
+style = "pep440"
+bump = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/core_ai"]
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    "FAST",
+    "A"
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.12",
+]
