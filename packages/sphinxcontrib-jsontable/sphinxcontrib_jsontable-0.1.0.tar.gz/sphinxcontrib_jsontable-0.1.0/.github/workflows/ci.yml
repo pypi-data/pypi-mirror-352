@@ -1,0 +1,169 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  # Use consistent Python version across jobs
+  PYTHON_VERSION: '3.11'
+  # Add cache versioning for better invalidation
+  CACHE_VERSION: v1
+
+jobs:
+  # Code Quality Check
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-quality-${{ env.CACHE_VERSION }}-${{ hashFiles('pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-quality-${{ env.CACHE_VERSION }}-
+          ${{ runner.os }}-pip-quality-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .[dev]
+
+    - name: Verify installation
+      run: |
+        python -c "import sphinxcontrib.jsontable; print('Package installed successfully')"
+        python -c "from sphinxcontrib.jsontable import __version__; print(f'Version: {__version__}')"
+
+    - name: Run ruff (linting)
+      run: |
+        echo "Running ruff linting..."
+        ruff check . --output-format=github
+
+    - name: Run ruff (formatting)
+      run: |
+        echo "Running ruff formatting check..."
+        ruff format --check . --diff
+
+    - name: Run mypy (type checking)
+      run: |
+        echo "Running mypy type checking..."
+        mypy . || echo "Mypy check completed with warnings (allowed during transition)"
+      # Allow mypy to fail for now as we're transitioning to strict typing
+      continue-on-error: true
+
+    - name: Security check with safety
+      run: |
+        echo "Running security check..."
+        pip install safety
+        safety check --json || echo "Safety check completed with warnings (allowed during transition)"
+      # Allow safety to fail for now to avoid blocking on dependency issues
+      continue-on-error: true
+
+  # Build and Package Test
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-build-${{ env.CACHE_VERSION }}-${{ hashFiles('pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-build-${{ env.CACHE_VERSION }}-
+          ${{ runner.os }}-pip-build-
+
+    - name: Install build dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+
+    - name: Build package
+      run: |
+        echo "Building package..."
+        python -m build
+
+    - name: Check package
+      run: |
+        echo "Checking package integrity..."
+        python -m twine check dist/*
+
+    - name: Test package installation
+      run: |
+        echo "Testing package installation..."
+        pip install dist/*.whl
+        python -c "import sphinxcontrib.jsontable; print('Package installed successfully')"
+        python -c "from sphinxcontrib.jsontable import __version__; print(f'Version: {__version__}')"
+
+  # Test Suite
+  test:
+    needs: [quality, build]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.10', '3.11', '3.12']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-test-${{ env.CACHE_VERSION }}-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-test-${{ env.CACHE_VERSION }}-${{ matrix.python-version }}-
+          ${{ runner.os }}-pip-test-${{ env.CACHE_VERSION }}-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .[test]
+
+    - name: Verify test installation
+      run: |
+        python -c "import sphinxcontrib.jsontable; print('Package installed successfully')"
+        python -c "import pytest; print('Pytest installed successfully')"
+
+    - name: Run tests
+      run: |
+        pytest tests/ --cov=sphinxcontrib.jsontable --cov-report=xml --cov-report=term-missing --cov-fail-under=80 -v
+
+    - name: Upload coverage to Codecov
+      if: matrix.python-version == '3.11' && matrix.os == 'ubuntu-latest'
+      uses: codecov/codecov-action@v5
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true

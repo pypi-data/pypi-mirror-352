@@ -1,0 +1,32 @@
+# ===== RUFF CONFIGURATION =====
+
+# Python のバージョン互換（CI 側の PYTHON_VERSION=3.10）
+target-version = "py310"
+
+# PEP8 に沿った最大行長 (Black と合わせて 88)
+line-length = 88
+
+# チェック対象から除外するディレクトリ・ファイル
+exclude = ["__pycache__", ".venv", "build", "dist", ".git"]
+
+[lint]
+select = ["E", "W", "F", "I", "UP", "B", "C4", "PIE", "T20", "RUF", "SIM"]
+ignore = ["E501", "E203", "B008", "PIE800", "T201", "T203", "SIM108", "SIM117"]
+
+[lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/**/*.py" = ["T201", "T203", "B011", "SIM117"]
+"conf.py" = ["E402"]
+"conftest.py" = ["E402"]
+"examples/**/*.py" = ["T201", "T203", "B008"]
+
+[lint.isort]
+known-first-party = ["sphinxcontrib.jsontable"]
+
+[format]
+line-ending = "auto"
+quote-style = "double"
+skip-magic-trailing-comma = false
+indent-style = "space"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
