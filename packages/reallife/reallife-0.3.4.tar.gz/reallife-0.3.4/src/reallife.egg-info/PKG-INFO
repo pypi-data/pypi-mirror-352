@@ -1,0 +1,25 @@
+Metadata-Version: 2.4
+Name: reallife
+Version: 0.3.4
+Summary: 客服端服务端
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: apscheduler>=3.11.0
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: toml>=0.10.2
+Provides-Extra: extra
+Requires-Dist: appscriptz>=0.1.4; extra == "extra"
+Requires-Dist: chinese-calendar>=1.10.0; extra == "extra"
+Requires-Dist: grapherz>=0.1.5; extra == "extra"
+Requires-Dist: kanbanz>=0.2.0; extra == "extra"
+Requires-Dist: llmada==0.1.11; extra == "extra"
+Requires-Dist: numpy>=2.2.5; extra == "extra"
+Requires-Dist: pandas>=2.2.3; extra == "extra"
+Requires-Dist: promptlibz>=0.2.1; extra == "extra"
+Requires-Dist: toolsz>=0.1.5; extra == "extra"
+
+# reallife : 项目级别
+我们开始做一个升级, 0.2 为稳定本地版, 0.3 要做成client 和server 的配合, 新拉一个分支来做
+快捷调度生活,将快捷指令系统构成的真实人生系统编写为以代码为主的模式, 为真实人生项目提供标准化工具
+
+python -m src.reallife.server
