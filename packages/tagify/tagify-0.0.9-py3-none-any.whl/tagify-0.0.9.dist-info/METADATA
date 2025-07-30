@@ -1,0 +1,35 @@
+Metadata-Version: 2.4
+Name: tagify
+Version: 0.0.9
+Summary: Parser that converts strings with variables and functions to more advance strings
+Author-email: AlexFlipnote <root@alexflipnote.dev>
+License: MIT
+Project-URL: Repository, https://github.com/xelA/tagify
+Keywords: discord,tag,parser,template
+Requires-Python: >=3.11.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: pyright; extra == "dev"
+Requires-Dist: flake8; extra == "dev"
+Requires-Dist: toml; extra == "dev"
+Provides-Extra: maintainer
+Requires-Dist: twine; extra == "maintainer"
+Requires-Dist: wheel; extra == "maintainer"
+Requires-Dist: build; extra == "maintainer"
+Dynamic: license-file
+
+# tagify
+Parser that converts strings with variables and functions to more advance strings
+
+Style is a bit inspired by jinja2 format, but not 100% the same.
+
+This project is very early development, I might use it or not, but I'm not sure.
+
+## Requirements
+- Python >=3.11
+
+## Install
+```
+pip install tagify
+```
