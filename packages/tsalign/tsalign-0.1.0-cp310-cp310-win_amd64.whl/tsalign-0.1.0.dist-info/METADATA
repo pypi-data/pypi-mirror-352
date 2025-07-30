@@ -1,0 +1,25 @@
+Metadata-Version: 2.4
+Name: tsalign
+Version: 0.1.0
+Classifier: Programming Language :: Rust
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Summary: Python Bindings for `lib_tsalign`
+Author: Sebastian Schmidt <sebastian.schmidt@helsinki.fi>, Jasper Krauter <jasper.krauter@helsinki.fi>
+Author-email: Sebastian Schmidt <sebastian.schmidt@helsinki.fi>, Jasper Krauter <jasper.krauter@helsinki.fi>
+License: BSD-2-Clause
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+Project-URL: Source Code, https://github.com/sebschmi/template-switch-aligner
+
+# Python Bindings for [`lib_tsalign`](https://crates.io/crates/lib_tsalign)
+
+[![PyPI](https://img.shields.io/pypi/v/tsalign)](https://pypi.org/project/tsalign/)
+
+These bindings are still very minimal and are subject to improvement and/or breaking changes with future versions.
+
+## Usage
+Install with `pip install tsalign`.
+
+The most important function is `tsalign.align(reference, query, **settings)`. On the object that is returned, you can e.g. call `.stats()` or `.cigar()`.
+
