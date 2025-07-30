@@ -1,0 +1,99 @@
+Metadata-Version: 2.4
+Name: snaplogic-common-robot
+Version: 2025.6.3.1
+Summary: Robot Framework library with keywords for SnapLogic API testing and automation
+Author-email: Your Name <your.email@snaplogic.com>
+Project-URL: homepage, https://github.com/SnapLogic/snaplogic-common-robot#readme
+Project-URL: repository, https://github.com/SnapLogic/snaplogic-common-robot
+Keywords: robotframework,snaplogic,api,testing,automation
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Testing
+Classifier: Framework :: Robot Framework
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: robotframework
+Requires-Dist: robotframework-requests
+Requires-Dist: robotframework-docker
+Requires-Dist: robotframework-databaselibrary
+Requires-Dist: robotframework-jsonlibrary
+Requires-Dist: robotframework-robocop
+Requires-Dist: robotframework-tidy[generate_config]
+Requires-Dist: robotframework-dependencylibrary
+Requires-Dist: robotframework-csvlibrary
+Requires-Dist: robotframework-jsonlibrary
+Requires-Dist: envyaml
+Requires-Dist: deepdiff
+Requires-Dist: pyyaml
+Requires-Dist: jinja2
+Requires-Dist: tabulate
+Requires-Dist: pymongo
+Requires-Dist: awscli
+Requires-Dist: build
+Requires-Dist: python-dotenv
+Requires-Dist: boto3
+Requires-Dist: cookiecutter
+Requires-Dist: twine
+Requires-Dist: requests
+Requires-Dist: minio
+
+# SnapLogic Common Robot Framework Library
+
+A comprehensive Robot Framework library providing keywords for SnapLogic platform automation and testing.
+
+## 🚀 Features
+
+- **SnapLogic APIs**: Low-level API keywords for direct platform interaction
+- **SnapLogic Keywords**: High-level business keywords for common operations  
+- **Common Utilities**: Shared utilities for database connections and file operations
+- **Comprehensive Documentation**:  After installation, access the comprehensive HTML documentation through index.html
+
+
+
+```bash
+pip install snaplogic-common-robot
+```
+
+
+## 🔑 Available Keywords
+
+### SnapLogic APIs
+- Pipeline management and execution
+- Task monitoring and control
+- Data operations and validation
+
+### SnapLogic Keywords  
+- High-level business operations
+- Pre-built test scenarios
+- Error handling and reporting
+
+### Common Utilities
+- **Connect to Oracle Database**: Sets up database connections using environment variables
+- File operations and data handling
+- Environment setup and configuration
+
+## 🛠️ Requirements
+
+- Python 3.12+
+- Robot Framework
+- Database connectivity libraries
+- HTTP request libraries
+
+## 🏗️ Development
+
+```bash
+# Clone the repository
+git clone <repository-url>
+
+# Install development dependencies
+pip install -r src/requirements.txt
+
+```
+
+
+## 🏢 About SnapLogic
+
+This library is designed for testing and automation of SnapLogic integration platform operations.
