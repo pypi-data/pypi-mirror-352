@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title|default('河南农业大学消息推送中心') }}</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.5/cdn.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div x-data="{
+        isWeixinBrowser: false,
+        loading: true,
+        isError: {{ is_error|default('false') }},
+        baseUrl: '{{ base_url|default('https://oauth.henau.edu.cn/oauth2') }}',
+        appId: '{{ app_id|default('nd51f865dece11bdfe') }}',
+        redirectUri: '',
+        qrURL: '',
+        
+        init() {
+            // Check if browser is WeChat
+            const ua = navigator.userAgent.toLowerCase();
+            this.isWeixinBrowser = ua.indexOf('micromessenger') !== -1;
+            
+            // Set redirect URI
+            this.redirectUri = encodeURIComponent(`${location.origin}{{ redirect_uri|default('/login') }}`);
+            
+            // Construct QR URL
+            const commonParams = `appid=${this.appId}&redirect_uri=${this.redirectUri}&response_type=code&scope=henauapi_`;
+            this.qrURL = `${this.baseUrl}_qr_connect/login?${commonParams}login`;
+            
+            this.loading = false;
+            
+            // Handle code if present in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('code')) {
+                const code = urlParams.get('code');
+                // In a real implementation, you'd make a server request
+                // Since this is a template, we'll redirect to error or success based on a parameter
+                if (this.isError) {
+                    this.loading = false;
+                } else {
+                    // Simulate successful login
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                }
+            } else if (this.isWeixinBrowser) {
+                // For WeChat browsers
+                window.location.href = `${this.baseUrl}_connect/authorize?${commonParams}userinfo`;
+            }
+        }
+    }" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 relative overflow-hidden">
+        <!-- Animated background -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -inset-1/4 animate-pulse">
+                <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-200 rounded-full opacity-20"></div>
+                <div class="absolute top-3/4 left-1/2 w-48 h-48 bg-indigo-200 rounded-full opacity-20"></div>
+                <div class="absolute top-1/2 left-3/4 w-40 h-40 bg-purple-200 rounded-full opacity-20"></div>
+            </div>
+            <div class="absolute -inset-1/4 animate-pulse" style="animation-delay: 1s">
+                <div class="absolute bottom-1/4 right-1/4 w-56 h-56 bg-blue-200 rounded-full opacity-20"></div>
+                <div class="absolute top-1/3 right-2/3 w-36 h-36 bg-indigo-200 rounded-full opacity-20"></div>
+            </div>
+        </div>
+
+        <!-- Loading screen -->
+        <template x-if="loading">
+            <div class="flex items-center justify-center min-h-screen bg-gray-50">
+                <div class="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+            </div>
+        </template>
+
+        <!-- Main content -->
+        <div x-show="!loading" class="w-full max-w-md z-10 text-white">
+            <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-8">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800">{{ school_name|default('河南农业大学') }}</h2>
+                    <p class="text-slate-600 mt-1">{{ system_name|default('河南农业大学消息推送中心') }}</p>
+                </div>
+
+                <!-- Error state -->
+                <template x-if="isError">
+                    <div class="flex flex-col items-center justify-center py-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <p class="text-red-500 text-lg font-medium mt-2">{{ error_message|default('登录失败 , 你可能没有权限登录') }}</p>
+                        <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded hover:bg-blue-600" 
+                                onclick="window.location.href='/login'">{{ retry_text|default('重试') }}</button>
+                    </div>
+                </template>
+
+                <!-- WeChat browser state -->
+                <template x-if="!isError && isWeixinBrowser">
+                    <div class="text-center py-8">
+                        <div class="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                        <p class="text-slate-600">{{ wechat_redirect_text|default('正在跳转到微信授权登录...') }}</p>
+                    </div>
+                </template>
+
+                <!-- QR code state -->
+                <template x-if="!isError && !isWeixinBrowser">
+                    <div>
+                        <div class="text-center mb-4">
+                            <h3 class="text-lg font-medium text-slate-700">{{ qr_title|default('请使用微信扫描二维码登录') }}</h3>
+                            <p class="text-slate-500 text-sm">{{ qr_subtitle|default('Scan QR code with WeChat') }}</p>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-lg overflow-hidden h-96 flex items-center justify-center">
+                            <iframe 
+                                title="Login QR Code" 
+                                class="w-full h-full" 
+                                :src="qrURL"
+                            ></iframe>
+                        </div>
+
+                        <div class="flex items-center text-sm text-slate-500 mt-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                            <p>{{ wechat_notice|default('请确保您的微信帐号已绑定学校账号') }}</p>
+                        </div>
+                    </div>
+                </template>
+
+                <div class="text-center text-xs text-slate-400 mt-6">
+                    <p class="mb-1">{{ management_unit|default('管理单位：河南农业大学信息化办公室') }}</p>
+                    <p>{{ technical_support|default('技术支持：河南农业大学IT工作室') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
