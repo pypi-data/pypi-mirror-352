@@ -1,0 +1,90 @@
+{
+    "process": {
+        "issue_analysis": "Use the issue summary to understand the issue and the recommendations to address it.",
+        "security_review": "Use the security concerns to understand the issue and the recommendations to address it.",
+        "implementation": "Use the recommendations to understand the issue and the recommendations to address it.",
+        "privacy_gate": "SECURITY GATE: Before implementing ANY API involving user data: □ Model PII audit completed □ Safe DTO created □ Privacy review checklist signed off □ Anti-pattern check passed ❌ Code generation BLOCKED until all boxes checked"
+    },
+    "security": {
+        "api_design": "Implement comprehensive input validation and sanitization for all API endpoints. Design APIs to AVOID exposing sensitive application architecture details, internal system identifiers, or infrastructure information that could be used for reconnaissance.",
+        "data_validation": "IMPORTANT!! ALWAYS validate and sanitize API response models before returning data to clients. Implement comprehensive checks to prevent exposure of sensitive data including credit card numbers, CVV codes, internal system identifiers, database keys, and other confidential information. Create explicit data transfer objects (DTOs) that only include necessary fields and exclude all PCI-regulated data elements.",
+        "model_inspection": "Perform deep inspection of data models before returning them in API responses to verify for potential data exposure. Recursively examine nested objects, arrays, and complex data structures to ensure no sensitive information is inadvertently included. Implement automated checks that traverse the entire object graph to identify and remove or mask sensitive fields, ensuring comprehensive protection against data leakage at all levels of the response structure.",
+        "MANDATORY_SECURITY_CHECKLIST": {
+            "before_api_response": {
+                "step_1": "List ALL fields in response model (including nested objects)",
+                "step_2": "Classify each field as PII/Non-PII using provided taxonomy",
+                "step_3": "Create sanitized DTO excluding ALL PII fields",
+                "step_4": "Verify DTO contains ONLY business-necessary data",
+                "validation": "STOP - Do not proceed until checklist complete"
+            }
+        }
+    },
+    "privacy": {
+        "CRITICAL_WARNING": "⚠️ CRITICAL: PII exposure results in $50K+ GDPR fines and immediate security incident. NO EXCEPTIONS.",
+        "data_minimization": "Implement strict data minimization principles to ensure only the minimum amount of personal financial data necessary is collected and stored. Avoid including specific user accounts in documentation - use generic placeholders instead. Provide transparent data practices with clear privacy policies and user controls to ensure users understand how their data is processed.",
+        "system_instruction": "SYSTEM INSTRUCTION: When implementing APIs involving user data: 1. ASSUME all user models contain PII 2. ALWAYS create separate response DTOs 3. NEVER return raw database models 4. VALIDATE: Ask yourself 'What PII am I exposing?'",
+        "pii_field_taxonomy": {
+            "direct_identifiers": [
+                "ssn",
+                "account_number",
+                "email",
+                "phone",
+                "user_id",
+                "customer_id"
+            ],
+            "quasi_identifiers": [
+                "address",
+                "zip_code",
+                "date_of_birth",
+                "full_name"
+            ],
+            "sensitive_attributes": [
+                "financial_data",
+                "account_balances",
+                "transaction_history",
+                "credit_score"
+            ],
+            "common_pii_fields": [
+                "ssn",
+                "phone",
+                "address",
+                "email",
+                "account_number",
+                "cvv",
+                "card_number"
+            ]
+        },
+        "MANDATORY_PRIVACY_WORKFLOW": {
+            "before_api_implementation": {
+                "step_1": "Run: List all fields that will be in the response",
+                "step_2": "Run: Identify PII in each field using NIST 800-122 definitions",
+                "step_3": "Run: Create PII-free response model",
+                "step_4": "ONLY THEN write the endpoint",
+                "validation": "All steps must be completed before code generation"
+            }
+        },
+        "required_patterns": {
+            "safe_dto_example": "class TransactionSafeResponse: id: str, amount: Decimal, transaction_type: TransactionType, timestamp: datetime # NO user field - PII excluded",
+            "validation_function": "def validate_no_pii_exposure(response_model): # Scan response model for PII fields - REQUIRED before API response",
+            "audit_function": "def audit_response_model(model_class): # Returns list of PII fields found in model (recursive)",
+            "safe_dto_creator": "def create_safe_dto(model_class, allowed_fields): # Creates PII-free DTO with only specified fields"
+        },
+        "automated_validation": "REQUIRE validation functions that recursively scan response models for PII fields before any API response. Implementation must traverse entire object graph including nested objects and arrays.",
+        "common_llm_failures": {
+            "tunnel_vision": "Focusing on functionality over privacy protection",
+            "pattern_following": "Following existing patterns without privacy review",
+            "nested_oversight": "Not examining nested object structures for PII",
+            "assumption_errors": "Assuming existing models are already sanitized"
+        },
+        "prohibited_patterns": {
+            "raw_model_return": "NEVER return raw database models in API responses",
+            "unsanitized_user_data": "NEVER include unsanitized user fields in response DTOs",
+            "pii_in_logs": "NEVER log PII data in monitoring or debugging output"
+        }
+    },
+    "operations": {
+        "monitoring": "Establish comprehensive logging and monitoring systems to track API access patterns and detect potential security incidents. Implement alerting mechanisms for suspicious activities while ensuring logs do not contain sensitive user data. Regular security audits and penetration testing should be conducted to identify vulnerabilities.",
+        "compliance": "Ensure compliance with relevant data protection regulations and industry standards including NIST, PCI DSS, GDPR where applicable. Implement controls that align with established security frameworks. Regular compliance reviews should be conducted to maintain adherence to security standards and legal requirements.",
+        "privacy_auditing": "Implement automated PII detection tools that scan all API responses before deployment. Establish regular privacy impact assessments and data flow mapping to ensure ongoing compliance with data protection regulations."
+    }
+}
