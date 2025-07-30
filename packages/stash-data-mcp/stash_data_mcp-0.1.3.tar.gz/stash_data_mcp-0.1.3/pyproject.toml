@@ -1,0 +1,22 @@
+[project]
+name = "stash-data-mcp"
+version = "0.1.3"
+description = "The ORM for AI Agents"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dotenv>=0.9.9",
+    "fastastra>=0.1.37",
+]
+
+[dependency-groups]
+dev = [
+    "pytest-asyncio>=0.26.0",
+    "pytest>=8.3.5",
+]
+
+[tool]
+uv.package = true
+
+[project.scripts] 
+stash-data-mcp = "stash_data_mcp.server:run"
