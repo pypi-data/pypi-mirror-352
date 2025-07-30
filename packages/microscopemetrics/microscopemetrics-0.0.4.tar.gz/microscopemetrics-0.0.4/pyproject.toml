@@ -1,0 +1,99 @@
+[build-system]
+requires = ["poetry-core>=1.7.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[project]
+name = "microscopemetrics"
+description = "A package providing analysis routines to measure the performance of microscopes used in biomedical research"
+authors = [
+    {name = "Julio Mateos Langerak", email = "julio.mateos-langerak@igh,cnrs.fr"},
+    {name = "Sotirios Papadiamantis", email = "sotirios.papadiamantis@univ-amu.fr"}
+]
+maintainers = [
+    {name = "Julio Mateos Langerak", email = "julio.mateos-langerak@igh,cnrs.fr"}
+]
+keywords = ["microscopy", "metrology"]
+license = {text = "GPL-3.0-only"}
+readme = "README.md"
+requires-python = ">=3.9.18,<3.12"
+include = [
+    "README.md",
+    "src/microscopemetrics",
+    "project"
+]
+dynamic = [
+    "classifiers",
+    "dependencies",
+]
+version = "0.0.4"
+
+[project.urls]
+homepage = "https://github.com/MontpellierRessourcesImagerie/microscope-metrics"
+repository = "https://github.com/MontpellierRessourcesImagerie/microscope-metrics"
+documentation = "https://github.com/MontpellierRessourcesImagerie/microscope-metrics/tree/master/docs"
+
+[tool.poetry]
+requires-poetry = ">=2.0"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Scientific/Engineering :: Image Processing"
+]
+
+[tool.poetry.dependencies]
+numpy = "^2"
+scikit-image = "^0"
+scipy = "^1"
+pandas = "^2"
+microscopemetrics-schema = "0.0.4"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8"
+hypothesis = "^6"
+tox = "^3"
+coverage = "^7"
+pytest-parallel = "^0.1.1"
+dvc = "^3"
+
+[tool.poetry.group.dev.dependencies]
+black = "^25"
+poetry = "^2"
+isort = "^6"
+pre-commit = "^4"
+
+[tool.poetry.requires-plugins]
+poetry-dynamic-versioning = ">=1.5.2"
+
+[tool.poetry-dynamic-versioning]
+enable = false
+vcs = "git"
+style = "pep440"
+strict = true
+
+[tool.pytest.ini_options]
+addopts = "--hypothesis-show-statistics --hypothesis-profile=dev --workers=auto"
+testpaths = [
+    "tests"
+]
+markers = [
+    "instantiation: marks tests that instantiate a MetricsDataset",
+    "run: marks tests that run a metric",
+    "analysis: marks tests that test correctness of analysis",
+    "errors: marks tests that should throw errors"
+]
+filterwarnings = [
+    "ignore:.*Support for class-based `config` is deprecated.*:DeprecationWarning",
+    "ignore:.*Pydantic V1 style `@validator` validators are deprecated.*:DeprecationWarning",
+    "ignore:.*urllib3 v2 only supports OpenSSL.*:Warning",
+]
+
+[tool.isort]
+profile = "black"
+
+
