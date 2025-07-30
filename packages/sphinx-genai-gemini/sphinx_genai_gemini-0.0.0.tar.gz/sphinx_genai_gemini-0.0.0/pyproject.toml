@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sphinx-genai-gemini"
+version = "0.0.0"
+authors = [{ name = "Kayce Basques", email = "kaycebasques@gmail.com" }]
+description = "TODO"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "Apache-2.0"
+
+[project.urls]
+Homepage = "https://github.com/kaycebasques/sphinx-genai"
+Issues = "https://github.com/kaycebasques/sphinx-genai/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sphinx-genai-gemini"]
