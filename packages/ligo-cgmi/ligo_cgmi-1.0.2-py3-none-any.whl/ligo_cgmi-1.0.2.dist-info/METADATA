@@ -1,0 +1,30 @@
+Metadata-Version: 2.3
+Name: ligo-cgmi
+Version: 1.0.2
+Summary: Coarse-grained chirp mass estimates for gravitational-wave events
+License: MIT
+Author: Andrew Toivonen
+Author-email: andrew.toivonen@ligo.org
+Requires-Python: >=3.11
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: argparse
+Requires-Dist: astropy
+Requires-Dist: h5py
+Requires-Dist: ligo-gracedb
+Requires-Dist: ligo-skymap (>=2.0.1)
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: pathlib
+Description-Content-Type: text/markdown
+
+# ligo-cgmi
+
+This package computes a source frame coarse-grained chirp mass estimate for gravitational-wave events. This is provided in the form of the probabilities that the chirp mass falls within a set of predetermined bins. In the case of Burst events, the estimate assumes a reshift of zero. There are two types of estimates:
+- `LL (Low-Latency) based`: found using the template point estimate, and in the case of CBC events, using the distance information provided by the Bayestar skymap to shift to the source frame
+- `PE (Parameter Estimation) based`: found using the source frame parameter estimation samples
+
