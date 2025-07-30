@@ -1,0 +1,9 @@
+[MEDS_transforms.stages]
+tensorization = meds_torchdata.preprocessing.tensorization:main
+tokenization = meds_torchdata.preprocessing.tokenization:main
+
+[console_scripts]
+MTD_preprocess = meds_torchdata.preprocessing.__main__:main
+
+[pytest11]
+meds_torchdata = meds_torchdata.pytest_plugin
