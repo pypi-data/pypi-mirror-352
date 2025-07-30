@@ -1,0 +1,233 @@
+
+awsdf package
+*************
+
+
+Submodules
+==========
+
+
+awsdf.aws module
+================
+
+This module enables connecting to AWS and extracting metadata in
+pandas dataframes.
+
+**Installing from PyPI:** *pip install -U awsdf*
+
+**USAGE:**
+
+   import awsdf
+
+   aws_account = awsdf.Account(profile_name=”<PROFILE_NAME>”)
+
+   glue_databases_df = aws_account.glue_get_databases()
+
+**class awsdf.aws.Account(aws_access_key_id=None,
+aws_secret_access_key=None, aws_session_token=None, region_name=None,
+profile_name=None)**
+
+   Instantiate class object for connecting to AWS and retriving
+   metadata from AWS
+
+   **__init__(aws_access_key_id=None, aws_secret_access_key=None,
+   aws_session_token=None, region_name=None, profile_name=None)**
+
+      Provide access keys OR Profile name to connect to AWS account.
+      Keys take preceedence
+
+      **Parameters:**
+
+         *aws_access_key_id (string) – AWS access key ID*
+
+         *aws_secret_access_key (string) – AWS secret access key*
+
+         *aws_session_token (string) – AWS temporary session token*
+
+         *region_name (string) – AWS region*
+
+         *profile_name (string) – AWS profile name*
+
+   **glue_get_jobs() -> DataFrame**
+
+      Get AWS Glue jobs
+
+      Returns:
+         dataframe
+
+   **glue_get_job_history(job_name, no_of_runs=1) -> DataFrame**
+
+      Retrieve glue job history
+
+      Arguments:
+         job_name – Name of job to retrive history
+
+      Keyword Arguments:
+         no_of_runs – No of runs to retrive in descending order
+         (default: {1})
+
+      Returns:
+         dataframe
+
+   **glue_get_databases() -> DataFrame**
+
+      Get AWS Glue jobs
+
+      Returns:
+         dataframe
+
+   **glue_get_tables(dbname=None) -> DataFrame**
+
+      Get AWS Glue tables
+
+      Keyword Arguments:
+         dbname – Database Name for which to retrieve tables (default:
+         {None})
+
+      Returns:
+         dataframe
+
+   **glue_get_fields(dbname, tablename) -> DataFrame**
+
+      Get AWS Glue table columns
+
+      Keyword Arguments:
+         dbname – Database Name for table tablename – Database Name
+         for which to retrieve columns
+
+      Returns:
+         dataframe
+
+   **athena_execute_query(database: str, query: str, use_cache: bool =
+   True)**
+
+      Execute athena query
+
+      Arguments:
+         database – Database name query – Query to execute
+
+      Keyword Arguments:
+         use_cache – Use cached results if any (default: {True})
+
+      Returns:
+         dataframe
+
+   **athena_data_dictionary(include_dbs: list = [], exclude_dbs: list
+   = []) -> DataFrame**
+
+      Get AWS Athean data dictionary. A data frame with all databases,
+      tables & fields with datatypes
+
+      Keyword Arguments:
+         include_dbs (optional) – list of databases to be included
+         exclude_dbs (optional) – list of databases to be excluded if
+         include_dbs list is empty.
+
+      Returns:
+         dataframe
+
+   **quicksight_get_datasources() -> DataFrame**
+
+      Get QuickSight datasources
+
+      Keyword Arguments:
+         N/A
+
+      Returns:
+         dataframe
+
+   **quicksight_get_datasets(includeDetails: bool = False) ->
+   DataFrame**
+
+      Get QuickSight datasets
+
+      Keyword Arguments:
+         includeDetails (optional) – Include addition details i.e.
+         ConsumedSpiceCapacityInBytes & Owner. Default=False
+
+      Returns:
+         dataframe
+
+   **quicksight_get_dataset_permissions(AwsAccountId: str, DataSetId:
+   str)**
+
+      Get QuickSight dataset permissions
+
+      Keyword Arguments:
+         AwsAccountId – AWS account id DataSetId – Dataset id
+
+      Returns:
+         dataframe
+
+   **quicksight_get_dataset_details(datasetId: str) -> dict**
+
+      Get QuickSight dataset details
+
+      Keyword Arguments:
+         DataSetId – Dataset id
+
+      Returns:
+         dataframe
+
+   **quicksight_get_dashboards(includeDetails: bool = False) ->
+   DataFrame**
+
+      Get QuickSight dashboards
+
+      Keyword Arguments:
+         includeDetails (optional) – **NOT IMPLEMENTED** Include
+         addition details. Default=False
+
+      Returns:
+         dataframe
+
+   **quicksight_get_dashboard_details(dashboardId: str) -> dict**
+
+      Get QuickSight dashboard details
+
+      Keyword Arguments:
+         dashboardId – Dashboard id
+
+      Returns:
+         dictionary
+
+   **kms_encrypt(plaintext: str, key_id: str) -> str**
+
+      Encrypt a plaintext string using AWS KMS and return
+      base64-encoded ciphertext.
+
+      Parameters:
+         plaintext (str): The string to encrypt. key_id (str): The KMS
+         key ARN or ID.
+
+      Returns:
+         str: base64-encoded ciphertext
+
+   **kms_decrypt(ciphertext_b64: str) -> str**
+
+      Decrypt a base64-encoded ciphertext string using AWS KMS and
+      return the plaintext.
+
+      Parameters:
+         ciphertext_b64 (str): base64-encoded ciphertext
+
+      Returns:
+         str: decrypted plaintext string
+
+   **get_secret_from_secrets_manager(secret_name: str) -> dict**
+
+      Retrieve a secret value from AWS Secrets Manager.
+
+      Parameters:
+         secret_name (str): The name or ARN of the secret.
+
+      Returns:
+         str: The secret string value.
+
+      Raises:
+         ClientError: If retrieval fails due to permission or
+         configuration issues.
+
+
+Module contents
+===============
