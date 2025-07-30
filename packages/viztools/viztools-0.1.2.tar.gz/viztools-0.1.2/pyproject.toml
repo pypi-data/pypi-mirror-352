@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "viztools"
+version = "0.1.2"
+description = "Interactively visualize data using pygame."
+authors = [
+    { name="Bruno Schilling", email="bruno.schilling@protonmail.ch" }
+]
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.0",
+	"pygame>=2.6"
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+# [project.scripts]
+# load_parliament_qa = "abgeordnetenwatch_python.cli.load_parliament_qa:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
