@@ -1,0 +1,139 @@
+{
+  "files": [
+    {
+      "file_path": "testindex/preprocessing/parsing/symbol_extractor.py",
+      "module_name": "testindex.preprocessing.parsing.symbol_extractor",
+      "symbols": [
+        {
+          "name": "SymbolExtractor",
+          "type": "class",
+          "line_start": 15,
+          "line_end": 120,
+          "docstring": "Extracts symbols (classes, functions, methods) from Python files.",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 18,
+              "line_end": 21,
+              "docstring": "Initialize the SymbolExtractor with config and AST parser.",
+              "parameters": [
+                "self",
+                "config",
+                "ast_parser"
+              ]
+            },
+            {
+              "name": "extract_symbols_from_file",
+              "line_start": 23,
+              "line_end": 45,
+              "docstring": "Extract symbols from a single Python file.",
+              "parameters": [
+                "self",
+                "file_path",
+                "ignore_errors=False"
+              ]
+            },
+            {
+              "name": "extract_symbols_from_directory",
+              "line_start": 47,
+              "line_end": 70,
+              "docstring": "Extract symbols from all Python files in a directory.",
+              "parameters": [
+                "self",
+                "directory_path",
+                "recursive=False",
+                "ignore_errors=False"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TestSymbolExtractor",
+          "type": "class",
+          "line_start": 123,
+          "line_end": 200,
+          "docstring": "Extracts test symbols from Python test files.",
+          "methods": [
+            {
+              "name": "__init__",
+              "line_start": 126,
+              "line_end": 129,
+              "docstring": "Initialize the TestSymbolExtractor with config and AST parser.",
+              "parameters": [
+                "self",
+                "config",
+                "ast_parser"
+              ]
+            },
+            {
+              "name": "extract_test_symbols",
+              "line_start": 131,
+              "line_end": 160,
+              "docstring": "Extract test symbols from a Python file.",
+              "parameters": [
+                "self",
+                "file_path",
+                "ignore_errors=False"
+              ]
+            },
+            {
+              "name": "detect_test_framework",
+              "line_start": 162,
+              "line_end": 180,
+              "docstring": "Detect the test framework used in the file.",
+              "parameters": [
+                "self",
+                "ast_tree"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file_path": "tests/test_example.py",
+      "module_name": "tests.test_example",
+      "is_test_file": true,
+      "test_framework": "pytest",
+      "test_symbols": [
+        {
+          "name": "TestExampleClass",
+          "type": "class",
+          "line_start": 10,
+          "line_end": 50,
+          "methods": [
+            {
+              "name": "test_example_method",
+              "line_start": 15,
+              "line_end": 20,
+              "is_test": true
+            },
+            {
+              "name": "test_another_method",
+              "line_start": 22,
+              "line_end": 30,
+              "is_test": true,
+              "parameters": [
+                "self",
+                "test_fixture"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "test_standalone_function",
+          "type": "function",
+          "line_start": 53,
+          "line_end": 60,
+          "is_test": true
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_files_processed": 2,
+    "total_symbols_found": 5,
+    "total_test_symbols_found": 3,
+    "extraction_timestamp": "2023-07-10T15:30:45.123456"
+  }
+} 
