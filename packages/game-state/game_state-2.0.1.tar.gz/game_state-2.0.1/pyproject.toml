@@ -1,0 +1,101 @@
+[project]
+name = "game_state"
+version = "2.0.1"
+authors = [
+  { name="Jiggly Balls", email="jigglyballs9000@gmail.com" },
+]
+description = "A pygame utility package that allows you to handle different screens in an organized manner."
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = []
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Natural Language :: English",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Games/Entertainment",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: pygame",
+    "Topic :: Utilities"
+]
+
+[project.urls]
+Source = "https://github.com/Jiggly-Balls/game-state"
+Documentation = "https://game-state.readthedocs.io/en/latest/index.html"
+Issues = "https://github.com/Jiggly-Balls/game-state/issues"
+Stars = "https://github.com/Jiggly-Balls/game-state/stargazers"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+
+[tool.ruff]
+line-length = 79
+lint.extend-select = ["ANN"]
+lint.ignore = ["ANN401"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+docstring-code-line-length = 72
+
+[tool.basedpyright]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.*",
+    "test*.py",
+    "venv/",
+    "build/",
+    "dist/",
+    "local/",
+    "examples/",
+    "docs/",
+    "lib_testing/",
+    "tests/",
+]
+reportImportCycles = false
+reportUnnecessaryIsInstance = false
+reportImplicitStringConcatenation = false
+reportUnusedCallResult = false
+reportMissingTypeStubs = false
+reportAssignmentType = false
+reportRedeclaration = false
+reportAny = false
+reportExplicitAny = false
+reportUnknownVariableType = false
+reportDeprecated = false
+reportImplicitOverride = false
+reportUnusedParameter = false
+
+[tool.uv.workspace]
+members = [
+    "examples",
+]
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.29.2",
+    "isort>=5.13.2",
+    "pre-commit>=3.5.0",
+    "pygame-ce>=2.5.2",
+    "pytest>=8.4.0",
+    "ruff>=0.11.12",
+    "setuptools>=80.9.0",
+    "twine>=6.1.0",
+]

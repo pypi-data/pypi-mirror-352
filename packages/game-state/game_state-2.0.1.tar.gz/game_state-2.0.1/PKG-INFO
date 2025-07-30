@@ -1,0 +1,153 @@
+Metadata-Version: 2.4
+Name: game_state
+Version: 2.0.1
+Summary: A pygame utility package that allows you to handle different screens in an organized manner.
+Author-email: Jiggly Balls <jigglyballs9000@gmail.com>
+Project-URL: Source, https://github.com/Jiggly-Balls/game-state
+Project-URL: Documentation, https://game-state.readthedocs.io/en/latest/index.html
+Project-URL: Issues, https://github.com/Jiggly-Balls/game-state/issues
+Project-URL: Stars, https://github.com/Jiggly-Balls/game-state/stargazers
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Natural Language :: English
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Games/Entertainment
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: pygame
+Classifier: Topic :: Utilities
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+[![PyPI](https://img.shields.io/pypi/v/game-state.svg?style=for-the-badge&logo=pypi&color=blueviolet&logoColor=white)](https://pypi.org/project/game-state/)
+[![Github Releases](https://img.shields.io/github/v/release/Jiggly-Balls/game-state?color=blueviolet&include_prereleases&label=Latest%20Release&logo=github&sort=semver&style=for-the-badge&logoColor=white)](https://github.com/Jiggly-Balls/game-state/releases)
+[![Downloads](https://img.shields.io/pypi/dm/game-state?color=blueviolet&logo=pypi&logoColor=white&style=for-the-badge)](https://pypi.org/project/game-state/)
+[![License](https://img.shields.io/pypi/l/game-state?color=blueviolet&logo=c&logoColor=white&style=for-the-badge)](https://github.com/Jiggly-Balls/game-state/blob/main/LICENSE)
+[![Docs](https://img.shields.io/readthedocs/game-state?color=blueviolet&logo=readthedocs&logoColor=white&style=for-the-badge)](https://game-state.readthedocs.io/en/latest/)
+![Versions](https://img.shields.io/badge/Python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue?color=blueviolet&logo=python&logoColor=white&style=for-the-badge)
+
+# Game-State
+A pygame utility package that allows you to handle different screens in an organized manner.
+
+## Table of Contents
+
+- [Analytics](#analytics)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Links](#links)
+
+### Analytics
+![Alt](https://repobeats.axiom.co/api/embed/cbb24e2ae82fdceeceba8291982821ddbc065897.svg "Repobeats analytics image")
+
+### Requirements
+This library supports python versions `3.8` - `3.13`.
+
+### Installation
+Create and activate a virtual environment in your workspace (optional) and run the following command-
+```
+pip install game_state
+``` 
+> **Note:** This package does not have any dependancy on `pygame`, hence you will need to install them separately on your own. This gives you the freedom to work with `pygame`, `pygame-ce` or any of it's forks.
+
+### Getting Started
+This is an example of creating two screens.
+One displaying green colour and the other blue with a player.
+
+```py
+import pygame
+
+from game_state import State, StateManager
+
+
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+speed = 100
+pygame.init()
+pygame.display.init()
+pygame.display.set_caption("Game State Example")
+
+
+class ScreenOne(State, state_name="FirstScreen"):
+   def process_event(self, event: pygame.event.Event) -> None:
+      if event.type == pygame.QUIT:
+            self.manager.is_running = False
+
+      if event.type == pygame.KEYDOWN and event.key == pygame.K_c:
+            self.manager.change_state("SecondScreen")
+
+   def process_update(self, dt: float) -> None:
+      self.window.fill(GREEN)
+      pygame.display.update()
+
+
+class ScreenTwo(State, state_name="SecondScreen"):
+   def on_setup(self) -> None:
+      self.player_x = 250
+
+   def process_event(self, event: pygame.event.Event) -> None:
+      if event.type == pygame.QUIT:
+            self.manager.is_running = False
+
+      if event.type == pygame.KEYDOWN and event.key == pygame.K_c:
+            self.manager.change_state("FirstScreen")
+
+   def process_update(self, dt: float) -> None:
+      self.window.fill(BLUE)
+      pressed = pygame.key.get_pressed()
+      if pressed[pygame.K_a]:
+            self.player_x -= speed * dt
+
+      if pressed[pygame.K_d]:
+            self.player_x += speed * dt
+
+      pygame.draw.rect(
+            self.window,
+            "red",
+            (
+               self.player_x,
+               100,
+               50,
+               50,
+            ),
+      )
+
+      pygame.display.update()
+
+def main() -> None:
+   screen = pygame.display.set_mode((500, 700))
+
+   state_manager = StateManager(screen)
+   state_manager.load_states(ScreenOne, ScreenTwo)
+   state_manager.change_state("FirstScreen")
+
+   clock = pygame.time.Clock()
+
+   while state_manager.is_running:
+      dt = clock.tick(60) / 1000
+
+      for event in pygame.event.get():
+            state_manager.current_state.process_event(event)
+
+      state_manager.current_state.process_update(dt)
+
+if __name__ == "__main__":
+   main()
+```
+
+You can have a look at the [game state guide](https://game-state.readthedocs.io/en/latest/guide.html#using-the-library) for a more detailed explaination.
+
+### Links
+- Guide & API Reference: https://game-state.readthedocs.io/en/stable/
+- PyPI Page: https://pypi.org/project/game-state/
