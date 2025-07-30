@@ -1,0 +1,49 @@
+Metadata-Version: 2.4
+Name: swiss-qr-bill
+Version: 0.0.31
+Summary: A python library to generate swiss QR bills
+Author-email: Martin Mohnhaupt <m.mohnhaupt@bluewin.ch>
+Maintainer-email: Martin Mohnhaupt <m.mohnhaupt@bluewin.ch>
+License-Expression: MIT
+Project-URL: Repository, https://github.com/nicedata/swiss-qr-bill
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: affine>=2.4.0
+Requires-Dist: python-stdnum>=1.20
+Requires-Dist: qrcodegen>=1.8.0
+Dynamic: license-file
+
+# Swiss QR bill
+
+Generate various swiss QR bills.
+
+This is a Python port of **Manuel Bleichenbacher**'s great Java/C# code.
+
+Manuel's projects can be found on Github :
+
+- Java : [https://github.com/manuelbl/SwissQRBill](https://github.com/manuelbl/SwissQRBill)
+- C# : [https://github.com/manuelbl/SwissQRBill.NET](https://github.com/manuelbl/SwissQRBill.NET)
+
+All Manuel's features are not yet implemented. At this time, only SVG generation is supported.
+
+# Installation
+
+```python
+pip install swiss-qr-bill
+```
+# Notes
+
+* The user manual is currently being drafted...
+* We are currently updating and simplifying our code (the project was started end 2021 !)
+
