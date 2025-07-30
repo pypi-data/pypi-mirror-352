@@ -1,0 +1,43 @@
+[project]
+name = "freezeblaster"
+version = "0.4.0"
+description = "FreezeBlaster is a library that allows time travel by mocking the datetime module"
+authors = [
+    { name = "Jakub Jantosik", email = "jakub.jantosik@gmail.com" }
+]
+readme = "README.md"
+
+requires-python = ">=3.10"
+dependencies = [
+    "packaging>=24.0",
+    "python-dateutil>=2.7",
+    "types-python-dateutil>=2.7",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.16.0",
+    "pytest>=8.4.0",
+    "pytest-asyncio>=1.0.0",
+    "pytest-mock>=3.14.1",
+    "pytest-timeout>=2.4.0",
+    "ruff>=0.11.12",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+lint.extend-select = ["I"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+timeout = 30
+
+[[tool.mypy.overrides]]
+module = ["pymysql.*", "pydantic.*", "pydantic_core.*"]
+ignore_missing_imports = true
