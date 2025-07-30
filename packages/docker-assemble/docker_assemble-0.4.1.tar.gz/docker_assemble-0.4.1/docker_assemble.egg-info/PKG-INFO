@@ -1,0 +1,25 @@
+Metadata-Version: 2.4
+Name: docker-assemble
+Version: 0.4.1
+Summary: A CLI tool to extract and analyze Docker images
+Author: Sina
+License: Apache-2.0
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: docker>=6.0.0
+
+# docker-assemble
+
+A CLI tool to extract and analyze Docker images for research & optimization purposes.
+
+## Installation
+
+```bash
+pip install docker-assemble
+```
+
+## Usage
+
+```bash
+docker-assemble -d ubuntu:20.04 output_dir
+```
