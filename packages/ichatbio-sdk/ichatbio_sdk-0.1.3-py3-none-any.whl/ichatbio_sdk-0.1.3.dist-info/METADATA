@@ -1,0 +1,167 @@
+Metadata-Version: 2.3
+Name: ichatbio-sdk
+Version: 0.1.3
+Summary: A framework which allows AI agents to interact with iChatBio using the A2A protocol.
+Project-URL: repository, https://github.com/acislab/ichatbio-sdk
+Author-email: Michael Elliott <mielliott@ufl.edu>, Manny Luciano <mlluciano@ufl.edu>
+License: MIT License
+        
+        Copyright (c) [year] [fullname]
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+Keywords: AI,biodiversity,iChatBio,research,science
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: a2a-sdk~=0.2.5
+Requires-Dist: anyio~=4.9.0
+Requires-Dist: pydantic~=2.11.4
+Requires-Dist: typing-extensions~=4.13.2
+Provides-Extra: example
+Requires-Dist: dotenv~=0.9.9; extra == 'example'
+Requires-Dist: instructor~=1.8.2; extra == 'example'
+Requires-Dist: openai~=1.79.0; extra == 'example'
+Requires-Dist: pytest-asyncio~=1.0.0a1; extra == 'example'
+Requires-Dist: pytest~=8.3.5; extra == 'example'
+Requires-Dist: python-dotenv~=1.1.0; extra == 'example'
+Requires-Dist: uvicorn~=0.34.2; extra == 'example'
+Description-Content-Type: text/markdown
+
+# iChatBio SDK
+
+The iChatBio SDK is designed to aid in the development of agents that can communicate with iChatBio. The SDK adds a
+layer of abstraction over the [A2A protocol](https://github.com/google/a2a), hiding the complexities of A2A while
+exposing iChatBio-specific capabilities. Because agents designed with the iChatBio SDK make use of A2A, they are also
+able to communicate with other A2A agents, though without access to services (e.g., strict data models, special messages
+types, and shared persistent storage) enabled by the iChatBio ecosystem.
+
+# Getting started
+
+See [examples](examples) for a reference agent implementation. A standalone example agent is
+available [here](https://github.com/mielliott/ichatbio-agent-example).
+
+Like A2A, iChatBio agents must define an agent card. Here's an example card:
+
+```python
+from ichatbio.types import AgentCard, AgentEntrypoint
+
+card = AgentCard(
+    name="Friendly Agent",
+    description="Responds in a friendly manner.",
+    icon="https://example.com/icon.png",
+    entrypoints=[
+        AgentEntrypoint(
+            id="chat",
+            description="Generates a friendly reply.",
+            parameters=ChatParameters  # Defined below
+        )
+    ]
+)
+```
+
+The card must include one or more *entrypoints*. Entrypoints define the types of interactions that are possible between
+iChatBio and the agent. Each entrypoint can optionally define a set of *parameters*, which allow iChatBio to provide
+structured information to the agent. This structure has a number of advantages:
+
+* Agents can directly access parameters without the unreliable overhead of natural language processing
+* Agents with strict parameter sets can only be used when the required parameters are supplied
+
+Here's the parameter model referenced in the entrypoint above:
+
+```python
+from pydantic import BaseModel, PastDate
+
+
+class ChatParameters(BaseModel):
+    birthday: PastDate
+```
+
+By using Pydantic's `PastDate` class, the birthday must both be a valid date and also be a date *in the past*. With
+these constraints, the agent does not need to worry about receiving invalid parameter values and subsequent error
+handling.
+
+Here's an agent that implements the `"chat"` entrypoint:
+
+```python
+from typing import Optional, override, AsyncGenerator
+from datetime import date
+from pydantic import BaseModel
+
+from ichatbio.agent import IChatBioAgent
+from ichatbio.types import AgentCard, Message, TextMessage, ProcessMessage, ArtifactMessage
+
+
+class FriendlyAgent(IChatBioAgent):
+    @override
+    def get_agent_card(self) -> AgentCard:
+        return card  # The AgentCard we defined earlier
+
+    @override
+    async def run(self, request: str, entrypoint: str, params: Optional[BaseModel]) -> AsyncGenerator[
+        None, Message]:
+        if entrypoint != "chat":
+            raise ValueError()  # This should never happen
+
+        yield ProcessMessage(summary="Replying",
+                             description="Generating a friendly reply")
+        response = ...  # Query an LLM
+
+        yield ProcessMessage(description="Response generated",
+                             data={"response": response})
+
+        happy_birthday = ChatParameters(params).birthday == date.today()
+        if happy_birthday:
+            yield ProcessMessage(description="Generating a birthday surprise")
+            audio: bytes = ...  # Generate an audio version of the response
+            yield ArtifactMessage(
+                mimetype="audio/mpeg",
+                description=f"An audio version of the response",
+                content=audio)
+
+        yield TextMessage(
+            "I have generated a friendly response to the user's request. For their birthday, I also generated an audio version of the response."
+            if happy_birthday else
+            "I have generated a friendly response to the user's request.")
+```
+
+And here's a `__main__.py` to run the agent as an A2A web server:
+
+```python
+from ichatbio.server import run_agent_server
+
+if __name__ == "__main__":
+    agent = FriendlyAgent()
+    run_agent_server(agent, host="0.0.0.0", port=9999)
+```
+
+If all went well, you should be able to find your agent card at http://localhost:9999/.well-known/agent.json.
+
+# SDK Development
+
+Requires Python 3.10 or higher.
+
+Dependencies for the example agents are installed separately:
+
+```
+pip install .[example]
+```
+
+# Funding
+
+This work is funded by grants from the National Science Foundation (DBI 2027654) and the AT&T Foundation.
