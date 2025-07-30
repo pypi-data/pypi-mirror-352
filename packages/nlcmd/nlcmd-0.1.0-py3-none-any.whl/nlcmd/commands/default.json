@@ -1,0 +1,347 @@
+[
+  {
+    "intent": "create_venv",
+    "tags": ["create", "python", "virtual", "environment", "venv"],
+    "command": "python -m venv venv"
+  },
+  {
+    "intent": "activate_venv_linux",
+    "tags": ["activate", "virtual", "environment", "venv", "linux"],
+    "command": "source venv/bin/activate"
+  },
+  {
+    "intent": "activate_venv_windows",
+    "tags": ["activate", "virtual", "environment", "venv", "windows"],
+    "command": "venv\\\\Scripts\\\\activate"
+  },
+  {
+    "intent": "list_files",
+    "tags": ["list", "files", "show", "all", "directory"],
+    "command": "ls -la"
+  },
+  {
+    "intent": "change_directory",
+    "tags": ["change", "directory", "go", "cd", "move", "folder"],
+    "command": "cd {arg}"
+  },
+  {
+    "intent": "make_directory",
+    "tags": ["make", "directory", "create", "folder", "mkdir"],
+    "command": "mkdir {arg}"
+  },
+  {
+    "intent": "remove_file",
+    "tags": ["remove", "delete", "file", "rm"],
+    "command": "rm {arg}"
+  },
+  {
+    "intent": "remove_directory",
+    "tags": ["remove", "delete", "directory", "folder", "rmdir"],
+    "command": "rm -r {arg}"
+  },
+  {
+    "intent": "copy_file",
+    "tags": ["copy", "file", "cp"],
+    "command": "cp {source} {destination}"
+  },
+  {
+    "intent": "move_file",
+    "tags": ["move", "file", "mv", "rename"],
+    "command": "mv {source} {destination}"
+  },
+  {
+    "intent": "create_file",
+    "tags": ["create", "file", "touch", "new"],
+    "command": "touch {arg}"
+  },
+  {
+    "intent": "view_file_contents",
+    "tags": ["view", "file", "contents", "cat", "display"],
+    "command": "cat {arg}"
+  },
+  {
+    "intent": "paginate_file",
+    "tags": ["paginate", "file", "less", "more", "scroll"],
+    "command": "less {arg}"
+  },
+  {
+    "intent": "view_first_lines",
+    "tags": ["view", "first", "lines", "head"],
+    "command": "head -n 10 {arg}"
+  },
+  {
+    "intent": "view_last_lines",
+    "tags": ["view", "last", "lines", "tail"],
+    "command": "tail -n 10 {arg}"
+  },
+  {
+    "intent": "search_with_grep",
+    "tags": ["search", "grep", "pattern", "find", "text"],
+    "command": "grep -rn \"{pattern}\" {arg}"
+  },
+  {
+    "intent": "count_lines_words_chars",
+    "tags": ["count", "lines", "words", "characters", "wc"],
+    "command": "wc -lwm {arg}"
+  },
+  {
+    "intent": "find_files_by_name",
+    "tags": ["find", "files", "name", "search", "find command"],
+    "command": "find . -name \"{pattern}\""
+  },
+  {
+    "intent": "change_permissions",
+    "tags": ["change", "permissions", "chmod", "access"],
+    "command": "chmod 755 {arg}"
+  },
+  {
+    "intent": "change_owner",
+    "tags": ["change", "owner", "chown", "user", "group"],
+    "command": "chown {user}:{group} {arg}"
+  },
+  {
+    "intent": "show_current_directory",
+    "tags": ["show", "current", "directory", "pwd", "where"],
+    "command": "pwd"
+  },
+  {
+    "intent": "download_with_wget",
+    "tags": ["download", "wget", "file", "internet", "http"],
+    "command": "wget {url}"
+  },
+  {
+    "intent": "download_with_curl",
+    "tags": ["download", "curl", "file", "internet", "http", "get"],
+    "command": "curl -O {url}"
+  },
+  {
+    "intent": "compress_tar_gz",
+    "tags": ["compress", "archive", "tar", "gzip", "tar.gz"],
+    "command": "tar -czvf {archive_name}.tar.gz {arg}"
+  },
+  {
+    "intent": "extract_tar_gz",
+    "tags": ["extract", "archive", "tar", "gzip", "unpack", "tar.gz"],
+    "command": "tar -xzvf {archive_name}.tar.gz"
+  },
+  {
+    "intent": "compress_zip",
+    "tags": ["compress", "zip", "archive"],
+    "command": "zip -r {archive_name}.zip {arg}"
+  },
+  {
+    "intent": "extract_zip",
+    "tags": ["extract", "unzip", "zip", "archive"],
+    "command": "unzip {archive_name}.zip"
+  },
+  {
+    "intent": "check_python_version",
+    "tags": ["check", "python", "version", "which", "what"],
+    "command": "python --version"
+  },
+  {
+    "intent": "run_python_script",
+    "tags": ["run", "python", "script", "execute"],
+    "command": "python {arg}"
+  },
+  {
+    "intent": "install_package_pip",
+    "tags": ["install", "package", "pip", "pip install", "dependency"],
+    "command": "pip install {arg}"
+  },
+  {
+    "intent": "uninstall_package_pip",
+    "tags": ["uninstall", "package", "pip", "remove", "pip uninstall"],
+    "command": "pip uninstall {arg}"
+  },
+  {
+    "intent": "list_installed_pip_packages",
+    "tags": ["list", "installed", "pip", "packages", "show"],
+    "command": "pip list"
+  },
+  {
+    "intent": "show_pip_package_details",
+    "tags": ["show", "pip", "package", "details", "info"],
+    "command": "pip show {arg}"
+  },
+  {
+    "intent": "initialize_git_repository",
+    "tags": ["initialize", "git", "repository", "git init"],
+    "command": "git init"
+  },
+  {
+    "intent": "clone_git_repository",
+    "tags": ["clone", "git", "repository", "git clone"],
+    "command": "git clone {url}"
+  },
+  {
+    "intent": "check_git_status",
+    "tags": ["git", "status", "show", "state"],
+    "command": "git status"
+  },
+  {
+    "intent": "add_all_git_changes",
+    "tags": ["git", "add", "all", "stage"],
+    "command": "git add ."
+  },
+  {
+    "intent": "commit_with_message",
+    "tags": ["git", "commit", "message", "save", "record"],
+    "command": "git commit -m \"{message}\""
+  },
+  {
+    "intent": "push_git_changes",
+    "tags": ["git", "push", "upload", "remote"],
+    "command": "git push"
+  },
+  {
+    "intent": "pull_git_changes",
+    "tags": ["git", "pull", "fetch", "update", "remote"],
+    "command": "git pull"
+  },
+  {
+    "intent": "create_git_branch",
+    "tags": ["create", "git", "branch", "new", "branch"],
+    "command": "git branch {branch}"
+  },
+  {
+    "intent": "checkout_git_branch",
+    "tags": ["checkout", "git", "branch", "switch", "branch"],
+    "command": "git checkout {branch}"
+  },
+  {
+    "intent": "merge_git_branch",
+    "tags": ["merge", "git", "branch", "combine"],
+    "command": "git merge {branch}"
+  },
+  {
+    "intent": "show_git_log",
+    "tags": ["show", "git", "log", "history", "commits"],
+    "command": "git log --oneline"
+  },
+  {
+    "intent": "show_git_diff",
+    "tags": ["show", "git", "diff", "changes", "difference"],
+    "command": "git diff"
+  },
+  {
+    "intent": "stash_git_changes",
+    "tags": ["stash", "git", "save", "temporary"],
+    "command": "git stash"
+  },
+  {
+    "intent": "apply_git_stash",
+    "tags": ["apply", "git", "stash", "restore"],
+    "command": "git stash apply"
+  },
+  {
+    "intent": "list_running_processes",
+    "tags": ["list", "running", "processes", "ps", "process"],
+    "command": "ps aux"
+  },
+  {
+    "intent": "kill_process_by_pid",
+    "tags": ["kill", "process", "pid", "terminate"],
+    "command": "kill {pid}"
+  },
+  {
+    "intent": "check_disk_usage",
+    "tags": ["check", "disk", "usage", "df", "space"],
+    "command": "df -h"
+  },
+  {
+    "intent": "check_directory_size",
+    "tags": ["check", "directory", "size", "du", "space"],
+    "command": "du -sh {arg}"
+  },
+  {
+    "intent": "display_memory_usage",
+    "tags": ["display", "memory", "usage", "free", "ram"],
+    "command": "free -h"
+  },
+  {
+    "intent": "ping_host",
+    "tags": ["ping", "host", "test", "connectivity", "icmp"],
+    "command": "ping -c 4 {host}"
+  },
+  {
+    "intent": "show_top_processes",
+    "tags": ["show", "top", "processes", "htop", "monitor"],
+    "command": "top"
+  },
+  {
+    "intent": "show_network_interfaces",
+    "tags": ["show", "network", "interfaces", "ifconfig", "ip"],
+    "command": "ifconfig -a"
+  },
+  {
+    "intent": "display_listening_ports",
+    "tags": ["display", "listening", "ports", "netstat", "tcp", "udp"],
+    "command": "netstat -tulpn"
+  },
+  {
+    "intent": "search_in_file_case_insensitive",
+    "tags": ["search", "file", "case", "insensitive", "grep", "ignore"],
+    "command": "grep -i \"{pattern}\" {arg}"
+  },
+  {
+    "intent": "list_hidden_files",
+    "tags": ["list", "hidden", "files", "ls", "dotfiles"],
+    "command": "ls -d .*"
+  },
+  {
+    "intent": "show_file_disk_usage",
+    "tags": ["show", "file", "disk", "usage", "du", "size"],
+    "command": "du -h {arg}"
+  },
+  {
+    "intent": "find_empty_directories",
+    "tags": ["find", "empty", "directories", "folders", "search"],
+    "command": "find . -type d -empty"
+  },
+  {
+    "intent": "find_large_files",
+    "tags": ["find", "large", "files", "size", "search", "big"],
+    "command": "find . -type f -size +100M"
+  },
+  {
+    "intent": "watch_command",
+    "tags": ["watch", "command", "monitor", "refresh", "periodic"],
+    "command": "watch -n 2 {arg}"
+  },
+  {
+    "intent": "tail_f",
+    "tags": ["tail", "follow", "log", "file", "stream"],
+    "command": "tail -f {arg}"
+  },
+  {
+    "intent": "replace_text_sed",
+    "tags": ["replace", "text", "sed", "substitute", "file"],
+    "command": "sed -i 's/{old}/{new}/g' {arg}"
+  },
+  {
+    "intent": "print_directory_tree",
+    "tags": ["print", "directory", "tree", "structure", "tree command"],
+    "command": "tree"
+  },
+  {
+    "intent": "create_symlink",
+    "tags": ["create", "symlink", "link", "ln", "symbolic"],
+    "command": "ln -s {target} {linkname}"
+  },
+  {
+    "intent": "remove_symlink",
+    "tags": ["remove", "symlink", "link", "delete", "ln -s"],
+    "command": "rm {linkname}"
+  },
+  {
+    "intent": "ssh_into_host",
+    "tags": ["ssh", "connect", "remote", "host", "login"],
+    "command": "ssh {user}@{host}"
+  },
+  {
+    "intent": "generate_ssh_key",
+    "tags": ["generate", "ssh", "key", "ssh-keygen", "rsa", "keypair"],
+    "command": "ssh-keygen -t rsa -b 4096"
+  }
+]

@@ -1,0 +1,54 @@
+Metadata-Version: 2.3
+Name: nlcmd
+Version: 0.1.0
+Summary: Offline Natural Language Command Runner
+License: MIT
+Author: Supreme_dev
+Requires-Python: >=3.7,<3.15
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Provides-Extra: nlp
+Requires-Dist: PyYAML (>=6.0.1,<7.0.0)
+Requires-Dist: rapidfuzz (>=3.9.3,<4.0.0)
+Requires-Dist: spacy (>=3.7.5,<4.0.0) ; extra == "nlp"
+Requires-Dist: typer[all] (>=0.12.3,<0.13.0)
+Project-URL: Homepage, https://github.com/Supremedev7/NLC--Natural-language-command
+Project-URL: Repository, https://github.com/Supremedev7/NLC--Natural-language-command
+Description-Content-Type: text/markdown
+
+# nlcmd
+
+**Offline Natural Language Command Runner**
+
+nlcmd turns simple English‐like instructions into shell commands and executes them. No internet required—just rapidfuzz for fuzzy matching.
+
+## Features
+
+- Fully offline: no API keys or external calls.  
+- Fuzzy matching + optional spaCy lemmatization.  
+- Built-in command database (JSON) and user overrides via `~/.nlcmd/config.yaml`.  
+- Interactive REPL and one‐off “run” subcommand.  
+- Plugin support: drop additional JSON files into `nlcmd/commands/`.  
+- Unit tests (pytest) for parser and executor.  
+- Packaged as a normal Python CLI (`nlcmd`).
+
+## Installation
+
+### 1. From PyPI
+
+```bash
+# (Optional) Create a venv
+python -m venv ~/.venvs/nlcmd
+source ~/.venvs/nlcmd/bin/activate    # Linux/macOS
+# OR
+# .\venvs\nlcmd\Scripts\activate       # Windows PowerShell
+
+pip install nlcmd
+
