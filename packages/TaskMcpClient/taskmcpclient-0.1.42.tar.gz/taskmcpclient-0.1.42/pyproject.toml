@@ -1,0 +1,26 @@
+[project]
+name = "TaskMcpClient"
+version = "0.1.42"
+description = "Localization configurable MCP client, interacting through task files"
+readme = "README.md"
+authors = [
+    {name = "weiyf1225", email = "weiyf1225@qq.com"}
+]
+requires-python = ">=3.10"
+dependencies = [
+    "invokemcpserver>=0.1.1",
+    "jsonschema>=4.23.0",
+    "loguru>=0.7.3",
+    "mcp>=1.6.0",
+    "openai>=1.76.0",
+    "python-dotenv>=1.1.0",
+    "sqids>=0.5.2",
+    "weberfuncs>=0.0.170",
+]
+
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+TaskMcpClient = "TaskMcpClient:main"
