@@ -1,0 +1,69 @@
+# Copyright 2023 Dmytro Yaroshenko (https://github.com/o-murphy)
+# Copyright 2024 David Bookstaber (https://github.com/dbookstaber)
+
+[build-system]
+requires = ["setuptools", "wheel", 'cython']
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "CyEulerBallistic"
+version = "2.1.1b1"
+
+authors = [
+    { name="o-murphy", email="thehelixpg@gmail.com" },
+    { name="dbookstaber", email="bookstaber@gmail.com"}
+]
+description = "LGPL library for small arms ballistic calculations (Python 3)"
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["py_ballisticcalc", "ballistics", "Cython", "ballistic calculator", "python", "python3"]
+license = {file = "LICENSE"}
+classifiers = [
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = ["py_ballisticcalc==2.1.1b1"]
+
+[project.entry-points.py_ballisticcalc]
+engine = "CyEulerBallistic.trajectory_calc:EulerTrajectoryCalc"
+
+[project.urls]
+"Homepage" = "https://github.com/o-murphy/CyEulerBallistic"
+"Bug Reports" = "https://github.com/o-murphy/CyEulerBallistic/issues"
+"Source" = "https://github.com/o-murphy/CyEulerBallistic"
+
+[tool.setuptools]
+py-modules = ["CyEulerBallistic"]
+
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["CyEulerBallistic*"]
+
+# deprecated, use `uv sync` with `dev` dependency group
+[project.optional-dependencies]
+dev = ['cython', 'build', 'setuptools', 'cibuildwheel', 'pytest']
+
+[tool.cibuildwheel]
+# Use uv and build
+build-frontend = "build[uv]"
+
+[dependency-groups]
+dev = [
+    "build>=1.2.2.post1",
+    "cibuildwheel>=2.23.3",
+    "cython>=3.1.1",
+    "pytest>=8.3.5",
+    "setuptools>=80.9.0",
+]
