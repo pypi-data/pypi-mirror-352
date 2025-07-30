@@ -1,0 +1,333 @@
+# Translations template for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-06-04 02:49+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: src/py/secretflow_doctools/__main__.py:21
+msgid "path to the directory containing Sphinx's `conf.py` file"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:30
+msgid ""
+"path to the directory containing documentation source files. generated "
+"page paths will be relative to this directory"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:41
+msgid "path for the generated output files"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:45
+msgid "build docs"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:55
+#, python-brace-format
+msgid ""
+"\n"
+"        the language to build docs in. to build in multiple languages\n"
+"        at once, specify this option multiple times, for example:\n"
+"\n"
+"            --lang en --lang zh_CN\n"
+"\n"
+"        {_NO_WRAP}\n"
+"        see https://www.sphinx-doc.org/en/master/usage/configuration.html"
+"#confval-language\n"
+"        {_NO_WRAP}\n"
+"        "
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:71
+#, python-brace-format
+msgid ""
+"\n"
+"        path mapping, in the format of:\n"
+"\n"
+"        {_NO_WRAP}\n"
+"            actual-repo:actual-path:mapped-repo:mapped-path\n"
+"        {_NO_WRAP}\n"
+"        "
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:85
+msgid "locally preview previously built docs"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:94
+msgid "update translation files"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:102
+msgid "the language to be translated"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:108
+msgid ""
+"in addition to updating .po files, also update translation files for "
+"translating Swagger schemas"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:118
+msgid "publish built docs to npm"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:119
+msgid "full name of the npm package"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:120
+msgid "the dist-tag to use"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:125
+msgid "path to `dist/index.js`"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:130
+msgid "the npm registry to publish the package to"
+msgstr ""
+
+#: src/py/secretflow_doctools/__main__.py:136
+msgid "clean up files from previously built docs"
+msgstr ""
+
+#: src/py/secretflow_doctools/builder.py:160
+msgid "failed to get git commit"
+msgstr ""
+
+#: src/py/secretflow_doctools/builder.py:171
+msgid "failed to get git commit time"
+msgstr ""
+
+#: src/py/secretflow_doctools/builder.py:182
+msgid "failed to get git root dir"
+msgstr ""
+
+#: src/py/secretflow_doctools/sidebar.py:89
+#, python-brace-format
+msgid "ignoring circular sidebar ref {ref} -> {ref}"
+msgstr ""
+
+#: src/py/secretflow_doctools/translator.py:1017
+#, python-format
+msgid "malformed HTML: %s"
+msgstr ""
+
+#: src/py/secretflow_doctools/vcs.py:62
+#, python-brace-format
+msgid "failed to get url for remote {remote}"
+msgstr ""
+
+#: src/py/secretflow_doctools/vcs.py:139
+#, python-brace-format
+msgid "unexpected git describe output: {output}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/build.py:50
+msgid "failed to get current tag, falling back to `main`"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/build.py:58
+#, python-brace-format
+msgid "using {ref} as version, source: current commit is tagged"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/build.py:64
+#, python-brace-format
+msgid "using {ref} as version, source: nearest tag on release branch {branch}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/build.py:73
+#, python-brace-format
+msgid "using {ref} as version, source: current branch name"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/build.py:80
+#: src/py/secretflow_doctools/cmd/update_translations.py:48
+#, python-brace-format
+msgid "source dir: {dir}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/build.py:81
+#: src/py/secretflow_doctools/cmd/update_translations.py:49
+#, python-brace-format
+msgid "output dir: {dir}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/build.py:106
+msgid "compiling to JavaScript"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/build.py:127
+#, python-brace-format
+msgid "to preview, run: {prog_name} preview -c {config_dir}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/clean.py:28
+msgid "do you want to continue?"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:32
+msgid ""
+"refusing to publish: the current commit is not:\n"
+"  - tagged, or\n"
+"  - on a release branch containing a tagged commit, or\n"
+"  - main or master"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:41
+#, python-brace-format
+msgid "using registry: {reg}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:46
+#, python-brace-format
+msgid "name:    {name}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:47
+#, python-brace-format
+msgid "tags:    {tag}, latest"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:48
+#, python-brace-format
+msgid "version: {version}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:69
+msgid "fetching existing refs"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:74
+msgid "failed to determine existing refs"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:83
+#, python-brace-format
+msgid "found refs: {v}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:85
+msgid "received 404, assuming a new package"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:95
+#, python-brace-format
+msgid ""
+"git has uncommitted changes:\n"
+"{dirty}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:99
+msgid "refusing to publish"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/publish.py:104
+#, python-brace-format
+msgid "setting up package at {dir}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/update_translations.py:52
+#, python-brace-format
+msgid "cleaning up autogenerated *.mo files in {dir}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/update_translations.py:57
+#, python-brace-format
+msgid "removing {mo}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/update_translations.py:61
+#, python-brace-format
+msgid "failed to remove {mo}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/update_translations.py:110
+msgid "finished updating translation files"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/util.py:71
+msgid ""
+"could not detect Sphinx config directory: none of the following exists: "
+"`./conf.py`, `./docs/conf.py`, `./docs/source/conf.py`"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/util.py:77
+msgid "help: specify Sphinx config directory using the `--config-dir` option"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/util.py:111
+#, python-brace-format
+msgid "the following options cannot be specified: {}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/util.py:114
+msgid "checking Sphinx config"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/util.py:121
+msgid "\"secretflow_doctools\" must be in `extensions` in conf.py"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/util.py:131
+msgid ""
+"failed to get or parse origin url from git config, which is required to "
+"configure project name"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/util.py:155
+msgid "failed to validate Sphinx conf.py"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/util.py:171
+#, python-brace-format
+msgid "provide the environment variable {env}"
+msgstr ""
+
+#: src/py/secretflow_doctools/cmd/util.py:180
+msgid "missing required environment variables"
+msgstr ""
+
+#: src/py/secretflow_doctools/js/cli.py:37
+#, python-brace-format
+msgid "a required file {file} was not found"
+msgstr ""
+
+#: src/py/secretflow_doctools/js/cli.py:44
+msgid "neither deno nor node is available on PATH"
+msgstr ""
+
+#: src/py/secretflow_doctools/js/cli.py:60
+msgid ""
+"help: the package `secretflow-doctools` was not installed correctly. "
+"please reinstall it."
+msgstr ""
+
+#: src/py/secretflow_doctools/js/cli.py:66
+msgid ""
+"in development: please run `pnpm nx build:sdist` to ensure JavaScript "
+"resources are compiled correctly"
+msgstr ""
+
+#: src/py/secretflow_doctools/utils/subprocess.py:22
+#, python-brace-format
+msgid ""
+"failed to run command, see above for errors\n"
+"Command: {cmd}"
+msgstr ""
+
