@@ -1,0 +1,127 @@
+Metadata-Version: 2.4
+Name: deformation_models
+Version: 0.0.2
+Summary: Phenomenological deformation models
+Author-email: Chris Havlin <chris.havlin@gmail.com>
+License: BSD 3-Clause License
+        
+        Copyright (c) 2024, Chris Havlin.
+        All rights reserved.
+        
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+        
+        * Redistributions of source code must retain the above copyright notice, this
+          list of conditions and the following disclaimer.
+        
+        * Redistributions in binary form must reproduce the above copyright notice,
+          this list of conditions and the following disclaimer in the documentation
+          and/or other materials provided with the distribution.
+        
+        * Neither the name of the vector package developers nor the names of its
+          contributors may be used to endorse or promote products derived from
+          this software without specific prior written permission.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+        AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+        FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+        DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+        SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+        CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+        OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        
+Project-URL: Homepage, https://github.com/iSTRUM/deformation_models
+Project-URL: Bug Tracker, https://github.com/iSTRUM/deformation_models/issues
+Project-URL: Discussions, https://github.com/iSTRUM/deformation_models/discussions
+Project-URL: Changelog, https://github.com/iSTRUM/deformation_models/releases
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: scipy
+Provides-Extra: test
+Requires-Dist: pytest>=6; extra == "test"
+Requires-Dist: pytest-cov>=3; extra == "test"
+Provides-Extra: dev
+Requires-Dist: pytest>=6; extra == "dev"
+Requires-Dist: pytest-cov>=3; extra == "dev"
+Provides-Extra: docs
+Requires-Dist: sphinx>=7.0; extra == "docs"
+Requires-Dist: myst_parser>=0.13; extra == "docs"
+Requires-Dist: sphinx_copybutton; extra == "docs"
+Requires-Dist: sphinx_autodoc_typehints; extra == "docs"
+Requires-Dist: furo>=2023.08.17; extra == "docs"
+Provides-Extra: examples
+Requires-Dist: pyleoclim; extra == "examples"
+Requires-Dist: jupyterlab; extra == "examples"
+Dynamic: license-file
+
+# deformation_models
+
+The `deformation_models` package is a tool for learning about phenomenological
+models of transient deformation (so called spring-dashpot models). It is meant
+to be used alongside a forthcoming Jupyter book tutorial, but at present there
+are a couple of notebooks in this repository (see below).
+
+## installation
+
+To install from the `pypi` repository with dependencies required for the
+examples:
+
+```shell
+pip install "deformation-models[examples]"
+```
+
+## usage
+
+A number of deformation models are available at present:
+
+```python
+from deformation_models import SLS, AndradeModel, Burgers, MaxwellModel
+```
+
+Each of the models represents a phenomenological model (SLS above is standard
+linear solid). To use them, you generally supply values for the unrelaxed
+compliance and maxwell time scales for the various components making up each
+model, check the help for each for what is required.
+
+## examples
+
+In addition to the forthcoming jupyter book, this repository has a few examples:
+
+- [Calculating stress-strain curves for a Standard Linear Solid](https://github.com/iSTRUM/deformation_models/blob/main/docs/examples/ex_01_stress_strain_curves.ipynb)
+- [Calculating attenuation with `deformation_models` and `pyleoclim`](https://github.com/iSTRUM/deformation_models/blob/main/docs/examples/ex_02_attenuation_calculation.ipynb)
+
+<!-- SPHINX-START -->
+
+<!-- prettier-ignore-start -->
+[actions-badge]:            https://github.com/iSTRUM/deformation_models/workflows/CI/badge.svg
+[actions-link]:             https://github.com/iSTRUM/deformation_models/actions
+[conda-badge]:              https://img.shields.io/conda/vn/conda-forge/deformation_models
+[conda-link]:               https://github.com/conda-forge/deformation_models-feedstock
+[github-discussions-badge]: https://img.shields.io/static/v1?label=Discussions&message=Ask&color=blue&logo=github
+[github-discussions-link]:  https://github.com/iSTRUM/deformation_models/discussions
+[pypi-link]:                https://pypi.org/project/deformation_models/
+[pypi-platforms]:           https://img.shields.io/pypi/pyversions/deformation_models
+[pypi-version]:             https://img.shields.io/pypi/v/deformation_models
+[rtd-badge]:                https://readthedocs.org/projects/deformation_models/badge/?version=latest
+[rtd-link]:                 https://deformation_models.readthedocs.io/en/latest/?badge=latest
+
+<!-- prettier-ignore-end -->
