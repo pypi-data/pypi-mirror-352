@@ -1,0 +1,1 @@
+from .乘法表 import 乘法表
