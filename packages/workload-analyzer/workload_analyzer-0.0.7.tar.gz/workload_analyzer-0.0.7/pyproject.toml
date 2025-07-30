@@ -1,0 +1,139 @@
+[build-system]
+build-backend = "hatchling.build"
+
+requires = [ "hatchling" ]
+
+[project]
+name = "workload-analyzer"
+version = "0.0.7"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+  { name = "Nicki Skafte", email = "skaftenicki@gmail.com" },
+]
+requires-python = ">=3.12"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+  "click<8.2",
+  "invoke>=2.2",
+  "loguru>=0.7.3",
+  "psutil>=7",
+  "pydantic>=2.11.4",
+  "pyqt6>=6.9",
+  "seaborn>=0.13.2",
+  "typer>=0.15.3",
+]
+
+optional-dependencies.cpu = [
+  "torch>=2.6",
+  "torchvision>=0.21",
+]
+optional-dependencies.cu124 = [
+  "torch>=2.6",
+  "torchvision>=0.21",
+]
+scripts.workload-analyzer = "workload_analyzer.cli:cli"
+
+[dependency-groups]
+dev = [
+  "coverage>=7.8",
+  "ipython>=8.36",
+  "pre-commit>=4.2",
+  "pytest>=8.3.5",
+  "python-semantic-release>=9.21.1",
+  "ruff>=0.11.9",
+  "ty>=0.0.1a1",
+]
+mnist = [
+  "torch>=2.6",
+  "torchvision>=0.21",
+]
+vae = [
+  "six>=1.17",
+  "torch>=2.6",
+  "torchvision>=0.21",
+  "tqdm>=4.67.1",
+]
+gat = [
+  "numpy>=2.2.5",
+  "requests>=2.32.3",
+  "torch>=2.6",
+]
+
+[tool.ruff]
+line-length = 120
+
+lint.select = [ "ALL", "I" ]
+lint.ignore = [
+  "B008",
+  "COM812",
+  "D100",
+  "D104",
+  "D107",
+  "D203",
+  "D212",
+  "D401",
+  "DTZ001",
+  "DTZ005",
+  "DTZ007",
+  "E731",
+  "FBT001",
+  "FBT002",
+  "FBT003",
+  "I001",
+  "ISC001",
+  "PLR0913",
+  "PLR2004",
+  "PLW1509",
+  "S602",
+  "S603",
+  "S604",
+  "T201",
+]
+lint.per-file-ignores."tasks.py" = [ "ANN001" ]
+lint.per-file-ignores."tests/*" = [ "S101" ]
+lint.pydocstyle.convention = "google"
+
+[tool.coverage.run]
+omit = [ "tests/*" ]
+
+[tool.uv]
+conflicts = [
+  [
+    { extra = "cpu" },
+    { extra = "cu124" },
+  ],
+]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu124", extra = "cu124" },
+]
+torchvision = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu124", extra = "cu124" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[tool.semantic_release]
+version_toml = [ "pyproject.toml:project.version" ]
+version_variables = [ "src/workload_analyzer/__init__.py:__version__" ]
+branch = "main"
+changelog_file = "CHANGELOG.md"
+build_command = "uv build"
+upload_to_release = true
+upload_to_pypi = false
