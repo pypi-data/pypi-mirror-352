@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "folder-schema-validator"
+version = "0.1.5"
+description = "A Python tool for validating folder structures against defined schemas with wildcard support"
+readme = "README.md"
+authors = [
+    {name = "Brandons Corner", email = "contact@brandonscorner.com"}
+]
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.7"
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/brandonscorner/folder-schema-validator"
+"Bug Tracker" = "https://github.com/brandonscorner/folder-schema-validator/issues"
+
+[project.scripts]
+folder-schema-validator = "folder_schema_validator:main"
