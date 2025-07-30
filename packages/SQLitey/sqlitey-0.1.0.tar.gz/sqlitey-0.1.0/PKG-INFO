@@ -1,0 +1,87 @@
+Metadata-Version: 2.4
+Name: SQLitey
+Version: 0.1.0
+Summary: Useful wrapper around SQLite
+License: The MIT License (MIT)
+        
+        Copyright (c) 2025 Matthieu Petiteau
+        
+        Permission is hereby granted, free of charge, to any person obtaining
+        a copy of this software and associated documentation files (the
+        "Software"), to deal in the Software without restriction, including
+        without limitation the rights to use, copy, modify, merge, publish,
+        distribute, sublicense, and/or sell copies of the Software, and to
+        permit persons to whom the Software is furnished to do so, subject to
+        the following conditions:
+        
+        The above copyright notice and this permission notice shall be
+        included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+        IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+        CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+        TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+        SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+License-File: LICENSE
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+
+# SQLitey
+
+SQLitey is a lightweight and flexible wrapper around SQLite, designed to streamline database access using configuration files, SQL templates, and custom row factories.
+
+Key Features:
+- Configuration-driven setup for database paths and SQL templates
+- Support for SQL template files to keep queries organized
+- Customizable row factories (e.g., return rows as namedtuples)
+- Support for both templated and raw SQL queries
+- Optional config usage for quick, one-off database access
+
+## Exampe usage
+
+### Using a Config File
+
+Define a configuration with the database path and the directory for SQL templates:
+
+``` python
+from pathlib import Path
+from sqlitey import Db, DbPathConfig, Sql, namedtuple_factory
+
+dir = Path(__file__).resolve().parent
+config = DbPathConfig(
+    database=dir / "db.sqlite3",
+    sql_templates_dir=dir / "sql"
+)
+
+with Db.from_config(config, row_factory=namedtuple_factory) as db:
+    result = db.fetchone(Sql.template("get_user_by_id.sql"), (3,))
+    print(result.id, result.name)
+```
+
+### Executing Raw SQL
+
+You can also use raw SQL directly:
+
+``` python
+with Db.from_config(config, timeout=15) as db:
+    db.commit(Sql.raw("INSERT INTO users VALUES (10, 'John');"))
+```
+
+### Without a Config File
+
+Skip the config and use the database path directly:
+
+``` python
+with Db("db.sqlite3", autocommit=True) as db:
+    db.execute(Sql.raw("UPDATE users SET name = 'Johnny' WHERE id = 10;"))
+
+with Db("db.sqlite3") as db:
+    sql = Sql.template("get_user_by_id.sql", path=Path(__file__).resolve().parent / "sql")
+    result = db.fetchone(sql, (3,))
+```
+
+### More examples
+
+See more examples in [tests](./tests/test_sqlight.py)
