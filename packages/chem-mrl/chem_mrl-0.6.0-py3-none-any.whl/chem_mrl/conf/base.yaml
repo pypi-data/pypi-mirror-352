@@ -1,0 +1,58 @@
+defaults:
+  - base_config_schema
+  - _self_
+
+# dataset params
+# train_dataset_path and val_dataset_path must be parquet files
+# You can specify column names in /model/chem_mrl and /model/classifier configs
+train_dataset_path: Derify/pubchem_10m_genmol_similarity
+val_dataset_path: Derify/pubchem_10m_genmol_similarity
+test_dataset_path: Derify/pubchem_10m_genmol_similarity
+train_datasets_split: train
+val_datasets_split: validation # if loading from different local files, this should be set to train
+test_datasets_split: test # if loading from different local files, this should be set to train
+smiles_a_column_name: smiles_a
+smiles_b_column_name: smiles_b # can be set to `null` if training a classifier model
+label_column_name: similarity
+n_train_samples: 100000 # Number of training samples to load. Uses seeded sampling if a seed is set.
+n_val_samples: 100000 # Number of evaluation samples to load. Uses seeded sampling if a seed is set.
+n_test_samples: 100000 # Number of testing samples to load. Uses seeded sampling if a seed is set.
+
+resume_from_checkpoint: null # Path to checkpoint to resume from
+scale_learning_rate: false # Scale learning rate by sqrt(batch_size)
+use_normalized_weight_decay:
+  false # overrides the weight decay specified in training_args
+  # Normalized weight decay for adamw optimizer - https://arxiv.org/pdf/1711.05101.pdf
+  # optimized hyperparameter lambda_norm = 0.05 for AdamW optimizer
+  # Hyperparameter search indicates a normalized weight decay outperforms
+  # the default adamw weight decay
+
+# Note: SentenceTransformerTrainingArguments extends transformers.TrainingArguments
+# https://sbert.net/docs/package_reference/sentence_transformer/training_args.html
+# https://huggingface.co/docs/transformers/main/en/main_classes/trainer#transformers.TrainingArguments
+training_args:
+  _target_: sentence_transformers.SentenceTransformerTrainingArguments
+  seed: 42 # Set to `null` to not set a seed during training
+  data_seed: 42
+  output_dir: training_output # Path to save model, checkpoints and evaluation results
+  do_train: True
+  do_eval: True
+  eval_strategy: epoch # 'no', 'steps', 'epoch'
+  eval_steps: 0
+  learning_rate: 1.0e-06
+  lr_scheduler_type: linear
+  optim: adamw_apex_fused # transformer's compatible optimizer name - adamw_hf adamw_apex_fused
+  weight_decay: null # Weight decay for AdamW optimizer
+  tf32: false # Use TensorFloat-32 for matrix multiplication and convolutions
+  fp16: false # Use automatic mixed precision
+  warmup_ratio: 0.0
+  per_device_train_batch_size: 32
+  per_device_eval_batch_size: 32
+  num_train_epochs: 1
+  disable_tqdm: false
+  save_strategy: "epoch" # 'no', 'steps', 'epoch', 'best'
+  save_steps: 0
+  save_total_limit: 5
+  dataloader_num_workers: 0 # How many subprocesses to use for data loading.
+  # 0 means that the data will be loaded in the main process.
+  dataloader_pin_memory: false
