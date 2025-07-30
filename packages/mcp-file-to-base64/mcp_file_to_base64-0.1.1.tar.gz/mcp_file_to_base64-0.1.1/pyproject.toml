@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp_file_to_base64"
+version = "0.1.1"
+description = "Convert the content of a local file to base64 code"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.2.1",
+    "httpx>=0.28.1",
+    "mcp>=1.9.2",
+    "starlette>=0.47.0",
+]
+
+[project.scripts]
+mcp_file_to_base64 = "mcp_file_to_base64:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
