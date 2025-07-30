@@ -1,0 +1,140 @@
+= MANGONO MIGRATION
+
+== Purpose
+
+Provide service for pre-installation and post-installation scripts (migration scripts)
+
+scripts are run upon install or update (-i ou -u)
+Goal is to avoid having to play manually SQL or python script
+
+We do not use odoo migration script system because it requires to manage module's version, which is difficult for project with simultaneous dev
+
+== Usage
+=== settings
+this module must be declared as server wide module
+
+- docker : `--load web,kanban,mangono_migration`
+- nestor : using `nestor.cfg` file at the project's root, for example :
+----
+default:
+  version: "13.0"
+  workers: 3
+  options:
+    load: mangono_migration
+----
+- clever cloud : using `.clever/envs/update.env` file
+----
+LOAD_MANGONO_MIGRATION="True"
+----
+
+`*IMPORTANT*` : *do not install the mangono_migration module!* +
+
+
+`mangono_migration` directory must be created at the root of your module's directory
+
+A `mangono_migration` table will be created in your database to record the status of the script running and record logs. *There is no graphical interface, and there is no odoo models*.
+You can use SQL request to check script execution, and use usual `_logger.info()` to log script activity.
+
+_mangono_migration  library is available from V12 to V18 (legacy V8 to V11 are common modules)
+
+=== pre-installation
+pre-installation script are run before update of the module, and allow to fix data before module update or create column to avoid compute.
+
+each pre_installation script for a given ticket must be in a python file called `pre_<ticket_number>.py`, located in a 'mangono_migration' directory in your module
+
+you must import :
+           `from odoo.addons.mangono_migration.mangono_migration import migrate_ndp`
+
+the functions must be decorated by `@migrate_mangono` and have this signature :
+          `def xxxxx(self)` or for backward compatibility `def xxxxx(self, has_run):`
+
+self is a factice object (not usual odoo self), but self.env is a real odoo env, `self.env['model']` is able to access odoo models, `self.env.cr` or `self.cr` can be used to perform request +
+self.has_run is a boolean true if the script has already been run (same for has_run parameter if used)
+
+EXAMPLE:
+[source,python]
+----
+       @migrate_mangono(run_always=False, priority=10, allowed_to_fail=True)
+       def pre_t1245(self):
+           # the function will always get self.has_run = False,
+           # because it will be called only if it has not run yet
+           self.env['my.model'].search(my_domain).unlink  # with allowed_to_fail, if this fails, the script
+                                                          # action will be rollbacked but update goes on
+----
+
+SIMPLE EXAMPLE:
+[source,python]
+----
+@migrate_mangono
+def pre_t5432(self):
+    self.cr.execute("UPDATE xxxx")
+----
+
+if the optional decorator parameter `run_always` is set to True
+       the method must use the has_run bool to check if the script has already been run on this base or check if
+       there is something to do before doing it. (_default value of run_always is False_)
+
+in case of exception the script is rollbacked, it is not written as run in the `mangono_migration` table and installation will stop, other scripts will not be executed
+
+if the optional decorator parameter `allowed_to_fail` is set to `True`, the script failure will not interrupt installation or update process. The DB is rollbacked to the state at the beginning of the script execution. Failure logs will be reported in table logs. (_default is False_)
+
+The optional decorator parameter `priority` can be set to a priority from 1 to 9999 (_default_) to decide the order in which script from the same python file will be played (priority 1 is played first).
+
+
+=== post-installation
+
+post-installation script are run after the module is installed/updated, before module translation are loaded, and before `post_init_hook`
+
+python file must be called `post_<Ticket_number>`
+
+decorator use is the same
+
+IMPORTANT: when a post script fails, all post action are rollbacked, but pre action are committed
+
+=== end
+
+same as post, with end_XXXX +
+Ces scripts sont joués après l'installation/mise à jour de tous les modules.
+
+=== afterbase
+Use to play a script just after base is updated, before any other modules are updated.
+
+To allow this, your script must reside in any installed modules (usually project_erp) and the file must be named `afterbase_xxxx.py`. You must run `update base`
+
+You cannot use models in this script, everything must be done with SQL
+
+=== jobification :
+
+you can start job from the script by calling `with_delay` as usual. +
+Note that job will not start during update phase. They will only start when the instance is restarted after the update.
+
+=== helper function
+`table_exists_in_db(cr, tablename)` can be used to check if a table exists in database
+
+`column_exists_in_db(cr, table_name, column_name)` can be used to check if a column exists in the given table.
+
+
+== Script example
+
+[source,python]
+----
+
+import logging
+from odoo.addons.mangono_migration.mangono_migration import migrate_mangono
+
+_logger = logging.getLogger(__name__)
+
+
+@migrate_mangono(run_always=False, allowed_to_fail=False)
+def update_rh_rights(self, has_run):
+    # Le script consiste à :
+    # - extraire tous les utilisateurs faisant partie du groupe Admin/Droits d'accès
+    # - les faire appartenir au groupe RH/Formation.
+    group_admin = self.env.ref('base.group_erp_manager')
+    group_training = self.env.ref(
+        'sirail_donnees_ref.group_sirail_training_manager')
+    users = group_admin.users
+    for user in users:
+        _logger.info(u"user %s added to RRH/formation group", user)
+        user.groups_id = [(4, group_training.id)]
+----

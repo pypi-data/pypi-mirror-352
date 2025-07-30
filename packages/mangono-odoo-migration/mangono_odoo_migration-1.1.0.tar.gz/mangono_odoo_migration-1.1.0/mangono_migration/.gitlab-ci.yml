@@ -1,0 +1,70 @@
+include:
+  - component: $CI_SERVER_FQDN/gitlab-ci/code-quality/ruff@~latest
+  - component: $CI_SERVER_FQDN/python-libs/ci-component/build@~latest
+  - component: $CI_SERVER_FQDN/python-libs/ci-component/upload-pypi@~latest
+    rules:
+      - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $CI_COMMIT_TAG == null
+    inputs:
+      registry_token_var: $TESTPYPI_REGISTRY_TOKEN
+      dependencies: [ "build:python" ]
+      registry_name: "testpypi"
+      name: "pypi:test"
+  - component: $CI_SERVER_FQDN/python-libs/ci-component/upload-pypi@~latest
+    rules:
+      - if: $CI_COMMIT_TAG && $CI_COMMIT_REF_PROTECTED
+    inputs:
+      registry_token_var: $PYPI_REGISTRY_TOKEN
+      registry_name: "pypi"
+      dependencies: [ "build:python" ]
+  - component: $CI_SERVER_FQDN/python-libs/ci-component/upload-pypi@~latest
+    rules:
+      - if: $CI_COMMIT_TAG && $CI_COMMIT_REF_PROTECTED
+    inputs:
+      registry_token_var: $CI_JOB_TOKEN
+      registry_name: "$CI_SERVER_HOST"
+      dependencies: [ "build:python" ]
+  - component: $CI_SERVER_FQDN/gitlab-ci/odoo-quality/runbot@1
+    inputs:
+      name: "runbot:matrix"
+      odoo_version: "all"
+
+# Only run pipeline if a merge request is open or run on a protected ref
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_REF_PROTECTED == "true"
+
+
+# If we are tagging a release with a specific convention ("v" + number) and all
+# previous checks succeeded, we proceed with creating a release automatically.
+publish:release:
+  tags: ["lint"]
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  script: echo "Creating release $CI_COMMIT_TAG"
+  rules:
+    - if: $CI_COMMIT_TAG && $CI_COMMIT_REF_PROTECTED
+  release:
+    tag_name: $CI_COMMIT_TAG
+    description: "Release $CI_COMMIT_TAG of components repository $CI_PROJECT_PATH"
+
+"odoo:runbot:matrix:all":
+  parallel:
+    matrix:
+      - ODOO_VERSION:
+          - "12.0"
+          - "13.0"
+          - "14.0"
+          - "15.0"
+          - "16.0"
+          - "17.0"
+          - "18.0"
+  image:
+    name: registry.mangono.io/odoo-cloud/container:$ODOO_VERSION
+    entrypoint: [ "" ]
+  needs:
+    - "test:matrix:all"
+  variables:
+    # ODOO_ENV aare propagated to the odoo service inside the runbot
+    LOAD_MANGONO_MIGRATION: mangono_migration
