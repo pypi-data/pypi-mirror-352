@@ -1,0 +1,84 @@
+[project]
+name = "pyconstructor"
+version = "0.2.1"
+description = "CLI tool for generating DDD architecture in Python projects"
+readme = "README.md"
+requires-python = ">=3.12"
+
+license = {file = "LICENSE"}
+authors = [{name = "Grigoriy Sokolov", email = "Sokolov_Gr@proton.me"}]
+keywords = ["ddd", "architecture", "code-generation", "domain-driven-design"]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Code Generators",
+]
+
+
+dependencies = [
+    "click>=8.1.8",
+    "PyYAML>=6.0.2",
+    "pydantic>=2.11.3",
+    "dishka>=1.5.3",
+    "Jinja2>=3.1.6",
+    "rich>=14.0.0",
+    "pytest>=8.3.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/SokolovG/PyConstruct"
+Repository = "https://github.com/SokolovG/PyConstruct"
+Issues = "https://github.com/SokolovG/PyConstruct/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.5",
+    "ruff>=0.11.6",
+    "mypy>=1.15.0",
+    "pre-commit>=4.2.0",
+    "pytest-cov>=6.1.1",
+]
+
+[project.scripts]
+pyc = "src.main:cli"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+indent-width = 4
+extend-exclude = ["tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "N", "UP", "YTT", "ANN", "S", "A", "D"]
+ignore = ["ANN102", "D100", "D101", "D104", "D105", "D103", "D102"]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.setuptools]
+packages = ["src"]
+package-data = {"*" = ["src/templates/config_templates/*.yaml"]}
+include-package-data = true
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+strict = true
+disallow_untyped_decorators = false
+disallow_subclassing_any = false
+disallow_any_generics = false
+ignore_missing_imports = true
+follow_untyped_imports = true
+
+[tool.uv]
+package = true
