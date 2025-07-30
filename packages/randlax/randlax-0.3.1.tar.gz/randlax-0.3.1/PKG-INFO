@@ -1,0 +1,55 @@
+Metadata-Version: 2.3
+Name: randlax
+Version: 0.3.1
+Summary: Randomized Linear Algebra routines for JAX
+Author: Joshua Chen, Michael Brennan, Thomas O'Leary-Roseberry
+Author-email: Joshua Chen <joshuawchen@icloud.com>, Michael Brennan <mcbrenn@mit.edu>, Thomas O'Leary-Roseberry <tom.olearyroseberry@utexas.edu>
+License: MIT License
+         
+         Copyright (c) 2025 Joshua Chen
+         
+         Permission is hereby granted, free of charge, to any person obtaining a copy
+         of this software and associated documentation files (the "Software"), to deal
+         in the Software without restriction, including without limitation the rights
+         to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+         copies of the Software, and to permit persons to whom the Software is
+         furnished to do so, subject to the following conditions:
+         
+         The above copyright notice and this permission notice shall be included in all
+         copies or substantial portions of the Software.
+         
+         THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+         IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+         FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+         AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+         SOFTWARE.
+Requires-Dist: jax
+Requires-Dist: jaxlib
+Requires-Dist: numpy
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: isort ; extra == 'dev'
+Requires-Dist: flake8 ; extra == 'dev'
+Requires-Python: >=3.8
+Project-URL: Homepage, https://github.com/joshuawchen/randLAX
+Project-URL: Repository, https://github.com/joshuawchen/randLAX
+Provides-Extra: dev
+Description-Content-Type: text/markdown
+
+# randLAX
+
+**randLAX** is a Python package that provides randomized linear algebra routines built on top of [JAX](https://github.com/google/jax).
+
+## Features
+
+- Efficient randomized methods for (generalized) hermetian eigenvalue decomposition.
+- B-inner product based orthonormalization routines.
+
+## Installation
+
+You can install the package using pip:
+
+```bash
+pip install randLAX
