@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "drf-api-checker"
+version = "0.13"
+description = ""
+authors = ["sax <s.apostolico@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+djangorestframework = "*"
+pytz = "*"
+Django = "*"
+
+[tool.poetry.group.dev.dependencies]
+django-webtest = "*"
+factory-boy = "*"
+pyfakefs = "*"
+pytest-cov = "*"
+pytest-django = "*"
+pytest-echo = "*"
+pytest-pythonpath = "*"
+python-dateutil = "*"
+pdbpp = "*"
+sphinx = "*"
+tox-poetry = {extras = ["poetry"], version = "*"}
+
+[build-system]
+requires = ["poetry"]
+build-backend = "poetry.masonry.api"
