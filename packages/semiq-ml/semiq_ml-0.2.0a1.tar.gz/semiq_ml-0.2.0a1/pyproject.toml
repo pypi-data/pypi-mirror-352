@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "semiq-ml"
+version = "0.2.0a1"
+description = "A collection of reusable machine learning pipeline helpers"
+readme = "README.md"
+authors = [
+    {name = "Malfino Willianz", email = "willianz@pm.me"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "lightgbm",
+    "xgboost",
+    "catboost",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/semiqolonn/semiq-ml"
+"Bug Tracker" = "https://github.com/semiqolonn/semiq-ml/issues"
