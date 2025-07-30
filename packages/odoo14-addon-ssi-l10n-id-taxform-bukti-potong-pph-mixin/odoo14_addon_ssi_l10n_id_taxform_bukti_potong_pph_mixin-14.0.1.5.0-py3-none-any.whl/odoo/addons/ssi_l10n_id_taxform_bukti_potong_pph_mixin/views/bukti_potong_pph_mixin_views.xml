@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+<record id="bukti_potong_pph_mixin_view_tree" model="ir.ui.view">
+    <field name="name">l10n_id.bukti_potong_pph_mixin tree</field>
+    <field name="model">l10n_id.bukti_potong_pph_mixin</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_tree" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="date" />
+                <field name="tax_period_id" />
+                <field name="wajib_pajak_id" />
+                <field name="pemotong_pajak_id" />
+                <field name="type_id" invisible="1" />
+                <field name="direction" invisible="1" />
+                <field name="journal_id" />
+                <field name="total_tax_final" sum="Total Tax" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="bukti_potong_pph_mixin_search" model="ir.ui.view">
+    <field name="name">l10n_id.bukti_potong_pph_mixin - search</field>
+    <field name="model">l10n_id.bukti_potong_pph_mixin</field>
+    <field
+            name="inherit_id"
+            ref="ssi_transaction_mixin.mixin_transaction_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="journal_id" />
+                <field name="tax_period_id" />
+                <field name="wajib_pajak_id" />
+                <field name="pemotong_pajak_id" />
+                <field name="ttd_id" />
+            </xpath>
+            <xpath expr="//group[@name='group_by']" position="inside">
+                <filter
+                        name="grp_type"
+                        string="Type"
+                        context="{'group_by':'type_id'}"
+                    />
+                <filter name="grp_date" string="Date" context="{'group_by':'date'}" />
+                <filter
+                        name="filter_grp_journal"
+                        string="Journal"
+                        context="{'group_by':'journal_id'}"
+                    />
+                <filter
+                        name="filter_grp_tax_period"
+                        string="Tax Period"
+                        context="{'group_by':'tax_period_id'}"
+                    />
+                <filter
+                        name="filter_grp_wp"
+                        string="Wajib Pajak"
+                        context="{'group_by':'wajib_pajak_id'}"
+                    />
+                <filter
+                        name="filter_grp_pp"
+                        string="Pemotong Pajak"
+                        context="{'group_by':'pemotong_pajak_id'}"
+                    />
+                <filter
+                        name="filter_grp_ttd"
+                        string="TTD"
+                        context="{'group_by':'ttd_id'}"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="bukti_potong_pph_mixin_view_form" model="ir.ui.view">
+    <field name="name">l10n_id.bukti_potong_pph_mixin form</field>
+    <field name="model">l10n_id.bukti_potong_pph_mixin</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//sheet" position="inside">
+                <h1 name="form_name" />
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="date" />
+                <field name="tax_period_id" />
+                <field name="company_id" />
+                <field
+                        name="allowed_journal_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+                <field name="journal_id" domain="[('id','in',allowed_journal_ids)]" />
+                <field name="account_id" domain="[('id', 'in', allowed_account_ids)]" />
+                <field name="type_id" invisible="1" />
+                <field name="direction" invisible="1" />
+                <field name="allowed_tax_ids" widget="many2many_tags" invisible="1" />
+                <field
+                        name="allowed_account_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+                <field
+                        name="allowed_move_line_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+            </xpath>
+            <xpath expr="//group[@name='header_right']" position="inside">
+                <field
+                        name="wajib_pajak_id"
+                        attrs="{'readonly': ['|',('direction','=','in'),('state','!=','draft')]}"
+                        force_save="1"
+                    />
+                <field
+                        name="pemotong_pajak_id"
+                        domain="[('is_company','=',True)]"
+                        attrs="{'readonly': ['|',('direction','=','out'),('state','!=','draft')]}"
+                        force_save="1"
+                    />
+                <field
+                        name="ttd_id"
+                        domain="[('is_company','=',False),('commercial_partner_id.id','=',pemotong_pajak_id)]"
+                        attrs="{'required':[('direction','=','out')],'readonly':[('state','!=','draft')]}"
+                        force_save="1"
+                    />
+                <field name="kpp_id" domain="[('is_company','=',True)]" />
+            </xpath>
+            <xpath expr="//page[@name='note']" position="before">
+                <page name="page_line" string="Details">
+                    <field name="line_ids" nolabel="1" colspan="4">
+                        <tree>
+                            <field name="sequence" widget="handle" />
+                            <field name="name" />
+                            <field name="tax_id" />
+                            <field name="amount" />
+                            <field name="amount_tax" />
+                        </tree>
+                        <form>
+                            <group name="grp_main" colspan="4" col="2">
+                                <group name="grp_main_1" colspan="1" col="2">
+                                        <field name="sequence" />
+                                        <field
+                                            name="move_line_id"
+                                            domain="[('id', 'in', parent.allowed_move_line_ids)]"
+                                        />
+                                        <field
+                                            name="allowed_income_move_line_ids"
+                                            widget="many2many_tags"
+                                            invisible="1"
+                                        />
+                                        <field
+                                            name="tax_id"
+                                            domain="[('id','in',parent.allowed_tax_ids)]"
+                                        />
+                                </group>
+                                    <group name="grp_main_2" colspan="1" col="2">
+                                        <field name="amount_computation_method" />
+                                        <field
+                                            name="manual_amount"
+                                            attrs="{'invisible':[('amount_computation_method','!=','manual')], 'required':[('amount_computation_method','=','manual')]}"
+                                        />
+                                        <field
+                                            name="amount"
+                                            attrs="{'invisible':[('amount_computation_method','!=','auto')]}"
+                                        />
+                                        <field name="amount_tax" />
+                                    </group>
+                                    <label for="name" />
+                                    <field name="name" nolabel="1" />
+                            </group>
+                            <notebook>
+                                <page name="page_income" string="Income Move Lines">
+                                    <field
+                                            name="income_move_line_ids"
+                                            nolabel="1"
+                                            domain="[('id','in',allowed_income_move_line_ids)]"
+                                        />
+                                </page>
+                            </notebook>
+                        </form>
+                    </field>
+                    <group name="group_total" colspan="4" col="2">
+                        <field name="total_tax" />
+                        <field name="total_tax_computation" />
+                        <field
+                                name="manual_total_tax"
+                                attrs="{'invisible': [('total_tax_computation','=','auto')],'required': [('total_tax_computation','=','manual')]}"
+                            />
+                        <field
+                                name="total_tax_diff"
+                                attrs="{'invisible': [('total_tax_computation','=','auto')]}"
+                            />
+                        <field
+                                name="diff_debit_account_id"
+                                attrs="{'invisible': [('total_tax_computation','=','auto')],'required': [('total_tax_computation','=','manual')]}"
+                            />
+                        <field
+                                name="diff_credit_account_id"
+                                attrs="{'invisible': [('total_tax_computation','=','auto')],'required': [('total_tax_computation','=','manual')]}"
+                            />
+                    </group>
+                </page>
+                <page name="page_acc" string="Accounting">
+                    <group name="group_acc_1">
+                        <field name="move_id" />
+                    </group>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+</odoo>

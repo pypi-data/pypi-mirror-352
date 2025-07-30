@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+    <record id="l10n_id_bukti_potong_pph_type_view_search" model="ir.ui.view">
+        <field name="name">l10n_id.bukti_potong_pph_type - search</field>
+        <field name="model">l10n_id.bukti_potong_pph_type</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="l10n_id_bukti_potong_pph_type_view_tree" model="ir.ui.view">
+        <field name="name">l10n_id.bukti_potong_pph_type - tree</field>
+        <field name="model">l10n_id.bukti_potong_pph_type</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_tree"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">0</attribute>
+                    <attribute name="edit">1</attribute>
+                    <attribute name="delete">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="direction" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="bukti_potong_pph_type_view_form" model="ir.ui.view">
+        <field name="name">l10n_id.bukti_potong_pph_type - form</field>
+        <field name="model">l10n_id.bukti_potong_pph_type</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_form"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">0</attribute>
+                    <attribute name="edit">1</attribute>
+                    <attribute name="delete">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='code']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='active']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="direction" readonly="1" />
+                </xpath>
+                <xpath expr="//page[@name='note']" position="before">
+                    <page name="accounting" string="Accounting Configuration">
+                        <group name="group_data_1" colspan="4" col="2">
+                            <field name="journal_ids" widget="many2many_tags" />
+                            <field name="account_ids" widget="many2many_tags" />
+                            <field name="tax_ids" widget="many2many_tags" />
+                        </group>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>
