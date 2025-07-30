@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tag-factory"
+version = "0.1.1"
+description = "CLI tool for Tag Factory"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Tag Factory Team"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "click",
+    "requests",
+    "pydantic",
+    "tqdm",
+]
+
+[project.scripts]
+tag-factory = "tag_factory_cli.cli:cli"
+
+[project.urls]
+"Homepage" = "https://github.com/tag-factory/tag-factory"
+"Bug Tracker" = "https://github.com/tag-factory/tag-factory/issues"
+
+[tool.setuptools]
+packages = ["tag_factory_cli", "tag_factory_cli.utils"]
