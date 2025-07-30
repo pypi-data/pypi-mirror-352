@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bscript"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "U.N. Owen", email = "void@some.where" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = []
+
+[project.urls]
+Documentation = "https://github.com/U.N. Owen/bscript#readme"
+Issues = "https://github.com/U.N. Owen/bscript/issues"
+Source = "https://github.com/U.N. Owen/bscript"
+
+[tool.hatch.version]
+path = "src/bscript/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/bscript tests}"
+[tool.hatch.envs.irsim]
+extra-dependencies = [ "ir-sim", ]
+
+[tool.coverage.run]
+source_pkgs = ["bscript", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/bscript/__about__.py",
+]
+
+[tool.coverage.paths]
+bscript = ["src/bscript", "*/bscript/src/bscript"]
+tests = ["tests", "*/bscript/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
