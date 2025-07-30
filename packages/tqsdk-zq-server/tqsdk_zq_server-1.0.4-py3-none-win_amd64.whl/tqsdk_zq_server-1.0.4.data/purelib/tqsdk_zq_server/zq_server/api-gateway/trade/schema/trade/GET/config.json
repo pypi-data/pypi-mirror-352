@@ -1,0 +1,1113 @@
+{
+  "WsHost": "127.0.0.1:8765",
+  "WsQuerySchema": {
+    "type": "object",
+    "properties": {
+      "broker_id": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  },
+  "WsBodySchema": {
+    "definitions": {
+      "req_login": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "req_login"
+            ]
+          },
+          "bid": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{0,64}$"
+          },
+          "user_name": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "client_app_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "client_system_info": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "client_mac_address": {
+            "type": "string",
+            "pattern": "^(([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}))$"
+          },
+          "broker_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "device_brand": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "device_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "channel_id": {
+            "type": "string"
+          },
+          "front": {
+            "type": "string",
+            "pattern": "^[^=#|;]{1,256}$"
+          },
+          "client_real_ip": {
+            "type": "string",
+            "pattern": "((^|\\.)((25[0-5])|(2[0-4]\\d)|(1\\d\\d)|([1-9]?\\d))){4}$"
+          }
+        },
+        "required": [
+          "aid",
+          "bid",
+          "user_name",
+          "password"
+        ],
+        "additionalProperties": false
+      },
+      "confirm_settlement": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "confirm_settlement"
+            ]
+          }
+        },
+        "required": [
+          "aid"
+        ],
+        "additionalProperties": false
+      },
+      "peek_message": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "peek_message"
+            ]
+          }
+        },
+        "required": [
+          "aid"
+        ],
+        "additionalProperties": false
+      },
+      "qry_settlement_info": {
+        "type": "object",
+        "description": "查询历史结算单",
+        "properties": {
+          "aid": {
+            "enum": [
+              "qry_settlement_info"
+            ]
+          },
+          "trading_day": {
+            "type": "integer",
+            "minimum": 19700101,
+            "maximum": 20991231
+          }
+        },
+        "required": [
+          "aid"
+        ],
+        "additionalProperties": false
+      },
+      "change_password": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "change_password"
+            ]
+          },
+          "old_password": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "new_password": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "aid"
+        ],
+        "additionalProperties": false
+      },
+      "insert_order": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "insert_order"
+            ]
+          },
+          "user_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "order_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{0,256}$"
+          },
+          "exchange_id": {
+            "enum": [
+              "SHFE",
+              "DCE",
+              "CZCE",
+              "CFFEX",
+              "INE",
+              "GFEX",
+              "SSE",
+              "SZSE"
+            ]
+          },
+          "instrument_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "is_swap_order": {
+            "type": "boolean"
+          },
+          "direction": {
+            "enum": [
+              "BUY",
+              "SELL"
+            ]
+          },
+          "offset": {
+            "enum": [
+              "OPEN",
+              "CLOSE",
+              "CLOSETODAY"
+            ]
+          },
+          "limit_price": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000
+          },
+          "volume": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000
+          },
+          "price_type": {
+            "enum": [
+              "LIMIT",
+              "ANY",
+              "BEST",
+              "FIVELEVEL"
+            ]
+          },
+          "volume_condition": {
+            "enum": [
+              "ANY",
+              "MIN",
+              "ALL"
+            ]
+          },
+          "time_condition": {
+            "enum": [
+              "IOC",
+              "GFS",
+              "GFD",
+              "GTD",
+              "GTC",
+              "GFA"
+            ]
+          },
+          "hedge_flag": {
+            "enum": [
+              "SPECULATION",
+              "ARBITRAGE",
+              "HEDGE",
+              "MARKETMAKER",
+              "COVERED"
+            ]
+          },
+          "contingent_condition": {
+            "enum": [
+              "IMMEDIATELY",
+              "TOUCH",
+              "TOUCHPROFIT"
+            ]
+          }
+        },
+        "required": [
+          "aid",
+          "user_id",
+          "exchange_id",
+          "instrument_id",
+          "direction",
+          "offset",
+          "volume",
+          "price_type",
+          "volume_condition",
+          "time_condition"
+        ],
+        "additionalProperties": false
+      },
+      "pre_insert_order": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "pre_insert_order"
+            ]
+          },
+          "user_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "order_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,256}$"
+          },
+          "exchange_id": {
+            "enum": [
+              "SHFE",
+              "DCE",
+              "CZCE",
+              "CFFEX",
+              "INE",
+              "GFEX",
+              "SSE",
+              "SZSE"
+            ]
+          },
+          "instrument_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{0,64}$"
+          },
+          "direction": {
+            "enum": [
+              "BUY",
+              "SELL"
+            ]
+          },
+          "offset": {
+            "enum": [
+              "OPEN",
+              "CLOSE",
+              "CLOSETODAY"
+            ]
+          },
+          "limit_price": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000
+          },
+          "volume": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "price_type": {
+            "enum": [
+              "LIMIT",
+              "ANY",
+              "BEST",
+              "FIVELEVEL"
+            ]
+          },
+          "volume_condition": {
+            "enum": [
+              "ANY",
+              "MIN",
+              "ALL"
+            ]
+          },
+          "time_condition": {
+            "enum": [
+              "IOC",
+              "GFS",
+              "GFD",
+              "GTD",
+              "GTC",
+              "GFA"
+            ]
+          },
+          "hedge_flag": {
+            "enum": [
+              "SPECULATION",
+              "ARBITRAGE",
+              "HEDGE",
+              "MARKETMAKER",
+              "COVERED"
+            ]
+          },
+          "contingent_condition": {
+            "enum": [
+              "IMMEDIATELY",
+              "TOUCH",
+              "TOUCHPROFIT"
+            ]
+          }
+        },
+        "required": [
+          "aid",
+          "user_id",
+          "exchange_id",
+          "instrument_id",
+          "direction",
+          "offset",
+          "volume",
+          "price_type",
+          "volume_condition",
+          "time_condition"
+        ],
+        "additionalProperties": true
+      },
+      "req_transfer": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "req_transfer"
+            ]
+          },
+          "future_account": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,256}$"
+          },
+          "bank_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{0,64}$"
+          },
+          "bank_branch_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{0,256}$"
+          },
+          "future_password": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{0,256}$"
+          },
+          "bank_password": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{0,256}$"
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,256}$"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": -1000000000,
+            "maximum": 1000000000
+          }
+        },
+        "required": [
+          "aid",
+          "bank_id",
+          "future_account",
+          "future_password",
+          "bank_password",
+          "currency",
+          "amount"
+        ],
+        "additionalProperties": false
+      },
+      "qry_transfer_serial": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "qry_transfer_serial"
+            ]
+          },
+          "future_account": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "bank_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{0,256}$"
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          }
+        },
+        "required": [
+          "aid"
+        ],
+        "additionalProperties": false
+      },
+      "qry_account_register": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "qry_account_register"
+            ]
+          }
+        },
+        "required": [
+          "aid"
+        ],
+        "additionalProperties": false
+      },
+      "qry_account_info": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "qry_account_info"
+            ]
+          }
+        },
+        "required": [
+          "aid"
+        ],
+        "additionalProperties": false
+      },
+      "change_trading_account_password": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "change_trading_account_password"
+            ]
+          },
+          "password_type": {
+            "enum": [
+              "TRADE",
+              "TRANSFER"
+            ]
+          },
+          "old_password": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "new_password": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "aid",
+          "old_password",
+          "new_password"
+        ],
+        "additionalProperties": false
+      },
+      "cancel_order": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "cancel_order"
+            ]
+          },
+          "order_id": {
+            "type": "string",
+            "pattern": "^[^=#;/]{1,256}$"
+          },
+          "user_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          }
+        },
+        "required": [
+          "aid",
+          "order_id"
+        ],
+        "additionalProperties": false
+      },
+      "insert_exec_order": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "insert_exec_order"
+            ]
+          },
+          "user_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "exchange_id": {
+            "enum": [
+              "SHFE",
+              "DCE",
+              "CZCE",
+              "CFFEX",
+              "INE",
+              "GFEX",
+              "SSE",
+              "SZSE"
+            ]
+          },
+          "instrument_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "exec_order_id": {
+            "type": "string"
+          },
+          "volume": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000
+          },
+          "direction": {
+            "enum": [
+              "NET",
+              "LONG",
+              "SHORT",
+              "INVALID"
+            ]
+          },
+          "offset": {
+            "enum": [
+              "OPEN",
+              "CLOSE",
+              "CLOSETODAY",
+              "CLOSEYESTERDAY",
+              "OPENANDCLOSE",
+              "CLOSEANDOPEN",
+              "INVALID"
+            ]
+          },
+          "hedge_flag": {
+            "enum": [
+              "SPECULATION",
+              "ARBITRAGE",
+              "HEDGE",
+              "MARKETMAKER",
+              "COVERED",
+              "SPECANDHEDGE",
+              "HEDGEANDSPEC",
+              "INVALID"
+            ]
+          },
+          "close_flag": {
+            "enum": [
+              "AUTOCLOSE",
+              "NOTTOCLOSE",
+              "INVALID"
+            ]
+          },
+          "exec_action_type": {
+            "enum": [
+              "INVALID",
+              "EXEC",
+              "ABANDON",
+              "CLOSE"
+            ]
+          }
+        },
+        "required": [
+          "aid",
+          "user_id",
+          "exchange_id",
+          "instrument_id",
+          "exec_order_id",
+          "volume",
+          "direction",
+          "offset",
+          "hedge_flag",
+          "close_flag",
+          "exec_action_type"
+        ],
+        "additionalProperties": false
+      },
+      "cancel_exec_order": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "cancel_exec_order"
+            ]
+          },
+          "exec_order_id": {
+            "type": "string",
+            "pattern": "^[^=#;/]{1,256}$"
+          },
+          "user_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$"
+          }
+        },
+        "required": [
+          "aid",
+          "user_id",
+          "exec_order_id"
+        ],
+        "additionalProperties": false
+      },
+      "req_setmemo": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "req_setmemo"
+            ]
+          },
+          "order_id": {
+            "type": "string"
+          },
+          "user_memo": {
+            "type": "string"
+          },
+          "system_memo": {
+            "type": "string"
+          },
+          "_memo_id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "aid",
+          "order_id",
+          "user_id"
+        ],
+        "additionalProperties": false
+      },
+      "insert_condition_order": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "insert_condition_order"
+            ]
+          },
+          "user_id": {
+            "type": "string",
+            "description": "用户名",
+            "pattern": "^[^=#|;/]{1,64}$"
+          },
+          "order_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{0,256}$"
+          },
+          "condition_list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "contingent_type": {
+                  "type": "string",
+                  "enum": [
+                    "market_open",
+                    "time",
+                    "price",
+                    "price_range",
+                    "break_even"
+                  ],
+                  "description": "条件触发类型"
+                },
+                "exchange_id": {
+                  "enum": [
+                    "SHFE",
+                    "DCE",
+                    "CZCE",
+                    "CFFEX",
+                    "INE",
+                    "GFEX",
+                    "SSE",
+                    "SZSE"
+                  ]
+                },
+                "instrument_id": {
+                  "type": "string",
+                  "pattern": "^[^=#|;/]{1,64}$",
+                  "description": "合约代码"
+                },
+                "is_touched": {
+                  "type": "boolean",
+                  "description": "条件是否已经触发"
+                },
+                "contingent_price": {
+                  "type": "number",
+                  "minimum": -1000000,
+                  "maximum": 1000000,
+                  "description": "触发价格"
+                },
+                "price_relation": {
+                  "type": "string",
+                  "enum": [
+                    "G",
+                    "GE",
+                    "L",
+                    "LE"
+                  ],
+                  "description": "触发价格关系"
+                },
+                "contingent_time": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2147483647,
+                  "description": "触发时间"
+                },
+                "contingent_price_range_left": {
+                  "type": "number",
+                  "minimum": -1000000,
+                  "maximum": 1000000,
+                  "description": "触发价格区间左边界"
+                },
+                "contingent_price_range_right": {
+                  "type": "number",
+                  "minimum": -1000000,
+                  "maximum": 1000000,
+                  "description": "触发价格区间右边界"
+                },
+                "break_even_price": {
+                  "type": "number",
+                  "minimum": -1000000,
+                  "maximum": 1000000,
+                  "description": "止盈保本价格"
+                },
+                "m_has_break_event": {
+                  "type": "boolean",
+                  "description": "是否已经突破保本价格"
+                },
+                "break_even_direction": {
+                  "type": "string",
+                  "enum": [
+                    "BUY",
+                    "SELL"
+                  ],
+                  "description": "被止盈仓位的方向"
+                }
+              },
+              "required": [
+                "contingent_type",
+                "exchange_id",
+                "instrument_id"
+              ],
+              "additionalProperties": true
+            },
+            "description": "条件单的条件列表",
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "conditions_logic_oper": {
+            "enum": [
+              "AND",
+              "OR"
+            ]
+          },
+          "conditions_logic_operator": {
+            "type": "string",
+            "enum": [
+              "AND",
+              "OR"
+            ],
+            "description": "多个条件之间的逻辑操作符"
+          },
+          "order_list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "exchange_id": {
+                  "enum": [
+                    "SHFE",
+                    "DCE",
+                    "CZCE",
+                    "CFFEX",
+                    "INE",
+                    "GFEX",
+                    "SSE",
+                    "SZSE"
+                  ]
+                },
+                "instrument_id": {
+                  "type": "string",
+                  "pattern": "^[^=#|;/]{1,64}$",
+                  "description": "合约代码"
+                },
+                "direction": {
+                  "type": "string",
+                  "enum": [
+                    "BUY",
+                    "SELL"
+                  ],
+                  "description": "方向"
+                },
+                "offset": {
+                  "type": "string",
+                  "enum": [
+                    "OPEN",
+                    "CLOSE",
+                    "REVERSE"
+                  ],
+                  "description": "开平"
+                },
+                "close_today_prior": {
+                  "type": "boolean",
+                  "description": "可平不足时是否撤原平仓挂单"
+                },
+                "volume_type": {
+                  "type": "string",
+                  "enum": [
+                    "NUM",
+                    "CLOSE_ALL"
+                  ],
+                  "description": "手数类型"
+                },
+                "volume": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000,
+                  "description": "具体手数"
+                },
+                "price_type": {
+                  "type": "string",
+                  "enum": [
+                    "CONTINGENT",
+                    "CONSIDERATION",
+                    "MARKET",
+                    "OVER",
+                    "LIMIT"
+                  ],
+                  "description": "价格类型"
+                },
+                "limit_price": {
+                  "type": "number",
+                  "minimum": -1000000,
+                  "maximum": 1000000,
+                  "description": "具体限价"
+                }
+              },
+              "required": [
+                "exchange_id",
+                "instrument_id",
+                "direction",
+                "offset",
+                "volume_type",
+                "price_type"
+              ],
+              "additionalProperties": true
+            },
+            "minItems": 1,
+            "uniqueItems": true,
+            "description": "条件触发后的订单列表"
+          },
+          "time_condition_type": {
+            "type": "string",
+            "enum": [
+              "GFD",
+              "GTD",
+              "GTC"
+            ],
+            "description": "条件单的有效时长"
+          },
+          "GTD_date": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999999,
+            "description": "有效时期"
+          },
+          "is_cancel_ori_close_order": {
+            "type": "boolean",
+            "description": "可平不足时是否撤原平仓挂单"
+          },
+          "is_cancel_origin_close_order": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "aid",
+          "user_id",
+          "condition_list",
+          "order_list"
+        ],
+        "additionalProperties": true
+      },
+      "cancel_condition_order": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "cancel_condition_order"
+            ]
+          },
+          "user_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$",
+            "description": "用户名"
+          },
+          "order_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,256}$",
+            "description": "条件单的订单号"
+          }
+        },
+        "required": [
+          "aid",
+          "user_id",
+          "order_id"
+        ],
+        "additionalProperties": true
+      },
+      "pause_condition_order": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "pause_condition_order"
+            ]
+          },
+          "user_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$",
+            "description": "用户名"
+          },
+          "order_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,256}$",
+            "description": "条件单的订单号"
+          }
+        },
+        "required": [
+          "aid",
+          "user_id",
+          "order_id"
+        ],
+        "additionalProperties": true
+      },
+      "resume_condition_order": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "resume_condition_order"
+            ]
+          },
+          "user_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$",
+            "description": "用户名"
+          },
+          "order_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,256}$",
+            "description": "条件单的订单号"
+          }
+        },
+        "required": [
+          "aid",
+          "user_id",
+          "order_id"
+        ],
+        "additionalProperties": true
+      },
+      "qry_his_condition_order": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "enum": [
+              "qry_his_condition_order"
+            ]
+          },
+          "user_id": {
+            "type": "string",
+            "pattern": "^[^=#|;/]{1,64}$",
+            "description": "用户名"
+          },
+          "action_day": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999999,
+            "description": "插入条件单的日期, 自然日"
+          }
+        },
+        "required": [
+          "aid",
+          "user_id",
+          "action_day"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "anyOf": [
+      {
+        "$ref": "#/definitions/req_login"
+      },
+      {
+        "$ref": "#/definitions/peek_message"
+      },
+      {
+        "$ref": "#/definitions/confirm_settlement"
+      },
+      {
+        "$ref": "#/definitions/qry_settlement_info"
+      },
+      {
+        "$ref": "#/definitions/change_password"
+      },
+      {
+        "$ref": "#/definitions/insert_order"
+      },
+      {
+        "$ref": "#/definitions/pre_insert_order"
+      },
+      {
+        "$ref": "#/definitions/req_transfer"
+      },
+      {
+        "$ref": "#/definitions/qry_transfer_serial"
+      },
+      {
+        "$ref": "#/definitions/qry_account_register"
+      },
+      {
+        "$ref": "#/definitions/qry_account_info"
+      },
+      {
+        "$ref": "#/definitions/change_trading_account_password"
+      },
+      {
+        "$ref": "#/definitions/cancel_order"
+      },
+      {
+        "$ref": "#/definitions/insert_exec_order"
+      },
+      {
+        "$ref": "#/definitions/cancel_exec_order"
+      },
+      {
+        "$ref": "#/definitions/req_setmemo"
+      },
+      {
+        "$ref": "#/definitions/insert_condition_order"
+      },
+      {
+        "$ref": "#/definitions/cancel_condition_order"
+      },
+      {
+        "$ref": "#/definitions/pause_condition_order"
+      },
+      {
+        "$ref": "#/definitions/resume_condition_order"
+      },
+      {
+        "$ref": "#/definitions/qry_his_condition_order"
+      }
+    ]
+  }
+}

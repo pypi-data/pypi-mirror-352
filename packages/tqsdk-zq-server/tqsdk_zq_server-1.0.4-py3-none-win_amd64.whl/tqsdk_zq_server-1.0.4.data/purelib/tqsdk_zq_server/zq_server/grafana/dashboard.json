@@ -1,0 +1,1549 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "md",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "WITH FilteredAccountSnap AS (\r\n  SELECT *\r\n  FROM \"AccountSnap\"\r\n  WHERE trading_day = (SELECT MAX(trading_day) FROM \"AccountSnap\") AND investor_id IN (${investor})\r\n),\r\n-- 创建另一个CTE，对每个投资者的最大权益、最小权益和最大风险度进行聚合计算\r\nAggregatedAccountSnap AS (\r\n  SELECT\r\n    trading_day,\r\n    investor_id,\r\n    MAX(balance) AS max_balance,\r\n    MIN(balance) AS min_balance,\r\n    MAX(risk_ratio) AS max_risk_ratio\r\n  FROM\r\n    FilteredAccountSnap\r\n  GROUP BY\r\n    trading_day,investor_id\r\n)\r\n-- 从AggregatedAccountSnap选择数据，并结合FilteredAccountSnap来找出最大权益、最小权益和最大风险度对应的时间\r\nSELECT\r\n  MAX(AggregatedAccountSnap.trading_day) as \"交易日\",\r\n  AggregatedAccountSnap.investor_id as \"账户\",\r\n  MAX(AggregatedAccountSnap.max_balance) AS \"每日最大权益\",\r\n  MAX(AggregatedAccountSnap.min_balance) AS \"每日最小权益\",\r\n  to_timestamp(MIN(CASE WHEN FilteredAccountSnap.balance = AggregatedAccountSnap.max_balance THEN EXTRACT(EPOCH FROM FilteredAccountSnap.timestamp AT TIME ZONE 'Asia/Shanghai' ) END))  AS \"最大权益发生时间\",\r\n  to_timestamp(MIN(CASE WHEN FilteredAccountSnap.balance = AggregatedAccountSnap.min_balance THEN EXTRACT(EPOCH FROM FilteredAccountSnap.timestamp AT TIME ZONE 'Asia/Shanghai') END))  AS \"最小权益发生时间\",\r\n  MAX(AggregatedAccountSnap.max_risk_ratio) AS \"每日最大风险度\",\r\n  -- 使用CASE表达式找出最大风险度对应的时间，并将Unix时间戳转换为日期时间格式\r\n  to_timestamp(MIN(CASE WHEN FilteredAccountSnap.risk_ratio = AggregatedAccountSnap.max_risk_ratio THEN EXTRACT (EPOCH FROM FilteredAccountSnap.timestamp  AT TIME ZONE 'Asia/Shanghai') END)) AS \"最大风险度发生时间\"\r\nFROM\r\n  AggregatedAccountSnap\r\n-- 通过投资者ID连接AggregatedAccountSnap和FilteredAccountSnap\r\nJOIN\r\n  FilteredAccountSnap ON AggregatedAccountSnap.investor_id = FilteredAccountSnap.investor_id\r\n-- 按投资者ID进行分组，以便为每个投资者产生一行结果\r\nGROUP BY\r\n  AggregatedAccountSnap.investor_id",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "每日账户权益和风险度",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "maxDataPoints": 1230,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Name",
+          "sortDesc": false
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "-- 选择秒级别时间戳，以及计算出来的净利润（平仓盈亏 + 持仓盈亏 - 手续费），以及投资者ID\r\nSELECT\r\n  timestamp AT TIME ZONE 'Asia/Shanghai' as time,\r\n  SUM(close_profit + position_profit - commission) as \" \",\r\n  investor_id -- 从账户资金表 AccountSnap 中获取数据\r\nFROM\r\n  \"AccountSnap\" -- 筛选条件为时间戳在给定的范围内，并且投资者ID在指定的列表中\r\nWHERE\r\n  timestamp AT TIME ZONE 'Asia/Shanghai' >= to_timestamp($__from / 1000)\r\n  AND timestamp AT TIME ZONE 'Asia/Shanghai' < to_timestamp($__to / 1000)\r\n  AND investor_id IN (${investor}) -- 按照时间戳和投资者ID进行分组，这样每个投资者在每个时间点只会有一个净利润的值\r\nGROUP BY\r\n  timestamp AT TIME ZONE 'Asia/Shanghai',\r\n  investor_id -- 按照时间戳升序排序\r\nORDER BY\r\n  timestamp AT TIME ZONE 'Asia/Shanghai' ASC",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "当日盈亏时序图by账户（平仓盈亏+持仓盈亏-手续费）",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 3,
+      "maxDataPoints": 1230,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "-- 选择秒级别时间戳、投资者ID和市值权益与上日结存的比率\r\nSELECT\r\n  timestamp  AT TIME ZONE 'Asia/Shanghai' as time,\r\n  balance / NULLIF(pre_balance, 0) as \" \",\r\n  investor_id -- 从账户资金表 AccountSnap 中获取数据\r\nFROM\r\n  \"AccountSnap\" -- 筛选条件为时间戳在给定的范围内，并且投资者ID在指定的列表中\r\nWHERE\r\n  timestamp  AT TIME ZONE 'Asia/Shanghai' >= to_timestamp($__from / 1000)\r\n  and timestamp  AT TIME ZONE 'Asia/Shanghai' < to_timestamp($__to / 1000)\r\n  and investor_id IN (${investor}) -- 按照时间戳升序排序\r\nORDER BY\r\n  timestamp  AT TIME ZONE 'Asia/Shanghai' ASC;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "账户净值时序图(市值权益/盘前权益)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "description": "当日盈亏=平仓盈亏+持仓盈亏-手续费",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 19
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "-- 选择秒级别时间戳、产品ID和（平仓盈亏+持仓盈亏-手续费）的总和\r\nSELECT timestamp AT TIME ZONE 'Asia/Shanghai' as time, SUM(close_profit + position_profit - commission) as \" \", product_id\r\n\r\n-- 从持仓表 PositionSnap 中获取数据\r\nFROM \"PositionSnap\"\r\n\r\n-- 筛选条件为时间戳在给定的范围内，并且投资者ID在指定的列表中\r\nWHERE timestamp  AT TIME ZONE 'Asia/Shanghai' >= to_timestamp($__from / 1000) and timestamp  AT TIME ZONE 'Asia/Shanghai' < to_timestamp($__to / 1000) and investor_id IN (${investor}) and product_id IN (${product})\r\n\r\n-- 按照时间戳和产品ID进行分组，以便对每个产品在每个时间戳下的数据进行聚合计算\r\nGROUP BY timestamp, product_id\r\n\r\n-- 按照时间戳升序排序\r\nORDER BY timestamp ASC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "当日盈亏时序图by品种(平仓盈亏+持仓盈亏-手续费)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "description": "当日盈亏=平仓盈亏+持仓盈亏-手续费",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 19
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "-- 选择秒级别时间戳、板块和（平仓盈亏+持仓盈亏-手续费）的总和\r\nSELECT \r\n  p.timestamp  AT TIME ZONE 'Asia/Shanghai' as time, \r\n  COALESCE(\r\n    REPLACE(jsonb_path_query_first(i.category_chinese, '$[0]')::text,'\"',''), '未分类'\r\n  ) as category, \r\n  SUM(p.close_profit + p.position_profit - p.commission) as \" \"\r\n\r\n-- 从持仓表 PositionSnap 中获取数据\r\nFROM \r\n  \"PositionSnap\" p\r\n\r\n-- 连接 InstrumentSnap 表来获取板块中文名\r\nJOIN \r\n  \"InstrumentSnap\" i ON p.product_id = i.product_id\r\n\r\n-- 筛选条件为时间戳在给定的范围内，并且投资者ID在指定的列表中\r\nWHERE \r\n  p.timestamp  AT TIME ZONE 'Asia/Shanghai' >= to_timestamp($__from / 1000) AND \r\n  p.timestamp  AT TIME ZONE 'Asia/Shanghai' < to_timestamp($__to / 1000) AND \r\n  p.investor_id IN (${investor})\r\n\r\n-- 按照时间戳和板块进行分组，以便对每个产品在每个时间戳下的数据进行聚合计算\r\nGROUP BY \r\n  p.timestamp, \r\n  category\r\n\r\n-- 按照时间戳升序排序\r\nORDER BY \r\n  p.timestamp ASC;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "当日盈亏时序图by板块(平仓盈亏+持仓盈亏-手续费)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 31
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "-- 选择秒级别时间戳，多头市值（BUY方向的市值和），空头市值（SELL方向的市值和）\r\nSELECT timestamp AT TIME ZONE 'Asia/Shanghai' as time,\r\n       SUM(CASE WHEN direction = 'BUY' THEN market_value ELSE 0 END) as \"多头市值\",\r\n       SUM(CASE WHEN direction = 'SELL' THEN market_value ELSE 0 END) as \"空头市值\"\r\n\r\n-- 从持仓表 PositionSnap 中获取数据\r\nFROM \"PositionSnap\"\r\n\r\n-- 筛选条件为时间戳在给定的范围内\r\nWHERE timestamp >= to_timestamp($__from / 1000) and timestamp < to_timestamp($__to / 1000)\r\n-- 按照时间戳进行分组，以便对在每个时间戳下的数据进行聚合计算\r\nGROUP BY timestamp\r\n\r\n-- 按照时间戳升序排序\r\nORDER BY timestamp ASC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "多空市值分布",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 31
+      },
+      "id": 7,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "-- 选择多头市值和空头市值，当买卖方向为 \"BUY\" 时，将市场价值加到多头市值，当买卖方向为 \"SELL\" 时，将市场价值加到空头市值\r\nSELECT \r\nSUM(CASE WHEN direction = 'BUY' THEN market_value ELSE 0 END) as \"多头市值\",\r\nSUM(CASE WHEN direction = 'SELL' THEN market_value ELSE 0 END) as \"空头市值\" \r\n\r\n-- 从持仓表 PositionSnap 中获取数据\r\nFROM \"PositionSnap\"\r\n\r\n-- 筛选条件为秒级别的时间戳等于给定时间范围内的最大时间戳，并且投资者ID在指定的列表中\r\nWHERE timestamp = (\r\n  SELECT max(timestamp) \r\n  FROM \"PositionSnap\"\r\n  WHERE timestamp >= to_timestamp($__from / 1000) and timestamp < to_timestamp($__to / 1000)\r\n)\r\nAND investor_id IN (${investor})\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "多空市值分布",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "description": "点击板块下对应的跳转可以看到该板块下的品种盈亏分布",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [
+            {
+              "title": "跳转到板块下对应品种的盈亏分布",
+              "url": "?&var-v_category=${__data.fields[category]}&viewPanel=9"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 41
+      },
+      "id": 8,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "colorByField": "总盈亏",
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  COALESCE(\r\n    REPLACE(jsonb_path_query_first(i.category_chinese, '$[0]')::text, '\"', ''), '未分类'\r\n  ) as category, \r\n  SUM(p.close_profit + p.position_profit - p.commission) as \"总盈亏\"\r\n\r\n-- 从持仓表 PositionSnap 中获取数据\r\nFROM \r\n  \"PositionSnap\" p\r\n\r\n-- 连接 InstrumentSnap 表来获取板块中文名\r\nJOIN \r\n  \"InstrumentSnap\" i ON p.product_id = i.product_id\r\n\r\n-- 筛选条件为秒级别的时间戳等于给定时间范围内的最大时间戳，并且投资者ID在指定的列表中\r\nWHERE \r\n  p.timestamp = (\r\n    SELECT max(timestamp)\r\n    FROM \"PositionSnap\"\r\n    WHERE timestamp >= to_timestamp($__from / 1000) and timestamp < to_timestamp($__to / 1000)\r\n  )\r\n  AND p.investor_id IN (${investor})\r\n\r\n-- 按照 category_chinese 的第一个值进行分组，处理可能为空的情况\r\nGROUP BY \r\n  category\r\n\r\n-- 只选取总盈亏不为0的品种\r\nHAVING \r\n  SUM(p.close_profit + p.position_profit - p.commission) != 0\r\n\r\n-- 按照总盈亏降序排序\r\nORDER BY \r\n  SUM(p.close_profit + p.position_profit - p.commission) DESC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "当日盈亏分布by板块(平仓盈亏+持仓盈亏-手续费)",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 41
+      },
+      "id": 9,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "colorByField": "总盈亏",
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  p.product_id, \r\n  SUM(p.close_profit + p.position_profit - p.commission) as \"总盈亏\"\r\n\r\nFROM \r\n  \"PositionSnap\" p\r\nJOIN \r\n  \"InstrumentSnap\" i ON p.product_id = i.product_id\r\n\r\nWHERE \r\n  p.timestamp = (\r\n    SELECT max(timestamp)\r\n    FROM \"PositionSnap\"\r\n    WHERE timestamp >= to_timestamp( $__from / 1000) and timestamp < to_timestamp( $__to / 1000)\r\n  )\r\n  AND p.investor_id IN (${investor})\r\n  AND (\r\n    CONCAT(${v_category}) like '%' || REPLACE(jsonb_path_query_first(i.category_chinese, '$[0]')::text, '\"', '') || '%'\r\n  )\r\n\r\nGROUP BY \r\n  p.product_id\r\n\r\nHAVING \r\n  SUM(p.close_profit + p.position_profit - p.commission) != 0\r\n\r\nORDER BY \r\n  SUM(p.close_profit + p.position_profit - p.commission) DESC;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "对应板块下的品种盈亏",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "description": "点击板块下对应的跳转可以看到该板块下的市值分布",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "links": [
+            {
+              "title": "跳转到板块下对应品种的市值分布",
+              "url": "/d/ddmxb9ph16akgd/model?&var-v_category=${__data.fields[category]}&viewPanel=11"
+            }
+          ],
+          "mappings": [],
+          "max": -1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 51
+      },
+      "id": 10,
+      "options": {
+        "colorByField": "多空",
+        "labelFields": [],
+        "sizeField": "市值",
+        "tiling": "treemapSquarify"
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "-- 选择板块、相应的市值总和以及多空指示\r\nSELECT \r\n  COALESCE(\r\n    REPLACE(jsonb_path_query_first(i.category_chinese, '$[0]')::text, '\"', ''), '未分类'\r\n  ) as category, \r\n  SUM(p.market_value) as \"市值\",  -- 计算市值的总和\r\n  CASE \r\n    -- 当方向为 'SELL' 时，多空指示设为0\r\n    WHEN p.direction = 'SELL' THEN 0\r\n    -- 当方向不为 'SELL' 时，多空指示设为1\r\n    ELSE 1 \r\n  END AS 多空 -- 为CASE语句的结果提供一个别名，命名为 '多空'\r\nFROM \r\n  \"PositionSnap\" p  -- 从持仓表 PositionSnap 中获取数据\r\nJOIN \r\n  \"InstrumentSnap\" i ON p.product_id = i.product_id\r\n\r\nWHERE \r\n  -- PositionSnap表的时间戳为给定时间范围内的最大时间戳\r\n  p.timestamp = (\r\n    SELECT max(timestamp)\r\n    FROM \"PositionSnap\"\r\n    WHERE timestamp >= to_timestamp($__from / 1000) and timestamp < to_timestamp( $__to / 1000)\r\n  ) AND \r\n  -- 投资者ID在指定的列表中\r\n  p.investor_id IN (${investor})\r\n-- 按照板块和方向进行分组\r\nGROUP BY \r\n  p.direction, category\r\n-- 只选择市值总和不为0的记录\r\nHAVING \r\n  SUM(p.market_value) != 0\r\n\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "多空市值分布by板块",
+      "type": "marcusolsson-treemap-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 51
+      },
+      "id": 11,
+      "options": {
+        "colorByField": "多空",
+        "tiling": "treemapSquarify"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  p.product_id, \r\n  SUM(p.market_value) as \"市值\",\r\n  CASE \r\n    -- 当方向为 'SELL' 时，多空指示设为0\r\n    WHEN p.direction = 'SELL' THEN 0\r\n    -- 当方向不为 'SELL' 时，多空指示设为1\r\n    ELSE 1 \r\n  END AS 多空 -- 为CASE语句的结果提供一个别名，命名为 '多空'\r\n\r\nFROM \r\n  \"PositionSnap\" p  -- 从持仓表 PositionSnap 中获取数据\r\nJOIN \r\n  \"InstrumentSnap\" i ON p.product_id = i.product_id\r\n\r\nWHERE \r\n  p.timestamp = (\r\n    SELECT max(timestamp)\r\n    FROM \"PositionSnap\"\r\n    WHERE timestamp >= to_timestamp($__from / 1000) and timestamp < to_timestamp($__to / 1000)\r\n  )\r\n  AND p.investor_id IN (${investor})\r\n  AND (\r\n    CONCAT(${v_category}) LIKE '%' ||  REPLACE(jsonb_path_query_first(i.category_chinese, '$[0]')::text, '\"', '') || '%'\r\n  )\r\n\r\nGROUP BY \r\n  p.product_id, p.direction\r\n\r\nHAVING \r\n  SUM(p.market_value) != 0\r\n\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "对应板块下的市值分布",
+      "type": "marcusolsson-treemap-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "description": "点击板块下对应的跳转可以看到该板块下的保证金占比",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "links": [
+            {
+              "title": "跳转到板块下对应品种的保证金占比",
+              "url": "/d/ddmxb9ph16akgd/model?&var-v_category=${__data.fields[category]}&viewPanel=13"
+            }
+          ],
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 59
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^VALUES$/",
+          "limit": 25,
+          "values": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "-- 选择板块和保证金\r\nSELECT \r\n  COALESCE(\r\n    REPLACE(jsonb_path_query_first(i.category_chinese, '$[0]')::text, '\"', ''), '未分类'\r\n  ) as category, \r\n  SUM(p.margin) as \"VALUES\"\r\n\r\n-- 从持仓表 PositionSnap 中获取数据\r\nFROM \"PositionSnap\" p\r\nJOIN \r\n  \"InstrumentSnap\" i ON p.product_id = i.product_id\r\n\r\n-- 筛选条件为秒级别的时间戳等于给定时间范围内的最大时间戳，并且投资者ID在指定的列表中\r\nWHERE \r\n  p.timestamp = (\r\n    SELECT max(timestamp)\r\n    FROM \"PositionSnap\"\r\n    WHERE timestamp >= to_timestamp($__from / 1000) and timestamp < to_timestamp($__to / 1000)\r\n  )\r\n  AND p.investor_id IN (${investor})\r\n\r\n-- 按照 category_chinese 的第一个值进行分组，处理可能为空的情况\r\nGROUP BY \r\n  category\r\n\r\nHAVING SUM(p.margin) != 0",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "保证金占比by板块",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 59
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^VALUES$/",
+          "values": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "-- 选择每个产品的市值总和和产品代码\r\nSELECT  \r\n  p.product_id, \r\n  SUM(p.margin) as \"VALUES\"\r\n\r\n-- 从持仓表 PositionSnap 中获取数据\r\nFROM \r\n  \"PositionSnap\" p\r\nJOIN \r\n  \"InstrumentSnap\" i ON p.product_id = i.product_id\r\n\r\n-- 筛选条件为秒级别的时间戳等于给定时间范围内的最大时间戳，保证金不为0，并且投资者ID在指定的列表中\r\nWHERE \r\n  p.timestamp = (\r\n    SELECT max(timestamp)\r\n    FROM \"PositionSnap\"\r\n    WHERE timestamp >= to_timestamp($__from / 1000) and timestamp < to_timestamp($__to / 1000)\r\n  )\r\n  AND p.investor_id IN (${investor})\r\n  AND (\r\n    CONCAT(${v_category}) like '%' || REPLACE(jsonb_path_query_first(i.category_chinese, '$[0]')::text, '\"', '') || '%'\r\n  )\r\n\r\n-- 按照品种代码进行分组，以便对在每个品种代码下的数据进行聚合计算\r\nGROUP BY p.product_id\r\nHAVING  SUM(p.margin) != 0",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "对应板块下的保证金占比",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "cdmmng7i53shsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 67
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "cdmmng7i53shsc"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "-- 选择秒级别时间戳、风险度和投资者ID\r\nSELECT timestamp AT TIME ZONE 'Asia/Shanghai' as time, risk_ratio as \" \",investor_id\r\n\r\n-- 从账户资金表 AccountSnap 中获取数据\r\nFROM \"AccountSnap\"\r\n\r\n-- 筛选条件为时间戳在给定的范围内，并且投资者ID在指定的列表中\r\nWHERE timestamp >= to_timestamp($__from / 1000) and timestamp < to_timestamp($__to / 1000) and investor_id IN (${investor})\r\n\r\n-- 按照时间戳升序排序\r\nORDER BY timestamp ASC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "风险度时序图",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "cdmmng7i53shsc"
+        },
+        "definition": "SELECT DISTINCT  investor_id\nFROM \"AccountSnap\"\nWHERE timestamp = (SELECT MAX(timestamp) from \"PositionSnap\")",
+        "hide": 0,
+        "includeAll": true,
+        "label": "账户",
+        "multi": true,
+        "name": "investor",
+        "options": [],
+        "query": "SELECT DISTINCT  investor_id\nFROM \"AccountSnap\"\nWHERE timestamp = (SELECT MAX(timestamp) from \"PositionSnap\")",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "cdmmng7i53shsc"
+        },
+        "definition": "SELECT DISTINCT category\nFROM (\n  SELECT jsonb_array_elements_text(category_chinese) AS category\n  FROM \"InstrumentSnap\"\n  WHERE category_chinese IS NOT NULL\n) AS subquery\nWHERE category IS NOT NULL AND category != '';\n",
+        "hide": 0,
+        "includeAll": true,
+        "label": "板块",
+        "multi": true,
+        "name": "v_category",
+        "options": [],
+        "query": "SELECT DISTINCT category\nFROM (\n  SELECT jsonb_array_elements_text(category_chinese) AS category\n  FROM \"InstrumentSnap\"\n  WHERE category_chinese IS NOT NULL\n) AS subquery\nWHERE category IS NOT NULL AND category != '';\n",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "cdmmng7i53shsc"
+        },
+        "definition": "SELECT DISTINCT  product_id \nFROM \"PositionSnap\"\nWHERE timestamp = (SELECT MAX(timestamp) from \"PositionSnap\")",
+        "hide": 0,
+        "includeAll": true,
+        "label": "品种",
+        "multi": true,
+        "name": "product",
+        "options": [],
+        "query": "SELECT DISTINCT  product_id \nFROM \"PositionSnap\"\nWHERE timestamp = (SELECT MAX(timestamp) from \"PositionSnap\")",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timeRangeUpdatedDuringEditOrView": false,
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "账户持仓监控",
+  "uid": "ddmxb9ph16akgd",
+  "version": 2,
+  "weekStart": ""
+}
