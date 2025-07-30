@@ -1,0 +1,18 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>ReDoc</title>
+            <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
+        </head>
+        <body>
+            <div id="redoc-container"></div>
+            <script>
+            // Inline the OpenAPI spec into the page
+            const spec = {"openapi": "3.1.0", "info": {"title": "/test/delme Service API", "description": "/test/delme service documentation.", "version": "1.0.0"}, "paths": {"/test/delme/foo": {"get": {"tags": ["delme", "foo"], "summary": "Foo", "description": "Foo Summary\n\nReturns\n-------\nstr\n\n    Simple message.", "operationId": "foo_test_delme_foo_get", "parameters": [{"name": "authorization", "in": "header", "required": true, "schema": {"type": "string", "title": "Authorization"}}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/test/delme/add": {"get": {"tags": ["delme", "add"], "summary": "Add", "description": "Adds two numbers together.\n\nParameters\n----------\nlhs (float) : Left operand.\n\nrhs (float) : Right operand.\n\nReturns\n-------\nfloat", "operationId": "add_test_delme_add_get", "parameters": [{"name": "lhs", "in": "query", "required": true, "schema": {"type": "number", "title": "Lhs"}}, {"name": "rhs", "in": "query", "required": true, "schema": {"type": "number", "title": "Rhs"}}, {"name": "authorization", "in": "header", "required": true, "schema": {"type": "string", "title": "Authorization"}}], "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"type": "number", "title": "Response Add Test Delme Add Get"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}, "/test/delme/calc": {"post": {"tags": ["delme", "calc"], "summary": "Calc", "operationId": "calc_test_delme_calc_post", "parameters": [{"name": "authorization", "in": "header", "required": true, "schema": {"type": "string", "title": "Authorization"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Calculation"}}}}, "responses": {"200": {"description": "Successful Response", "content": {"application/json": {"schema": {"type": "number", "title": "Response Calc Test Delme Calc Post"}}}}, "422": {"description": "Validation Error", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HTTPValidationError"}}}}}}}}, "components": {"schemas": {"Calculation": {"properties": {"lhs": {"type": "number", "title": "Lhs"}, "rhs": {"type": "number", "title": "Rhs"}}, "type": "object", "required": ["lhs", "rhs"], "title": "Calculation"}, "HTTPValidationError": {"properties": {"detail": {"items": {"$ref": "#/components/schemas/ValidationError"}, "type": "array", "title": "Detail"}}, "type": "object", "title": "HTTPValidationError"}, "ValidationError": {"properties": {"loc": {"items": {"anyOf": [{"type": "string"}, {"type": "integer"}]}, "type": "array", "title": "Location"}, "msg": {"type": "string", "title": "Message"}, "type": {"type": "string", "title": "Error Type"}}, "type": "object", "required": ["loc", "msg", "type"], "title": "ValidationError"}}}};
+            Redoc.init(spec, {}, document.getElementById('redoc-container'));
+            </script>
+        </body>
+        </html>
+        
