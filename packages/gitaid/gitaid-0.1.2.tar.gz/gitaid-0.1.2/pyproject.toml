@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gitaid"
+version = "0.1.2"  # Bump for every upload!
+description = "GitAid CLI tool"
+authors = [
+    { name="Athira", email="athira.srivani@gmail.com" }
+]
+dependencies = [
+    "click",
+    "openai"
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent"
+]
+
+[project.scripts]
+gitaid = "gitaid.__main__:cli"
