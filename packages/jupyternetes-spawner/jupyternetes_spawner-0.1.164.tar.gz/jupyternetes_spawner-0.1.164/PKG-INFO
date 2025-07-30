@@ -1,0 +1,28 @@
+Metadata-Version: 2.4
+Name: jupyternetes_spawner
+Version: 0.1.164
+Summary: Jupyternetes Spawner for Jupyter Hub
+Project-URL: Documentation, https://kadense.github.io/kadense
+Project-URL: Source, https://github.com/kadense/kadense
+Project-URL: Issues, https://github.com/kadense/kadense/issues
+Author-email: Jupyter Contributors <jupyter@googlegroups.com>
+Keywords: jupyterhub,jupyternetes,kadense,spawner
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Requires-Dist: escapism
+Requires-Dist: jinja2
+Requires-Dist: jupyterhub>=4.0.0
+Requires-Dist: kubernetes-asyncio>=24.2.3
+Requires-Dist: python-slugify
+Requires-Dist: pyyaml
+Requires-Dist: traitlets
+Requires-Dist: urllib3
+Provides-Extra: test
+Requires-Dist: kubernetes>=11; extra == 'test'
+Requires-Dist: pytest-asyncio<0.23,>=0.17; extra == 'test'
+Requires-Dist: pytest-cov; extra == 'test'
+Requires-Dist: pytest>=5.4; extra == 'test'
+Description-Content-Type: text/markdown
+
+# jupyternetes-spawner
