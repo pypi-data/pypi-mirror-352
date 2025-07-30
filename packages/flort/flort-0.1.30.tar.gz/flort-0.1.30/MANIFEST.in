@@ -1,0 +1,38 @@
+# Include documentation
+include README.md
+include LICENSE
+include VERSION
+include CHANGELOG.md
+
+# Include assets and media
+include assets/*.png
+include assets/*.svg
+include assets/*.ico
+include assets/*.gif
+include assets/*.jpg
+include assets/*.jpeg
+recursive-include assets *
+
+# Include documentation files
+recursive-include docs *.md *.yml *.yaml *.css *.js *.png *.svg
+
+# Include scripts
+recursive-include scripts *.sh *.py *.bat
+
+# Include tests
+recursive-include tests *.py
+
+# Include configuration files
+include mkdocs.yml
+include .gitignore
+
+# Exclude development files
+exclude .gitignore
+exclude .github/*
+exclude build/*
+exclude dist/*
+exclude *.egg-info/*
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude Thumbs.db
