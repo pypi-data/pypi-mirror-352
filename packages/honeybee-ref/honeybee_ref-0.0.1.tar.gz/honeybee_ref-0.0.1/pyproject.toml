@@ -1,0 +1,61 @@
+[project]
+name = "honeybee-ref"
+version = "0.0.1"
+description = "A Honeybee extension for tracking reference information and sources.."
+readme = "README.md"
+requires-python = ">=2.7"
+license = "GPL-3.0-or-later"
+authors = [{ name = "Ed May", email = "phtools@bldgtyp.com" }]
+maintainers = [{ name = "Ed May", email = "phtools@bldgtyp.com" }]
+classifiers = [
+    "Programming Language :: Python :: 2.7",
+    "Operating System :: OS Independent",
+]
+keywords = [
+    "Honeybee",
+    "Honeybee-Energy",
+    "Passive House",
+    "Building Retrofit",
+    "Architecture",
+    "Energy Modeling",
+]
+dependencies = ["honeybee-energy>=1.116.32"]
+
+[project.optional-dependencies]
+dev = ["black", "isort", "pytest", "pytest-cov"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["honeybee_energy_ref"]
+
+[project.urls]
+homepage = "https://www.passivehousetools.com/"
+repository = "https://github.com/PH-Tools/honeybee_ref"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    'ignore:function ham\(\) is deprecated:DeprecationWarning',
+]
+pythonpath = "."
+python_files = "test_*.py"
+testpaths = "tests"
+addopts = "--cov=honeybee_energy_ref --cov-report=html"
+
+[tool.coverage.run]
+command_line = "-m pytest tests"
+source = ["honeybee_energy_ref"]
+branch = true
+cover_pylib = false
+omit = ["*/__init__.py", "*.venv/*"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80
+
+[tool.black]
+line-length = 120
