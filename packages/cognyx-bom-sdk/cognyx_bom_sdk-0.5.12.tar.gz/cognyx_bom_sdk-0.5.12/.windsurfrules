@@ -1,0 +1,25 @@
+# Cognyx Automation SDK
+
+This repo contains a Cognyx' python bom SDK. This Library allows to interact with the Cognyx BOM API, when writing bom automations in Cognyx.
+
+## Tooling
+
+This project uses `uv` for tooling. Ensure you have `uv` installed.
+Dependencies are declared in pyproject.toml. There are scripts to run linting, formatting, type checking and testing.
+
+## Architecture
+
+The repo uses ADR (Architecture Decision Record). These can be found in the doc folder. The ADRs explain the philosophy of the project, and how it is supposed to be used.
+
+The main usage of this SDK is to expose functions helping Cognyx users to write bom automations. These run in a pyodide sandbox.
+The package exposes one main API to interact with a given Cognyx BOM, which data is passed when initializing the main Bom class. This class then provides a list of methods which are loaded as globals in the pyodide sandbox.
+
+## Project guideline
+
+- always write semantic, modern and performant python code, with type hints and inline documentation
+- always define Models when relevant instead of relying on abstract List & dictionaries. These should be exposed by the library to help the consumers of the SDK
+- all code should be correctly formatted and linted using ruff. Functions should be tested
+- try to use as little dependencies as possible to keep it lightweight and safe to integrate in the pyodide sandbox.
+- always FOCUS on what is requested and NEVER implement changes that are not directly related to the current task, unless you suggested it and the user approved it
+- When writing tests on existing code, avoid changing the existing code to pass your test. Instead, modify the test so that it passes.
+- always run scripts with `uv` or `uvx`

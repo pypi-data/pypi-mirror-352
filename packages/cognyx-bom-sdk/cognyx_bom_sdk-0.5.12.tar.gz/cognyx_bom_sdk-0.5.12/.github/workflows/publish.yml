@@ -1,0 +1,47 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+
+jobs:
+  install:
+    name: Install dependencies
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        python-version: ["3.11.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python-version }}
+
+  publish:
+    name: Publish
+    needs: install
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        python-version: ["3.11.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Set up PyPI
+        shell: sh
+        run: |
+          echo "[pypi]\nusername = __token__\npassword = ${{ secrets.PYPI_TOKEN }}" > ${HOME}/.pypirc
+
+      - name: Publish
+        shell: sh
+        run: |
+          . .venv/bin/activate
+          uvx pip install twine
+          python -m build
+          python -m twine upload --repository pypi dist/*

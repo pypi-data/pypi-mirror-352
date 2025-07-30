@@ -1,0 +1,2651 @@
+{
+  "id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+  "name": "Les Paul Guitar",
+  "reference": "GTR-001",
+  "description": "Complete Les Paul type electric guitar",
+  "status": "draft",
+  "instances": [
+    {
+      "id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "name": "Guitar Body",
+      "parent_id": "",
+      "reference": "BODY-001",
+      "description": "Mahogany body with a maple top",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "fb244a5f-3915-45ff-a07a-36ae0e09ee78",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "fa296e45-5b6a-4025-8f04-1d5bdb8c0f11",
+      "name": "Headstock",
+      "parent_id": "",
+      "reference": "HNSTK-001",
+      "description": "Headstock with logo inlay",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "0e1a8b55-49b1-47b7-9679-0dfec9ce474e",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 1
+        },
+        {
+          "id": "7f662e2f-b826-4fc5-8732-8dbe79de3c4f",
+          "attribute_id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+          "slug": "country",
+          "type": "STRING",
+          "name": "Country",
+          "value": "France"
+        }
+      ]
+    },
+    {
+      "id": "d0428cba-8639-4e8d-8bbe-794216cb331c",
+      "name": "Tuning Machines",
+      "parent_id": "",
+      "reference": "TUNER-001",
+      "description": "Set of six tuning machines for headstock",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "1733d1e2-8229-4fa7-a9f8-c930a121b991",
+          "attribute_id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+          "slug": "country",
+          "type": "STRING",
+          "name": "Country",
+          "value": "France"
+        },
+        {
+          "id": "34f08002-937d-4ffe-9f9f-8eadf8c42e14",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "c088d062-1d59-4e93-8669-a8346bf118c8",
+      "name": "Electronics Assembly",
+      "parent_id": "513de74d-a9c2-469b-988e-3715b9293d68",
+      "reference": "ELEC-001",
+      "description": "Includes pickups pots and wiring",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "57822a4e-91e4-451f-bd65-bc1d3ed1de5e",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "b9a07f68-d190-4130-b8f9-ea475ccb1c90",
+      "name": "Guitar Neck",
+      "parent_id": "",
+      "reference": "NECK-001",
+      "description": "Mahogany neck with a rosewood fretboard",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "16972ec6-43bc-4955-9a43-e97c54491bf4",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "b62ecf31-d629-4a1e-9bf9-5e20a77ccb4b",
+      "name": "Bridge Assembly",
+      "parent_id": "",
+      "reference": "BRIDGE-001",
+      "description": "Tune-o-matic bridge with stopbar tailpiece",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "25367b01-5725-4f77-b1fe-c281611b5f21",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "40036051-31ab-47b6-8512-b088fa5c2e1b",
+      "name": "Wiring Kit",
+      "parent_id": "c088d062-1d59-4e93-8669-a8346bf118c8",
+      "reference": "WIRE-001",
+      "description": "Wiring kit for connecting pickups and controls",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "6e9b5d9e-4600-478d-8be8-9ff4d89b68b7",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "7b7de33f-2bc7-4d70-9cee-181c6104630b",
+      "name": "Nut",
+      "parent_id": "fa296e45-5b6a-4025-8f04-1d5bdb8c0f11",
+      "reference": "NUT-001",
+      "description": "Bone nut for string spacing",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "38cbdc51-d493-4efe-9757-d01ea5d4b2c7",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 1
+        },
+        {
+          "id": "af200144-c032-4fef-b5f3-aac28adc2a37",
+          "attribute_id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+          "slug": "country",
+          "type": "STRING",
+          "name": "Country",
+          "value": "France"
+        }
+      ]
+    },
+    {
+      "id": "797664d7-673e-4811-9cc9-bee4b0b7fdc5",
+      "name": "Humbucker Pickup Set",
+      "parent_id": "c088d062-1d59-4e93-8669-a8346bf118c8",
+      "reference": "PICKUP-001",
+      "description": "Set of two humbucker pickups for rich tone",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "fbdf4be1-12a8-4c86-864f-279cb2daa4a7",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "b7afb9e9-f9f2-4b19-8486-6d47b3654651",
+      "name": "Bridge Assembly",
+      "parent_id": "e3d681f8-901e-496c-947c-402e9f851960",
+      "reference": "BRIDGE-001",
+      "description": "Tune-o-matic bridge with stopbar tailpiece",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "fa7665bf-ddf8-42d2-ac03-e1fc28b7fc2f",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "e3d681f8-901e-496c-947c-402e9f851960",
+      "name": "Nut",
+      "parent_id": "",
+      "reference": "NUT-001",
+      "description": "Bone nut for string spacing",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "3f300741-6c01-4f54-bf11-06a68b472700",
+          "attribute_id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+          "slug": "country",
+          "type": "STRING",
+          "name": "Country",
+          "value": "France"
+        },
+        {
+          "id": "564d1e93-b676-44f9-b766-ccabb0f2c0e0",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "0490c936-cc01-42d1-89a6-4e6d61a1ef1e",
+      "name": "Potentiometer Set",
+      "parent_id": "",
+      "reference": "POT-001",
+      "description": "Set of four potentiometers for tone and volume control",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": [
+        {
+          "id": "82cc6db5-ffc4-4622-a930-3801a16fadae",
+          "attribute_id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+          "slug": "country",
+          "type": "STRING",
+          "name": "Country",
+          "value": "France"
+        },
+        {
+          "id": "9771969c-cb43-4233-8e42-99a2068d20e2",
+          "attribute_id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+          "slug": "level",
+          "type": "NUMBER",
+          "name": "Level",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "029ccaa1-212e-4475-b359-c80ecc649e89",
+      "name": "test part",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 0,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": [
+          "has_warning_no_quantity",
+          "has_warning_no_entity",
+          "is_standard"
+        ]
+      },
+      "custom_attributes": [
+        {
+          "id": "bc488c1b-90c0-453b-9c3c-57938f55aa5f",
+          "attribute_id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+          "slug": "added_mass_g",
+          "type": "NUMBER",
+          "name": "added mass g",
+          "value": 200
+        }
+      ]
+    },
+    {
+      "id": "a79de365-09f8-44b9-a6db-2351c332f643",
+      "name": "test url",
+      "parent_id": "0490c936-cc01-42d1-89a6-4e6d61a1ef1e",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "b0e6a09c-c5e7-4f4b-800c-8238ec25ec14",
+        "name": "Fastener",
+        "slug": "fastener",
+        "description": "fastener",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "602ca193-bb1d-429f-9107-1f73577f0d95",
+            "name": "owner",
+            "slug": "owner",
+            "type": "PERSON",
+            "options": { "allow_multiple": true },
+            "created_at": "2025-03-04T06:40:52.000000Z",
+            "updated_at": "2025-03-04T06:40:52.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "0e0cc505-2987-4e31-a5ed-d1118a989e27",
+            "name": "rating",
+            "slug": "rating",
+            "type": "RATING",
+            "options": [],
+            "created_at": "2025-03-04T06:41:01.000000Z",
+            "updated_at": "2025-03-04T06:41:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "8e70fa5e-832c-4eba-9d25-d780b11358c9",
+            "name": "url",
+            "slug": "url",
+            "type": "URL",
+            "options": [],
+            "created_at": "2025-02-21T06:22:24.000000Z",
+            "updated_at": "2025-02-21T06:22:24.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#1B9488",
+        "icon": "carbon-attachment",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Fastener",
+        "created_at": "2025-02-13T07:52:56.000000Z",
+        "updated_at": "2025-02-18T21:21:10.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "b0e6a09c-c5e7-4f4b-800c-8238ec25ec14",
+      "quantity": 0,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": [
+          "has_warning_no_quantity",
+          "has_warning_no_entity",
+          "is_standard"
+        ]
+      },
+      "custom_attributes": [
+        {
+          "id": "c8d18504-100f-4419-a104-98023989673d",
+          "attribute_id": "8e70fa5e-832c-4eba-9d25-d780b11358c9",
+          "slug": "url",
+          "type": "URL",
+          "name": "url",
+          "value": "\"\\\"https:\\\\\\/\\\\\\/google.com\\\"\""
+        }
+      ]
+    },
+    {
+      "id": "f9191873-f867-4d80-b210-4b65c1fb06e6",
+      "name": "Alnico Magnet",
+      "parent_id": "d0428cba-8639-4e8d-8bbe-794216cb331c",
+      "reference": "PU-HB-PAR-003",
+      "description": "nico 5 magnet rods that provide the magnetic field.",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": { "statuses": ["is_standard"] },
+      "custom_attributes": []
+    },
+    {
+      "id": "85520d63-0255-464b-a15c-9ea267f10c66",
+      "name": "Baseplate",
+      "parent_id": "d0428cba-8639-4e8d-8bbe-794216cb331c",
+      "reference": "PU-HB-PAR-004",
+      "description": "The metal plate that holds the pickup together and mounts it to the guitar.",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 0,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_quantity", "is_standard"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "8533d7cc-64c8-4ab5-b6ff-fa62526a5dc0",
+      "name": "Electronics",
+      "parent_id": "",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 0,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": [
+          "has_warning_no_quantity",
+          "has_warning_no_entity",
+          "is_standard"
+        ]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "2820d805-c54c-4c95-bcb3-8b0b2bfce900",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 0,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": [
+          "has_warning_no_quantity",
+          "has_warning_no_variability",
+          "is_optional"
+        ]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "9f6e6ae9-804b-4879-9289-380a79144075",
+      "name": "Electronics Assembly (New)",
+      "parent_id": "2820d805-c54c-4c95-bcb3-8b0b2bfce900",
+      "reference": "ELEC-001",
+      "description": "Includes pickups pots and wiring",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "b3f5b714-dddf-46c3-819a-ecf1bd74702d",
+      "name": "Wiring Kit (New)",
+      "parent_id": "9f6e6ae9-804b-4879-9289-380a79144075",
+      "reference": "WIRE-001",
+      "description": "Wiring kit for connecting pickups and controls",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "32ae0e4a-f66c-4d8b-8dac-13a0703b023a",
+      "name": "Humbucker Pickup Set (New)",
+      "parent_id": "9f6e6ae9-804b-4879-9289-380a79144075",
+      "reference": "PICKUP-001",
+      "description": "Set of two humbucker pickups for rich tone",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "98c255e0-ae34-4379-a3f7-ac94072b98db",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 0,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": [
+          "has_warning_no_quantity",
+          "has_warning_no_variability",
+          "is_optional"
+        ]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "56e3d38e-3682-468a-acf9-0fbc993e7f45",
+      "name": "Electronics Assembly (New)",
+      "parent_id": "98c255e0-ae34-4379-a3f7-ac94072b98db",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 0,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": [
+          "has_warning_no_quantity",
+          "has_warning_no_variability",
+          "is_optional"
+        ]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "2c78a405-9db4-4c79-aee0-af5b53d1df09",
+      "name": "Humbucker Pickup Set (New)",
+      "parent_id": "56e3d38e-3682-468a-acf9-0fbc993e7f45",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 0,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": [
+          "has_warning_no_quantity",
+          "has_warning_no_variability",
+          "is_optional"
+        ]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "308d453d-4f86-4d4f-ab08-9e2912920026",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 0,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": [
+          "has_warning_no_quantity",
+          "has_warning_no_variability",
+          "is_optional"
+        ]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "71be3fe5-5049-4c8b-9ebd-4226e21f9cb8",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 0,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": [
+          "has_warning_no_quantity",
+          "has_warning_no_variability",
+          "is_optional"
+        ]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "c176079a-25f8-4c83-aedf-db3756109fdc",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "693d8eaa-596c-4592-b048-acc0fd970660",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "4acf34d9-7318-409b-8e8a-5c2c95af12fe",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "cc5df4e7-9f38-412a-830f-68b7fb801f22",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "9f259590-e200-43be-a7fc-fbada6ebaded",
+      "name": "Wiring Kit (New)",
+      "parent_id": "912a7ea0-587f-4307-b174-6c03ae3630d6",
+      "reference": "WIRE-001",
+      "description": "Wiring kit for connecting pickups and controls",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "912a7ea0-587f-4307-b174-6c03ae3630d6",
+      "name": "Electronics Assembly (New)",
+      "parent_id": "cc5df4e7-9f38-412a-830f-68b7fb801f22",
+      "reference": "ELEC-001",
+      "description": "Includes pickups pots and wiring",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "7addf70e-8e57-4560-b331-0bad93977b75",
+      "name": "Humbucker Pickup Set (New)",
+      "parent_id": "912a7ea0-587f-4307-b174-6c03ae3630d6",
+      "reference": "PICKUP-001",
+      "description": "Set of two humbucker pickups for rich tone",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "9fa05bfd-0518-427e-807c-715f7a0cf562",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "8e9ac7fc-d57c-4a7a-a37e-806415a579f1",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "17bf0778-46b1-4c75-8d78-202b913d1be1",
+      "name": "Electronics Assembly (New)",
+      "parent_id": "9fa05bfd-0518-427e-807c-715f7a0cf562",
+      "reference": "ELEC-001",
+      "description": "Includes pickups pots and wiring",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "34882f24-7910-4dab-832b-e62d22677102",
+      "name": "Wiring Kit (New)",
+      "parent_id": "17bf0778-46b1-4c75-8d78-202b913d1be1",
+      "reference": "WIRE-001",
+      "description": "Wiring kit for connecting pickups and controls",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "90b7d4a4-7905-41e2-9513-d0a08905c35c",
+      "name": "Humbucker Pickup Set (New)",
+      "parent_id": "17bf0778-46b1-4c75-8d78-202b913d1be1",
+      "reference": "PICKUP-001",
+      "description": "Set of two humbucker pickups for rich tone",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+        "name": "Part",
+        "slug": "part",
+        "description": "Part entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "0e408356-1cda-4032-b019-a1fadf7d062e",
+            "name": "added mass g",
+            "slug": "added_mass_g",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-14T20:45:01.000000Z",
+            "updated_at": "2025-02-14T20:45:01.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "7b6b27e2-c2aa-4714-addd-b21b75747b6b",
+            "name": "City",
+            "slug": "city",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "c782de11-0d87-4f07-91f3-9461edbbf3d2",
+            "name": "Country",
+            "slug": "country",
+            "type": "STRING",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": false } }
+          },
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Part",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-02-18T12:57:58.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "6f76d888-4fdf-4bd6-8930-306ae49046c0",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    },
+    {
+      "id": "513de74d-a9c2-469b-988e-3715b9293d68",
+      "name": "Electronics (New)",
+      "parent_id": "a1d86ee1-def4-4abc-9282-96606db4fb0c",
+      "reference": "",
+      "description": "",
+      "status": "not_started",
+      "bom_id": "3c914fd1-55f2-4d4b-a2b4-224377c05abf",
+      "view_id": "e5409126-65e5-4b11-adf0-ecc8e1812684",
+      "object_type": {
+        "id": "695192ba-681b-424f-bdff-c205e1205af7",
+        "name": "Assembly",
+        "slug": "assembly",
+        "description": "Assembly entity type.",
+        "base_unit": "pc",
+        "bom_attributes": [
+          {
+            "id": "84b3fb95-14e6-4476-91a8-39cbe2c023f0",
+            "name": "Level",
+            "slug": "level",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:16.000000Z",
+            "updated_at": "2025-02-10T14:05:16.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          },
+          {
+            "id": "489db359-09d1-4915-956f-7622abf3953b",
+            "name": "Price",
+            "slug": "price",
+            "type": "NUMBER",
+            "options": [],
+            "created_at": "2025-02-10T14:05:17.000000Z",
+            "updated_at": "2025-02-10T14:05:17.000000Z",
+            "auth": { "can": { "view": true, "update": true, "delete": true } }
+          }
+        ],
+        "color": "#000000",
+        "icon": "carbon-cube",
+        "parent_id": null,
+        "parent": null,
+        "display_name": "Assembly",
+        "created_at": "2025-02-10T14:05:16.000000Z",
+        "updated_at": "2025-03-04T14:51:43.000000Z",
+        "auth": { "can": { "view": true, "update": true, "delete": true } }
+      },
+      "object_type_id": "695192ba-681b-424f-bdff-c205e1205af7",
+      "quantity": 1,
+      "variability_configurations": [],
+      "system_attributes": {
+        "statuses": ["has_warning_no_variability", "is_optional"]
+      },
+      "custom_attributes": []
+    }
+  ]
+}

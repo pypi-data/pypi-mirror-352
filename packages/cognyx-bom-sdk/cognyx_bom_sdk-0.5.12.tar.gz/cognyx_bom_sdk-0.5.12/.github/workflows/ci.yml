@@ -1,0 +1,168 @@
+name: CI
+description: main CI pipeline for the ai-server project
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+
+permissions:
+  pull-requests: write
+  statuses: write
+  contents: write
+
+jobs:
+  install:
+    name: Install dependencies
+    runs-on: self-hosted
+    concurrency:
+      group: install-${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+      cancel-in-progress: true
+    strategy:
+      matrix:
+        python-version: ["3.11.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python-version }}
+
+  lint:
+    name: Lint
+    needs: install
+    runs-on: self-hosted
+    concurrency:
+      group: lint-${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+      cancel-in-progress: true
+    strategy:
+      matrix:
+        python-version: ["3.11.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Lint
+        shell: sh
+        run: uvx ruff check .
+
+  format:
+    name: Format
+    needs: install
+    runs-on: self-hosted
+    concurrency:
+      group: format-${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+      cancel-in-progress: true
+    strategy:
+      matrix:
+        python-version: ["3.11.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Format
+        shell: sh
+        run: uvx ruff format .
+
+  test:
+    name: Test
+    needs: install
+    runs-on: self-hosted
+    concurrency:
+      group: test-${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+      cancel-in-progress: true
+    strategy:
+      matrix:
+        python-version: ["3.11.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Test with Coverage
+        shell: sh
+        run: |
+          . .venv/bin/activate
+          python -m coverage run -m pytest
+          python -m coverage report -m
+
+  dependabot-approve:
+    name: Dependabot auto-approve
+    needs: [lint, format, test, typecheck]
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'Cognyx/cognyx-bom-sdk' && github.event.pull_request.head.ref != 'dev' && github.event.pull_request.head.ref != 'main'
+    uses: ./.github/workflows/dependabot-pr-auto-approve.yml
+    secrets:
+      GH_PAT: ${{ secrets.GH_PAT }}
+    with:
+      PR_URL: ${{ github.event.pull_request.html_url }}
+
+  typecheck:
+    name: Typecheck
+    needs: install
+    runs-on: self-hosted
+    concurrency:
+      group: typecheck-${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+      cancel-in-progress: true
+    strategy:
+      matrix:
+        python-version: ["3.11.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Typecheck
+        shell: sh
+        run: uv run mypy src
+
+  changelog:
+    name: Update Change Log
+    runs-on: self-hosted
+    needs: [test, lint, format, typecheck]
+    timeout-minutes: 5
+    if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'changelog')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.AUTO_CHANGELOG_PAT }}
+        timeout-minutes: 2
+
+      - name: Conventional Changelog Action
+        uses: TriPSs/conventional-changelog-action@v5
+        with:
+          skip-ci: false
+          github-token: ${{ secrets.AUTO_CHANGELOG_PAT }}
+          git-message: "chore(changelog): {version}"
+          git-user-name: "Cognyx Bot"
+          git-user-email: "hello@cognyx.io"
+          preset: "angular"
+          tag-prefix: "v"
+          input-file: "CHANGELOG.md"
+          # release-count: '0' // 0 to recreate all - comment out input-file above
+          version-file: "./pyproject.toml"
+          version-path: "project.version"
+          skip-on-empty: false
+        timeout-minutes: 3
+
+  lint-PR:
+    name: Lint PR
+    if: github.event_name == 'pull_request'
+    uses: ./.github/workflows/validate-pr-title.yml
