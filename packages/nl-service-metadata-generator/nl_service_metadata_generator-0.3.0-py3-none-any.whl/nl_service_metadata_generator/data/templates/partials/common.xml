@@ -1,0 +1,44 @@
+<gmd:fileIdentifier>
+    <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#metadata-unieke-identifier -->
+    <gco:CharacterString>{{md_identifier}}</gco:CharacterString>
+</gmd:fileIdentifier>
+<gmd:language>
+    <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#taal-van-de-metadata -->
+    <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="dut">Nederlands; Vlaams</gmd:LanguageCode>
+</gmd:language>
+<gmd:characterSet>
+    <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19115/#x5-2-8-karakterset-van-de-bron -->
+    <gmd:MD_CharacterSetCode codeList="https://standards.iso.org/iso/19139/resources/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8">utf8</gmd:MD_CharacterSetCode>
+</gmd:characterSet>
+<gmd:hierarchyLevel>
+    <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hiërarchieniveau -->
+    <!-- Vaste waarde voor INSPIRE services is "service" -->
+    <gmd:MD_ScopeCode codeList="https://standards.iso.org/iso/19139/resources/gmxCodelists.xml#MD_ScopeCode" codeListValue="service">service</gmd:MD_ScopeCode>
+</gmd:hierarchyLevel>
+<gmd:hierarchyLevelName>
+    <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#hiërarchieniveaunaam -->
+    <gco:CharacterString>service</gco:CharacterString>
+</gmd:hierarchyLevelName>
+<gmd:contact>
+    <gmd:CI_ResponsibleParty>
+        <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#verantwoordelijke-organisatie-metadata -->
+        {% include "partials/contact.xml" %}
+        <gmd:role>
+            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#verantwoordelijke-organisatie-metadata:-rol -->
+            <gmd:CI_RoleCode codeList="https://standards.iso.org/iso/19139/resources/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">contactpunt</gmd:CI_RoleCode>
+        </gmd:role>
+    </gmd:CI_ResponsibleParty>
+</gmd:contact>
+<gmd:dateStamp>
+    <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#metadatadatum -->
+    <!-- Datum waarop de metadata is aangemaakt of gewijzigd is (format JJJJ-MM-DD) -->
+    <gco:Date>{{md_date_stamp}}</gco:Date>
+</gmd:dateStamp>
+<gmd:metadataStandardName>
+    <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#metadata-standaard-naam -->
+    <gco:CharacterString>ISO 19119</gco:CharacterString>
+</gmd:metadataStandardName>
+<gmd:metadataStandardVersion>
+    <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#metadatastandaard-versie -->
+    <gco:CharacterString>Nederlands metadata profiel op ISO 19119 voor services 2.1.0</gco:CharacterString>
+</gmd:metadataStandardVersion>

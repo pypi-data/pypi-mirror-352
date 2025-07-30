@@ -1,0 +1,37 @@
+<gmd:resourceConstraints>
+    <gmd:MD_Constraints>
+        <gmd:useLimitation>
+            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#gebruiksbeperkingen -->
+            <!--Toepassingen waarvoor de service niet geschikt is. -->
+            <gco:CharacterString>{{service_use_limitation}}</gco:CharacterString>
+        </gmd:useLimitation>
+    </gmd:MD_Constraints>
+</gmd:resourceConstraints>
+<gmd:resourceConstraints>
+    <gmd:MD_LegalConstraints>
+        <!-- Moet overeenkomen met element WMS_Capabilities/Service/AccessConstraints in het Capabilities bestand -->
+        <!-- Als er geen gebruiksrestricties zijn: otherRestrictions bij element MD_RestrictionCode en verwijzing naar Public Domain verklaring of CC0  bij otherConstraints -->
+        <!-- Anders een andere Creative commons licentie, als dat niet volstaat een geogedeeld licentie aanmaken en bij  otherConstraints de verwijzing naar die licentie opnemen. -->
+        <!-- Voor INSPIRE daarnaast een code uit de codelijst ConditionsApplyingToAccessAndUse opnemen in een tweede otherConstraints element binnen hetzelfde MD_LegalConstraints element  -->
+        <gmd:accessConstraints>
+            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#x5-2-12-juridische-toegangsrestricties -->
+            <gmd:MD_RestrictionCode codeListValue="otherRestrictions" codeList="https://standards.iso.org/iso/19139/resources/gmxCodelists.xml#MD_RestrictionCode">anders</gmd:MD_RestrictionCode>
+        </gmd:accessConstraints>
+        {% if service_license -%}
+        <gmd:otherConstraints>
+            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#overige-beperkingen -->
+            <gmx:Anchor xlink:href="{{ service_license['url'] }}">{{ service_license['description'] }}</gmx:Anchor>
+        </gmd:otherConstraints>
+        {% else %}
+        <gmd:otherConstraints>
+            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#overige-beperkingen -->
+            <gmx:Anchor xlink:href="https://creativecommons.org/licenses/by/4.0/deed.nl">Naamsvermelding verplicht, organisatienaam</gmx:Anchor>
+        </gmd:otherConstraints>
+        {%- endif %}
+        {% if inspire_type != "none" -%}
+        <gmd:otherConstraints>
+            <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/metadata-codelist/ConditionsApplyingToAccessAndUse/noConditionsApply">Geen condities voor toegang en gebruik</gmx:Anchor>
+        </gmd:otherConstraints>
+        {%- endif %}
+    </gmd:MD_LegalConstraints>
+</gmd:resourceConstraints>

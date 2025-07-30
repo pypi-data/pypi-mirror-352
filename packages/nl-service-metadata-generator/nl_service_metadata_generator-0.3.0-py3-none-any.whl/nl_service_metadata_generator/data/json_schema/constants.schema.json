@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pdok.nl/ngr-metadata-generator-2/constants.schema.json",
+  "title": "Constants",
+  "description": "Object to supply constants to nl-service-metadata-generator",
+  "type": "object",
+  "properties": {
+    "contactOrganisationName": {
+      "description": "Organisatienaam van contact",
+      "type": "string"
+    },
+    "contactOrganisationUri": {
+      "description": "URI van organisatie van contact, gebruik bij voorkeur een  URI uit een organisatienamenlijst zoals http://standaarden.overheid.nl/owms/terms/Overheidsorganisatie.html",
+      "type": "string"
+    },
+    "contactEmail": {
+      "description": "Emailadres van contact",
+      "type": "string"
+    },
+    "contactUrl": {
+      "description": "Url naar webpagina met contactgegevens van organisatie",
+      "type": "string"
+    },
+    "qosCapacity": {
+      "description": "Maximum number of parallel requests per second that comply with performance criteria, expressed as number of requests per second - only applicable for SDS interoperable services",
+      "type": "integer"
+    },
+    "qosAvailability": {
+      "description": "Availability on a yearly basis, expressed as percentage of time - only applicable for SDS interoperable services",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "qosPerformance": {
+      "description": "Average response time, expressed in seconds - only applicable for SDS interoperable services",
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "contactEmail",
+    "contactOrganisationUri",
+    "contactOrganisationName"
+  ]
+}

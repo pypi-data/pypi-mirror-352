@@ -1,0 +1,45 @@
+<gmd:descriptiveKeywords>
+    <gmd:MD_Keywords>
+        <!-- Voorbeeld van een keyword afkomstig uit een Thesaurus -->
+{% for theme in inspire_themes  %}
+        <gmd:keyword>
+            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#trefwoord -->
+            <!-- Moet overeenkomen met element WMS_Capabilities/Capability/inspire_vs:ExtendedCapability/inspire_common:Keyword in het Capabilities bestand-->
+            <!-- waarin het INSPIRE thema zoals gedefinieerd in de GEMET Thesaurus is opgenomen-->
+            <!-- Naam van het INSPIRE thema zoals gedefinieerd in de GEMET Thesaurus en geschreven in de taal van dit metadata document -->
+            <gmx:Anchor xlink:href="{{theme.uri}}">{{theme.label}}</gmx:Anchor>
+        </gmd:keyword>
+        <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="https://standards.iso.org/iso/19139/resources/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
+        </gmd:type>
+{% endfor %}
+        <gmd:thesaurusName>
+            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurus -->
+            <!-- De GEMET Thesaurus waarin het INSPIRE thema is gedefinieerd -->
+            <gmd:CI_Citation>
+                <gmd:title>
+                    <gmx:Anchor xlink:href="https://www.eionet.europa.eu/gemet/nl/inspire-themes/">GEMET - INSPIRE themes, version 1.0</gmx:Anchor>
+                </gmd:title>
+                <gmd:date>
+                    <gmd:CI_Date>
+                        <gmd:date>
+                            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurusdatum -->
+                            <gco:Date>2008-06-01</gco:Date>
+                        </gmd:date>
+                        <gmd:dateType>
+                            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#thesaurusdatum-type -->
+                            <gmd:CI_DateTypeCode codeList="https://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publicatie</gmd:CI_DateTypeCode>
+                        </gmd:dateType>
+                    </gmd:CI_Date>
+                </gmd:date>
+                <gmd:identifier>
+                    <gmd:MD_Identifier>
+                        <gmd:code>
+                            <gmx:Anchor xlink:href="https://www.nationaalgeoregister.nl/geonetwork/srv/api/registries/vocabularies/external.theme.httpinspireeceuropaeutheme-theme">geonetwork.thesaurus.external.theme.httpinspireeceuropaeutheme-theme</gmx:Anchor>
+                        </gmd:code>
+                    </gmd:MD_Identifier>
+                </gmd:identifier>
+            </gmd:CI_Citation>
+        </gmd:thesaurusName>
+    </gmd:MD_Keywords>
+</gmd:descriptiveKeywords>
