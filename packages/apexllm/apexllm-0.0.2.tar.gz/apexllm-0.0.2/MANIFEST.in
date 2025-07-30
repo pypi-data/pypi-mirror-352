@@ -1,0 +1,25 @@
+# Include important files
+include README.md
+include LICENSE
+include ENV_SETUP.md
+include pyproject.toml
+
+# Include Python packages
+recursive-include apexllm *.py
+
+# Exclude sensitive and unnecessary files
+exclude .env
+exclude .env.*
+global-exclude *.key
+global-exclude *.pem
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude *.swp
+global-exclude *.swo
+global-exclude *~
+
+# Exclude development files
+exclude .gitignore
+exclude tests/*
+exclude *.egg-info/* 
