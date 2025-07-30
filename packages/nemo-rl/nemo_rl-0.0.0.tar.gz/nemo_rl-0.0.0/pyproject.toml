@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.setuptools]
+packages = ["nemo_rl"]
+
+[tool.setuptools.dynamic]
+version = {attr = "nemo_rl.__version__"}  # any module attribute compatible with ast.literal_eval
+readme = {file = "README.md", content-type = "text/markdown"}
+
+[project]
+name = "nemo-rl"
+dynamic = [
+    "version",
+    "readme",
+]
+description = "NeMo RL: A Scalable and Efficient Post-Training Library for Models Ranging from 1 GPU to 1000s, and from Tiny to >100B Parameters"
+requires-python = ">=3.10"
+license = {text = "Apache 2.0"}
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/NVIDIA/NeMo-RL"

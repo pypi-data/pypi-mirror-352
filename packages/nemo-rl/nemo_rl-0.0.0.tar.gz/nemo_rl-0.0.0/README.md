@@ -1,0 +1,1 @@
+**WARNING**: This package is not functional and a placeholder from NVIDIA. Please refer to [https://github.com/NVIDIA/NeMo-RL](https://github.com/NVIDIA/NeMo-RL) for instructions on installing and using NeMo-RL.
