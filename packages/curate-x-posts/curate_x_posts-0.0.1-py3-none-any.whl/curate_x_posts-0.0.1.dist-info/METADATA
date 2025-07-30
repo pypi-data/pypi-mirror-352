@@ -1,0 +1,34 @@
+Metadata-Version: 2.4
+Name: curate-x-posts
+Version: 0.0.1
+Summary: A package that curates posts from X users with a search query
+Author-email: TCW <1470pancake@gmail.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/tcw1470/scrape-x
+Project-URL: Issues, https://github.com/tcw1470/scrape-x/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# ```scrape-x```
+
+1. Install
+  ```
+  pip install twix
+  ```
+
+2. Create a ```json``` [file](tests/example_x_login.json) that contains your login credentials for the X social platform
+
+3. Change below ```88``` and ```99``` to the appropriate values for the latitude and longitude of the location you would like to query and run the command:
+  ```
+  python twix.py --lat 88 --lon 99 
+  ```    
+  Above will scrape with default parameters.
+  
+  Explore with other attributes, e.g.: 
+  ```
+  python twix.py --lat 88 --lon 99 --radius-km 10  --query "foodpoison,stomachbug" --start-date 2025-04-01 --days 7
+  ```
