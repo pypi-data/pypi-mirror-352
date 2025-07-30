@@ -1,0 +1,59 @@
+Metadata-Version: 2.4
+Name: mathml2omml_as
+Version: 0.1.0
+Summary: Convert MathML to OMML (Allote.Software fork)
+Home-page: https://github.com/AlloteSoftware/mathml2omml_as
+Author: amedama41(patched by Allote.Software)
+Keywords: MathML,OpenXML
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Text Processing :: Markup :: XML
+Requires-Python: >=3.7
+License-File: LICENSE
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license-file
+Dynamic: requires-python
+Dynamic: summary
+
+math2omml
+=========
+
+Pure Python library to convert MathML to OMML (Office Math Markup Language).
+
+Installation
+------------
+
+Use pip:
+
+.. code:: sh
+
+   pip install mathml2omml_as
+
+or, use setup.py:
+
+Usage
+-----
+
+Mathml2omml takes a MathML as string, and outputs an OMML as string:
+
+.. code:: python
+
+   import mathml2omml
+
+   mathml = '<math><mi>x</mi><mo>+</mo><mi>y</mi></math>'
+   omml = math2omml.convert(mathml)
+
+By default, mathml2omml recognises only entities defined in MathML specification.
+If the input includes other entities, pass the entity information
+as a dictionary to the second argument:
+
+.. code:: python
+
+   import html.entities
+
+   mathml = '<math><msubsup><mo>&int;</mo><mn>1</mn><mi>x</mi></msubsup></math>'
+   omml = math2omml.convert(mathml, html.entities.name2codepoint)
