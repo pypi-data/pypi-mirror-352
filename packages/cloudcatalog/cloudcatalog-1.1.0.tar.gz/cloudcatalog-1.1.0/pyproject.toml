@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools",
+            "setuptools_scm",
+            "wheel"]
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = "cloudcatalog"
+version = "1.1.0"
+authors = [ {name = "Johns Hopkins University Applied Physics Laboratory LLC", email = "sandy.antunes@jhuapl.edu"}]
+license = {text = "MIT License"}
+description = "API for accessing the generalized CloudCatalog (cloudcatalog) specification for sharing data in and across clouds"
+readme = "README.md"
+keywords = ["cloud","index","catalog","AWS"]
+classifiers=[
+        "Development Status :: 4 - Beta",
+        "Topic :: Utilities",
+        "License :: OSI Approved :: MIT License",
+        ]
+requires-python = ">=3.9"
+dependencies = [
+    "boto3",
+    "pandas",
+    ]
+
+[project.urls]
+Homepage = "https://heliocloud.org"
+Documentation = "https://github.com/heliocloud-data/cloudcatalog"
+Repository = "https://github.com/heliocloud-data/cloudcatalog"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+addopts = ["--import-mode=importlib",]
+
+[tool.black]
+include = '\.py'
