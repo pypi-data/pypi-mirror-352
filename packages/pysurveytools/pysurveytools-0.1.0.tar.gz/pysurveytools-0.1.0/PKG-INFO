@@ -1,0 +1,45 @@
+Metadata-Version: 2.4
+Name: pysurveytools
+Version: 0.1.0
+Summary: Geodetic classes for managing and calculating (Angle, Coordinate, Measurement, …)
+Home-page: https://gitlab-ce.hs-bochum.de/fachbereich-geodaesie/pypi/pysurveytools
+Author: Stefan Printz
+Author-email: Stefan Printz <stefan.printz@hs-bochum.de>
+License: MIT
+Project-URL: Homepage, https://gitlab-ce.hs-bochum.de/fachbereich-geodaesie/pypi/pysurveytools
+Project-URL: Issue Tracker, https://gitlab-ce.hs-bochum.de/fachbereich-geodaesie/pypi/pysurveytools/-/issues
+Project-URL: Source, https://gitlab-ce.hs-bochum.de/fachbereich-geodaesie/pypi/pysurveytools.git
+Keywords: geodesy,surveying,coordinates,angles,measurement
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.20
+Provides-Extra: test
+Requires-Dist: pytest>=7.0; extra == "test"
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+
+# pySurveytools
+
+**Geodetic classes for managing and calculating**
+
+## Overview
+
+`surveytools` is a Python library providing essential geodetic classes and utilities to support surveying calculations and coordinate management. It offers robust implementations for angles, coordinates, measurements, and other related geospatial operations, enabling precise and efficient geodetic data processing.
+
+## Features
+
+- Angle representation and conversion
+- Coordinate handling in multiple formats
+- Measurement encapsulation with metadata
+- Easy integration with surveying instruments and software
+
+## Installation
+
+You can install `surveytools` via pip:
+
+```bash
+pip install pysurveytools

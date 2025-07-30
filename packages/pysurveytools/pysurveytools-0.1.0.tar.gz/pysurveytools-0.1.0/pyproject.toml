@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pysurveytools"
+version = "0.1.0"
+description = "Geodetic classes for managing and calculating (Angle, Coordinate, Measurement, …)"
+readme = "README.md"
+authors = [
+  { name = "Stefan Printz", email = "stefan.printz@hs-bochum.de" }
+]
+license = { text = "MIT" }
+urls = {"Homepage" = "https://gitlab-ce.hs-bochum.de/fachbereich-geodaesie/pypi/pysurveytools", "Issue Tracker" = "https://gitlab-ce.hs-bochum.de/fachbereich-geodaesie/pypi/pysurveytools/-/issues",  "Source" = "https://gitlab-ce.hs-bochum.de/fachbereich-geodaesie/pypi/pysurveytools.git"}
+keywords = ["geodesy", "surveying", "coordinates", "angles", "measurement"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+dependencies = [
+  "numpy >= 1.20"
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest >= 7.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+surveytools-cli = "surveytools.surveytools:main"
