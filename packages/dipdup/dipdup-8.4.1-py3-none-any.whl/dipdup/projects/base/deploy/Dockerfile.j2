@@ -1,0 +1,11 @@
+{{ header }}
+
+FROM dipdup/dipdup:{{ project.dipdup_version }}
+# FROM ghcr.io/dipdup-io/dipdup:{{ project.dipdup_version }}
+# FROM ghcr.io/dipdup-io/dipdup:next
+
+# COPY --chown=dipdup pyproject.toml README.md .
+# RUN pip install .
+
+COPY --chown=dipdup . {{ project.package }}
+WORKDIR /home/dipdup/{{ project.package }}
