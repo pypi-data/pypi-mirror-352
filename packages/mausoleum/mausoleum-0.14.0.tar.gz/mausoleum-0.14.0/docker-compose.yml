@@ -1,0 +1,13 @@
+services:
+  mausoleum:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mausoleum
+    working_dir: /app
+    volumes:
+      - .:/app
+    privileged: true
+    tty: true
+    stdin_open: true
+    entrypoint: ["/app/entrypoint.sh"]
