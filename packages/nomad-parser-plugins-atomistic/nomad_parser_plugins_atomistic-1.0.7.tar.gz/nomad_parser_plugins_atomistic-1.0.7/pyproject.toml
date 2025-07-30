@@ -1,0 +1,108 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nomad-parser-plugins-atomistic"
+dynamic = ["version"]
+description = "Collection of NOMAD parsers for atomistic codes."
+readme = "README.md"
+authors = [{ name = "The NOMAD Authors" }]
+license = { file = "LICENSE" }
+dependencies = [
+    "nomad-lab>=1.3.13",
+    "nomad-schema-plugin-simulation-workflow>=1.0.1",
+    "nomad-schema-plugin-run>=1.0.1",
+    "nomad-parser-plugins-simulation>=1.0.2",
+    "lxml>=5.2",
+    "mdanalysis>=2.8.0,<3.0.0 ; python_full_version >= '3.10'",
+    "mdanalysis<2.8 ; python_full_version < '3.10'",
+    "panedr>=0.2",
+    "scipy>=1.7.1",
+    "pydantic>=1.10.8",
+    "ase~=3.22.0",
+    "numpy>=1.22.4",
+    "h5py>=3.6.0",
+]
+
+[project.urls]
+homepage = "https://github.com/nomad-coe/atomistic-parsers"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>= 5.3.0, <= 8.0.2",
+    "pytest-cov==2.7.1",
+    "astroid>=2.5.1",
+    'mypy>=1.15',
+    'ruff>=0.6',
+    'typing-extensions>=4.12',
+]
+
+infrastructure = [
+    "nomad-lab[infrastructure]>=1.3.10",
+]
+
+[tool.ruff]
+include = ["atomisticparsers/*.py", "tests/*.py"]
+select = [
+    "E", # pycodestyle
+    "W", # pycodestyle
+    "PL", # pylint
+]
+ignore = [
+    "E501", # Line too long ({width} > {limit} characters)
+    "E701", # Multiple statements on one line (colon)
+    "E731", # Do not assign a lambda expression, use a def
+    "E402",  # Module level import not at top of file
+    "PLR0911", # Too many return statements
+    "PLR0912", # Too many branches
+    "PLR0913", # Too many arguments in function definition
+    "PLR0915", # Too many statements
+    "PLR2004", # Magic value used instead of constant
+    "PLW0603", # Using the global statement
+    "PLW2901", # redefined-loop-name
+    "PLR1714", # consider-using-in
+    "PLR5501", # else-if-used
+]
+lint.fixable = ["ALL"]
+
+# Same as Black.
+line-length = 88
+indent-width = 4
+
+[tool.ruff.format]
+# use single quotes for strings.
+quote-style = "single"
+
+# indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+[tool.setuptools.packages.find]
+include = [
+    "atomisticparsers*",
+] # package names should match these glob patterns (["*"] by default)
+
+[tool.setuptools_scm]
+
+[project.entry-points.'nomad.plugin']
+amberparser = "atomisticparsers:amber_parser_entry_point"
+asapparser = "atomisticparsers:asap_parser_entry_point"
+aseparser = "atomisticparsers:ase_parser_entry_point"
+bopfoxparser = "atomisticparsers:bopfox_parser_entry_point"
+dftbplusparser = "atomisticparsers:dftbplus_parser_entry_point"
+dlpolyparser = "atomisticparsers:dlpoly_parser_entry_point"
+gromacsparser = "atomisticparsers:gromacs_parser_entry_point"
+gromosparser = "atomisticparsers:gromos_parser_entry_point"
+gulpparser = "atomisticparsers:gulp_parser_entry_point"
+h5mdparser = "atomisticparsers:h5md_parser_entry_point"
+lammpsparser = "atomisticparsers:lammps_parser_entry_point"
+libatomsparser = "atomisticparsers:libatoms_parser_entry_point"
+namdparser = "atomisticparsers:namd_parser_entry_point"
+tinkerparser = "atomisticparsers:tinker_parser_entry_point"
+xtbparser = "atomisticparsers:xtb_parser_entry_point"
