@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=77.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "infoga-ng"
+version = "0.0.1"
+description = "Email OSINT tool to gather information from public sources"
+authors = [
+    {name = "Mertcan GÖKGÖZ", email= "mertcan@gokgoz.net"}
+]
+readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICEN[CS]E*"]
+requires-python = ">=3.10"
+dependencies = [
+    "colorama==0.4.6",
+    "requests==2.32.3", 
+    "urllib3==2.4.0"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/mertcangokgoz/infoga"
+
+[project.scripts]
+infoga = "infoga:main"
+
+[tool.setuptools]
+py-modules = ["infoga"]
