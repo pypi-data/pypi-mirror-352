@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vai-ssg"
+version = "0.0.10" # this is for Pypi
+description = "A static site generator made in python."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+keywords = ["vai", "python", "python3", "fast", "static site generator", "ssg"]
+authors = [
+    { name = "Naresh", email = "nareshix66@gmail.com" }
+]
+maintainers = [
+  {name = "Naresh", email = "nareshix66@gmail.com"}
+]
+
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: Site Management",
+    "Topic :: Text Processing :: Markup :: Markdown",
+    "Topic :: Documentation",
+]
+
+dependencies = [
+    "beautifulsoup4==4.13.4",
+    "Jinja2==3.1.6",
+    "livereload==2.7.1",
+    "Markdown==3.8",
+    "MarkupSafe==3.0.2",
+    "minify_html==0.16.4",
+    "Pygments==2.19.1",
+    "PyYAML==6.0.2",
+    "rcssmin==1.2.1",
+    "rjsmin==1.2.4",
+]
+
+[project.scripts]
+vai = "vai.main:main"
+
+[tool.setuptools]
+include-package-data = true
+packages = ["vai"]
+
+[tool.setuptools.package-data]
+vai = [
+    "package_defaults/config.yaml",
+    "package_defaults/static/**",
+    "package_defaults/templates/**"
+]
