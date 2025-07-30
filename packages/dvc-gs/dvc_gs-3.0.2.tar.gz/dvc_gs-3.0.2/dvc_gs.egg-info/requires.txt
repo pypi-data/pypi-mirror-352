@@ -1,0 +1,14 @@
+dvc
+gcsfs>=2022.11.0
+
+[dev]
+dvc-gs[tests]
+mypy==1.16.0
+
+[tests]
+dvc[testing]
+pytest<9,>=7
+pytest-cov>=4.1.0
+pytest-xdist>=3.2
+pytest-servers[gcs]>=0.4.0
+google-cloud-storage>=2.7.0
