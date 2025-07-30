@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=65.0.0", "wheel"]
+
+[project]
+name = "aria-tools"
+version = "0.0.1"
+readme = "README.md"
+description = "Aria tools for use by Aria Agents through Hypha."
+requires-python = ">=3.11"
+dependencies = [
+  "schema-agents>=0.1.0,<0.2.0",
+  "hypha>=0.20.0,<0.21.0",
+  "hypha-rpc>=0.20.0,<0.21.0",
+  "biopython>=1.8",
+  "dotenv>=0.9",
+  "pydantic>=2.0,<3.0",
+]
+license = "MIT"
+license-files = ["LICENSE"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["aria_tools*"]
+
+[options.entry_points]
+console_scripts = [
+    "aria_tools = aria_tools.__main__:main",
+]
