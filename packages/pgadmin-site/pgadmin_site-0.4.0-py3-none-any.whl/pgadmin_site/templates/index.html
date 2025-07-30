@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ current_db }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+        .table-list {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .draggable-image {
+            position: absolute;
+            cursor: move;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="pb-3 mb-4 border-bottom">
+            <div class="d-flex align-items-center text-dark text-decoration-none">
+                <span class="fs-4"></span>
+                <span class="ms-2 fs-6 text-muted">База данных: {{ current_db }}</span>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <main>
+            <h1 class="mb-4">Таблицы базы данных</h1>
+            
+            {% if tables %}
+                <div class="table-list">
+                    <div class="list-group">
+                        {% for table in tables %}
+                            <a href="{{ url_for('view_table', table_name=table) }}" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{ table }}</h5>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-warning">
+                    Нет доступных таблиц в базе данных.
+                </div>
+            {% endif %}
+        </main>
+
+        <footer class="pt-3 mt-4 text-muted border-top">
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Функция для загрузки и отображения изображения
+        async function loadFoto() {
+            try {
+                const response = await fetch('/foto');
+                if (response.ok) {
+                    const positionResponse = await fetch('/foto/position');
+                    const position = await positionResponse.json();
+                    
+                    const img = document.createElement('img');
+                    img.src = '/foto';
+                    img.className = 'draggable-image';
+                    img.style.left = position.x + 'px';
+                    img.style.top = position.y + 'px';
+                    
+                    document.body.appendChild(img);
+                    
+                    // Делаем изображение перемещаемым
+                    let isDragging = false;
+                    let currentX;
+                    let currentY;
+                    let initialX;
+                    let initialY;
+                    let xOffset = position.x;
+                    let yOffset = position.y;
+                    
+                    img.addEventListener('mousedown', dragStart);
+                    document.addEventListener('mousemove', drag);
+                    document.addEventListener('mouseup', dragEnd);
+                    
+                    function dragStart(e) {
+                        initialX = e.clientX - xOffset;
+                        initialY = e.clientY - yOffset;
+                        
+                        if (e.target === img) {
+                            isDragging = true;
+                        }
+                    }
+                    
+                    function drag(e) {
+                        if (isDragging) {
+                            e.preventDefault();
+                            currentX = e.clientX - initialX;
+                            currentY = e.clientY - initialY;
+                            
+                            xOffset = currentX;
+                            yOffset = currentY;
+                            
+                            img.style.left = currentX + 'px';
+                            img.style.top = currentY + 'px';
+                        }
+                    }
+                    
+                    function dragEnd(e) {
+                        if (isDragging) {
+                            initialX = currentX;
+                            initialY = currentY;
+                            isDragging = false;
+                            
+                            // Сохраняем новую позицию
+                            fetch('/foto/position', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    x: currentX,
+                                    y: currentY
+                                })
+                            });
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Ошибка при загрузке изображения:', error);
+            }
+        }
+        
+        // Загружаем изображение при загрузке страницы
+        window.addEventListener('load', loadFoto);
+    </script>
+</body>
+</html> 
