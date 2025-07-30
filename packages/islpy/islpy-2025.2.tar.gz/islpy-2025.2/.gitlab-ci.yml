@@ -1,0 +1,92 @@
+Python 3:
+  script: |
+    EXTRA_INSTALL="numpy"
+    curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/main/build-and-test-py-project.sh
+    . ./build-and-test-py-project.sh
+  tags:
+  - python3
+  except:
+  - tags
+  artifacts:
+    reports:
+      junit: test/pytest.xml
+
+Examples:
+  script: |
+    EXTRA_INSTALL="matplotlib numpy"
+    curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/main/ci-support.sh
+    . ./ci-support.sh
+    build_py_project_in_venv
+    run_examples
+  tags:
+  - python3
+  except:
+  - tags
+
+Python 3 without small-integer opt:
+  script: |
+    curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/main/build-and-test-py-project.sh
+    export PROJECT_INSTALL_FLAGS="--config-settings=cmake.define.USE_IMATH_SIO=OFF"
+    . ./build-and-test-py-project.sh
+  tags:
+  - python3
+  except:
+  - tags
+  artifacts:
+    reports:
+      junit: test/pytest.xml
+
+Python 3 + Barvinok:
+  script: |
+    git clean -fdx
+    python3 -m venv .env
+    source .env/bin/activate
+    python -m ensurepip
+    pip install pcpp numpy pytest
+    ./build-with-barvinok.sh "$HOME/barvinok-build"
+    (cd test; LD_LIBRARY_PATH="$HOME/barvinok-build/lib" python -m pytest --tb=native -rxsw)
+
+  tags:
+  - python3
+  except:
+  - tags
+  artifacts:
+    reports:
+      junit: test/pytest.xml
+
+PyPy3:
+  script:
+  - export PY_EXE=pypy3
+  - curl -L -O -k https://gitlab.tiker.net/inducer/ci-support/raw/main/build-and-test-py-project.sh
+  - ". ./build-and-test-py-project.sh"
+  allow_failure: true
+  tags:
+  - pypy
+  except:
+  - tags
+  artifacts:
+    reports:
+      junit: test/pytest.xml
+
+Documentation:
+  script: |
+    curl -L -O -k https://tiker.net/ci-support-v0
+    . ci-support-v0
+    build_py_project_in_venv
+
+    build_docs
+    maybe_upload_docs
+
+  tags:
+  - python3
+  only:
+  - main
+
+Ruff:
+  script:
+  - pipx install ruff
+  - ruff check
+  tags:
+  - docker-runner
+  except:
+  - tags
