@@ -1,0 +1,65 @@
+Metadata-Version: 2.4
+Name: f4enix
+Version: 0.15.0
+Summary: API for Monte Carlo input and output parsing
+Author-email: F4E neutronics team <sc-radiationtransport@f4e.europa.eu>
+Project-URL: Homepage, https://github.com/fusion4energy
+Project-URL: Repository, https://github.com/Fusion4Energy/F4Enix
+Project-URL: Documentation, https://f4enix.readthedocs.io/en/latest/
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy<=1.26.4
+Requires-Dist: numjuggler>=2.42.37
+Requires-Dist: pyvista>=0.39.1
+Requires-Dist: pandas
+Requires-Dist: numba
+Requires-Dist: scipy
+Requires-Dist: tqdm
+Requires-Dist: python-docx
+Requires-Dist: openpyxl
+Requires-Dist: tables
+Requires-Dist: endf
+Provides-Extra: tests
+Requires-Dist: pytest; extra == "tests"
+Requires-Dist: pytest-cov; extra == "tests"
+Requires-Dist: nbformat; extra == "tests"
+Requires-Dist: nbconvert; extra == "tests"
+Requires-Dist: ipykernel; extra == "tests"
+Dynamic: license-file
+
+[![Testing windows](https://github.com/Radiation-Transport/F4Enix/actions/workflows/AutomatedTests_win.yml/badge.svg?branch=main)](https://github.com/Radiation-Transport/F4Enix/actions/workflows/AutomatedTests_win.yml)
+[![Testing linux](https://github.com/Radiation-Transport/F4Enix/actions/workflows/AutomatedTests_linux.yml/badge.svg?branch=main)](https://github.com/Radiation-Transport/F4Enix/actions/workflows/AutomatedTests_linux.yml)
+[![PyPi version](https://badgen.net/pypi/v/f4enix/)](https://pypi.org/project/f4enix)
+[![Documentation Status](https://readthedocs.org/projects/f4enix/badge/?version=latest)](https://f4enix.readthedocs.io/en/latest/?badge=latest)
+[![codecov](https://codecov.io/gh/Fusion4Energy/F4Enix/graph/badge.svg?token=P4A85K0ACG)](https://codecov.io/gh/Fusion4Energy/F4Enix)
+
+# F4Enix
+Parser for Monte Carlo simulations input and output files
+
+**Python >3.10!**
+
+Both Windows and Linux supported.
+
+Go to [F4Enix official documentation](https://f4enix.readthedocs.io/en/latest/) to get
+more information on the library capabilities, examples and much more.
+
+## Install
+The easiest way to install F4Enix is using pip:
+
+```
+pip install f4enix
+```
+See the [relevant section of the documentation](https://f4enix.readthedocs.io/en/stable/usage/installation.html#developer-mode-install) for developer mode installation
+
+### Troubleshooting
+If any unexpected issue is encountered during installation, the first step for
+its resolution would be to create a new fresh virtual environment.
+In conda this would be done with:
+```
+conda create -n <env_name> python=3.10
+```
+Please remember that python versions lower than 3.10 are not supported.
