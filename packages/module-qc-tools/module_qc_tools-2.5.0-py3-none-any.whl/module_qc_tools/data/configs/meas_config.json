@@ -1,0 +1,117 @@
+{
+    "tasks": {
+        "GENERAL": {
+                "v_max": 3.0,
+                "i_config": {
+                "RD53B": {"L0": 5.55, "L1": 6.60, "L2": 5.88},
+                "ITKPIXV2_V1bom": {"L0": 5.67, "L1": 6.50, "L2": 6.06},
+                "ITKPIXV2_V2bom": {"L0": 6.00, "L1": 6.70, "L2": 6.25}
+            }
+        },
+        "IV_MEASURE": {
+            "v_min": {"L0": 0, "L1": 0, "L2": 0},
+            "v_max": {"L0": -100, "L1": -200, "L2": -200},
+            "i_max": {"L0": 100e-6, "L1": 100e-6, "L2": 100e-6},
+            "n_points": {"L0": 101, "L1": 41, "L2": 41},
+            "settling_time": {"L0": 2, "L1": 2, "L2": 2}
+        },
+        "DATA_TRANSMISSION": {
+            "MonitorV": [32],
+            "DataMerging": ["4-to-1", "2-to-1"]
+        },
+        "ADC_CALIBRATION": {
+            "MonitorV": [8],
+            "MonitorV_GND": 30,
+            "InjVcalRange": 1,
+            "Range": {
+                "start": 500,
+                "stop": 3500,
+                "step": 200
+            }
+        },
+        "SLDO": {
+            "v_max": 4.0,
+            "i_min": {
+                "RD53B": {"L0": 5.55, "L1": 6.60, "L2": 5.88},
+                "ITKPIXV2_V1bom": {"L0": 5.53, "L1": 6.34, "L2": 5.91},
+                "ITKPIXV2_V2bom": {"L0": 5.85, "L1": 6.52, "L2": 6.1}
+            },
+            "i_max": {
+                "RD53B": {"L0": 7.55, "L1": 8.0, "L2": 7.48},
+                "ITKPIXV2_V1bom": {"L0": 7.35, "L1": 7.94, "L2": 7.56},
+                "ITKPIXV2_V2bom": {"L0": 7.37, "L1": 7.94, "L2": 7.6}
+            },
+            "n_points": {
+                "RD53B": {"L0": 11, "L1": 8, "L2": 9},
+                "ITKPIXV2_V1bom": {"L0": 12, "L1": 9, "L2": 11},
+                "ITKPIXV2_V2bom": {"L0": 10, "L1": 8, "L2": 10}
+            },
+            "extra_i": [],
+            "v_mux": [30, 33, 37, 34, 38, 36, 32],
+            "i_mux": [0, 28, 29, 30, 31, 63]
+        },
+        "VCAL_CALIBRATION": {
+            "InjVcalRange": [1, 0],
+            "MonitorV": [8, 7],
+            "MonitorV_GND": 30,
+            "Large_Range": {
+                "start": 100,
+                "stop": 4000,
+                "step": 400
+            },
+            "Small_Range": {
+                "start": 100,
+                "stop": 4000,
+                "step": 400
+            }
+        },
+        "ANALOG_READBACK": {
+            "v_mux": [0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 17, 31, 32, 33, 34, 35, 36, 37, 38, 39, 63],
+            "i_mux": [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31],
+            "v_mux_ntc": 2,
+            "i_mux_ntc": 9,
+            "v_mux_gnd": 30,
+            "i_mux_gnd": 63,
+            "v_mux_tempsens": [14, 16, 18],
+            "MonSensSldoDigSelBias": [0,1],
+            "MonSensSldoAnaSelBias": [0,1],
+            "MonSensAcbSelBias": [0,1],
+            "MonSensSldoDigDem": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            "MonSensSldoAnaDem": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            "MonSensAcbDem": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            "SldoTrimA": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            "SldoTrimD": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            "registers": ["IrefTrimSense"]
+        },
+        "INJECTION_CAPACITANCE": {
+            "n_meas": 5,
+                "v_mux": [4],
+            "v_mux_gnd": 30,
+                "i_mux": [10, 11],
+            "i_mux_gnd": 63
+        },
+        "LP_MODE": {
+            "v_max": 2.0,
+            "i_config": {"L0": 1.63, "L1": 2.1, "L2": 2.1},
+            "v_mux": [30, 33, 36, 37],
+            "i_mux": [0, 28, 29, 30, 31, 63]
+        },
+        "OVERVOLTAGE_PROTECTION": {
+            "v_max": 3,
+            "i_config": {"L0": 1.63, "L1": 2.1, "L2": 2.1},
+            "i_ovp": {"L0": 9.75, "L1": 7.0, "L2": 7.0},
+            "v_mux": [30, 32, 33, 37],
+            "i_mux": [0, 28, 30, 63]
+        },
+        "UNDERSHUNT_PROTECTION": {
+            "v_max": 2.0,
+            "i_usp": {"L0": 1.63, "L1": 2.1, "L2": 2.1},
+            "v_mux": [30, 33, 34, 35, 37, 38, 39],
+            "i_mux": [0, 28, 29, 30, 31, 63]
+        },
+        "LONG_TERM_STABILITY_DCS": {
+            "period": 300,
+            "duration": 28800
+        }
+    }
+}
