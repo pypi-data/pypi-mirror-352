@@ -1,0 +1,79 @@
+Metadata-Version: 2.4
+Name: celline
+Version: 0.1.9
+Summary: Add your description here
+Author-email: YUYA556223 <yuya.sato.jp@gmail.com>
+Requires-Python: >=3.10
+Requires-Dist: argparse>=1.4.0
+Requires-Dist: continuousvi>=0.1.5
+Requires-Dist: fastapi>=0.104.0
+Requires-Dist: inquirer>=3.4.0
+Requires-Dist: iprogress>=0.4
+Requires-Dist: ipywidgets>=8.1.5
+Requires-Dist: multipledispatch>=1.0.0
+Requires-Dist: pandas>=2.2.3
+Requires-Dist: polars>=1.26.0
+Requires-Dist: pyarrow>=19.0.1
+Requires-Dist: pydantic>=2.5.0
+Requires-Dist: pyper>=1.1.2
+Requires-Dist: pysradb>=2.2.2
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: requests-html>=0.10.0
+Requires-Dist: requests>=2.31.0
+Requires-Dist: rich>=14.0.0
+Requires-Dist: scanpy>=1.11.1
+Requires-Dist: scrublet>=0.2.3
+Requires-Dist: toml>=0.10.2
+Requires-Dist: tqdm>=4.67.1
+Requires-Dist: uvicorn>=0.24.0
+Requires-Dist: varname>=0.14.0
+Description-Content-Type: text/markdown
+
+# Celline - Single Cell RNA-seq Analysis Pipeline
+
+Celline is a comprehensive, interactive pipeline for single-cell RNA sequencing (scRNA-seq) analysis, designed to streamline the workflow from raw data to biological insights.
+
+## Features
+
+- **Automated Data Processing**: From raw fastq files to expression matrices
+- **Quality Control**: Built-in QC metrics and filtering
+- **Dimensionality Reduction**: PCA, t-SNE, and UMAP implementations
+- **Clustering Analysis**: Multiple clustering algorithms
+- **Cell Type Prediction**: Automated cell type annotation
+- **Batch Effect Correction**: Multiple methods for data integration
+- **Interactive Visualization**: Web-based interface for data exploration
+- **Reproducible Workflows**: Containerized environments and version control
+
+## Installation
+
+Install Celline using pip:
+
+```bash
+pip install celline
+```
+
+## Quick Start
+
+After installation, you can use the `celline` command globally:
+
+```bash
+# Initialize a new project
+celline init
+
+# List available functions
+celline list
+
+# Run preprocessing
+celline run preprocess
+
+# Launch interactive interface
+celline interactive
+```
+
+## Documentation
+
+For detailed documentation, please refer to the user guide and API reference.
+
+## License
+
+This project is licensed under the MIT License.
