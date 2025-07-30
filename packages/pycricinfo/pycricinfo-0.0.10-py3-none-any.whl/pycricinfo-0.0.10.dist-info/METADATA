@@ -1,0 +1,65 @@
+Metadata-Version: 2.4
+Name: pycricinfo
+Version: 0.0.10
+Summary: An API using pycricinfo to collect data from ESPN Cricinfo
+Project-URL: Homepage, https://github.com/mattholland0202/py-cricinfo
+Project-URL: Source, https://github.com/mattholland0202/py-cricinfo
+Author: Matt Holland
+License: MIT
+License-File: LICENSE
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.13
+Requires-Dist: prettytable>=3.16.0
+Requires-Dist: pydantic-settings>=2.9.1
+Requires-Dist: pydantic>=2.11.5
+Requires-Dist: requests>=2.32.3
+Provides-Extra: api
+Requires-Dist: fastapi>=0.115.12; extra == 'api'
+Requires-Dist: uvicorn>=0.34.2; extra == 'api'
+Provides-Extra: dev
+Requires-Dist: ruff>=0.11.0; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# pycricinfo
+
+A Python package using ESPNCricinfo's API to extract match, player & statistical data.
+
+Defines Pydantic models to represent data from the Cricinfo API, allowing easier interaction with the data in your code.
+
+## Installation
+Use your package manager of choice to install `pycricinfo`. For example:
+
+#### Pip
+```
+pip install pycricinfo
+```
+
+#### UV
+```
+uv add pycricinfo
+```
+
+### Optional installation: API
+This project also comes with an optional dependency to run an API wrapper around Cricinfo, providing an OpenAPI specification via Swagger through `FastAPI`. Install this optional dependency with:
+```
+pip install 'pycricinfo[api]'
+```
+or
+```
+uv add pycricinfo --optional api
+```
+
+## Sample usage: CLI
+Installing the project adds 2 scripts:
+
+* `scorecard`: Pass a JSON file from the Cricinfo match summary API to the `--input` parameter to produce a scorecard in the CLI
+* `ballbyball`: Pass a JSON file from the Cricinfo 'play-by-play' API to the `--input` parameter to produce a sumary of each ball in the page of data in the CLI
+
+Installing the optional API dependency adds a further script:
+
+* `api`: Runs `uvicorn` to launch a `FastAPI` wrapper around the Cricinfo API, which will launch on port 8000, with the Swagger documentation available at `http://localhost:8000/docs`
