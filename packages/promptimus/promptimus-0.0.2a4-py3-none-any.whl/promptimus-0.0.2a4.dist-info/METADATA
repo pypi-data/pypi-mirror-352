@@ -1,0 +1,45 @@
+Metadata-Version: 2.4
+Name: promptimus
+Version: 0.0.2a4
+Author-email: ailadin <korzhukandrew@gmail.com>
+Requires-Python: >=3.12
+Requires-Dist: arize-phoenix-otel>=0.8.0
+Requires-Dist: loguru>=0.7.3
+Requires-Dist: openai>=1.58.1
+Requires-Dist: openinference-semantic-conventions>=0.1.14
+Requires-Dist: pydantic>=2.10.4
+Requires-Dist: tomlkit>=0.13.2
+Provides-Extra: arize-phoeinx
+Requires-Dist: arize-phoenix>=7.12.3; extra == 'arize-phoeinx'
+Provides-Extra: testing
+Requires-Dist: pytest-asyncio>=0.25.0; extra == 'testing'
+Requires-Dist: pytest>=8.3.4; extra == 'testing'
+Description-Content-Type: text/markdown
+
+# Promptimus
+
+A pytorch-like API for LLM agents.
+
+See https://github.com/AIladin/promptimus/tree/main/notebooks for notebook guides.
+
+## Installation
+
+```bash
+pip install promptimus  
+```
+
+## TODO
+
+- [x] LLM provider
+- [x] Prompts == parameters
+- [x] Modules
+  - [x] Core logic
+  - [x] Fancy serialization
+- [x] Pre-build modules
+  - [x] Memory
+  - [x] Tool calling
+- [ ] Tracing
+  - [ ] Minimal to csv
+  - [x] support arise-ai/phoenix
+- [ ] Evaluation
+- [ ] Update readme
