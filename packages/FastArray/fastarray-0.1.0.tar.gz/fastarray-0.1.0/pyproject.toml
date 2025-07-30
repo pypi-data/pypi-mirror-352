@@ -1,0 +1,22 @@
+[project]
+name = "FastArray"
+version = "0.1.0"
+description = "A lightweight Python package for preprocessing geospatial optical imagery for machine learning"
+authors = [
+    { name = "Isah Abdul-Azeez", email = "isahabdul16@gmail.com" }
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy",
+    "xarray",
+    "aiofiles",
+    "matplotlib",
+    "torch",
+    "rioxarray",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
