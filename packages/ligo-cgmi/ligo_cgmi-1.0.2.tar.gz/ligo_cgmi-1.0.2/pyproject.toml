@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "ligo-cgmi"
+version = "1.0.2"
+description = "Coarse-grained chirp mass estimates for gravitational-wave events"
+readme = "README.md"
+authors = [
+    "Andrew Toivonen <andrew.toivonen@ligo.org>"
+]
+
+packages = [
+    { include = "ligo_cgmi" },
+]
+
+license = "MIT"
+
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+astropy = "*"
+pandas = "*"
+h5py = "*"
+numpy = "*"
+pathlib = "*"
+argparse = "*"
+matplotlib = "*"
+ligo-gracedb = "*"
+ligo-skymap = ">=2.0.1"
+
+
+[poetry.group.dev.dependencies]
+pytest = "*"
+flake8 = "*"
+
+
+[tool.poetry.scripts]
+cgmi = "ligo_cgmi.chirp_probabilities:main"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
