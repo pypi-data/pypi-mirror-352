@@ -1,0 +1,17 @@
+
+
+class RDMDraftMediaFiles({{vars.record.class | base_name}}):
+    """RDM Draft media file API."""
+
+    files = FilesField(
+        key=MediaFilesAttrConfig["_files_attr_key"],
+        bucket_id_attr=MediaFilesAttrConfig["_files_bucket_id_attr_key"],
+        bucket_attr=MediaFilesAttrConfig["_files_bucket_attr_key"],
+        store=False,
+        dump=False,
+        file_cls=RDMMediaFileDraft,
+        # Don't delete, we'll manage in the service
+        delete=False,
+    )
+RDMMediaFileDraft.record_cls = RDMDraftMediaFiles
+

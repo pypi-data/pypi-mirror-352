@@ -1,0 +1,21 @@
+[oarepo.models]
+rdm = oarepo_model_builder_rdm.builtin_models:rdm.json
+rdm-elements = oarepo_model_builder_rdm.builtin_models:rdm_elements.yaml
+
+[oarepo_model_builder.builders.base]
+9990-invenio_rdm_ext = oarepo_model_builder_rdm.invenio.invenio_rdm_ext:InvenioRDMExtBuilder
+
+[oarepo_model_builder.builders.draft]
+9900-invenio_rdm_draft_record = oarepo_model_builder_rdm.invenio.invenio_rdm_draft_record:InvenioRDMDraftRecordBuilder
+9970-invenio_rdm_draft_record_metadata = oarepo_model_builder_rdm.invenio.invenio_rdm_record_metadata:InvenioRDMRecordMetadataBuilder
+9990-invenio_rdm_ext_draft = oarepo_model_builder_rdm.invenio.invenio_rdm_ext_draft:InvenioRDMExtDraftBuilder
+
+[oarepo_model_builder.builders.record]
+9970-invenio_rdm_record_metadata = oarepo_model_builder_rdm.invenio.invenio_rdm_record_metadata:InvenioRDMRecordMetadataBuilder
+9980-invenio_rdm_record = oarepo_model_builder_rdm.invenio.invenio_rdm_record:InvenioRDMRecordBuilder
+
+[oarepo_model_builder.datatypes.components]
+rdm = oarepo_model_builder_rdm.datatypes.components:RDM_COMPONENTS
+
+[oarepo_model_builder.templates]
+9900-rdm_invenio_templates = oarepo_model_builder_rdm.invenio

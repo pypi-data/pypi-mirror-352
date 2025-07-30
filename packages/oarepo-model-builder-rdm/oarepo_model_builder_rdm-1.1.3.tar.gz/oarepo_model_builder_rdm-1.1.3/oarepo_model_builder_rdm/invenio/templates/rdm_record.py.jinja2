@@ -1,0 +1,30 @@
+from invenio_drafts_resources.services.records.components.media_files import (
+    MediaFilesAttrConfig,
+)
+
+
+from invenio_records_resources.records.systemfields import FilesField
+
+
+
+class RDMRecordMediaFiles({{vars.record.class | base_name}}):
+    """RDM Media file record API."""
+
+    files = FilesField(
+        key=MediaFilesAttrConfig["_files_attr_key"],
+        bucket_id_attr=MediaFilesAttrConfig["_files_bucket_id_attr_key"],
+        bucket_attr=MediaFilesAttrConfig["_files_bucket_attr_key"],
+        store=False,
+        dump=False,
+        file_cls=RDMMediaFileRecord,
+        # Don't create
+        create=False,
+        # Don't delete, we'll manage in the service
+        delete=False,
+    )
+
+RDMMediaFileRecord.record_cls = RDMRecordMediaFiles
+
+
+
+
