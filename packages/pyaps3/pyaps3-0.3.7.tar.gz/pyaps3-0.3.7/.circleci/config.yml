@@ -1,0 +1,64 @@
+version: 2.1
+
+orbs:
+  # The python orb contains a set of prepackaged CircleCI configuration you can use repeatedly in your configuration files
+  # Orb commands and jobs help you with common scripting around a language/tool
+  # so you dont have to copy and paste it everywhere.
+  # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
+  python: circleci/python@1.2
+
+workflows:
+  build-and-test:  # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
+    # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
+    jobs:
+      - build-and-test
+
+
+jobs:
+  build-and-test:  # This is the name of the job, feel free to change it to better match what you're trying to do!
+    # These next lines defines a Docker executors: https://circleci.com/docs/2.0/executor-types/
+    # You can specify an image from Dockerhub or use one of the convenience images from CircleCI's Developer Hub
+    # A list of available CircleCI Docker convenience images are available here: https://circleci.com/developer/images/image/cimg/python
+    # The executor is the environment in which the steps below will be executed - below will use a python 3.9 container
+    # Change the version below to your required version of python
+    docker:
+      - image: ubuntu:bionic
+        environment:
+          CONDA_PREFIX: /root/tools/miniforge
+          PYAPS_HOME: /root/tools/PyAPS
+        user: root
+    working_directory: /root/tools/PyAPS
+    # Checkout the code as the first step. This is a dedicated CircleCI step.
+    steps:
+      - checkout
+      - run:
+          name: Setting Environment with Miniforge
+          command: |
+            apt update
+            apt-get update --yes && apt-get upgrade --yes
+            apt-get install --yes git wget
+            # install miniforge (https://github.com/conda-forge/miniforge?tab=readme-ov-file#as-part-of-a-ci-pipeline)
+            mkdir -p ${HOME}/tools
+            cd ${HOME}/tools
+            wget -O Miniforge3.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+            bash Miniforge3.sh -b -p ${HOME}/tools/miniforge
+            source "${HOME}/tools/miniforge/etc/profile.d/conda.sh"
+            source "${HOME}/tools/miniforge/etc/profile.d/mamba.sh"
+            # modify/export env var PATH to BASH_ENV to be shared across run steps
+            echo 'export PATH=${CONDA_PREFIX}/bin:${PATH}' >> ${BASH_ENV}
+
+      - run:
+          name: Installing PyAPS
+          no_output_timeout: 10m
+          command: |
+            export PYTHONUNBUFFERED=1
+            # install dependencies and source code
+            source activate root
+            mamba install --verbose --yes --file ${PYAPS_HOME}/requirements.txt --file ${PYAPS_HOME}/tests/requirements.txt
+            python -m pip install ${PYAPS_HOME}
+
+      - run:
+          name: Test the Installation
+          command: |
+            python ${PYAPS_HOME}/tests/test_calc.py
