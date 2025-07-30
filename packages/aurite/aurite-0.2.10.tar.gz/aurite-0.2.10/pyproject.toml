@@ -1,0 +1,168 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "aurite"
+version = "0.2.10"
+description = "Aurite Agent Development and Runtime Framework"
+readme = "README.md"
+requires-python = ">=3.12"
+
+authors = [
+    { name = "Ryan W", email = "ryan@aurite.ai" },
+    { name = "Blake R", email = "blake@aurite.ai" },
+    { name = "Patrick W", email = "patrick@aurite.ai" },
+]
+
+license-files = ["LICENSE"]
+
+keywords = ["ai", "agent", "mcp", "framework", "llm", "anthropic"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+dependencies = [
+    "mcp>=1.8.1",
+    "httpx>=0.28.1",
+    "anyio>=4.8.0",
+    "sqlalchemy>=2.0.39",
+    "anthropic>=0.49.0",
+    "annotated-types>=0.7.0",
+    "certifi>=2025.1.31",
+    "cffi>=1.17.1",
+    "click>=8.1.8",
+    "cryptography>=44.0.2",
+    "distro>=1.9.0",
+    "google-genai>=1.11.0",
+    "greenlet>=3.1.1",
+    "h11>=0.14.0",
+    "httpcore>=1.0.7",
+    "httpx-sse>=0.4.0",
+    "idna>=3.10",
+    "iniconfig>=2.0.0",
+    "jiter>=0.6.1,<0.9", # Adjusted to resolve conflict with instructor
+    "mem0ai>=0.1.67",
+    "packaging>=24.2",
+    "pluggy>=1.5.0",
+    "psycopg2-binary>=2.9.10",
+    "alembic>=1.13.1",
+    "pycparser>=2.22",
+    "pydantic>=2.10.6",
+    "pydantic-settings>=2.8.1",
+    "pydantic_core>=2.27.2",
+    "pydub>=0.25.1",
+    "PyMySQL>=1.1.1",
+    "python-dateutil>=2.9.0.post0",
+    "openai-agents-mcp",
+    "python-dotenv>=1.0.1",
+    # "click-async", # Removed - unnecessary with Click 8+/Typer 0.4+
+    "pytz>=2024.1",
+    "pyyaml>=6.0.2",
+    "redis>=5.0.0",                 # Added for worker entrypoint
+    "six>=1.17.0",
+    "sniffio>=1.3.1",
+    "jsonschema",
+    "sse-starlette>=2.2.1",
+    "starlette>=0.46.1",
+    "typing_extensions>=4.12.2",
+    "typer>=0.9.0",                # Added for CLI entrypoint
+    "tzdata>=2025.1",
+    "uvicorn>=0.34.0",
+    "fastapi",
+    "google-cloud-secret-manager>=2.19.0", # Added for GCP Secrets
+]
+
+[project.urls]
+Homepage = "https://github.com/Aurite-ai/aurite-agents" # Placeholder
+Repository = "https://github.com/Aurite-ai/aurite-agents" # Placeholder
+
+[project.optional-dependencies]
+dev = [
+    "pytest-timeout>=2.3.1", # Added for test timeouts
+    "mypy>=1.15.0",
+    "types-PyYAML",
+    "types-pytz",
+    "pytest>=8.3.5",
+]
+ml = [
+    "sentence-transformers>=4.1.0",
+    "pandas>=2.2.3",
+    "numpy>=2.2.3",
+]
+
+[tool.setuptools]
+include-package-data = true # This tells setuptools to use MANIFEST.in (hyphenated)
+package-dir = {"" = "src"} # Maps importable package root to the 'src' directory
+
+# [tool.setuptools.package-data] # This section can be used if not relying solely on MANIFEST.in
+# # For example, to ensure py.typed is included if MANIFEST.in doesn't cover it:
+# # "*" = ["py.typed"]
+# # We will rely on MANIFEST.in for data files.
+
+[tool.setuptools.packages.find]
+where = ["src"]  # Look for packages within the 'src' directory
+include = ["aurite*"] # Find 'aurite' and any sub-packages
+namespaces = false
+# Pytest configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+log_cli = true
+log_cli_level = "INFO"
+# Ensure unit, integration, e2e markers are defined
+markers = [
+    "unit: marks tests as unit tests (fast, isolated)",
+    "integration: marks tests as integration tests (component interaction)",
+    "e2e: marks tests as end-to-end tests (may require external resources)",
+    # "asyncio: mark test as async test", # Removed - use pytest.mark.anyio instead
+    "core: mark test as core functionality test",                            # Keep existing
+    "user: mark test as requiring user credentials",
+    "extended: mark test as extended functionality test",
+    "agent: mark test as agent test",
+    "infrastructure: mark test as infrastructure/setup verification",
+    "evaluation: mark test as agent evaluation test",
+    "rubric: mark test that uses an evaluation rubric",
+    "multirun: mark test that runs multiple evaluation iterations",
+    "benchmark: mark test that compares against benchmarks",                 # Keep existing
+]
+asyncio_default_fixture_loop_scope = "function" # Default scope for asyncio tests
+pythonpath = [".", "src", "aurite"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+    "ignore::RuntimeWarning",
+    "ignore::PendingDeprecationWarning",
+    "ignore::pytest.PytestUnknownMarkWarning",
+    "ignore::pytest.PytestConfigWarning",
+    "ignore::pytest.PytestUnhandledCoroutineWarning",
+]
+# Add HTML and JSON report options
+addopts = "--verbose --no-header --disable-warnings"
+# Configure test result captures
+junit_family = "xunit2"
+# asyncio_mode moved up
+timeout = 60 # Increase default test timeout to 60 seconds
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = false # Don't warn about functions returning Any implicitly
+ignore_missing_imports = true # Don't fail if a library doesn't have type hints (important for dependencies)
+check_untyped_defs = false # Don't require type hints for functions without them (relaxed start)
+disallow_untyped_defs = false # Corresponds to check_untyped_defs
+show_error_codes = true # Makes errors easier to understand/suppress if needed
+disallow_untyped_calls = false # Corresponds to check_untyped_defs
+files=["src/aurite/**/*.py"]
+follow_imports = "silent"
+
+
+[project.scripts]
+start-api = "aurite.bin.api.api:start"
+start-worker = "aurite.bin.worker:start" # Point to the synchronous wrapper
+run-cli = "aurite.bin.cli:app" # Makes 'run-cli' command available; args must be added manually
+aurite = "aurite.cli.main:app" # Renamed script from aurite-agents to aurite
