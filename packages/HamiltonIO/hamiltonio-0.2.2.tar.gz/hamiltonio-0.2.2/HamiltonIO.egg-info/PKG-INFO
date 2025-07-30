@@ -1,0 +1,50 @@
+Metadata-Version: 2.4
+Name: HamiltonIO
+Version: 0.2.2
+Summary: A library for reading/writting Hamiltonian with localized basis set.
+Author-email: Xu He <x.he@uliege.be>
+License: BSD-2
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Chemistry
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: scipy>=1.7.0
+Requires-Dist: matplotlib>=3.4.0
+Requires-Dist: ase>=3.19
+Provides-Extra: siesta
+Requires-Dist: sisl>=0.9.0; extra == "siesta"
+Provides-Extra: test
+Requires-Dist: pytest>=6.2.0; extra == "test"
+Provides-Extra: dev
+Requires-Dist: pytest>=6.2.0; extra == "dev"
+Requires-Dist: black>=21.6b0; extra == "dev"
+Requires-Dist: pre-commit>=2.13.0; extra == "dev"
+Requires-Dist: sphinx>=4.1.2; extra == "dev"
+Dynamic: license-file
+
+# HamiltonIO
+A library of IO of Hamiltonian files of DFT codes
+
+## Installation
+```bash
+pip install hamiltonIO
+```
+
+## Usage
+
+See the examples.
+
