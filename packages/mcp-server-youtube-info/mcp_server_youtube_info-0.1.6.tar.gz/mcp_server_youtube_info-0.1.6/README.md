@@ -1,0 +1,109 @@
+# MCP YouTube Info Server
+
+This project is a server implementation that retrieves YouTube video information using the Model Context Protocol (MCP). It utilizes the FastMCP framework to provide functionality for fetching YouTube video data.
+
+## Available Tools
+
+### youtube_metainfo
+
+Retrieves metadata for a YouTube video.
+
+- `video_id` (string, required): YouTube video ID
+
+  - Returns: JSON containing metadata such as title, description, view count, publication date, etc.
+
+### youtube_thumbnail_url
+
+Retrieves the URL of a YouTube video's thumbnail image.
+
+- `video_id` (string, required): YouTube video ID
+
+  - Returns: URL of the thumbnail image
+
+### youtube_thumbnail_image
+
+Retrieves the image data from a YouTube video.
+
+- `video_id` (string, required): YouTube video ID
+
+  - Returns: Thumbnail image
+
+## Installation
+
+### Using `uv` (recommended)
+
+No special installation is needed when using `uv`. You can run `mcp-server-youtube-info` directly with `uvx`.
+
+### Using PIP
+
+Alternatively, you can install `mcp-server-youtube-info` using pip:
+
+```
+pip install mcp-server-youtube-info
+```
+
+After installation, you can run it as a script like this:
+
+```
+mcp-server-youtube-info
+```
+
+## Configuration
+
+### Configure for Claude.app
+
+Add to your Claude settings:
+
+<details>
+<summary>Using uvx</summary>
+
+```json
+{
+  "mcpServers": {
+    "testing": {
+      "command": "uvx",
+      "args": ["mcp-server-youtube-info"]
+    }
+  }
+}
+```
+
+</details>
+
+### Configure for VS Code
+
+For quick installation, use one of the one-click install buttons below...
+
+[![Install with UV in VS Code](https://img.shields.io/badge/VS_Code-UV-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=youtube-info&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22mcp-server-youtube-info%22%5D%7D)
+
+### Command-Line Options
+
+You can specify the following options when running the server:
+
+- `--sse`: Enable SSE transport
+
+  - Choices: `on`, `off`
+  - Default: `off`
+  - Description: Enables SSE transport when set to "on"
+
+- `--host`: Host to bind the server to
+
+  - Default: `localhost`
+  - Description: Specifies the host address the server will bind to
+
+- `--port`: Port to bind the server to
+
+  - Type: Integer
+  - Default: `8000`
+  - Description: Specifies the port number the server will bind to
+
+- `--log-level`: Set the log level
+
+  - Choices: `debug`, `info`, `warning`, `error`
+  - Default: `info`
+  - Description:
+
+    - debug: Detailed debug information
+    - info: General runtime information (default)
+    - warning: Potential issues that do not affect execution
+    - error: Errors encountered during execution
