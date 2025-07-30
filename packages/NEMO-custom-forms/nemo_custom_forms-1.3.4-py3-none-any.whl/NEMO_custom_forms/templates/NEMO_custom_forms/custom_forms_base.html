@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load custom_tags_and_filters %}
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "NEMO_custom_forms/custom-forms.css" %}" />
+    <script type="text/javascript" src="{% static "datetimepicker/bootstrap-datetimepicker.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "datetimepicker/bootstrap-datetimepicker.css" %}" />
+{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-9">
+            <h1 style="margin-top: 0; margin-bottom: 25px">{{ title }}</h1>
+        </div>
+        {% url 'custom_form_templates' as custom_form_templates_url %}
+        {% if user.is_superuser %}
+            <div class="col-xs-3">
+                <ul class="nav nav-pills nav-pills-spacer"
+                    style="display: inline-block;
+                           float: right;
+                           margin-bottom: 15px">
+                    {% if custom_form_templates_url in request.path %}
+                        <li>
+                            <a href="{% url "custom_forms" %}">Custom form list</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ custom_form_templates_url }}">Template list</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    <ul class="nav nav-tabs">
+        {% if custom_form_templates_url not in request.path %}
+            {% url 'custom_forms' as custom_forms_url %}
+            {% for form_template in form_templates %}
+                {% url "custom_forms" form_template.id as custom_forms_template_url %}
+                <li class="nav-item{% if custom_forms_template_url in request.path and not custom_form_templates_url in request.path %} active{% endif %}">
+                    <a class="nav-link" href="{{ custom_forms_template_url }}">
+                        {{ form_template.name }} forms
+                        {% for type, count in custom_form_notifications.items %}
+                            {% if form_template.id == type and count %}<span class="badge badge-tab-top">{{ count }}</span>{% endif %}
+                        {% endfor %}
+                    </a>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    <div id="custom-forms-panel-content"
+         class="tab-content panel panel-default panel-tab-content info-tooltip-container">
+        <div class="panel-body">
+            {% block tab_content %}
+                {% block before_pagination %}
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-9 col-xs-8" style="margin-bottom: {% if page %}-15px{% else %}0px{% endif %}">
+                            <form class="form-horizontal" method="get">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-sm-4 col-md-3 col-lg-2 control-label" for="form_status">Status</label>
+                                    <div class="col-xs-7 col-md-6">
+                                        <select id="form_status" name="form_status" class="form-control">
+                                            <option value="" selected>All</option>
+                                            {% for status in form_statuses %}
+                                                <option value="{{ status.0 }}" {% if status.0 == selected_status|to_int %}selected{% endif %}>{{ status.1 }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                {% if selected_template.customformaction_set.count > 1 %}
+                                    <div class="form-group">
+                                        <label class="col-xs-5 col-sm-4 col-md-3 col-lg-2 control-label" for="form_action_rank">Current action</label>
+                                        <div class="col-xs-7 col-md-6">
+                                            <select id="form_action_rank" name="form_action_rank" class="form-control">
+                                                <option value="" selected>Any</option>
+                                                {% for possible_action in selected_template.customformaction_set.all %}
+                                                    <option value="{{ possible_action.rank }}"
+                                                            {% if possible_action.rank == selected_action_rank|to_int %}selected{% endif %}>
+                                                        {{ possible_action.pending_status|capfirst }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="form-group">
+                                    <div class="col-xs-offset-2 col-xs-10">{% button type="save" value="Update" %}</div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-4 col-md-3 text-right">
+                            {% if not custom_form_templates_url in request.path %}
+                                {% button type="export" value="Export" url=request.path|concat:"?csv=true" target="_blank" %}
+                            {% endif %}
+                            {% block add_button %}{% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+                {% if page %}
+                    {% with paginator=page.paginator %}
+                        {% block pagination_header %}
+                            <div class="pagination pull-right" style="clear: both">{% include "pagination/pagination_selector.html" %}</div>
+                        {% endblock %}
+                        <div class="table-responsive" style="width: 100%">
+                            {% block pagination_content %}{% endblock %}
+                        </div>
+                        {% block pagination_footer %}
+                            <div class="pagination pull-right" style="margin-bottom: 0">{% include "pagination/pagination_pages.html" %}</div>
+                        {% endblock %}
+                    {% endwith %}
+                {% else %}
+                    <div class="pull-left form-control-static">
+                        <i>
+                            {% block table_empty_content %}{% endblock %}
+                        </i>
+                    </div>
+                {% endif %}
+                {% block after_pagination %}{% endblock %}
+            {% endblock %}
+        </div>
+    </div>
+    <script>
+        {# Set a global click handler to dismiss manual tooltips #}
+        $('html').on('click', function(e)
+        {
+            {# Only dismiss tooltips when clicking outside of them #}
+            let target_id = $(e.target).parents('.tooltip').attr('id');
+            if (typeof $(e.target).data('original-title') == 'undefined')
+            {
+                $(".tooltip").not('#'+target_id).remove();
+            }
+        });
+        $("[data-toggle='tooltip-notes']").on('click', function ()
+        {
+            {# Remove associated data to prevent toggling issues #}
+            $(this).removeData('bs.tooltip');
+            $(".tooltip").remove();
+            $(this).tooltip({trigger: 'manual', html: 'true', container: '#custom-forms-panel-content'}).tooltip('toggle');
+        });
+        $("[data-toggle='tooltip']").tooltip({html: 'true'});
+
+        function document_view(form)
+        {
+            let data = $(form).serialize();
+            ajax_post('{% url "media_list_view" allow_zip="true" popup="true" %}', data, ajax_success_callback);
+        }
+
+        function open_doc(url)
+        {
+            ajax_get(url, undefined, ajax_success_callback, ajax_failure_callback("Unable to display document"));
+        }
+    </script>
+{% endblock %}
