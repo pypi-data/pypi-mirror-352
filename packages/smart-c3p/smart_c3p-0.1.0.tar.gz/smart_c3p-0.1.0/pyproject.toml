@@ -1,0 +1,17 @@
+[project]
+name = "smart-c3p"
+version = "0.1.0"
+description = "Geração de relatórios analíticos com IA a partir de DataFrames e PDFs de regras de negócio."
+authors = [
+    { name = "Gabriel", email = "negociogabriel2k25@outlook.com" }
+]
+dependencies = [
+    "pandas",
+    "matplotlib",
+    "pymupdf",  # Para extração de texto de PDFs
+    "reportlab",  # Para geração de relatórios PDF
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta" 
