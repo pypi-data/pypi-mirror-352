@@ -1,0 +1,22 @@
+{
+  "commands": [
+    {
+      "command": "RDEFINE ELIJTEST             (TESTING) ",
+      "messages": [
+        "ICH10006I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
+      ]
+    },
+    {
+      "command": "RALTER  ELIJTEST             (TESTING)  UACC        (None) OWNER       (eswift)",
+      "messages": [
+        "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
+      ]
+    }
+  ],
+  "return_codes": {
+    "racf_reason_code": 0,
+    "racf_return_code": 0,
+    "saf_return_code": 0,
+    "sear_return_code": 0
+  }
+}
