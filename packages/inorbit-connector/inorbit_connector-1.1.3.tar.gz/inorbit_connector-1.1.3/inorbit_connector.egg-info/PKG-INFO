@@ -1,0 +1,123 @@
+Metadata-Version: 2.4
+Name: inorbit-connector
+Version: 1.1.3
+Summary: A Python library for connectors in the InOrbit RobOps ecosystem.
+Home-page: https://github.com/inorbit-ai/inorbit-connector-python
+Download-URL: https://github.com/inorbit-ai/inorbit-connector-python/archive/refs/tags/1.1.3.zip
+Author: InOrbit, Inc.
+Author-email: support@inorbit.ai
+Maintainer: Russell Toris
+Maintainer-email: russell@inorbit.ai
+License: MIT
+Project-URL: Tracker, https://github.com/inorbit-ai/inorbit-connector-python/issues
+Project-URL: Contributing, https://github.com/inorbit-ai/inorbit-connector-python/blob/v1.1.3/CONTRIBUTING.md
+Project-URL: Code of Conduct, https://github.com/inorbit-ai/inorbit-connector-python/blob/v1.1.3/CODE_OF_CONDUCT.md
+Project-URL: Changelog, https://github.com/inorbit-ai/inorbit-connector-python/blob/v1.1.3/CHANGELOG.md
+Project-URL: Issue Tracker, https://github.com/inorbit-ai/inorbit-connector-python/issues
+Project-URL: License, https://github.com/inorbit-ai/inorbit-connector-python/blob/v1.1.3/LICENSE
+Project-URL: About, https://www.inorbit.ai/company
+Project-URL: Contact, https://www.inorbit.ai/contact
+Project-URL: Blog, https://www.inorbit.ai/blog
+Project-URL: Twitter, https://twitter.com/InOrbitAI
+Project-URL: LinkedIn, https://www.linkedin.com/company/inorbitai
+Project-URL: GitHub, https://github.com/inorbit-ai
+Project-URL: Website, https://www.inorbit.ai/
+Project-URL: Source, https://github.com/inorbit-ai/inorbit-connector-python/tree/v1.1.3
+Keywords: inorbit,robops,robotics
+Platform: Linux
+Platform: Windows
+Platform: macOS
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.10, <3.13
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: inorbit-edge[video]<2.0,>=1.17.0
+Requires-Dist: pydantic<3.0,>=2.6
+Requires-Dist: pytz>=2024.1
+Requires-Dist: PyYAML<7.0,>=6.0
+Provides-Extra: dev
+Requires-Dist: bump2version~=1.0; extra == "dev"
+Requires-Dist: black~=24.3; extra == "dev"
+Requires-Dist: coverage~=7.4; extra == "dev"
+Requires-Dist: flake8~=7.0; extra == "dev"
+Requires-Dist: flake8-pyproject~=1.2; extra == "dev"
+Requires-Dist: pip~=24.0; extra == "dev"
+Requires-Dist: pytest~=8.1; extra == "dev"
+Requires-Dist: pytest-asyncio~=0.26.0; extra == "dev"
+Requires-Dist: setuptools~=68.2; extra == "dev"
+Requires-Dist: tox~=4.14; extra == "dev"
+Provides-Extra: colorlog
+Requires-Dist: colorlog==6.9.0; extra == "colorlog"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: download-url
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: maintainer
+Dynamic: maintainer-email
+Dynamic: platform
+Dynamic: project-url
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# `inorbit-connector`
+
+![License](https://img.shields.io/badge/License-MIT-yellow.svg) ![PyPI - Package Version](https://img.shields.io/pypi/v/inorbit-connector) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/inorbit-connector)
+
+![Lint and Test](https://github.com/inorbit-ai/inorbit-connector-python/actions/workflows/lint-and-test.yaml/badge.svg) ![Build and Publish](https://github.com/inorbit-ai/inorbit-connector-python/actions/workflows/build-and-publish.yaml/badge.svg) 
+
+A Python framework for developing _connectors_ for the [InOrbit](https://inorbit.ai/) RobOps ecosystem.
+
+## Overview
+
+This repository contains a Python framework that provides a base structure for developing [InOrbit](https://inorbit.ai/) robot connectors.
+Making use of InOrbit's [Edge SDK](https://developer.inorbit.ai/docs#edge-sdk), `inorbit-connector` provides a starting point for the integration of a fleet of robots in InOrbit, unlocking interoperability.
+
+## Requirements
+
+- Python 3.10 or later
+- InOrbit account [(it's free to sign up!)](https://control.inorbit.ai)
+
+## Setup
+
+There are two ways of installing the `inorbit-connector` Python package.
+
+1. From [PyPi](https://pypi.org/project/inorbit-connector/): `pip install inorbit-connector`
+
+2. From source: clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/inorbit-ai/inorbit-connector-python.git
+virtualenv venv
+. venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Quick Start
+
+The [`examples`](examples) directory contains usage examples of the connector. See [scripts/README](scripts/README.md) for more information.
+
+## Contributing
+
+Any contribution that you make to this repository will be under the MIT license, as dictated by that [license](https://opensource.org/licenses/MIT).
+
+Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for information on how to contribute to this project.
+
+![Powered by InOrbit](assets/inorbit_github_footer.png)
