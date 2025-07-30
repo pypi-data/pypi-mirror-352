@@ -1,0 +1,55 @@
+Metadata-Version: 2.3
+Name: pingos
+Version: 0.1.0
+Summary: A TCP/UDP port ping client
+Author: Your Name
+Author-email: your.email@example.com
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: click (==7.1.2)
+Requires-Dist: rich (>=13.7.0,<14.0.0)
+Description-Content-Type: text/markdown
+
+# Pong
+
+A TCP/UDP port ping client that allows you to test connectivity to specific ports without using ICMP protocol.
+
+## Installation
+
+```bash
+pip install pong
+```
+
+## Usage
+
+```bash
+# TCP port ping
+pong tcp example.com 80
+
+# UDP port ping
+pong udp example.com 53
+
+# With custom timeout (in seconds)
+pong tcp example.com 80 --timeout 2
+
+# With custom number of packets
+pong tcp example.com 80 --count 5
+```
+
+## Features
+
+- TCP and UDP port testing
+- Configurable timeout
+- Configurable number of packets
+- Rich terminal output
+- Detailed statistics
+
+## Requirements
+
+- Python 3.8 or higher 
