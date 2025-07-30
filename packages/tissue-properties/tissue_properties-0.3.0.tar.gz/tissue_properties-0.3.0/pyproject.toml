@@ -1,0 +1,38 @@
+[project]
+name = "tissue-properties"
+version = "0.3.0"
+description = "A python library for computing/looking up various tissue properties used in laser bioeffect models."
+authors = [
+    { name = "CD Clark III", email = "clifton.clark@gmail.com" }
+]
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.14.1",
+    "pint>=0.24.4",
+    "typer>=0.13.1",
+    "thefuzz>=0.22.1",
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[project.scripts]
+tissue-properties = "tissue_properties.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tissue_properties"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.0",
+]
