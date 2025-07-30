@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: pse-core
+Version: 2025.6.1
+Summary: Proxy Structuring Engine: Core library
+Author-Email: Jack Wind <jckwind11@gmail.com>, The Proxy Company <contact@theproxy.company>
+License: (c) 2024 the proxy company. all rights reserved.
+        
+        1. permission is granted to internally view and use the software solely for evaluation or integration into your own products, provided you do not distribute, sublicense, or otherwise provide access to any third party without explicit prior written consent.
+        
+        2. you may not reverse engineer, disassemble, decompile, or create derivative works of this software for competitive purposes or any other reason beyond the limited rights granted here.
+        
+        3. any breach voids this license immediately, and all use must cease. upon request, you shall destroy or return any copies of the software.
+        
+        4. this software is provided "as is" without warranty of any kind. the proxy company disclaims all liability, direct or indirect, arising from its use.
+        
+        5. by using this software, you acknowledge and agree to these terms. failure to comply terminates your rights under this license, and all associated obligations survive termination.
+        
+        all other rights are reserved by the proxy company.
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+
+# PSE Core
+
+## Overview
+
+PSE Core (Parsing State Engine Core) is a high-performance C++ library that provides a framework for guiding and constraining language model token generation through state machines. It acts as a "steering system" for large language models, enforcing grammar rules, structured formats, and semantic constraints.
+
+## Core Components
+
+- **StateMachine**: Defines grammar rules through state transitions
+- **Stepper**: Traverses state machines while tracking position and history
+- **StepperDelta**: Records transition outcomes with metadata
+- **Engine**: Orchestrates token processing and interfaces with language models
+
+## Key Features
+
+- Constraint-based token filtering for language models
+- Hierarchical state machine composition for complex grammars
+- Token healing to handle tokenization mismatches
+- Multi-path exploration with sophisticated path selection
+- Python bindings for easy integration with ML frameworks
+
+## Architecture
+
+PSE Core implements a hybrid approach combining symbolic state machines with neural language models:
+
+1. **Token Consumption**: Processes tokens through state machines to validate and track state
+2. **Logit Biasing**: Modifies language model logits to enforce grammatical constraints
+3. **Path Selection**: Chooses optimal paths through the grammar based on model probabilities
+
+## Note
+
+This repository contains the core C++ implementation and is designed to be used as a component within larger systems, not as a standalone project.
