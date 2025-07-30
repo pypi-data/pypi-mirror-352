@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: classmate
+Version: 0.1.3
+Summary: 一个基于 Python 的助学web系统
+Author: linmy
+Author-email: wzlinmiaoyan@163.com
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: flask>=2.0.0
+Requires-Dist: opencv-python>=4.1.2.30
+Requires-Dist: numpy>=1.24.4
+Requires-Dist: pillow>=8.0.0
+Requires-Dist: werkzeug>=2.0.0
+
+# Classmate - 教室管理系统
+
+一个基于 Python 的现代化教室管理系统，支持实时屏幕广播、文件共享和作业管理功能。专为教师和学生设计，提供流畅的课堂互动体验。
+
+## 主要功能
+
+### 教师端
+- 实时屏幕广播
+  - 支持屏幕共享和摄像头直播
+  - 自动保存广播记录
+  - 可重命名和删除历史广播
+- 文件管理
+  - 共享文件上传和分发
+  - 作业发布和收集
+  - 文件中转站功能
+- 权限控制
+  - 密码保护的教师模式
+  - 文件访问权限管理
+
+### 学生端
+- 实时观看教师广播
+- 查看历史广播记录
+- 下载共享文件
+- 提交作业
+
+## 技术特点
+
+- 基于 WebSocket 的实时通信
+- 响应式 Web 界面
+- 跨平台支持（Windows、Linux、macOS）
+- 低延迟屏幕广播
+- 安全的文件传输
+
+## 系统要求
+
+- Python 3.7+
+- 现代浏览器（Chrome、Firefox、Edge 等）
+- 摄像头（可选，用于视频直播）
+
+## 安装和使用
+
+1. 安装：pip install classmate
+2. 使用：classmate.run()

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classmate - 好好学习-天天向上</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Classmate</div>
+        <div class="navbar-menu">
+            <button id="teacherModeBtn" class="btn">教师模式</button>
+            <button id="logoutBtn" class="btn" style="display: none;">退出登录</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="panel" id="filePanel">
+            <h2>学习文件</h2>
+            <div class="file-controls" style="display: none;">
+                <input type="file" id="fileInput" style="display: none;">
+                <button id="uploadBtn" class="btn">上传文件</button>
+                <button id="viewAssignmentsBtn" class="btn">查看已提交的文件</button>
+            </div>
+            <div class="file-list">
+                <table id="fileTable">
+                    <thead>
+                        <tr>
+                            <th>文件名</th>
+                            <th>大小</th>
+                            <th>上传时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel" id="broadcastPanel">
+            <h2>屏幕广播</h2>
+            <div class="broadcast-controls" style="display: none;">
+                <button class="btn" id="startBroadcastBtn">开始广播</button>
+                <button class="btn danger" id="stopBroadcastBtn" style="display: none;">停止广播</button>
+                <div class="source-controls">
+                    <button class="btn" id="screenSourceBtn">屏幕</button>
+                    <button class="btn" id="cameraSourceBtn">摄像头</button>
+                </div>
+            </div>
+            <div class="student-controls" style="display: none;">
+                <div class="history-controls">
+                    <input type="range" id="historySlider" min="0" max="0" value="0">
+                    <span id="historyTime"></span>
+                </div>
+            </div>
+            <div class="broadcast-status">未开始广播</div>
+            <div class="broadcast-image">
+                <img id="broadcastImage" src="" alt="广播画面" style="display: none;">
+            </div>
+            <div class="broadcast-packages">
+                <h3>历史广播</h3>
+                <div class="package-list" id="packageList">
+                    <!-- 广播数据包列表将通过JavaScript动态添加 -->
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>文件中转站</h2>
+            <div class="file-controls">
+                <input type="file" id="transferFileInput" style="display: none;">
+                <button class="btn" id="transferUploadBtn">上传文件</button>
+                <button class="btn secondary" id="submitAssignmentBtn">作业提交</button>
+                <input type="file" id="assignmentFileInput" style="display: none;">
+            </div>
+            <div class="file-list">
+                <table id="transferFileTable">
+                    <thead>
+                        <tr>
+                            <th>文件名</th>
+                            <th>大小</th>
+                            <th>上传时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="passwordModal">
+        <div class="modal-content">
+            <h3>教师模式</h3>
+            <input type="password" id="passwordInput" placeholder="请输入密码">
+            <div class="modal-buttons">
+                <button id="loginBtn" class="btn">登录</button>
+                <button id="cancelBtn" class="btn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+    function downloadFile(filename) {
+        window.location.href = `/download/${filename}`;
+    }
+    </script>
+</body>
+</html>
