@@ -1,0 +1,522 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load static %}
+
+{% block content %}
+
+<div class="enap-carousel-container" data-carousel-id="{{ block.id|default:'default' }}">
+    <div class="enap-carousel-inner">
+        <!-- Cabeçalho do carrossel -->
+        <div class="enap-carousel-header">
+            <h2 class="enap-carousel-title">
+                {{ value.title|default:"Acervo para Servidores" }}
+            </h2>
+            <p class="enap-carousel-subtitle">{{ value.subtitle|default:"Comprometidos com a Transformação" }}</p>
+        </div>
+        
+        <!-- Container do carrossel com largura controlada -->
+        <div class="enap-carousel-content">
+            
+            <!-- Wrapper do carrossel -->
+            <div class="enap-carousel-wrapper">
+                {% if value.items %}
+                    {% for item in value.items %}
+                        <div class="enap-carousel-card">
+                            <div class="enap-carousel-card-inner">
+                                <div class="enap-carousel-card-content">
+                                    {% if item.image %}
+                                        {% image item.image fill-400x140 class="img-fluid rounded enap-carousel-image" %}
+                                    {% else %}
+                                        <div class="enap-carousel-image-placeholder">
+                                            <span>Imagem indisponível</span>
+                                        </div>
+                                    {% endif %}
+                                    <div class="enap-carousel-text-container">
+                                        <div>
+                                            <h3 class="enap-carousel-card-title">{{ item.title }}</h3>
+                                            <p class="enap-carousel-card-description">{{ item.description }}</p>
+                                        </div>
+                                        <a href="{{ item.link_url }}" class="enap-carousel-card-link" onclick="saveCarouselPosition(this)">
+                                            {{ item.link_text }} <i class="fa-solid fa-circle-chevron-right enap-carousel-card-link-icon"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <!-- Cards de demonstração quando não há itens -->
+                    <div class="enap-carousel-card">
+                        <div class="enap-carousel-card-inner">
+                            <div class="enap-carousel-card-content">
+                                <div class="enap-carousel-image-placeholder">
+                                    <span>Imagem 1</span>
+                                </div>
+                                <div class="enap-carousel-text-container">
+                                    <div>
+                                        <h3 class="enap-carousel-card-title">Introdução à gestão</h3>
+                                        <p class="enap-carousel-card-description">Apresenta os procedimentos essenciais para lidar com questões éticas.</p>
+                                    </div>
+                                    <a href="#" class="enap-carousel-card-link" onclick="saveCarouselPosition(this)">
+                                        Acesse o curso <span class="enap-carousel-card-link-icon">→</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="enap-carousel-card">
+                        <div class="enap-carousel-card-inner">
+                            <div class="enap-carousel-card-content">
+                                <div class="enap-carousel-image-placeholder">
+                                    <span>Imagem 2</span>
+                                </div>
+                                <div class="enap-carousel-text-container">
+                                    <div>
+                                        <h3 class="enap-carousel-card-title">Assédio moral</h3>
+                                        <p class="enap-carousel-card-description">Orienta servidores para identificação e prevenção de assédio.</p>
+                                    </div>
+                                    <a href="#" class="enap-carousel-card-link" onclick="saveCarouselPosition(this)">
+                                        Acesse o curso <span class="enap-carousel-card-link-icon">→</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="enap-carousel-card">
+                        <div class="enap-carousel-card-inner">
+                            <div class="enap-carousel-card-content">
+                                <div class="enap-carousel-image-placeholder">
+                                    <span>Imagem 3</span>
+                                </div>
+                                <div class="enap-carousel-text-container">
+                                    <div>
+                                        <h3 class="enap-carousel-card-title">Gestão de conflitos</h3>
+                                        <p class="enap-carousel-card-description">Capacita servidores para gerir conflitos eficazmente.</p>
+                                    </div>
+                                    <a href="#" class="enap-carousel-card-link" onclick="saveCarouselPosition(this)">
+                                        Acesse o curso <span class="enap-carousel-card-link-icon">→</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="enap-carousel-card">
+                        <div class="enap-carousel-card-inner">
+                            <div class="enap-carousel-card-content">
+                                <div class="enap-carousel-image-placeholder">
+                                    <span>Imagem 4</span>
+                                </div>
+                                <div class="enap-carousel-text-container">
+                                    <div>
+                                        <h3 class="enap-carousel-card-title">Times de alta performance</h3>
+                                        <p class="enap-carousel-card-description">Estimula habilidades gerenciais e trabalho em equipe.</p>
+                                    </div>
+                                    <a href="#" class="enap-carousel-card-link" onclick="saveCarouselPosition(this)">
+                                        Saiba mais <span class="enap-carousel-card-link-icon">→</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Indicadores -->
+            <div class="enap-carousel-indicators">
+                {% if value.items %}
+                    {% for item in value.items %}
+                        <span class="enap-carousel-indicator {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
+                    {% endfor %}
+                {% else %}
+                    <span class="enap-carousel-indicator active" data-index="0"></span>
+                    <span class="enap-carousel-indicator" data-index="1"></span>
+                    <span class="enap-carousel-indicator" data-index="2"></span>
+                    <span class="enap-carousel-indicator" data-index="3"></span>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Botão Anterior -->
+        <button class="enap-carousel-prev-btn">
+            <img class="enap-carousel-btn-image" src="{% static 'enap_designsystem/icons/iconleft.svg' %}" alt="Passar pro lado esquerdo">
+        </button>
+
+        <!-- Botão Próximo -->
+        <button class="enap-carousel-next-btn">
+            <img class="enap-carousel-btn-image" src="{% static 'enap_designsystem/icons/iconrig.svg' %}" alt="Passar pro lado direito">
+        </button>
+    </div>
+</div>
+
+<script>
+    // Função global para salvar posição do carrossel antes de navegar
+    function saveCarouselPosition(element) {
+        var carouselContainer = element.closest('.enap-carousel-container');
+        var carouselId = carouselContainer.getAttribute('data-carousel-id');
+        var currentIndex = carouselContainer.carouselInstance ? carouselContainer.carouselInstance.currentIndex : 0;
+        
+        // Salvar no sessionStorage (persiste durante a sessão do navegador)
+        sessionStorage.setItem('carousel_position_' + carouselId, currentIndex);
+        
+        // Também salvar a URL atual como referência
+        sessionStorage.setItem('carousel_return_url_' + carouselId, window.location.href);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicializar cada carrossel independentemente
+        document.querySelectorAll('.enap-carousel-container').forEach(function(carouselContainer) {
+            // Obter ID único do carrossel
+            var carouselId = carouselContainer.getAttribute('data-carousel-id');
+            
+            // Elementos do carrossel específico
+            var wrapper = carouselContainer.querySelector('.enap-carousel-wrapper');
+            var prevBtn = carouselContainer.querySelector('.enap-carousel-prev-btn');
+            var nextBtn = carouselContainer.querySelector('.enap-carousel-next-btn');
+            var indicators = carouselContainer.querySelectorAll('.enap-carousel-indicator');
+            var cards = carouselContainer.querySelectorAll('.enap-carousel-card');
+            
+            // Variáveis de controle
+            var currentIndex = 0;
+            var cardsPerView = getCardsPerView();
+            var maxIndex = Math.max(0, cards.length - cardsPerView); // Último índice possível
+            var isTransitioning = false;
+            
+            // Restaurar posição salva se existir
+            var savedPosition = sessionStorage.getItem('carousel_position_' + carouselId);
+            var savedReturnUrl = sessionStorage.getItem('carousel_return_url_' + carouselId);
+            
+            // Verificar se viemos de volta de uma navegação
+            if (savedPosition !== null && savedReturnUrl === window.location.href) {
+                currentIndex = parseInt(savedPosition);
+                // Garantir que o índice está dentro dos limites
+                if (currentIndex > maxIndex) {
+                    currentIndex = maxIndex;
+                }
+                if (currentIndex < 0) {
+                    currentIndex = 0;
+                }
+            }
+            
+            // Armazenar instância do carrossel no elemento para acesso global
+            carouselContainer.carouselInstance = {
+                currentIndex: currentIndex,
+                moveCarousel: function(index) { moveCarousel(index); }
+            };
+            
+            // Variáveis para touch/swipe
+            var startX = 0;
+            var currentX = 0;
+            var isDragging = false;
+            var initialTransform = 0;
+            
+            // Função para determinar quantos cards mostrar por vez
+            function getCardsPerView() {
+                var width = window.innerWidth;
+                if (width < 768) return 1; // Mobile: sempre 1 card por vez
+                if (width >= 1200) return 4;
+                if (width >= 992) return 3;
+                return 2;
+            }
+            
+            // Função para mover o carrossel
+            function moveCarousel(index, smooth = true) {
+                if (isTransitioning && smooth) return;
+                
+                // Recalcular maxIndex em caso de redimensionamento
+                cardsPerView = getCardsPerView();
+                maxIndex = Math.max(0, cards.length - cardsPerView);
+                
+                // Não permitir ir além dos limites
+                if (index < 0) {
+                    index = 0;
+                } else if (index > maxIndex) {
+                    index = maxIndex;
+                }
+                
+                currentIndex = index;
+                
+                // Atualizar instância
+                carouselContainer.carouselInstance.currentIndex = currentIndex;
+                
+                // Salvar posição atual automaticamente
+                sessionStorage.setItem('carousel_position_' + carouselId, currentIndex);
+                sessionStorage.setItem('carousel_return_url_' + carouselId, window.location.href);
+                
+                if (smooth) {
+                    isTransitioning = true;
+                    wrapper.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                } else {
+                    wrapper.style.transition = 'none';
+                }
+                
+                // Calcular transformação baseada no número de cards por view
+                var translateValue = -currentIndex * (100 / cardsPerView);
+                wrapper.style.transform = 'translateX(' + translateValue + '%)';
+                
+                // Atualizar indicadores
+                updateIndicators();
+                
+                // Atualizar visibilidade dos botões
+                updateButtonsVisibility();
+                
+                if (smooth) {
+                    setTimeout(function() {
+                        isTransitioning = false;
+                    }, 400);
+                }
+            }
+            
+            // Função para atualizar visibilidade dos botões
+            function updateButtonsVisibility() {
+                // Recalcular maxIndex
+                cardsPerView = getCardsPerView();
+                maxIndex = Math.max(0, cards.length - cardsPerView);
+                
+                console.log('Carrossel', carouselId, '- currentIndex:', currentIndex, 'maxIndex:', maxIndex, 'cardsPerView:', cardsPerView, 'total cards:', cards.length);
+                
+                // Mostrar/ocultar botão anterior
+                if (prevBtn) {
+                    if (currentIndex <= 0) {
+                        prevBtn.style.display = 'none';
+                    } else {
+                        prevBtn.style.display = 'block';
+                    }
+                }
+                
+                // Mostrar/ocultar botão próximo
+                if (nextBtn) {
+                    if (currentIndex >= maxIndex) {
+                        nextBtn.style.display = 'none';
+                        console.log('Carrossel', carouselId, '- Ocultando botão próximo');
+                    } else {
+                        nextBtn.style.display = 'block';
+                        console.log('Carrossel', carouselId, '- Mostrando botão próximo');
+                    }
+                }
+            }
+            
+            // Função para atualizar indicadores
+            function updateIndicators() {
+                indicators.forEach(function(indicator, i) {
+                    if (i === currentIndex) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+
+            var autoPlayInterval;
+            
+            function startAutoPlay() {
+                // Auto-play desabilitado
+                return;
+            }
+            
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
+            
+            // Eventos de botões (desktop)
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    if (currentIndex > 0) {
+                        moveCarousel(currentIndex - 1);
+                    }
+                });
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    cardsPerView = getCardsPerView();
+                    maxIndex = Math.max(0, cards.length - cardsPerView);
+                    if (currentIndex < maxIndex) {
+                        moveCarousel(currentIndex + 1);
+                    }
+                });
+            }
+            
+            // Eventos de indicadores
+            indicators.forEach(function(indicator, i) {
+                indicator.addEventListener('click', function() {
+                    moveCarousel(i);
+                });
+            });
+            
+            // ===== FUNCIONALIDADE DE SWIPE/TOUCH =====
+            
+            // Touch Start
+            wrapper.addEventListener('touchstart', function(e) {
+                if (isTransitioning) return;
+                
+                startX = e.touches[0].clientX;
+                currentX = startX;
+                isDragging = true;
+                
+                // Pegar a transformação atual
+                var transform = window.getComputedStyle(wrapper).transform;
+                if (transform !== 'none') {
+                    var matrix = transform.match(/matrix\(([^)]+)\)/);
+                    if (matrix) {
+                        initialTransform = parseFloat(matrix[1].split(',')[4]) || 0;
+                    }
+                } else {
+                    initialTransform = 0;
+                }
+                
+                wrapper.style.transition = 'none';
+                stopAutoPlay();
+            }, { passive: true });
+            
+            // Touch Move
+            wrapper.addEventListener('touchmove', function(e) {
+                if (!isDragging) return;
+                
+                currentX = e.touches[0].clientX;
+                var diffX = currentX - startX;
+                var movePercentage = (diffX / wrapper.offsetWidth) * 100;
+                
+                // Aplicar movimento com resistência nas bordas
+                var newTransform = initialTransform + movePercentage;
+                
+                // Recalcular maxIndex para touch
+                cardsPerView = getCardsPerView();
+                maxIndex = Math.max(0, cards.length - cardsPerView);
+                
+                // Adicionar resistência nos limites
+                if (currentIndex === 0 && diffX > 0) {
+                    newTransform = initialTransform + (movePercentage * 0.3);
+                } else if (currentIndex >= maxIndex && diffX < 0) {
+                    newTransform = initialTransform + (movePercentage * 0.3);
+                }
+                
+                wrapper.style.transform = 'translateX(' + newTransform + '%)';
+            }, { passive: true });
+            
+            // Touch End
+            wrapper.addEventListener('touchend', function(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                var diffX = currentX - startX;
+                var threshold = 50; // Mínimo para trocar de slide
+                var velocity = Math.abs(diffX);
+                
+                // Determinar direção e se deve mudar slide
+                if (Math.abs(diffX) > threshold || velocity > 100) {
+                    if (diffX > 0) {
+                        // Swipe right - slide anterior
+                        moveCarousel(currentIndex - 1);
+                    } else {
+                        // Swipe left - próximo slide
+                        moveCarousel(currentIndex + 1);
+                    }
+                } else {
+                    // Volta para posição atual
+                    moveCarousel(currentIndex);
+                }
+            }, { passive: true });
+            
+            // Prevenir scroll vertical durante swipe horizontal
+            wrapper.addEventListener('touchmove', function(e) {
+                if (isDragging) {
+                    var diffX = Math.abs(currentX - startX);
+                    var diffY = Math.abs(e.touches[0].clientY - e.touches[0].clientY);
+                    
+                    if (diffX > diffY) {
+                        e.preventDefault();
+                    }
+                }
+            }, { passive: false });
+            
+            // Mouse events para desktop (arrastar com mouse)
+            var isMouseDragging = false;
+            var mouseStartX = 0;
+            
+            wrapper.addEventListener('mousedown', function(e) {
+                if (window.innerWidth <= 767) return; // Só no desktop
+                
+                isMouseDragging = true;
+                mouseStartX = e.clientX;
+                wrapper.style.cursor = 'grabbing';
+                e.preventDefault();
+            });
+            
+            document.addEventListener('mousemove', function(e) {
+                if (!isMouseDragging) return;
+                
+                var diffX = e.clientX - mouseStartX;
+                if (Math.abs(diffX) > 10) {
+                    wrapper.style.transform = 'translateX(' + (-currentIndex * (100 / cardsPerView) + (diffX / wrapper.offsetWidth) * 100) + '%)';
+                }
+            });
+            
+            document.addEventListener('mouseup', function(e) {
+                if (!isMouseDragging) return;
+                isMouseDragging = false;
+                wrapper.style.cursor = 'grab';
+                
+                var diffX = e.clientX - mouseStartX;
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        moveCarousel(currentIndex - 1);
+                    } else {
+                        moveCarousel(currentIndex + 1);
+                    }
+                } else {
+                    moveCarousel(currentIndex);
+                }
+            });
+            
+            // Redimensionamento da janela
+            window.addEventListener('resize', function() {
+                var newCardsPerView = getCardsPerView();
+                if (newCardsPerView !== cardsPerView) {
+                    cardsPerView = newCardsPerView;
+                    maxIndex = Math.max(0, cards.length - cardsPerView);
+                    
+                    if (currentIndex > maxIndex) {
+                        currentIndex = maxIndex;
+                    }
+                    
+                    moveCarousel(currentIndex, false);
+                    stopAutoPlay();
+                    updateButtonsVisibility();
+                }
+            });
+            
+            // Inicializar na posição correta (incluindo posição salva)
+            moveCarousel(currentIndex, false);
+            updateIndicators();
+            updateButtonsVisibility();
+        });
+    });
+
+    // Limpar dados antigos do sessionStorage periodicamente (opcional)
+    window.addEventListener('beforeunload', function() {
+        // Manter apenas dados de carrosseis da página atual
+        var currentUrl = window.location.href;
+        var keysToRemove = [];
+        
+        for (var i = 0; i < sessionStorage.length; i++) {
+            var key = sessionStorage.key(i);
+            if (key.startsWith('carousel_return_url_')) {
+                var savedUrl = sessionStorage.getItem(key);
+                if (savedUrl !== currentUrl) {
+                    var carouselId = key.replace('carousel_return_url_', '');
+                    keysToRemove.push('carousel_position_' + carouselId);
+                    keysToRemove.push(key);
+                }
+            }
+        }
+        
+        keysToRemove.forEach(function(key) {
+            sessionStorage.removeItem(key);
+        });
+    });
+</script>
+{% endblock %}

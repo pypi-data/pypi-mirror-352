@@ -1,0 +1,280 @@
+{% extends "enap_designsystem/base.html" %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags semana_tags %}
+
+{% block metadata %}
+    {% comment %} <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% endcomment %}
+{% endblock %}
+
+{% block title %}
+    <title>{{ page.page_title }}</title>
+{% endblock %}
+
+{% block extra_css %}
+    <!-- CSS da Semana -->
+    <link rel="stylesheet" href="{% static 'enap_designsystem/semanadeinovacao.css' %}">
+    
+    <!-- Cores dinâmicas dos snippets -->
+    {% get_active_branding as branding %}
+    {% if branding %}
+    <style>
+        :root {
+            /* Cores do Branding Ativo */
+            --primary-color: {{ branding.cor_primaria }};
+            --secondary-color: {{ branding.cor_secundaria }};
+            --highlight-text-color: {{ branding.cor_texto_destaque }};
+            --text-color: #333;
+            --shadow-color: rgba(0,0,0,0.1);
+            --hover-color: #0056b3;
+            
+            /* Cores de Fundo das Seções */
+            --bg-banner: {{ branding.cor_fundo_banner }};
+            --bg-destaques: {{ branding.cor_fundo_destaques }};
+            --bg-video: {{ branding.cor_fundo_video }};
+            --bg-numeros: {{ branding.cor_fundo_numeros }};
+            --bg-certificado: {{ branding.cor_fundo_certificado }};
+            --bg-forms: {{ branding.cor_fundo_forms }};
+            --bg-galeria: {{ branding.cor_fundo_galeria }};
+            --bg-newsletter: {{ branding.cor_fundo_newsletter }};
+            --bg-contato: {{ branding.cor_fundo_contato }};
+        }
+        
+        /* Aplicar cores de fundo automaticamente */
+        .banner_semana { background-color: var(--bg-banner) !important; }
+        .team_semana { background-color: var(--bg-destaques) !important; }
+        .video_semana { background-color: var(--bg-video) !important; }
+        .numbers_semana { background-color: var(--bg-numeros) !important; }
+        .certificate_semana { background-color: var(--bg-certificado) !important; }
+        .forms_semana { background-color: var(--bg-forms) !important; }
+        .gallery_semana { background-color: var(--bg-galeria) !important; }
+        .newsletter_semana { background-color: var(--bg-newsletter) !important; }
+        .contact-section_semana { background-color: var(--bg-contato) !important; }
+    </style>
+    {% else %}
+    <!-- Fallback para cores padrão -->
+    <style>
+        :root {
+            --primary-color: #163841;
+            --secondary-color: #FFEA05;
+            --highlight-text-color: #8B951C;
+            --text-color: #333;
+            --shadow-color: rgba(0,0,0,0.1);
+            --hover-color: #0056b3;
+        }
+    </style>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <!-- Seção Banner/Hero -->
+    <section class="banner_semana">
+        <div class="banner-content_semana">
+            <!-- Logo Hero -->
+            <div class="wrapper-logo-hero_semana">
+                {% for block in page.logo_hero_stream %}
+                    {% include_block block %}
+                {% endfor %}
+            </div>
+            
+            <!-- Botão de Inscrição -->
+            <div class="registration-button_semana">INSCRIÇÕES ABERTAS</div>
+            
+            <!-- Título Principal -->
+            <h1 class="banner-title_semana">
+                {{ page.banner_titulo|safe }}
+                {% if page.banner_subtitulo %}
+                    <br><span class="orange-text_semana">{{ page.banner_subtitulo }}</span>
+                {% endif %}
+            </h1>
+            
+            <!-- Botão Saiba Mais -->
+            <div class="wrapper-saibamais-hero_semana">
+                <a href="#destaques" class="learn-more_semana">{{ page.banner_texto_botao }}</a>
+            </div>
+        </div>
+        
+        <!-- Imagem do Banner -->
+        {% for block in page.banner_imagem %}
+            {% include_block block %}
+        {% endfor %}
+    </section>
+
+    <!-- Seção de Participantes em Destaque -->
+    <section id="destaques" class="team_semana">
+        <div class="wrapper-texts-center">
+            {% get_active_event_info as event_info %}
+            <p class="p-white-small">{% if event_info %}SI {{ event_info.year }}{% else %}SI 2024{% endif %}</p>
+            <h2 class="title-large">{{ page.destaques_titulo }}</h2>
+        </div>
+        
+        <div class="grid-galeria_semana">
+            {% for block in page.participantes_destaques %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Seção de Vídeo -->
+    {% if page.video_url %}
+    <section class="video_semana">
+        <div class="background-pattern_semana"></div>
+        <div class="container_semana">
+            <div class="heading_semana">
+                <h2>{{ page.video_titulo }}</h2>
+            </div>
+            <div class="video-container_semana">
+                <iframe src="{{ page.video_url }}" 
+                        title="{{ page.video_titulo }}" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Seção de Números/Estatísticas -->
+    {% if page.numeros_stats %}
+    <section class="numbers_semana">
+        <div class="stats_semana">
+            {% for block in page.numeros_stats %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Seção de Certificado -->
+    {% if page.certificado_titulo %}
+    <section class="certificate_semana">
+        <div class="certificate-container_semana">
+            <!-- Imagem do Certificado -->
+            <div class="birds-illustration_semana">
+                {% for block in page.certificado_imagem %}
+                    {% include_block block %}
+                {% endfor %}
+            </div>
+            
+            <!-- Conteúdo do Certificado -->
+            <div class="certificate-content_semana">
+                <h2 class="certificate-title_semana">{{ page.certificado_titulo }}</h2>
+                {{ page.certificado_texto|richtext }}
+                <a href="#" class="certificate-button_semana">{{ page.certificado_texto_botao }}</a>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Seção de Galeria -->
+    {% if page.galeria_stream %}
+    <section class="gallery_semana">
+        <div class="container_semana">
+            <div class="gallery-header_semana">
+                <p class="p-white-small">Nossa</p>
+                <h1 class="title-large">{{ page.galeria_titulo }}</h1>
+                {% if page.galeria_subtitulo %}
+                    <p class="p-white-small">{{ page.galeria_subtitulo }}</p>
+                {% endif %}
+            </div>
+
+            <div class="gallery-grid_semana">
+                {% for block in page.galeria_stream %}
+                    {% include_block block %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Newsletter (componente reutilizável) -->
+    <section class="newsletter_semana">
+        <div class="wrapper-img-newsletter">
+            {% for block in page.newsletter_stream %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
+        <div class="newsletter-container_semana">
+            <div class="newsletter-content_semana">
+                <h2 class="title-green">ASSINE NOSSA NEWSLETTER</h2>
+                <p>Fique por dentro das últimas novidades da Semana de Inovação.</p>
+                <p>Inscreva-se da nossa newsletter e receba conteúdos em primeira mão.</p>
+            </div>
+            
+            <form class="newsletter-form_semana">
+                <input class="input_semana" type="email" placeholder="Insira seu email" required>
+                <button type="submit" class="btn_semana">Se inscreva</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contato (componente reutilizável) -->
+    {% include "enap_designsystem/semana_inovacao/faleconosco_semana.html" %}
+
+    <!-- Footer com dados dos snippets -->
+    <footer class="footer_semana">
+        <div class="footer-content_semana">
+            <div class="footer-logo_semana">
+                <!-- Logo do Footer -->
+                <div class="wrapper-logo-hero_semana">
+                    {% for block in page.footer_stream %}
+                        {% include_block block %}
+                    {% endfor %}
+                </div>
+                
+                <div style="height:60px;"></div>
+                
+                <!-- Dados do Evento (vem dos snippets) -->
+                {% get_active_event_info as footer_event %}
+                {% if footer_event %}
+                    <p>{{ footer_event.start_date|date:"d" }} a {{ footer_event.end_date|date:"d \d\e F" }}</p>
+                    <p>Online e Presencial</p>
+                    <p>{{ footer_event.tagline }}</p>
+                {% else %}
+                    <p>29 a 31 de outubro</p>
+                    <p>Online e Presencial</p>
+                    <p>O maior evento de inovação em governo da América Latina</p>
+                {% endif %}
+            </div>
+
+            <!-- Links de Navegação (vindos dos snippets) -->
+            {% get_active_event_info as footer_event %}
+            {% get_active_navigation as footer_nav %}
+            
+            <div class="footer-links_semana">
+                <h3>A semana</h3>
+                <ul>
+                    {% if footer_nav.sobre_link %}<li><a href="{{ footer_nav.sobre_link }}">O evento</a></li>{% else %}<li><a href="#">O evento</a></li>{% endif %}
+                    {% if footer_nav.programacao_link %}<li><a href="{{ footer_nav.programacao_link }}">Programação</a></li>{% else %}<li><a href="/programacao/">Programação</a></li>{% endif %}
+                    {% if footer_nav.quem_vai_estar_la_link %}<li><a href="{{ footer_nav.quem_vai_estar_la_link }}">Quem vai estar lá</a></li>{% else %}<li><a href="/participantes/">Quem vai estar lá</a></li>{% endif %}
+                    {% if footer_nav.o_local_link %}<li><a href="{{ footer_nav.o_local_link }}">O local</a></li>{% else %}<li><a href="/local/">O local</a></li>{% endif %}
+                    <li><a href="/patrocinadores/">Patrocinadores</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links_semana">
+                <h3>Utilidade</h3>
+                <ul>
+                    {% if footer_nav.noticias_link %}<li><a href="{{ footer_nav.noticias_link }}">Notícias</a></li>{% else %}<li><a href="/noticias/">Notícias</a></li>{% endif %}
+                    {% if footer_nav.apoie_inovacao_link %}<li><a href="{{ footer_nav.apoie_inovacao_link }}">Apoie a Inovação</a></li>{% else %}<li><a href="/apoie-inovacao/">Apoie a Inovação</a></li>{% endif %}
+                    {% if footer_nav.entenda_gamificacao_link %}<li><a href="{{ footer_nav.entenda_gamificacao_link }}">Gamificação</a></li>{% else %}<li><a href="/gamificacao/">Gamificação</a></li>{% endif %}
+                    <li><a href="/ajuda/">Ajuda</li>
+                    {% if footer_nav.perguntas_frequentes_link %}<li><a href="{{ footer_nav.perguntas_frequentes_link }}">FAQ</a></li>{% else %}<li><a href="/faq/">FAQ</a></li>{% endif %}
+                </ul>
+            </div>
+
+            <div class="footer-links_semana">
+                <h3>Contato</h3>
+                <p>Fale com nosso time</p>
+                <p>{% if footer_event %}{{ footer_event.contact_email }}{% else %}contato.si@enap.gov.br{% endif %}</p>
+                <div class="social-icons_semana">
+                    {% if footer_event.youtube_url %}<a href="{{ footer_event.youtube_url }}" aria-label="YouTube" target="_blank">YouTube</a>{% else %}<a href="#" aria-label="YouTube">YouTube</a>{% endif %}
+                    {% if footer_event.instagram_url %}<a href="{{ footer_event.instagram_url }}" aria-label="Instagram" target="_blank">Instagram</a>{% else %}<a href="#" aria-label="Instagram">Instagram</a>{% endif %}
+                    {% if footer_event.linkedin_url %}<a href="{{ footer_event.linkedin_url }}" aria-label="LinkedIn" target="_blank">LinkedIn</a>{% else %}<a href="#" aria-label="LinkedIn">LinkedIn</a>{% endif %}
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript da Semana -->
+    <script src="{% static 'enap_designsystem/js/semana_inovacao.js' %}"></script>
+{% endblock %}

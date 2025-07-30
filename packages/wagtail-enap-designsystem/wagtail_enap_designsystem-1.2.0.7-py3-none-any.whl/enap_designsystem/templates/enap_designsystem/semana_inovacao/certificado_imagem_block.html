@@ -1,0 +1,7 @@
+<!-- enap_designsystem/templates/enap_designsystem/semana_inovacao/blocks/certificado_imagem_block.html -->
+{% load wagtailimages_tags %}
+
+{% if value.imagem %}
+    {% image value.imagem fill-400x300 as certificado_img %}
+    <img src="{{ certificado_img.url }}" alt="Certificado da Semana de Inovação" />
+{% endif %}
