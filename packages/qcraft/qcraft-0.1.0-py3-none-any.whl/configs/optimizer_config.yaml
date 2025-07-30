@@ -1,0 +1,29 @@
+optimization_strategy: "rule_based"  # Options: "rule_based", "rl", "supervised", "ml", "hybrid"
+rl_config:
+  algorithm: "PPO"
+  library: "stable-baselines3"
+  model_path: "outputs/training_artifacts/ppo_circuit_optimizer.zip"
+  policy_network:
+    hidden_layers: [128, 128]
+    activation: relu
+supervised_config:
+  model_path: "models/circuit_optimizer_nn.pt"
+  library: "pytorch"
+optimization_passes:
+  - name: gate_fusion
+    enabled: true
+  - name: commutation
+    enabled: true
+  - name: swap_insertion
+    enabled: true
+    max_swaps: 10
+  - name: scheduling
+    enabled: true
+    method: "asap"
+  - name: qubit_mapping
+    enabled: true
+    strategy: "sabre"
+system:
+  output_dir: ./outputs
+  log_level: INFO
+  random_seed: 42 
