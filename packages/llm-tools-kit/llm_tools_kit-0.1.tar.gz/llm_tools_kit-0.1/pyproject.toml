@@ -1,0 +1,29 @@
+[project]
+name = "llm-tools-kit"
+version = "0.1"
+description = "wrapper for cased-kit's code analysis toolset"
+readme = "README.md"
+authors = [{name = "Kyle Gruel"}]
+license = "Apache-2.0"
+classifiers = []
+requires-python = ">=3.9"
+dependencies = [
+    "cased-kit>=0.1.4",
+    "llm>=0.26",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/kgruel/llm-tools-kit"
+Changelog = "https://github.com/kgruel/llm-tools-kit/releases"
+Issues = "https://github.com/kgruel/llm-tools-kit/issues"
+CI = "https://github.com/kgruel/llm-tools-kit/actions"
+
+[project.entry-points.llm]
+llm_tools_kit = "llm_tools_kit"
+
+[project.optional-dependencies]
+test = ["pytest", "llm-echo>=0.3a1"]
