@@ -1,0 +1,23 @@
+general:
+  sample_data: "benthic_ifdo"
+  output_path: "./output"
+  n_jobs: 3
+  sampling:
+    - mode: "fixed"
+      params:
+        value: 3
+steps:
+  - colour:
+      name: "colour_correction"
+      mode: "grayscale"
+
+  - sampling:
+      name: "datetime"
+      mode: "datetime"
+      params:
+        min: "2016-05-11 04:14:00"
+        max: "2016-05-11 09:27:00"
+
+  - colour:
+      name: "contrast"
+      mode: "contrast"

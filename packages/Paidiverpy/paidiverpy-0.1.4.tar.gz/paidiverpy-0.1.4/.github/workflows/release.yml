@@ -1,0 +1,61 @@
+name: Release Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Create conda environment
+      run: |
+        conda env create -f environment.yml
+        echo "conda activate Paidiverpy" >> ~/.bashrc
+        source ~/.bashrc
+        pip install --upgrade pip
+        pip install .
+        pip install build twine wheel
+
+    - name: Build Package
+      run: python -m build
+
+    - name: Publish to PyPI
+      env:
+        TWINE_USERNAME: "__token__"
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      run: python -m twine upload dist/* --verbose
+
+  zenodo:
+    needs: release
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Trigger Zenodo Archival
+      if: success()
+      run: echo "Zenodo archival handled automatically by GitHub release."
+
+  conda:
+    needs: release
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up Miniconda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        python-version: 3.10
