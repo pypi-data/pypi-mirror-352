@@ -1,0 +1,105 @@
+Metadata-Version: 2.4
+Name: mcp-server-weibo
+Version: 0.1.9
+Summary: A MCP Server for Weibo
+Project-URL: Repository, https://github.com/qinyuanpei/mcp-server-weibo.git
+Project-URL: Issues, https://github.com/qinyuanpei/mcp-server-weibo/issues
+License: MIT License
+        
+        Copyright (c) 2025 Payne
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Keywords: MCP,Model Context Protocol,Python,Social Networks,Weibo
+Requires-Python: >=3.10
+Requires-Dist: httpx
+Requires-Dist: mcp[cli]
+Description-Content-Type: text/markdown
+
+# Weibo MCP Server
+
+这是一个基于 [Model Context Protocol](https://modelcontextprotocol.io) 的服务器，用于抓取微博用户信息、动态和搜索功能。该服务器可以帮助获取微博用户的详细信息、动态内容以及进行用户搜索。
+
+<a href="https://glama.ai/mcp/servers/@qinyuanpei/mcp-server-weibo">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@qinyuanpei/mcp-server-weibo/badge" alt="Weibo Server MCP server" />
+</a>
+
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/qinyuanpei-mcp-server-weibo-badge.png)](https://mseep.ai/app/qinyuanpei-mcp-server-weibo)
+
+## 安装
+
+从源代码安装：
+
+```json
+{
+    "mcpServers": {
+        "weibo": {
+            "command": "uvx",
+            "args": [
+                "--from",
+                "git+https://github.com/qinyuanpei/mcp-server-weibo.git",
+                "mcp-server-weibo"
+            ]
+        }
+    }
+}
+```
+从包管理器安装：
+
+```json
+{
+    "mcpServers": {
+        "weibo": {
+            "command": "uvx",
+            "args": ["mcp-server-weibo"],
+        }
+    }
+}
+```
+
+## 组件
+
+### 工具
+
+- `search_users(keyword, limit)`: 搜索微博用户
+- `get_profile(uid)`: 获取用户详细信息
+- `get_feeds(uid, limit)`: 获取用户动态
+- `get_hot_search(limit)`: 获取微博热搜
+- `search_content(keyword, limit, page)`: 搜索微博内容
+
+### 资源   
+
+无
+
+### 提示
+
+无
+
+## 依赖要求
+
+- Python >= 3.10
+- httpx >= 0.24.0
+
+## 许可证
+
+MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
+
+## 免责声明
+
+本项目与微博官方无关，仅用于学习和研究目的。
