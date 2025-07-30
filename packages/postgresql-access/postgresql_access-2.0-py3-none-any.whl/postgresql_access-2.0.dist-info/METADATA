@@ -1,0 +1,28 @@
+Metadata-Version: 2.4
+Name: postgresql_access
+Version: 2.0
+Author-email: Gerard <gweatherby@uchc.edu>
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: keyring
+Provides-Extra: psycopg2
+Requires-Dist: psycopg2-binary; extra == "psycopg2"
+Provides-Extra: psycopg3
+Requires-Dist: psycopg[binary]; extra == "psycopg3"
+Provides-Extra: alchemy
+Requires-Dist: sqlalchemy; extra == "alchemy"
+Dynamic: license-file
+
+# postgresql_access
+Helper functions for connecting to Postgresql. Either psycopg2 or psycopg3 should be installed.
+
+## install options
+* pip install postgresql_access
+* pip install postgresql_access[psycopg2]
+* pip install postgresql_access[psycopg3]
+
+
+## keyring
+You must install a [keyring](https://pypi.org/project/keyring/) in your Python environment to use this package.
