@@ -1,0 +1,59 @@
+Metadata-Version: 2.4
+Name: pyright-to-gitlab
+Version: 1.1.0
+Summary: Convert Pyright JSON output to GitLab CI/CD format
+Project-URL: homepage, https://github.com/schollm/pyright-to-gitlab/
+Project-URL: repository, https://github.com/schollm/pyright-to-gitlab/
+Project-URL: pypi, https://pypi.org/project/pyright-to-gitlab
+Author: Micha Schöll
+License-Expression: MIT
+License-File: LICENSE
+Keywords: ci/cd,gitlab,pyright
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.14
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+# pyright to gitlab
+Simple zero-dependency Python script to convert a pyright --outputjson to a gitlab 
+code-quality report.
+
+## Usage
+Run the script with the path to the pyright output file:
+```shell
+$ pip install pyright-to-gitlab
+$  pyright . --outputjson | pyright-to-gitlab > code-quality.json 
+```
+
+Alternatively, the module can be called:
+```shell
+$ pip install pyright-to-gitlab
+$  pyright . --outputjson | python -m pyright_to_gitlab > code-quality.json 
+```
+### Custom path prefix
+The `--prefix` option adds a custom prefix to the file paths in the output. This is
+useful if the paths in the pyright output are not relative to the root of the repository.
+
+
+```shell
+$  pyright . --outputjson | pyright-to-gitlab --prefix my-app/ > code-quality.json 
+```
+
+## Testing
+To run the tests, execute
+```shell
+$ uv run pytest tests/
+```
