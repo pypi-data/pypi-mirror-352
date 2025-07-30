@@ -1,0 +1,242 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Task Generation Guidelines
+
+## Purpose
+Define the structure and requirements for generating new tasks with multiple specialized rules to provide granular control over AI behavior.
+
+## Task Structure
+Every generated task MUST follow this structure:
+```
+task-name/
+├── README.md           # Task documentation and usage
+├── rules/             # Task-specific AI guidelines
+│   ├── main.mdc       # Main task rules and overview
+│   ├── naming.mdc     # Naming conventions specific to this task
+│   ├── structure.mdc  # Structural requirements
+│   ├── patterns.mdc   # Common patterns and best practices
+│   └── errors.mdc     # Error handling and edge cases
+└── mcp/               # Model Context Protocol servers (if needed)
+```
+
+## Rule Categories
+Each task should include appropriate rules from these categories:
+
+1. **Main Rules** (`main.mdc`):
+   - Task overview and primary goals
+   - General guidelines
+   - Core constraints
+   - Basic examples
+
+2. **Naming Rules** (`naming.mdc`):
+   - Variable/function naming conventions
+   - File naming patterns
+   - Component/class naming standards
+   - Domain-specific terminology
+
+3. **Structural Rules** (`structure.mdc`):
+   - Code organization
+   - File/folder structure
+   - Required sections/components
+   - Dependencies management
+
+4. **Pattern Rules** (`patterns.mdc`):
+   - Design patterns to follow
+   - Anti-patterns to avoid
+   - Common solutions
+   - Best practices
+
+5. **Error Rules** (`errors.mdc`):
+   - Error handling patterns
+   - Edge cases
+   - Validation requirements
+   - Recovery strategies
+
+## Example Task: React Component Generator
+
+### Directory Structure:
+```
+react-component-generator/
+├── README.md
+├── rules/
+│   ├── main.mdc
+│   ├── naming.mdc
+│   ├── structure.mdc
+│   ├── patterns.mdc
+│   └── errors.mdc
+└── mcp/
+    └── generator.ts
+```
+
+### Rule Examples:
+
+1. `main.mdc`:
+```markdown
+# React Component Generator Guidelines
+
+## Description
+Generate React components following project standards and best practices.
+
+## Core Rules
+1. Generate TypeScript components by default
+2. Include proper imports
+3. Add necessary type definitions
+4. Generate associated test files
+
+## General Constraints
+- React 18+ compatibility
+- TypeScript strict mode
+- ESLint compliance
+```
+
+2. `naming.mdc`:
+```markdown
+# Component Naming Guidelines
+
+## Rules
+1. Component names must be:
+   - PascalCase
+   - Descriptive and meaningful
+   - Prefixed with domain when applicable
+
+## Examples
+# Good
+UserProfile
+AuthenticationForm
+DashboardWidget
+
+# Bad
+userProfile
+Form
+Comp1
+```
+
+3. `structure.mdc`:
+```markdown
+# Component Structure Guidelines
+
+## File Organization
+```tsx
+// Imports section
+import React from 'react';
+import type { FC } from 'react';
+
+// Types section
+interface Props {
+  // props here
+}
+
+// Component definition
+export const Component: FC<Props> = () => {
+  // implementation
+};
+```
+
+## Required Sections
+1. Imports
+2. Types
+3. Component
+4. Exports
+```
+
+4. `patterns.mdc`:
+```markdown
+# Component Patterns Guidelines
+
+## Hooks Usage
+1. Place hooks at the top
+2. Follow hooks naming conventions
+3. Extract complex logic to custom hooks
+
+## State Management
+1. Use local state for UI-only state
+2. Prefer controlled components
+3. Document state dependencies
+
+## Examples
+```tsx
+// Good Pattern
+const UserForm: FC<UserFormProps> = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+  const handleSubmit = useCallback(() => {
+    onSubmit({ name });
+  }, [name, onSubmit]);
+  
+  return <form onSubmit={handleSubmit}>...</form>;
+};
+```
+```
+
+5. `errors.mdc`:
+```markdown
+# Error Handling Guidelines
+
+## Validation
+1. Prop validation requirements
+2. Input validation patterns
+3. Error boundary usage
+
+## Error States
+1. Loading states
+2. Error messages
+3. Fallback UI
+
+## Examples
+```tsx
+// Error Boundary Usage
+export const ComponentWithError: FC = () => {
+  return (
+    <ErrorBoundary fallback={<ErrorMessage />}>
+      <Component />
+    </ErrorBoundary>
+  );
+};
+```
+```
+
+## Rule Writing Best Practices
+
+1. **Rule Specificity**:
+   - Each rule file should focus on ONE aspect
+   - Rules should not overlap
+   - Cross-reference related rules when needed
+
+2. **Rule Organization**:
+   - Start with most important rules
+   - Group related rules together
+   - Include examples for complex rules
+
+3. **Rule Dependencies**:
+   - Reference related rules using `[rule.mdc](mdc:rules/rule.mdc)`
+   - Maintain clear hierarchy
+   - Document dependencies
+
+4. **Examples**:
+   - Provide both good and bad examples
+   - Include real-world scenarios
+   - Show edge cases
+
+## Implementation Process
+
+1. Analyze requirements:
+   - Identify needed rule categories
+   - Determine rule dependencies
+   - Plan rule hierarchy
+
+2. Create rule structure:
+   - Start with `main.mdc`
+   - Add specialized rules
+   - Ensure coverage of all aspects
+
+3. Write rules:
+   - Follow rule writing best practices
+   - Include comprehensive examples
+   - Cross-reference related rules
+
+4. Test rules:
+   - Verify rule clarity
+   - Check example completeness
+   - Validate cross-references

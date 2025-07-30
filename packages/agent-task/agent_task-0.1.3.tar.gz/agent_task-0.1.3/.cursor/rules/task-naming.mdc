@@ -1,0 +1,105 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Task Naming and Description Guidelines
+
+## Purpose
+Define clear and consistent naming conventions for tasks and their descriptions to ensure immediate understanding and usability.
+
+## Naming Rules
+1. Task names MUST be:
+   - Descriptive and action-oriented
+   - Kebab-case format (e.g., `python-code-review`, `react-component-generator`)
+   - Maximum 50 characters
+   - English only
+   - No special characters except hyphens
+
+2. Task names SHOULD follow the pattern:
+   ```
+   [domain]-[action]-[target]
+   ```
+   Examples:
+   - `python-lint-django`
+   - `react-create-component`
+   - `sql-optimize-query`
+   - `docs-generate-api`
+
+## Description Rules
+1. Each task MUST have:
+   - One-line summary (max 100 chars)
+   - Detailed purpose (2-3 sentences)
+   - Clear target audience
+   - Expected outcomes
+
+2. Description template:
+   ```markdown
+   # [Task Name]
+   
+   [One-line summary]
+   
+   ## Purpose
+   [Detailed explanation of what this task does and why it exists]
+   
+   ## Target Users
+   [Who should use this task]
+   
+   ## Expected Outcomes
+   - [Outcome 1]
+   - [Outcome 2]
+   ```
+
+## Examples
+
+### Good Examples
+
+1. Task: `python-test-generator`
+   ```markdown
+   # Python Test Generator
+   
+   Automatically generates unit tests for Python functions using type hints and docstrings.
+   
+   ## Purpose
+   Accelerates test-driven development by analyzing Python code and creating 
+   comprehensive unit tests. Uses type hints and docstrings to generate 
+   meaningful test cases with proper assertions.
+   
+   ## Target Users
+   Python developers working on tested codebases
+   
+   ## Expected Outcomes
+   - Generated test files with pytest fixtures
+   - Coverage for happy and error paths
+   - Type-aware assertions
+   ```
+
+2. Task: `react-component-extractor`
+   ```markdown
+   # React Component Extractor
+   
+   Extracts reusable React components from existing JSX/TSX code.
+   
+   ## Purpose
+   Identifies repeated patterns in React code and suggests extractable 
+   components. Helps maintain DRY principles and improves code reusability.
+   
+   ## Target Users
+   React developers working on large applications
+   
+   ## Expected Outcomes
+   - Identified component candidates
+   - Generated component files
+   - Updated import statements
+   ```
+
+
+### Bad Examples
+
+❌ `tool` - Too vague
+❌ `my_python_thing` - Wrong format
+❌ `super-awesome-mega-ultra-cool-python-script-generator` - Too long
+❌ `генератор-кода` - Not English
+
+
+
