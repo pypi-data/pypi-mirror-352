@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=42", "wheel", "pybind11>=2.6.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bincraft2json"
+version = "0.1.0"
+description = "Module Python to convert BinCraft files to JSON"
+readme = "README.md"
+authors = [
+    {name = "Aymene69", email = "belmegaming@gmail.com"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C++",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.7"
+dependencies = [
+    "pybind11>=2.6.0",
+]
+
+[tool.setuptools]
+packages = ["bincraft2json"]
+package-dir = {bincraft2json = "."}
+package-data = {bincraft2json = ["*.hpp", "*.cpp"]} 

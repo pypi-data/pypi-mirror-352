@@ -1,0 +1,85 @@
+Metadata-Version: 2.4
+Name: bincraft2json
+Version: 0.1.0
+Summary: Module Python to convert BinCraft files to JSON
+Home-page: https://github.com/aymene69/bincraft2json
+Author: Aymene69
+Author-email: Aymene69 <belmegaming@gmail.com>
+License: MIT
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: C++
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: pybind11>=2.6.0
+Dynamic: author
+Dynamic: home-page
+Dynamic: requires-python
+
+# BinCraft to JSON Converter
+
+A Python module that converts BinCraft files to JSON format using a C++ extension for better performance.
+
+## Installation
+
+```bash
+pip install bincraft2json
+```
+
+## Prerequisites
+
+- Python 3.7 or higher
+- zstd library (for decompression)
+  ```bash
+  # Ubuntu/Debian
+  sudo apt-get install libzstd-dev
+  
+  # CentOS/RHEL
+  sudo yum install libzstd-devel
+  ```
+
+## Usage
+
+```python
+from bincraft2json import decode_bincraft
+
+# Convert a BinCraft file to JSON
+result = decode_bincraft("path/to/your/file.bincraft")
+
+# If the file is compressed with zstd
+result = decode_bincraft("path/to/your/file.bincraft", zstd_compressed=True)
+
+# Display the result
+print(result)
+```
+
+## Development
+
+To install in development mode:
+
+```bash
+git clone https://github.com/aymene69/bincraft2json.git
+cd bincraft2json
+pip install -e .
+```
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Author
+
+- Aymene69 (@aymene69)
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request. 
