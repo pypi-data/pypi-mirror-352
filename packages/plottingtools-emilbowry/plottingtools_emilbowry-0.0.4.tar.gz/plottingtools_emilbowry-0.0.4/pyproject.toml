@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+[tool.hatch.build.targets.wheel]
+packages = ["src/plottingtools_emilbowry"]
+[project]
+name = "plottingtools_emilbowry"
+version = "0.0.4"
+authors = [
+  { name="Emil Bowry", email="emil.bowry@icloud.com" },
+]
+install_requires=["anywidget","jupyter","plotly","numpy"]
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
