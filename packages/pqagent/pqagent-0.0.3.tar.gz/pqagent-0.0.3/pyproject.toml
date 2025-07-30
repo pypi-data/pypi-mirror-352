@@ -1,0 +1,33 @@
+[project]
+name = "pqagent"
+version = "0.0.3"
+authors = [
+  { name="Nils Klasen", email="likeable.versed-78@icloud.com" },
+]
+description = "A user friendly package for training quality prediction models"
+readme = "README.md"
+requires-python = ">=3.11,<4"
+classifiers = [
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+dependencies = [
+    "dwrappr>=0.0.3",
+    "pandas>=2.0.0",
+    "scikit-learn>=1.6.0"
+]
+
+[project.urls]
+Homepage = "https://git-ce.rwth-aachen.de/kls/pqagent"
+Documentation = "https://pqagent-000729.pages.git-ce.rwth-aachen.de/"
+Issues = "https://git-ce.rwth-aachen.de/kls/pqagent/-/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+pqagent = ["config/base_config.yml"]
