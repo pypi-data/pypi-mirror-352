@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: diacritics-normalization
+Version: 0.1.0
+Summary: A small utility library that normalize hebrew diacritics in text.
+Author-email: Eyal Cohen <eyalcohenx@gmail.com>
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+Hebrew diacritics normalization
+- Introduced normalize_hebrew_diacritics() in hebrew/diacritics.py to correct niqqud and dagesh/sin-dot ordering.
+
+This ensures that diacritics appear in a consistent canonical order:
+dagesh > shin/sin dots > vowel marks.
