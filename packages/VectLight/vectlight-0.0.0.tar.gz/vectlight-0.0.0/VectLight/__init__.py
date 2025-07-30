@@ -1,0 +1,5 @@
+print("-------------------------------------------------")
+print("|  This message indicates that the 'VectLight'  |")
+print("|  package was installed directly from PyPI     |")
+print("|  (Python Package Index).                      |")
+print("-------------------------------------------------")
