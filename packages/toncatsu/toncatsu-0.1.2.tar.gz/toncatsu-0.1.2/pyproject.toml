@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "toncatsu"
+version = "0.1.2"
+description = "A Python Library for Robust Observation-based Map-matching"
+authors = [
+  {name = "Hiroyuki Hasada", email = "important83d@gmail.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+dependencies = ["pandas", "numpy", "geopandas", "shapely", "networkx", "scipy"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
