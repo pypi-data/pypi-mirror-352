@@ -1,0 +1,68 @@
+class _{{ schema.name }}(StandardNode):
+    @dataclass
+    class Attributes(BaseAttributes):
+    {% if not attributes %}
+        pass
+    {% else %}{% for attr in attributes %}
+        {{ attr.name }}: {{ attr.member_type }}
+    {% endfor %}
+    {% endif %}
+
+{% if schema.inputs %}
+    @dataclass
+    class Inputs(BaseInputs):
+    {% for input in schema.inputs %}
+        {{ input.name }}: {%
+            if is_optional(input)
+                %}Optional[_VarInfo]{%
+            elif is_variadic(input)
+                %}Sequence[_VarInfo]{%
+            else
+                %}_VarInfo{%
+            endif %}
+
+    {% endfor %}
+
+{% else %}
+    Inputs = BaseInputs
+
+{% endif %}
+{% if schema.outputs %}
+    @dataclass
+    class Outputs(BaseOutputs):
+    {% for output in schema.outputs %}
+        {{ output.name }}: {%
+            if is_optional(output)
+                %}Optional[_VarInfo]{%
+            elif is_variadic(output)
+                %}Sequence[_VarInfo]{%
+            else
+                %}_VarInfo{%
+            endif %}
+
+    {% endfor %}
+
+{% else %}
+    Outputs = BaseOutputs
+
+{% endif %}
+{% if type_inference %}
+    def infer_output_types(self, input_prop_values: PropDict) -> dict[str, Type]:
+{% filter indent(width=8) %}
+        {%+ include type_inference %}
+{% endfilter %}
+
+{% endif %}
+{% if value_propagation %}
+    def propagate_values(self, input_prop_values: PropDict) -> dict[str, PropValueType]:
+{% filter indent(width=8) %}
+        {%+ include value_propagation %}
+{% endfilter %}
+
+{% endif %}
+    op_type = OpType("{{ schema.name }}", "{{ schema.domain }}", {{ schema.since_version }})
+
+    attrs: Attributes
+    inputs: {% if schema.inputs %}Inputs{% else %}BaseInputs{% endif %}
+
+    outputs: {% if schema.outputs %}Outputs{% else %}BaseOutputs{% endif %}

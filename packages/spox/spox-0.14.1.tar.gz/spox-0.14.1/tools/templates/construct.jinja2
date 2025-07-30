@@ -1,0 +1,51 @@
+{% if schema.deprecated %}
+warnings.warn(
+    "{{ schema.name }} is a deprecated operator and its constructor should not be used. "
+    "Building will raise an error. "
+    DeprecationWarning, stacklevel=2
+)
+{% endif %}
+{% for attr in attributes %}
+    {% if attr.attr_constructor == "AttrGraph" %}
+_{{ attr.name }}_subgraph: Graph = subgraph(
+    {% if attr.subgraph_solution is not none %}{{ attr.subgraph_solution }}{%
+    else %}{{ attr.name }}_input_types{% endif %},
+    {{ attr.name }}
+)
+    {% endif %}
+{% endfor %}
+input_prop_values = create_prop_dict(
+{% for param in schema.inputs
+        %}{{param.name}}={{param.name}}, {%
+endfor %}
+    )
+output_vars = _{{ schema.name }}(
+    _{{ schema.name }}.Attributes(
+{% for attr in attributes %}
+    {% if attr.constructor_type_hint.startswith("Optional[") and attr.constructor_type_hint.endswith("]") %}
+        {% set method = ".maybe" %}
+    {% else %}
+        {% set method = "" %}
+    {% endif %}
+    {% if attr.attr_constructor == "AttrGraph" %}
+        {% set expr = 'AttrGraph{}(_{}_subgraph, name="{}")'.format(method, attr.name, attr.name) %}
+    {% else %}
+        {% set expr = '{}{}({}, name="{}")'.format(attr.attr_constructor, method, attr.name, attr.name) %}
+    {% endif %}
+    {{ attr.name }}={{ expr }},
+{% endfor %}
+    ), _{{ schema.name }}.Inputs(
+{% for param in schema.inputs
+        %}{{param.name}}=unwrap_vars({{param.name}}), {%
+endfor %}
+    ), {%
+if schema.outputs and is_variadic(schema.outputs[-1])
+    %}out_variadic={{ out_variadic_solution if out_variadic_solution else "{}_count".format(schema.outputs[-1].name) }}, {%
+endif %}
+    ).get_output_vars(input_prop_values=input_prop_values){%
+if schema.outputs | length <= 1
+    %}.{{ schema.outputs[0].name }}{%
+else %}._unpack_to_any(){%
+endif %}
+
+return output_vars # type: ignore

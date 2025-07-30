@@ -1,0 +1,13 @@
+_OPERATORS = {
+{% for name in built_names %}
+    "{{ name }}": _{{ name }},
+{% endfor %}
+}
+
+_CONSTRUCTORS = {
+{% for name in built_names %}
+    "{{ name }}": {{ name | get_constructor_name }},
+{% endfor %}
+}
+
+__all__ = [fun.__name__ for fun in _CONSTRUCTORS.values()] {% if domain == "ai.onnx" %} + ["const"] {% endif %}

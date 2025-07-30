@@ -1,0 +1,8 @@
+def const(value: npt.ArrayLike, dtype: npt.DTypeLike = None) -> Var:
+    """
+    Convenience function for creating constants.
+
+    Shorthand for ``constant(value=np.array(value, dtype))``. The types follow numpy rules.
+    """
+
+    return constant(value=np.array(value, dtype))
