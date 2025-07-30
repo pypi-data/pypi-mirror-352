@@ -1,0 +1,32 @@
+[build-system]
+requires = ['setuptools']
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "elinkapi"
+version = "0.4.7" 
+authors = [
+  { name="Jacob Samar", email="samarj@osti.gov" },
+  { name="Neal Ensor", email="ensorn@osti.gov" }
+]
+description = "OSTI E-Link 2 API package"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests", 
+    "pydantic", 
+    "urllib3",
+    "requests_toolbelt"
+]
+
+[project.optional-dependencies]
+development = ["twine", "build"]
+
+[project.urls]
+Homepage = "https://github.com/doecode/elinkapi"
+Issues = "https://github.com/doecode/elinkapi/issues"
