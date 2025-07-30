@@ -1,0 +1,38 @@
+Metadata-Version: 2.4
+Name: sdialog
+Version: 0.0.2
+Summary: Synthetic Dialogue Generation and Analysis
+Author-email: Sergio Burdisso <sergio.burdisso@gmail.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/idiap/sdialog
+Project-URL: Issues, https://github.com/idiap/sdialog/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pydantic
+Requires-Dist: print-color
+Requires-Dist: tqdm
+Requires-Dist: langchain
+Requires-Dist: langchain-ollama
+Requires-Dist: langchain-huggingface
+Requires-Dist: numpy
+Requires-Dist: sentence-transformers
+Requires-Dist: ollama
+Dynamic: license-file
+
+# SDialog
+
+Synthetic Dialogue Generation and Analysis.
+
+Make sure you have [`Ollama`](https://ollama.com/download) running is your system before going through our Jupyter Notebooks:
+1. [Single-LLM Full Dialogue Generation.](1.single_llm_full_generation.ipynb)
+2. [Role-Playing Multi-Agent Dialogue Generation.](2.multi-agent_generation.ipynb)
+3. [Multi-Agent Dialogue Generation with Orchestration.](3.multi-agent+orchestrator_generation.ipynb)
+
+## License
+
+MIT License
+
+Copyright (c) 2025 Idiap Research Institute
