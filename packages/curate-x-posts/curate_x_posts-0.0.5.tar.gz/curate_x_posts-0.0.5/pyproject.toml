@@ -1,0 +1,22 @@
+[project]
+name = "curate-x-posts"
+version = "0.0.5"
+authors = [
+  { name="TCW", email="1470pancake@gmail.com" },
+]
+description = "A small package that curates posts from X social platform"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[tool.setuptools.packages.find]
+include = ['curate-x-posts'] 
+
+[project.urls]
+Homepage = "https://github.com/tcw1470/curate-x-posts"
+Issues = "https://github.com/tcw1470/curate-x-posts/issues"
