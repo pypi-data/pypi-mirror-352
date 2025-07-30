@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "saslibpy"
+version = "0.2.3"
+authors = [
+  { name="Todd Li", email="liheact@gmail.com" },
+]
+description = "python SDK for solana attestation service"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "borsh-construct>=0.1.0",
+  "solana>=0.36.6",
+  "solders>=0.26.0",
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/TrustaLabs/sas_python_lib"
