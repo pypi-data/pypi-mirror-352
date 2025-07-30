@@ -1,0 +1,24 @@
+Metadata-Version: 2.4
+Name: sorcerun
+Version: 0.5.18
+License-File: LICENSE
+Requires-Dist: click
+Requires-Dist: sacred
+Requires-Dist: pymongo
+Requires-Dist: pyyaml
+Requires-Dist: scikit-learn
+Requires-Dist: incense
+Requires-Dist: xarray
+Requires-Dist: tqdm
+Requires-Dist: streamlit
+Requires-Dist: ipdb
+Requires-Dist: prettytable
+Requires-Dist: simple_slurm
+Requires-Dist: pandas
+Requires-Dist: pyfzf
+Requires-Dist: flameprof
+Dynamic: description
+Dynamic: license-file
+Dynamic: requires-dist
+
+Computational experiments can be boiled down to calling a function with some inputs. A common form of analysis is to see how the results of the function varies with different inputs. Sorcerun is a tool built on top of [`sacred`](https://github.com/IDSIA/sacred) that facilitates **logging** each function call to avoid having to repeat experiments that have already been run.
