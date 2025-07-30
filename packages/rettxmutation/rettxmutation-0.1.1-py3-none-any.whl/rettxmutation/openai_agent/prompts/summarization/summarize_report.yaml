@@ -1,0 +1,9 @@
+name: summarize_report
+description: Summarize genetic clinical reports focusing on MECP2
+input:
+  document_text: The cleaned document text
+  keywords: Keywords to guide the summary
+execution_settings:
+  default:
+    temperature: 0.1
+    max_tokens: 1000
