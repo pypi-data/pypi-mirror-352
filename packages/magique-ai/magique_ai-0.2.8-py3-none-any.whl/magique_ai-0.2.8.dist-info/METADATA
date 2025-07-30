@@ -1,0 +1,60 @@
+Metadata-Version: 2.4
+Name: magique-ai
+Version: 0.2.8
+Summary: Toolset for AI Agents, provide service via magique message transfer server.
+Author-email: Weize Xu <vet.xwz@gmail.com>
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: magique>=0.3.6
+Requires-Dist: executor-engine>=0.3.1
+Requires-Dist: diskcache
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: fire>=0.7.0
+Requires-Dist: lancedb>=0.20.0
+Requires-Dist: crawl4ai>=0.5.0
+Requires-Dist: duckduckgo-search>=7.1.1
+Requires-Dist: loguru>=0.7.3
+Requires-Dist: openai>=1.58.1
+Requires-Dist: PyMuPDF>=1.25.5
+Requires-Dist: matplotlib>=3.10.3
+Provides-Extra: dev
+Requires-Dist: pytest-asyncio>=0.24.0; extra == "dev"
+Requires-Dist: pytest>=8.3.4; extra == "dev"
+Requires-Dist: pytest-cov>=6.0.0; extra == "dev"
+
+<div align="center">
+  <h1> Magique AI Tools </h1>
+
+  <p> Remote toolsets for AI Agents. </p>
+
+  <p>
+    <a href="https://github.com/aristoteleo/magique-ai/actions/workflows/test.yml">
+        <img src="https://github.com/aristoteleo/magique-ai/actions/workflows/test.yml/badge.svg" alt="Build Status">
+    </a>
+    <a href="https://pypi.org/project/magique-ai/">
+      <img src="https://img.shields.io/pypi/v/magique-ai.svg" alt="Install with PyPi" />
+    </a>
+    <a href="https://github.com/aristoteleo/magique-ai/blob/master/LICENSE">
+      <img src="https://img.shields.io/github/license/aristoteleo/magique-ai" alt="MIT license" />
+    </a>
+  </p>
+</div>
+
+**Work in progress**
+
+Toolsets
+
+- [x] Python Interpreter
+- [x] R Interpreter
+- [x] Web browse
+  * [x] Duckduckgo search
+  * [x] Crawl4ai
+- [x] Shell
+- [x] MCP Connector
+- [x] File editor/Filesystem access
+- [x] File transfer
+- [x] RAG system
+- [ ] Jupyter
+- [ ] Browser-use
+- [ ] Computer-use
