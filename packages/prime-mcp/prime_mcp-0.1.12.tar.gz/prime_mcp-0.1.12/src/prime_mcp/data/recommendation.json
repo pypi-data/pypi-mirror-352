@@ -1,0 +1,61 @@
+{
+    "issue_id": "AI-573",
+    "fire_summary": "sensitive financial data collection, vulnerable test credentials, potential architecture exposure, and lack of transparency/user control over personal data.",
+    "recommendations": [
+        {
+            "concern": "Authentication & Authorization Vulnerabilities",
+            "issues": [
+                "Test credentials enable unauthorized access",
+                "Privilege escalation risks",
+                "Identity linking via test account (gabrieal12@archint.com)"
+            ],
+            "recommendation": "Implement OAuth 2.0/JWT with RBAC, secure key management, and eliminate specific test accounts from documentation",
+            "method": [
+                "Mitre:Credential Access",
+                "Mitre:Privilege Escalation",
+                "Linddun:Linkability",
+                "Linddun:Identifiability"
+            ],
+            "controls": "NIST:SC-13,IA-05|PCI:6.5.4"
+        },
+        {
+            "concern": "Data Privacy & Excessive Disclosure",
+            "issues": [
+                "Excessive financial data collection",
+                "Potential data exfiltration",
+                "Lack of user awareness/control"
+            ],
+            "recommendation": "Apply data minimization principles, implement HTTPS/encryption, provide transparent privacy policies with user controls",
+            "method": [
+                "Linddun:Disclosure",
+                "Mitre:Exfiltration",
+                "Linddun:Unawareness"
+            ],
+            "controls": "NIST:SC-13,IA-05|PCI:6.5.4"
+        },
+        {
+            "concern": "API Security & Information Exposure",
+            "issues": [
+                "Architecture/infrastructure details exposure",
+                "Inadequate secure design practices"
+            ],
+            "recommendation": "Implement secure API design with input validation, limit sensitive data exposure, enforce HTTPS with comprehensive logging/monitoring",
+            "method": [
+                "Mitre:Discovery"
+            ],
+            "controls": "NIST:SC-13,IA-05|PCI:6.5.4"
+        },
+        {
+            "concern": "Regulatory Compliance Gap",
+            "issues": [
+                "No compliance framework mentioned",
+                "Missing data protection standards"
+            ],
+            "recommendation": "Ensure compliance with data protection regulations, implement MFA and comprehensive security standards",
+            "method": [
+                "Linddun:Non-compliance"
+            ],
+            "controls": "NIST:SC-13,IA-05|PCI:6.5.4"
+        }
+    ]
+}
