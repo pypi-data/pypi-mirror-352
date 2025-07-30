@@ -1,0 +1,8 @@
+||Signal Name||Width||I/0||Functional Description || Clock Domain||
+{%- for index in range(port_lst|length) %}
+{%- set port_name = port_lst[index] %}
+{%- set width = width_lst[index] %}
+{%- set direction = direction_lst[index] %}
+{%- set comment = comment_lst[index] %}
+|{{ port_name }} |{{ width }} |{{ direction }} | {{ comment }} | |
+{%- endfor %}
