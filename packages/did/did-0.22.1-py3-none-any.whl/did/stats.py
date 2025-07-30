@@ -1,0 +1,283 @@
+""" Stats & StatsGroup, the core of the data gathering """
+
+import re
+import sys
+import xmlrpc.client
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+import did.base
+from did import utils
+from did.utils import log
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Stats
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+class Stats():
+    """ General statistics """
+    _name = None
+    error = None
+    _enabled = None
+    option = None
+    dest = None
+    parent = None
+    stats = None
+
+    def __init__(
+            self, /, option, name=None, parent=None, user=None, *, options=None):
+        """ Set the name, indent level and initialize data.  """
+        self.option = option.replace(" ", "-")
+        self.dest = self.option.replace("-", "_")
+        self._name = name
+        self.parent = parent
+        self.stats = []
+        # Save user and options (get it directly or from parent)
+        self.options = options or getattr(self.parent, 'options', None)
+        if user is None and self.parent is not None:
+            self.user = self.parent.user
+        else:
+            self.user = user
+        log.debug('Loading %s Stats instance for %s', option, self.user)
+
+    @property
+    def name(self):
+        """ Use the first line of docs string unless name set. """
+        if self._name:
+            return self._name
+        return [
+            line.strip() for line in self.__doc__.split("\n")
+            if line.strip()][0]
+
+    def add_option(self, parser):
+        """ Add option for self to the parser group object. """
+        parser.add_argument(f"--{self.option}", action="store_true", help=self.name)
+
+    def enabled(self):
+        """ Check whether we're enabled (or if parent is). """
+        # Cache into ._enabled
+        if self._enabled is None:
+            if self.parent is not None and self.parent.enabled():
+                self._enabled = True
+            else:
+                # Default to Enabled if not otherwise disabled
+                self._enabled = getattr(self.options, self.dest, True)
+        return self._enabled
+
+    def fetch(self):
+        """ Fetch the stats (to be implemented by respective class). """
+        raise NotImplementedError()
+
+    def check(self):
+        """ Check the stats if enabled. """
+        if not self.enabled():
+            return
+        try:
+            self.fetch()
+        except (
+                xmlrpc.client.Fault,
+                did.base.ConfigError,
+                ConnectionError
+                ) as error:
+            log.error(error)
+            self.error = True
+            # Raise the exception if debugging
+            if not self.options or self.options.debug:
+                raise
+
+    def header(self):
+        """ Show summary header. """
+        # Show question mark instead of count when errors encountered
+        count = "? (error encountered)" if self.error else len(self.stats)
+        utils.item(f"{self.name}: {count}", options=self.options)
+
+    def show(self):
+        """ Display indented statistics. """
+        if not self.error and not self.stats:
+            return
+        self.header()
+        for stat in self.stats:
+            utils.item(stat, level=1, options=self.options)
+
+    def merge(self, other):
+        """ Merge another stats. """
+        for other_stat in other.stats:
+            if other_stat not in self.stats:
+                self.stats.append(other_stat)
+        if other.error:
+            self.error = True
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Stats Group
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class StatsGroupPlugin(type):
+    registry = {}
+    ignore = set([
+        "StatsGroupPlugin",
+        "StatsGroup",
+        "EmptyStatsGroup",
+        "UserStats",
+        ])
+
+    def __init__(cls, name, _bases, _attrs):
+        if name in StatsGroupPlugin.ignore:
+            return
+
+        plugin_name = cls.__module__.rsplit(".", maxsplit=1)[-1]
+        registry = StatsGroupPlugin.registry
+
+        if plugin_name in registry:
+            orig = registry[plugin_name]
+            log.warning("%s overriding %s", cls.__module__, orig.__module__)
+
+        registry[plugin_name] = cls
+
+
+class StatsGroup(Stats, metaclass=StatsGroupPlugin):
+    """ Stats group """
+
+    # Default order
+    order = 500
+
+    def add_option(self, parser):
+        """ Add option group and all children options. """
+
+        group = parser.add_argument_group(self.name)
+        for stat in self.stats:
+            stat.add_option(group)
+
+        group.add_argument(f"--{self.option}", action="store_true", help="All above")
+
+    def check(self):
+        """ Check all children stats. """
+        with ThreadPoolExecutor() as executor:
+            result_futures = []
+            for stat in self.stats:
+                result_futures.append(executor.submit(stat.check))
+            for f in as_completed(result_futures):
+                # Raise exceptions if raised within the executor.
+                try:
+                    f.result()
+                except did.base.ReportError as error:
+                    log.error("Skipping %s due to %s", f, error)
+                    sys.stdout.flush()
+                    sys.stderr.flush()
+
+    def show(self):
+        """ List all children stats. """
+        for stat in self.stats:
+            stat.show()
+
+    def merge(self, other):
+        """ Merge all children stats. """
+        for this, other_stats in zip(self.stats, other.stats):
+            this.merge(other_stats)
+
+    def fetch(self):
+        """ Stats groups do not fetch anything """
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  User Stats
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class UserStats(StatsGroup):
+    """ User statistics in one place """
+
+    def __init__(self, user=None, options=None, config=None):
+        """ Initialize stats objects. """
+        super().__init__(option="all", user=user, options=options)
+        config = config or did.base.Config()
+        try:
+            self.stats = self.configured_plugins(config)
+        except did.base.ConfigFileError as error:
+            # Missing config file is OK if building options (--help).
+            # Otherwise raise the exception to suggest config example.
+            if options is None:
+                log.debug(error)
+                log.debug("This is OK for now as we're just building options.")
+            else:
+                raise
+
+    def configured_plugins(self, config):
+        """ Create a StatsGroup instance for each configured plugin """
+        results = []
+        for section in config.sections():
+            if section == "general":
+                continue
+
+            data = dict(config.section(section, skip=set()))
+            type_ = data.get("type")
+
+            # Some plugins (like public-inbox) need to have underscores
+            # in their names to follow python modules conventions, but
+            # it's more user-friendly to have dashes instead, so let's
+            # replace all the dashes by underscores.
+            type_ = type_.replace('-', '_')
+
+            if not type_:
+                msg = "Plugin type not defined in section '{0}'."
+                raise did.base.ConfigError(msg.format(section))
+
+            if type_ not in StatsGroupPlugin.registry:
+                raise did.base.ConfigError(
+                    f"Invalid plugin type '{type_}' in section '{section}'.")
+
+            user = self.user.clone(section) if self.user else None
+            statsgroup = StatsGroupPlugin.registry[type_]
+            try:
+                obj = statsgroup(option=section, parent=self, user=user)
+                orig_order = obj.order
+                # Override default order if requested
+                if 'order' in data:
+                    try:
+                        obj.order = int(data['order'])
+                    except ValueError as exc:
+                        raise did.base.GeneralError(
+                            f"Invalid order '{data['order']}' "
+                            f"in the '{section}' section.") from exc
+                if orig_order != obj.order:
+                    log.debug("Reordered %s from %s to %s",
+                              repr(obj), orig_order, obj.order)
+                results.append(obj)
+            except did.base.ReportError as re_err:
+                log.error("Skipping section %s due to error: %s", section, re_err)
+        return sorted(results, key=lambda x: x.order)
+
+    def add_option(self, parser):
+        """ Add options for each stats group. """
+        for stat in self.stats:
+            stat.add_option(parser)
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Header & Footer
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+class EmptyStats(Stats):
+    """ Custom stats group for header & footer """
+
+    def __init__(self, option, name=None, parent=None, user=None):
+        Stats.__init__(self, option, name, parent, user)
+
+    def show(self):
+        """ Name only for empty stats """
+        # Convert escaped new lines into real new lines
+        # (in order to support custom subitems for each item)
+        item = re.sub(r"\\n", "\n", self.name)
+        utils.item(item, options=self.options)
+
+    def fetch(self):
+        """ Nothing to do for empty stats """
+
+
+class EmptyStatsGroup(StatsGroup):
+    """ Header & Footer stats group """
+
+    def __init__(self, option, name=None, parent=None, user=None):
+        StatsGroup.__init__(self, option, name, parent, user)
+        for opt, opt_name in sorted(did.base.Config().section(option)):
+            self.stats.append(
+                EmptyStats(f"{option}-{opt}", opt_name, parent=self))
