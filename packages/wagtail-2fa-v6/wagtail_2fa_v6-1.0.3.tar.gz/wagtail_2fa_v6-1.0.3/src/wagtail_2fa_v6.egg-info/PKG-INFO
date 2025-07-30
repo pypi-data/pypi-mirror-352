@@ -1,0 +1,138 @@
+Metadata-Version: 2.4
+Name: wagtail-2fa-v6
+Version: 1.0.3
+Summary: Wagtail two-factor auth, updated for Wagtail 6+ (with Django 5.2+)
+Home-page: https://github.com/ravigupta-art/wagtail-2fa-v6
+Author: ravigupta-art
+Author-email: ravigupta-art <52917700+ravigupta-art@users.noreply.github.com>
+License: The MIT License (MIT)
+        
+        Copyright (c) 2025 Ravi Gupta
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+        
+Project-URL: Homepage, https://github.com/ravigupta-art/wagtail-2fa-v6
+Project-URL: Issues, https://github.com/ravigupta-art/wagtail-2fa-v6/issues
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 5.2
+Classifier: Framework :: Wagtail
+Classifier: Framework :: Wagtail :: 6
+Classifier: Framework :: Wagtail :: 7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# wagtail-2fa-v6
+
+A fork of [`wagtail-2fa`](https://github.com/LabD/wagtail-2fa) updated for **Wagtail 6+** and **Django 5.2+**.Provides Time-based One-Time Password (TOTP) two-factor authentication in the Wagtail admin.
+
+Use apps like **Authy**, **Google Authenticator**, or **1Password** to secure your Wagtail login.
+
+📖 [Django OTP Documentation](https://django-otp-official.readthedocs.io)
+
+* * *
+
+## Installation
+
+    pip install wagtail-2fa-v6
+
+Then add the following to your `INSTALLED_APPS` in `settings.py`:
+
+    INSTALLED_APPS = [
+        # ...
+        'wagtail_2fa',
+        'django_otp',
+        'django_otp.plugins.otp_totp',
+        # ...
+    ]
+
+Next, add the middleware **after** `AuthenticationMiddleware`:
+
+    MIDDLEWARE = [
+        # ... other middleware
+        # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+    
+        'wagtail_2fa.middleware.VerifyUserMiddleware',
+    
+        # 'wagtail.core.middleware.SiteMiddleware',
+        # ... other middleware
+    ]
+
+Run migrations:
+
+    python manage.py migrate
+
+* * *
+
+## Settings
+
+Set the following in your Django `settings.py` file:
+
+* `WAGTAIL_2FA_REQUIRED` (default `False`):Force 2FA login for all staff, superusers, and users with access to the Wagtail admin.
+  
+* `WAGTAIL_2FA_OTP_TOTP_NAME` (default `False`):Issuer name for authenticator app. Defaults to `WAGTAIL_SITE_NAME` if set.(Sets `OTP_TOTP_ISSUER` under the hood.)
+  
+
+* * *
+
+## Making 2FA Optional
+
+To make 2FA **optional** (enabled per group), replace the middleware in your settings:
+
+    MIDDLEWARE = [
+        # ...
+        # 'wagtail_2fa.middleware.VerifyUserMiddleware',
+        'wagtail_2fa.middleware.VerifyUserPermissionsMiddleware',
+        # ...
+    ]
+
+* This adds a checkbox to group permissions to enable or disable 2FA.
+* **Superusers** are always required to use 2FA.
+
+* * *
+
+## Sandbox
+
+To run a sandbox environment:
+
+1. Create a virtual environment with Python 3.8
+2. Activate it
+3. Run:
+
+    make sandbox
+
+Access the admin at: [http://localhost:8000/admin/](http://localhost:8000/admin/)
+
+Login credentials:
+
+* **E-mail:** `superuser@example.com`
+* **Password:** `testing`
