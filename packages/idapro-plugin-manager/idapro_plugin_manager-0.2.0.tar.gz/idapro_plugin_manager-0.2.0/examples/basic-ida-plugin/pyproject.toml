@@ -1,0 +1,22 @@
+[project]
+name = "basic-ida-plugin"
+authors = [
+  {name = "Willi Ballenthin", email = "willi.ballenthin@gmail.com"},
+]
+description = "Example IDA Plugin"
+version = "0.1.0"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.entry-points.'idapro.plugins']
+idapython = "hello"
+
+[tool.setuptools]
+# This places `hello.py` directly into `site-packages` (gross),
+#  and lets you do `import hello` (nice).
+# So, I don't love this, but it works.
+#
+# Too bad this doesn't get picked up from the entry points above.
+py-modules = ["hello"]
