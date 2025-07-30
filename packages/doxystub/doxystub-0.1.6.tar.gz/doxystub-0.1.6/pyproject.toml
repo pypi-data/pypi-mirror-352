@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "doxystub"
+version = "0.1.6"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Grégoire Passault", email = "g.passault@gmail.com" }]
+description = "Stubs generator based on Doxygen+Boost.Python"
+
+[project.urls]
+Homepage = "https://github.com/rhoban/doxystub/"
+Repository = "https://github.com/rhoban/doxystub/"
+
+[project.scripts]
+doxystub = "doxystub.doxystub:main"
