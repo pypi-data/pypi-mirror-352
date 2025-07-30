@@ -1,0 +1,80 @@
+[build-system]
+requires = [
+    "setuptools>=45",
+    "wheel",
+    "pybind11>=2.11.1",
+    "cmake>=3.15",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "twitter-dm-static"
+version = "0.1.2"
+description = "Twitter DM static analysis tool with C++ backend"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    { name = "robin", email = "robin528919@gmail.com" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C++",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "flake8",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/twitter-dm-static"
+Repository = "https://github.com/yourusername/twitter-dm-static.git"
+Issues = "https://github.com/yourusername/twitter-dm-static/issues"
+
+[tool.setuptools.package-dir]
+"" = "."
+
+[tool.setuptools.packages.find]
+where = [
+    ".",
+]
+include = [
+    "twitter_dm*",
+]
+exclude = [
+    "test*",
+    "build*",
+    "extern*",
+]
+
+[tool.setuptools.package-data]
+"*" = [
+    "*.so",
+    "*.pyd",
+    "*.dll",
+    "*.dylib",
+]
+twitter_dm = [
+    "*.so",
+    "*.pyd",
+    "*.dll",
+    "*.dylib",
+]
+
+[tool.setuptools.exclude-package-data]
+"*" = []
+
+[tool.pybind11]
+cmake = true
