@@ -1,0 +1,47 @@
+Metadata-Version: 2.2
+Name: cxppython
+Version: 0.1.60
+Summary: A python utils package
+Home-page: https://github.com/yourusername/my_package
+Author: cxp
+Author-email: your.email@example.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pymysql<2.0.0,>=1.1.0
+Requires-Dist: python-dotenv<2.0.0,>=1.0.0
+Requires-Dist: requests<3.0,>=2.30.0
+Requires-Dist: colorama~=0.4.6
+Requires-Dist: python-statemachine<3.0.0,>=2.1
+Requires-Dist: munch~=2.5.0
+Requires-Dist: pyyaml<7.0,>=6.0
+Requires-Dist: mysql-connector-python<10.0.0,>=9.0.0
+Requires-Dist: SQLAlchemy<3.0.0,>=2.0.25
+Requires-Dist: asyncio<4.0.0,>=3.4.1
+Requires-Dist: pydantic<3.0,>=2.0.0
+Requires-Dist: cryptography<45.0,>=40.0
+Requires-Dist: pymongo~=4.12.0
+Requires-Dist: redis~=6.2.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# cxppython
+### install build
+- python -m pip install --upgrade pip setuptools wheel twine
+- 
+### build
+- python setup.py sdist bdist_wheel
+### upload
+- twine upload dist/*
