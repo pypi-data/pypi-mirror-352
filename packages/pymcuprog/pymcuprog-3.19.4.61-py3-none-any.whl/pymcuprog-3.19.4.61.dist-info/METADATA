@@ -1,0 +1,471 @@
+Metadata-Version: 2.4
+Name: pymcuprog
+Version: 3.19.4.61
+Summary: Tools for programming of MCUs using Microchip CMSIS-DAP based debuggers
+Author: Microchip Technology
+Author-email: support@microchip.com
+License: MIT
+Keywords: Microchip,nEDBG,Curiosity Nano,PKOB nano,debugger
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Embedded Systems
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=2.7
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: pyserial
+Requires-Dist: IntelHex
+Requires-Dist: PyYAML
+Requires-Dist: appdirs
+Requires-Dist: pathlib2; python_version < "3"
+Requires-Dist: pyedbglib~=2.24
+Provides-Extra: dev
+Requires-Dist: pylint>=2.15; extra == "dev"
+Provides-Extra: test
+Requires-Dist: mock; extra == "test"
+Requires-Dist: parameterized; extra == "test"
+Requires-Dist: pytest; extra == "test"
+Provides-Extra: doc
+Requires-Dist: mock; extra == "doc"
+Requires-Dist: sphinx; extra == "doc"
+Dynamic: license-file
+
+# pymcuprog - Python MCU programmer
+pymcuprog is a utility for programming various Microchip MCU devices using Microchip CMSIS-DAP based debuggers
+
+## Overview
+pymcuprog is available:
+
+* install using pip from pypi: https://pypi.org/project/pymcuprog
+* browse source code on github: https://github.com/microchip-pic-avr-tools/pymcuprog
+* read API documentation on github: https://microchip-pic-avr-tools.github.io/pymcuprog
+
+## Usage
+pymcuprog can be used as a command-line interface or a library
+
+### Command-line programming
+for help, use:
+```bash
+pymcuprog --help
+```
+
+#### Action: ping
+checks connectivity by reading the device identity
+
+Example:
+```bash
+pymcuprog ping
+```
+#### Action: erase
+erases device memories
+* use -m to erase only a specified memory region (if available)
+
+Example: chip erase the device
+```bash
+pymcuprog erase
+```
+#### Action: write
+writes device memories
+* use -f for writing from a file, or
+* use -l for writing literal values
+* use -m to specify memory type for literal writing
+* use -o to specify offset for literal writing
+
+Example: writes the content of an Intel® hex file to the appropriate memory areas on the device
+```bash
+pymcuprog write -f app.hex
+```
+Note: memory is not erased automatically before writing!
+
+Example: erases memories and then writes an Intel hex file:
+```bash
+pymcuprog write -f app.hex --erase
+```
+
+Example: erases memories, writes an Intel hex file and then verifies the content:
+```bash
+pymcuprog write -f app.hex --erase --verify
+```
+
+#### Action: read
+reads device memories
+* use -m to specify memory type
+* use -o to specify offset to read from
+* use -b to specify number of bytes to read
+* use -f to read to a file
+
+Example: reads 64 bytes of flash memory from offset 0x1000
+```bash
+pymcuprog read -m flash -o 0x1000 -b 64
+```
+
+#### Action: reset
+resets the target device
+
+Example:
+```bash
+pymcuprog reset
+```
+
+### Command-line board utilities
+
+#### Action: getvoltage
+reads the actual target operating voltage
+
+Example:
+```bash
+pymcuprog getvoltage
+```
+
+#### Action: getsupplyvoltage
+reads the supply voltage (set-point)
+
+Example:
+```bash
+pymcuprog getsupplyvoltage
+```
+
+#### Action: getusbvoltage
+reads the USB voltage (Vbus)
+
+Example:
+```bash
+pymcuprog getusbvoltage
+```
+
+#### Action: setsupplyvoltage
+sets the target supply voltage
+* use -l to specify a literal supply voltage value
+
+Example: sets the target supply voltage on a Curiosity Nano kit to 3.3V
+```bash
+pymcuprog setsupplyvoltage -l 3.3
+```
+
+#### Action: reboot-debugger
+reboots the debugger
+
+Example: reboots a Curiosity Nano kit
+```bash
+pymcuprog reboot-debugger
+```
+
+### Generic utilities
+
+#### Action: makeuf2
+converts Intel hex file to UF2 file
+* use -f to specify input hex file
+* use --uf2file to specify name of output UF2 file (optional)
+
+Example: converts myfile.hex to newfile.uf2
+```bash
+pymcuprog makeuf2 -f myfile.hex --uf2file newfile.uf2
+```
+The --uf2file argument is optional. By default pymcuprog will generate a UF2 file with the same name as the hex but with .uf2 extension.
+
+
+### Command-line switches
+Many of these switches are optional, and many parameters are automatically set when using a Curiosity Nano or Xplained Pro kit.
+* -t TOOL to select which tool to use.  Optional if only one is connected.
+* -s SERIALNUMBER to select which tool instance to use.  Optional if only one is connected.
+* -d DEVICE to specify the device to program.  Optional when using a kit.
+* -i INTERFACE to specify the target communication interface.  Optional.
+* -p PACKPATH to specify the path to the DFP for PIC devices*
+* -c CLK to specify the programming interface clock speed.  Optional.
+* --verify to verify after programming
+* -u UART to use native host serial port UART for UPDI instead of a USB-based tool.
+* -H MODE to select UPDI high-voltage entry mode ('tool-toggle-power', 'user-toggle-power', 'simple-unsafe-pulse')
+* -U to write user row values when the device is locked (UPDI only)
+* -C to erase and unlock a locked device (UPDI only)
+* -v LEVEL for selecting logging verbosity ('debug', 'info', 'warning', 'error', 'critical')
+
+
+####
+*Notes regarding PACKPATH argument
+
+While pymcuprog itself contains sufficient information to program AVR devices (with UPDI interface), it is unable to program a PIC device without access to programming scripts for that device.  These scripts are deployed in Device Family Packs (DFP) on https://packs.download.microchip.com and are only provided for PIC devices mounted on Curiosity Nano boards or other boards with the PKOB nano (nEDBG) debugger.  To use pymcuprog with PIC devices, you will either need to download a DFP for the PIC in question, or have MPLAB X v5.25 or later installed.  In either case the path to the particular device in the scripts folder inside the DFP must be passed into pymcuprog using the -p PACKPATH argument. Remember to quote the path (`"<path>"`) if the path itself contains spaces.
+
+NOTE FOR WINDOWS USERS: Avoid ending a quoted `"<path>"` argument with a backslash (`'\'`), this will cause the PACKPATH to not be found. `"C:\foo\bar"` will work, while `"C:\foo\bar\"` will not.
+
+Example: Ping the device on a PIC16F15244 Curiosity Nano
+```bash
+pymcuprog ping -p "c:\Program Files (x86)\Microchip\MPLABX\v5.40\packs\Microchip\PIC16F1xxxx_DFP\1.4.119\scripts\pic16f15244"
+```
+
+### Serial port UPDI (pyupdi)
+The AVR UPDI interface implements a UART protocol, which means that it can be used by simply connecting TX and RX pins of a serial port together with the UPDI pin; with a series resistor (eg: 1k) between TX and UPDI to handle contention.  (This configuration is also known as "pyupdi".)  Be sure to connect a common ground, and use a TTL serial adapter running at the same voltage as the AVR device.
+
+<pre>
+                        Vcc                     Vcc
+                        +-+                     +-+
+                         |                       |
+ +---------------------+ |                       | +--------------------+
+ | Serial port         +-+                       +-+  AVR device        |
+ |                     |      +----------+         |                    |
+ |                  TX +------+   1k     +---------+ UPDI               |
+ |                     |      +----------+    |    |                    |
+ |                     |                      |    |                    |
+ |                  RX +----------------------+    |                    |
+ |                     |                           |                    |
+ |                     +--+                     +--+                    |
+ +---------------------+  |                     |  +--------------------+
+                         +-+                   +-+
+                         GND                   GND
+</pre>
+
+pymcuprog includes this implementation as an alternative to USB/EDBG-based tools.  To connect via a serial port, use the "uart" tool type with the UART switch in addition.
+
+Example: checks connectivity by reading the device identity
+```bash
+pymcuprog ping -d avr128da48 -t uart -u com35
+```
+
+When using serial port UPDI it is optional to use:
+* --clk BAUD to specify the baud rate (defaults to 115200)
+* --uart-timeout TIMEOUT to specify the uart read timeout (defaults to 1.0s)
+
+Increasing the baud rate can decrease programming time.  Decreasing the timeout can decrease the initial connection latency when UPDI is disabled and does not respond.  These parameters can be tweaked to suit the serial port adapter in use.
+
+
+### Library
+pymcuprog can be used as a library using its backend API.  For example:
+```python
+# pymcuprog uses the Python logging module
+import logging
+logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.WARNING)
+
+# Configure the session
+from pymcuprog.backend import SessionConfig
+sessionconfig = SessionConfig("atmega4808")
+
+# Instantiate USB transport (only 1 tool connected)
+from pymcuprog.toolconnection import ToolUsbHidConnection
+transport = ToolUsbHidConnection()
+
+# Instantiate backend, connect to tool using transport, start session using sessionconfig
+#
+# The Backend constructor arguments `transport' and `sessionconfig' are optional,
+# setting them will cause backend.connect_to_tool() and backend.start_session() respectively
+# to be called during construction. Connection and session will be automatically
+# torn down when backend object goes out of scope at end of with-block.
+#
+from pymcuprog.backend import Backend
+with Backend(transport, sessionconfig) as backend:
+    # Read the target device_id
+    device_id = backend.read_device_id()
+    print("Device ID is {0:06X}".format(int.from_bytes(device_id, byteorder="little")))
+```
+
+## Logging
+This package uses the Python logging module for publishing log messages to library users.
+A basic configuration can be used (see example), but for best results a more thorough configuration is recommended in order to control the verbosity of output from dependencies in the stack which also use logging.
+See logging.yaml which is included in the package (although only used for CLI)
+
+## Dependencies
+pymcuprog depends on pyedbglib for its transport protocol.
+pyedbglib requires a USB transport library like libusb.  See pyedbglib package for more information.
+
+## Versioning
+pymcuprog version can be determined using the CLI:
+```bash
+pymcuprog -V
+```
+
+or using the library:
+```python
+from pymcuprog import __version__ as pymcuprog_version
+print("pymcuprog version {}".format(pymcuprog_version))
+```
+
+In addition, the CLI-backend API is versioned for convenience:
+```python
+from pymcuprog.backend import Backend
+backend = Backend()
+print("pymcuprog backend API version: {}".format(backend.get_api_version()))
+```
+
+## Supported devices and tools
+pymcuprog is primarily intended for use with PKOB nano (nEDBG) debuggers which are found on Curiosity Nano kits and other development boards.  This means that it is continuously tested with a selection of AVR devices with UPDI interface as well as a selection of PIC devices.  However since the protocol is compatible between all EDBG-based debuggers (pyedbglib) it is possible to use pymcuprog with a wide range of debuggers and devices, although not all device families/interfaces have been implemented.
+
+### Debuggers / Tools
+pymcuprog supports:
+* PKOB nano (nEDBG) - on-board debugger on Curiosity Nano
+* MPLAB PICkit 4 In-Circuit Debugger (when in 'AVR mode')
+* MPLAB Snap In-Circuit Debugger (when in 'AVR mode')
+* Atmel-ICE
+* Power Debugger
+* EDBG - on-board debugger on Xplained Pro/Ultra
+* mEDBG - on-board debugger on Xplained Mini/Nano
+* JTAGICE3 (firmware version 3.0 or newer)
+
+Although not all functionality is provided on all debuggers/boards.  See device support section below.
+
+### Devices
+pymcuprog supports:
+* All UPDI devices, whether mounted on kits or standalone
+* PIC devices mounted on Curiosity Nano kits, or similar board with PKOB nano (nEDBG) debugger
+
+Other devices (eg ATmega328P, ATsamd21e18a) may be partially supported for experimental purposes
+
+##  Notes for Linux® systems
+This package uses pyedbglib and other libraries for USB transport and some udev rules are required.  For details see the pyedbglib package: https://pypi.org/project/pyedbglib
+
+# Changelog
+## []
+## [3.19] - June 2025
+
+### Added
+- DSG-1356 API: Implement context management to automatically close session and disconnect tool when Backend object goes out of scope (`with Backend(...) as ...` block)
+- DSG-7379 add support for SAMD21 XPRO
+- DSG-7449 add support for boot-row on AVR EB
+- DSG-7492 add support for dsPIC33AK512MPS506
+
+### Changed
+- DSG-7226 CLI: Accept hex number (0x prefix) in read/write size specifications
+- DSG-7185 Add note in pymcuprog documentation that packpath argument should not end with a (back)slash
+
+### Fixed
+- DSG-6407 pymcuprog fails on reads that are not aligned with USB chunk size (512 bytes)
+- DSG-7438 pymcuprog re-uses common files from previous DSS when starting session for a different device
+- DSG-7448 Exclude build folder from pymcuprog
+- DSG-7469 Chip-erase-locked-device is not passed through early enough to be used
+- DSG-7668 Incorrect SRAM start address in pymcuprog for AVR32SD32
+
+## [3.17] - March 2024
+
+### Added
+- DSG-7091 Add CLI command to convert hex file to UF2
+
+### Changed
+- DSG-6630 Improve presentation of memory data on console
+
+### Fixed
+- DSG-6636 UPDI devices tinyAVR(R)/megaAVR(R) overwrites preceding bytes when writing single values to user row
+- DSG-7110 Programming failure of AVR64DU32 target with pymcuprog
+- DSG-7223 Serial UPDI uses Flash page buffer erase for EEPROM on AVR EA and EB
+- DSG-7224 Serial UPDI does not support writing complete user row in one operation for AVR DU
+
+## [3.16] - November 2023
+
+### Added
+- DSG-6057 Added support for BOOT_ROW memtype
+- DSG-6631 Added serialupdi support for P:4 and P:5
+- DSG-6213 Added AVR EB
+
+### Changed
+- DSG-5887 Refactor serialupdi NVM variants
+- DSG-6210 Made serialupdi logging more concise
+- DSG-6533 Help tweaks
+
+### Fixed
+- DSG-5817 Improved error handling with SAM devices
+- DSG-6409 Error return code when --verify fails
+- DSG-6590 Corrected AVR Ex to use 24-bit addressing for serialupdi
+
+## [3.14] - October 2022
+
+### Added
+- DSG-5158 github-28 Added CLI switch for serial port read timeout
+- DSG-5421 Added support for AVR DU and additional AVR DD devices
+
+### Changed
+- DSG-5418 Added Python 3.10 metadata tag
+- DSG-5543 Removed Python 3.6 metadata tag
+- DSG-5417 Removed distutils usage
+
+### Fixed
+- DSG-5157 github-29 Fixed return value on error
+- DSG-4836 Corrected flash offset compensation for avrdebugger
+
+## [3.13] - May 2022
+
+### Added
+- DSG-3936 Fixed AVR ISP implementation and added commands (beta)
+- DSG-4172 github-10 Disable ACK response signature on serialUPDI block write (speed-up)
+- DSG-3951 github-8 Added --erase argument to erase device before write with single execution
+- DSG-3972 CLI help additions
+- DSG-3997 Added debugwire_disable() to Avr8Protocol
+
+### Fixed
+- DSG-3945, DSG-3938 Unable to write fuse byte 0 on Curiosity Nano ATtiny kits
+- DSG-4488 github-19 Return bytearray (not list) from serialUPDI read
+- DSG-4594 SAMD21 performance improvement (SAM-IoT provisioning)
+- DSG-4540 Fixed SAMD21 non-word-oriented read failure
+- DSG-3941 Improved feedback on verification failure
+- DSG-3944 Removed timeout warning for serialUPDI with a locked device
+- DSG-4419 Corrected AVR high voltage UPDI device data
+- DSG-3993 github-9 Corrected AVR signature sizes to make additional data available
+
+## [3.10] - October 2021
+
+### Added
+- DSG-2702 Add serialupdi backend for AVR EA
+- DSG-3633 github-3 Add missing AVR-DB devices
+- DSG-3635 github-4 Add missing ATtiny devices
+- DSG-3662 Add ascii-art for serialUPDI
+- DSG-3804 Add py39 metadata to package
+- DSG-3943 github-7 Add CLI documentation
+
+### Fixed
+- DSG-2859 github-1 serialUPDI write user_row on locked device fails
+- DSG-3538 github-2 Unable to write fuses on ATmega4809 using serialUPDI
+- DSG-3817 SAM D21 user row programming fails
+- DSG-3952 Incorrect size of FUSES on Dx, Ex devices
+
+## [3.9] - April 2021
+
+### Added
+- DSG-2920 Raise exception if device ID does not match
+- DSG-2918 SerialUPDI: error recovery if non-ascii characters are read in SIB
+- DSG-2861 Valid memory types are listed if an invalid one is specified
+
+### Fixed
+- DSG-3238 PIC16 eeprom displays incorrect address
+- DSG-3239 PIC16 eeprom verification does not work
+- DSG-2925 UPDI device revision not correctly parsed/displayed
+- DSG-2860 SerialUPDI: chip erase does not work on locked device
+- DSG-2857 SerialUPDI: crash when writing lockbits
+- DSG-2855 Verify action fails if hex file contains eeprom content
+- DSG-2854 User row excluded when reading to hex file
+- DSG-2850 UPDI device model fix (sram)
+
+### Changed
+- DSG-2862 Improved exception handling
+- DSG-3203 Improved exception handling
+- DSG-3178 Cosmetic changes for publication
+
+## [3.7.4] - December 2020
+
+### Added
+- DSG-1492 Added verify function
+- DSG-2039 Added all UPDI devices
+- DSG-2279 Added error codes
+- DSG-1550 Flash-only erase
+
+### Fixed
+- DSG-2470 No feedback when multiple kits are connected
+- DSG-2014 Error when reading using -m and -o but no -b
+- DSG-2738 Padding to page size when writing user row on locked device
+
+### Changed
+- DSG-2234 Logging using logging module
+- DSG-2034 prevent read using -b with no -m specified
+- DSG-2009 prevent writing from hexfile with memory type specified
+- DSG-2012 prevent writing from hexfile with offset specified
+- DSG-2458 documentation changes
+- DSG-2041 documentation changes
+- DSG-2042 documentation changes
+- DSG-2043 documentation changes
+- DSG-2011 documentation changes
+
+## [3.1.3] - June 2020
+- First public release to PyPi
