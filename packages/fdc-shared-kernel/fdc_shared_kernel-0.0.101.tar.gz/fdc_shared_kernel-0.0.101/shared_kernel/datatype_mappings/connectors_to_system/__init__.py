@@ -1,0 +1,1 @@
+from shared_kernel.datatype_mappings.connectors_to_system.redshift import redshift_to_system
