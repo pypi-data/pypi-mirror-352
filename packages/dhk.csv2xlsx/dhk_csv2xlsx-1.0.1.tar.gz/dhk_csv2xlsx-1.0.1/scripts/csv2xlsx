@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+#   -*- coding: utf-8 -*-
+
+##############################################################################
+# copyrights and license
+#
+# Copyright (c) 2025 David Harris Kiesel
+#
+# Licensed under the MIT License. See LICENSE in the project root for license
+# information.
+##############################################################################
+
+import sys
+
+from dhk.csv2xlsx.cli import (
+    get_parser,
+    main,
+)
+
+
+if __name__ == '__main__':
+    args = get_parser().parse_args()
+
+    sys.exit(
+        main(args)
+    )
