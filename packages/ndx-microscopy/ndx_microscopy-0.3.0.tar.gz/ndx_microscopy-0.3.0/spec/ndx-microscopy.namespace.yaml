@@ -1,0 +1,33 @@
+namespaces:
+  - name: ndx-microscopy
+    doc: Microscopy extension to NWB standard.
+    author:
+      - Cody Baker
+      - Alessandra Trapani
+    contact:
+      - cody.baker@catalystneuro.com
+      - alessandra.trapani@catalystneuro.com
+    schema:
+      - namespace: core
+        neurodata_types:
+          - Device
+          - LabMetaData
+          - NWBContainer
+          - TimeSeries
+          - NWBDataInterface
+          - DynamicTable
+          - VectorData
+          - VectorIndex
+          - DynamicTableRegion
+      - namespace: ndx-ophys-devices
+        neurodata_types:
+          - DeviceModel
+          - DeviceInstance
+          - ExcitationSource
+          - Indicator
+          - OpticalFilter
+          - Photodetector
+          - DichroicMirror
+          - OpticalLens
+      - source: ndx-microscopy.extensions.yaml
+    version: 0.3.0

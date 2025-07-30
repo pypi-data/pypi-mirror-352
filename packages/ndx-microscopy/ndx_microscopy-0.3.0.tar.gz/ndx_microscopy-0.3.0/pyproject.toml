@@ -1,0 +1,107 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ndx-microscopy"
+version = "0.3.0"
+authors = [
+    { name="Alessandra Trapani", email="alessandra.trapani@catalystneuro.com" },
+    { name="Cody Baker", email="cody.baker@catalystneuro.com" },
+]
+description = "An NWB extension to demonstrate the TAB proposal for enhancements to optical physiology neurodata types."
+readme = "README.md"
+# requires-python = ">=3.8"
+license = {text = "BSD-3"}
+classifiers = [
+    "Programming Language :: Python :: 3.11",
+    # "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+]
+keywords = [
+    'NeurodataWithoutBorders',
+    'NWB',
+    'nwb-extension',
+    'ndx-extension',
+]
+dependencies = [
+    "pynwb>=2.8.0",
+    "hdmf>=3.14.1",
+    "ndx-ophys-devices==0.2.0"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/CatalystNeuro/ndx-microscopy"
+"Documentation" = "https://ndx-microscopy.readthedocs.io/"
+"Bug Tracker" = "https://github.com/CatalystNeuro/ndx-microscopy/issues"
+"Discussions" = "https://github.com/CatalystNeuro/ndx-microscopy/discussions"
+"Changelog" = "https://github.com/CatalystNeuro/ndx-microscopy/blob/main/CHANGELOG.md"
+
+# Include only the source code under `src/pynwb/ndx_microscopy` and the spec files under `spec`
+# in the wheel.
+[tool.hatch.build.targets.wheel]
+packages = [
+    "src/pynwb/ndx_microscopy",
+    "spec"
+]
+
+# Rewrite the path to the `spec` directory to `ndx_microscopy/spec`.
+# `ndx_microscopy/__init__.py` will look there first for the spec files.
+# The resulting directory structure within the wheel will be:
+# ndx_microscopy/
+# ├── __init__.py
+# ├── spec
+# └── widgets
+[tool.hatch.build.targets.wheel.sources]
+"spec" = "ndx_microscopy/spec"
+
+# The source distribution includes everything in the package except for the `src/matnwb` directory and
+# git and github-related files.
+[tool.hatch.build.targets.sdist]
+exclude = [
+    ".git*",
+    "src/matnwb",
+]
+
+[tool.pytest.ini_options]
+# uncomment below to run pytest always with code coverage reporting. NOTE: breakpoints may not work
+# addopts = "--cov --cov-report html"
+
+[tool.codespell]
+skip = "htmlcov,.git,.mypy_cache,.pytest_cache,.coverage,*.pdf,*.svg,venvs,.tox,hdmf-common-schema,./docs/_build/*,*.ipynb"
+
+[tool.coverage.run]
+branch = true
+source = ["ndx_microscopy"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "@abstract"
+]
+
+[tool.black]
+line-length = 120
+preview = true
+exclude = ".git|.mypy_cache|.tox|.venv|venv|.ipynb_checkpoints|_build/|dist/|__pypackages__|.ipynb|docs/"
+
+[tool.ruff]
+lint.select = ["E", "F", "T100", "T201", "T203"]
+exclude = [
+  ".git",
+  ".tox",
+  "__pycache__",
+  "build/",
+  "dist/",
+  "docs/source/conf.py",
+]
+line-length = 120
+
+[tool.ruff.lint.per-file-ignores]
+"src/pynwb/ndx_microscopy/__init__.py" = ["E402", "F401"]
+"src/spec/create_extension_spec.py" = ["T201"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 17
