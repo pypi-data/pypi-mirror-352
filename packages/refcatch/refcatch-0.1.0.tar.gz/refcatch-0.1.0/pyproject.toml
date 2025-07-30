@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "refcatch"
+version = "0.1.0"
+description = "A package for processing academic references from plaintext files"
+readme = "README.md"
+authors = [
+    {name = "Mohammad Ahsan Khodami", email = "ahsan.khodami@gmail.com"}
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Text Processing :: Markup :: Markdown",
+    "Topic :: Utilities",
+]
+keywords = ["references", "doi", "academic", "bibliography", "citation"]
+dependencies = [
+    "requests>=2.25.0",
+]
+requires-python = ">=3.6"
+
+[project.urls]
+"Homepage" = "https://github.com/AhsanKhodami/refcatch"
+"Bug Tracker" = "https://github.com/AhsanKhodami/refcatch/issues"
+
+[project.scripts]
+refcatch = "refcatch.cli:main"
+
+[tool.setuptools]
+packages = ["refcatch"]

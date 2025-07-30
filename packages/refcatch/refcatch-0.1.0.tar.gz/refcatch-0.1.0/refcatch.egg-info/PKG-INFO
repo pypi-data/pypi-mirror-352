@@ -1,0 +1,136 @@
+Metadata-Version: 2.1
+Name: refcatch
+Version: 0.1.0
+Summary: A package for processing academic references from plaintext files
+Home-page: https://github.com/AhsanKhodami/refcatch
+Author: Mohammad Ahsan Khodami
+Author-email: Mohammad Ahsan Khodami <ahsan.khodami@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2025 Mohammad Ahsan Khodami
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/AhsanKhodami/refcatch
+Project-URL: Bug Tracker, https://github.com/AhsanKhodami/refcatch/issues
+Keywords: references,doi,academic,bibliography,citation
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Text Processing :: Markup :: Markdown
+Classifier: Topic :: Utilities
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests>=2.25.0
+
+# RefCatch
+
+A Python package for processing academic references from plaintext files. RefCatch extracts references from text files (markdown, txt, etc.), attempts to find their DOIs using the CrossRef API, and outputs the results.
+
+## Installation
+
+```bash
+pip install refcatch
+```
+
+Or install directly from the repository:
+
+```bash
+git clone https://github.com/AhsanKhodami/refcatch.git
+cd refcatch
+pip install -e .
+```
+
+## Publishing to PyPI
+
+To publish RefCatch to PyPI:
+
+```bash
+# Install build and twine
+pip install build twine
+
+# Build the package
+python -m build
+
+# Upload to PyPI (use --repository-url https://test.pypi.org/legacy/ for TestPyPI)
+python -m twine upload dist/*
+```
+
+## Usage
+
+### As a Python Package
+
+```python
+from refcatch import refcatch
+
+# Basic usage
+refcatch("path/to/references.md", "path/to/output.md")
+
+# With all options
+refcatch(
+    input_file="path/to/references.md", 
+    output_file="path/to/output.md",
+    doi_file="path/to/dois.txt",  # Optional, will be auto-generated if not provided
+    log=True  # Set to False to disable logging
+)
+```
+
+### Command Line Interface
+
+```bash
+# Basic usage
+refcatch references.md
+
+# Specify output file
+refcatch references.md -o output.md
+
+# Specify DOI file and run silently
+refcatch references.md -o output.md -d dois.txt --silent
+```
+
+## Example
+
+Input file (references.md):
+```
+1.	Wong WL, Su X, Li X, et al. Global prevalence of age-related macular degeneration and disease burden projection for 2020 and 2040: a systematic review and meta-analysis. Lancet Glob Health. 2014;2(2):e106-116.
+2.	Flaxman SR, Bourne RRA, Resnikoff S, et al. Global causes of blindness and distance vision impairment 1990-2020: a systematic review and meta-analysis. Lancet Glob Health. 2017;5(12):e1221-e1234.
+```
+
+Output file:
+```
+1.	Wong WL, Su X, Li X, et al. Global prevalence of age-related macular degeneration and disease burden projection for 2020 and 2040: a systematic review and meta-analysis. Lancet Glob Health. 2014;2(2):e106-116.
+    DOI: 10.1016/S2214-109X(13)70145-1
+2.	Flaxman SR, Bourne RRA, Resnikoff S, et al. Global causes of blindness and distance vision impairment 1990-2020: a systematic review and meta-analysis. Lancet Glob Health. 2017;5(12):e1221-e1234.
+    DOI: 10.1016/S2214-109X(17)30393-5
+```
+
+## Features
+
+- Extracts references from plaintext files
+- Makes multiple attempts to find DOIs with different search strategies
+- Outputs references with their DOIs
+- Saves DOIs to a separate file
+- Optional logging of the process
+- Simple command-line interface
+
+## License
+
+MIT
