@@ -1,0 +1,10 @@
+name: validate_document
+description: Validate if document is a valid MECP2 mutation report
+input:
+  document_text: The document text to validate
+  regex_context: Context from regex-based validation
+  language: The document language
+execution_settings:
+  default:
+    temperature: 0.1
+    max_tokens: 50
