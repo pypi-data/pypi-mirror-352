@@ -1,0 +1,100 @@
+# OGP Information Server
+
+A Model Context Protocol (MCP) server for extracting Open Graph Protocol (OGP) information from web pages. This server provides OGP metadata commonly used for social media sharing previews and rich link displays.
+
+## Overview
+
+Open Graph Protocol is a standard that allows web pages to control how their content appears when shared on social media platforms like Facebook, Twitter, and LinkedIn. This MCP server extracts that structured metadata and makes it available through simple tool interfaces.
+
+## Tools
+
+### ogp-info
+
+Extracts comprehensive OGP information from any web page URL.
+
+**Parameters:**
+
+- `url` (string, required): The target web page URL
+
+**Returns:**
+
+Dictionary containing extracted OGP metadata such as:
+
+- `title`: Page title
+- `description`: Page description
+- `image`: OGP image URL
+- `site_name`: Site name
+- `type`: Content type
+- `url`: Canonical page URL
+- Additional OGP properties as available
+
+### ogp-image
+
+Retrieves the OGP image from a web page and returns it as Base64-encoded data.
+
+**Parameters:**
+
+- `url` (string, required): The target web page URL
+
+**Returns:**
+
+Base64-encoded image data in data URL format (e.g., "data:image/jpeg;base64,...")
+Returns `null` if no image is found or an error occurs.
+
+## Installation
+
+### Using `uv` (Recommended)
+
+No special installation is required when using `uv`. You can run `mcp-server-ogp` directly using `uvx`.
+
+### Using PIP
+
+Alternatively, you can install `mcp-server-ogp` using pip:
+
+```sh
+pip install mcp-server-ogp
+```
+
+After installation, you can run the script as follows:
+
+```sh
+mcp-server-ogp
+```
+
+## Configuration
+
+### Configure for Claude.app
+
+Add to your Claude settings:
+
+<details>
+<summary>Using uvx</summary>
+
+```json
+{
+  "mcpServers": {
+    "ogp": {
+      "command": "uvx",
+      "args": ["mcp-server-ogp"]
+    }
+  }
+}
+```
+
+</details>
+
+### Configure for VS Code
+
+For quick installation, use one of the one-click install buttons below...
+
+[![Install with UV in VS Code](https://img.shields.io/badge/VS_Code-UV-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=ogp&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22ogp%22%5D%7D)
+
+### Command Line Options
+
+You can specify the following options when running the server:
+
+- `--sse`: Enable Server-Sent Events transport (on/off)
+- `--host`: Server bind address (default: localhost)
+- `--port`: Server port number (default: 8000)
+- `--log-level`: Logging verbosity (debug, info, warning, error)
+- `--sse`: Enable Server-Sent Events transport (on/off)

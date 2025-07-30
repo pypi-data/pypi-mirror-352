@@ -1,0 +1,32 @@
+[project]
+name = "mcp-server-ogp"
+version = "0.1.0"
+description = "OGP (Open Graph Protocol) information extraction server for Model Context Protocol (MCP)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "yareyaredesuyo", email = "yareyaredesuyo@gmail.com" }]
+keywords = ["mcp", "llm", "model-context-protocol", "ogp", "open-graph", "web-scraping"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+]
+dependencies = [
+    "argparse>=1.4.0", 
+    "fastmcp>=2.5.2",
+    "httpx>=0.27.0",
+    "beautifulsoup4>=4.12.0",
+    "pillow>=10.0.0"
+]
+
+[project.scripts]
+mcp-server-ogp = "mcp_server_ogp:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
