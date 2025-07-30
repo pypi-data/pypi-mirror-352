@@ -1,0 +1,43 @@
+[build-system]
+
+requires = [
+    "setuptools>=79",
+    "wheel"
+    ]
+build-backend = "setuptools.build_meta"
+
+[project]
+
+name = "leica_scripts"
+version = "0.0.1"
+description = "Leica Scripts"
+readme = "README.md"
+authors = [
+    {name = "RA Hoebe"},
+]
+license = "GPL-3.0-or-later"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = "==3.12"   # To get importlib.metadata working correctly
+dependencies = [
+    "cellpose==3.1.1.2",    # Last version before Cellpose-SAM
+    "numpy>=2.0.2",
+    "pyshortcuts>=1.9.5",
+    "PyQt6>=6.9.0",
+    "lxml>=5.4.0",
+    "pyqtgraph>=0.13.7",
+    "superqt>=0.7.3",
+    "scikit-image>=0.25.2",
+    "pandas>=2.2.3"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Cellular-Imaging-Amsterdam-UMC"
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
