@@ -1,0 +1,18 @@
+{% load dynforms %}
+{% load icons %}
+<h5 class="pt-0">Please fix the following issues before submitting:</h5>
+<ul class="list-unstyled">
+{% if form.errors %}
+    {% for error in form.errors.values %}
+    {{ error }}
+    {% endfor %}
+{% endif %}
+{% for name, error in errors.items %}
+    <li>
+        <a href="#{{ name }}-group" title="Go to field">
+            {% svg_icon "arrow-circle-right" %}
+        </a>
+        {{ error|safe }}{% if not forloop.last %} &middot; {% endif %}
+    </li>
+{% endfor %}
+</ul>
