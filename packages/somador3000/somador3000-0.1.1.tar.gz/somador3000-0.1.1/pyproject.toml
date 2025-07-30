@@ -1,0 +1,20 @@
+[project]
+authors = [
+  {name = "Gustavo Rizzo S M de Albuquerque", email = "grizzo.albu@gmail.com"},
+]
+dependencies = ["click (>=8.2.1,<9.0.0)"]
+description = "Soma 3000 ao número passado como argumento"
+name = "somador3000"
+readme = "README.md"
+requires-python = ">=3.13"
+version = "0.1.1"
+
+[project.scripts]
+somador3000 = "somador3000.cli:main"
+
+[tool.poetry]
+packages = [{include = "somador3000", from = "src"}]
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=2.0.0,<3.0.0"]
