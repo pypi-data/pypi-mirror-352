@@ -1,0 +1,94 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pg-bulk-ingest"
+version = "0.0.57"
+authors = [
+  { name="Department for Business and Trade", email="sre@digital.trade.gov.uk" },
+]
+description = "A collection of Python utility functions for ingesting data into SQLAlchemy-defined PostgreSQL tables, automatically migrating them as needed, and minimising locking"
+readme = "README.md"
+requires-python = ">=3.7.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "sqlalchemy>=1.4.24",
+    "pg-force-execute>=0.0.10",
+    "to-file-like-obj>=0.0.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    # To run tests
+    "pytest",
+    "pytest-cov",
+    "coverage",
+    # Used directly in tests
+    "psycopg>=3.1.4",
+    "psycopg2>=2.9.2",
+    "pgvector>=0.1.8",
+    # To run type checking
+    "mypy<1.16.0",
+]
+ci = [
+    "to-file-like-obj==0.0.5",
+    "pg-force-execute==0.0.10",
+    "psycopg2==2.9.2;python_version<'3.13'",
+    "psycopg2==2.9.10;python_version>='3.13'",
+]
+ci-sqlalchemy1-without-pg-arrow = [
+    "sqlalchemy==1.4.24",
+]
+ci-sqlalchemy1-with-pg-arrow = [
+    "sqlalchemy==1.4.24",
+    "psycopg==3.2.0",
+    "pgarrow==0.0.7",
+    "adbc-driver-postgresql==1.6.0",
+    "pyarrow==18.0.0",
+    "numpy==1.26.2",
+    "polars==1.0.0",
+    "pandas==2.0.0;python_version<'3.13'",
+    "pandas==2.2.3;python_version>='3.13'",
+]
+ci-sqlalchemy2-without-pg-arrow = [
+    "sqlalchemy==2.0.0;python_version<'3.13'",
+    "sqlalchemy==2.0.31;python_version>='3.13'",
+]
+ci-sqlalchemy2-with-pg-arrow = [
+    "sqlalchemy==2.0.7;python_version<'3.13'",
+    "sqlalchemy==2.0.41;python_version>='3.13'",
+    "pgarrow==0.0.7",
+    "adbc-driver-postgresql==1.6.0",
+    "pyarrow==18.0.0",
+    "numpy==1.26.2",
+    "polars==1.0.0",
+    "pandas==2.0.0;python_version<'3.13'",
+    "pandas==2.2.3;python_version>='3.13'",
+]
+
+[project.urls]
+"Source" = "https://github.com/uktrade/pg-bulk-ingest"
+
+[tool.hatch.build]
+include = [
+  "pg_bulk_ingest"
+]
+
+[tool.hatch.envs.dev]
+dependencies = [
+    "psycopg>=3.1.4",
+    "psycopg2>=2.9.2",
+    "pytest>=7.2.1",
+    # Type checking
+    "mypy <1.5",
+    "pytest",
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+
