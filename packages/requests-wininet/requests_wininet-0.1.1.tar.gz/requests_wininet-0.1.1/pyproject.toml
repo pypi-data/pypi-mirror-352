@@ -1,0 +1,31 @@
+[project]
+name = "requests-wininet"
+version = "0.1.1"
+description = "Implements Window's WinINet API for python requests"
+authors = [
+    {name = "Curtis Ruck",email = "ruckc@users.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "requests (>=2.32.3,<3.0.0)"
+]
+license = { text = "Apache-2.0" }
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.0"
+ruff = "^0.11.12"
+coverage = "^7.8.2"
+
+
+[tool.ruff]
+line-length = 128
+indent-width = 4
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "C", "Q", "I"]
+ignore = ["W293"]
