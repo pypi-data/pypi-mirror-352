@@ -1,0 +1,100 @@
+Metadata-Version: 2.4
+Name: pigweed
+Version: 0.0.23
+Summary: Pigweed Python modules
+Home-page: https://pigweed.dev
+Author: Pigweed Authors
+Author-email: pigweed-developers@googlegroups.com
+Project-URL: Documentation, https://pigweed.dev
+Project-URL: Source Code, https://cs.pigweed.dev/pigweed
+Project-URL: Code Reviews, https://pigweed-review.googlesource.com
+Project-URL: Mailing List, https://groups.google.com/g/pigweed
+Project-URL: Issue Tracker, https://issues.pigweed.dev/issues?q=status:open
+Project-URL: Chat, https://discord.gg/M9NSeTA
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Embedded Systems
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiohttp
+Requires-Dist: beautifulsoup4
+Requires-Dist: black>=23.1.0
+Requires-Dist: build>=0.8.0
+Requires-Dist: coloredlogs
+Requires-Dist: coverage
+Requires-Dist: cryptography
+Requires-Dist: debugpy<2.0,>=1.8.5
+Requires-Dist: google-cloud-storage
+Requires-Dist: googleapis-common-protos>=1.65.0
+Requires-Dist: graphlib-backport; python_version < "3.9"
+Requires-Dist: jinja2
+Requires-Dist: json5>=0.9.10
+Requires-Dist: jsonschema
+Requires-Dist: kconfiglib
+Requires-Dist: mypy-protobuf<3.6.0,>=3.5.0
+Requires-Dist: mypy>=0.971
+Requires-Dist: parameterized
+Requires-Dist: patch>=1.16
+Requires-Dist: pip-tools>=6.12.3
+Requires-Dist: prompt-toolkit
+Requires-Dist: prompt-toolkit>=3.0.34
+Requires-Dist: prompt_toolkit
+Requires-Dist: protobuf
+Requires-Dist: protobuf~=5.28.2
+Requires-Dist: psutil
+Requires-Dist: ptpython>=3.0.25
+Requires-Dist: pyelftools
+Requires-Dist: pyfakefs
+Requires-Dist: pygments
+Requires-Dist: pykwalify>=1.8.0
+Requires-Dist: pylint>=2.9.3
+Requires-Dist: pyperclip
+Requires-Dist: pyserial
+Requires-Dist: pyserial<4.0,>=3.5
+Requires-Dist: pyserial~=3.5.0
+Requires-Dist: python-daemon
+Requires-Dist: pytz
+Requires-Dist: pyyaml
+Requires-Dist: requests
+Requires-Dist: setuptools
+Requires-Dist: setuptools
+Requires-Dist: six
+Requires-Dist: sphinx-argparse
+Requires-Dist: sphinx-design>=0.3.0
+Requires-Dist: sphinx>=5.3.0
+Requires-Dist: sphinxcontrib-mermaid>=0.7.1
+Requires-Dist: toml
+Requires-Dist: types-protobuf<6.0.0,>=5.28.3.20241030
+Requires-Dist: types-pygments
+Requires-Dist: types-pyserial<4.0,>=3.5
+Requires-Dist: types-pyyaml
+Requires-Dist: types-requests
+Requires-Dist: types-setuptools
+Requires-Dist: types-six
+Requires-Dist: watchdog>=2.1.0
+Requires-Dist: websockets
+Requires-Dist: wheel
+Requires-Dist: yapf>=0.31.0
+Dynamic: license-file
+
+# Pigweed
+
+Pigweed is an open source collection of embedded-targeted libraries–or as we
+like to call them, modules. These modules are building blocks and infrastructure
+that enable faster and more reliable development on small-footprint MMU-less
+32-bit microcontrollers like the STMicroelectronics STM32L452 or the Nordic
+nRF52832.
+
+For more information please see our website: https://pigweed.dev/.
+
+## Links
+
+- [Documentation](https://pigweed.dev/)
+- [Source Code](https://cs.pigweed.dev/pigweed)
+- [Code Reviews](https://pwrev.dev/)
+- [Mailing List](https://groups.google.com/forum/#!forum/pigweed)
+- [Chat Room](https://discord.gg/M9NSeTA)
+- [Issue Tracker](https://pwbug.dev/)
+
