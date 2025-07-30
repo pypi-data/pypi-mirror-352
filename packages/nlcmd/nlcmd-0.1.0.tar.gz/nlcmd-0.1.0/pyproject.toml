@@ -1,0 +1,39 @@
+# pyproject.toml
+
+[tool.poetry]
+name = "nlcmd"
+version = "0.1.0"
+description = "Offline Natural Language Command Runner"
+authors = ["Supreme_dev"] 
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/Supremedev7/NLC--Natural-language-command"
+repository = "https://github.com/Supremedev7/NLC--Natural-language-command"  
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.15" # Your Python 3.13.2 is compatible
+rapidfuzz = "^3.9.3"   # Version from your lock file might be more specific
+typer = {extras = ["all"], version = "^0.12.3"} # Version from your lock file
+PyYAML = "^6.0.1"      # Version from your lock file
+# Optionally enable spaCy for lemmatization:
+spacy = { version = "^3.7.5", optional = true } # Version from your lock file
+
+[tool.poetry.extras]
+nlp = ["spacy"] # en-core-web-sm is a model, installed separately via spacy download
+
+# Add this section for your command-line script
+[tool.poetry.scripts]
+nlc = "nlcmd.cli:main_app"  # This will create the 'nlc' command
+# If you prefer 'nlcmd' as the command, use:
+# nlcmd = "nlcmd.cli:main_app"
+
+[tool.poetry.group.dev.dependencies] # Changed from [tool.poetry.dev-dependencies] for newer Poetry
+pytest = "^8.2.2"    # Version from your lock file
+pytest-cov = "^5.0.0" # Version from your lock file
+flake8 = "^7.1.0"    # Version from your lock file
+mypy = "^1.10.1"     # Version from your lock file
+pytest-mock = "^3.14.0" # From previous discussion, add if not already there
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
