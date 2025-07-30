@@ -1,0 +1,75 @@
+Metadata-Version: 2.4
+Name: cleano
+Version: 0.1.0
+Summary: A Python package for data cleaning and preprocessing.
+Home-page: 
+Author: Shantanu Pandya
+Author-email: programmerdevelops@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: pandas>=1.3.0
+Requires-Dist: scikit-learn>=0.24.0
+Requires-Dist: matplotlib>=3.4.0
+Requires-Dist: seaborn>=0.11.0
+Requires-Dist: scipy>=1.7.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Cleano
+
+Cleano is a Python package designed to simplify the process of data cleaning and preprocessing. It provides a set of tools that help users efficiently clean, transform, and prepare their data for analysis.
+
+## Features
+
+- **Data Cleaning**: Remove duplicates, fill missing values, and perform various cleaning operations with ease.
+- **Data Preprocessing**: Normalize data, encode categorical variables, and prepare data for machine learning models.
+- **Utility Functions**: Access helper functions for data validation and logging.
+
+## Installation
+
+To install the cleano package, you can use pip:
+
+```
+pip install cleano
+```
+
+## Usage
+
+Here is a simple example of how to use the cleano package:
+
+```python
+from cleano.cleaning import DataCleaner
+from cleano.preprocessing import DataPreprocessor
+
+# Create a cleano instance
+cleaner = cleano()
+
+# Clean your data
+cleaned_data = cleaner.remove_dup(data)
+cleaned_data = cleaner.fill_missing_val(cleaned_data)
+
+# Create a DataPreprocessor instance
+preprocessor = DataPreprocessor()
+
+# Preprocess your data
+normalized_data = preprocessor.normalize_data(cleaned_data)
+```
+
+## Contributing
+
+Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
