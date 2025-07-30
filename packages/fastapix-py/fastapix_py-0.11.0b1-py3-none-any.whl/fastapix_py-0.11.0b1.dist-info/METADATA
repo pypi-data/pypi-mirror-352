@@ -1,0 +1,145 @@
+Metadata-Version: 2.1
+Name: fastapix-py
+Version: 0.11.0b1
+Summary: A FastAPI plugin that quickly builds CRUD-API based on SQLAlchemy
+Project-URL: Homepage, https://gitcode.com/zhangzhanqi/fastapix
+Project-URL: Repository, https://gitcode.com/zhangzhanqi/fastapix
+Project-URL: Source, https://gitcode.com/zhangzhanqi/fastapix
+Author-email: zhangzhanqi <zzq120203@163.com>
+License-Expression: Apache-2.0
+License-File: LICENSE
+Requires-Python: >=3.7
+Requires-Dist: fastapi
+Requires-Dist: loguru
+Requires-Dist: pydantic[email]
+Requires-Dist: sqlmodel>=0.0.14
+Requires-Dist: uvicorn[standard]
+Description-Content-Type: text/markdown
+
+<span style="text-align: center; display: block;">
+  <a href="https://gitcode.com/zhangzhanqi/fastapix"><img src="https://raw.gitcode.com/zhangzhanqi/fastapix/files/master/images/logo.png" alt="img_1" height=100px></a>
+<br>
+<span style="font-size: x-large; font-weight: bold">FastAPIX</span>
+ 
+[![PyPI](https://img.shields.io/pypi/v/fastapix-py)](https://pypi.org/project/fastapix-py)
+[![Python](https://img.shields.io/badge/python->=3.7-green.svg)](https://gitcode.com/zhangzhanqi/fastapix)
+[![Platform](https://img.shields.io/badge/platform-windows%20|%20linux%20|%20macos-green.svg)](https://gitcode.com/zhangzhanqi/fastapix)
+[![License](https://img.shields.io/pypi/l/fastapix-py.svg)](https://gitcode.com/zhangzhanqi/fastapix/blob/master/LICENSE)
+
+<em>FastAPIX 为 FastAPI 提供的基于 SQLAlchemy ORM 快速构建数据库操作的插件.</em>
+ 
+</span>
+  
+> V1.0 后，将去除对pydantic v1的兼容
+
+## 安装
+```shell
+pip3 install fastapix-py
+```
+
+## fastapi
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+```
+
+## 离线挂载 openapi
+```python
+from fastapix import offline
+
+offline.register_offline_openapi(app)
+```
+
+## 修改异常返回结果
+```python
+from fastapix import handlers
+
+handlers.register_exception_handlers(app)
+```
+
+## ORM模型
+
+```python
+from uuid import UUID, uuid4
+from datetime import datetime
+from typing import Annotated
+
+from pydantic.functional_serializers import PlainSerializer
+from fastapix.crud import SQLModel, Field
+from fastapix.pkg.serializer import convert_datetime_to_chinese
+
+# 自定义类型序列化函数  pydantic V2+
+# from fastapix.crud.mixins import CreateTimeMixin 默认以采用 `DATETIME` 序列化
+# pydantic V2+
+DATETIME = Annotated[datetime, PlainSerializer(convert_datetime_to_chinese)]
+
+
+# 继承 SQLModel
+class Category1(SQLModel, table=True):
+    """
+    测试
+    """
+    id: UUID = Field(default_factory=uuid4, primary_key=True, nullable=False, create=False, update=False)
+    name: str = Field(..., title='名称', max_length=100, index=True, nullable=False, unique=True, update=False)
+
+    create_time: DATETIME = Field(default_factory=datetime.now, title="Create Time", create=False, update=False)
+
+
+class Category2(SQLModel, table=True):
+    """
+    测试
+    """
+    id: UUID = Field(default_factory=uuid4, primary_key=True, nullable=False, create=False, update=False)
+    name: str = Field(..., title='名称', max_length=100, index=True, nullable=False, unique=True, update=False)
+
+    create_time: DATETIME = Field(default_factory=datetime.now, title="Create Time", create=False, update=False)
+    category1_id: UUID = Field(..., title='关联Category1主键', foreign_key=Category1.id)
+# 
+```
+> `DATETIME` `TIMESTAMP` 已内置于 `fastapix.crud.mixins`, 如需其他自定义序列化方式，根据 pydantic 版本，采用不同方式定义
+
+## 创建连接
+### AsyncDatabase
+```python
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
+
+database_url = 'sqlite+aiosqlite:///test.db'
+engine: AsyncEngine = create_async_engine(database_url)
+```
+
+### Database
+```python
+from sqlalchemy.engine import create_engine, Engine
+
+database_url = 'sqlite+aiosqlite:///test.db'
+engine: Engine = create_engine(database_url)
+```
+## 注册
+```python
+from fastapix.crud import SQLAlchemyCrud, EngineDatabase, DBSessionMiddleware
+
+database = EngineDatabase(engine)
+# 挂载中间件
+app.add_middleware(database.asgi_middleware)
+# or 
+app.add_middleware(DBSessionMiddleware, db=database)
+
+cate_router = SQLAlchemyCrud(Category, database).router_manager()
+
+# 挂载路由
+app.include_router(cate_router.create_object_router())
+app.include_router(cate_router.read_object_router())
+app.include_router(cate_router.update_object_router())
+app.include_router(cate_router.delete_object_router())
+```
+
+## OpenAPI Docs
+<p align="center">
+  <a href="https://gitcode.com/zhangzhanqi/fastapix/blob/master/images/img_1.png"><img src="https://raw.gitcode.com/zhangzhanqi/fastapix/files/master/images/img_1.png" alt="img_1"></a>
+</p>
+## 查询条件
+<p align="center">
+  <a href="https://gitcode.com/zhangzhanqi/fastapix/blob/master/images/img_2.png"><img src="https://raw.gitcode.com/zhangzhanqi/fastapix/files/master/images/img_2.png" alt="img_2"></a>
+</p>
+
