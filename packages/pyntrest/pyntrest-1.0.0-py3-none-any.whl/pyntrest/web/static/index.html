@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pyntrest - Python Pinterest Image Search</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="navbar">
+            <div class="logo">
+                <span class="logo-text">Pyntrest</span>
+            </div>
+            <h1>Python Pinterest Image Search</h1>
+        </header>
+        
+        <div class="search-box">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Enter search term...">
+                <button class="search-btn" onclick="search()">
+                    <i class="fas fa-search"></i> Search
+                </button>
+                <button class="random-btn" onclick="getRandom()">
+                    <i class="fas fa-random"></i> Random
+                </button>
+            </div>
+        </div>
+
+        <div class="options">
+            <label for="numImages">Number of images:</label>
+            <select id="numImages">
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+
+        <div id="results" class="results-grid"></div>
+
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+        <div id="toast" class="toast"></div>
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="script.js"></script>
+</body>
+</html>
