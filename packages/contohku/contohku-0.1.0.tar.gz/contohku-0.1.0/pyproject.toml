@@ -1,0 +1,20 @@
+[project]
+name = "contohku"
+version = "0.1.0"
+description = "Contoh package Python buatan sendiri"
+authors = [
+    { name="Nama Kamu", email="email@example.com" }
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.7"
+
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
