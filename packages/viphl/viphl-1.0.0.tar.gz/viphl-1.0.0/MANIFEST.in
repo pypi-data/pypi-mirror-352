@@ -1,0 +1,22 @@
+include LICENSE
+include README.md
+include pyproject.toml
+include setup.py
+include setup.cfg
+
+# Include package __init__.py files
+recursive-include src *.py
+
+# Include the C++ source files generated from Cython
+recursive-include src *.cpp *.c
+
+# Include compiled extension modules
+recursive-include src *.so *.pyd
+
+# Exclude Cython source files to protect your source code
+recursive-exclude src *.pyx
+
+# Exclude build artifacts
+recursive-exclude build *
+recursive-exclude dist *
+recursive-exclude *.egg-info * 
