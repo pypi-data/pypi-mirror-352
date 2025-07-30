@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "fastapis"
+readme = {file = "README.md", content-type = "text/markdown"}
+version = "0.12"
+description = "Simple FastAPI/SQLAlchemy to super easy create (generic) routes, delcare db types and more."
+authors = [{ name = "Me", email = "non@yourbusiness.no" }]
+license = { text = "ISC" }
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Operating System :: POSIX",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+requires-python = ">=3.9"
+dependencies = [
+    "aiomysql==0.2.0",
+    "aiosqlite==0.21.0",
+    "annotated-types==0.7.0",
+    "anyio==4.9.0",
+    "asyncpg==0.30.0",
+    "click==8.2.1",
+    "colorama==0.4.6",
+    "fastapi==0.115.12",
+    "greenlet==3.2.2",
+    "h11==0.16.0",
+    "idna==3.10",
+    "itsdangerous==2.2.0",
+    "pydantic==2.11.5",
+    "pydantic_core==2.33.2",
+    "PyMySQL==1.1.1",
+    "python-multipart==0.0.20",
+    "PyYAML==6.0.2",
+    "sniffio==1.3.1",
+    "SQLAlchemy==2.0.41",
+    "starlette==0.46.2",
+    "typing-inspection==0.4.1",
+    "typing_extensions==4.13.2",
+    "uvicorn==0.34.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=23.1.0",
+    "twine>=4.0.0",
+    "build"
+]
+
+[project.urls]
+homepage = "https://www.github.com/ultrafunkamsterdam/fastapis"
+repository = "https://github.com/ultrafunkamsterdam/fastapis.git"
+documentation = "https://ultrafunkamsterdam.github.io/fastapis"
+issues = "https://github.com/ultrafunkamsterdam/fastapis/issues"
+
+
+[tool.setuptools]
+packages = ["fastapis"]
+[tool.setuptools.package-data]
+fastapis = ["*.md", "*.png"]
