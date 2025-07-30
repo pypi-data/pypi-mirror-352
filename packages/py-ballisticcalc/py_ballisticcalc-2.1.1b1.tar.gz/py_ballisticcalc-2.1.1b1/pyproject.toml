@@ -1,0 +1,91 @@
+# Copyright 2023 Dmytro Yaroshenko (https://github.com/o-murphy)
+# Copyright 2024 David Bookstaber (https://github.com/dbookstaber)
+
+[build-system]
+requires = ["setuptools", "wheel", "tomli; python_version<'3.11'"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "py_ballisticcalc"
+version = "2.1.1b1"
+
+authors = [
+    { name = "o-murphy", email = "thehelixpg@gmail.com" },
+    { name = "dbookstaber", email = "bookstaber@gmail.com" }
+]
+description = "LGPL library for small arms ballistic calculations (Python 3)"
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["py_ballisticcalc", "ballistics", "Cython", "ballistic calculator", "python", "python3"]
+license = { file = "LICENSE" }
+classifiers = [
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = [
+    "typing_extensions>= 4.12.2",
+    "tomli; python_version<'3.11'",
+    "pytest>=8.3.5",
+]
+
+[project.entry-points.py_ballisticcalc]
+engine = "py_ballisticcalc:TrajectoryCalc"
+
+[project.urls]
+"Homepage" = "https://github.com/o-murphy/py_ballisticcalc"
+"Bug Reports" = "https://github.com/o-murphy/py_ballisticcalc/issues"
+"Source" = "https://github.com/o-murphy/py_ballisticcalc"
+
+
+[tool.setuptools]
+py-modules = ["py_ballisticcalc"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["py_ballisticcalc*"]
+
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-rf"
+testpaths = ["tests"]
+
+
+[project.optional-dependencies]
+exts = ['py_ballisticcalc.exts==2.1.1b1']
+charts = ['matplotlib', 'pandas']
+visualize = ['matplotlib', 'pandas']
+dev = [
+    'jupyter',
+    'pandas-stubs',
+    'matplotlib-stubs',
+    'pytest>=8.3.5',
+    'pylint',
+    'mypy',
+    'pytest',
+    'pytest-xdist',
+    'pytest-cov',
+    'build',
+]
+docs = [
+    'mkdocs',
+    'mkdocs-exclude',
+    'mkdocs-material[imaging]',
+    'mkdocs-redirects',
+    'mkdocstrings-python',
+    'mkdocstrings',
+    'mkdocs-autorefs',
+    'mike',
+    'pydocstyle',
+]
