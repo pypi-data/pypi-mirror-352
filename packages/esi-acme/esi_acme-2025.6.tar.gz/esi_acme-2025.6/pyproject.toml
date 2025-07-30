@@ -1,0 +1,25 @@
+#
+# Copyright © 2025 Ernst Strüngmann Institute (ESI) for Neuroscience
+# in Cooperation with Max Planck Society
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+
+[build-system]
+requires = ["pyyaml", "setuptools", "toml", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[[tool.mypy.overrides]]
+module = [
+    "dask_jobqueue",
+    "h5py",
+    "psutil",
+    "scipy",
+    "tqdm",
+    "frontend",
+]
+ignore_missing_imports = true
+
+[tool.mypy]
+exclude = "(^|/)local_acme\\.py$"
+allow_redefinition = true
