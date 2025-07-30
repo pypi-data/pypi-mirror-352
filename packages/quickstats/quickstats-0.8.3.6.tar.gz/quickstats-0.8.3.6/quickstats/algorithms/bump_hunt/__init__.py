@@ -1,0 +1,1 @@
+from .bump_hunt_1d import BumpHunt1D
