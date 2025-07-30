@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "pyalphashape"
+version = "0.1.0"
+description = "A Python library for Alpha Shapes in Euclidean and Spherical Geometries."
+authors = ["Niklas M. Melton <niklasmelton@gmail.com>"]
+license = "MIT"
+homepage = "https://github.com/NiklasMelton/PyAlphaShape"
+repository = "https://github.com/NiklasMelton/PyAlphaShape"
+documentation = "https://github.com/NiklasMelton/PyAlphaShape"
+readme = "README.md"
+keywords = ["AlphaShape", "Alpha Shape", "Convex Hull", "Spherical", "Geometry"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Mathematics"
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0"
+numpy = ">=1.19.4"
+scipy = ">=1.5.4"
+matplotlib = ">=3.3.3"
+plotly = ">=5.0.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.2"
+pre-commit = "^4.0.0"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^6.2.1"
+sphinx-rtd-theme = "^1.0.0"
+sphinx-autoapi = ">=3.0.0"
+myst-parser = "^1.0"
+cffconvert = "^2.0.0"
+#sphinxcontrib-bibtex = "^2.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
