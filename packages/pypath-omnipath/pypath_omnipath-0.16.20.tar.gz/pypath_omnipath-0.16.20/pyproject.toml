@@ -1,0 +1,131 @@
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "pypath-omnipath"
+version = "0.16.20"
+description = "Molecular signaling prior knowledge processing"
+license = "GPL-3.0-only"
+authors = [
+    "Denes Turei <turei.denes@gmail.com>",
+    "Nicolàs Palacio",
+    "Sebastian Lobentanzer",
+    "Olga Ivanova",
+    "Melih Darcan",
+    "Erva Ulusoy",
+    "Tennur Kilic",
+    "Omer Kaan Vural",
+    "Ahmet Rifaioglu",
+    "Charles Tapley Hoyt"
+]
+packages = [
+    { include = "pypath" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Natural Language :: English",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Mathematics"
+]
+repository = "https://github.com/saezlab/pypath"
+homepage = "https://omnipathdb.org/"
+readme = "README.rst"
+keywords = [
+    "systems biology",
+    "molecular biology",
+    "omics",
+    "network",
+    "signaling"
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/saezlab/pypath/issues"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+beautifulsoup4 = "*"
+dill = "*"
+future = "*"
+glom = "*"
+lxml = "*"
+matplotlib = "*"
+numpy = "*"
+openpyxl = "*"
+pandas = "*"
+psutil = "*"
+pycurl = "*"
+pypath-common = ">=0.2.6"
+pyreadr = "*"
+PyYAML = "*"
+rdata = "*"
+requests = "*"
+scipy = ">=1.9.0"
+sqlparse = "*"
+tabulate = "*"
+timeloop = "*"
+toml = "*"
+tqdm = "*"
+xlrd = "*"
+# pybel = { version = "*", optional = true, extras = [] }
+# bio2bel = { version = "*", optional = true, extras = [] }
+# click = { version = "*", optional = true }
+python-igraph = { version = "*", optional = true }
+sparqlwrapper = { version = "*", optional = true }
+openbabel = { version = "*", optional = true }
+rdkit = { version = "*", optional = true }
+"epam.indigo" = { version = "*", optional = true }
+pysftp = "^0.2.9"
+typing_extensions = "*"
+tornado = ">=3.6.6"
+cryptography = ">=41.0.4"
+certifi = ">=2023.7.22"
+cffi = "^1.17.0"
+
+[tool.poetry.extras]
+# bel = [
+#     "pybel",
+#     "bio2bel",
+#     "click",
+# ]
+graph = [
+    "python-igraph",
+]
+pathophenodb = [
+    "sparqlwrapper",
+]
+metabo = [
+    "epam.indigo",
+    "openbabel",
+    "rdkit",
+]
+
+[tool.poetry.dev-dependencies]
+bump2version = "*"
+sphinx = ">=5.0.0"
+insipid-sphinx-theme = ">=0.3.6"
+sphinx-last-updated-by-git = ">=0.3"
+sphinx-autodoc-typehints = ">=1.18.0"
+sphinxcontrib-fulltoc = ">=1.2.0"
+sphinx_copybutton = "*"
+jupyterlab = "*"
+notebook = "6.4.12"
+pydata-sphinx-theme = "*"
+sphinx_remove_toctrees = "*"
+jupyter-contrib-nbextensions = { git = "https://github.com/deeenes/jupyter_contrib_nbextensions.git", branch = "master" }
+nbsphinx = { git = "https://github.com/deeenes/nbsphinx.git", branch = "timings" }
+jupyter-server = ">=2.7.2"
+traitlets = "5.9.0"
+
+[tool.poetry.scripts]
+bio2bel_omnipath = "pypath.omnipath.bel:main"
+
+[tool.poetry.plugins."bio2bel"]
+omnipath = "pypath.omnipath.bel"
