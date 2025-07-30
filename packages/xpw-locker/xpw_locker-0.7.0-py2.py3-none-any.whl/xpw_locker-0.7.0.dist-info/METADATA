@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: xpw-locker
+Version: 0.7.0
+Summary: Access authentication
+Home-page: https://github.com/podboy/locker/
+Author: Mingzhe Zou
+Author-email: zoumingzhe@outlook.com
+License: GPLv2
+Project-URL: Source Code, https://github.com/podboy/locker/
+Project-URL: Bug Tracker, https://github.com/podboy/locker/issues
+Project-URL: Documentation, https://github.com/podboy/locker/
+Keywords: command-line,argparse,argcomplete
+Platform: any
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: xkits-command >=0.4
+Requires-Dist: xhtm >=0.11
+Requires-Dist: xser >=0.4
+Requires-Dist: xpw >=0.12
+
+# locker
+
+> Access authentication
+
+## Usage
+
+```bash
+curl -u "demo:xpw123" http://localhost:3000/
+```
