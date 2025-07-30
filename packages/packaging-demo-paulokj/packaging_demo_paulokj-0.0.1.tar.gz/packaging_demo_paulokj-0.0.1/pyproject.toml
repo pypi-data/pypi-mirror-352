@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel", "numpy"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+package_demo = ["*.json"]
+
+[project]
+name = "packaging-demo-paulokj"
+version = "0.0.1"
+authors = [
+    {name = "Josiah Carberry", email = "josiah_carberry@brown.edu"},
+]
+description = "My package description"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["one", "two"]
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "numpy",
+    "fastapi",
+]
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov"]
+release = ["build", "twine"]
+static-code-qa = ["pre-commit"]
+# Corrected 'dev' dependency: List the individual packages from 'test', 'release',
+# and 'static-code-qa' directly. This avoids the self-referencing issue.
+dev = [
+    "pytest",
+    "pytest-cov",
+    "build",
+    "twine",
+    "pre-commit", # Added from static-code-qa
+    # Add any other development-specific tools here that are not part of the above groups
+    "black",
+    "flake8",
+    "pylint",
+]
+
+[tool.black]
+line-length = 119
+exclude = [
+    "venv"
+]
+
+[tool.flake8]
+docstring-convention = "all"
+ignore = [
+    "E501",  # Line too long
+    "W503",  # Line break before binary operator
+    "D100",  # Missing docstring in public module
+    "D101",  # Missing docstring in public class
+    "D102",  # Missing docstring in public method
+    "D103",  # Missing docstring in public function
+    "D104",  # Missing docstring in public package
+    "D105",  # Missing docstring in magic method
+]
+
+[tool.pylint."messages_control"]
+disable = [
+    "C0114",  # Missing module docstring
+    "C0115",  # Missing class docstring
+    "C0116",  # Missing function or method docstring
+    "R0903",  # Too few public methods
+    "R0913",  # Too many arguments
+    "R0914",  # Too many local variables
+    "R0915",  # Too many statements
+    "W0611",  # Unused import
+    "W0612",  # Unused variable
+]
