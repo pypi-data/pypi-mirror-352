@@ -1,0 +1,18 @@
+[project]
+name = "dashcamcsv"
+version = "0.2.1"
+description = "Helpful utilities for data science workflows."
+readme = "README.md"
+authors = [
+    { name = "Reetu Raj Harsh", email = "reeturaj.harsh@neuralweb.tech" }
+]
+requires-python = ">=3.8"
+dependencies = [
+    "pandas>=1.0.0",
+    "matplotlib>=3.0.0",
+    "seaborn>=0.13.2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
