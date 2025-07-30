@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pixlise_client"
+version = "0.0.25"
+authors = [
+  { name="Peter Nemere", email="peter.nemere@qut.edu.au" },
+]
+description = "PIXLISE client library for Python"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "Apache-2.0"
+license-files = ["LICEN[CS]E*"]
+dependencies = [
+  "protobuf"
+]
+
+[project.urls]
+Homepage = "https://github.com/pixlise/client-python"
+Issues = "https://github.com/pixlise/client-python/issues"
