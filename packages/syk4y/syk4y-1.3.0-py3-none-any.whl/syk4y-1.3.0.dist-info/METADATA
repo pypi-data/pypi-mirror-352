@@ -1,0 +1,44 @@
+Metadata-Version: 2.4
+Name: syk4y
+Version: 1.3.0
+Summary: A simple utility package for organization Syk4y
+Project-URL: Homepage, https://github.com/taiduc1001/syk4y
+Project-URL: Issues, https://github.com/taiduc1001/syk4y/issues
+Author-email: Duc Tai Phan <phantaiduc2005@gmail.com>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# Syk4y utility package
+
+A simple utility package for organization Syk4y
+
+## Installation
+
+```bash
+pip install syk4y
+```
+
+## Usage
+
+```python
+from syk4y.printer import inspect
+
+# Example usage
+data = {'a': 1, 'b': [2, 3], 'c': {'d': 4}}
+inspect(data)
+```
+
+## Features
+- Recursively inspects and prints the structure of any Python variable
+- Supports lists, tuples, dicts, sets, namedtuples, dataclasses, enums, tensors (PyTorch), arrays (NumPy), and more
+- Handles cyclic references and max recursion depth
+- Colorful output (with `termcolor`)
+- Designed for debugging and data exploration
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
