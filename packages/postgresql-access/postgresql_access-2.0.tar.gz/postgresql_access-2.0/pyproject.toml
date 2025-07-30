@@ -1,0 +1,28 @@
+[project]
+name = "postgresql_access"
+version = "2.0"
+dependencies = [
+    "keyring"
+]
+requires-python = ">=3.8"
+
+authors = [
+    { name = "Gerard", email = "gweatherby@uchc.edu" }
+]
+
+readme = "README.md"
+license = { text = "MIT" }
+dynamic = []
+
+[project.scripts]
+postgresql_access = "postgresql_access.main:main"
+
+[project.optional-dependencies]
+psycopg2 = ["psycopg2-binary"]
+psycopg3 = ["psycopg[binary]"]
+alchemy = ["sqlalchemy"]
+
+[build-system]
+requires = ["setuptools>=80", "wheel"]
+build-backend = "setuptools.build_meta"
+
