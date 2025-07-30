@@ -1,0 +1,78 @@
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Tool.schema.json
+name: HW AI Search Lookup # Tool Name Updated
+description: "Custom RAG tool for local use" # Description Updated
+type: python
+category: HW_PF_tools
+# Module and function remain the same
+module: pf_reasoning_tool.tools.hw_ai_search_lookup_with_embed
+function: hw_ai_search_lookup_with_embed
+
+# --- Inputs Section ---
+inputs:
+  connection: # For Search (CustomConnection)
+    type: [CustomConnection]
+    description: Azure AI Search credentials (key1=URL, key2=KEY).
+
+  index_name:
+    type: [string]
+    description: Azure AI Search index name (MUST BE TYPED EXACTLY).
+    # --- dynamic_list REMOVED ---
+
+  queries: # Input Query Text(s)
+    type: [string, list]
+    description: Single query string or list of query strings.
+
+  embeddings_connection: # For Embedding (AzureOpenAIConnection or OpenAIConnection)
+    type: [AzureOpenAIConnection, OpenAIConnection] # Allow both standard types
+    description: Connection used to embed queries (e.g., Azure OpenAI).
+    optional: true # Required only if query_type needs vectors
+
+  embedding_model_name:
+    type: [string]
+    default: text-embedding-3-large
+    description: Embedding deployment (Azure) or model name (OpenAI).
+
+  query_type:
+    type: [string]
+    default: hybrid
+    enum: [keyword, semantic, vector, hybrid, hybrid_semantic]
+    description: Type of search to perform.
+
+  top_k:
+    type: [int]
+    default: 3
+    description: Number of results per query.
+
+  text_field:
+    type: [string]
+    default: content
+    description: Field containing main text content (MUST BE TYPED EXACTLY).
+    # --- dynamic_list REMOVED ---
+
+  vector_field:
+    type: [string]
+    default: vector
+    description: Field containing vector embeddings (MUST BE TYPED EXACTLY).
+    # --- dynamic_list REMOVED ---
+
+  search_filters:
+    type: [string]
+    description: OData filter expression (optional).
+    optional: true
+
+  select_fields:
+    type: [list]
+    description: Specific fields to retrieve (optional, comma-separated string or list).
+    optional: true
+
+  semantic_config:
+    type: [string]
+    description: Semantic configuration name (MUST BE TYPED EXACTLY, if needed).
+    optional: true
+    # --- dynamic_list REMOVED ---
+
+# --- Outputs Section ---
+outputs:
+  output:
+    type: [list] # Represents List[List[Dict]]
+    description: List of results for each input query. # Updated description slightly

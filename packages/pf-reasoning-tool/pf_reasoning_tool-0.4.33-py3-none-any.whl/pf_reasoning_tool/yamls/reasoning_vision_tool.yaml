@@ -1,0 +1,63 @@
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Tool.schema.json
+name: Reasoning Vision LLM Call
+description: "Calls a vision-capable reasoning model (e.g. GPT-4o) using a PromptTemplate with optional image input."
+type: custom_llm
+category: HW_PF_tools
+
+module: pf_reasoning_tool.tools.reasoning_vision_tool
+function: reasoning_vision_llm
+
+default_prompt: |
+  # system:
+  You are a helpful AI assistant that reasons rigorously.  Use the image only if it adds useful context.
+
+  # user:
+  {{user_question}}
+  ![image]({{image_url}})
+
+inputs:
+  # No explicit “prompt” input; handled automatically for custom_llm tools
+
+  connection:
+    type: [AzureOpenAIConnection, OpenAIConnection, CustomConnection]
+    description: "OpenAI or Azure OpenAI connection."
+
+  deployment_name:
+    type: [string]
+    description: "Azure deployment name or OpenAI model ID (e.g. gpt-4o-vision-preview)."
+    optional: true
+    ui_hints: {text_box_size: lg}
+
+  max_completion_tokens:
+    type: [int]
+    description: "Maximum tokens for the completion (blank = service default)."
+    optional: true
+    ui_hints: {text_box_size: xs}
+
+  reasoning_effort:
+    type: [string]
+    description: "Select the reasoning effort level."
+    default: "low"
+    optional: true
+    dynamic_list:
+      func_path: pf_reasoning_tool.tools.reasoning_vision_tool.get_reasoning_effort_options
+      func_kwargs: []
+    allow_manual_entry: false
+    is_multi_select: false
+
+  detail:
+    type: [string]
+    description: "Vision-detail setting for the image block."
+    enum: ["auto", "low", "high"]
+    default: "auto"
+
+  # Hidden flag the executor sets when streaming is requested
+  stream:
+    type: [bool]
+    default: false
+    visible: false
+
+outputs:
+  output:
+    type: [string]
+    description: "Assistant response."
