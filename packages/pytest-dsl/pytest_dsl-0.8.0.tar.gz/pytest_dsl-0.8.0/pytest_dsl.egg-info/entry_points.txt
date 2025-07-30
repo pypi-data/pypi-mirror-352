@@ -1,0 +1,6 @@
+[console_scripts]
+pytest-dsl = pytest_dsl.cli:main
+pytest-dsl-server = pytest_dsl.remote.keyword_server:main
+
+[pytest11]
+pytest_dsl = pytest_dsl.plugin
