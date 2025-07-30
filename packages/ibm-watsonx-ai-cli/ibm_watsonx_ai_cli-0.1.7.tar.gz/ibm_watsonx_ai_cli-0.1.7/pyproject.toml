@@ -1,0 +1,43 @@
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "ibm-watsonx-ai-cli"
+version = "0.1.7"
+authors = ["IBM"]
+maintainers = [
+    "Łukasz Ćmielowski <lukasz.cmielowski@pl.ibm.com>",
+    "Daniel Ryszka <daniel.ryszka@pl.ibm.com>",
+    "Mateusz Szewczyk <mateusz.szewczyk@ibm.com>",
+    "Mateusz Świtala <mateusz.switala@ibm.com>",
+]
+description = "CLI for deploying AI services with Agents to watsonx.ai."
+readme = "README.md"
+packages = [
+    { include = "ibm_watsonx_ai_cli", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+typer = ">=0.13.0,<1.0.0"
+tomli = ">=2.0,<3.0.0"
+tomlkit = "<1.0.0"
+ibm-watsonx-ai = "^1.1.16"
+python-dotenv = "^1.1.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+pytest_mock = "*"
+python-dotenv = "*"
+mypy = "^1.15"
+ruff = "^0.9"
+coverage = "^7.6.12"
+pre-commit = "^4.1.0"
+detect-secrets = { git = "https://github.com/ibm/detect-secrets.git", branch = "master" }
+
+[tool.mypy]
+disallow_untyped_defs = true
+
+[tool.poetry.scripts]
+watsonx-ai = "ibm_watsonx_ai_cli.cli:cli"
