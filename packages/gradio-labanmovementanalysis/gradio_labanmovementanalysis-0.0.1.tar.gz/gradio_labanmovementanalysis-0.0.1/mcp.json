@@ -1,0 +1,57 @@
+{
+  "mcpServers": {
+    "laban-movement-analysis": {
+      "command": "python",
+      "args": ["-m", "backend.mcp_server"],
+      "env": {
+        "PYTHONPATH": "."
+      },
+      "schema": {
+        "name": "Laban Movement Analysis",
+        "description": "Analyze human movement in videos using pose estimation and Laban Movement Analysis metrics",
+        "version": "1.0.0",
+        "tools": [
+          {
+            "name": "analyze_video",
+            "description": "Analyze movement in a video file",
+            "parameters": {
+              "video_path": "string",
+              "model": "string (optional)",
+              "enable_visualization": "boolean (optional)",
+              "include_keypoints": "boolean (optional)"
+            }
+          },
+          {
+            "name": "get_analysis_summary", 
+            "description": "Get human-readable summary of analysis",
+            "parameters": {
+              "analysis_id": "string"
+            }
+          },
+          {
+            "name": "list_available_models",
+            "description": "List available pose estimation models",
+            "parameters": {}
+          },
+          {
+            "name": "batch_analyze",
+            "description": "Analyze multiple videos in batch",
+            "parameters": {
+              "video_paths": "array of strings",
+              "model": "string (optional)",
+              "parallel": "boolean (optional)"
+            }
+          },
+          {
+            "name": "compare_movements",
+            "description": "Compare movement patterns between videos",
+            "parameters": {
+              "analysis_id1": "string",
+              "analysis_id2": "string"
+            }
+          }
+        ]
+      }
+    }
+  }
+} 

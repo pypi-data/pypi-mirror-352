@@ -1,0 +1,62 @@
+[build-system]
+requires = [
+  "hatchling",
+  "hatch-requirements-txt",
+  "hatch-fancy-pypi-readme>=22.5.0",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "gradio_labanmovementanalysis"
+version = "0.0.1"
+description = "A Gradio 5 component for video movement analysis using Laban Movement Analysis (LMA) with MCP support for AI agents"
+readme = "README.md"
+license = "apache-2.0"
+requires-python = ">=3.10"
+authors = [{ name = "Csaba Bolyós", email = "bladeszasza@gmail.com" }]
+keywords = ["gradio-custom-component", "gradio-5", "laban-movement-analysis", "LMA", "pose-estimation", "movement-analysis", "mcp", "ai-agents", "webrtc"]
+# Core dependencies
+dependencies = [
+    "gradio>=5.0.0",
+    "opencv-python>=4.8.0",
+    "numpy>=1.24.0",
+    "mediapipe>=0.10.21",
+    "tensorflow>=2.13.0",
+    "ultralytics>=8.0.0",
+    "torch>=2.0.0",
+    "torchvision>=0.15.0"
+]
+classifiers = [
+  'Development Status :: 4 - Beta',
+  'Operating System :: OS Independent',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3 :: Only',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: 3.12',
+  'Topic :: Scientific/Engineering',
+  'Topic :: Scientific/Engineering :: Artificial Intelligence',
+  'Topic :: Scientific/Engineering :: Visualization',
+]
+
+# The repository and space URLs are optional, but recommended.
+# Adding a repository URL will create a badge in the auto-generated README that links to the repository.
+# Adding a space URL will create a badge in the auto-generated README that links to the space.
+# This will make it easy for people to find your deployed demo or source code when they
+# encounter your project in the wild.
+
+# [project.urls]
+# repository = "your github repository"
+# space = "your space url"
+
+[project.optional-dependencies]
+dev = ["build", "twine"]
+mcp = ["mcp>=1.0.0", "aiofiles>=23.0.0", "httpx>=0.24.0"]
+agent = ["gradio-client>=1.0.0"]
+all = ["gradio_labanmovementanalysis[mcp,agent]"]
+
+[tool.hatch.build]
+artifacts = ["/backend/gradio_labanmovementanalysis/templates", "*.pyi"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["/backend/gradio_labanmovementanalysis"]

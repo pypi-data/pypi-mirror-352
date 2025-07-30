@@ -1,0 +1,27 @@
+# MCP Server Dependencies
+mcp>=1.0.0
+aiofiles>=23.0.0
+httpx>=0.24.0
+
+# Core dependencies (include from main requirements)
+gradio>=5.0,<6.0
+opencv-python>=4.8.0
+numpy>=1.24.0,<2.0.0  # Pin to 1.x for compatibility with MediaPipe/pandas
+mediapipe>=0.10.0
+tensorflow>=2.13.0  # For MoveNet
+tensorflow-hub>=0.14.0  # For MoveNet models
+ultralytics>=8.0.0  # For YOLO v8/v11
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Video platform support
+yt-dlp>=2023.7.6  # YouTube/Vimeo downloads
+requests>=2.31.0  # Direct video downloads
+
+# Enhanced model support  
+transformers>=4.35.0
+accelerate>=0.24.0  # For model optimization
+
+# WebRTC support (Official Gradio approach)
+gradio-webrtc  # Official WebRTC component for Gradio
+twilio>=8.2.0  # TURN servers for cloud deployment (optional) 
