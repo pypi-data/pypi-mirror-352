@@ -1,0 +1,76 @@
+{
+    "omnipath": {
+        "dbclass": "network",
+        "def": {
+            "init": "omnipath",
+            "args": {
+                "kinase_substrate_extra": true,
+                "ligand_receptor_extra": true,
+                "pathway_extra": true,
+                "allow_loops": true
+            }
+        }
+    },
+    "curated": {
+        "dbclass": "network",
+        "def": {
+            "prepare": {
+                "curated_ppi": "curated_ppi_resources"
+            },
+            "workflow": [
+                {
+                    "method": "load",
+                    "args": {
+                        "resources": "curated_ppi"
+                    }
+                }
+            ]
+        }
+    },
+    "tf_target": {
+        "dbclass": "network",
+        "def": {
+            "init": "transcription",
+            "args": {
+                "dorothea_levels": ["A", "B", "C", "D"]
+            }
+        }
+    },
+    "dorothea": {
+        "dbclass": "network",
+        "def": {
+            "init": "dorothea",
+            "args": {
+                "levels": ["A", "B", "C", "D"]
+            }
+        }
+    },
+    "mirna_mrna": {
+        "dbclass": "network",
+        "resources": "mirna_target"
+    },
+    "lncrna_mrna": {
+        "dbclass": "network",
+        "resources": "lncrna_mrna"
+    },
+    "tf_mirna": {
+        "dbclass": "network",
+        "resources": "tf_mirna"
+    },
+    "small_molecule": {
+        "dbclass": "network",
+        "resources": "small_molecule_protein"
+    },
+    "enz_sub": {
+        "dbclass": "enz_sub"
+    },
+    "complex": {
+        "dbclass": "complex"
+    },
+    "annotations": {
+        "dbclass": "annotations"
+    },
+    "intercell": {
+        "dbclass": "intercell"
+    }
+}
