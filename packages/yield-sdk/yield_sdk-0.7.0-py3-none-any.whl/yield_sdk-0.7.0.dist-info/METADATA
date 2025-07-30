@@ -1,0 +1,73 @@
+Metadata-Version: 2.4
+Name: yield-sdk
+Version: 0.7.0
+Summary: The official Yield SDK for Python
+Project-URL: homepage, https://github.com/yield-tech/sdk-python/blob/main/README.md
+Project-URL: source, https://github.com/yield-tech/sdk-python
+Project-URL: documentation, https://github.com/yield-tech/sdk-python/blob/main/README.md
+Author: Yield
+License-Expression: Apache-2.0
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.10
+Requires-Dist: typing-extensions>=4.13.0
+Description-Content-Type: text/markdown
+
+Yield SDK for Python [![PyPI - Version](https://img.shields.io/pypi/v/yield-sdk)](https://pypi.org/project/yield-sdk/)
+====================
+
+The official [Yield](https://www.paywithyield.com) SDK for Python.
+
+
+Documentation
+-------------
+
+- [API reference](https://github.com/yield-tech/sdk-python/blob/main/docs/index.md)
+
+
+Installation
+------------
+
+```sh
+pip install yield-sdk
+```
+
+
+Usage
+-----
+
+```python
+import yield_sdk
+import os
+
+# For security, don't save the actual key in your code or repo
+client = yield_sdk.SyncClient(os.environ["YIELD_API_KEY"])
+
+# Fetch an existing order
+order = client.order.fetch("ord_...")
+print(order.customer.registered_name)
+
+# Or create a new one
+new_order = client.order.create({
+    "customer_id": "org_...",
+    "total_amount": "PHP 1234.50",
+    "note": "Test order from the Python SDK!",
+})
+
+# Don't forget to close the client when you won't use it anymore
+client.close()
+```
+
+For more details, check out our [API reference](https://github.com/yield-tech/sdk-python/blob/main/docs/index.md).
