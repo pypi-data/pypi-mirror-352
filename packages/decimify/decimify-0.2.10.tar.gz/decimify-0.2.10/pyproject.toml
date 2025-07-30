@@ -1,0 +1,49 @@
+[project]
+name = "decimify"
+version = "0.2.10"
+description = "Parse numbers with different formatting to builtin python Decimal."
+authors = [{ name = "Zahid Kizmaz", email = "tech@zahid.rocks" }]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python",
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">= 3.9"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["mypy==1.16.0", "pre-commit==4.2.0", "pytest==8.4.0", "ruff==0.11.12"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+lint.select = ["ALL"]
+lint.ignore = ["D1"]  # pydocstyle missing docs
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["S101", "ARG002", "ANN201"]
+"__init__.py" = ["PLC0414"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+strict = true
+python_version = "3.13"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+ignore_errors = true
