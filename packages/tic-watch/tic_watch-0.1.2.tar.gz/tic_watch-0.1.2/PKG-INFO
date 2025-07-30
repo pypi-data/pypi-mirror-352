@@ -1,0 +1,65 @@
+Metadata-Version: 2.4
+Name: tic_watch
+Version: 0.1.2
+Summary: TIC Watch package
+Home-page: 
+Author: TIC
+Author-email: Andrews.Rajkumar@dexian.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Framework :: FastAPI
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi
+Requires-Dist: opentelemetry-api
+Requires-Dist: opentelemetry-sdk
+Requires-Dist: opentelemetry-instrumentation-fastapi
+Requires-Dist: opentelemetry-instrumentation-asgi
+Requires-Dist: azure-monitor-opentelemetry-exporter
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# TIC Watch
+
+📊 **TIC Watch** is a lightweight Python package to enable telemetry and short-term monitoring for FastAPI applications using Azure Monitor — in just a few lines of code.
+
+---
+
+## 🚀 Features
+
+- 📈 Tracks key performance metrics:
+  - API Latency
+  - HTTP Status Codes
+  - Unhandled Exceptions
+  - Failure Rate
+  - Latency Spikes
+  - Resource Failures
+- 🔗 Sends data to Azure Application Insights
+- 🛠️ Plug-and-play setup (under 5 lines of code)
+- 📦 Suitable for 25+ apps with centralized monitoring
+
+---
+
+## 📦 Installation
+
+```bash
+pip install tic-watch
+
+
+## Hard Code these line in yout Application
+from fastapi import FastAPI
+from tic-watch import init_monitoring
+
+app = FastAPI()
+
+init_monitoring(
+    app,
+    service_name="MyFastAPIApp",
+    connection_string="InstrumentationKey=YOUR_APP_INSIGHTS_KEY"
+)
