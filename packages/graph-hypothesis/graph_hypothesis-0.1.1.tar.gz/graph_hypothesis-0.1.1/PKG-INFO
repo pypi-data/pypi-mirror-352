@@ -1,0 +1,239 @@
+Metadata-Version: 2.4
+Name: graph_hypothesis
+Version: 0.1.1
+Summary: A Python package for statistical analysis on graphs using permutation tests.
+Author-email: V Subrahmanya Raghu Ram Kishore Parupudi <pvsrrkishore@gmail.com>
+Keywords: graph theory,network analysis,statistics,machine learning,data science
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+Requires-Dist: networkx>=2.5
+Requires-Dist: numpy>=1.20
+Requires-Dist: tqdm>=4.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-cov>=3.0; extra == "dev"
+
+Graph-Hypothesis: Statistical Analysis on Graphs
+================================================
+
+Graph-Hypothesis is a Python package designed for performing permutation tests on graph structures, focusing on patterns and associations between different types of nodes. It provides a robust framework to assess the statistical significance of observed graph metrics by comparing them against null models generated through controlled node type randomization.
+
+This package is particularly useful for researchers in network science, social sciences, biology, and other fields where understanding the non-random organization of heterogeneous networks is crucial.
+
+Features
+--------
+
+* **Undirected, Unweighted Graphs:** Focuses on fundamental graph structures without edge weights or directionality for clear interpretation of structural patterns.
+* **Node Type Awareness:** Requires all nodes in the input graph to have a designated 'type' attribute, enabling type-specific analysis.
+* **Four Key Metrics:** Implements a selection of common and insightful graph metrics for type-based analysis:
+    * Average shortest path to the closest target node.
+    * Count of direct interactions (edges) between specified types.
+    * Count of A-X-B motifs (paths of length 2) involving specified types.
+    * Proportion of interactions from a 'fixed' type to a 'target' type.
+* **Permutation Testing:** Generates statistically sound null distributions by randomly shuffling node types (excluding a designated 'fixed' type) across the graph's fixed topology.
+* **Multiprocessing Support:** Leverages multiple CPU cores using Python's `multiprocessing` module for efficient generation of a large number of permutations.
+* **Flexible Hypothesis Testing:** Supports one-tailed ('greater', 'less') and two-sided ('two-sided') p-value calculations.
+* **Reproducibility:** Allows seeding of random number generators for reproducible results.
+* **Progress Bar:** Provides real-time visual feedback during computationally intensive permutation runs using `tqdm`.
+* **Robust Validation:** Includes comprehensive input validation to ensure graph integrity and parameter correctness.
+
+Installation
+------------
+
+It is highly recommended to use a `virtual environment` for managing your project's dependencies.
+
+1.  **Install the package from pip:**
+
+    This allows simple installation from pip
+
+    .. code-block:: bash
+
+        pip install graph-hypothesis
+
+2.  **Install the package in editable mode:**
+
+    This allows you to make changes to the source code and have them reflected immediately without needing to reinstall.
+
+    .. code-block:: bash
+
+        pip install -e .
+
+Usage Example
+-------------
+
+To perform a permutation test, you'll typically create your `networkx` graph, ensure its nodes have 'type' attributes, and then call the `graph_hypothesis` function.
+
+.. important::
+
+   **Crucial for Multiprocessing (especially on Windows):**
+   The code that calls `graph_hypothesis` (and any graph setup that directly precedes it) **MUST** be placed inside an `if __name__ == '__main__':` block. This prevents issues when `multiprocessing` spawns child processes.
+
+.. code-block:: python
+
+    import networkx as nx
+    import numpy as np 
+    from graph-hypothesis import graph_hypothesis
+
+    # 1. Build a small graph 
+    G_example = nx.Graph()
+    G_example.add_node("Alice", type="Human")
+    G_example.add_node("Bob", type="Human")
+    G_example.add_node("Doggo", type="Pet")
+    G_example.add_node("Kitty", type="Pet")
+    G_example.add_node("Tree", type="Plant") # An 'Other' type
+
+    G_example.add_edges_from([
+        ("Alice", "Doggo"),   # Human-Pet interaction
+        ("Bob", "Kitty"),     # Human-Pet interaction
+        ("Doggo", "Kitty"),   # Pet-Pet interaction
+        ("Alice", "Bob"),     # Human-Human interaction
+        ("Alice", "Tree")     # Human-Plant interaction
+    ])
+
+    # 2. Define test parameters
+    fixed_type_example = "Human"
+    target_type_example = "Pet"
+    metric_to_test = "interactions" # Choose from: "shortest_path", "interactions", "axb_motifs", "interaction_proportion"
+    num_permutations = 1000        # Number of random permutations
+    test_direction = "greater"     # "greater", "less", or "two-sided"
+    random_seed = 42               # For reproducibility of the permutation test
+
+
+    # 3. Perform the permutation test
+    if __name__ == '__main__': # very important to avoid multiprocessing errors
+        results = graph_hypothesis(
+            original_graph=G_example,
+            fixed_type=fixed_type_example,
+            target_type=target_type_example,
+            metric_name=metric_to_test,
+            num_permutations=num_permutations,
+            test_type=test_direction,
+            random_seed=random_seed,
+            num_processes=None # Use all available CPU cores
+        )
+
+        # 4. Print results
+        print("\n--- Permutation Test Results Summary ---")
+        print(f"Observed Statistic: {results['observed_statistic']:.4f}")
+        print(f"P-value ({results['test_type']}): {results['p_value']:.4f}")
+        print(f"Number of Permutations: {results['num_permutations']}")
+        print(f"Number of Processes Used: {results['num_processes_used']}")
+
+        if len(results['permutation_statistics']) > 0:
+            perm_stats_array = np.array(results['permutation_statistics'])
+            print(f"Permuted Stats (Min/Max/Mean): {perm_stats_array.min():.4f} / {perm_stats_array.max():.4f} / {perm_stats_array.mean():.4f}")
+
+        print("\nPermutation test example completed successfully.")
+
+
+
+`graph_hypothesis` Function Arguments
+-------------------------------------
+
+The `graph_hypothesis` function is the primary entry point for performing permutation tests. Here's a detailed explanation of its arguments:
+
+* ``original_graph`` (`networkx.Graph`):
+    * **Description:** The NetworkX graph object representing your observed network. This graph is the basis for calculating the observed statistic and generating permuted graphs.
+    * **Requirements:**
+        * Must be an **undirected** graph (`nx.Graph`, not `nx.DiGraph`).
+        * Must be **unweighted** (edges should not have a 'weight' attribute, or if they do, its value must be `1`).
+        * Every node in the graph **must have a 'type' attribute** (e.g., `G.add_node('node_id', type='CategoryA')`).
+        * Must **not be empty** (must contain at least one node).
+
+* ``fixed_type`` (`Any`):
+    * **Description:** The type of nodes that will remain **fixed** in their positions and connections during the permutation process. This type serves as one of the two groups for which the metric is calculated.
+    * **Requirements:**
+        * Must be a hashable Python object (e.g., string, integer).
+        * Must be **different** from `target_type`.
+        * Must be a node type that is **present** in the `original_graph` (i.e., at least one node in the graph must have this type).
+
+* ``target_type`` (`Any`):
+    * **Description:** The other node type involved in the metric calculation. Nodes of this type (and all other types not designated as `fixed_type`) will have their types randomly shuffled across the graph's non-fixed nodes during permutations.
+    * **Requirements:**
+        * Must be a hashable Python object.
+        * Must be **different** from `fixed_type`.
+        * Must be a node type that is **present** in the `original_graph`.
+
+* ``metric_name`` (`str`, default: 'interactions'):
+    * **Description:** The name of the graph metric to calculate for the permutation test. This determines what structural pattern between `fixed_type` and `target_type` nodes is being assessed.
+    * **Available Options:**
+        * ``"shortest_path"``:
+            * **Metric:** Calculates the average shortest path length from each node of `fixed_type` to its *closest* reachable node of `target_type`.
+            * **Interpretation:** Quantifies the typical "proximity" of `fixed_type` nodes to `target_type` nodes. A smaller average path suggests closer association.
+        * ``"interactions"``:
+            * **Metric:** Counts the total number of direct edges (interactions) connecting a node of `fixed_type` to a node of `target_type`.
+            * **Interpretation:** A raw count of direct ties between the two specified groups.
+        * ``"axb_motifs"``:
+            * **Metric:** Counts the number of A-X-B motifs (paths of length 2) in the graph, where 'A' is `fixed_type`, 'B' is `target_type`, and 'X' is any intermediate node.
+            * **Interpretation:** Quantifies the prevalence of specific triadic patterns where `fixed_type` and `target_type` nodes are connected indirectly through a common neighbor.
+        * ``"interaction_proportion"``:
+            * **Metric:** Calculates the proportion of neighbors of `fixed_type` nodes that are `target_type` nodes. This is equivalent to `(Number of A-B Interactions) / (Total Degree of A nodes)`.
+            * **Interpretation:** A normalized measure of mixing or segregation. It indicates the propensity of `fixed_type` nodes to connect to `target_type` nodes, relative to their total connectivity. Values range from 0.0 (no connections to `target_type`) to 1.0 (all connections are to `target_type`).
+
+* ``num_permutations`` (`int`, default: 1000):
+    * **Description:** The number of random permutations (shuffles) to perform. Each permutation generates a new graph under the null hypothesis, and the metric is calculated on this permuted graph. A larger number of permutations leads to a more accurate null distribution and a more reliable p-value.
+    * **Recommendation:** For robust results, typically 1,000 to 10,000 permutations are used.
+    * **Warning:** Setting `num_permutations` to a very high value (e.g., >2000) may result in long computation times.
+
+* ``num_processes`` (`Optional[int]`, default: `None`):
+    * **Description:** The number of CPU processes to use for parallelizing the permutation calculations.
+    * **Options:**
+        * `None`: Uses all available CPU cores on your system. This is generally recommended for maximum speed.
+        * An `int`: Uses the specified number of processes.
+    * **Requirements:** Must be a positive integer and must not exceed the actual number of available CPU cores.
+    * **Warning:** If you explicitly set `num_processes` to a value less than the available cores, a warning will be issued, suggesting using `None` for potentially faster execution.
+
+* ``random_seed`` (`Optional[int]`, default: `None`):
+    * **Description:** An optional integer seed for the random number generator.
+    * **Purpose:** If provided, it ensures that the permutation test produces the exact same sequence of random shuffles and thus the exact same results every time you run the function with the same seed. This is crucial for reproducibility of scientific results and for debugging.
+    * **Behavior:** If `None`, the random number generator is initialized using system-dependent randomness (e.g., current time), leading to different results on each run.
+
+* ``test_type`` (`str`, default: 'greater'):
+    * **Description:** Specifies the type of hypothesis test to perform for calculating the p-value. This defines what kind of "extremity" in the observed statistic you are looking for relative to the null distribution.
+    * **Options:**
+        * ``"greater"``: **One-sided test.** Calculates the p-value as the proportion of permuted statistics that are **greater than or equal to** the observed statistic. Used when you hypothesize the observed metric is *higher* than random.
+        * ``"less"``: **One-sided test.** Calculates the p-value as the proportion of permuted statistics that are **less than or equal to** the observed statistic. Used when you hypothesize the observed metric is *lower* than random.
+        * ``"two-sided"``: **Two-sided test.** Calculates the p-value as the proportion of permuted statistics that are **as extreme as or more extreme than** the observed statistic, relative to the mean of the null distribution (considering both higher and lower values). Used when you hypothesize the observed metric is simply *different* from random (either higher or lower).
+
+Understanding the Results
+-------------------------
+
+The `graph_hypothesis` function returns a dictionary containing the following key results:
+
+* ``"observed_statistic"``: The value of the chosen metric calculated on your original, unpermuted graph.
+* ``"permutation_statistics"``: A list of all metric values calculated on each of the permuted graphs. This represents the empirical null distribution.
+* ``"p_value"``: The calculated p-value. This is the probability of observing a statistic as extreme as (or more extreme than) your observed statistic, assuming the null hypothesis (random association) is true. A small p-value (e.g., < 0.05) suggests that your observed pattern is statistically significant and unlikely to have occurred by chance.
+* ``"num_permutations"``: The total number of permutations that were attempted.
+* ``"num_processes_used"``: The actual number of CPU processes utilized during the permutation generation.
+* ``"test_type"``: The type of hypothesis test ('greater', 'less', or 'two-sided') that was performed.
+
+Warnings
+--------
+
+The package may issue `UserWarning` messages under certain conditions, such as:
+
+* If `fixed_type` or `target_type` nodes are absent in the graph, leading to an undefined metric (p-value will be `np.nan`).
+* If some `fixed_type` nodes cannot reach any `target_type` nodes when calculating the shortest path metric (these unreachable nodes are excluded from the average).
+* If `num_permutations` is set to 0.
+* If `num_processes` is explicitly set to less than available CPU cores.
+* If `generate_random_graph` cannot add all requested edges (for testing purposes).
+
+Contributing
+------------
+
+Contributions are welcome! If you find a bug, have a feature request, or want to contribute code, please feel free to:
+
+1.  email me at pvsrrkishore@gmail.com
+
+
+License
+-------
+
+This project is licensed under the MIT License - see the `LICENSE` file for details.

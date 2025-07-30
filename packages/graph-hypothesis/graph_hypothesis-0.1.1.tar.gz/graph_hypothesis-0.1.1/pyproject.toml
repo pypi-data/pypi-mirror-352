@@ -1,0 +1,45 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "graph_hypothesis"
+version = "0.1.1"
+authors = [
+  { name="V Subrahmanya Raghu Ram Kishore Parupudi", email="pvsrrkishore@gmail.com" },
+]
+description = "A Python package for statistical analysis on graphs using permutation tests."
+readme = "README.rst"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License", # Or your chosen license
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = ["graph theory", "network analysis", "statistics", "machine learning", "data science"]
+
+dependencies = [
+    "networkx>=2.5",  # Or the specific version you've tested with
+    "numpy>=1.20",    # Or the specific version you've tested with
+    "tqdm>=4.0",      # For progress bars
+]
+
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=3.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools]
+package-dir = {"" = "src"} # This maps the root of your *Python package structure* to the 'src' directory.
+packages = ["graph_hypothesis"] # Explicitly list the top-level package found within that 'src' directory.
