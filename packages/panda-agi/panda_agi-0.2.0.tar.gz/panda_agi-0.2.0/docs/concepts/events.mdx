@@ -1,0 +1,577 @@
+---
+title: 'Events'
+description: 'Understanding real-time event streaming in PandaAGI SDK'
+---
+
+## What are Events?
+
+Events are real-time notifications streamed asynchronously from the remote autonomous general AI agent as it executes tasks. They provide complete transparency into the general AI agent's workflow, allowing you to monitor progress, debug issues, and build interactive applications that respond to the general AI agent's activities in real-time.
+
+Unlike traditional polling-based systems, PandaAGI events are pushed from the remote agent immediately as they occur, ensuring minimal latency and maximum responsiveness.
+
+## Event Architecture
+
+The PandaAGI SDK streams events from a remote autonomous general AI agent that operates independently. Events are generated as the general AI agent:
+
+- Connects to its execution environment
+- Performs web searches and navigation
+- Creates, reads, and modifies files
+- Executes shell commands and scripts
+- Provides progress updates and notifications
+- Completes tasks and reports results
+
+```python
+# Events stream asynchronously from the remote general AI agent
+async for event in agent.run_stream("Research AI trends and create a report"):
+    # Each event represents a real action the general AI agent is taking
+    print(f"[{event.timestamp}] {event.type}: {event.data}")
+```
+
+## Core Event Types
+
+The PandaAGI SDK uses a comprehensive set of event types defined in the `EventType` enum. Here are all available event types:
+
+### Connection & Environment Events
+
+<AccordionGroup>
+  <Accordion title="AGENT_CONNECTION_SUCCESS">
+    Fired when the general AI agent successfully connects and initializes its workspace:
+    
+    ```json
+    {
+      "type": "agent_connection_success",
+      "timestamp": "2025-05-29T00:20:46.066499",
+      "data": {
+        "file_system": {
+          "directory": "/workspace/my_agent_workspace",
+          "structure": {"my_agent_workspace/": {}}
+        }
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="AGENT_CONNECTION_ERROR">
+    When the general AI agent fails to connect or initialize:
+    
+    ```json
+    {
+      "type": "AGENT_CONNECTION_ERROR",
+      "timestamp": "2025-05-29T00:20:46.066499",
+      "data": {
+        "error": "Failed to initialize Docker environment",
+        "error_code": "ENV_INIT_FAILED",
+        "retry_count": 2
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Web Research Events
+
+<AccordionGroup>
+  <Accordion title="WEB_SEARCH">
+    Indicates the general AI agent is performing a web search:
+    
+    ```json
+    {
+      "type": "web_search",
+      "timestamp": "2025-05-29T00:20:55.196858",
+      "data": {
+        "query": "latest developments in artificial intelligence 2024",
+        "max_results": 8
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="WEB_SEARCH_RESULT">
+    Contains the results from a web search:
+    
+    ```json
+    {
+      "type": "web_search_result",
+      "timestamp": "2025-05-29T00:20:58.018191",
+      "data": [
+        {
+          "url": "https://www.analyticsinsight.net/artificial-intelligence/top-ai-developments-we-saw-in-2024",
+          "title": "Top AI developments We Saw in 2024 - Analytics Insight"
+        },
+        {
+          "url": "https://blog.google/technology/ai/2024-ai-extraordinary-progress-advancement/",
+          "title": "Year in review: Google's biggest AI advancements of 2024"
+        }
+      ]
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="WEB_NAVIGATION">
+    When the general AI agent navigates to a specific webpage:
+    
+    ```json
+    {
+      "type": "web_navigation",
+      "timestamp": "2025-05-29T00:21:06.297879",
+      "data": {
+        "url": "https://www.analyticsinsight.net/artificial-intelligence/top-ai-developments-we-saw-in-2024"
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="WEB_NAVIGATION_RESULT">
+    Contains the content extracted from a webpage:
+    
+    ```json
+    {
+      "type": "web_navigation_result",
+      "timestamp": "2025-05-29T00:21:06.874471",
+      "data": {
+        "url": "https://www.analyticsinsight.net/artificial-intelligence/top-ai-developments-we-saw-in-2024",
+        "content": "Top AI developments We Saw in 2024...",
+        "status_code": 200
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### File System Events
+
+<AccordionGroup>
+  <Accordion title="FILE_READ">
+    When the general AI agent reads file contents:
+    
+    ```json
+    {
+      "type": "file_read",
+      "timestamp": "2025-05-29T00:22:15.123456",
+      "data": {
+        "file": "data.csv",
+        "size_bytes": 2048,
+        "content_preview": "Name,Age,City\nJohn,25,NYC..."
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="FILE_WRITE">
+    When the agent creates or writes to files:
+    
+    ```json
+    {
+      "type": "file_write",
+      "timestamp": "2025-05-29T00:21:46.050300",
+      "data": {
+        "file": "ai_developments_2024_report.md",
+        "content": "# AI Developments 2024 Report\n\n## Introduction...",
+        "append": false
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="FILE_REPLACE">
+    When the agent replaces content in existing files:
+    
+    ```json
+    {
+      "type": "file_replace",
+      "timestamp": "2025-05-29T00:23:30.123456",
+      "data": {
+        "file": "config.json",
+        "old_content": "\"debug\": false",
+        "new_content": "\"debug\": true",
+        "line_number": 15
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="FILE_FIND">
+    When the agent searches for files or content within files:
+    
+    ```json
+    {
+      "type": "file_find",
+      "timestamp": "2025-05-29T00:24:45.123456",
+      "data": {
+        "pattern": "*.py",
+        "directory": "./src",
+        "matches": ["main.py", "utils.py", "models.py"]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="FILE_EXPLORE">
+    When the general AI agent explores directory structure:
+    
+    ```json
+    {
+      "type": "file_explore",
+      "timestamp": "2025-05-29T00:25:10.123456",
+      "data": {
+        "directory": "./project",
+        "structure": {
+          "src/": ["main.py", "utils.py"],
+          "docs/": ["README.md"],
+          "tests/": ["test_main.py"]
+        }
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Command Execution Events
+
+<AccordionGroup>
+  <Accordion title="SHELL_EXEC">
+    When the general AI agent executes shell commands:
+    
+    ```json
+    {
+      "type": "shell_exec",
+      "timestamp": "2025-05-29T00:24:12.290811",
+      "data": {
+        "id": "ai_chart",
+        "exec_dir": "./",
+        "command": "python3 generate_ai_adoption_chart.py",
+        "blocking": "true"
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="SHELL_VIEW">
+    When the agent views output from shell commands:
+    
+    ```json
+    {
+      "type": "shell_view",
+      "timestamp": "2025-05-29T00:24:15.123456",
+      "data": {
+        "command": "ls -la",
+        "output": "total 64\ndrwxr-xr-x  8 user  staff   256 May 29 00:24 .\n..."
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="SHELL_WRITE">
+    When the agent writes to shell or creates shell scripts:
+    
+    ```json
+    {
+      "type": "shell_write",
+      "timestamp": "2025-05-29T00:26:30.123456",
+      "data": {
+        "script": "setup.sh",
+        "content": "#!/bin/bash\npip install -r requirements.txt\n...",
+        "executable": true
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Communication Events
+
+<AccordionGroup>
+  <Accordion title="USER_NOTIFICATION">
+    Progress updates and notifications from the general AI agent:
+    
+    ```json
+    {
+      "type": "user_notification",
+      "timestamp": "2025-05-29T00:27:09.611663",
+      "data": {
+        "text": "The AI Developments 2024 summary report is complete. The attached markdown document provides a comprehensive analysis...",
+        "attachments": [
+          "ai_developments_2024_report.md",
+          "ai_adoption_by_industry_2024.png",
+          "ai_investment_by_sector_2024.png"
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="USER_QUESTION">
+    When the agent needs clarification or input from the user:
+    
+    ```json
+    {
+      "type": "user_question",
+      "timestamp": "2025-05-29T00:28:00.123456",
+      "data": {
+        "question": "I found multiple configuration files. Which one should I modify?",
+        "options": ["config.json", "settings.yaml", ".env"],
+        "context": "Setting up database connection"
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="COMPLETED_TASK">
+    Indicates the agent has finished the requested task:
+    
+    ```json
+    {
+      "type": "completed_task",
+      "timestamp": "2025-05-29T00:27:10.305395",
+      "data": {}
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Creative & Generation Events
+
+<AccordionGroup>
+  <Accordion title="IMAGE_GENERATION">
+    When the general AI agent generates images or visual content:
+    
+    ```json
+    {
+      "type": "image_generation",
+      "timestamp": "2025-05-29T00:29:15.123456",
+      "data": {
+        "prompt": "Data visualization chart showing AI adoption trends",
+        "image_path": "ai_trends_chart.png",
+        "format": "png",
+        "dimensions": "1024x768"
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Complete EventType Reference
+
+```python
+from panda_agi import EventType
+
+# All available event types:
+EventType.AGENT_CONNECTION_SUCCESS  # Agent connected and workspace initialized
+EventType.USER_NOTIFICATION        # Progress updates and notifications
+EventType.USER_QUESTION            # Agent asking for user input/clarification
+EventType.COMPLETED_TASK           # Task completion notification
+EventType.WEB_SEARCH               # Web search initiated
+EventType.WEB_SEARCH_RESULT        # Web search results received
+EventType.WEB_NAVIGATION           # Navigating to specific webpage
+EventType.WEB_NAVIGATION_RESULT    # Webpage content extracted
+EventType.FILE_READ                # Reading file contents
+EventType.FILE_WRITE               # Writing/creating files
+EventType.FILE_REPLACE             # Replacing content in files
+EventType.FILE_FIND                # Searching for files/content
+EventType.FILE_EXPLORE             # Exploring directory structure
+EventType.IMAGE_GENERATION         # Generating images/visual content
+EventType.SHELL_EXEC               # Executing shell commands
+EventType.SHELL_VIEW               # Viewing shell command output
+EventType.SHELL_WRITE              # Writing shell scripts
+```
+
+## Event Streaming
+
+### Basic Streaming with Type Safety
+
+Stream events in real-time as your remote general AI agent works through complex tasks:
+
+```python
+from panda_agi import Agent
+from panda_agi.envs import DockerEnv
+from panda_agi.client.models import (
+    # Type guard functions for type safety
+    is_agent_connection_success_event,
+    is_web_search_event,
+    is_web_navigation_event,
+    is_file_write_event,
+    is_shell_exec_event,
+    is_user_notification_event,
+    is_completed_task_event,
+)
+import asyncio
+
+async def main():
+    # Initialize the remote general AI agent environment
+    agent_env = DockerEnv("./workspace")
+    agent = Agent(environment=agent_env)
+
+    # Stream events as the general AI agent works autonomously
+    async for event in agent.run_stream("Research machine learning trends and create a comprehensive report"):
+        # Type checker knows exactly what type each event is!
+        
+        if is_agent_connection_success_event(event):
+            # Type checker knows event is AgentConnectionSuccessEvent here
+            file_system = event.data.get("file_system", {})
+            directory = file_system.get("directory", "unknown")
+            print(f"🔗 Agent connected: {directory}")
+        
+        elif is_web_search_event(event):
+            # Type checker knows event is WebSearchEvent here
+            query = event.data.get("query", "")
+            print(f"🔍 Searching: {query}")
+        
+        elif is_web_navigation_event(event):
+            # Type checker knows event is WebNavigationEvent here
+            url = event.data.get("url", "")
+            print(f"🌐 Reading: {url}")
+        
+        elif is_file_write_event(event):
+            # Type checker knows event is FileWriteEvent here
+            filename = event.data.get("file", "")
+            print(f"📝 Created: {filename}")
+        
+        elif is_shell_exec_event(event):
+            # Type checker knows event is ShellExecEvent here
+            command = event.data.get("command", "")
+            print(f"⚙️ Executing: {command}")
+        
+        elif is_user_notification_event(event):
+            # Type checker knows event is UserNotificationEvent here
+            text = event.data.get("text", "")
+            attachments = event.data.get("attachments", [])
+            print(f"📢 Update: {text}")
+            if attachments:
+                print(f"📎 Files: {', '.join(attachments)}")
+        
+        elif is_completed_task_event(event):
+            # Type checker knows event is CompletedTaskEvent here
+            print("🎉 Task completed!")
+            break
+    
+    await agent.disconnect()
+
+asyncio.run(main())
+```
+
+### Advanced Event Handling with Typed Models
+
+```python
+from panda_agi import Agent
+from panda_agi.envs import DockerEnv
+from panda_agi.client.models import (
+    StreamEvent,
+    # Import specific event types
+    WebSearchEvent,
+    FileWriteEvent,
+    UserNotificationEvent,
+    # Type guards
+    is_web_search_event,
+    is_file_write_event,
+    is_user_notification_event,
+    is_shell_exec_event,
+    is_image_generation_event,
+    is_completed_task_event,
+)
+import asyncio
+
+async def advanced_event_monitoring():
+    agent_env = DockerEnv("./workspace")
+    agent = Agent(environment=agent_env)
+    
+    # Track different categories of activities with type safety
+    async for event in agent.run_stream("Analyze codebase and generate documentation"):
+        
+        # Web activities
+        if is_web_search_event(event):
+            query = event.data.get("query", "")
+            max_results = event.data.get("max_results", 0)
+            print(f"🌐 Web search: '{query}' (max {max_results} results)")
+            
+        # File activities  
+        elif is_file_write_event(event):
+            filename = event.data.get("file", "")
+            content_length = len(event.data.get("content", ""))
+            append_mode = event.data.get("append", False)
+            mode = "appended to" if append_mode else "created"
+            print(f"📁 File {mode}: {filename} ({content_length} chars)")
+            
+        # Shell activities
+        elif is_shell_exec_event(event):
+            command = event.data.get("command", "")
+            exec_dir = event.data.get("exec_dir", "")
+            print(f"💻 Shell: {command} (in {exec_dir})")
+            
+        # Creative activities
+        elif is_image_generation_event(event):
+            prompt = event.data.get("prompt", "")
+            image_path = event.data.get("image_path", "")
+            print(f"🎨 Generated: {image_path} from '{prompt}'")
+            
+        # Communication
+        elif is_user_notification_event(event):
+            text = event.data.get("text", "")
+            print(f"📢 Progress: {text}")
+            
+        elif is_completed_task_event(event):
+            print("✅ Task completed!")
+            break
+    
+    await agent.disconnect()
+
+asyncio.run(advanced_event_monitoring())
+```
+
+### Creating Events Programmatically
+
+You can also create typed events programmatically for testing or custom workflows:
+
+```python
+from panda_agi.client.models import (
+    UserNotificationEvent,
+    FileWriteEvent,
+    WebSearchEvent,
+    StreamEvent,
+)
+
+# Create a typed notification event
+notification = UserNotificationEvent(
+    data={
+        "text": "Analysis complete!",
+        "attachments": ["report.md", "charts.png"]
+    }
+)
+
+# Create a typed file event
+file_event = FileWriteEvent(
+    data={
+        "file": "analysis.md",
+        "content": "# Analysis Results\n\nFindings...",
+        "append": False
+    }
+)
+
+# Events are fully typed and can be used in unions
+events: list[StreamEvent] = [notification, file_event]
+
+# Type-safe event processing
+for event in events:
+    if is_user_notification_event(event):
+        print(f"Notification: {event.data['text']}")
+    elif is_file_write_event(event):
+        print(f"File written: {event.data['file']}")
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Environments"
+    icon="globe"
+    href="/concepts/environments"
+  >
+    Learn about general AI agent execution environments
+  </Card>
+  <Card
+    title="Examples"
+    icon="play"
+    href="/chat-interface"
+  >
+    See event streaming in action in the PandaAGI Assistant pre-built app
+  </Card>
+</CardGroup> 
