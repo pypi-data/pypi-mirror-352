@@ -1,0 +1,9 @@
+from sqlmodel import Field, Relationship
+from framefox.core.orm.abstract_entity import AbstractEntity
+from typing import TYPE_CHECKING
+
+
+class {{ intermediate_class }}(AbstractEntity, table=True):
+    __tablename__ = '{{ source_entity }}_{{ target_entity }}'
+    {{ source_entity }}_id: int | None = Field(foreign_key='{{ source_entity }}.id', primary_key=True)
+    {{ target_entity }}_id: int | None = Field(foreign_key='{{ target_entity }}.id', primary_key=True)
