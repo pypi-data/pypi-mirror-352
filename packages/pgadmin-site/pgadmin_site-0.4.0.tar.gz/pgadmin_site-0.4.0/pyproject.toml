@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pgadmin-site"
+version = "0.4.0"
+description = "Библиотека для создания локального сайта для работы с таблицами PostgreSQL"
+readme = "README.md"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "flask>=2.0.0",
+    "psycopg2-binary>=2.9.3",
+    "SQLAlchemy>=2.0.0",
+    "wtforms>=3.0.0",
+    "flask-sqlalchemy>=3.0.0",
+    "click>=8.0.0",
+    "openai>=1.0.0",
+]
+requires-python = ">=3.8"
+
+[project.urls]
+"Homepage" = "https://github.com/yourusername/pgadmin-site"
+"Bug Tracker" = "https://github.com/yourusername/pgadmin-site/issues"
+
+[project.scripts]
+pgadmin-site = "pgadmin_site.cli:main"
+
+[tool.setuptools]
+packages = ["pgadmin_site"]
+
+[tool.setuptools.package-data]
+pgadmin_site = [
+    "templates/*.html",
+    "templates/cards/*.json",
+    "static/*"
+] 
