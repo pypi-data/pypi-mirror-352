@@ -1,0 +1,742 @@
+openapi: 3.0.2
+
+info:
+  title: 众期历史数据查询服务
+  description: ''
+  version: 1.0.0
+
+tags:
+- name: 历史数据
+
+servers:
+  - url: http://localhost:{port}/
+    variables:
+      port:
+        default: '8083'
+
+security:
+  - bearerAuth: []
+
+paths:
+  /history/v1/views/:
+    get:
+      summary: Handle
+      operationId: handle_history_v1_views__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetViewRspModel'
+      security:
+        - bearer: []
+  /history/v1/views/account-snap:
+    post:
+      summary: Handle
+      operationId: handle_history_v1_views_account_snap_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewDefine'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountSnapRspModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - bearer: []
+  /history/v1/views/position-snap:
+    post:
+      summary: Handle
+      operationId: handle_history_v1_views_position_snap_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewDefine'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionSnapRspModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - bearer: []
+  /history/v1/views/order-log:
+    post:
+      summary: Handle
+      operationId: handle_history_v1_views_order_log_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewDefine'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderLogRspModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - bearer: []
+  /history/v1/views/trade-log:
+    post:
+      summary: Handle
+      operationId: handle_history_v1_views_trade_log_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewDefine'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TradeLogRspModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - bearer: []
+  /history/v1/views/close-log:
+    post:
+      summary: Handle
+      operationId: handle_history_v1_views_close_log_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewDefine'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloseLogRspModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - bearer: []
+components:
+  schemas:
+    AccountSnapModel:
+      title: AccountSnapModel
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        trading_day:
+          title: Trading Day
+          type: string
+          format: date
+        investor_id:
+          title: Investor Id
+          type: string
+        snap_type:
+          title: Snap Type
+          type: string
+        currency:
+          title: Currency
+          type: string
+        pre_balance:
+          title: Pre Balance
+          type: number
+        deposit:
+          title: Deposit
+          type: number
+        withdraw:
+          title: Withdraw
+          type: number
+        close_profit:
+          title: Close Profit
+          type: number
+        commission:
+          title: Commission
+          type: number
+        premium:
+          title: Premium
+          type: number
+        position_profit:
+          title: Position Profit
+          type: number
+        float_profit:
+          title: Float Profit
+          type: number
+        client_equity:
+          title: Client Equity
+          type: number
+        balance:
+          title: Balance
+          type: number
+        margin:
+          title: Margin
+          type: number
+        frozen_margin:
+          title: Frozen Margin
+          type: number
+        frozen_commission:
+          title: Frozen Commission
+          type: number
+        frozen_premium:
+          title: Frozen Premium
+          type: number
+        available:
+          title: Available
+          type: number
+        risk_ratio:
+          title: Risk Ratio
+          type: number
+        ref_risk_ratio:
+          title: Ref Risk Ratio
+          type: number
+        option_market_value:
+          title: Option Market Value
+          type: number
+        option_buy_market_value:
+          title: Option Buy Market Value
+          type: number
+        option_sell_market_value:
+          title: Option Sell Market Value
+          type: number
+    AccountSnapRspModel:
+      title: AccountSnapRspModel
+      type: object
+      properties:
+        datas:
+          title: 返回数据集，这里列出了当前视图中的全部字段，实际返回的字段也可以根据 aggregate_fields 参数指定
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountSnapModel'
+          default: []
+        total_count:
+          title: 数据总行数，仅在有分页请求时会返回此值
+          type: integer
+    AggregateField:
+      title: AggregateField
+      required:
+        - fields
+        - operator
+        - name
+      type: object
+      properties:
+        fields:
+          title: Fields
+          type: array
+          items:
+            type: string
+          description: 列名
+        operator:
+          title: Operator
+          type: string
+          description: 聚合方法 (sum、count、min、max、avg)
+        name:
+          title: Name
+          type: string
+          description: 聚合后列名
+    CloseLogModel:
+      title: CloseLogModel
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        trading_day:
+          title: Trading Day
+          type: string
+          format: date
+        investor_id:
+          title: Investor Id
+          type: string
+        exchange_id:
+          title: Exchange Id
+          type: string
+        instrument_id:
+          title: Instrument Id
+          type: string
+        product_id:
+          title: Product Id
+          type: string
+        offset:
+          title: Offset
+          type: string
+        direction:
+          title: Direction
+          type: string
+        hedge_type:
+          title: Hedge Type
+          type: string
+        volume:
+          title: Volume
+          type: integer
+        volume_multiple:
+          title: Volume Multiple
+          type: integer
+        weight:
+          title: Weight
+          type: integer
+        open_trading_day:
+          title: Open Trading Day
+          type: string
+          format: date
+        open_timestamp:
+          title: Open Timestamp
+          type: string
+          format: date
+        open_exchange_order_id:
+          title: Open Exchange Order Id
+          type: string
+        open_price:
+          title: Open Price
+          type: number
+        close_trading_day:
+          title: Close Trading Day
+          type: string
+          format: date
+        close_timestamp:
+          title: Close Timestamp
+          type: string
+          format: date
+        close_exchange_order_ide:
+          title: Close Exchange Order Ide
+          type: string
+        close_price:
+          title: Close Price
+          type: number
+        close_profit:
+          title: Close Profit
+          type: number
+        close_profit_by_open:
+          title: Close Profit By Open
+          type: number
+    CloseLogRspModel:
+      title: CloseLogRspModel
+      type: object
+      properties:
+        datas:
+          title: 返回数据集，这里列出了当前视图中的全部字段，实际返回的字段也可以根据 aggregate_fields 参数指定
+          type: array
+          items:
+            $ref: '#/components/schemas/CloseLogModel'
+          default: []
+        total_count:
+          title: 数据总行数，仅在有分页请求时会返回此值
+          type: integer
+    GetViewRspModel:
+      title: GetViewRspModel
+      type: object
+      properties:
+        datas:
+          title: 全部视图列表
+          type: array
+          items:
+            type: string
+          default: []
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    OrderLogModel:
+      title: OrderLogModel
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        trading_day:
+          title: Trading Day
+          type: string
+          format: date
+        investor_id:
+          title: Investor Id
+          type: string
+        exchange_id:
+          title: Exchange Id
+          type: string
+        instrument_id:
+          title: Instrument Id
+          type: string
+        product_id:
+          title: Product Id
+          type: string
+        status_msg:
+          title: Status Msg
+          type: string
+        order_type:
+          title: Order Type
+          type: string
+        hedge_flag:
+          title: Hedge Flag
+          type: string
+        direction:
+          title: Direction
+          type: string
+        offset:
+          title: Offset
+          type: string
+        price_type:
+          title: Price Type
+          type: string
+        volume_condition:
+          title: Volume Condition
+          type: string
+        time_condition:
+          title: Time Condition
+          type: string
+        force_close_reason:
+          title: Force Close Reason
+          type: string
+        is_swap_order:
+          title: Is Swap Order
+          type: boolean
+        order_id:
+          title: Order Id
+          type: string
+        limit_price:
+          title: Limit Price
+          type: number
+        volume_orign:
+          title: Volume Orign
+          type: integer
+        volume_left:
+          title: Volume Left
+          type: integer
+        min_volume:
+          title: Min Volume
+          type: integer
+        exchange_order_id:
+          title: Exchange Order Id
+          type: string
+        insert_date_time:
+          title: Insert Date Time
+          type: string
+          format: date
+        last_trade_date_time:
+          title: Last Trade Date Time
+          type: string
+          format: date
+        volume_multiple:
+          title: Volume Multiple
+          type: integer
+        weight_origin:
+          title: Weight Origin
+          type: integer
+        weight_left:
+          title: Weight Left
+          type: integer
+    OrderLogRspModel:
+      title: OrderLogRspModel
+      type: object
+      properties:
+        datas:
+          title: 返回数据集，这里列出了当前视图中的全部字段，实际返回的字段也可以根据 aggregate_fields 参数指定
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLogModel'
+          default: []
+        total_count:
+          title: 数据总行数，仅在有分页请求时会返回此值
+          type: integer
+    PositionSnapModel:
+      title: PositionSnapModel
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        trading_day:
+          title: Trading Day
+          type: string
+          format: date
+        investor_id:
+          title: Investor Id
+          type: string
+        snap_type:
+          title: Snap Type
+          type: string
+        exchange_id:
+          title: Exchange Id
+          type: string
+        instrument_id:
+          title: Instrument Id
+          type: string
+        product_id:
+          title: Product Id
+          type: string
+        hedge_type:
+          title: Hedge Type
+          type: string
+        direction:
+          title: Direction
+          type: string
+        snap_price:
+          title: Snap Price
+          type: number
+        volume_yesterday:
+          title: Volume Yesterday
+          type: integer
+        volume_today:
+          title: Volume Today
+          type: integer
+        volume_his:
+          title: Volume His
+          type: integer
+        volume_comb:
+          title: Volume Comb
+          type: integer
+        volume_today_frozen:
+          title: Volume Today Frozen
+          type: integer
+        volume_his_frozen:
+          title: Volume His Frozen
+          type: integer
+        open_price:
+          title: Open Price
+          type: number
+        float_profit:
+          title: Float Profit
+          type: number
+        position_price:
+          title: Position Price
+          type: number
+        position_profit:
+          title: Position Profit
+          type: number
+        margin:
+          title: Margin
+          type: number
+        market_value:
+          title: Market Value
+          type: number
+        premium:
+          title: Premium
+          type: number
+        volume_multiple:
+          title: Volume Multiple
+          type: integer
+        volume:
+          title: Volume
+          type: integer
+        weight:
+          title: Weight
+          type: integer
+        weight_yesterday:
+          title: Weight Yesterday
+          type: integer
+        weight_today:
+          title: Weight Today
+          type: integer
+        weight_his:
+          title: Weight His
+          type: integer
+        net_volume:
+          title: Net Volume
+          type: integer
+        net_weight:
+          title: Net Weight
+          type: integer
+    PositionSnapRspModel:
+      title: PositionSnapRspModel
+      type: object
+      properties:
+        datas:
+          title: 返回数据集，这里列出了当前视图中的全部字段，实际返回的字段也可以根据 aggregate_fields 参数指定
+          type: array
+          items:
+            $ref: '#/components/schemas/PositionSnapModel'
+          default: []
+        total_count:
+          title: 数据总行数，仅在有分页请求时会返回此值
+          type: integer
+    SortField:
+      title: SortField
+      required:
+        - field
+      type: object
+      properties:
+        field:
+          title: Field
+          type: string
+          description: 字段名
+        ascending:
+          title: Ascending
+          type: boolean
+          description: 是否升序
+          default: false
+    TradeLogModel:
+      title: TradeLogModel
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        trading_day:
+          title: Trading Day
+          type: string
+          format: date
+        investor_id:
+          title: Investor Id
+          type: string
+        exchange_trade_id:
+          title: Exchange Trade Id
+          type: string
+        exchange_order_id:
+          title: Exchange Order Id
+          type: string
+        exchange_id:
+          title: Exchange Id
+          type: string
+        instrument_id:
+          title: Instrument Id
+          type: string
+        order_id:
+          title: Order Id
+          type: string
+        hedge_flag:
+          title: Hedge Flag
+          type: string
+        volume:
+          title: Volume
+          type: integer
+        price:
+          title: Price
+          type: number
+        commission:
+          title: Commission
+          type: number
+        direction:
+          title: Direction
+          type: string
+        offset:
+          title: Offset
+          type: string
+        product_id:
+          title: Product Id
+          type: string
+        volume_multiple:
+          title: Volume Multiple
+          type: integer
+        weight:
+          title: Weight
+          type: integer
+        trade_date_time:
+          title: Trade Date Time
+          type: string
+          format: date-time
+    TradeLogRspModel:
+      title: TradeLogRspModel
+      type: object
+      properties:
+        datas:
+          title: 返回数据集，这里列出了当前视图中的全部字段，实际返回的字段也可以根据 aggregate_fields 参数指定
+          type: array
+          items:
+            $ref: '#/components/schemas/TradeLogModel'
+          default: []
+        total_count:
+          title: 数据总行数，仅在有分页请求时会返回此值
+          type: integer
+    ValidationError:
+      title: ValidationError
+      required:
+        - loc
+        - msg
+        - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    ViewDefine:
+      title: ViewDefine
+      type: object
+      properties:
+        filter:
+          title: Filter
+          type: string
+          description: 筛选字段
+        group_by_fields:
+          title: Group By Fields
+          type: array
+          items:
+            type: string
+          description: 分组字段
+        aggregate_fields:
+          title: Aggregate Fields
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregateField'
+          description: 聚合字段
+        sort_fields:
+          title: Sort Fields
+          type: array
+          items:
+            $ref: '#/components/schemas/SortField'
+          description: 排序字段
+        slice_start:
+          title: Slice Start
+          type: integer
+          description: 分页字段，窗口起点
+        slice_end:
+          title: Slice End
+          type: integer
+          description: 分页字段，窗口终点
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
