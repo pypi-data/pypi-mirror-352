@@ -1,0 +1,29 @@
+[build-system]
+requires = [
+  "setuptools >= 77.0.3"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+  name = "pyfreeipa"
+  description = "Python FreeIPA API interface"
+  version = "0.2.2"
+  license =  {file = "LICENCE"}
+  maintainers = [
+    {name = "Aaron Hicks", email = "aethylred@gmail.com"}
+  ]
+  readme = "README.md"
+  classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+  ]
+  dependencies = [
+    'certifi',
+    'chardet',
+    'idna',
+    'PyYAML',
+    'requests',
+    'typing',
+    'urllib3'
+  ]
