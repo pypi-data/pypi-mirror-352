@@ -1,0 +1,71 @@
+Metadata-Version: 2.4
+Name: pytim
+Version: 1.0.3
+Summary: Python Tool for Interfacial Molecules Analysis
+Author: Balazs Fabian, Gyorgy Hantal, Pal Jedlovszky
+Author-email: Marcello Sega <m.sega@ucl.ac.uk>
+Maintainer-email: Marcello Sega <m.sega@ucl.ac.uk>
+License-Expression: GPL-3.0-only
+Project-URL: Homepage, https://github.com/Marcello-Sega/pytim
+Project-URL: Source, https://github.com/Marcello-Sega/pytim
+Project-URL: BugTracker, https://github.com/Marcello-Sega/pytim/issues
+Keywords: molecular,simulations,analysis
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Topic :: Scientific/Engineering :: Chemistry
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: AUTHORS.md
+Requires-Dist: numpy>=2.1.3
+Requires-Dist: cython>=0.24.1
+Requires-Dist: gsd>3.0.0
+Requires-Dist: MDAnalysis>=2.8.0
+Requires-Dist: scipy>=1.6.0
+Requires-Dist: setuptools
+Requires-Dist: PyWavelets>=0.5.2
+Requires-Dist: scikit-image>=0.24.0
+Requires-Dist: sphinx>=1.4.3
+Requires-Dist: matplotlib
+Requires-Dist: pytest
+Requires-Dist: dask>=1.1.1
+Provides-Extra: dev
+Requires-Dist: nose>=1.3.7; extra == "dev"
+Requires-Dist: coverage; extra == "dev"
+Dynamic: license-file
+
+A Python Tool for Interfacial Molecules Analysis
+================================================
+
+Pytim is a cross-platform python implementation of several methods
+for the detection of fluid interfaces in molecular simulations: it
+allows to identify interfacial molecules from the trajectories of
+major molecular dynamics simulation packages, and run some analyses
+specifically conceived for interfacial molecules, such as intrinsic
+profiles.
+
+So far the following methods have been implemented:
+
+* ITIM
+* GITIM 
+* SASA
+* Willard Chandler
+* DBSCAN filtering
+
+----
+
+Pytim relies on the MDAnalysis package for reading/writing trajectories,
+and work therefore seamlessly for a number of popular trajectory
+formats, including:
+
+* GROMACS
+* CHARMM/NAMD
+* LAMMPS
+* AMBER
+* DL_Poly
+
+
