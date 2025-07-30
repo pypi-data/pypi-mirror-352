@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "accli"
+dynamic = ["version"]
+authors = [
+  { name="Wrufesh S", email="wrufesh@gmail.com" },
+]
+description = "IIASA Accelerator Client"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.7.17"
+dependencies = [
+    "urllib3~=2.0.7",
+    "typer[all]~=0.16.0",
+    "tinydb~=4.8.0",
+    "requests~=2.31.0",
+    "jsonschema~=4.17.3",
+    "pydantic~=2.5.3",
+    "gitpython~=3.1.43"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.setuptools]
+packages = ['accli']
+
+[tool.setuptools.dynamic]
+version = {attr="accli._version.VERSION"}
+
+[project.urls]
+"Homepage" = "https://github.com/iiasa/accli"
+"Bug Tracker" = "https://github.com/iiasa/accli/issues"
+
+[project.scripts]
+accli = "accli.cli:app"
