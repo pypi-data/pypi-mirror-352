@@ -1,0 +1,45 @@
+{% import "macros.txt.j2" as macros with context %}
+╔═══════════════════════════╗
+║ <header>{{ "{:^25}".format("Analyze") }}</header> ║
+╚═══════════════════════════╝
+<header>Summary</header>:
+- <key>IP count</key>: <value>{{ result.summary.ip_count }}</value>
+- <key>Noise IP count</key>: <value>{{ result.summary.noise_ip_count }}</value>
+- <key>Not noise IP count</key>: <value>{{ result.summary.not_noise_ip_count }}</value>
+- <key>RIOT IP count</key>: <value>{{ result.summary.riot_ip_count }}</value>
+- <key>Noise IP ratio</key>: <value>{{ "%.2f" | format(result.summary.noise_ip_ratio) }}</value>
+- <key>RIOT IP ratio</key>: <value>{{ "%.2f" | format(result.summary.riot_ip_ratio) }}</value>
+
+<header>Queries</header>:
+{%- call(query) macros.verbose_list(result.query) -%}
+- <value>{{ query }}</value>
+{% endcall -%}
+
+{% if result.count > 0 %}
+{%- if result.stats.actors %}
+<header>Actors</header>:
+{{- macros.column_verbose_list(result.stats.actors, "actor") }}
+{%- endif %}
+
+{%- if result.stats.classifications %}
+<header>Classifications</header>:
+{{- macros.column_verbose_list(result.stats.classifications, "classification") }}
+{%- endif %}
+
+{%- if result.stats.countries %}
+<header>Source Countries</header>:
+{{- macros.column_verbose_list(result.stats.countries, "country") }}
+{%- endif %}
+
+{%- if "operating_systems" in result.stats and result.stats.operating_systems %}
+<header>Operating systems</header>:
+{{- macros.column_verbose_list(result.stats.operating_systems, "operating_system") }}
+{%- endif %}
+
+{%- if "tags" in result.stats and result.stats.tags %}
+<header>Tags</header>:
+{{- macros.column_verbose_list(result.stats.tags, "tag") }}
+{%- endif %}
+{%- else %}
+No results found for this query.
+{% endif %}

@@ -1,0 +1,188 @@
+---
+version: 2.1
+
+TAGS_FILTER: &TAGS_FILTER
+  tags:
+    only: /v.*/
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - py38:
+          filters:
+            <<: *TAGS_FILTER
+      - py39:
+          filters:
+            <<: *TAGS_FILTER
+      - py310:
+          filters:
+            <<: *TAGS_FILTER
+      - py311:
+          filters:
+            <<: *TAGS_FILTER
+      - py312:
+          filters:
+            <<: *TAGS_FILTER
+      - sonarcloud:
+          requires:
+            # generate static analysis and coverage reports in py37 job
+            # and upload them to sonarcloud.io in sonarcloud job
+            - py39
+      - pypi:
+          requires:
+            # release to pypi only when test cases pass in all python versions
+            - py38
+            - py39
+            - py310
+            - py311
+            - py312
+          filters:
+            <<: *TAGS_FILTER
+            branches:
+              ignore: /.*/
+
+DEFAULT_STEPS: &DEFAULT_STEPS
+  - checkout
+  - run: &CREATE_VIRTUALENV_STEP
+      name: Create virtualenv
+      command: |
+        virtualenv venv
+        echo ". venv/bin/activate" >> $BASH_ENV
+  - run: &INSTALL_DEPENDENCIES_STEP
+      name: Install dependencies
+      command: |
+        pip install --upgrade pip
+        pip install -r requirements/test.txt -e .
+  - run:
+      name: Test cases
+      command: pytest --junitxml=workspace/test_results/pytest.xml tests
+  - store_test_results:
+      path: workspace/test_results
+
+jobs:
+  py310:
+    docker:
+      - image: cimg/python:3.10
+    steps:
+      - checkout
+      - run: *CREATE_VIRTUALENV_STEP
+      - run: *INSTALL_DEPENDENCIES_STEP
+      - run:
+          name: Style check (yamllint)
+          command: yamllint .
+      - run:
+          name: Style check (black)
+          command: black --check src tests docs
+      - run:
+          name: Style check (isort)
+          command: isort --check-only src/**/*.py tests/**/*.py docs/**/*.py
+      - run:
+          name: Style check (rst)
+          command: rst-lint *.rst
+      - run:
+          name: Static analysis (flake8)
+          command: flake8 src tests docs
+      - run:
+          name: Static analysis (pylint)
+          command: |
+            mkdir workspace
+            pylint \
+              --exit-zero \
+              --reports no \
+              --msg-template='{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}' \
+              src > workspace/pylint.txt
+      - run:
+          name: Test cases
+          command: |
+            . venv/bin/activate
+            pytest \
+              --cov=greynoise \
+              --cov-report=xml:workspace/coverage/report.xml \
+              --junitxml=workspace/test_results/pytest.xml \
+              tests
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - pylint.txt
+            - coverage/report.xml
+            - test_results/pytest.xml
+      - store_test_results:
+          path: workspace/test_results
+
+  py38:
+    docker:
+      - image: cimg/python:3.8
+    steps: *DEFAULT_STEPS
+
+  py39:
+    docker:
+      - image: cimg/python:3.9
+    steps: *DEFAULT_STEPS
+
+  py311:
+    docker:
+      - image: cimg/python:3.11
+    steps: *DEFAULT_STEPS
+
+  py312:
+    docker:
+      - image: cimg/python:3.12
+    steps: *DEFAULT_STEPS
+
+  sonarcloud:
+    docker:
+      - image: cimg/openjdk:21.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: workspace
+      - run:
+          name: Setup environment variables
+          command: |
+            echo "SONAR_SCANNER_VERSION=4.5.0.2216" >> $BASH_ENV
+            echo \
+              'SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION' \
+              >> $BASH_ENV
+      - run:
+          name: Install sonar scanner
+          command: |
+            rm -rf $SONAR_SCANNER_HOME
+            mkdir -p $SONAR_SCANNER_HOME
+            curl \
+              -sSLo \
+              $HOME/.sonar/sonar-scanner.zip \
+              https://repo1.maven.org/maven2/org/sonarsource/scanner/cli/sonar-scanner-cli/$SONAR_SCANNER_VERSION/sonar-scanner-cli-$SONAR_SCANNER_VERSION.zip
+            unzip $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+            rm $HOME/.sonar/sonar-scanner.zip
+      - run:
+          name: Run sonar scanner
+          command: |
+            export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+            export SONAR_SCANNER_OPTS="-server"
+            sonar-scanner \
+              -Dsonar.login=$SONAR_AUTH_TOKEN \
+              -Dsonar.branch.name=$CIRCLE_BRANCH
+
+  pypi:
+    docker:
+      - image: cimg/python:3.10
+    steps:
+      - checkout
+      - run: *CREATE_VIRTUALENV_STEP
+      - run: *INSTALL_DEPENDENCIES_STEP
+      - run:
+          name: Install build dependencies
+          command: |
+            . venv/bin/activate
+            pip install build twine
+      - run:
+          name: Build packages
+          command: |
+            . venv/bin/activate
+            python -m build
+      - run:
+          name: Upload package to pypi
+          command: |
+            . venv/bin/activate
+            twine upload --username __token__ --disable-progress-bar dist/*
