@@ -1,0 +1,76 @@
+[project]
+name = "mtv_dl"
+version = "0.27.1"
+description = "MediathekView Downloader"
+readme = "README.md"
+authors = [
+    { name = "Frank Epperlein", email = "frank+mtv_dl@epperle.in" },
+]
+repository = "https://github.com/fnep/mtv_dl"
+license = { text = "MIT License" }
+classifiers = [
+    "Topic :: Multimedia :: Video",
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "License :: Public Domain",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "iso8601~=2.1.0",
+    "durationpy~=0.10",
+    "PyYAML~=6.0",
+    "beautifulsoup4~=4.13.4",
+    "rich~=14.0.0",
+    "certifi~=2025.4.26",
+    "ijson~=3.4.0",
+    "typer~=0.16.0",
+    "typer-config[yaml]~=1.4.2",
+]
+
+[project.scripts]
+mtv_dl = "mtv_dl.mtv_dl:app"
+
+[dependency-groups]
+dev = [
+    "mypy~=1.16.0",
+    "types-PyYAML~=6.0.12.20240808",
+    "types-certifi~=2021.10.8.3",
+    "pytest~=8.4.0",
+    "ruff~=0.11.12",
+    "pytest-mypy~=1.0.1",
+    "pytest-ruff~=0.4.1",
+]
+
+
+[tool.mypy]
+strict = true
+warn_unused_ignores = true
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 120
+lint.select = [
+    "A",
+    "ARG",
+    "E",
+    "F",
+    "I",
+    "N",
+    "PTH",
+    "Q",
+    "RUF",
+    "SIM",
+    "UP",
+    "W",
+]
+lint.isort.force-single-line = true
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules --mypy --ruff --ruff-format"
+xfail_strict = true
+
+[build-system]
+requires = ["uv_build>=0.7.10,<0.8.0"]
+build-backend = "uv_build"
