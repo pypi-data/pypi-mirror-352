@@ -1,0 +1,26 @@
+[project]
+name = "django-orm-to-excel"
+description = "Turning Django ORM objects to Excel"
+requires-python = ">=3.9"
+version = "2.1.7"
+readme = "README.md"
+dependencies = [
+    "jinja2==3.1.6",
+    "openpyxl==3.1.5",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.setuptools]
+include-package-data = true
+
+
+[tool.setuptools.package-data]
+ormxl = [
+    "html_templates/**/*.html",
+    "ddjcm_templates/**/*.j2",
+    "css_styles/**/*.css",
+]

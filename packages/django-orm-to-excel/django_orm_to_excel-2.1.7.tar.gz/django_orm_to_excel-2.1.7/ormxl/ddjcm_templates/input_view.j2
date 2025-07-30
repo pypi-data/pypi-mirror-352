@@ -1,0 +1,35 @@
+from django.shortcuts import redirect, render
+{%- if form_model.endswith("Form") %}
+	{%- set view_name = form_model[:-4].lower() %}
+{%- else %}
+	{%- set view_name = form_model.lower() %}
+{%- endif %}
+
+# def {{ view_name }}_processing(request, form, html_page):
+#     ...
+
+def {{ view_name }}_view(request):
+    if request.method == 'POST':
+        form = {{ form_model }}(request.POST)
+        if form.is_valid():
+            return {{ view_name }}_processing(request, form, "{{ html_page }}")
+        else:
+            return render(request, "{{ html_page }}", {"form": form, "title": "{{ title }}", "error": form.errors})
+    else:
+        {% if initial_fields %}
+        model = {{ model_name }}.objects.get(pk=request.GET["id"])
+        form = {{ form_model }}(initial={field: getattr(model, field) for field in {{ initial_fields }}})
+
+        return render(request, "{{ html_page }}", {"form": form, "title": "{{ title }}", "fields": form.get_fields(request)})
+        {% else %}
+        initial_fields = {}
+        {% if prefill %}
+        if request.GET.get("prefill_id"):
+            prefill_model = {{ prefill }}.objects.get(pk=request.GET["prefill_id"])
+            initial_fields = {"{{ prefill.lower() }}": prefill_model}
+        {% endif %}
+
+        form = {{ form_model }}(initial=initial_fields)
+
+        return render(request, "{{ html_page }}", {"form": form, "title": "{{ title }}", "fields": []})
+        {% endif %}

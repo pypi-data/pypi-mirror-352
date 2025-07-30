@@ -1,0 +1,23 @@
+import io
+
+from django.core.files import File
+from django.http import FileResponse
+
+from ormxl import save_to_excel
+
+
+def {{ report_name }}_download_view(request):
+    buf = io.BytesIO()
+
+    model_id = None
+    if request.GET.get("id"):
+        model_id = request.GET["id"]
+
+    save_to_excel(buf, {{ model_name }}.objects.{{ queryset }}, fields={{ fields }})
+
+    buf.seek(0)
+
+    response = FileResponse(File(buf), filename="{{report_name}}.xlsx")
+
+    return response
+

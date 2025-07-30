@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block header %}{{ title }}{% endblock header %}
+{% block content%}
+    <ul>
+        {% for item in items %}
+            <li><a href="{% if subsystem %}/{% endif %}{{ subsystem }}/{{ item.slug }}">{{ item.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

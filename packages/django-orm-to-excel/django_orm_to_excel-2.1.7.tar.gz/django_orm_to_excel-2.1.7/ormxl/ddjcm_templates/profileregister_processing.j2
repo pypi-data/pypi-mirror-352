@@ -1,0 +1,28 @@
+from django.shortcuts import redirect, render
+from django.contrib.auth.models import User
+
+from profiles.models import Profile
+
+def get_role_from_path(path: str) -> str:
+	return path.strip().strip("/").split("/")[1].split("_")[1].upper()
+
+def profileregister_processing(request, form, get_html_page):
+    data = form.cleaned_data
+
+    try:
+        user = User.objects.create_user(username=data["username"], email="")
+        user.set_password(data["password"])
+        user.save()
+
+        profile = Profile.objects.create(
+			user=user,
+			name=data["name"],
+			last_name=data["last_name"],
+			phone_number=data["phone_number"],
+			role=get_role_from_path(request.path)
+		)
+    except Exception as e:
+        return render(request, get_html_page, {"form": form, "error": e})
+
+    return redirect("/profiles/login/")
+

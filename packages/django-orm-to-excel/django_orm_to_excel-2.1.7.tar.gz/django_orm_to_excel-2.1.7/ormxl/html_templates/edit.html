@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load helpers %}
+{% block header %}{{ title }}{% endblock header %}
+{% block content%}
+    <p style="color: red">{{ error }}</p>
+    <form method="post">
+        {% csrf_token %}
+        {% for field_name in fields %}
+            <div>
+            {{ form|get_label_tag:field_name }}{{ form|get_item:field_name }}
+            </div>
+        {% endfor %}
+        <button type="submit">Сохранить</button>
+    </form>
+{% endblock content %}

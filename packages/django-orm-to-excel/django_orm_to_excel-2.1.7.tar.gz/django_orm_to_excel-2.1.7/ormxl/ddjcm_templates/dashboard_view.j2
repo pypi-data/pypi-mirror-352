@@ -1,0 +1,12 @@
+from django.shortcuts import redirect, render
+
+{% if import_render %}from django.shortcuts import render{% endif %}
+
+def {{ model_name }}_dashboard_view(request):
+    role = request.user.profile.role
+    {% for role, item_s in items.items() %}
+    if role == "{{ role.upper() }}":
+        available_items = {{ item_s -}}
+    {% endfor %}
+
+    return render(request, "dashboard.html", {"title": "{{ title }}", "items": available_items, "subsystem": "{{ subsystem }}"})

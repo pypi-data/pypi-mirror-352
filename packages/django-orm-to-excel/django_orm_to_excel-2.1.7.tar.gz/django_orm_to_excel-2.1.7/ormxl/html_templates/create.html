@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block header %}{{ title }}{% endblock header %}
+{% block content%}
+    <p style="color: red">{{ error }}</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Создать</button>
+    </form>
+{% endblock content %}

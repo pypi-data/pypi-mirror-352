@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block header %}{{ repr }}{% endblock header %}
+{% block content%}
+    {% if links|length > 0 %}
+    <strong><i>Действия</i></strong>: {% for link_name, link in links.items %}<a href="{{ link }}">{{ link_name }}</a>{% if links|length > 1 and forloop.counter != links|length %}, {% endif %}{% endfor %}
+    {% endif %}
+    {% for field_name, field in fields.items %}
+        <div>
+            <strong>{{ field_name }}</strong>: <i>{{ field }}</i>
+        </div>
+    {% endfor %}
+{% endblock content %}

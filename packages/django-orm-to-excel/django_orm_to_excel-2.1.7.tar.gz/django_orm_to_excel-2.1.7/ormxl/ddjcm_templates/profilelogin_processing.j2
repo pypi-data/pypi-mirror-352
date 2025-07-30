@@ -1,0 +1,18 @@
+from django.shortcuts import redirect, render
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+
+from profiles.models import Profile
+
+
+def profilelogin_processing(request, form, get_html_page):
+    data = form.cleaned_data
+
+    try:
+        user = authenticate(username=data["username"], password=data["password"])
+        if user is not None:
+            login(request, user)
+            return redirect("/subsystems/")
+        return render(request, get_html_page, {"form": form, "error": "Неверный логин или пароль"})
+    except Exception as e:
+        return render(request, get_html_page, {"form": form, "error": e})

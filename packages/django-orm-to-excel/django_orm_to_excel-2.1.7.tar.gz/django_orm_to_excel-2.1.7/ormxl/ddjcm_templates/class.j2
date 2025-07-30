@@ -1,0 +1,3 @@
+class {{ name }}{% if parents|length > 0%}({{ parents | join(", ") }}){% endif %}:
+    {{ body | nested }}
+

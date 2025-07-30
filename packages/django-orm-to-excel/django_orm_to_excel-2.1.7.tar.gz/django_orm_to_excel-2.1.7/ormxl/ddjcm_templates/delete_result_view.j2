@@ -1,0 +1,6 @@
+from django.shortcuts import redirect, render
+{% if import_render %}from django.shortcuts import render{% endif %}
+
+
+def delete_result_view(request):
+    return render(request, "delete.html")

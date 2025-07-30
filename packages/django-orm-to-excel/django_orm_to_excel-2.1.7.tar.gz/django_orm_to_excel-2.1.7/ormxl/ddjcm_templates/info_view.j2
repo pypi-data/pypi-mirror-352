@@ -1,0 +1,26 @@
+from django.shortcuts import redirect, render
+{% set model_name = model.lower() %}
+
+def {{ model_name }}_info_view(request):
+    {{ model_name }}_id = request.GET["id"]
+    {{ model_name }} = {{ model }}.objects.get(pk={{ model.lower() }}_id)
+
+    role = request.user.profile.role
+    {% for role, fields in available_fields.items() %}
+    if role == "{{ role.upper() }}":
+        available_fields = {{ fields -}}
+    {% endfor %}
+
+    {% for role, item_s in links.items() %}
+    if role == "{{ role.upper() }}":
+        links = {{ item_s -}}
+    {% endfor %}
+
+    links = {
+        name: link + {{ model_name }}_id if ("edit_{{ model_name }}" in link) or ("create_{{ model_name }}" in link) or ("delete_{{ model_name }}" in link) or ("report_" in link) else link
+        for name, link in links.items()
+    }
+
+    fields = {getattr({{ model }}, field).field.verbose_name: getattr({{ model_name }}, field, None) or "..." for field in available_fields}
+
+    return render(request, "{{ html_page }}", {"fields": fields, "links": links, "repr": str({{ model_name }})})
