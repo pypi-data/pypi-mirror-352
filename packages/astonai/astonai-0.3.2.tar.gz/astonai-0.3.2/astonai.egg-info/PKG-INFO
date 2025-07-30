@@ -1,0 +1,470 @@
+Metadata-Version: 2.4
+Name: astonai
+Version: 0.3.2
+Summary: Test Intelligence Engine
+Author: Aston AI
+License: MIT
+Keywords: aston,test coverage,static analysis
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.22.0
+Requires-Dist: neo4j>=5.5.0
+Requires-Dist: pydantic>=1.10.0
+Requires-Dist: click>=8.1.3
+Requires-Dist: rich>=12.5.1
+Requires-Dist: PyYAML>=6.0
+Requires-Dist: gitpython>=3.1.0
+Requires-Dist: astgraph<0.2.0,>=0.1.0
+Requires-Dist: networkx>=3.0.0
+Requires-Dist: parso>=0.8.0
+Requires-Dist: libcst>=1.0.0
+Provides-Extra: minimal
+Provides-Extra: test
+Requires-Dist: pytest>=8.0.0; extra == "test"
+Requires-Dist: pytest-cov>=4.1.0; extra == "test"
+Requires-Dist: pytest-xdist>=3.0.0; extra == "test"
+Requires-Dist: mypy>=1.0.0; extra == "test"
+Requires-Dist: flake8>=6.0.0; extra == "test"
+Requires-Dist: packaging>=23.0; extra == "test"
+Provides-Extra: coverage
+Requires-Dist: pytest-cov>=4.1.0; extra == "coverage"
+Requires-Dist: coverage-conditional-plugin>=0.9.0; extra == "coverage"
+Provides-Extra: llm
+Requires-Dist: openai>=1.0.0; extra == "llm"
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.1.0; extra == "dev"
+Requires-Dist: pytest-xdist>=3.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: packaging>=23.0; extra == "dev"
+Requires-Dist: coverage-conditional-plugin>=0.9.0; extra == "dev"
+Requires-Dist: build>=1.0.0; extra == "dev"
+Requires-Dist: twine>=4.0.0; extra == "dev"
+Provides-Extra: all
+Requires-Dist: pytest>=8.0.0; extra == "all"
+Requires-Dist: pytest-cov>=4.1.0; extra == "all"
+Requires-Dist: pytest-xdist>=3.0.0; extra == "all"
+Requires-Dist: coverage-conditional-plugin>=0.9.0; extra == "all"
+Requires-Dist: openai>=1.0.0; extra == "all"
+Requires-Dist: mypy>=1.0.0; extra == "all"
+Requires-Dist: flake8>=6.0.0; extra == "all"
+Requires-Dist: packaging>=23.0; extra == "all"
+
+# Aston AI
+
+Aston is a code intelligence system for parsing, analyzing, and finding test coverage gaps in your code.
+
+> **Latest**: v0.2.5 achieves 100% test pass rate (321 passed, 4 warnings) with enhanced test suggestions and critical refactoring stability improvements.
+
+# Explain
+aston init → creates chunks + nodes
+aston graph build → uses those to create edges
+
+## Installation
+
+```bash
+# Install from PyPI
+pip install astonai
+
+# For LLM-powered features (optional)
+pip install "astonai[llm]"
+```
+
+## Quick Start
+
+```bash
+# Initialize your repository
+aston init --offline
+
+# Generate knowledge graph relationships
+aston graph build
+
+# View knowledge graph statistics
+aston graph stats
+
+# Smart incremental updates (recommended for ongoing development)
+aston refresh
+
+# Find critical paths and generate test suggestions
+aston coverage --critical-path
+aston test-suggest core/auth.py --k 3
+aston test-suggest user/models.py --prompt --yaml context.yaml
+```
+
+## Core Commands
+
+### Repository Initialization
+
+```bash
+# Initialize repository and create knowledge graph
+aston init [--offline] [--preset PRESET] [--include PATTERN] [--exclude PATTERN]
+
+# Incremental rechunk - fast updates for changed files only
+aston init --rechunk [--offline]
+
+# Force full rebuild
+aston init --force [--offline]
+```
+
+**Advanced Filtering Options:**
+- `--preset`: Apply preset configurations (`python-only`, `no-tests`, `source-only`, `minimal`)
+- `--include`, `-i`: Include only files matching these glob patterns (can be used multiple times)
+- `--exclude`, `-e`: Exclude files matching these glob patterns in addition to defaults (can be used multiple times)
+- `--include-regex`: Include only files matching these regex patterns (can be used multiple times)
+- `--exclude-regex`: Exclude files matching these regex patterns (can be used multiple times)
+- `--dry-run`: Show which files would be processed without actually processing them
+- `--show-patterns`: Display all active filter patterns and exit
+- `--create-astonignore`: Create a template .astonignore file for persistent filtering
+
+**Incremental Updates:**
+- `--rechunk`: Process only files that have changed since last run (fast incremental updates)
+- `--force`: Force complete rebuild even if knowledge graph exists
+
+**Default Excludes**: Common directories are automatically excluded:
+- `venv*/**`, `.venv*/**`, `env/**`, `.env/**`
+- `node_modules/**`, `.git/**`, `.svn/**`, `.hg/**`
+- `__pycache__/**`, `*.pyc`, `.pytest_cache/**`
+- `build/**`, `dist/**`, `*.egg-info/**`
+- `.idea/**`, `.vscode/**`, and more
+
+**Examples:**
+```bash
+# Use preset configurations
+aston init --preset python-only --offline
+aston init --preset no-tests --offline
+
+# Incremental rechunk for fast updates
+aston init --rechunk --offline
+
+# Custom filtering with patterns
+aston init --include "src/**/*.py" --include "lib/**/*.py" --offline
+aston init --exclude "legacy/**" --exclude "deprecated/**" --offline
+
+# Use regex patterns for advanced filtering
+aston init --include-regex ".*/(core|utils)/.*\.py$" --offline
+
+# Preview what would be processed
+aston init --preset minimal --dry-run
+
+# Create .astonignore template for persistent rules
+aston init --create-astonignore
+```
+
+**Environment Variables:**
+- `ASTON_INCLUDE_PATTERNS`: Comma-separated include patterns
+- `ASTON_EXCLUDE_PATTERNS`: Comma-separated exclude patterns
+
+### Intelligent Refresh
+
+```bash
+# Smart incremental updates with change analysis
+aston refresh [--strategy auto|incremental|full] [--force-full] [--dry-run]
+```
+
+The `refresh` command provides intelligent updates:
+- **Auto Strategy**: Automatically chooses between incremental and full refresh based on changes
+- **Change Detection**: Uses file hashes to detect actual modifications
+- **Dry Run**: Preview what would be updated without making changes
+- **Force Full**: Override auto-detection and force complete rebuild
+
+**Examples:**
+```bash
+# Smart refresh (recommended)
+aston refresh
+
+# Preview changes without applying
+aston refresh --dry-run
+
+# Force full refresh
+aston refresh --force-full
+
+# Use specific strategy
+aston refresh --strategy incremental
+```
+
+### Test Coverage
+
+```bash
+# Run tests with coverage
+aston test
+
+# Find testing gaps
+aston coverage [--threshold 80] [--json results.json] [--exit-on-gap]
+
+# Identify critical implementation nodes
+aston coverage --critical-path [--n 50] [--weight loc]
+```
+
+Options:
+- `--threshold`: Minimum coverage percentage (default: 0)
+- `--json`: Output results in JSON format
+- `--exit-on-gap`: Return code 1 if gaps found (useful for CI)
+- `--coverage-file`: Specify custom coverage file location
+- `--critical-path`: Identify critical code paths that need testing
+- `--n`: Number of critical nodes to return (default: 50)
+- `--weight`: Weight function for critical path (loc, calls, churn)
+
+### Knowledge Graph
+
+```bash
+# Build edge relationships between nodes with advanced filtering
+aston graph build [--preset PRESET] [--include PATTERN] [--exclude PATTERN]
+
+# View statistics about the knowledge graph
+aston graph stats
+
+# Export graph to DOT format
+aston graph export [--output graph.dot] [--filter CALLS,IMPORTS] [--open]
+
+# Open interactive graph viewer in browser
+aston graph view [--filter CALLS,IMPORTS]
+```
+
+
+**Advanced Filtering for Graph Build:**
+- `--preset`: Apply preset configurations (`python-only`, `no-tests`, `source-only`, `minimal`)
+- `--include`, `-i`: Include only files matching these glob patterns (can be used multiple times)
+- `--exclude`, `-e`: Exclude files matching these glob patterns in addition to defaults (can be used multiple times)
+- `--include-regex`: Include only files matching these regex patterns (can be used multiple times)
+- `--exclude-regex`: Exclude files matching these regex patterns (can be used multiple times)
+- `--dry-run`: Show which files would be processed without actually processing them
+- `--show-patterns`: Display all active filter patterns and exit
+
+**Examples:**
+```bash
+# Build with preset filtering
+aston graph build --preset no-tests
+
+# Include only specific directories
+aston graph build --include "src/**/*.py" --include "lib/**/*.py"
+
+# Use regex patterns for advanced filtering
+aston graph build --include-regex ".*/(core|utils)/.*\.py$"
+
+# Preview what would be processed
+aston graph build --preset python-only --dry-run
+```
+
+The graph command provides:
+- `build`: Analyzes your codebase to extract CALLS and IMPORTS edges with advanced filtering
+- `stats`: Displays node and edge statistics
+- `export`: Exports to Graphviz DOT format for external visualization
+- `view`: Opens interactive D3-force based viewer in browser
+
+### Test Suggestions
+
+```bash
+# Generate test suggestions for a file or function
+aston test-suggest <file_or_node> [--k 5] [--llm] [--model gpt-4o]
+
+# Generate rich context for developers or AI agents
+aston test-suggest <file_or_node> --prompt [--json context.json]
+
+# Output in multiple formats
+aston test-suggest core/auth.py --yaml tests.yaml --json tests.json
+
+# Use LLM with budget control
+aston test-suggest api/endpoints.py --llm --budget 0.01 --model gpt-4o
+
+# Debug path resolution issues
+aston test-suggest <file_or_node> --debug
+```
+
+**Intelligent Test Generation:**
+- **Heuristic Mode**: Lightning-fast pytest skeleton generation (≤1.2s)
+- **Boundary Value Testing**: Automatic edge cases for int/float, string, list, dict, bool types
+- **Happy Path Coverage**: Valid input test cases for comprehensive coverage
+- **Error Condition Testing**: Invalid input handling and exception testing
+
+**LLM Integration (Optional):**
+- **Fallback Strategy**: Uses LLM when heuristics can't generate suggestions
+- **Cost Control**: Built-in budget tracking and enforcement
+- **Model Selection**: Support for GPT-4o, GPT-4-turbo, GPT-3.5-turbo
+- **Performance Guarantee**: ≤6s latency for LLM-generated suggestions
+
+**Rich Context Mode:**
+- **Developer Guidance**: Comprehensive test implementation guides
+- **Parameter Analysis**: Detailed function signature and dependency analysis
+- **Best Practices**: pytest patterns and testing recommendations
+- **AI-Agent Ready**: Structured context for automated test generation
+
+Options:
+- `--k`: Number of suggestions to generate (default: 5)
+- `--llm`: Use LLM fallback if heuristics fail (requires OPENAI_API_KEY)
+- `--model`: LLM model to use (default: gpt-4o)
+- `--budget`: Maximum cost per suggestion in dollars (default: $0.03)
+- `--prompt`, `-p`: Generate rich context for manual test development
+- `--debug`: Enable detailed debugging output for path resolution
+- `--json`/`--yaml`: Output results in structured format for automation
+- `--no-env-check`: Skip environment dependency check
+
+**Examples:**
+```bash
+# Quick heuristic suggestions
+aston test-suggest src/calculator.py --k 3
+
+# Rich context for manual test writing
+aston test-suggest user/models.py --prompt --yaml context.yaml
+
+# LLM-powered suggestions with cost control
+aston test-suggest complex/algorithm.py --llm --budget 0.005
+
+# Target specific function
+aston test-suggest "auth/login.py::authenticate_user" --debug
+```
+
+### Regression Guard
+
+```bash
+# Analyze changes for regression risk and get recommendations
+aston regression-guard --since HEAD~1 [--until HEAD] [--summary-only]
+
+# Use custom thresholds for development mode
+aston regression-guard --since main \
+  --max-risk-score 0.8 \
+  --max-impacted-nodes 100 \
+  --min-test-coverage 0.6 \
+  --max-critical-nodes 15
+
+# Generate detailed analysis for CI/CD integration
+aston regression-guard --since HEAD~1 \
+  --json regression-analysis.json \
+  --detailed-output detailed-report.json \
+  --exit-code
+
+# Quick summary for development workflow
+aston regression-guard --since HEAD~1 --summary-only --quiet
+```
+
+**Intelligent Risk Assessment:**
+- **Multi-Factor Scoring**: Combines node count, critical nodes, and test coverage into unified risk score
+- **Threshold-Based Blocking**: Configurable limits prevent high-risk merges automatically
+- **Test Execution Planning**: Prioritized test recommendations based on impact connectivity
+- **Development vs Production**: Flexible thresholds for different workflow contexts
+
+**Regression Detection:**
+- **Change Impact Analysis**: Deep call graph traversal to find all affected components
+- **Critical Node Detection**: Identifies high-connectivity components at risk
+- **Coverage Gap Analysis**: Highlights untested code paths in changed areas
+- **Risk Trend Analysis**: Tracks risk patterns across commits and branches
+
+**CI/CD Integration:**
+- **Automated Blocking**: Exit codes for CI pipeline integration
+- **Rich Reporting**: JSON output for dashboard integration and automation
+- **Workflow Generation**: GitHub Actions and Jenkins pipeline templates
+- **Configuration Management**: YAML/JSON config files for team standards
+
+Options:
+- `--since`: Git reference to analyze changes from (required)
+- `--until`: Git reference to analyze changes to (default: HEAD)
+- `--max-risk-score`: Maximum allowed risk score 0.0-1.0 (default: 0.7)
+- `--max-impacted-nodes`: Maximum allowed impacted nodes (default: 50)
+- `--min-test-coverage`: Minimum required test coverage ratio (default: 0.8)
+- `--max-critical-nodes`: Maximum allowed critical nodes (default: 10)
+- `--depth`: Call graph traversal depth (default: 2)
+- `--json`: Path to write detailed JSON analysis
+- `--detailed-output`: Path to write comprehensive analysis with node details
+- `--exit-code`: Exit with non-zero code if change should be blocked
+- `--summary-only`: Show only summary table, skip detailed output
+
+**Risk Thresholds:**
+- **Production Mode**: Use default strict thresholds for release branches
+- **Development Mode**: Relax thresholds for active feature development
+- **Custom Contexts**: Team-specific thresholds based on codebase maturity
+
+**Examples:**
+```bash
+# Standard regression check for PR
+aston regression-guard --since main --summary-only
+
+# Development-friendly thresholds
+aston regression-guard --since HEAD~1 \
+  --max-risk-score 0.9 \
+  --max-impacted-nodes 200 \
+  --min-test-coverage 0.1
+
+# CI integration with blocking
+aston regression-guard --since $BASE_BRANCH \
+  --json ci-analysis.json \
+  --exit-code
+
+# Detailed analysis for complex changes
+aston regression-guard --since feature-branch \
+  --detailed-output full-impact.json \
+  --depth 3
+```
+
+### Environment Check
+
+```bash
+# Check if all required dependencies are installed
+aston check
+```
+
+Options:
+- `--no-env-check`: Skip environment dependency check (also works with any command)
+
+## Use Cases
+
+### Regression Prevention
+Aston's regression guard provides automated protection against code changes that could introduce bugs:
+
+- **Pre-Merge Validation**: Automatically assess risk before merging pull requests
+- **Development Workflow**: Use relaxed thresholds during active development, strict thresholds for releases
+- **CI/CD Integration**: Block high-risk merges automatically with configurable exit codes
+- **Test Prioritization**: Get prioritized test execution plans based on change impact
+- **Risk Visualization**: Understand change scope with detailed impact analysis and recommendations
+
+**Example Workflow:**
+```bash
+# Development phase - relaxed thresholds
+aston regression-guard --since main \
+  --max-risk-score 0.9 \
+  --max-impacted-nodes 200 \
+  --min-test-coverage 0.1 \
+  --summary-only
+
+# Pre-merge validation - strict thresholds (defaults)
+aston regression-guard --since main --exit-code
+
+# CI integration with detailed reporting
+aston regression-guard --since $BASE_BRANCH \
+  --json ci-report.json \
+  --exit-code
+```
+
+### Test Coverage Analysis
+Find and prioritize testing gaps in your codebase:
+
+- **Coverage Gap Detection**: Identify untested code paths
+- **Critical Path Analysis**: Focus testing on high-impact components
+- **Test Suggestions**: Generate test skeletons with boundary value analysis
+- **LLM-Powered Suggestions**: Advanced test generation for complex scenarios
+
+### Code Intelligence
+Understand your codebase structure and dependencies:
+
+- **Knowledge Graph**: Visualize call relationships and imports
+- **Impact Analysis**: Understand change ripple effects
+- **Repository Analysis**: Get comprehensive statistics and insights
+
+## Repository-Centric Design
+
+Aston follows a repository-centric approach:
+- All operations are relative to the repository root (current directory)
+- Data is stored in `.testindex` directory at the repository root
+- Path resolution is normalized for consistent matching
+- Works with both offline and Neo4j storage
+
+## Environment Variables
+
+```
+DEBUG=1                      # Enable debug logging
+NEO4J_URI=bolt://localhost:7687  # Optional Neo4j connection
+NEO4J_USER=neo4j            # Optional Neo4j username
+NEO4J_PASS=password         # Optional Neo4j password
+ASTON_NO_ENV_CHECK=1        # Skip environment dependency check
+OPENAI_API_KEY=sk-...       # Required for --llm features
+```
+

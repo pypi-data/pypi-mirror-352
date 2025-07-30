@@ -1,0 +1,122 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "astonai"
+version = "0.3.2"
+description = "Test Intelligence Engine"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+    { name = "Aston AI" }
+]
+keywords = ["aston", "test coverage", "static analysis"]
+dependencies = [
+    "numpy>=1.22.0",
+    "neo4j>=5.5.0",
+    "pydantic>=1.10.0",
+    "click>=8.1.3",
+    "rich>=12.5.1",
+    "PyYAML>=6.0",
+    "gitpython>=3.1.0",
+    "astgraph>=0.1.0,<0.2.0",
+    "networkx>=3.0.0",
+    "parso>=0.8.0",
+    "libcst>=1.0.0",
+]
+
+[project.scripts]
+aston = "testindex.cli.main:main"
+
+[tool.setuptools]
+packages = [
+    "testindex",
+    "testindex.cli",
+    "testindex.cli.commands",
+    "testindex.cli.utils",
+    "testindex.core",
+    "testindex.core.cli",
+    "testindex.analysis",
+    "testindex.analysis.coverage",
+    "testindex.analysis.test_quality",
+    "testindex.analysis.utils",
+    "testindex.preprocessing",
+    "testindex.preprocessing.chunking",
+    "testindex.preprocessing.cloning",
+    "testindex.preprocessing.integration",
+    "testindex.preprocessing.parsing",
+    "testindex.preprocessing.parsing.visitors",
+    "testindex.preprocessing.parsing.frameworks",
+    "testindex.knowledge",
+    "testindex.knowledge.embedding",
+    "testindex.knowledge.graph",
+    "testindex.knowledge.schema",
+    "testindex.api",
+    "testindex.query",
+    "testindex.query.execution",
+    "testindex.query.model",
+    "testindex.query.utils",
+    "testindex.storage",
+    "testindex.visualization",
+    "testindex.llm",
+    "testindex.llm.clients",
+    "aston"
+]
+include-package-data = true
+
+[project.urls]
+
+[project.optional-dependencies]
+minimal = []
+
+test = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-xdist>=3.0.0",
+    "mypy>=1.0.0",
+    "flake8>=6.0.0",
+    "packaging>=23.0",
+]
+
+coverage = [
+    "pytest-cov>=4.1.0",
+    "coverage-conditional-plugin>=0.9.0",
+]
+
+llm = [
+    "openai>=1.0.0",
+]
+
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-xdist>=3.0.0",
+    "mypy>=1.0.0",
+    "flake8>=6.0.0",
+    "packaging>=23.0",
+    "coverage-conditional-plugin>=0.9.0",
+    "build>=1.0.0",
+    "twine>=4.0.0",
+]
+
+all = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-xdist>=3.0.0",
+    "coverage-conditional-plugin>=0.9.0",
+    "openai>=1.0.0",
+    "mypy>=1.0.0",
+    "flake8>=6.0.0",
+    "packaging>=23.0",
+]
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: marks tests as slow to run",
+    "neo4j: marks tests requiring a Neo4j instance",
+    "integration: marks integration tests",
+    "llm: marks tests requiring LLM API access",
+    "docker: marks tests requiring Docker environment"
+]
