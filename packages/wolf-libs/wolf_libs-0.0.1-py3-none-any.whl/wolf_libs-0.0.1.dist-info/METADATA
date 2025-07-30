@@ -1,0 +1,33 @@
+Metadata-Version: 2.4
+Name: wolf_libs
+Version: 0.0.1
+Author-email: Pierre Archambeau <pierre.archambeau@uliege.be>
+Project-URL: Homepage, https://uee.uliege.be/hece
+Project-URL: Issues, https://uee.uliege.be/hece
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: Microsoft :: Windows :: Windows 10
+Classifier: Operating System :: Microsoft :: Windows :: Windows 11
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Topic :: Scientific/Engineering :: Physics
+Requires-Python: <3.13,>=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: msvc-runtime
+Requires-Dist: intel-fortran-rt
+Requires-Dist: cryptography
+Requires-Dist: cython
+Requires-Dist: beautifulsoup4
+Requires-Dist: requests
+Requires-Dist: mkl
+
+This package contains the Python graphical interface for the WOLF software (HECE - ULiège), along with several tools for topographic, hydraulic, and hydrological processing.
+
+The core numerical codes are not included in this package.
+
+- Version 2.1.x is compatible with Numpy 1.23.5.
+- Version 2.2.x is compatible with Numpy 2.1.3.
+
+Since version 2.2.11, we support Python 3.10 and 3.11.
+
+Python 3.12 and 3.13 are supported experimentally.
