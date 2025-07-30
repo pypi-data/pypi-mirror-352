@@ -1,0 +1,94 @@
+Metadata-Version: 2.4
+Name: nccapy
+Version: 0.1.5
+Summary: nccapy is a python package use for teaching graphics at the NCCA
+Project-URL: Homepage, https://github.com/NCCA/nccapy
+Project-URL: Issues, https://github.com/NCCA/nccapy/issues
+Author-email: Jon Macey <jmacey@bournemouth.ac.uk>
+License: Copyright 2024 Jon Macey
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+License-File: LICENSE.txt
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: numpy
+Requires-Dist: pillow
+Requires-Dist: pygame
+Provides-Extra: build
+Requires-Dist: build; extra == 'build'
+Requires-Dist: hatchling; extra == 'build'
+Provides-Extra: codegen
+Requires-Dist: numpy; extra == 'codegen'
+Requires-Dist: pytest; extra == 'codegen'
+Requires-Dist: ruff; extra == 'codegen'
+Provides-Extra: lint
+Requires-Dist: pre-commit; extra == 'lint'
+Requires-Dist: ruff; extra == 'lint'
+Provides-Extra: tests
+Requires-Dist: coverage; extra == 'tests'
+Requires-Dist: numpy; extra == 'tests'
+Requires-Dist: pillow; extra == 'tests'
+Requires-Dist: pygame; extra == 'tests'
+Requires-Dist: pytest; extra == 'tests'
+Requires-Dist: pytest-cov; extra == 'tests'
+Description-Content-Type: text/markdown
+
+# nccapy
+
+[![Python package](https://github.com/NCCA/nccapy/actions/workflows/python-package.yml/badge.svg)](https://github.com/NCCA/nccapy/actions/workflows/python-package.yml) [![Test pip install](https://github.com/NCCA/nccapy/actions/workflows/test-pip.yml/badge.svg)](https://github.com/NCCA/nccapy/actions/workflows/test-pip.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=NCCA_nccapy&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=NCCA_nccapy) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=NCCA_nccapy&metric=bugs)](https://sonarcloud.io/summary/new_code?id=NCCA_nccapy) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=NCCA_nccapy&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=NCCA_nccapy) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=NCCA_nccapy&metric=coverage)](https://sonarcloud.io/summary/new_code?id=NCCA_nccapy) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=NCCA_nccapy&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=NCCA_nccapy)
+
+The code in this python package is used in various units taught in the NCCA and in particlar [Jon's programming courses](https://nccastaff.bournemouth.ac.uk/jmacey/)
+
+The aim of this repository is to teach not only about python [modules and packages](https://docs.python.org/3/tutorial/modules.html) but demonstrate other python code and techniques.
+
+## Installation
+
+This module is on [PyPi](https://pypi.org/project/nccapy/) so you can install it using pip
+
+```bash
+pip install nccapy
+```
+
+
+
+## Modules
+
+
+## Developer notes
+
+To build the package run the following command
+
+```bash
+python -m pip install build
+python -m build
+```
+
+To run the tests use the following command
+
+```
+pytest -v .
+```
+
+for coverage reports use the following command
+
+```bash
+coverage run --source=src/nccapy -m pytest -v tests && coverage report -m
+```
+
+This will create a dist folder with the package in it. You can then install the package using pip
+
+```bash
+pip install dist/nccapy-0.0.1-py3-none-any.whl
+```
+
+
+Upload via twine
+
+```bash
+uvx twine upload --skip-existing dist/*
+```

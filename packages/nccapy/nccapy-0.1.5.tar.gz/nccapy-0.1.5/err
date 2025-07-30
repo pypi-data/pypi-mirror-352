@@ -1,0 +1,208 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.1, pytest-8.3.4, pluggy-1.5.0
+rootdir: /Volumes/teaching/Code/nccapy
+configfile: pyproject.toml
+collected 0 items / 11 errors
+
+==================================== ERRORS ====================================
+____________________ ERROR collecting tests/test_Canvas.py _____________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_Canvas.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_Canvas.py:3: in <module>
+    from nccapy.Image import Canvas
+src/nccapy/__init__.py:38: in <module>
+    from nccapy.Geo import Obj
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/Math/__init__.py:22: in <module>
+    from .Mat3 import Mat3
+src/nccapy/Math/Mat3.py:20: in <module>
+    import numpy as np
+E   ModuleNotFoundError: No module named 'numpy'
+_____________________ ERROR collecting tests/test_Image.py _____________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_Image.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_Image.py:3: in <module>
+    from nccapy.Image.Image import Image, ImageXBoundsError, ImageYBoundsError
+src/nccapy/__init__.py:38: in <module>
+    from nccapy.Geo import Obj
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/Math/__init__.py:22: in <module>
+    from .Mat3 import Mat3
+src/nccapy/Math/Mat3.py:20: in <module>
+    import numpy as np
+E   ModuleNotFoundError: No module named 'numpy'
+_____________________ ERROR collecting tests/test_Mat3.py ______________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_Mat3.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_Mat3.py:4: in <module>
+    from nccapy.Math.Mat3 import Mat3, Mat3Error, Mat3NotSquare
+src/nccapy/__init__.py:38: in <module>
+    from nccapy.Geo import Obj
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/Math/__init__.py:22: in <module>
+    from .Mat3 import Mat3
+src/nccapy/Math/Mat3.py:20: in <module>
+    import numpy as np
+E   ModuleNotFoundError: No module named 'numpy'
+_____________________ ERROR collecting tests/test_Mat4.py ______________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_Mat4.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_Mat4.py:4: in <module>
+    from nccapy.Math.Mat4 import Mat4, Mat4Error, Mat4NotSquare
+src/nccapy/__init__.py:38: in <module>
+    from nccapy.Geo import Obj
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/Math/__init__.py:22: in <module>
+    from .Mat3 import Mat3
+src/nccapy/Math/Mat3.py:20: in <module>
+    import numpy as np
+E   ModuleNotFoundError: No module named 'numpy'
+__________________ ERROR collecting tests/test_Quaternion.py ___________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_Quaternion.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_Quaternion.py:3: in <module>
+    from nccapy.Math.Mat4 import Mat4
+src/nccapy/__init__.py:38: in <module>
+    from nccapy.Geo import Obj
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/Math/__init__.py:22: in <module>
+    from .Mat3 import Mat3
+src/nccapy/Math/Mat3.py:20: in <module>
+    import numpy as np
+E   ModuleNotFoundError: No module named 'numpy'
+_____________________ ERROR collecting tests/test_RGBA.py ______________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_RGBA.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_RGBA.py:3: in <module>
+    from nccapy.Image import RGBA
+src/nccapy/__init__.py:38: in <module>
+    from nccapy.Geo import Obj
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/Math/__init__.py:22: in <module>
+    from .Mat3 import Mat3
+src/nccapy/Math/Mat3.py:20: in <module>
+    import numpy as np
+E   ModuleNotFoundError: No module named 'numpy'
+_____________________ ERROR collecting tests/test_Vec3.py ______________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_Vec3.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_Vec3.py:3: in <module>
+    from nccapy.Math.Mat3 import Mat3
+src/nccapy/__init__.py:38: in <module>
+    from nccapy.Geo import Obj
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/Math/__init__.py:22: in <module>
+    from .Mat3 import Mat3
+src/nccapy/Math/Mat3.py:20: in <module>
+    import numpy as np
+E   ModuleNotFoundError: No module named 'numpy'
+_____________________ ERROR collecting tests/test_Vec4.py ______________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_Vec4.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_Vec4.py:3: in <module>
+    from nccapy.Math.Mat4 import Mat4
+src/nccapy/__init__.py:38: in <module>
+    from nccapy.Geo import Obj
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/Math/__init__.py:22: in <module>
+    from .Mat3 import Mat3
+src/nccapy/Math/Mat3.py:20: in <module>
+    import numpy as np
+E   ModuleNotFoundError: No module named 'numpy'
+______________________ ERROR collecting tests/test_obj.py ______________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_obj.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_obj.py:3: in <module>
+    from nccapy.Geo.Obj import Face, Obj, ObjParseNormalError, ObjParseUVError, ObjParseVertexError
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/__init__.py:39: in <module>
+    from nccapy.Image import RGBA, Canvas, Image
+src/nccapy/Image/__init__.py:9: in <module>
+    from .Canvas import Canvas
+src/nccapy/Image/Canvas.py:3: in <module>
+    import pygame
+E   ModuleNotFoundError: No module named 'pygame'
+___________________ ERROR collecting tests/test_transform.py ___________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_transform.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_transform.py:3: in <module>
+    from nccapy.Math.Mat4 import Mat4 as Mat4
+src/nccapy/__init__.py:38: in <module>
+    from nccapy.Geo import Obj
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/Math/__init__.py:22: in <module>
+    from .Mat3 import Mat3
+src/nccapy/Math/Mat3.py:20: in <module>
+    import numpy as np
+E   ModuleNotFoundError: No module named 'numpy'
+_____________________ ERROR collecting tests/test_util.py ______________________
+ImportError while importing test module '/Volumes/teaching/Code/nccapy/tests/test_util.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/jmacey/.local/share/uv/python/cpython-3.13.1-macos-aarch64-none/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_util.py:3: in <module>
+    from nccapy.Math.Util import clamp, lerp, look_at, perspective
+src/nccapy/__init__.py:38: in <module>
+    from nccapy.Geo import Obj
+src/nccapy/Geo/Obj.py:1: in <module>
+    from ..Math.Vec3 import Vec3
+src/nccapy/Math/__init__.py:22: in <module>
+    from .Mat3 import Mat3
+src/nccapy/Math/Mat3.py:20: in <module>
+    import numpy as np
+E   ModuleNotFoundError: No module named 'numpy'
+=========================== short test summary info ============================
+ERROR tests/test_Canvas.py
+ERROR tests/test_Image.py
+ERROR tests/test_Mat3.py
+ERROR tests/test_Mat4.py
+ERROR tests/test_Quaternion.py
+ERROR tests/test_RGBA.py
+ERROR tests/test_Vec3.py
+ERROR tests/test_Vec4.py
+ERROR tests/test_obj.py
+ERROR tests/test_transform.py
+ERROR tests/test_util.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 11 errors during collection !!!!!!!!!!!!!!!!!!!
+============================== 11 errors in 0.13s ==============================
