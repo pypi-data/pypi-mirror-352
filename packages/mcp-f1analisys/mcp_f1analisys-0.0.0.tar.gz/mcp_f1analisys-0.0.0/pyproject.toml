@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-f1analisys"
+dynamic = ["version"]
+description = "MCP F1 analysis"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License"
+]
+dependencies = [
+    "mcp[cli]>=1.0.0",
+    "httpx>=0.24.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/maxbleu/mcp-f1analisys"
+
+[project.scripts]
+mcp-f1analisys = "mcp_f1analisys.server:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
