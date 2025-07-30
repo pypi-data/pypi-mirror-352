@@ -1,0 +1,50 @@
+# Deplace CLI 
+
+`deplace-cli` is a command-line tool to interact with Deplace datasets. 
+
+## 🚀 Usage
+
+The CLI supports the following commands:
+
+- download —> Download a file or folder from Deplace's Storage. (Requires Access Token)
+- annotate —> Annotate a video episode with optional bounding boxes, masks, and labels.
+
+### 📥 Command: `download`
+
+Download data from Deplace's Storage. 
+
+**Required arguments:**
+- `--token` — Your Azure access token. (With quotes)
+- `--path` — Path to the file/folder to download.
+- `--dataset`- Name of the dataset to download.
+- `--limit` — Limit the number of mp4 files to download (default: 0 means no limit).
+
+**Example:**
+```
+deplace download \
+    --token SAS_TOKEN 
+    --path /path/to/resource
+    --dataset sample
+```
+
+### 🖊️ Command: `annotate`
+
+Annotate a video episode with optional overlays and save the output. *Only works after dataset download*
+
+**Optional arguments:**
+- `--output_folder` — Where to save the annotated video (default: annotated/)
+- `--bbox` — Enable bounding box annotations
+- `--mask` — Enable mask annotations
+- `--label` — Enable label annotations
+- `--compression` — Video compression codec (avc1, mp4v, h264) — default: mp4v
+
+**Example:**
+```
+deplace annotate \
+    --episode V1_E2 \
+    --bbox \
+    --mask \
+    --label \
+    --compression mp4v
+```
+
