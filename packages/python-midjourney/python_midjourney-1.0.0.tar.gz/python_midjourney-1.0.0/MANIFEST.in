@@ -1,0 +1,57 @@
+# Include essential files
+include README.md
+include LICENSE
+include requirements.txt
+
+# Include package source code
+recursive-include python_midjourney *.py
+
+# Include examples
+recursive-include examples *.py
+
+# EXCLUDE: Development and deployment files
+exclude run.sh
+exclude .pypirc_template
+exclude DEPLOYMENT_GUIDE.md
+exclude QUICK_START.md
+exclude *.sh
+
+# EXCLUDE: Build and cache directories
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude *.so
+global-exclude .DS_Store
+global-exclude .pytest_cache
+prune build
+prune dist
+global-exclude *.egg-info
+
+# EXCLUDE: Development tools and configs
+exclude .gitignore
+exclude .pylintrc
+exclude .flake8
+exclude pyproject.toml
+exclude tox.ini
+exclude Makefile
+
+# EXCLUDE: Test files
+exclude tests/*
+exclude test_*.py
+exclude *_test.py
+
+# EXCLUDE: Documentation source (keep README.md)
+prune docs
+exclude *.rst
+exclude *.txt
+
+# EXCLUDE: IDE and editor files
+prune .vscode
+prune .idea
+global-exclude *.swp
+global-exclude *.swo
+global-exclude *~
+
+# EXCLUDE: Version control
+global-exclude .git*
+global-exclude .hg*
+global-exclude .svn* 
