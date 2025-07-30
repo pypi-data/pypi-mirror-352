@@ -1,0 +1,36 @@
+Metadata-Version: 2.4
+Name: crawlo
+Version: 1.0.0
+Summary: feapder是一款支持异步的python爬虫框架
+Home-page: https://github.com/crawl-coder/Crawlo.git
+Author: crawl-coder
+Author-email: crawlo@qq.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiohttp>=3.12.6
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: DBUtils>=2.0
+Requires-Dist: parsel>=1.10.0
+Requires-Dist: pymysql>=1.1.1
+Requires-Dist: ujson>=5.10.0
+Provides-Extra: render
+Requires-Dist: webdriver-manager>=4.0.0; extra == "render"
+Requires-Dist: playwright; extra == "render"
+Requires-Dist: selenium>=3.141.0; extra == "render"
+Provides-Extra: all
+Requires-Dist: bitarray>=1.5.3; extra == "all"
+Requires-Dist: PyExecJS>=1.5.1; extra == "all"
+Requires-Dist: pymongo>=3.10.1; extra == "all"
+Requires-Dist: redis-py-cluster>=2.1.0; extra == "all"
+Requires-Dist: webdriver-manager>=4.0.0; extra == "all"
+Requires-Dist: playwright; extra == "all"
+Requires-Dist: selenium>=3.141.0; extra == "all"
+Dynamic: license-file
+
+# Crawlo
+异步通用爬虫框架
