@@ -1,0 +1,64 @@
+{
+    "entity": {
+        "sensor": {
+            "celery_status": {
+                "name": "Status Celery",
+                "state": {
+                    "error": "Error",
+                    "ok": "OK",
+                    "warning": "Warning"
+                }
+            },
+            "classifier_status": {
+                "name": "Status classifier",
+                "state": {
+                    "error": "Error",
+                    "ok": "OK",
+                    "warning": "Warning"
+                }
+            },
+            "correspondent_count": {
+                "name": "Correspondents",
+                "unit_of_measurement": "correspondents"
+            },
+            "database_status": {
+                "name": "Status database",
+                "state": {
+                    "error": "Error",
+                    "ok": "OK",
+                    "warning": "Warning"
+                }
+            },
+            "document_type_count": {
+                "name": "Document types",
+                "unit_of_measurement": "document types"
+            },
+            "documents_inbox": {
+                "name": "Documents in inbox",
+                "unit_of_measurement": "documents"
+            },
+            "documents_total": {
+                "name": "Total documents",
+                "unit_of_measurement": "documents"
+            },
+            "index_status": {
+                "name": "Status index"
+            },
+            "tag_count": {
+                "name": "Tags",
+                "unit_of_measurement": "tags"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "Invalid hostname or IP address"
+        },
+        "invalid_api_key": {
+            "message": "Invalid API key"
+        },
+        "unknown": {
+            "message": "Unexpected error"
+        }
+    }
+}
