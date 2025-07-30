@@ -1,0 +1,54 @@
+#!/bin/bash
+
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/utils.sh"
+
+if [[ $VSC_INSTITUTE_CLUSTER == genius ]]; then
+    if [[ $VSC_ARCH_LOCAL == skylake ]]; then
+        if [[ $VSC_OS_LOCAL == rocky8 ]]; then
+            prepend_module_path $(get_script_dir)/modules/genius/rocky8/skylake
+            load_module globsync/gfbf-2024a
+            export GLOBSYNC_VENV=$(get_script_dir)/venvs/genius/rocky8/skylake/gfbf-2024a
+        fi
+    elif [[ $VSC_ARCH_LOCAL == cascadelake ]]; then
+        if [[ $VSC_OS_LOCAL == rocky8 ]]; then
+            prepend_module_path $(get_script_dir)/modules/genius/rocky8/cascadelake
+            load_module globsync/gfbf-2024a
+            export GLOBSYNC_VENV=$(get_script_dir)/venvs/genius/rocky8/cascadelake/gfbf-2024a
+        fi
+    fi
+elif [[ $VSC_INSTITUTE_CLUSTER == wice ]]; then
+    if [[ $VSC_ARCH_LOCAL == icelake ]]; then
+        if [[ $VSC_OS_LOCAL == rocky8 ]]; then
+            prepend_module_path $(get_script_dir)/modules/wice/rocky8/icelake
+            load_module globsync/gfbf-2024a
+            export GLOBSYNC_VENV=$(get_script_dir)/venvs/wice/rocky8/icelake/gfbf-2024a
+        fi
+    elif [[ $VSC_ARCH_LOCAL == sapphirerapids ]]; then
+        if [[ $VSC_OS_LOCAL == rocky8 ]]; then
+            prepend_module_path $(get_script_dir)/modules/wice/rocky8/sapphirerapids
+            load_module globsync/gfbf-2024a
+            export GLOBSYNC_VENV=$(get_script_dir)/venvs/wice/rocky8/sapphirerapids/gfbf-2024a
+        fi
+    fi
+elif [[ $VSC_INSTITUTE_CLUSTER == dodrio ]]; then
+    if [[ $VSC_ARCH_LOCAL == zen2 ]]; then
+        if [[ $VSC_OS_LOCAL == RHEL8 ]]; then
+            prepend_module_path $(get_script_dir)/modules/dodrio/RHEL8/zen2-ib
+            load_module globsync/gfbf-2024a
+            export GLOBSYNC_VENV=$(get_script_dir)/venvs/dodrio/RHEL8/zen2-ib/gfbf-2024a
+        fi
+    elif [[ $VSC_ARCH_LOCAL == zen3 ]]; then
+        if [[ $VSC_OS_LOCAL == RHEL8 ]]; then
+            prepend_module_path $(get_script_dir)/modules/dodrio/RHEL8/zen3-ib
+            load_module globsync/gfbf-2024a
+            export GLOBSYNC_VENV=$(get_script_dir)/venvs/dodrio/RHEL8/zen3-ib/gfbf-2024a
+        elif [[ $VSC_OS_LOCAL == RHEL9 ]]; then
+            prepend_module_path $(get_script_dir)/modules/dodrio/RHEL9/zen3-ib
+            load_module globsync/gfbf-2024a
+            export GLOBSYNC_VENV=$(get_script_dir)/venvs/dodrio/RHEL9/zen3-ib/gfbf-2024a
+        fi
+    fi
+fi
+
+prepend_path $GLOBSYNC_VENV/bin
+prepend_python_path $(get_script_dir)

@@ -1,0 +1,49 @@
+<html>
+  <body style="font-family: Courier New, sans-serif; line-height: 1.6; color: #333;">
+    <p>Hello {{ user_name }},</p>
+
+    <p>This is an automated email from the HPC cluster <strong>{{ cluster_name }}</strong>.</p>
+
+    <p>We have identified the following directories that are consuming cluster storage and require your attention:</p>
+
+    <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
+      <thead>
+        <tr>
+          <th style="text-align: left; border-bottom: 2px solid #ccc; padding: 8px;">Size</th>
+          <th style="text-align: left; border-bottom: 2px solid #ccc; padding: 8px;">Directory</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for source_path, size in source_paths|items %}
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">{{ size }}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">{{ source_path }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <p>Please consider backing up these directories to Tier-1 Data if they contain valuable data.</p>
+
+    <p>You can use the <strong>globsync</strong> tool for this purpose. To get started, log in to the cluster and load the necessary modules:</p>
+
+    <pre style="background-color: #f4f4f4; padding: 10px; border-radius: 4px;">source {{ load_modules_file }}</pre>
+
+    <p>Next, run the following command for each of these directories:</p>
+
+    <pre style="background-color: #f4f4f4; padding: 10px; border-radius: 4px;">globsync flows start [--remove-source] PATH</pre>
+
+    <p>
+      The <code>--remove-source</code> option is optional and will ensure your data is removed after a successful transfer.
+    </p>
+
+    <p>
+      If you prefer to manually remove your data, you can monitor the status of your transfer at
+      <a href="https://app.globus.org" target="_blank">https://app.globus.org</a>. Depending on your Globus settings, you will also receive an email notification upon successful completion of the transfer.
+    </p>
+
+    <p>If you have any questions or issues, please feel free to reply to this email.</p>
+
+    <p>Best regards,<br><strong>Samuel Corveleyn</strong></p>
+  </body>
+</html>

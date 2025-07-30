@@ -1,0 +1,28 @@
+Hello {{user_name}},
+
+This is an automated email from the HPC cluster{{cluster_name}}.
+
+We have identified the following directories that are consuming cluster storage and require your attention:
+
+Size      Directory
+{% for source_path, size in source_paths|items %}{{ size }}{{ source_path }}
+{% endfor %}
+Please consider backing up these directories to Tier-1 Data if they contain valuable data.
+
+You can use the globsync tool for this purpose. To get started, log in to the cluster and load the necessary modules:
+
+    source {{load_modules_file}}
+
+Next, run the following command for each of these paths:
+
+    globsync flows start [--remove-source] PATH
+
+The --remove-source option is optional and will ensure your data is removed after a successful transfer.
+
+If you prefer to manually remove your data, you can monitor the status of your transfer at https://app.globus.org. Depending on your Globus settings, you will also receive an email notification upon successful completion of the transfer.
+
+If you have any questions or issues, please feel free to reply to this email.
+
+Best regards,
+
+Samuel Corveleyn
