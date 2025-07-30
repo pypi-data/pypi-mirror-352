@@ -1,0 +1,235 @@
+# Playwright Stealth Browser MCP Server
+
+A Model Context Protocol (MCP) server that provides browser automation capabilities using [Playwright](https://playwright.dev) with stealth features. This server enables LLMs to interact with web pages through structured accessibility snapshots or vision-based interactions, while avoiding detection by anti-bot systems.
+
+## Key Features
+
+- **Stealth browsing**: Uses playwright-stealth to avoid detection by anti-bot systems
+- **Fast and lightweight**: Uses Playwright's accessibility tree by default, not pixel-based input
+- **LLM-friendly**: No vision models needed for default mode, operates purely on structured data
+- **Deterministic tool application**: Avoids ambiguity common with screenshot-based approaches
+- **Vision mode support**: Optional screenshot-based interactions for visual-based models
+- **Complete feature parity**: Matches all capabilities of the official Playwright MCP server
+
+## Installation
+
+### Using uvx (Recommended)
+
+The easiest way to use this MCP server is with `uvx`, which handles the Python environment automatically:
+
+```bash
+uvx stealth-browser-mcp
+```
+
+or via docker
+```
+docker run --rm -p 3000:3000 stealth-browser-mcp
+```
+
+## MCP Client Configuration
+
+### VS Code / Cursor / Windsurf
+
+Add this configuration to your MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "stealth-browser": {
+      "command": "uvx",
+      "args": ["stealth-browser-mcp"]
+    }
+  }
+}
+```
+
+### Claude Desktop
+
+Add this to your Claude Desktop configuration file:
+
+```json
+{
+  "mcpServers": {
+    "stealth-browser": {
+      "command": "uvx",
+      "args": ["stealth-browser-mcp"]
+    }
+  }
+}
+```
+
+### Vision Mode
+
+To enable vision mode (screenshot-based interactions), add the `--vision` flag:
+
+```json
+{
+  "mcpServers": {
+    "stealth-browser": {
+      "command": "uvx",
+      "args": ["stealth-browser-mcp", "--vision"]
+    }
+  }
+}
+```
+
+## Usage
+
+The server provides two interaction modes:
+
+1. **Snapshot Mode** (default): Uses accessibility snapshots for better performance and reliability
+2. **Vision Mode**: Uses screenshots for visual-based interactions
+
+### Quick Start
+
+1. Install and configure the MCP server in your client
+2. Start a conversation with your AI assistant
+3. Ask it to navigate to a website:
+   ```
+   Please navigate to https://example.com and take a snapshot of the page
+   ```
+
+## Available Tools
+
+### Navigation
+- `browser_navigate` - Navigate to a URL
+- `browser_navigate_back` - Go back to the previous page  
+- `browser_navigate_forward` - Go forward to the next page
+
+### Interactions
+- `browser_snapshot` - Capture accessibility snapshot of the current page
+- `browser_click` - Perform click on a web page element
+- `browser_type` - Type text into editable elements
+- `browser_hover` - Hover over page elements
+- `browser_drag` - Perform drag and drop between elements
+- `browser_select_option` - Select options in dropdowns
+- `browser_press_key` - Press keyboard keys
+- `browser_wait_for` - Wait for conditions (time, text appear/disappear)
+- `browser_file_upload` - Upload files through file inputs
+- `browser_handle_dialog` - Handle browser dialogs (alerts, confirms, prompts)
+
+### Resources
+- `browser_take_screenshot` - Take screenshots of the page or elements
+- `browser_pdf_save` - Save page as PDF
+- `browser_network_requests` - List all network requests
+- `browser_console_messages` - Get browser console messages
+
+### Tab Management
+- `browser_tab_list` - List all open tabs
+- `browser_tab_new` - Open new tabs
+- `browser_tab_select` - Switch between tabs
+- `browser_tab_close` - Close tabs
+
+### Utilities
+- `browser_install` - Install required browser binaries
+- `browser_close` - Close the browser
+- `browser_resize` - Resize browser window
+
+### Testing
+- `browser_generate_playwright_test` - Generate Playwright test code
+
+### Vision Mode Tools
+- `browser_screen_capture` - Take screenshots
+- `browser_screen_move_mouse` - Move mouse to coordinates
+- `browser_screen_click` - Click at coordinates
+- `browser_screen_drag` - Drag between coordinates
+- `browser_screen_type` - Type text in vision mode
+
+## Stealth Features
+
+This server includes advanced stealth capabilities to avoid detection by anti-bot systems:
+
+- **User Agent Spoofing**: Uses realistic browser user agents
+- **WebGL Fingerprinting**: Spoofs WebGL vendor and renderer information
+- **Language Headers**: Sets appropriate language preferences
+- **Automation Detection Bypass**: Disables automation control features
+- **Stealth Scripts**: Injects scripts to hide automation indicators
+
+## Browser Setup
+
+The server will automatically install the required Chromium browser on first run. If you encounter issues, you can manually install browsers:
+
+```bash
+# Install Playwright browsers
+uvx playwright install chromium
+
+# Or if you have the package installed locally
+playwright install chromium
+```
+
+## Development
+
+### Local Development
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd stealth_browser_mcp
+
+# Install in development mode
+pip install -e .
+
+# Run the server
+python playwright_mcp.py
+
+# Run with vision mode
+python playwright_mcp.py --vision
+```
+
+### Testing
+
+```bash
+# Install development dependencies
+pip install -e ".[dev]"
+
+# Run tests (if available)
+pytest
+
+# Format code
+black .
+ruff check .
+```
+
+## Troubleshooting
+
+### Browser Installation Issues
+
+If you encounter browser installation issues:
+
+```bash
+# Use the browser_install tool through your MCP client, or manually:
+uvx playwright install chromium
+```
+
+### Permission Issues
+
+On some systems, you may need to install additional dependencies:
+
+```bash
+# Ubuntu/Debian
+sudo apt-get install libnss3 libatk-bridge2.0-0 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libxss1 libasound2
+
+# CentOS/RHEL/Fedora
+sudo yum install nss atk java-atk-wrapper at-spi2-atk gtk3 libdrm libxkbcommon libxcomposite libxdamage libxrandr mesa-libgbm
+```
+
+### Network Issues
+
+If you encounter network-related issues, the server includes network monitoring tools:
+- Use `browser_network_requests` to see all network activity
+- Check console messages with `browser_console_messages`
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Built on top of [Playwright](https://playwright.dev)
+- Uses [playwright-stealth](https://github.com/AtuboDad/playwright_stealth) for anti-detection
+- Inspired by the official [Playwright MCP Server](https://github.com/microsoft/playwright-mcp)
+- Built with [FastMCP](https://github.com/jlowin/fastmcp)
