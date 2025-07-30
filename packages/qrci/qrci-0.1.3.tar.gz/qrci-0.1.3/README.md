@@ -1,0 +1,49 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/AspirinCode/QRCI)
+
+
+# QRCI
+
+**A Quantitative Ring Complexity Index for Profiling Ring Topology and Chemical Diversity** 
+
+
+## Requirements
+```python
+Python==3.13.2
+rdkit==2025.03.2
+scipy==1.15.1
+```
+
+## QRCI calculation
+
+```python
+from QRCI.QRCI import QRCICalculator, get_QRCIproperties
+from QRCI.RCI import RCICalculator
+
+qrci_calc = QRCICalculator(weights='mean')
+score_mean = qrci_calc('C1=CCOCc2cc(ccc2OCCN2CCCC2)Nc2nccc(n2)-c2cccc(c2)COC1')
+print(f"QRCI(default/mean weights): {score_mean:.4f}")
+#QRCI(default/mean weights): 4.0330
+
+***************************************************************************************
+mol = Chem.MolFromSmiles('C1=CCOCc2cc(ccc2OCCN2CCCC2)Nc2nccc(n2)-c2cccc(c2)COC1')
+props = get_qrci_properties(mol)
+print(props)
+#QRCIproperties(nAromHetero=1, nAromCarbo=2, nAliHetero=2, nAliCarbo=0, nSatHetero=1, nSatCarbo=0, nMacrocycles=1, TRS=41, nRingAtom=32, nFusedRing=4, SF=1.0857142857142856)
+
+```
+
+## License
+Code is released under MIT LICENSE.
+
+
+## Cite
+
+* Gasteiger, J. and Jochum, C., 1979. An algorithm for the perception of synthetically important rings. Journal of Chemical Information and Computer Sciences, 19(1), pp.43-48.
+* Ertl, P., Schuffenhauer, A. Estimation of synthetic accessibility score of drug-like molecules based on molecular complexity and fragment contributions. J Cheminform 1, 8 (2009). https://doi.org/10.1186/1758-2946-1-8
+* Krzyzanowski, A., Pahl, A., Grigalunas, M., & Waldmann, H. (2023). Spacial Score─A Comprehensive Topological Indicator for Small-Molecule Complexity. Journal of medicinal chemistry, 66(18), 12739–12750. https://doi.org/10.1021/acs.jmedchem.3c00689
+* Wang J, Xu K, Ma T, Zhang X, Ma P, Li  C, et al. A Quantitative Ring Complexity Index for Profiling Ring Topology and Chemical Diversity. ChemRxiv. 2025; doi:[10.26434/chemrxiv-2025-mlqwl-v2](https://doi.org/10.26434/chemrxiv-2025-mlqwl-v2)  This content is a preprint and has not been peer-reviewed.
+
+
+
+
+
