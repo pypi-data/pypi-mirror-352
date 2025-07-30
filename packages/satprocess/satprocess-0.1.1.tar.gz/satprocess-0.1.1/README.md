@@ -1,0 +1,136 @@
+[![astropy](http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat)](http://www.astropy.org/)
+[![PyPI Version](https://img.shields.io/pypi/v/satprocess)](https://pypi.org/project/satprocess/)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
+# Satprocess - A Spectral Alignment Toolbox
+
+A Python package for spatial, wavelength, and intensity calibration of FITS files. This toolbox was specifically built using data from the CHASE satellite, available at https://ssdc.nju.edu.cn/NdchaseSatellite.
+
+
+
+## Features
+
+- **Three-stage calibration pipeline**:
+  - Spatial alignment using the Hough transform
+  - Wavelength calibration via cross-correlation
+  - Intensity normalisation to reference spectra
+- **FITS file support** with memory-efficient processing
+- **H-alpha companion file processing** that applies calibrations from Fe files
+- **Comprehensive logging** and shift parameter tracking
+- **User selected calibration** where the reference file is chosen (although the default is the first file in the list)
+## Installation
+
+
+```bash
+  pip install satprocess
+```
+    
+## Dependencies
+
+- Python 3.7+
+- NumPy
+- SciPy
+- Matplotlib
+- Astropy
+- scikit-image
+## Usage/Examples
+
+Basic usage: Calibrates all files in the supplied folder
+
+```python
+from satprocess import Calibration
+import os
+
+if __name__ == "__main__":
+    try:
+        folder_path = "TestImages"
+        shifts_file = os.path.join(folder_path, "shifts.csv")
+        
+        # Ensure folder structure exists
+        Calibration.ensure_folder_structure(folder_path)
+        os.makedirs(os.path.join(folder_path, "plots"), exist_ok=True)
+        
+        # Load or initialise shifts
+        shifts = Calibration.load_shifts(shifts_file)
+        
+        # Run the calibrations
+        spatial_results = Calibration.spatial_calibration(
+            folder_path,
+            shifts,
+        )
+        wavelength_results = Calibration.wavelength_calibration(
+            folder_path,
+            shifts,
+        )
+        intensity_results = Calibration.intensity_calibration(
+            folder_path,
+            shifts,
+        )
+        
+        print("Calibration completed successfully")
+        
+    except Exception as e:
+        print(f"Pipeline failed: {str(e)}")
+```
+
+### Advanced Features
+
+Calibration calculated on Fe files, then applying the shifts to Ha files. The file used as the target for calibrations is the third file available.
+
+```python
+# ... Initialisation code as before
+
+print("=== CALIBRATING FE FILES ===")
+spatial_results = Calibration.spatial_calibration(
+    folder_path,
+    shifts,
+    alignment_wavelength=40,
+    reference_index=2,
+    wide_min_radius=600,
+    wide_max_radius=1200,
+    mode="fe_only"
+)
+
+wavelength_results = Calibration.wavelength_calibration(
+    folder_path,
+    shifts,
+    reference_index=2
+    region_size=100,
+    percentage=1,
+    mode="fe_only"
+)
+
+intensity_results = Calibration.intensity_calibration(
+    folder_path,
+    shifts,
+    reference_index=2
+    region_size=100,
+    percentage=1,
+    mode="fe_only"
+)
+
+# Second run: Apply calibrations to H-alpha files with plotting
+print("=== APPLYING TO H-alpha FILES ===")
+ha_results = Calibration.apply_calibrations_to_ha_files(
+    folder_path,
+    shifts,
+    alignment_wavelength=40,
+    plot_spectra=True
+)
+```
+## File Structure
+
+The package creates the following directory structure during processing:
+
+📦 input_folder
+┣━━ 📂 AlignedImages
+┃   ┣━━ 📂 Spatial       # Spatially aligned files
+┃   ┣━━ 📂 Wavelength    # Wavelength calibrated files
+┃   ┣━━ 📂 Intensity     # Intensity normalized files
+┃   ┗━━ 📂 H_alpha       # Processed H-alpha files
+┣━━ 📂 plots             # Diagnostic plots
+┗━━ shifts.csv           # Tracking file for calibration parameters
+## License
+
+This project is licensed under the BSD 3-Clause License - see the [LICENSE](LICENSE) file for details.
+
