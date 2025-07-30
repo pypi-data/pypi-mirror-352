@@ -1,0 +1,35 @@
+[project]
+name = "beyondtrust-bips-cli"
+dynamic = [ "version" ]
+description = "PS CLI is a CLI tool designed to allow the execution of BeyondInsight and Password Safe API calls"
+authors = [
+    { name = "BeyondTrust Corporation", email = "support@beyondtrust.com" }
+]
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+
+[tool.poetry]
+version = "v0.7.0"
+packages = [
+    { include = "ps_cli", from = "src" }
+]
+
+[tool.poetry.dependencies]
+beyondtrust-bips-library = ">=1.19.0,<2.0.0"
+retry-requests = ">=2.0.0,<3.0.0"
+requests = { version = ">=2.32.3,<3.0.0", extras = ["use_chardet_on_py3"] }
+chardet = ">=5.2.0,<6.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.0.1"
+pytest = "^8.3.4"
+coverage = "^7.6.10"
+pex = "^2.36.0"
+poetry-plugin-export = "^1.9.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
+ps-cli = 'ps_cli.main:main'
