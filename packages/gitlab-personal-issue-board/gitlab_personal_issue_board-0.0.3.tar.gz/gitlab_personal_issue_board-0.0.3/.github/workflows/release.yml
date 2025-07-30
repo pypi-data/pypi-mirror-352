@@ -1,0 +1,37 @@
+name: Release Package
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-and-inspect-package:
+    name: Build & inspect package.
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hynek/build-and-inspect-python-package@v2
+
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/gitlab-personal-issue-board/
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing, but
+      # should NOT be granted anywhere else!
+      id-token: write
+    needs: build-and-inspect-package
+    steps:
+      - name: Download built artifact to dist/
+        uses: actions/download-artifact@v4
+        with:
+          name: Packages
+          path: dist
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
