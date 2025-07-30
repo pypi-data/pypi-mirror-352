@@ -1,0 +1,56 @@
+name: Build and Test Package
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+    
+    - name: Build wheel
+      run: |
+        uv build --wheel
+    
+    - name: Create isolated environment and test installation
+      run: |
+        # Create a new virtual environment
+        python -m venv test_env
+        source test_env/bin/activate
+        
+        # Install the wheel
+        pip install dist/*.whl
+        
+        # Test importing the package and key components
+        python -c "
+        import trustwise
+        print('Successfully imported trustwise')
+        
+        # Test importing main SDK components
+        from trustwise.sdk import TrustwiseSDK
+        from trustwise.sdk.config import TrustwiseConfig
+        print('Successfully imported SDK components')
+        
+        # Verify package metadata
+        assert hasattr(trustwise, '__version__')
+        assert isinstance(trustwise.__version__, str)
+        print('Successfully verified package metadata')
+        "

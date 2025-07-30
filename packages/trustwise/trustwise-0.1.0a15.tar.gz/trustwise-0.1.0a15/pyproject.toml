@@ -1,0 +1,123 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "trustwise"
+version = "0.1.0a15"
+description = "Trustwise Python SDK for interacting with the Trustwise APIs"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = "MIT"
+keywords = ["ai", "safety", "alignment", "evaluation", "metrics"]
+authors = [{ name = "Mayank Chutani", email = "mayank@trustwise.ai" }]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.11.0",
+    "urllib3>=2.4.0",
+    "importlib-metadata>=6.0.0; python_version < '3.8'",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "ruff>=0.11.0",
+    "mypy>=1.15.0",
+    "docutils>=0.21.0",
+    "sphinx>=8.2.0",
+    "sphinx-rtd-theme>=3.0.2",
+    "sphinx-autodoc-typehints>=2.0.0",
+    "tox>=4.0.0",
+]
+
+[project.urls]
+Homepage = "https://trustwise.ai"
+Documentation = "https://trustwiseai.github.io/tw-docs/docs/intro"
+Repository = "https://github.com/trustwiseai/trustwise"
+Issues = "https://github.com/trustwiseai/trustwise/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/trustwise"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --cov=trustwise --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["trustwise"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if __name__ == '__main__':",
+    "pass",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "N",   # pep8-naming
+    "YTT", # flake8-2020
+    "ANN", # flake8-annotations
+    "S",   # flake8-bandit
+    "BLE", # flake8-blind-except
+    "FBT", # flake8-boolean-trap
+    "C90", # mccabe
+    "ICN", # flake8-import-conventions
+    "T20", # flake8-print
+    "PT",  # flake8-pytest-style
+    "Q",   # flake8-quotes
+    "RUF", # Ruff-specific rules
+]
+ignore = [
+    "ANN401", # Missing type annotation for function argument
+    "ANN002", # Missing type annotation for *args
+    "ANN003", # Missing type annotation for **kwargs
+    "C901",   # Ignore function complexity warnings
+    "E501",   # Ignore line length warnings
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["trustwise"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "ANN", "PT011", "PT012", "B017", "B007", "E501"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
