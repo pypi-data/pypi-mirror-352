@@ -1,0 +1,116 @@
+[tool.poetry]
+name = "tweliter"
+version = "0.5.1"
+description = "Write TWELITE series firmware (beta)"
+authors = ["alnasl <dev-alnasl@mono-wireless.com>"]
+readme = "README.md"
+
+packages = [{ include = "tweliter" }, { include = "jn51xx_flasher" }]
+
+[tool.poetry.scripts]
+tweliter = "tweliter.__init__:main"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pyserial = "^3.5"
+pyftdi = "^0.55.4"
+tqdm = "^4.67.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.2"
+mypy = "^1.11.0"
+ruff = "^0.5.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+# Exclude specific files or directories
+exclude = '''
+(
+    /(
+        \.git
+        | \.venv
+        | build
+        | dist
+        | scripts
+        | docs
+        | jn51xx_flasher
+    )/
+)
+'''
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+    "jn51xx_flasher",
+]
+
+# Same as Black.
+line-length = 88
+indent-width = 4
+
+# Assume Python 3.13
+target-version = "py312"
+
+[tool.ruff.lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+select = ["E4", "E7", "E9", "F"]
+ignore = []
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = false
+strict = true
+disallow_subclassing_any = false
+exclude = [".venv", "jn51xx_flasher/"]
