@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qsppack"
+version = "0.3.2"
+description = "A Python package for quantum signal processing optimization and analysis"
+readme = "README.rst"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "James Larsen"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "cvxpy",
+    "sympy",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/beevus77/qsppack"
+"Bug Tracker" = "https://github.com/beevus77/qsppack/issues"
+"Documentation" = "https://qsppack.readthedocs.io/"
+
+[project.optional-dependencies]
+docs = [
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme",
+    "nbsphinx>=0.9.3",
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "ipython",
+    "cvxpy",
+    "tomli",
+]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[tool.setuptools]
+packages = ["qsppack"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --cov=qsppack"

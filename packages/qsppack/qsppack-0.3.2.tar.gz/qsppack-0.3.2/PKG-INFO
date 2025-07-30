@@ -1,0 +1,74 @@
+Metadata-Version: 2.4
+Name: qsppack
+Version: 0.3.2
+Summary: A Python package for quantum signal processing optimization and analysis
+Author: James Larsen
+License: MIT
+Project-URL: Homepage, https://github.com/beevus77/qsppack
+Project-URL: Bug Tracker, https://github.com/beevus77/qsppack/issues
+Project-URL: Documentation, https://qsppack.readthedocs.io/
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Physics
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: matplotlib
+Requires-Dist: cvxpy
+Requires-Dist: sympy
+Provides-Extra: docs
+Requires-Dist: sphinx>=7.0.0; extra == "docs"
+Requires-Dist: sphinx-rtd-theme; extra == "docs"
+Requires-Dist: nbsphinx>=0.9.3; extra == "docs"
+Requires-Dist: numpy; extra == "docs"
+Requires-Dist: scipy; extra == "docs"
+Requires-Dist: matplotlib; extra == "docs"
+Requires-Dist: ipython; extra == "docs"
+Requires-Dist: cvxpy; extra == "docs"
+Requires-Dist: tomli; extra == "docs"
+Provides-Extra: test
+Requires-Dist: pytest>=7.0.0; extra == "test"
+Requires-Dist: pytest-cov>=4.0.0; extra == "test"
+
+qsppack - Quantum Signal Processing Package
+===========================================
+
+A Python package for Quantum Signal Processing optimization and analysis.
+
+Installation
+------------
+
+You can install the package using pip:
+
+.. code-block:: bash
+
+    pip install qsppack
+
+Or install from source:
+
+.. code-block:: bash
+
+    git clone https://github.com/beevus77/qsp.git
+    cd qsp
+    pip install -e .
+
+Documentation
+-------------
+
+Full documentation is available at: https://qsppack.readthedocs.io/
+
+Features
+--------
+
+* Quantum Signal Processing optimization
+* Support for various optimization methods (L-BFGS, FPI, Newton)
+* Utility functions for Chebyshev polynomials and phase factor manipulation
+
+License
+-------
+
+This project is licensed under the MIT License - see the LICENSE file for details.
