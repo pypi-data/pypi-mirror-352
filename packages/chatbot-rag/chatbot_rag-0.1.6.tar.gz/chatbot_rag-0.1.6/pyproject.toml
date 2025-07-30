@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "chatbot-rag"
+version = "0.1.6"
+description = "ChatBot with Retrieval Augmented Generation"
+authors = [
+    { name = "Wilhelm David Buitrago Garcia" }
+]
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = ["RAG", "ChatBot", "Retrieval Augmented Generation", "LLM", "Language Model", "NLP", "Natural Language Processing"]
+dependencies = [
+    "ollama==0.5.1",
+    "langchain==0.3.25",
+    "langchain-community==0.3.24",
+    "pdfplumber==0.11.6",
+    "sentence_transformers==4.1.0",
+    "pymupdf==1.26.0",
+    "pytesseract==0.3.13",
+    "faiss-cpu==1.11.0",
+    "pandas==2.2.3",
+]
+# Omitido "chromadb==1.0.12",
+
+
+[project.urls]
+Homepage = "https://github.com/WilhelmBuitrago/ChatBot-RAG.git"
+
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
