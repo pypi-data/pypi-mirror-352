@@ -1,0 +1,37 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "lizaiupload"
+version = "1.4.1"
+description = "A tool to upload folders with multipart upload."
+authors = ["Victor Duong <victor.duong@lizai.co>"]
+homepage = "https://lizai.co"
+readme = ["README.md", "LICENSE"]
+
+[project]
+name = "lizaiupload"
+version = "1.4.1"
+description = "A tool to upload folders with multipart upload."
+authors = [{ name = "Victor Duong", email = "victor.duong@lizai.co" }]
+homepage = "https://lizai.co"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.6"
+aiohttp = "^3.7.4"
+aiofiles = "^0.7.0"
+tenacity = "^8.0.1"
+argparse = "^1.4.0"
+requests = "^2.26.0"
+python-dotenv = "^0.19.0"
+
+[tool.poetry.scripts]
+lizaiupload = "lizaiupload.main:main"
