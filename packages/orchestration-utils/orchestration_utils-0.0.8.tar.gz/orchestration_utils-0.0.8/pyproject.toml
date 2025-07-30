@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools", "wheel", "setuptools_scm", "twine"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "orchestration_utils"
+version = "0.0.8"
+authors = [
+  { name="DWBI", email="dwbi@cloudfactory.com" },
+]
+description = "This package contains utility functions for Prefect and Snowflake"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pandas==2.2.3",
+    "numpy==1.26.4",
+    "prefect-aws==0.5.1",
+    "prefect-snowflake==0.28.0",
+    "pyarrow==10.0.1",
+    "pydantic==2.9.2",
+    "requests==2.32.3",
+    "prefect==3.0.10"
+]
+
+
+[project.urls]
+Repository = "https://github.com/cloudfactory/orchestration-utilities"
