@@ -1,0 +1,202 @@
+{
+  "version": "1.0",
+  "truncation": null,
+  "padding": null,
+  "added_tokens": [
+    {
+      "id": 1,
+      "content": "<cls_amino_acid>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 5,
+      "content": "<eos>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 6,
+      "content": "<unk>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 7,
+      "content": "<pad>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 8,
+      "content": "<sep>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 9,
+      "content": "<mask>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    }
+  ],
+  "normalizer": null,
+  "pre_tokenizer": null,
+  "post_processor": {
+    "type": "TemplateProcessing",
+    "single": [
+      {
+        "SpecialToken": {
+          "id": "<cls_amino_acid>",
+          "type_id": 0
+        }
+      },
+      {
+        "Sequence": {
+          "id": "A",
+          "type_id": 0
+        }
+      },
+      {
+        "SpecialToken": {
+          "id": "<eos>",
+          "type_id": 0
+        }
+      }
+    ],
+    "pair": [
+      {
+        "SpecialToken": {
+          "id": "<cls_amino_acid>",
+          "type_id": 0
+        }
+      },
+      {
+        "Sequence": {
+          "id": "A",
+          "type_id": 0
+        }
+      },
+      {
+        "SpecialToken": {
+          "id": "<eos>",
+          "type_id": 0
+        }
+      },
+      {
+        "Sequence": {
+          "id": "B",
+          "type_id": 1
+        }
+      },
+      {
+        "SpecialToken": {
+          "id": "<eos>",
+          "type_id": 1
+        }
+      }
+    ],
+    "special_tokens": {
+      "<cls_amino_acid>": {
+        "id": "<cls_amino_acid>",
+        "ids": [
+          1
+        ],
+        "tokens": [
+          "<cls_amino_acid>"
+        ]
+      },
+      "<eos>": {
+        "id": "<eos>",
+        "ids": [
+          5
+        ],
+        "tokens": [
+          "<eos>"
+        ]
+      }
+    }
+  },
+  "decoder": null,
+  "model": {
+    "type": "BPE",
+    "dropout": null,
+    "unk_token": "<unk>",
+    "continuing_subword_prefix": null,
+    "end_of_word_suffix": null,
+    "fuse_unk": false,
+    "byte_fallback": false,
+    "ignore_merges": true,
+    "vocab": {
+      "<cls>": 0,
+      "<cls_amino_acid>": 1,
+      "<cls_smiles>": 2,
+      "<cls_nucleotide>": 3,
+      "<cls_3d_coordinates>": 4,
+      "<eos>": 5,
+      "<unk>": 6,
+      "<pad>": 7,
+      "<sep>": 8,
+      "<mask>": 9,
+      "<cls_convert>": 10,
+      "<cls_interact>": 11,
+      "<extra_special_token_0>": 12,
+      "<extra_special_token_1>": 13,
+      "<extra_special_token_2>": 14,
+      "<extra_special_token_3>": 15,
+      "<extra_special_token_4>": 16,
+      "<extra_special_token_5>": 17,
+      "<extra_special_token_6>": 18,
+      "<extra_special_token_7>": 19,
+      "<extra_special_token_8>": 20,
+      "<extra_special_token_9>": 21,
+      "<extra_special_token_10>": 22,
+      ".": 23,
+      "-": 24,
+      "L": 25,
+      "A": 26,
+      "G": 27,
+      "V": 28,
+      "S": 29,
+      "E": 30,
+      "R": 31,
+      "T": 32,
+      "I": 33,
+      "D": 34,
+      "P": 35,
+      "K": 36,
+      "Q": 37,
+      "N": 38,
+      "F": 39,
+      "Y": 40,
+      "M": 41,
+      "H": 42,
+      "W": 43,
+      "C": 44,
+      "X": 45,
+      "B": 46,
+      "U": 47,
+      "Z": 48,
+      "O": 49
+    },
+    "merges": []
+  }
+}
