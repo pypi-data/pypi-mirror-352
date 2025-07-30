@@ -1,0 +1,70 @@
+Metadata-Version: 2.1
+Name: hintwith
+Version: 0.1.5
+Summary: Hints your function with an existing one.
+Home-page: https://github.com/Chitaoji/hintwith/
+Author: Chitaoji
+Author-email: 2360742040@qq.com
+License: BSD
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.8.13
+Description-Content-Type: text/markdown
+
+
+# hintwith
+Hints your function with an existing one.
+
+## Installation
+
+```sh
+$ pip install hintwith
+```
+
+## Usage
+
+Use `hintwith()` to hint a function with another function:
+
+```py
+>>> from hintwith import hintwith
+>>> def a(x: int, y: int, z: int = 0) -> int:
+...     """Sums x, y and z."""
+...     return x + y + z
+... 
+>>> @hintwith(a)
+... def b(*args, **kwargs) -> float:
+...     return float(a(*args, **kwargs))
+... 
+```
+
+Also, there is `hintwithmethod()` to hint the function with a method rather than a direct callable.
+
+## See Also
+### Github repository
+* https://github.com/Chitaoji/hintwith/
+
+### PyPI project
+* https://pypi.org/project/hintwith/
+
+## License
+This project falls under the BSD 3-Clause License.
+
+## History
+### v0.1.5
+* New optional parameter for `hintwith()` and `hintwithmethod()`:
+  * `use_doc`: determines whether to use the docstring of the original function.
+
+### v0.1.4
+* New optional parameter for `hintwith()` and `hintwithmethod()`:
+  * `__hint_returntype` : determines whether to use the return type of the original function.
+
+### v0.1.0
+* Initial release.
+
