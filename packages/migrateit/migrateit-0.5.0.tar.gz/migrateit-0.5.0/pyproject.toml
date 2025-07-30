@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.pyright]
+strictListInference = true
+strictDictionaryInference = true
+strictSetInference = true
+deprecateTypingAliases = true
+exclude = [
+	"**/build",
+	"**/dist",
+	"**/out",
+	"**/venv",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["migrateit"]
+omit = [
+	"**/__init__.py",
+	"**/_protocol.py",
+	"main.py",
+]
+
+[tool.coverage.report]
+exclude_also = [
+	"pragma: no cover*",
+	"import .*",
+	"def __repr__",
+	"if self.debug:",
+	"if settings.DEBUG",
+	"raise AssertionError",
+	"raise NotImplementedError",
+	"raise",
+	"if 0:",
+	"if False:",
+	"if __name__ == .__main__.:",
+	"if TYPE_CHECKING:",
+	"class .*\\bProtocol\\):",
+	"@(abc\\.)?abstractmethod",
+	"logger.*",
+	"-> ['\"]?NoReturn['\"]?:",
+	"self.fail*",
+	"def __str__",
+]
