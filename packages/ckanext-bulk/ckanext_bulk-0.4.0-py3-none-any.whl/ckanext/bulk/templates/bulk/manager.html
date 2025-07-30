@@ -1,0 +1,37 @@
+{% extends "page.html" %}
+
+{% block subtitle %}
+    {{ _("Bulk update manager") }}
+{% endblock %}
+
+{% block primary_content %}
+    <article class="module">
+        <div class="module-content bulk-manager" data-module="bulk-manager-form">
+            {% snippet 'bulk/manager_accordion.html' %}
+            {% snippet 'bulk/manager_form.html', data=data, errors=errors %}
+        </div>
+    </article>
+{% endblock %}
+
+
+{% block secondary_content %}
+    <div class="module module-narrow module-shallow">
+        <h2 class="module-heading">
+            <i class="fa fa-info-circle"></i>
+            {{ _("Bulk update manager") }}
+        </h2>
+        <div class="module-content bulk-info">
+            {% snippet "bulk/manager_info.html" %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    {% asset "bulk/bulk-css" %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {% asset "bulk/bulk-js" %}
+{% endblock %}
