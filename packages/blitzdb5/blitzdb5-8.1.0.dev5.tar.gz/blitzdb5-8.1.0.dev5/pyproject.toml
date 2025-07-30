@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "setuptools_scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blitzdb5"
+description = "A document-oriented database written purely in Python."
+readme = "README.md"
+license = { text = "MIT" }
+classifiers = [
+  "Intended Audience :: Developers",
+  "Programming Language :: Python",
+  "Topic :: Database"
+]
+dependencies = [
+  "orjson"
+]
+
+dynamic = ["version"]
+[tool.setuptools_scm]
+local_scheme = "no-local-version"  # Removes the local version part (e.g., +g748e57a)
+version_scheme = "release-branch-semver"  # Ensures only the clean version is used
+
+
