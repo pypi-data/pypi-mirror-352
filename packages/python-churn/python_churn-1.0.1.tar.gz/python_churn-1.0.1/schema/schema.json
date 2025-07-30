@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Task Configuration",
+    "type": "object",
+    "properties": {
+        "output_folder": {
+            "type": "string",
+            "description": "Path to the root output folder for all generated files."
+        },
+        "context": {
+            "type": "object",
+            "description": "Global parameters used by tasks."
+        },
+        "pre_tasks": {
+            "$ref": "#/$defs/task"
+        },
+        "tasks": {
+            "$ref": "#/$defs/task"
+        }
+    },
+    "$defs": {
+        "task": {
+            "type": "array",
+            "description": "List of tasks defining inputs and outputs for each to detect whether to update it.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Identifier for this task."
+                    },
+                    "extra_input_files": {
+                        "type": "array",
+                        "description": "Additional input files required by this task.",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "output_files": {
+                        "type": "array",
+                        "description": "File paths produced by this task.",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "name",
+                    "output_files"
+                ],
+                "additionalProperties": false
+            }
+        }
+    },
+    "required": [
+        "output_folder",
+        "context",
+        "tasks"
+    ],
+    "additionalProperties": false
+}

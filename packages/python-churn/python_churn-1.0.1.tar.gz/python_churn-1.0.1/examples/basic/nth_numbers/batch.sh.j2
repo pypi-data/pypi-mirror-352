@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+
+# ask for MPI tasks
+#SBATCH --ntasks=1
+ 
+# name the job
+#SBATCH --job-name=nth_numbers
+ 
+# declare the merged STDOUT/STDERR file
+#SBATCH --output=nth_numbers_%J-out.txt
+#SBATCH --error=nth_numbers_%J-err.txt
+
+# runtime limit
+#SBATCH --time=00:01:00
+
+sed -n '0~{{ every_n }}p' ../pre_numbers/numbers.txt > numbers.txt
