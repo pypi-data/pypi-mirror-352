@@ -1,0 +1,131 @@
+Metadata-Version: 2.4
+Name: pgadmin-site
+Version: 0.5.0
+Summary: Библиотека для создания локального сайта для работы с таблицами PostgreSQL
+Author-email: Your Name <your.email@example.com>
+License: MIT
+Project-URL: Homepage, https://github.com/yourusername/pgadmin-site
+Project-URL: Bug Tracker, https://github.com/yourusername/pgadmin-site/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: flask>=2.0.0
+Requires-Dist: psycopg2-binary>=2.9.3
+Requires-Dist: SQLAlchemy>=2.0.0
+Requires-Dist: wtforms>=3.0.0
+Requires-Dist: flask-sqlalchemy>=3.0.0
+Requires-Dist: click>=8.0.0
+Requires-Dist: openai>=1.0.0
+Dynamic: license-file
+
+# PGAdmin Site
+
+Библиотека для создания локального веб-интерфейса для работы с таблицами PostgreSQL.
+
+## Установка
+
+```bash
+pip install pgadmin-site
+```
+
+## Использование
+
+```python
+from pgadmin_site import site
+
+# Запустить локальный сайт для работы с базой данных
+site(
+    host="localhost",
+    port=5432,
+    username="postgres",
+    password="password",
+    database="your_database",
+    web_port=5000,  # Порт для веб-интерфейса
+    icon="path/to/icon.png",  # Опционально: путь к файлу иконки
+    foto="path/to/image.jpg true",  # Опционально: путь к изображению и флаг перемещаемости
+    card="path/to/template_name.json"  # Опционально: путь к шаблону карточки
+)
+```
+
+## Возможности
+
+- Просмотр всех таблиц в базе данных
+- Навигация между таблицами через кнопки или выпадающий список
+- Редактирование строк, столбцов и отдельных ячеек
+- Удаление существующих данных
+- Добавление новых записей
+- Настройка favicon сайта
+- Добавление перемещаемого изображения на страницы сайта
+- Отображение данных в виде карточек по шаблону
+
+## Параметры изображения
+
+Параметр `foto` принимает путь к файлу изображения и опциональный флаг перемещаемости:
+- `"path/to/image.jpg"` - статическое изображение
+- `"path/to/image.jpg true"` - перемещаемое изображение
+- `"path/to/image.jpg false"` - статическое изображение
+
+Перемещаемое изображение можно перетаскивать мышью по странице, и его позиция сохраняется между сессиями.
+
+## Параметры карточек
+
+Параметр `card` позволяет отображать данные в виде карточек по заданному шаблону.
+- `"template_name.json"` - название шаблона карточки
+- Можно создавать свои шаблоны через `tkinter_card_designer`
+
+## Требования
+
+- Python 3.8+
+- PostgreSQL
+
+## Лицензия
+
+MIT 
+
+## Команды CLI
+
+- `pgadmin-site` — запуск локального веб-интерфейса для работы с PostgreSQL. Поддерживает параметры:
+  - `--host`, `-h` — адрес сервера PostgreSQL (по умолчанию localhost)
+  - `--port`, `-p` — порт PostgreSQL (по умолчанию 5432)
+  - `--username`, `-u` — имя пользователя (по умолчанию postgres)
+  - `--password`, `-P` — пароль (запрашивается интерактивно)
+  - `--database`, `-d` — имя базы данных (по умолчанию postgres)
+  - `--web-port`, `-w` — порт для веб-интерфейса (по умолчанию 5000)
+  - `--debug` — режим отладки
+  - `--icon` — путь к файлу иконки
+  - `--foto` — путь к файлу изображения с опциональным флагом перемещаемости (true/false)
+  - `--card` — название шаблона карточки (без .json)
+
+- `from pgadmin_site import tkinter_card_designer` — запуск визуального редактора карточек на Tkinter:
+  - Позволяет создавать SVG-шаблоны карточек с drag&drop, формулами, кнопками, фильтрами и связями с БД.
+
+- `from pgadmin_site import create_module_file` — генерация примеров Tkinter-карточек:
+  - `create_module_file('modul(2)')`, `create_module_file('modul(3)')`, `create_module_file('modul(4)')` — создаёт примеры модулей для работы с карточками и БД.
+
+## Основные возможности
+
+- Просмотр и редактирование таблиц PostgreSQL через веб-интерфейс (Flask + Bootstrap)
+- Визуальный редактор карточек (Tkinter): поддержка фигур, формул, drag&drop столбцов, кнопок с фильтрами
+- Автоматическое построение JOIN по связям, подстановка данных из связанных таблиц
+- Кнопки на карточках с визуальным редактором запроса и фильтрами (AND/OR, подстановка из карточки)
+- Импорт/экспорт шаблонов карточек в JSON
+- Удаление карточки и связанных данных через модальное окно
+- Совместимость с любыми структурами БД PostgreSQL
+- Настройка favicon и добавление перемещаемых изображений
+- Отображение данных в виде карточек по шаблону
+
+## Пример запуска
+
+```bash
+pgadmin-site --host localhost --port 5432 --username postgres --database mydb --web-port 5000 --icon path/to/icon.png --foto "path/to/image.jpg true" --card template_name
+```
+
+## Пример запуска редактора карточек
+
+```python
+from pgadmin_site import tkinter_card_designer
+tkinter_card_designer(username="postgres", password="пароль", database="mydb")
+``` 
