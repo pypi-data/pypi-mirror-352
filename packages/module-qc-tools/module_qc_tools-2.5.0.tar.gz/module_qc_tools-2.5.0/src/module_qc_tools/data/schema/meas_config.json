@@ -1,0 +1,336 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Schema for QC Measurement config file",
+  "description": "Raw data json",
+  "type": "object",
+  "properties": {
+    "tasks": {
+      "description": "Block specifying all scan parameters",
+      "type": "object",
+      "properties": {
+        "GENERAL": {
+          "description": "General PS current and voltage settings.",
+          "type": "object",
+          "properties": {
+            "v_max":{
+              "description": "The maximum voltage the LV power supply will allow.",
+              "type": "number"
+            },
+            "i_config": {
+              "description": "Current configuration for different chip and BOM configurations.",
+              "type": "object"
+            }
+          },
+          "required": ["v_max", "i_config"]
+        },
+        "IV_MEASURE": {
+          "description": "Settings for IV measurement task.",
+          "type": "object",
+          "properties": {
+            "v_min": {
+              "description": "Minimum voltage values for each layer.",
+              "type": "object"
+            },
+            "v_max": {
+              "description": "Maximum voltage values for each layer.",
+              "type": "object"
+            },
+            "i_max": {
+              "description": "Maximum current values for each layer.",
+              "type": "object"
+            },
+            "n_points": {
+              "description": "Number of measurement points for each layer.",
+              "type": "object"
+            },
+            "settling_time": {
+              "description": "Settling time in seconds for each layer before measurement.",
+              "type": "object"
+            }
+          },
+          "required": ["v_min", "v_max", "i_max", "n_points", "settling_time"]
+        },
+        "DATA_TRANSMISSION": {
+          "description": "Settings for data transmission scan.",
+          "type": "object",
+          "properties": {
+            "MonitorV": {
+              "description": "List of Vmux channels to measure.",
+              "type": "array"
+            }
+          },
+          "required": ["MonitorV"]
+        },
+        "ADC_CALIBRATION": {
+          "description": "Settings for ADC calibration scan.",
+          "type": "object",
+          "properties": {
+            "MonitorV": {
+              "description": "List of Vmux channels to measure.",
+              "type": "array"
+            },
+            "MonitorV_GND": {
+              "description": "Ground Vmux monitor channel.",
+              "type": "number"
+            },
+            "InjVcalRange": {
+              "description": "Injection calibration voltage range.",
+              "type": "number"
+            },
+            "Range": {
+              "description": "Voltage range settings ADC Calibration.",
+              "type": "object"
+            }
+          },
+          "required": ["MonitorV", "MonitorV_GND", "InjVcalRange", "Range"]
+        },
+        "SLDO": {
+          "type": "object",
+          "description": "Configuration for SLDO tasks",
+          "properties": {
+            "i_min": {
+              "type": "object",
+              "description": "Minimum current thresholds for SLDO"
+            },
+            "i_max": {
+              "type": "object",
+              "description": "Maximum current thresholds for SLDO"
+            },
+            "n_points": {
+              "type": "object",
+              "description": "Number of measurement points for each layer"
+            },
+            "extra_i": {
+              "type": "array",
+              "description": "Extra currents to be considered during measurements"
+            },
+            "v_mux": {
+              "type": "array",
+              "description": "Voltage multiplexer channels"
+            },
+            "i_mux": {
+              "type": "array",
+              "description": "Current multiplexer channels"
+            }
+          },
+          "required": ["i_min", "i_max", "n_points", "extra_i", "v_mux", "i_mux"]
+        },
+        "VCAL_CALIBRATION": {
+          "type": "object",
+          "description": "Configuration for VCAL Calibration",
+          "properties": {
+            "InjVcalRange": {
+              "type": "array",
+              "description": "Injection VCAL range"
+            },
+            "MonitorV": {
+              "type": "array",
+              "description": "Monitor voltage channels"
+            },
+            "MonitorV_GND": {
+              "type": "number",
+              "description": "Ground reference for monitored voltage"
+            },
+            "Large_Range": {
+              "type": "object",
+              "description": "Large range configuration"
+            },
+            "Small_Range": {
+              "type": "object",
+              "description": "Small range configuration"
+            }
+          },
+          "required": ["InjVcalRange", "MonitorV", "MonitorV_GND", "Large_Range", "Small_Range"]
+        },
+        "ANALOG_READBACK": {
+          "type": "object",
+          "description": "Configuration for analog readback",
+          "properties": {
+            "v_mux": {
+              "type": "array",
+              "description": "Voltage multiplexer channels"
+            },
+            "i_mux": {
+              "type": "array",
+              "description": "Current multiplexer channels"
+            },
+            "v_mux_ntc": {
+              "type": "number",
+              "description": "Voltage multiplexer channel for NTC"
+            },
+            "i_mux_ntc": {
+              "type": "number",
+              "description": "Current multiplexer channel for NTC"
+            },
+            "v_mux_gnd": {
+              "type": "number",
+              "description": "Voltage multiplexer channel for ground"
+            },
+            "i_mux_gnd": {
+              "type": "number",
+              "description": "Current multiplexer channel for ground"
+            },
+            "v_mux_tempsens": {
+              "type": "array",
+              "description": "Voltage multiplexer channels for temperature sensor"
+            },
+            "MonSensSldoDigSelBias": {
+              "type": "array",
+              "description": "Digital bias selection for SLDO monitoring"
+            },
+            "MonSensSldoAnaSelBias": {
+              "type": "array",
+              "description": "Analog bias selection for SLDO monitoring"
+            },
+            "MonSensAcbSelBias": {
+              "type": "array",
+              "description": "AC bias selection for monitoring"
+            },
+            "MonSensSldoDigDem": {
+              "type": "array",
+              "description": "Digital demultiplexer channels for SLDO monitoring"
+            },
+            "MonSensSldoAnaDem": {
+              "type": "array",
+              "description": "Analog demultiplexer channels for SLDO monitoring"
+            },
+            "MonSensAcbDem": {
+              "type": "array",
+              "description": "AC demultiplexer channels for monitoring"
+            },
+            "SldoTrimA": {
+              "type": "array",
+              "description": "Analog trim values for SLDO"
+            },
+            "SldoTrimD": {
+              "type": "array",
+              "description": "Digital trim values for SLDO"
+            },
+            "registers": {
+              "type": "array",
+              "description": "Register names to read out."
+            }
+          },
+          "required": ["v_mux", "i_mux", "v_mux_ntc", "i_mux_ntc", "v_mux_gnd", "i_mux_gnd", "v_mux_tempsens", "MonSensSldoDigSelBias", "MonSensSldoAnaSelBias", "MonSensAcbSelBias", "MonSensSldoDigDem", "MonSensSldoAnaDem", "MonSensAcbDem", "SldoTrimA", "SldoTrimD"]
+        },
+        "INJECTION_CAPACITANCE": {
+          "type": "object",
+          "description": "Configuration for Injection Capacitance scan",
+          "properties": {
+            "n_meas": {
+              "type": "number",
+              "description": "number of measurements to average over"
+            },
+            "v_mux": {
+              "type": "array",
+              "description": "Voltage multiplexer channels"
+            },
+            "v_mux_gnd": {
+              "type": "number",
+              "description": "Ground Voltage multiplexer channel"
+            },
+            "i_mux": {
+              "type": "array",
+              "description": "Current multiplexer channels"
+            },
+            "i_mux_gnd": {
+              "type": "number",
+              "description": "Ground Current multiplexer channel"
+            }
+          },
+          "required": ["n_meas", "v_mux", "v_mux_gnd", "i_mux", "i_mux_gnd"]
+        },
+        "LP_MODE": {
+          "type": "object",
+          "description": "Configuration for Low Power Mode scan",
+          "properties": {
+            "v_max": {
+              "type": "number",
+              "description": "Maximum voltage allowed"
+            },
+            "i_config": {
+              "type": "object",
+              "description": "Current settings for the different layers"
+            },
+            "v_mux": {
+              "type": "array",
+              "description": "Voltage multiplexer channels"
+            },
+            "i_mux": {
+              "type": "array",
+              "description": "Current multiplexer channels"
+            }
+          },
+          "required": ["v_max", "i_config", "v_mux", "i_mux"]
+        },
+        "OVERVOLTAGE_PROTECTION": {
+          "type": "object",
+          "description": "Configuration for the Over Voltage Protection scan",
+          "properties": {
+            "v_max": {
+              "type": "number",
+              "description": "Maximum voltage allowed"
+            },
+            "i_config": {
+              "type": "object",
+              "description": "Current settings for the different layers"
+            },
+            "i_ovp": {
+              "type": "object",
+              "description": "Over Voltage Protection current settings for the different layers"
+            },
+            "v_mux": {
+              "type": "array",
+              "description": "Voltage multiplexer channels"
+            },
+            "i_mux": {
+              "type": "array",
+              "description": "Current multiplexer channels"
+            }
+          },
+          "required": ["v_max", "i_config", "i_ovp", "v_mux", "i_mux"]
+        },
+        "UNDERSHUNT_PROTECTION": {
+          "type": "object",
+          "description": "Configuration for the Under-Shunt Protection scan",
+          "properties": {
+            "v_max": {
+              "type": "number",
+              "description": "Maximum voltage allowed"
+            },
+            "i_usp": {
+              "type": "object",
+              "description": "Under-Shunt Protection Current settings for the different layers"
+            },
+            "v_mux": {
+              "type": "array",
+              "description": "Voltage multiplexer channels"
+            },
+            "i_mux": {
+              "type": "array",
+              "description": "Current multiplexer channels"
+            }
+          },
+          "required": ["v_max", "i_usp", "v_mux", "i_mux"]
+        },
+        "LONG_TERM_STABILITY_DCS": {
+          "type": "object",
+          "description": "Configuration for the Long-Term Stability scan",
+          "properties": {
+            "period": {
+              "type": "number",
+              "description": "How long to wait in between measurements"
+            },
+            "duration": {
+              "type": "number",
+              "description": "How long the scan should run for"
+            }
+          },
+          "required": ["period", "duration"]
+        }
+      },
+      "required": ["GENERAL", "IV_MEASURE", "DATA_TRANSMISSION", "ADC_CALIBRATION", "SLDO", "VCAL_CALIBRATION", "ANALOG_READBACK", "INJECTION_CAPACITANCE", "LP_MODE", "OVERVOLTAGE_PROTECTION", "UNDERSHUNT_PROTECTION"]
+    }
+  }
+}
+

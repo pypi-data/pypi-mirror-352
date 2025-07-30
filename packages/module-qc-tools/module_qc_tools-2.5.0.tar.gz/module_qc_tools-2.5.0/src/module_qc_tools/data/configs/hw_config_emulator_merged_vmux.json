@@ -1,0 +1,59 @@
+{
+    "yarr": {
+        "run_dir": "emulator",
+        "controller": "src/module_qc_tools/data/emulator/configs/controller/specCfg-rd53b.json",
+        "connectivity": "src/module_qc_tools/data/emulator/configs/connectivity/20UPGXM1234567_Lx_dummy.json",
+        "scanConsole_exe": "mqt emulator scanconsole",
+        "write_register_exe": "mqt emulator write-register",
+        "read_register_exe": "mqt emulator read-register",
+        "read_adc_exe": "mqt emulator read-adc",
+        "switchLPM_exe": "mqt emulator switchlpm",
+        "lpm_digitalscan": "configs/scans/rd53b/lpm_digitalscan.json",
+        "read_ringosc_exe": "mqt emulator read-ringosc",
+        "eyeDiagram_exe": "mqt emulator eye-diagram",
+        "dataMergingCheck_exe": "mqt emulator data-merging-check",
+        "max_attempts": 2,
+        "sleep_attempts": 2
+    },
+    "power_supply": {
+        "run_dir": "emulator",
+        "on_cmd": "mqt emulator control-ps -i {i} -v {v} -a on",
+        "off_cmd": "mqt emulator control-ps -a off",
+        "set_cmd": "mqt emulator control-ps -i {i} -v {v} -a on",
+        "getI_cmd": "mqt emulator control-ps -a getI",
+        "getV_cmd": "mqt emulator control-ps -a getV",
+        "measI_cmd": "mqt emulator control-ps -a getI",
+        "measV_cmd": "mqt emulator control-ps -a getV",
+        "timeout": 30,
+        "success_code": 0
+    },
+    "high_voltage": {
+        "run_dir": "emulator",
+        "on_cmd": "mqt emulator control-hv -i {i} -v {v} -a on",
+        "off_cmd": "mqt emulator control-hv -a off",
+        "set_cmd": "mqt emulator control-hv -i {i} -v {v} -a on",
+        "getI_cmd": "mqt emulator control-hv -a getI",
+        "getV_cmd": "mqt emulator control-hv -a getV",
+        "measI_cmd": "mqt emulator control-hv -a getI",
+        "measV_cmd": "mqt emulator control-hv -a getV",
+        "timeout": 30,
+        "polarity": 1,
+        "success_code": 0
+    },
+    "multimeter": {
+        "run_dir": "emulator",
+        "dcv_cmd": [
+            "mqt emulator measurev"
+        ],
+        "share_vmux": true,
+        "v_mux_channels": [0, 0, 0, 0]
+    },
+    "ntc": {
+        "run_dir": "emulator",
+        "cmd": "mqt emulator measuret"
+    },
+    "hrc": {
+        "run_dir": "emulator",
+        "cmd": "mqt emulator measurehr"
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "yarr": {
+        "run_dir": "../Yarr",
+        "controller": "configs/controller/felix_client_pixels.json",
+        "scanConsole_exe": "./bin/scanConsole",
+        "write_register_exe": "./bin/write-register",
+        "read_register_exe": "./bin/read-register",
+        "read_adc_exe": "./bin/read-adc",
+        "switchLPM_exe": "./bin/switchLPM",
+        "lpm_digitalscan": "configs/scans/itkpixv2/lpm_digitalscan.json",
+        "read_ringosc_exe": "./bin/Itkpixv2ReadRingosc",
+        "eyeDiagram_exe": "./bin/eyeDiagram",
+        "dataMergingCheck_exe": "./bin/dataMergingCheck",
+        "exe_postOpts": " | grep -v 'client' | grep -v 'netio'",
+        "max_attempts": 2,
+        "sleep_attempts": 2
+    },
+    "power_supply": {
+        "run_dir": "../labRemote",
+        "on_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n PS -c 1 power-on",
+        "off_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n PS -c 1 power-off",
+        "set_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n PS -c 1 set-current {i} {v}",
+        "getI_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n PS -c 1 get-current",
+        "getV_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n PS -c 1 get-voltage",
+        "measI_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n PS -c 1 meas-current",
+        "measV_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n PS -c 1 meas-voltage",
+        "n_try": 0,
+        "timeout": 30,
+        "success_code": 0
+    },
+    "high_voltage": {
+        "run_dir": "../labRemote",
+        "on_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n HV -c 1 power-on",
+        "off_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n HV -c 1 power-off",
+        "set_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n HV -c 1 set-voltage -- {v} {i}",
+        "ramp_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n HV -c 1 ramp-voltage -- {v} {r}",
+        "getI_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n HV -c 1 get-current",
+        "getV_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n HV -c 1 get-voltage",
+        "measI_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n HV -c 1 meas-current",
+        "measV_cmd": "./build/bin/powersupply -e ./src/configs/input-hw.json -n HV -c 1 meas-voltage",
+        "polarity": 1,
+        "n_try": 0,
+        "timeout": 30,
+        "success_code": 0
+    },
+    "multimeter": {
+        "run_dir": "../labRemote",
+        "dcv_cmd": [
+            "./build/bin/meter -e ./src/configs/input-hw.json -n myVmuxMeter -c 0 meas-voltage",
+            "./build/bin/meter -e ./src/configs/input-hw.json -n myVmuxMeter -c 1 meas-voltage",
+            "./build/bin/meter -e ./src/configs/input-hw.json -n myVmuxMeter -c 2 meas-voltage",
+            "./build/bin/meter -e ./src/configs/input-hw.json -n myVmuxMeter -c 3 meas-voltage"
+        ],
+        "share_vmux": false,
+        "v_mux_channels": [0, 1, 2, 3],
+        "n_try": 0,
+        "success_code": 0
+    },
+    "ntc": {
+        "run_dir": "../labRemote",
+        "cmd": "./build/bin/TfromNTC -e ./src/configs/input-hw.json -n myNtcMeter -c 0 meas-from-r",
+        "n_try": 0,
+        "success_code": 0
+    }
+}
