@@ -1,0 +1,275 @@
+{
+  "$defs": {
+    "Contact": {
+      "description": "Personal contact information and links.",
+      "properties": {
+        "name": {
+          "description": "Full name",
+          "title": "Name",
+          "type": "string"
+        },
+        "email": {
+          "description": "Email address",
+          "format": "email",
+          "title": "Email",
+          "type": "string"
+        },
+        "portfolio": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Portfolio website URL",
+          "title": "Portfolio"
+        },
+        "github": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "GitHub profile URL",
+          "title": "Github"
+        }
+      },
+      "required": [
+        "name",
+        "email"
+      ],
+      "title": "Contact",
+      "type": "object"
+    },
+    "Education": {
+      "description": "Educational background entry.",
+      "properties": {
+        "school": {
+          "description": "School or university name",
+          "title": "School",
+          "type": "string"
+        },
+        "degree": {
+          "description": "Degree type (e.g., 'Bachelor of Science', 'Master of Arts')",
+          "title": "Degree",
+          "type": "string"
+        },
+        "field": {
+          "description": "Field of study (e.g., 'Computer Science', 'Business Administration')",
+          "title": "Field",
+          "type": "string"
+        },
+        "graduation_date": {
+          "description": "Graduation date (YYYY-MM-DD format)",
+          "format": "date",
+          "title": "Graduation Date",
+          "type": "string"
+        }
+      },
+      "required": [
+        "school",
+        "degree",
+        "field",
+        "graduation_date"
+      ],
+      "title": "Education",
+      "type": "object"
+    },
+    "Experience": {
+      "description": "Professional work experience entry.",
+      "properties": {
+        "title": {
+          "description": "Job title",
+          "title": "Title",
+          "type": "string"
+        },
+        "company": {
+          "description": "Company name",
+          "title": "Company",
+          "type": "string"
+        },
+        "location": {
+          "description": "Job location (city, state/country)",
+          "title": "Location",
+          "type": "string"
+        },
+        "start_date": {
+          "description": "Start date (YYYY-MM-DD format)",
+          "format": "date",
+          "title": "Start Date",
+          "type": "string"
+        },
+        "end_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "End date (YYYY-MM-DD format) - leave empty for current position",
+          "title": "End Date"
+        },
+        "bullets": {
+          "description": "List of achievements, responsibilities, and key accomplishments",
+          "items": {
+            "type": "string"
+          },
+          "title": "Bullets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "title",
+        "company",
+        "location",
+        "start_date",
+        "bullets"
+      ],
+      "title": "Experience",
+      "type": "object"
+    },
+    "Project": {
+      "description": "Notable project to showcase.",
+      "properties": {
+        "title": {
+          "description": "Project name",
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Project URL (GitHub, demo, etc.)",
+          "title": "Url"
+        },
+        "bullets": {
+          "description": "List of project highlights, technologies used, and outcomes",
+          "items": {
+            "type": "string"
+          },
+          "title": "Bullets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "title",
+        "bullets"
+      ],
+      "title": "Project",
+      "type": "object"
+    },
+    "SkillCategory": {
+      "description": "Professional work experience entry.",
+      "properties": {
+        "category": {
+          "description": "Skill category name (e.g., 'Programming Languages', 'Frameworks')",
+          "title": "Category",
+          "type": "string"
+        },
+        "skills": {
+          "description": "List of skills in this category",
+          "items": {
+            "type": "string"
+          },
+          "title": "Skills",
+          "type": "array"
+        }
+      },
+      "required": [
+        "category",
+        "skills"
+      ],
+      "title": "SkillCategory",
+      "type": "object"
+    }
+  },
+  "description": "Schema for validating resume YAML files used with resemu",
+  "properties": {
+    "contact": {
+      "$ref": "#/$defs/Contact",
+      "description": "Personal contact information"
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Brief professional summary or career objective",
+      "title": "Summary"
+    },
+    "skills": {
+      "description": "Categorized list of technical and professional skills",
+      "items": {
+        "$ref": "#/$defs/SkillCategory"
+      },
+      "title": "Skills",
+      "type": "array"
+    },
+    "experience": {
+      "description": "Professional work experience in reverse chronological order",
+      "items": {
+        "$ref": "#/$defs/Experience"
+      },
+      "title": "Experience",
+      "type": "array"
+    },
+    "projects": {
+      "description": "Notable projects that demonstrate skills and experience",
+      "items": {
+        "$ref": "#/$defs/Project"
+      },
+      "title": "Projects",
+      "type": "array"
+    },
+    "education": {
+      "description": "Educational background in reverse chronological order",
+      "items": {
+        "$ref": "#/$defs/Education"
+      },
+      "title": "Education",
+      "type": "array"
+    }
+  },
+  "required": [
+    "contact",
+    "skills",
+    "experience",
+    "projects",
+    "education"
+  ],
+  "title": "resemu YAML schema",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

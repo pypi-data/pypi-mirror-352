@@ -1,0 +1,108 @@
+\documentclass[11pt]{article}       % set main text size
+\usepackage[a4paper,                % set paper size to letterpaper. change to a4paper for resumes outside of North America
+top=0.5in,                          % specify top page margin
+bottom=0.5in,                       % specify bottom page margin
+left=0.5in,                         % specify left page margin
+right=0.5in]{geometry}              % specify right page margin
+
+\usepackage{XCharter}               % set font. comment this line out if you want to use the default LaTeX font Computer Modern
+\usepackage[T1]{fontenc}            % output encoding
+\usepackage[utf8]{inputenc}         % input encoding
+\usepackage{enumitem}               % enable lists for bullet points: itemize and \item
+\usepackage[hidelinks]{hyperref}    % format hyperlinks
+\usepackage{titlesec}               % enable section title customization
+\raggedright                        % disable text justification
+\pagestyle{empty}                   % disable page numbering
+
+% ensure PDF output will be all-Unicode and machine-readable
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+% format section headings: bolding, size, white space above and below
+\titleformat{\section}{\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule\vspace{-6.5pt}]
+
+% format bullet points: size, white space above and below, white space between bullets
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
+\setlist[itemize]{itemsep=-2pt, leftmargin=12pt, topsep=7pt} %%% Test various topsep values to fix vertical spacing errors
+
+% resume starts here
+\begin{document}
+
+% Name
+\centerline{\Huge << contact.name >>}
+
+\vspace{5pt}
+
+% Contact information
+\centerline{
+  \href{mailto:<< contact.email >>}{<< contact.email >>}
+  <% if contact.portfolio %> | \href{<< contact.portfolio >>}{<< contact.portfolio | clean_url >>}<% endif %>
+  <% if contact.github %> | \href{<< contact.github >>}{github.com/<< contact.github | github_username >>}<% endif %>
+}
+
+\vspace{-10pt}
+
+% Summary section
+<% if summary %>
+\section*{Summary}
+<< summary >>
+
+\vspace{-6.5pt}
+<% endif %>
+
+% Skills section
+\section*{Skills}
+<% for skill_category in skills -%>
+\textbf{<< skill_category.category >>:} << skill_category.skills | join(', ') >>
+<% if not loop.last %> \\<% endif %>
+<% endfor %>
+
+\vspace{-6.5pt}
+
+% Education section
+\section*{Education}
+<% for edu in education -%>
+\textbf{<< edu.school >>} -- << edu.degree >> in << edu.field >> \hfill << edu.graduation_date.strftime('%B %Y') >>
+<% if not loop.last %> \\<% endif %>
+<% endfor %>
+
+\vspace{-6.5pt}
+
+% Experience section
+\section*{Experience}
+<% for exp in experience -%>
+\textbf{<< exp.title >>,} {<< exp.company >>} -- << exp.location >> \hfill
+<% if exp.start_date %><< exp.start_date.strftime('%B %Y') >><% endif %>
+<% if exp.end_date %> -- << exp.end_date.strftime('%B %Y') >><% else %> -- Present<% endif %> \\
+\vspace{-9pt}
+\begin{itemize}
+<% for bullet in exp.bullets -%>
+  \item << bullet >>
+<% endfor %>
+\end{itemize}
+<% if not loop.last %>
+
+<% endif %>
+<% endfor %>
+
+\vspace{-18.5pt}
+
+% Projects section
+<% if projects %>
+\section*{Projects}
+<% for project in projects -%>
+\textbf{<< project.title >>}
+<% if project.url %> \hfill \href{<< project.url >>}{<< project.url | clean_url >>}<% endif %> \\
+\vspace{-9pt}
+\begin{itemize}
+<% for bullet in project.bullets -%>
+  \item << bullet >>
+<% endfor %>
+\end{itemize}
+<% if not loop.last %>
+
+<% endif %>
+<% endfor %>
+<% endif %>
+
+\end{document}

@@ -1,0 +1,29 @@
+[project]
+name = "resemu"
+version = "0.1.0"
+description = "Generate solid resumes from YAML data"
+readme = "README.md"
+authors = [
+    { name = "matheodrd" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "jinja2>=3.1.6",
+    "pydantic[email]>=2.11.5",
+    "pyyaml>=6.0.2",
+    "rich>=14.0.0",
+    "typer>=0.16.0",
+]
+
+[tool.ruff]
+line-length = 100
+
+[project.scripts]
+resemu = "resemu.cli.main:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/resemu"]
