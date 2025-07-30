@@ -1,0 +1,203 @@
+/* Main app styling */
+VendingMachine {
+  background: #222222;
+  color: #ffffff;
+  align: center middle;
+  padding: 2;
+}
+
+/* Header styling */
+Header {
+  dock: top;
+  height: 3;
+  text-style: bold;
+}
+
+/* Footer styling */
+Footer {
+  dock: bottom;
+}
+Vertical {
+  margin: 0 0;
+  padding: 0 0
+}
+/* Challenge view styling */
+#challengeview {
+  width: 70%;
+  padding: 0;
+  margin: 2;
+  align: center middle;
+}
+
+/* Text area for solution writing */
+/* TextArea {
+  width: 90%;
+  height: 60%;
+  background: #333333;
+  color: #00ff00;
+  border: tall;
+  margin: 1; 
+} */
+
+/* Container for button groups */
+#button_panel {
+  width: 50%;
+  height: auto;
+  align: center middle;
+  margin: 1;
+}
+
+/* Styling for buttons */
+Button {
+  width: 20;
+  height: 3;
+  margin: 0 2;
+}
+
+.remove {
+    display: none;
+}
+Horizontal {
+  align: center middle;
+  content-align: center middle;
+  margin: 0 0
+}
+ModalScreen {
+  align: center middle;
+  content-align: center middle;
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent */
+}
+#quit_screen {
+  width: auto;
+  min-height: 6;
+  max-height: 9;
+  padding: 1 1;
+  content-align: center middle;
+  border: tall #3b82f6
+} 
+
+#quit_screen Label {
+  width: 100%;
+  content-align: center middle;
+}
+#quit_buttons {
+  width: auto;
+  min-height: 2;
+  max-height: 6;
+  align: center middle
+}
+#quit_buttons Button {
+  width: auto;
+  height: auto;
+  align: center middle; 
+  margin: 1 2
+}
+
+#exit_screen {
+  align: center middle;
+  content-align: center middle
+} 
+
+#language_select_box {
+  width: 60;           /* increase width */
+  min-width: 40;       /* optional: ensures it's not too narrow */
+  max-width: 80;       /* optional: prevents it from being too wide */
+  min-height: 8;       /* decrease min-height */
+  max-height: 14;      /* optional: prevents it from being too tall */
+  align: center middle;
+  content-align: center middle;
+  border: tall #3b82f6;
+  background: #222; /* solid box */
+  padding: 2;
+}
+
+#language_select_buttons {
+  content-align: center middle; 
+  align: center middle
+}
+#editor_buttons {
+  height: 3;
+  align: center top;
+  content-align: center middle;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  padding-bottom: 0
+  /* gap: 0*/
+}
+
+#editor_buttons2 {
+  height: 3;
+  align: center top;
+  content-align: center middle;
+  margin-top: 1;
+  margin-bottom: -5;
+  padding: 0;
+  padding-bottom: 5
+  /* gap: 0*/
+}
+
+TestResultsWidget {
+  content-align: center middle; 
+  align: center middle;         
+  width: 90;                  
+  min-height: 8;
+  max-height: 18;
+  border: round dodgerblue;     
+  margin-top: 0;
+  padding-top: 0
+}
+
+EditorResetConfirm {
+  align: center middle;
+  content-align: center middle;
+} 
+
+#reset_confirm_dialog {
+  height: 10;
+  width: 63;
+  align: center middle;
+  content-align: center middle;
+  border: tall #3b82f6
+}
+
+#reset_text {
+  align: center middle;
+  margin: 1
+}
+
+#reset_buttons {
+  align: center middle;
+  padding: 0;
+  content-align: center middle
+}
+
+#test_result_notice {
+  align: center middle;
+  content-align: center middle;
+  margin: 1
+}
+
+# CompilationStandardPopup {
+#   align: center middle;
+#   content-align: center middle;
+#   max-width: 20;
+#   min-width: 10;
+#   max-height: 10;
+#   min-height: 5
+# }
+
+#compilation_dialog {
+  width: 60;
+  height: 15;
+  align: center middle;
+  content-align: center middle;
+  border: tall #3b82f6;
+  background: #222;
+  padding: 2;
+}
+
+#results_tabs {
+    margin-top: 0;
+    padding-top: 0;
+}
