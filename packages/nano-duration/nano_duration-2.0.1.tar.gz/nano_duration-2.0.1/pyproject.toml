@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "nano_duration"
+version = "2.0.1"
+description = ""
+authors = ["xenups <amirhossein@void-star.co>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+pytest-env = "^0.8.1"
+setuptools = "^80.9.0"
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
+black = "^24.10.0"
+flake8 = "^7.1.1"
+coverage = "^7.6.8"
+
+[tool.isort]
+profile = "black"
+src_paths = ["src", "tests"]
+combine_as_imports = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
