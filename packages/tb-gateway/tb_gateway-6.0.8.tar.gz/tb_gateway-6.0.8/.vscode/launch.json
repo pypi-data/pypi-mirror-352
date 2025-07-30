@@ -1,0 +1,45 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "TB Gateway",
+      "type": "debugpy",
+      "request": "launch",
+      // "program": "${workspaceFolder}/odoo-iot/vw-gateway/main.py ",
+      "program": "main.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": [
+        "--config",
+        "${workspaceFolder}/src/tb_gateway/vw_gateway/ubuntu/configs/conf.json",
+        "--extension",
+        "${workspaceFolder}/src/tb_gateway/vw_gateway/extensions"
+      ],
+      "cwd": "${workspaceFolder}/src/tb_gateway/vw_gateway"
+    },
+    {
+      "name": "TB Gateway Test",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "/home/sanaz/viraweb123/odoo-iot/vw_gateway/tests",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "cwd": "/home/sanaz/viraweb123/odoo-iot/vw_gateway"
+    },
+    {
+      "name": "TB Gateway: init",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/tb_gateway/vw_gateway/main.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "cwd": "/home/esmaeil/project_other/iot_new/iot/test-dir",
+      "args": [
+        "init"
+      ]
+    }
+  ]
+}
