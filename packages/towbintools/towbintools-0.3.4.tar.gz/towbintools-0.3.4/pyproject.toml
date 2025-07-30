@@ -1,0 +1,45 @@
+[project]
+name = "towbintools"
+version = "0.3.4"
+authors = [
+  {name="Sacha Psalmon", email="sacha.psalmon@unibe.ch" },
+  {name="Boris Gusev", email="boris.gusev@unibe.ch" }
+]
+maintainers = [
+    {name = "Sacha Psalmon", email="sacha.psalmon@unibe.ch"},
+]
+description = "All the tools used by the Towbin Lab !"
+readme = "README.md"
+requires-python = ">=3.8"
+
+dependencies = [
+    "numpy",
+    "scikit-image",
+    "scikit-learn",
+    "opencv-contrib-python",
+    "ome-types",
+    "lxml",
+    "aicsimageio",
+    "scipy",
+    "pandas",
+    "tifffile",
+    "xgboost",
+    "joblib",
+    "pytorch-toolbelt",
+    "pytorch-lightning",
+    "albumentations",
+    "python-dateutil>=2.8.2",
+    "csbdeep",
+    "whittaker_eilers",
+]
+
+[project.optional-dependencies]
+dev=[
+    "black",
+    "isort",
+    "pre-commit",
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
