@@ -1,0 +1,37 @@
+Metadata-Version: 2.4
+Name: dtx_to_wif
+Version: 4.3.1
+Summary: Convert handweaving files from dtx format (FiberWorks) to wif
+Author-email: Russell Owen <r3owen@gmail.com>
+Project-URL: Homepage, https://pypi.org/project/dtx-to-wif/
+Project-URL: Documentation, https://r-owen.github.io/dtx_to_wif/
+Project-URL: Source, https://github.com/r-owen/dtx_to_wif
+Project-URL: Issues, https://github.com/r-owen/dtx_to_wif/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: mkdocs; extra == "dev"
+Requires-Dist: mkapi; extra == "dev"
+Requires-Dist: sphinx; extra == "dev"
+Requires-Dist: sphinxcontrib-napoleon; extra == "dev"
+
+Convert FiberWorks .dtx weaving pattern files to WIF 1.1
+
+This software can also convert WeavePoint .wpo files to WIF, though it cannot read fiber thickness or spacing information, so the conversion loses information.
+
+This runs as a command-line script written in Python. See Installation and Usage for instructions.
+
+This package can also read .wif, .dtx, and .wpo files into a standard in-memory model (`dtx_to_wif.PatternData`).
+This may be used for writing weaving design or loom driver software.
+
+This software is licensed under the MIT license; see license.txt for details.
+
+Links:
+
+* [Documentation](https://r-owen.github.io/dtx_to_wif/)
+* [Source Code](https://github.com/r-owen/dtx_to_wif/)
+* [PyPI](https://pypi.org/project/dtx-to-wif/)
