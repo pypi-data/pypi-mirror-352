@@ -1,0 +1,43 @@
+name: Type Check
+
+on:
+  # Trigger the workflow on push or pull request, but only for the main branch.
+  # Don't use pull_request.paths filter since this workflow is required for
+  # all pull requests on main irrespective of file type or location.
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*.py'
+      - '.github/workflows/type_check.yaml'
+      - 'tools/type_check.sh'
+      - 'pyproject.toml'
+
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        # TODO: use `uv`
+        python -m pip install --upgrade pip
+        pip install mypy==1.11.1
+        pip install types-setuptools
+        pip install types-PyYAML
+        pip install types-requests
+        pip install types-setuptools
+    - name: Mypy
+      run: |
+        echo "::add-matcher::.github/workflows/matchers/mypy.json"
+        tools/type_check.sh 1 ${{ matrix.python-version }}
