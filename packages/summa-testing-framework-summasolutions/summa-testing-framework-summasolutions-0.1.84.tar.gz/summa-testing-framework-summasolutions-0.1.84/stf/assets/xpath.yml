@@ -1,0 +1,130 @@
+homepage:
+  search_bar: //input[@id='search']
+  search_icon: //div[@data-role='search-trigger']
+product_page:
+  home_pdp: //div[contains(@class, 'products-grid')]
+  simple_product: //li[contains(@class, 'product-item')]/.//a[contains(@href, 'PARAM')] //span[@class='product-image-wrapper']
+  all_product_list: //div[contains(@class, 'products-grid')]//ol/li
+  succes_msj: //div[@data-ui-id='message-success']
+  simple_product_url: //div[contains(@class,'product-item-details')]//a[@href='PARAM']
+  filter: //div[contains(@class, 'sidebar-main')]//div[contains(@class,'filter-type-popup')]
+simple_product_page:
+  spp_main_container: //div[@class='product-info-container']
+  add_product_button: //button[@id='product-addtocart-button']
+  attr_selection: //div[@class='product-options-wrapper']//div[@data-attribute-code='PARAM']
+  option_selection: //div[@aria-label='PARAM']
+  selected_attr: //div[@class='product-options-wrapper']//div[@data-attribute-code='PARAM']
+  selected_options: //div[@data-option-label='PARAM']
+common_elements:
+  loader: //div[@class='loading-mask']
+mini_cart:
+  succesfull_msj: //div[@id='minicart-content-wrapper']//div[@data-ui-id='message-success']/.//a[contains(@href,'cart')]
+  go_to_cart: //div[@class='secondary']/a[contains(@class,'viewcart')]
+  open_mini_cart: //div[@data-block='minicart']
+cart:
+  cart_totals: //div[@id='cart-totals']
+  sub_total_product_list: //table[@id='shopping-cart-table']/.//td[contains(@class,'subtotal')]/.//span[@class='price']
+  sub_total_price: /.//tr[contains(@class, 'sub')]/.//span[@class='price']
+  discount_text: //tr[@class='totals']/.//span[@class='price']
+  tota_price: //tr[contains(@class,'grand')]/.//span[@class='price']
+  shipping_price: /.//tr[contains(@class, 'shipping')]/.//span[@class='price']
+  expand_cupon: //div[@id='block-discount']
+  discount_cupon_form: //form[@id='discount-coupon-form']
+  input_discount_cupon: /.//input[@id='coupon_code']
+  apply_discount_button: /.//button[contains(@class,'apply')]
+  succes_msj_aplied_cupon: //div[@data-ui-id='message-success']/*[contains(text(),'PARAM')]
+  go_to_checkout: //button[@data-role='proceed-to-checkout']
+checkout:
+  checkout_cart: //div[@class='opc-block-summary']
+  checkout_cart_price: /.//div[contains(@class,'subtotal')]/.//span[@class='price']
+  checkout_all_prices:  /.//tr[contains(@class, 'totals') and not(contains(@class,'grand'))]//td//span
+  shipping_methods: //div[@id='delivery-method-selector']
+  shipping_button: //div[@id='delivery-method-selector']/.//button[contains(@class,'select-PARAM')]
+  shipping_type: //li[@id='opc-shipping_method']
+  delivery_type: //div[@id='PARAM']
+  store_list: //div[@id='store-selector-popup']
+  store_button: //div[@id='store-selector-popup']//tr[1]/.//div[@class='select-location']/button
+  continue_to_payment: //div[@id='shipping-method-buttons-container']/.//button[@data-role='opc-continue']
+  continue_to_payment_storepickup: //div[contains(@class,'form-continue')]/.//button[@data-role='opc-continue']
+  payment_method_list: //div[@id='checkout-payment-method-load']
+  payment_selector: //label[@for='PARAM']
+  place_order: //div[contains(@class,'payment-method _active')]/.//button[@type='submit']
+  financing_cost: /.//tr[contains(@class, 'costo')]/.//span[@class='price']
+  card_discount:  /.//tr[contains(@class,'descuento') and not(contains(@class,'coupon'))]/.//span[@class='price']
+  discount_coupon: /.//tr[contains(@class,'discount') and not(contains(@class,'coupon'))]/.//span[@class='price']
+  grand_total: /.//tr[contains(@class, 'grand')]/.//span[@class='price']
+  decidir_card_list: //div[@id='tarjeta-container']
+  decidir_bank_list: //div[@id='bancos-container']
+  decidir_payment_plan: //div[@class='cuotas-disponibles']//div[@id='cuotas']
+  decidir_confirm_payment_plan: //div[@class='confirmar-plan']//button
+  visa_card: //li[@id='box-tarjeta_1']
+  american_card: //li[@id='box-tarjeta_2']
+  master_card: //li[@id='box-tarjeta_4']
+  visadebito_card: //li[@id='box-tarjeta_10']
+  bnacion_card: //li[@id='box-banco_3']
+  bprovincia_card: //li[@id='box-banco_4']
+  icbc_card: //li[@id='box-banco_5']
+  bbva_card: //li[@id='box-banco_6']
+  credicoop_card: //li[@id='box-banco_15']
+fill_inputs:
+  shipping_mail_input: //li[@id='shipping']//input[@id='customer-email']
+  shipping_continue_button: //fieldset[@id='customer-email-fieldset']/.//button[contains(@data-bind,'confirmStep')]
+  payment_mail_input: //li[@id='payment']//input[@id='customer-email']
+  payment_continue_button: //fieldset[@id='customer-email-fieldset']/.//button[contains(@data-bind,'confirmStep')]
+  store-pickup_mail_input: //input[@id='store-pickup-checkout-customer-email']
+  store-pickup_continue_button: //fieldset[@id='store-pickup-customer-email-fieldset']/.//button[contains(@data-bind,'confirmStep')]
+  input_firstname: //input[@name='firstname']
+  input_lastname: //input[@name='lastname']
+  input_vat_id: //input[@name='vat_id']
+  input_telephone: //input[@name='telephone']
+  input_street: //input[@name='street[0]']
+  input_street_number: //input[@name='street[1]']
+  input_postcode: //input[@name='postcode']
+  input_city: //input[@name='city']
+  select_region: //select[@name='region_id']/option[@value='PARAM']
+  select_city: //select[@name='custom_attributes[city_id]']/option[@value='PARAM']
+  select_disctrict: //select[@name='custom_attributes[district_id]']/option[@value='PARAM']
+forms:
+  shipping_form: //div[@id='shipping-new-address-form']/.
+  billing_form: //div[@class='checkout-billing-address']/.
+  shipping_continue_button: //form[@id='co-shipping-form']/.//button[@data-role='opc-continue']
+  billing_continue_button: //button[contains(@class,'action-update')]
+  who_pick_form: //div[contains(@class,'who-pickup-order-container')]
+decidir_card_inputs:
+  card_number: //input[@id='sps-tarjeta-numero']
+  card_holder_name: //input[@id='sps-tarjeta-nombre']
+  expiration_month: //input[@id='sps-tarjeta-vencimiento-month']
+  expiration_year: //input[@id='sps-tarjeta-vencimiento-year']
+  security_code: //input[@id='sps-tarjeta-codigo-seguridad']
+  holder_document_number: //input[@id='sps-tarjeta-numero-documento']
+card_inputs:
+  card_number: //input[@id='card-numberPARAM']
+  security_code: //input[@id='security-codePARAM']
+  card_holder_name: //input[@id='card-holder-namePARAM']
+  holder_document_number: //input[@id='cdocument-numberPARAM']
+  option_value: /option[@value='PARAM']
+  expiration_month: //select[@id='expiration-monthPARAM']
+  expiration_year: //select[@id='expiration-yearPARAM']
+  all_months: //select[@id='expiration-monthPARAM']//option
+  all_years: //select[@id='expiration-yearPARAM']//option
+  issuer_selector: //select[@id='issuerPARAM']
+  installments_selector: //select[@id='installmentsPARAM']
+  holder_document_type: //select[@id='document-typePARAM']/option[@value='DNI']
+  withdrawal_piont: //select[@id='store-PARAM']
+success_page:
+  order_success: //div[contains(@class,'checkout-success')]
+error_msj:
+  credit_card_error: //div[@id='card-numberPARAM-error']
+  exp_month_error: //div[@id='expiration-monthPARAM-error']
+  exp_year_error: //div[@id='expiration-yearPARAM-error']
+  holder_error: //div[@id='card-holder-namePARAM-error']
+  security_code_error: //div[@id='security-codePARAM-error']
+  document_error: //div[@id='cdocument-numberPARAM-error']
+  response_error: //div[@data-ui-id='checkout-cart-validationmessages-message-error']
+pickit:
+  pickit_modal: //aside[contains(@class, 'modal-pickit')]
+  pickit_iframe: //aside[contains(@class, 'modal-pickit')]//div[@id='modal-pickit-map']//iframe
+buttons:
+  select_iframe_button: (//div[@id ='root']//ul//div[@data-cy='Select-button']//button)[1]
+mercadopago_payment:
+  option_input: //li[contains(@class,'mercadopago-ticket-option')]//input[@value='PARAM']

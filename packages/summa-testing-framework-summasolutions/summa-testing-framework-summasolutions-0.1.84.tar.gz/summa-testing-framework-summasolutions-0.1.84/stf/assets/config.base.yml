@@ -1,0 +1,81 @@
+dev:
+    url: https://summa-theme-v2-dev.dev.summasolutions.com.ar/
+    time_to_sleep: 30
+    suites:
+        - test_example
+    browsers:
+        - chrome
+    report_to:
+        - example@infracommerce.lat
+        - example2@infracommerce.lat
+    slack_channel: '#'
+    api:
+        host_admin: 'https://summa-theme-v2-dev.dev.summasolutions.com.ar/admin/index.php'
+        prefix: '/rest/V1/'
+        admin_token_endpoint: 'integration/admin/token'
+        user_token_endpoint: 'integration/customer/token'
+        delete_endpoint: 'carts/mine/items/'
+        cart_endpoint: 'carts/mine'
+    users:
+        customer_user:
+            user:
+            pass:
+        admin_user:
+            user:
+            pass:
+    test_parameters:
+        shipping_address:
+            street: 'Av Cordoba'
+            number: '5779'
+            postcode: '1414'
+            region_id: '836'
+            city: '1'
+            disctrict: '5'
+            storepickup_id: '1'
+        product:
+            simple_product:
+                sku: 'SMART TV 40'
+                url: 'smart-tv-55-samsung-uhd-4k-nu7100-6.html'
+            configurable_product:
+                sku: 'BOTAS NIKE'
+                url: 'bota-riffel-touring-39-9012220141.html'
+        attr_values:
+            conf1:
+                type: 'color'
+                attr: 'Rosa'
+            conf2:
+                type: 'size'
+                attr: 'XL'
+        discount_coupon:
+            code: 'AUTO'
+            amount: 50
+        mercadopago_custom_aggregator_test_card:
+            owner: 'APRO'
+            number: '5031 7557 3453 0604'
+            month: '12'
+            year: '2025'
+            cvv: '123'
+            issuer: '3'
+            dni: '30123456'
+        mercadopago_invalid_test_card:
+            owner: '@""'
+            number: '5031 7557 3453 0607'
+            month: '1'
+            year: '2021'
+            not_valid_year: '2023'
+            cvv: '1ñ23'
+            dni: 'LÑjk23'
+        payment_methods:
+            checkmo: 'checkmo'
+            mercadopago: 'mercadopago_custom'
+            mercadopago_ag: 'mercadopago_custom_aggregator'
+        payment_plans:
+            card: '1'
+            bank: '272'
+            plan: '1_0'
+            installments: '18'
+            interest: False
+        error_users:
+            date_error: 'EXPI'
+            security_code_error: 'SECU'
+

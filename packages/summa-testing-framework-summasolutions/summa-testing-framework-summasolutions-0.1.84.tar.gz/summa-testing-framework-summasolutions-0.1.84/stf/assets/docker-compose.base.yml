@@ -1,0 +1,17 @@
+version: "3.5"
+services:
+  selenium-hub:
+    image: selenium/hub:3.141.59-20210929 # version 3
+    volumes:
+      - ./:/selenium
+    ports:
+      - "4444:4444"
+    environment:
+      - GRID_MAX_SESSION=24
+      - GRID_TIMEOUT=120 #Time in seconds the hub waits without a driver activity before killing it
+      - GRID_NEW_SESSION_WAIT_TIMEOUT=120 #The time new drivers waits for a slot to become available
+    networks:
+      - selenium-grid
+networks:
+  selenium-grid:
+    name: selenium-grid
