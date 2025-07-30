@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xbsTestTools"
+version = "0.2.4"
+authors = [
+    {name = "65", email = "18974710587@163.com"}
+]
+# 必须依赖（自动安装）
+dependencies = ['uiautomator2==3.2.9', 'opencv-python==4.11.0.86', 'numpy==2.2.5', ]
+description = "tools"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: Microsoft :: Windows"
+]
+
+#[project.urls]
+#Upgrade = "https://github.com/your/repo/wiki/Upgrade-Guide#v0.1.1"
+#Changelog = "https://github.com/your/repo/releases/tag/v0.1.1"
+
+[tool.setuptools.packages]
+find = {}  # 自动发现所有包
