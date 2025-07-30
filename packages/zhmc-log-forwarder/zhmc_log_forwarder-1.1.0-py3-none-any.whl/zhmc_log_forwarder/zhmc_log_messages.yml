@@ -1,0 +1,1039 @@
+---
+# zhmc_log_forwarder HMC log message file
+#
+# This file defines information about HMC log messages that allows translating
+# an HMC log message received from the HMC into a CADF event.
+#
+# For a list of the possible HMC log messages, see the Help system of a real
+# HMC, in section "Introduction" -> "Audit, Event, and Security Log Messages".
+#
+# For the CADF standard DSP0262, see
+# https://www.dmtf.org/sites/default/files/standards/documents/DSP0262_1.0.0.pdf
+#
+# The data specified for each HMC log message in this file, is:
+# * number (string): event-id / number of HMC log message.
+# * message (string): message template of HMC log message.
+# * action (string): CADF action. See DSP0262 "CADF Action Taxonomy".
+# * outcome (string): CADF outcome. See DSP0262 "CADF Outcome Taxonomy".
+# * target_type (string): CADF typeURI of target resource. See DSP0262
+#   A.2 "CADF Resource Taxonomy".
+# * target_class (string): HMC resource class of target resource. See HMS WS
+#   API book, 'class' property of the data models. Example: 'partition'.
+#
+# See zhmc_log_forwarder --help-log-message-file for details.
+
+# HMC version to which this HMC log message file applies
+hmc_version: "2.14.1"
+
+# TODO: Use a more appropriate outcome than 'success' for messages indicating that something started
+# TODO: Resolve the TBD entries in the messages below
+# TODO: target_class 'code' does not exist as an HMC resource class
+# TODO: action 'remote' does not exist in CADF action taxonomy
+
+# The HMC log messages that will be recognized by zhmc_log_forwarder
+messages:
+  -
+    number: '28'
+    message: "The following internal code fixes were activated: {0}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '29'
+    message: "The following internal code fixes were deactivated: {0}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '30'
+    message: "The following internal code changes were installed: {0}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '31'
+    message: "The following internal code changes were activated: {0}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '32'
+    message: "The following internal code changes were removed: {0}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '33'
+    message: "The following internal code changes were accepted: {0}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '34'
+    message: "An internal code change failure occurred"
+    action: update
+    outcome: failed
+    target_type: service
+    target_class: code
+  -
+    number: '37'
+    message: "A logon occurred in service representative mode"
+    action: authenticate/logon/service_representative_mode  # TODO: Is this GUI?
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '38'
+    message: "A logon occurred in product engineering mode"
+    action: authenticate/logon/pemode  # TODO: Is this GUI?
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '40'
+    message: "A logoff occurred"
+    action: authenticate/logoff
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '115'  # CPC classic mode
+    message: "The {1} profile {0} was created"
+    action: create
+    outcome: success
+    target_type: TBD
+    target_class: profile
+  -
+    number: '116'  # CPC classic mode
+    message: "The {1} profile {0} was changed"
+    action: update
+    outcome: success
+    target_type: TBD
+    target_class: profile
+  -
+    number: '117'  # CPC classic mode
+    message: "The {1} profile {0} was upgraded"
+    action: update
+    outcome: success
+    target_type: TBD
+    target_class: profile
+  -
+    number: '118'  # CPC classic mode
+    message: "The {1} profile {0} was deleted"
+    action: delete
+    outcome: success
+    target_type: TBD
+    target_class: profile
+  -
+    number: '123'
+    message: "A logon occurred in operator mode"
+    action: authenticate/logon/operator_mode  # TODO: Is this GUI?
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '124'
+    message: "A logon occurred in advanced operator mode"
+    action: authenticate/logon/advanced_operator_pmode  # TODO: Is this GUI?
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '125'
+    message: "A logon occurred in access administrator mode"
+    action: authenticate/logon/access_administrator_mode  # TODO: Is this GUI?
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '126'
+    message: "A logon occurred in system programmer mode"
+    action: authenticate/logon/system_programmer_mode  # TODO: Is this GUI?
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '136'
+    message: "Local unsuccessful logon detected"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '137'
+    message: "Operations management unsuccessful logon detected"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '138'
+    message: "Remote operations unsuccessful logon detected"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '151'
+    message: "A remote connection failed"
+    action: remote
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '152'
+    message: "A remote connection was successful"
+    action: remote
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '191'
+    message: "Local unsuccessful logon threshold exceeded"
+    # TBD: Is this used for both WS API and GUI?
+    action: authenticate/logon/threshold_exceeded
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '192'
+    message: "Operations management unsuccessful logon threshold exceeded"
+    # TBD: How is this different from message 191?
+    action: authenticate/logon/threshold_exceeded
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '193'
+    message: "Remote operations unsuccessful logon threshold exceeded"
+    # Note: "Remote operations" refers to one HMC operationg another HMC,
+    #       presumably through the GUI.
+    action: authenticate/logon/threshold_exceeded
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '216'
+    message: "User {0} has logged on in {1} mode"
+    action: authenticate/logon  # TODO: Which modes does that indicate?
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '257'
+    message: "Logon by {0}"
+    action: authenticate/logon
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '258'
+    message: "Logoff"
+    action: authenticate/logoff
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '363'
+    message: "DCAF attempt rejected: Bad password used"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '522'
+    message: "User {0} attempted to log on with a user identification or password that was not valid"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '673'
+    message: "Starting remote support call {1} for console {0}. Type: {2}"
+    action: remote
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '674'
+    message: "Remote support call generated on {1} completed successfully by server {0}"
+    action: remote
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '675'
+    message: "Remote support call generated on {1} cancelled at server {0}"
+    action: remote
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '676'
+    message: "Remote support call generated on {1} failed at server {0}. Reason: Internal code error"
+    action: remote
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '677'
+    message: "Remote support call generated on {1} failed at server {0}. Reason: No phone number available"
+    action: remote
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '678'
+    message: "Remote support call generated on {1} failed at server {0}. Reason: Connectivity failed"
+    action: remote
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '679'
+    message: "Remote support call generated on {1} failed at server {0}. Reason: Remote support returned an error"
+    action: remote
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '680'
+    message: "Remote support call generated on {1} failed at server {0}. Reason: Machine is not registered"
+    action: remote
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '681'
+    message: "Remote support call generated on {1} failed at server {0}. Reason: Probable connectivity failure"
+    action: remote
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '682'
+    message: "Remote support call generated on {1} failed at server {0}. Reason: Device type not supported"
+    action: remote
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '687'
+    message: "User {0} was logged on automatically at the console"
+    action: authenticate/logon/auto
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '721'
+    message: "A backup of critical data was performed"
+    action: backup
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '722'
+    message: "An upgrade to EC level {0} was performed"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '734'
+    message: "Remote support call generated on {1} is being handled by call-home server {0}"
+    action: remote
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '756'
+    message: "User {0} logged off from a Platform Independent Remote Console (PIRC) at IP address {1}"
+    action: authenticate/logoff
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '757'
+    message: "User {0} was logged off from a Platform Independent Remote Console (PIRC) at IP address {1} due to inactivity"
+    action: authenticate/forced_logoff
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '787'
+    message: "Domain security name or password was changed on consoles: {0}"
+    action: update
+    outcome: success
+    target_type: TBD
+    target_class: user
+  -
+    number: '859'
+    message: "There have been {0} consecutive failed logon attempts for user {1}"
+    action: authenticate/consecutive_logons
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '864'
+    message: "Root password was updated"
+    action: unknown
+    outcome: success
+    target_type: TBD
+    target_class: user
+  -
+    number: '948'
+    message: "A user password was changed"
+    action: update
+    outcome: success
+    target_type: TBD
+    target_class: user
+  -
+    number: '1067'
+    message: "Domain security name or password was changed by console {0}"
+    action: update
+    outcome: success
+    target_type: TBD
+    target_class: user
+  -
+    number: '1235'
+    message: "Concurrent upgrade Engineering Changes (EC) activate of system EC {0} started by {1} from {2}.{3}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '1236'
+    message: "Concurrent upgrade Engineering Changes (EC) activate of system EC {0} completed"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '1237'
+    message: "Concurrent upgrade Engineering Changes (EC) activate of system EC {0} failed"
+    action: update
+    outcome: failed
+    target_type: service
+    target_class: code
+  -
+    number: '1262'
+    message: "Concurrent upgrade Engineering Changes (EC) activate of system EC {0} for {1}.{2} started by {3} from {4}.{5}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '1263'
+    message: "Concurrent internal code changes initiated by concurrent upgrade engineering changes activate request"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '1265'
+    message: "Concurrent upgrade Engineering Changes (EC) activate of system EC {0} completed, but not all functions may be available until the next system activation"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '1268'
+    message: "Remote support call generated on {1} failed at server {0}. Reason: No call home server is available"
+    action: remote
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '1278'
+    message: "The password for user {0} has changed"
+    action: update
+    outcome: success
+    target_type: TBD
+    target_class: user
+  -
+    number: '1279'
+    message: "User {0} has logged on"
+    action: authenticate/logon
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1280'
+    message: "User {0} has logged off"
+    action: authenticate/logoff
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1283'
+    message: "{0} was forcibly disconnected by Hardware Management Console user {2} on {1}"
+    action: authenticate/forced_logoff
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1284'
+    message: "User {0} of session {1} has forcibly disconnected user {2} of session {3} in order to log on locally"
+    action: authenticate/forced_logoff
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1285'
+    message: "User {0} was not permitted to log on or reconnect since another user is already logged on"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '1286'
+    message: "User {0} was not permitted to log on since the userid is disabled"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '1287'
+    message: "User {0} was not permitted to log on since the userid is not allowed remote access"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '1324'
+    message: "User {0} has been disabled for {1} minutes because of too many invalid logon attempts"
+    action: authenticate/consecutive_logons
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '1325'
+    message: "User {0} is no longer disabled from logging on"
+    action: update
+    outcome: success
+    target_type: TBD
+    target_class: user
+  -
+    number: '1330'
+    message: "The security log is within {0} percent of the maximum size; it should be archived to avoid loss of data"
+    action: monitor
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1331'
+    message: "The user {0} logged into the underlying console operating system platform"
+    action: authenticate/logon/console
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1332'
+    message: "The user {0} logged out of the underlying console operating system platform"
+    action: authenticate/logoff/console
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1333'
+    message: "The console internal firewall blocked an incoming packet from {0} for port {1} using protocol {2}"
+    action: firewall/blocked
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1340'
+    message: "An attempt for user {0} to log on failed"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '1408'
+    message: "User {0} has {logged on|reconnected} from location {3} to session id {4}. The user's maximum role is {6}"
+    # Note: The message shown above is the actual message from a z14.
+    #       The help definition for that message on that z14 is slightly different.
+    action: authenticate/logon/gui
+    outcome: success
+    target_type: service
+    target_class: console
+    initiator_address_item: 3
+  -
+    number: '1409'
+    message: "User {0} has {logged off|disconnected} from session id {2} for the reason: {3}"
+    action: authenticate/logoff/gui
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1410'
+    message: "User {0} of session {1} has forcibly {logged off|disconnected} user {3} of session {4}"
+    action: authenticate/forced_logoff
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1691'
+    message: "User {0} has attempted to log on from location {1} with a user identification or password that was not valid. The user's maximum role is {2}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+    initiator_address_item: 1
+  -
+    number: '1692'
+    message: "An attempt for user {0} to log on from location {1} failed"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+    initiator_address_item: 1
+  -
+    number: '1801'
+    message: "The user template {0} was added"
+    action: create
+    outcome: success
+    target_type: service
+    target_class: user_template
+  -
+    number: '1802'
+    message: "The user template {0} was deleted"
+    action: delete
+    outcome: success
+    target_type: service
+    target_class: user_template
+  -
+    number: '1803'
+    message: "The user template {0} was changed"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: user_template
+  -
+    number: '1852'
+    message: "The user pattern {0} was added"
+    action: create
+    outcome: success
+    target_type: service
+    target_class: user_pattern
+  -
+    number: '1853'
+    message: "The user pattern {0} was deleted"
+    action: delete
+    outcome: success
+    target_type: service
+    target_class: user_pattern
+  -
+    number: '1854'
+    message: "The user pattern {0} was changed"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: user_pattern
+  -
+    number: '1941'
+    message: "User {0} has logged on to Web Services API session {1} from location {2}"
+    action: authenticate/logon/api
+    outcome: success
+    target_type: service
+    target_class: console
+    initiator_address_item: 2
+  -
+    number: '1942'
+    message: "User {0} has logged off from Web Services API session {1} due to {2}"
+    action: authenticate/logoff/api
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1946'
+    message: "Starting install of the following internal code changes: {0}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '1947'
+    message: "Starting remove of the following internal code changes: {0}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '1957'
+    message: "User {0} successfully logged on using pattern {2} with a template of {1}"
+    action: authenticate/logon
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '1997'
+    message: "The remote service configuration data was updated"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '2007'
+    message: "User {0} has acknowledged viewing license information"
+    action: read
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '2031'
+    message: "User {0} was not permitted to log on since the userid is disabled due to inactivity"
+    action: authenticate/logon
+    outcome: failed
+    target_type: service
+    target_class: console
+  -
+    number: '2033'
+    message: "The shared secret key for user {0} has been reset"
+    action: "TBD(Rene)"
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '2042'
+    message: "User {0} has logged on to BCPii API session {1} from source {2}"
+    action: authenticate/logon
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '2043'
+    message: "User {0} has logged off from BCPii API session {1} due to {2}"
+    action: authenticate/logoff
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '3318'
+    message: "SSLv3 protocol support has been {0} by {1} logged on from location {2}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: console
+    initiator_address_item: 2
+  -
+    number: '3319'
+    message: "RC4 cipher support has been {0} by {1} logged on from location {2}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: console
+    initiator_address_item: 2
+  -
+    number: '3320'
+    message: "TLSv12 protocol support has been {0} by {1} logged on from location {2}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: console
+    initiator_address_item: 2
+  -
+    number: '4051'
+    message: "A device monitor event occurred; Device Type: {0}, Action: {1}, Vendor: {2}, Model: {3}, Serial: {4}"
+    action: monitor
+    outcome: success
+    target_type: service
+    target_class: unknown
+  -
+    number: '5002'
+    message: "Crypto adapter passphrase logon with profile {0}"
+    action: authenticate/logon
+    outcome: success
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5003'
+    message: "Crypto adapter group passphrase logon with profile {0}"
+    action: authenticate/logon
+    outcome: success
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5004'
+    message: "Crypto adapter group member passphrase logon with member {0}"
+    action: authenticate/logon
+    outcome: success
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5005'
+    message: "Crypto adapter smart card logon with profile {0}. Logon key ID: {1}. Card ID: {2}"
+    action: authenticate/logon
+    outcome: success
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5006'
+    message: "Crypto adapter group smart card logon with profile {0}"
+    action: authenticate/logon
+    outcome: success
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5007'
+    message: "Crypto adapter group member smart card logon with member {0}. Logon key ID: {1}"
+    action: authenticate/logon
+    outcome: success
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5008'
+    message: "Crypto adapter logoff for profile {0}"
+    action: authenticate/logoff
+    outcome: success
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5012'
+    message: "Crypto adapter passphrase logon failure with profile {0}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5013'
+    message: "Crypto adapter group passphrase logon failure with profile {0}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5014'
+    message: "Crypto adapter group member passphrase logon failed for member {0}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5015'
+    message: "Crypto adapter smart card logon failure with profile {0}. Card ID: {1}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5016'
+    message: "Crypto Adapter Group Smart Card Logon Failure with Profile {0}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5017'
+    message: "Crypto Adapter Group Member Smart Card Logon Failed for Member {0}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5018'
+    message: "Crypto Adapter Logoff failed"
+    action: authenticate/logoff
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5019'
+    message: "Crypto Adapter Change Passphrase Failure with Profile {0}"
+    action: update
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5200'
+    message: "A valid PIN was entered for {0} in {1}. Card ID: {2}, Zone ID: {3}"
+    action: authenticate/logon
+    outcome: success
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5250'
+    message: "Failure during PIN entry for {0} in {1}. Card ID: {2}, Zone ID: {3}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5251'
+    message: "Tried to access a {0} with a blocked PIN. Card ID: {1}, Zone ID: {2}, Operation: {3}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5310'
+    message: "Host user ID {0} logged onto host {1} with mixed case password support set to {2}"
+    action: authenticate/logon
+    outcome: success
+    target_type: TBD
+    target_class: TBD
+  -
+    number: '5311'
+    message: "Logoff host {0}"
+    action: authenticate/logoff
+    outcome: success
+    target_type: TBD
+    target_class: TBD
+  -
+    number: '5313'
+    message: "Host user ID {0} logged onto group {1} with mixed case password support set to {2}"
+    action: authenticate/logon
+    outcome: success
+    target_type: TBD
+    target_class: TBD
+  -
+    number: '5410'
+    message: "User {0} logon failed for host {1} with mixed case password support set to {2}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: TBD
+    target_class: TBD
+  -
+    number: '5412'
+    message: "User {0} logon failed for group {1} with mixed case password support set to {2}"
+    action: authenticate/logon
+    outcome: failed
+    target_type: TBD
+    target_class: TBD
+  -
+    number: '5780'
+    message: "A logon key pair was generated on {0} ({1})"
+    action: update
+    outcome: success
+    target_type: TBD
+    target_class: TBD
+  -
+    number: '5781'
+    message: "A logon key pair generation failure occurred"
+    action: update
+    outcome: failed
+    target_type: TBD
+    target_class: TBD
+  -
+    number: '5809'
+    message: "Failure getting crypto adapter logon information.\nError Code: {0}"
+    action: read
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5810'
+    message: "{0} PIN was set or changed on {1}. Card ID: {2}, Card description: {3}"
+    action: update
+    outcome: success
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5811'
+    message: "Failed to set or change the PIN on {0}"
+    action: update
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5812'
+    message: "The PIN was unblocked on {0}. Card ID: {1}, Card Description: {2}"
+    action: update
+    outcome: success
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '5813'
+    message: "Failure occurred unblocking {0} PIN"
+    action: update
+    outcome: failed
+    target_type: TBD
+    target_class: crypto
+  -
+    number: '6001'
+    message: "RSF initiated an SSL connection with host {1} at address {3} authenticated as {0} with encryption cipher {2}"
+    action: remote
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '6002'
+    message: "RSF connection failed verification of server certificate at {0}, reason: {1}"
+    action: remote
+    outcome: success
+    target_type: service
+    target_class: console
+  -
+    number: '6051'
+    message: "A web services client on {0} attempted an unauthorized ({1}) action '{2}' as {3} against the {4} object named '{5}' (URI:{6})"
+    action: "TBD:action"
+    outcome: failed
+    target_type: TBD
+    target_class: "TBD:resource"
+    initiator_address_item: 0
+  -
+    number: '6052'
+    message: "A web services client on {0} attempted an unauthorized ({1}) action '{2}' as {3} against the {4} object named '{5}': {6} (URI:{7})"
+    action: "TBD:action"
+    outcome: failed
+    target_type: TBD
+    target_class: "TBD:resource"
+    initiator_address_item: 0
+  -
+    number: '6053'
+    message: "A web services client on {0} attempted an unauthorized ({1}) action '{2}' as {3} against the {4} object named '{5}'. User does not have permission to the {6} named '{7}' (URI:{8})"
+    action: "TBD:action"
+    outcome: failed
+    target_type: TBD
+    target_class: "TBD:resource"
+    initiator_address_item: 0
+  -
+    number: '6054'
+    message: "A web services client on {0} attempted an unauthorized ({1}) action '{2}' as {3}. User does not have permission to the {4} named '{5}' (URI:{6})"
+    action: "TBD:action"
+    outcome: failed
+    target_type: TBD
+    target_class: "TBD:resource"
+    initiator_address_item: 0
+  -
+    number: '6055'
+    message: "A web services client on {0} attempted an unauthorized ({1}) action '{2}' as {3}: {4} (URI:{5})"
+    action: "TBD:action"
+    outcome: failed
+    target_type: TBD
+    target_class: "TBD:resource"
+    initiator_address_item: 0
+  -
+    number: '6060'
+    message: "A request was made by user {0} to change the Licensed Internal Code security mode from {1} to {2}"
+    action: update
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '6061'
+    message: "An attempt to change the Licensed Internal Code Security mode on the {0} from {1} to {2} has failed"
+    action: update
+    outcome: failed
+    target_type: service
+    target_class: code
+  -
+    number: '6062'
+    message: "The Licensed Internal Code security mode is {0}"
+    action: read
+    outcome: success
+    target_type: service
+    target_class: code
+  -
+    number: '6063'
+    message: "The Primary Licensed Internal Code security mode is {0}. The Alternate Licensed Internal Code security mode is {1}"
+    action: read
+    outcome: success
+    target_type: service
+    target_class: code
