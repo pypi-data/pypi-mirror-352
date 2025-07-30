@@ -1,0 +1,35 @@
+# chyslivnyk_library/pyproject.toml
+
+[project]
+name = "chyslivnyk"
+version = "0.1.0"
+authors = [
+  { name="Anton Sikidin", email="anton.sikidin@gmail.com" },
+]
+description = "A Python library for handling Ukrainian numerals (chyslivnyky) designed to convert numeric values into their textual representations in Ukrainian, taking into account grammatical features such as case, gender, and number."
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = ["ukrainian", "numerals", "chyslivnyk"]
+license-files = [ "LICENSE" ]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Intended Audience :: Developers",
+    "Natural Language :: Ukrainian",
+]
+dependencies = [
+    # List any runtime dependencies here, e.g., "requests>=2.28.1"
+]
+
+[project.urls]
+Homepage = "https://github.com/AntonSikidin/Chyslivnyk" # Replace with your repo
+Issues = "https://github.com/AntonSikidin/Chyslivnyk/issues" # Replace with your repo
+
+[build-system]
+requires = ["setuptools>=61.0"] # Or "hatchling", "flit", etc.
+build-backend = "setuptools.build_meta" # Or "hatchling.build", "flit.build_meta", etc.
+
+# Optional: For development dependencies (e.g., testing, linting)
+[tool.setuptools.packages]
+find = {} # Automatically find packages in the current directory
