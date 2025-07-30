@@ -1,0 +1,400 @@
+Metadata-Version: 2.4
+Name: py_agent_search
+Version: 1.0.2
+Summary: A Python package for agent ai to search in the web, wikipedia and youtube
+Author-email: Giuseppe Zileni <giuseppe.zileni@gmail.com>
+Keywords: langgraph,agent ai,search,web search,wikipedia search,youtube search,langchain
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: aiohappyeyeballs==2.6.1
+Requires-Dist: aiohttp==3.12.6
+Requires-Dist: aiosignal==1.3.2
+Requires-Dist: annotated-types==0.7.0
+Requires-Dist: anthropic==0.52.2
+Requires-Dist: anyio==4.9.0
+Requires-Dist: appnope==0.1.4
+Requires-Dist: asttokens==3.0.0
+Requires-Dist: attrs==25.3.0
+Requires-Dist: beautifulsoup4==4.13.4
+Requires-Dist: build==1.2.2.post1
+Requires-Dist: certifi==2025.4.26
+Requires-Dist: charset-normalizer==3.4.2
+Requires-Dist: click==8.2.1
+Requires-Dist: comm==0.2.2
+Requires-Dist: dataclasses-json==0.6.7
+Requires-Dist: debugpy==1.8.14
+Requires-Dist: decorator==5.2.1
+Requires-Dist: distro==1.9.0
+Requires-Dist: docutils==0.21.2
+Requires-Dist: duckduckgo_search==8.0.2
+Requires-Dist: dydantic==0.0.8
+Requires-Dist: executing==2.2.0
+Requires-Dist: frozenlist==1.6.0
+Requires-Dist: greenlet==3.2.2
+Requires-Dist: h11==0.16.0
+Requires-Dist: httpcore==1.0.9
+Requires-Dist: httpx==0.28.1
+Requires-Dist: httpx-sse==0.4.0
+Requires-Dist: id==1.5.0
+Requires-Dist: idna==3.10
+Requires-Dist: ipykernel==6.29.5
+Requires-Dist: ipython==9.2.0
+Requires-Dist: ipython_pygments_lexers==1.1.1
+Requires-Dist: jaraco.classes==3.4.0
+Requires-Dist: jaraco.context==6.0.1
+Requires-Dist: jaraco.functools==4.1.0
+Requires-Dist: jedi==0.19.2
+Requires-Dist: jiter==0.10.0
+Requires-Dist: jsonpatch==1.33
+Requires-Dist: jsonpointer==3.0.0
+Requires-Dist: jupyter_client==8.6.3
+Requires-Dist: jupyter_core==5.8.1
+Requires-Dist: keyring==25.6.0
+Requires-Dist: langchain==0.3.25
+Requires-Dist: langchain-anthropic==0.3.14
+Requires-Dist: langchain-community==0.3.24
+Requires-Dist: langchain-core==0.3.63
+Requires-Dist: langchain-openai==0.3.18
+Requires-Dist: langchain-text-splitters==0.3.8
+Requires-Dist: langgraph==0.4.7
+Requires-Dist: langgraph-checkpoint==2.0.26
+Requires-Dist: langgraph-prebuilt==0.2.2
+Requires-Dist: langgraph-sdk==0.1.70
+Requires-Dist: langmem==0.0.27
+Requires-Dist: langsmith==0.3.43
+Requires-Dist: loki-logger-handler==1.1.2
+Requires-Dist: lxml==5.4.0
+Requires-Dist: markdown-it-py==3.0.0
+Requires-Dist: marshmallow==3.26.1
+Requires-Dist: matplotlib-inline==0.1.7
+Requires-Dist: mdurl==0.1.2
+Requires-Dist: more-itertools==10.7.0
+Requires-Dist: multidict==6.4.4
+Requires-Dist: mypy_extensions==1.1.0
+Requires-Dist: nest-asyncio==1.6.0
+Requires-Dist: nh3==0.2.21
+Requires-Dist: numpy==2.2.6
+Requires-Dist: openai==1.82.1
+Requires-Dist: orjson==3.10.18
+Requires-Dist: ormsgpack==1.10.0
+Requires-Dist: packaging==24.2
+Requires-Dist: parso==0.8.4
+Requires-Dist: pexpect==4.9.0
+Requires-Dist: platformdirs==4.3.8
+Requires-Dist: primp==0.15.0
+Requires-Dist: prompt_toolkit==3.0.51
+Requires-Dist: propcache==0.3.1
+Requires-Dist: psutil==7.0.0
+Requires-Dist: ptyprocess==0.7.0
+Requires-Dist: pure_eval==0.2.3
+Requires-Dist: pydantic==2.11.5
+Requires-Dist: pydantic-settings==2.9.1
+Requires-Dist: pydantic_core==2.33.2
+Requires-Dist: Pygments==2.19.1
+Requires-Dist: pyproject_hooks==1.2.0
+Requires-Dist: python-dateutil==2.9.0.post0
+Requires-Dist: python-dotenv==1.1.0
+Requires-Dist: PyYAML==6.0.2
+Requires-Dist: pyzmq==26.4.0
+Requires-Dist: readme_renderer==44.0
+Requires-Dist: redis==6.2.0
+Requires-Dist: regex==2024.11.6
+Requires-Dist: requests==2.32.3
+Requires-Dist: requests-toolbelt==1.0.0
+Requires-Dist: rfc3986==2.0.0
+Requires-Dist: rich==14.0.0
+Requires-Dist: setuptools==80.9.0
+Requires-Dist: six==1.17.0
+Requires-Dist: sniffio==1.3.1
+Requires-Dist: soupsieve==2.7
+Requires-Dist: SQLAlchemy==2.0.41
+Requires-Dist: stack-data==0.6.3
+Requires-Dist: tenacity==9.1.2
+Requires-Dist: tiktoken==0.9.0
+Requires-Dist: tornado==6.5.1
+Requires-Dist: tqdm==4.67.1
+Requires-Dist: traitlets==5.14.3
+Requires-Dist: trustcall==0.0.39
+Requires-Dist: twine==6.1.0
+Requires-Dist: typing-inspect==0.9.0
+Requires-Dist: typing-inspection==0.4.1
+Requires-Dist: typing_extensions==4.13.2
+Requires-Dist: urllib3==2.4.0
+Requires-Dist: wcwidth==0.2.13
+Requires-Dist: wheel==0.45.1
+Requires-Dist: wikipedia==1.4.0
+Requires-Dist: xxhash==3.5.0
+Requires-Dist: yarl==1.20.0
+Requires-Dist: youtube-search==2.1.2
+Requires-Dist: zstandard==0.23.0
+Dynamic: license-file
+
+# py_agent_search
+
+## Description
+
+`py_agent_search` is an AI agent based on LangGraph that allows you to perform web searches (via DuckDuckGo), Wikipedia lookups, and YouTube searches, with a streaming interface for generating responses. Logs are collected and sent to a Loki instance, viewable via Grafana. The agent’s memory is persisted in Redis, enabling it to maintain conversational context.
+
+## Prerequisites
+
+- Docker and Docker Compose installed.
+- Python 3.8 or higher.
+- A `.env` file with the necessary environment variables (e.g., Redis, Loki configuration, etc.).
+- If you use OpenAI as the LLM, you must define `OPEN_API_KEY` in the `.env` file or as an environment variable.
+
+## Docker Configuration
+
+The project provides a `docker-compose.yml` file that configures the following services:
+
+1. **redis**: Redis instance for the agent’s persistent memory.
+2. **loki**: Loki instance to collect logs generated by the agent.
+3. **promtail**: Promtail agent to ship Docker logs to Loki.
+4. **grafana**: Grafana interface to visualize logs from Loki.
+
+### Starting Services
+
+```bash
+docker-compose up -d
+````
+
+After starting, Grafana will be available at [http://localhot:3000](http://localhost:3000)
+To view the agent’s logs, use the following query in Grafana (with Loki datasource preconfigured): 
+** {application="agent_search"} |= "" | json **
+
+
+> **Note:** If you encounter connection issues, verify that the hostname is correct (e.g., `localhost:3000`).
+
+## Environment Variables
+
+Key environment variables should be defined in a `.env` file at the project root. Example contents:
+
+```dotenv
+# Redis configuration for persistent memory
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_DB=0
+
+# Loki URL for sending logs (default: localhost:3100)
+LOKI_URL=http://localhost:3100/loki/api/v1/push
+
+# Application environment (development | production)
+APP_ENV=development
+
+# (Optional) OpenAI API key, if using ChatOpenAI
+OPEN_API_KEY=your_openai_api_key
+```
+
+## Logging
+
+The `log.py` module configures a logger named `agent_search` that sends logs to:
+
+- **Loki** (via `LokiLoggerHandler`) at the endpoint defined by `LOKI_URL`.
+- **Console** (only in non-production environments) for local development.
+
+The main function is:
+
+```python
+from log import send_log
+
+send_log(message: str, metadata: dict = {})
+```
+
+Whenever the agent generates an event (e.g., chat start, end of generation, errors), `send_log` is called with the message and metadata to store in Loki.
+
+## StreamingCallbackHandler
+
+In `stream.py`, the `StreamingCallbackHandler` class is defined, extending LangChain’s `BaseCallbackHandler`. It is responsible for:
+
+* Receiving streaming tokens generated by the LLM.
+* Accumulating tokens and invoking `send_log` once generation completes.
+* Providing callbacks for both the LLM and the tools (e.g., DuckDuckGo, Wikipedia, YouTube).
+
+```python
+from langchain.callbacks.base import BaseCallbackHandler
+from log import send_log
+
+class StreamingCallbackHandler(BaseCallbackHandler):
+    """
+    Handler for streaming tokens from the LLM and logging to Loki.
+    """
+    metadata_logger = {"loki_metadata": {}}
+
+    # ... implementation of on_llm_start, on_llm_new_token, on_llm_end ...
+```
+
+## Persistent Memory
+
+The `memory.py` file implements the agent’s persistent memory using Redis:
+
+- **AsyncRedisSaver** (and its `CheckpointSaver`) allows saving conversation checkpoints in Redis.
+- On each new chat, the agent can retrieve previous context from Redis to maintain conversational continuity.
+
+Example configuration in `main.py`:
+
+```python
+redis_conf = {
+    "host": os.getenv("REDIS_HOST", "localhost"),
+    "port": os.getenv("REDIS_PORT", 6379),
+    "db": os.getenv("REDIS_DB", 0)
+}
+
+agent = AgentSearch(redis_persistence_config=redis_conf)
+```
+
+## Search Tools
+
+In `tools.py`, the available tools for the agent are defined:
+
+1. **DuckDuckGoSearchRun** (`search_tool`): Performs generic web searches via DuckDuckGo.
+2. **WikipediaQueryRun** (`wikipedia_tool`): Queries Wikipedia for information on a topic.
+3. **YouTubeSearchTool** (`youtube_tool`): Searches for videos on YouTube.
+
+All tools use `StreamingCallbackHandler` to track streaming tokens and generate logs.
+
+```python
+from langchain_community.tools import WikipediaQueryRun, YouTubeSearchTool, DuckDuckGoSearchRun
+from stream import StreamingCallbackHandler
+
+handler = StreamingCallbackHandler()
+
+search_tool = DuckDuckGoSearchRun(
+    name="duckduckgo_search",
+    description="Search for information on the web via DuckDuckGo.",
+    callbacks=[handler],
+    return_direct=False,
+    response_format="content"
+)
+
+wikipedia_tool = WikipediaQueryRun(
+    name="wikipedia_search",
+    description="Search for information on Wikipedia.",
+    callbacks=[handler],
+    return_direct=False,
+    response_format="content"
+)
+
+youtube_tool = YouTubeSearchTool(
+    name="youtube_search",
+    description="Search for videos on YouTube.",
+    callbacks=[handler],
+    return_direct=False,
+    response_format="content"
+)
+```
+
+## Installation
+
+The package can be installed via `pip`:
+
+```bash
+pip install py_agent_search
+```
+
+This command will install all necessary dependencies, including LangChain, LangGraph, Redis, Loki Logger Handler, and the community search tools.
+
+## Framework Used
+
+The project leverages **LangGraph** as the main framework for orchestrating processing nodes, checkpoint memory management, and tool handling. Specifically:
+
+* `create_react_agent` from LangGraph to create a “ReAct” style agent.
+* `AsyncRedisSaver` from LangGraph for persistent memory.
+* `StreamingCallbackHandler` from LangChain for streaming callbacks.
+
+## Usage Example
+
+An example of initializing the agent and streaming a response is provided in `main.py`:
+
+```python
+import asyncio
+import uuid
+import os
+from py_agent_search import AgentSearch
+from log import send_log
+
+redis_conf = {
+    "host": os.getenv("REDIS_HOST", "localhost"),
+    "port": os.getenv("REDIS_PORT", 6379),
+    "db": os.getenv("REDIS_DB", 0)
+}
+
+async def main():
+    """
+    Initialize the agent and start a sample conversation.
+    """
+    try:
+        # Generate a unique thread_id for the conversation
+        thread_id = str(uuid.uuid4())
+        question = input("Enter your question: ")
+
+        # Send an initial log message
+        send_log(message="Starting chat interaction", metadata={"question": question})
+        print(f"Question: {question}\nWaiting for response...")
+
+        # Instantiate the agent with Redis persistence
+        agent = AgentSearch(redis_persistence_config=redis_conf)
+
+        # Stream tokens as they are generated
+        async for token in agent.stream(input=question, thread_id=thread_id):
+            print(token, end="", flush=True)
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        send_log(message="Error during chat interaction", metadata={"error": str(e)})
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+### Details on `AgentSearch`
+
+* Defined in `agent.py`.
+* Uses LangGraph’s `create_react_agent` and LangChain’s `ChatOpenAI` for response generation.
+* Integrates the tools (`search_tool`, `wikipedia_tool`, `youtube_tool`) to extend information retrieval capabilities.
+* Relies on `AsyncRedisSaver` for persistent memory.
+* Each phase (LLM call, tool execution, end of streaming) sends logs to Loki via `send_log`.
+
+## Project Structure
+
+```
+py_agent_search/
+├── agent.py            # Definition of the AgentSearch class, agent orchestration
+├── stream.py           # StreamingCallbackHandler for streaming logging
+├── memory.py           # Implementation of persistent memory with Redis
+├── tools.py            # Definition of search tools (DuckDuckGo, Wikipedia, YouTube)
+├── log.py              # Logger configuration and log shipping to Loki
+├── main.py             # Example of agent initialization and usage
+├── Dockerfile          # (Optional) Dockerfile for building a custom Python container
+├── docker-compose.yml  # Configuration for services (Redis, Loki, Promtail, Grafana)
+├── .env                # Environment variable definitions (not included in the repository)
+└── README.md           # This descriptive file
+```
+
+## Starting the Agent
+
+1. Ensure you have created the `.env` file with the correct variables.
+2. Start the supporting services:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+3. Install the Python package (if not already installed):
+
+   ```bash
+   pip install py_agent_search
+   ```
+
+## Conclusions
+
+This project provides a fully equipped “ReAct” AI agent including:
+
+- Search tools (web, Wikipedia, YouTube).
+- Token-by-token streaming of responses.
+- Context persistence in Redis.
+- Centralized logging to Loki, viewable in Grafana.
+- Easy installation via `pip` and configuration through Docker Compose.
+
+For more details, refer to the individual implementation files (`agent.py`, `stream.py`, `memory.py`, `tools.py`, `log.py`, `main.py`) and the official documentation of LangGraph and LangChain.
