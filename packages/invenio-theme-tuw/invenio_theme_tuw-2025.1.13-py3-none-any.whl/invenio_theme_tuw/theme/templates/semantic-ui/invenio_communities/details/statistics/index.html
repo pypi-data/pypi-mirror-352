@@ -1,0 +1,36 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2023 CERN.
+  Copyright (C) 2025 TU Wien.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- extends "invenio_communities/details/base.html" %}
+{%- set active_community_header_menu_item= 'statistics' %}
+
+{%- block header %}
+  {{ super() }}
+  <!-- Folium start -->
+  {{ map_header|safe }}
+  <!-- Folium end -->
+{%- endblock header %}
+
+{%- block page_body %}
+  {{ super() }}
+  <div class="ui container rel-m-2 rel-pt-1">
+    <h1>Usage statistics for "{{ record.metadata.title }}"</h1>
+    <ul>
+      <li><strong>Record</strong>: {{ record.metadata.title }}</li>
+      <li><strong>Month</strong>: {{ month }}</li>
+      <li><strong>Views or downloads</strong>: {{ stats_type }}</li>
+    </ul>
+    {{ map_html|safe }}
+    {#- the script is inline, which means we can't use defer #}
+    <script nonce="{{ csp_nonce() }}">
+      {{ map_script|safe }}
+    </script>
+  </div>
+{%- endblock page_body -%}
