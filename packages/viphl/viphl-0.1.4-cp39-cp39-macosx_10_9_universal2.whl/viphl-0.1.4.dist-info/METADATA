@@ -1,0 +1,63 @@
+Metadata-Version: 2.4
+Name: viphl
+Version: 0.1.4
+Summary: A library for trend analysis and indicators
+Home-page: https://github.com/yourusername/pivot-trend-python
+Author: Your Name
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.19.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# VipHL Library
+
+A high-performance trading indicator library with source code protection.
+
+## Installation
+
+```bash
+pip install viphl
+```
+
+## Usage
+
+```python
+from indicators.viphl.dto.viphl_interface import VipHL
+import pandas as pd
+
+# Load your price data
+# Example data format: DataFrame with 'open', 'high', 'low', 'close', 'volume' columns
+data = pd.read_csv('price_data.csv')
+
+# Initialize VipHL
+viphl = VipHL()
+
+# Calculate indicators
+result = viphl.calculate(data)
+
+# Access results
+print(result)
+```
+
+## Features
+
+- High-performance implementation with Cython
+- Protected source code
+- Easy-to-use API
+- Compatible with pandas DataFrames
+
+## License
+
+Proprietary - All rights reserved. 
