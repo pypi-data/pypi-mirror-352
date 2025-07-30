@@ -1,0 +1,121 @@
+Metadata-Version: 2.4
+Name: aiobastion
+Version: 0.1.9
+Summary: Manage your Cyberark implementation
+Author-email: Gautier Leveille <gleveille@pm.me>
+License: Copyright (c) 2018 The Python Packaging Authority
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+Project-URL: Homepage, https://github.com/labanquepostale/aiobastion
+Project-URL: Bug Reports, https://github.com/labanquepostale/aiobastion/issues
+Project-URL: Source, https://github.com/labanquepostale/aiobastion/
+Keywords: cyberark
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Topic :: System :: Systems Administration
+Classifier: Topic :: Utilities
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pyyaml
+Requires-Dist: aiohttp
+Provides-Extra: dev
+Provides-Extra: test
+Requires-Dist: coverage; extra == "test"
+Requires-Dist: unittest; extra == "test"
+Dynamic: license-file
+
+# aiobastion
+
+**aiobastion** is a simple and fully asynchronous framework for [Cyberark API](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/WebServices/Implementing%20Privileged%20Account%20Security%20Web%20Services%20.htm) written in Python 3.11 with [asyncio](https://docs.python.org/3/library/asyncio.html) and [aiohttp](https://github.com/aio-libs/aiohttp). 
+It helps you to manage your Cyberark implementation faster and in an intuitive way.
+
+
+## Examples
+See [examples of usage](https://aiobastion.readthedocs.io/en/latest/started.html#examples) in the [documentation](https://aiobastion.readthedocs.io/en/latest/index.html)
+
+## Quick (and dirty) start
+### List safes
+
+Here's a minimal python snippet to list safes
+
+```python 
+import aiobastion
+import asyncio
+
+from aiobastion import GetTokenException
+
+
+async def main():
+    # Define your PVWA host here
+    pvwa_host = "pvwa.mycompany.fr"
+    vault = aiobastion.EPV(serialized={'api_host': pvwa_host})
+    
+    # Define login and password
+    login = input("Login: ")
+    password = input("Password: ")
+
+    # Login to the PVWA
+    try:
+        await vault.login(login, password)
+    except GetTokenException as err:
+        print(f"An error occured while login : {err}")
+        await vault.close_session()
+        exit(0)
+
+    # Working with PVWA
+    async with vault as epv:
+        # For example, listing all safes
+        safes = await epv.safe.list()
+        for s in safes:
+            print(s)
+
+if __name__ == '__main__':
+    asyncio.run(main())
+
+```
+
+
+
+## Getting started
+[Define a config file](https://aiobastion.readthedocs.io/en/latest/login.html#define-a-configuration-file), and start using functions to avoid spending hours in annoying tasks in the PVWA :
+
+* [Accounts manipulation](https://aiobastion.readthedocs.io/en/latest/accounts.html)
+* [Safe manipulation](https://aiobastion.readthedocs.io/en/latest/safe.html)
+* [User manipulation](https://aiobastion.readthedocs.io/en/latest/users.html)
+* Check the documentation for more
+
+
+## Documentation
+The documention is hosted on readthedocs : https://aiobastion.readthedocs.io/en/latest/index.html
+
+## Rationale
+
+I've been working on Cyberark projects for years and I see everywhere a profusion of scripts, very often complicated and long to execute for very simple tasks (sometimes even with a "do not turn off" post-it on the screen).
+This package makes it quick and easy to accomplish without having to deal with the specifics of the Cyberark API.
+The acquisition time may be longer than for other well-known libraries, but, believe me, you will save this time very quickly.
