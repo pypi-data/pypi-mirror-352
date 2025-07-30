@@ -1,0 +1,107 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "logixbase"
+version = "0.6.5"
+description = "LogixQuant基础功能包项目"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT License"}
+authors = [
+    {name = "LogixBase开发团队", email = "trader@logixquant.com"}
+]
+maintainers = [
+    {name = "LogixBase开发团队", email = "trader@logixquant.com"}
+]
+keywords = ["quant", "trading", "finance", "strategy", "backtest"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "numpy==1.23.2",
+    "pandas==2.2.3",
+    "pyyaml==6.0.2",
+    "pytz==2024.2",
+    "requests==2.32.3",
+    "sqlalchemy==2.0.41",
+    "matplotlib==3.8.4",
+    "numba==0.60.0",
+    "statsmodels==0.14.1",
+    "seaborn==0.13.2",
+    "scikit-learn==1.5.2",
+    "scipy==1.7.3",
+    "cryptography==41.0.5",
+    "bcrypt==4.1.1",
+    "Cython==3.0.11",
+    "pydantic==2.10.6",
+    "watchdog==6.0.0",
+    "psutil==6.1.0",
+    "tqsdk==3.7.6",
+    "path==17.0.0",
+    "cx_Oracle==8.3.0",
+    "pymssql==2.3.2",
+    "uvicorn==0.34.0",
+    "fastapi==0.115.12",
+    "pandas_market_calendars==5.1.0",
+    "paramiko==2.10.0",
+    "jinja2==3.1.4"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "black>=22.1.0",
+    "flake8>=4.0.0",
+    "mypy>=0.931",
+    "sphinx>=4.4.0",
+    "build>=0.8.0",
+    "twine>=4.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/339640170/logixbase"
+"Bug Tracker" = "https://github.com/339640170/logixbase/issues"
+"Documentation" = "https://github.com/339640170/logixbase"
+
+[tool.git]
+repository = "git@github.com:seanliiiiii/logixbase.git"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+logixbase = ["*.yaml", "*.yml", "*.ini", "*.json", "*.toml", "py.typed",
+    "feeder/config/*",
+    "feeder/sql/*",
+    "gateway/api/*",
+    "logger/dashboard/*"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["logixbase", "logixbase.*"]
+
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311"]
+include = '\.pyi?$'
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
