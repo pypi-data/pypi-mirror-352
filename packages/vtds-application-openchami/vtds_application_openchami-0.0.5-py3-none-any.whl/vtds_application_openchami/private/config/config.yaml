@@ -1,0 +1,56 @@
+#
+# MIT License
+#
+# (C) Copyright 2025 Hewlett Packard Enterprise Development LP
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+application:
+  # The host block identifies the Virtual Network on which OpenCHAMI is
+  # hosted and the Virtual Node class whose instances will run
+  # OpenCHAMI. Deployment will be done to all nodes in that class (for a
+  # single instance of OpenCHAMI the cluster configuration should
+  # specify only one instance of the host node class.
+  host:
+    # The Virtual Network (named in the Cluster layer configuration) on
+    # which OpenCHAMI will be hosted.
+    network: hostnet
+    # The node class (named in the Cluster layer configuration) on which
+    # OpenCHAMI will be deployed and run.
+    node_class: host_node
+  # The discovery_networks map is a collection of network specifications
+  # for networks on which OpenCHAMI (currently Magellan) may do
+  # discovery of RedFish endpoints. A discovery network may be either a
+  # Cluster Network, identified by a network name from the Cluster layer
+  # configuration, or an internal network, with no network name but an
+  # explicit network CIDR. Either a network CIDR or a network name must
+  # be supplied. If both or neither is supplied this is an error. If a
+  # given cluster does not contain the network named in a Cluster
+  # Network, that network will be removed from the set of discovery
+  # networks prior to deployment.
+  #
+  # All of the valid networks specified here will be used for discovery
+  # of RedFish endpoints when OpenCHAMI is deployed.
+  discovery_networks:
+    internal:
+      network_cidr: 172.25.0.0/24
+      network_name: null
+    hardware_management:
+      network_cidr: null
+      network_name: hardware_management
