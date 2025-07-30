@@ -1,0 +1,219 @@
+Metadata-Version: 2.4
+Name: opendistillery
+Version: 2.0.1
+Summary: Advanced Compound AI Systems for Enterprise Workflow Transformation
+Project-URL: Homepage, https://github.com/nikjois/OpenDistillery
+Project-URL: Documentation, https://docs.opendistillery.ai
+Project-URL: Repository, https://github.com/nikjois/OpenDistillery.git
+Project-URL: Issues, https://github.com/nikjois/OpenDistillery/issues
+Project-URL: Changelog, https://github.com/nikjois/OpenDistillery/blob/main/CHANGELOG.md
+Author-email: Nik Jois <nikjois@llamasearch.ai>
+Maintainer-email: Nik Jois <nikjois@llamasearch.ai>
+License:                                  Apache License
+                                   Version 2.0, January 2004
+                                http://www.apache.org/licenses/
+        
+           Copyright 2024 OpenDistillery Team
+        
+           Licensed under the Apache License, Version 2.0 (the "License");
+           you may not use this file except in compliance with the License.
+           You may obtain a copy of the License at
+        
+               http://www.apache.org/licenses/LICENSE-2.0
+        
+           Unless required by applicable law or agreed to in writing, software
+           distributed under the License is distributed on an "AS IS" BASIS,
+           WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+           See the License for the specific language governing permissions and
+           limitations under the License. 
+License-File: LICENSE
+Keywords: ai,anthropic,artificial-intelligence,automation,compound-ai,enterprise,grok,llm,machine-learning,multi-agent,openai,orchestration,workflow
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Distributed Computing
+Requires-Python: >=3.9
+Requires-Dist: aiofiles>=23.2.1
+Requires-Dist: alembic>=1.13.0
+Requires-Dist: anthropic>=0.7.8
+Requires-Dist: asyncpg>=0.29.0
+Requires-Dist: celery>=5.3.4
+Requires-Dist: click>=8.1.7
+Requires-Dist: cryptography>=41.0.7
+Requires-Dist: fastapi>=0.104.1
+Requires-Dist: httpx>=0.25.2
+Requires-Dist: numpy>=1.24.3
+Requires-Dist: openai>=1.3.7
+Requires-Dist: pandas>=2.1.4
+Requires-Dist: passlib[bcrypt]>=1.7.4
+Requires-Dist: pillow>=10.1.0
+Requires-Dist: prometheus-client>=0.19.0
+Requires-Dist: pydantic>=2.5.0
+Requires-Dist: pyjwt>=2.8.0
+Requires-Dist: pyotp>=2.9.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: python-jose[cryptography]>=3.3.0
+Requires-Dist: python-multipart>=0.0.6
+Requires-Dist: qrcode>=7.4.2
+Requires-Dist: redis>=5.0.1
+Requires-Dist: requests>=2.31.0
+Requires-Dist: rich>=13.7.0
+Requires-Dist: scikit-learn>=1.3.2
+Requires-Dist: sqlalchemy>=2.0.23
+Requires-Dist: structlog>=23.2.0
+Requires-Dist: typer>=0.9.0
+Requires-Dist: uvicorn[standard]>=0.24.0
+Provides-Extra: dev
+Requires-Dist: black>=23.11.0; extra == 'dev'
+Requires-Dist: build>=1.0.3; extra == 'dev'
+Requires-Dist: flake8>=6.1.0; extra == 'dev'
+Requires-Dist: isort>=5.12.0; extra == 'dev'
+Requires-Dist: mypy>=1.7.1; extra == 'dev'
+Requires-Dist: pre-commit>=3.6.0; extra == 'dev'
+Requires-Dist: pytest-asyncio>=0.21.1; extra == 'dev'
+Requires-Dist: pytest-cov>=4.1.0; extra == 'dev'
+Requires-Dist: pytest>=7.4.3; extra == 'dev'
+Requires-Dist: twine>=4.0.2; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: mkdocs-material>=9.4.8; extra == 'docs'
+Requires-Dist: mkdocs-mermaid2-plugin>=1.1.1; extra == 'docs'
+Requires-Dist: mkdocs>=1.5.3; extra == 'docs'
+Description-Content-Type: text/markdown
+
+# OpenDistillery
+
+## Advanced Compound AI Systems for Enterprise Workflow Transformation
+
+OpenDistillery is an enterprise-grade compound AI system designed for Fortune 500 companies and large-scale production deployments. It provides comprehensive multi-agent orchestration, advanced reasoning capabilities, and seamless integration with enterprise workflows.
+
+## Features
+
+### Core Capabilities
+- **Multi-Agent Orchestration**: Advanced coordination between specialized AI agents
+- **Compound AI Systems**: Sophisticated reasoning with multiple AI models
+- **Enterprise Integration**: Seamless integration with existing enterprise systems
+- **Real-time Processing**: High-performance concurrent task execution
+- **Advanced Security**: Enterprise-grade authentication and authorization
+
+### Enterprise Features
+- **Multi-Factor Authentication (MFA)** with TOTP support
+- **Role-Based Access Control (RBAC)** with granular permissions
+- **API Key Management** with expiration and rate limiting
+- **Comprehensive Monitoring** with Prometheus and Grafana
+- **Audit Logging** with correlation tracking
+- **Horizontal Scaling** with Docker and Kubernetes support
+
+### AI Model Support
+- **OpenAI** GPT-4, GPT-3.5, and Assistants API
+- **Anthropic** Claude models
+- **X.AI Grok** integration with real-time capabilities
+- **Custom Models** through standardized interfaces
+
+## Quick Start
+
+### Installation
+
+```bash
+pip install opendistillery
+```
+
+### Basic Usage
+
+```python
+from opendistillery import CompoundAISystem
+
+# Initialize the system
+system = CompoundAISystem()
+
+# Create a multi-agent workflow
+workflow = system.create_workflow("financial_analysis")
+
+# Execute compound reasoning
+result = workflow.execute({
+    "task": "Analyze quarterly financial performance",
+    "data": {"revenue": 1000000, "expenses": 800000}
+})
+
+print(result)
+```
+
+## Production Deployment
+
+### Docker Deployment
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/OpenDistillery.git
+cd OpenDistillery
+
+# Start the full stack
+docker-compose -f docker-compose.production.yml up -d
+
+# Verify deployment
+curl http://localhost:8000/health
+```
+
+### Kubernetes Deployment
+
+```bash
+# Deploy to Kubernetes
+kubectl apply -f deployment/k8s/
+```
+
+## Configuration
+
+### Environment Variables
+
+```bash
+# Core Configuration
+SECRET_KEY=your-256-bit-secret-key
+DATABASE_URL=postgresql://user:pass@localhost/opendistillery
+REDIS_URL=redis://localhost:6379
+
+# AI Model Configuration
+OPENAI_API_KEY=your-openai-api-key
+ANTHROPIC_API_KEY=your-anthropic-api-key
+XAI_API_KEY=your-xai-api-key
+
+# Security Configuration
+REQUIRE_MFA=true
+JWT_EXPIRY_HOURS=24
+API_RATE_LIMIT=100
+```
+
+## API Documentation
+
+### Authentication
+
+```bash
+# Login and get JWT token
+curl -X POST http://localhost:8000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "password"}'
+```
+
+### Task Submission
+
+```bash
+# Submit a compound AI task
+curl -X POST http://localhost:8000/tasks \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "task_type": "financial_analysis",
+    "description": "Analyze Q4 performance",
+    "priority": "high"
+  }'
+```
+
+## Architecture
+
+OpenDistillery implements a sophisticated compound AI architecture:
