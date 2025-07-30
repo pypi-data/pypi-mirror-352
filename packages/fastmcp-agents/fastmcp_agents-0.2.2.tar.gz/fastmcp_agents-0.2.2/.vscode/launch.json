@@ -1,0 +1,270 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python Debugger: Module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "args": [
+                "--mcp-transport",
+                "sse",
+                "--model",
+                "vertex_ai/gemini-2.5-flash-preview-05-20"
+            ]
+        },
+        // Debug Tests config
+        {
+            "name": "Python: Debug Tests",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "envFile": "${workspaceFolder}/.env",
+            "purpose": [
+                "debug-test"
+            ],
+            "args": [
+                "-s" // Disable Captures
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Bundled/SSE - GitHub",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "--transport",
+                "sse",
+                "config",
+                "--bundled",
+                "github_github-mcp-server",
+                "run"
+            ]
+        },
+        {
+            "name": "Bundled/SSE - MCP Git",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "--transport",
+                "sse",
+                "config",
+                "--bundled",
+                "mcp_git",
+                "run"
+            ]
+        },
+        {
+            "name": "Bundled/SSE - Filesystem Operations",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "--transport",
+                "sse",
+                "config",
+                "--bundled",
+                "filesystem_filesystem-mcp-server",
+                "run"
+            ]
+        },
+        {
+            "name": "Bundled/SSE - Cyanheads Git",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "--transport",
+                "sse",
+                "config",
+                "--bundled",
+                "cyanheads_git-mcp-server",
+                "run"
+            ]
+        },
+        {
+            "name": "Bundled/SSE - MotherDuckDB Agent",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "--transport",
+                "sse",
+                "config",
+                "--bundled",
+                "motherduckdb_mcp-server-motherduck",
+                "run"
+            ]
+        },
+        {
+            "name": "Bundled/SSE - Tree Sitter Agent",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "--transport",
+                "sse",
+                "config",
+                "--bundled",
+                "wrale_mcp-server-tree-sitter",
+                "run"
+            ]
+        },
+        {
+            "name": "Config/SSE - Tree Sitter Agent",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "--transport",
+                "sse",
+                "config",
+                "--file",
+                "${workspaceFolder}/src/fastmcp_agents/bundled/wrale_mcp-server-tree-sitter.yml",
+                "run"
+            ]
+        },
+        {
+            "name": "CLI/SSE - Tree Sitter Agent",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "--transport",
+                "sse",
+                "cli",
+                "agent",
+                "--name",
+                "ask_tree_sitter",
+                "--description",
+                "Ask the tree-sitter agent to find items in the codebase.",
+                "--instructions",
+                "You are a helpful assistant that provides users a simple way to find items in their codebase.",
+                "wrap",
+                "uvx",
+                "git+https://github.com/wrale/mcp-server-tree-sitter.git"
+            ]
+        },
+        {
+            "name": "CLI - Tree Sitter Tool Call",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "cli",
+                "agent",
+                "--name",
+                "ask_tree_sitter",
+                "--description",
+                "Ask the tree-sitter agent to find items in the codebase.",
+                "--instructions",
+                "You are a helpful assistant that provides users a simple way to find items in their codebase.",
+                "call",
+                "ask_tree_sitter",
+                "{\"instructions\": \"Analyze the codebase in . and tell me what you found.\"}",
+                "wrap",
+                "--env",
+                "MCP_TS_LOG_LEVEL=WARNING",
+                "uvx",
+                "git+https://github.com/wrale/mcp-server-tree-sitter.git"
+            ]
+        },
+        {
+            "name": "Config - Tree Sitter Tool Call",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "config",
+                "--directory",
+                "${workspaceFolder}/src/fastmcp_agents/bundled",
+                "--file","wrale_mcp-server-tree-sitter.yml",
+                "call", "ask_tree_sitter", "{\"instructions\": \"Analyze the codebase in . and tell me what you found.\"}",
+                "run"
+            ]
+        },
+        {
+            "name": "Python - Evaluator Optimizer",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "config",
+                "--directory",
+                "${workspaceFolder}/src/fastmcp_agents/bundled",
+                "--bundled","evaluator_optimizer",
+                "call", "ask_tree_sitter", "{\"instructions\": \"Analyze the codebase in . and tell me what you found.\"}",
+                "run"
+            ]
+        },
+        {
+            "name": "Bundled - Evaluator Optimizer",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastmcp_agents.cli.base",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/agent-working-dir",
+            "args": [
+                "--transport",
+                "sse",
+                "config",
+                "--bundled",
+                "evaluator_optimizer",
+                "run"
+            ],
+            "env": {
+                
+            }
+        },
+    ]
+}
