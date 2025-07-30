@@ -1,0 +1,76 @@
+Metadata-Version: 2.4
+Name: mopaint
+Version: 0.1.6
+Summary: Paint for marimo
+Project-URL: Homepage, https://github.com/koaning/mopaint
+Project-URL: Documentation, https://koaning.github.io/mopaint/
+Project-URL: Repository, https://github.com/koaning/mopaint
+Project-URL: Issues, https://github.com/koaning/mopaint/issues
+Author: Vincent D. Warmerdam
+License: MIT License
+        
+        Copyright (c) 2022 Vincent D. Warmerdam
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.8
+Requires-Dist: anywidget>=0.9.2
+Provides-Extra: dev
+Requires-Dist: marimo; extra == 'dev'
+Requires-Dist: mohtml; extra == 'dev'
+Requires-Dist: pillow>=9.0; extra == 'dev'
+Requires-Dist: pytest>=7.0; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# mopaint
+
+MSPaint, for marimo. Borrows heavily from [this project](https://v0.dev/chat/community/microsoft-paint-T58xe0hGtYx).
+
+![CleanShot 2025-03-31 at 11 25 41](https://github.com/user-attachments/assets/3b474757-9a11-4ce0-a1f7-40349e478dd7)
+
+## Demo 
+
+To give this project a spin, check out the interactive [docs](https://koaning.github.io/mopaint/).
+
+## Installation
+
+```bash
+uv pip install mopaint
+```
+
+## Usage
+
+```python
+from mopaint import Paint
+import marimo as mo
+
+paint = mo.ui.anywidget(Paint())
+paint
+```
+
