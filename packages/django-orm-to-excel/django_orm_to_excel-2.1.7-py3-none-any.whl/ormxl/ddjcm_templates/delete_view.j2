@@ -1,0 +1,9 @@
+from django.shortcuts import redirect, render
+{% set model_name = model.lower() %}
+
+
+def {{ model_name }}_delete_view(request):
+    model = {{ model }}.objects.filter(pk=request.GET["id"])
+    model.delete()
+
+    return redirect("/deleted")

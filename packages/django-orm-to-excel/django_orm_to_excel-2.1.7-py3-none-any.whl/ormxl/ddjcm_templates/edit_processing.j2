@@ -1,0 +1,21 @@
+from django.shortcuts import redirect, render
+
+
+def {{ entity_name }}edit_processing(request, form, get_html_page):
+    data = form.cleaned_data
+    {{ entity_name }}_id = request.GET["id"]
+
+    role = request.user.profile.role
+    {% for role, item_s in fields.items() %}
+    if role == "{{ role.upper() }}":
+        fields = {{ item_s -}}
+    {% endfor %}
+
+    try:
+        {{ model_name }}.objects.filter(pk={{ entity_name }}_id).update(
+            **{field: data[field] for field in fields}
+        )
+
+        return redirect("/{{ subsystem_name }}/{{ entity_name }}/?id=" + str({{ entity_name }}_id))
+    except Exception as e:
+        return render(request, get_html_page, {"form": form, "error": e})

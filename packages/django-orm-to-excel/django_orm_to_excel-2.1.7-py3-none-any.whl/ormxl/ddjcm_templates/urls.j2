@@ -1,0 +1,9 @@
+from django.urls import path
+from {{ app_name }} import views
+
+
+urlpatterns {% if append %}+{% endif %}= [
+	{%- for url, view in urls.items() %}
+	path("{{ url }}{% if url %}/{% endif %}", views.{{ view }}),
+	{%- endfor %}
+]

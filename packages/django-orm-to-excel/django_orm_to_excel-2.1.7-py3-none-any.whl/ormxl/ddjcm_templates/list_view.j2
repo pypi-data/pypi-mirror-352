@@ -1,0 +1,26 @@
+{% if import_render %}from django.shortcuts import render{% endif %}
+
+from django.shortcuts import redirect, render
+from {{ subsystem }}.models import {{ model }}
+
+def {{ list_name }}_list_view(request):
+    rows = list({{ model }}.objects.{{ queryset }}.values_list("pk", *{{ heads }}))
+
+    role = request.user.profile.role
+    {% for role, item_s in links.items() %}
+    if role == "{{ role.upper() }}":
+        links = {{ item_s -}}
+    {% endfor %}
+
+    return render(
+        request,
+        "list.html",
+        {
+            "title": "{{ title }}",
+            "heads": [getattr({{ model }}, head).field.verbose_name for head in {{ heads }}],
+            "rows": rows,
+            "subsystem": "{{ subsystem }}",
+            "model_name": "{{ model.lower() }}",
+            "links": links
+        }
+    )

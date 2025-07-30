@@ -1,0 +1,1 @@
+{{ object_name }}({{ args | join(", ") }}{% if args and kwargs %}, {% endif %}{% for k, v in kwargs.items() %}{{ k }}={{ v }}{% if not loop.last %}, {% endif %}{% endfor %})

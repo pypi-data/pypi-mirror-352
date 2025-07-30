@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block header %}{{ title }}{% endblock header %}
+{% block content %}
+    {% if links|length > 0 %}
+    <strong><i>Действия</i></strong>: {% for link_name, link in links.items %}<a href="{{ link }}">{{ link_name }}</a>{% if links|length > 1 and forloop.counter != links|length %}, {% endif %}{% endfor %}
+    {% endif %}
+    <table>
+        <tr>
+            {% for head in heads %}
+                <th>{{ head }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in rows %}
+            <tr>
+                {% for cell in row|slice:"1:" %}
+                    {% if forloop.counter0 == 0 %}
+                        <td><a href="/{{ subsystem }}/{{ model_name }}/?id={{ row.0 }}">{{ cell|default:"..." }}</a></td>
+                    {% else %}
+                        <td>{{ cell|default:"..." }}</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}
