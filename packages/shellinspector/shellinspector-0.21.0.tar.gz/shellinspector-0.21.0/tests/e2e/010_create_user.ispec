@@ -1,0 +1,5 @@
+%_ adduser -D test
+# unlock user
+%_ passwd -u test
+%_ cp -r /root/.ssh ~test/
+%_ chown -R test:test ~test/.ssh
