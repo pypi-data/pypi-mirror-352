@@ -1,0 +1,67 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+# This should be picked up at pipeline creation time.
+include:
+  - project: "aimms/submodules/buildhelpers"
+    ref: "feature/multi-python"
+    file: "cmake/.aimms_build_matrix.yml"
+
+stages:
+  - pipeline
+
+all_wheels:
+  stage: pipeline
+  extends: [.matrix_python_wheels]
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - python3 buildhelpers/gitinfo-cli.py fullbranchname
+    - python3 buildhelpers/cmake/buildCmake.py --login
+    - python3 buildhelpers/cmake/buildCmake.py --check
+    - python3 generate_toml.py
+    - . ${switch_python} ${python_version}
+    - python --version
+    - python -m pip install build
+    - python -m pip install auditwheel
+    - python -m build
+    - python repair_wheels.py
+  artifacts:
+    when: always
+    paths:
+      - dist/**/*.whl
+      - dist/**/*.tar.gz
+
+integration_tests:
+  stage: pipeline
+  needs:
+    - job: all_wheels
+      artifacts: true
+  extends: [.matrix_python_wheels]
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - python3 buildhelpers/gitinfo-cli.py fullbranchname
+    - python3 buildhelpers/cmake/buildCmake.py --login
+    - python3 buildhelpers/cmake/buildCmake.py --check
+    - . ${switch_python} ${python_version}
+    - python --version
+    - python ./aimms_api_py/python/integration_tests.py
+
+upload_wheels:
+  stage: pipeline
+  extends: [.matrix_linux_only_release]
+  needs:
+    - job: integration_tests
+      artifacts: true
+    - job: all_wheels
+      artifacts: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH != "main"'
+      when: never
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - python3 buildhelpers/gitinfo-cli.py fullbranchname
+    - python3 buildhelpers/cmake/buildCmake.py --login
+    - python3 buildhelpers/cmake/buildCmake.py --check
+    - pip install twine
+    - python3 twine_uploader.py

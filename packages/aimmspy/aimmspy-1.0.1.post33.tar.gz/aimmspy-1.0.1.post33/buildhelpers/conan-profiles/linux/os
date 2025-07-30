@@ -1,0 +1,8 @@
+include(../default_options)
+
+[options]
+openssl/*:shared=True
+libcurl/*:with_ssl=openssl
+
+[settings]
+os=Linux

@@ -1,0 +1,32 @@
+include:
+  - project: "aimms/submodules/buildhelpers"
+    ref: "feature/multi-python"
+    file: cmake/.aimms_build_matrix.yml
+
+upload:
+  stage: pipeline
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR # This is necessary to avoid dubious ownership in repository
+    - python3 buildhelpers/cmake/buildCmake.py --login
+    - git status -s
+    - git restore --staged .
+    - git reset
+    - git status -s
+    - python3 buildhelpers/cmake/buildCmake.py --package
+  needs:
+    - pipeline: $PARENT_PIPELINE_ID
+      job: package
+      artifacts: true
+  image:
+    name: ${linux_alma}
+  tags:
+    - docker
+
+trigger_renovate:
+  stage: pipeline
+  needs:
+    - job: upload
+      artifacts: false
+  trigger:
+    project: public_mirror/renovate-runner
+    branch: internal

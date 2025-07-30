@@ -1,0 +1,225 @@
+variables:
+  LIBRARYNAME: unknown
+
+include:
+  - project: "aimms/submodules/buildhelpers"
+    ref: "feature/multi-python"
+    file: cmake/.aimms_build_matrix.yml
+  - project: "aimms/submodules/buildhelpers"
+    ref: "feature/multi-python"
+    file: autolibs/.autolib_collector.yml
+
+stages:
+  - pipeline
+
+# # Avoid duplicate pipeline runs for merge requests
+# # https://docs.gitlab.com/ee/ci/yaml/workflow.html#switch-between-branch-pipelines-and-merge-request-pipelines
+# workflow:
+#   rules:
+#     - if: $CI_COMMIT_TAG
+#       when: never
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+#     - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+#       when: never
+#     - if: $CI_COMMIT_BRANCH
+
+# .build_cmake:
+#   stage: build
+#   script:
+#     - git config --global --add safe.directory $CI_PROJECT_DIR
+#     - python3 buildhelpers/gitinfo-cli.py fullbranchname
+#     - python3 buildhelpers/cmake/buildCmake.py --login
+#     - python3 buildhelpers/cmake/buildCmake.py --check
+#     - python3 buildhelpers/cmake/buildCmake.py --multi --build
+#     - python3 buildhelpers/autolibs/release_and_publisher.py createlib $preset $build_type
+
+#   artifacts:
+#     paths:
+#       - out/upload/*/libs/
+#       - out/upload/*/bin/
+#       - out/upload/**/CDMService/
+#     expire_in: 1d
+#     reports:
+#       junit:
+#         - out/gtest.xml
+#         - out/cppunit.xml
+
+# build_all:
+#   extends: [ .build_cmake, .matrix ]
+
+.libraries:
+  stage: pipeline
+  tags:
+    - docker
+  image:
+    name: $linux_alma
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o /tmp/awscliv2.zip
+    - unzip /tmp/awscliv2.zip -d /tmp
+    - sudo bash /tmp/aws/install
+    - AWS_ACCESS_KEY_ID=$S3_AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$S3_AWS_SECRET_ACCESS_KEY python3 buildhelpers/autolibs/release_and_publisher.py release
+
+release_libraries_aws:
+  extends: [.libraries]
+  rules:
+    # if trigger pipeline than never run this job
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    # if merge request, then never run
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+    - when: manual
+      allow_failure: true
+  needs:
+    - job: alib
+      artifacts: true
+    - job: aimms_unit_tests
+      artifacts: false
+    - job: cube_engine_integration_tests
+      artifacts: false
+      optional: true
+    - job: e2e-legacy
+      artifacts: false
+      optional: true
+
+revert_release_libraries_aws:
+  stage: pipeline
+  needs:
+    - job: release_libraries_aws
+      artifacts: false
+  rules:
+    # if merge request, then never run
+    # if trigger pipeline than never run this job
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+    - when: manual
+      allow_failure: true
+  tags:
+    - docker
+  image:
+    name: $linux_alma
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - pip install awscli
+    - python3 buildhelpers/autolibs/release_and_publisher.py revert
+
+upload_libraries_internal_artifactory:
+  stage: pipeline
+  rules:
+    # if trigger pipeline than never run this job
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    # if merge request, then never run
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+      allow_failure: true
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+    - when: always
+      allow_failure: true
+  tags:
+    - docker
+  image:
+    name: $linux_alma
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - python3 buildhelpers/autolibs/release_and_publisher.py upload
+  needs:
+    - job: alib
+      artifacts: true
+    - job: aimms_unit_tests
+      artifacts: false
+    - job: cube_engine_integration_tests
+      artifacts: false
+      optional: true
+    # commented out so WebUI can be uploaded to Artifactory without waiting for the long E2E tests
+    # - job: e2e-legacy
+    #   artifacts: false
+    #   optional: true
+
+release_freq_feature:
+  stage: pipeline
+  needs:
+    - job: release_libraries_aws
+      artifacts: false
+  tags:
+    - ubuntu
+  rules:
+    # if trigger pipeline than never run this job
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    # if merge request, then never run
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    # if renovate branch, then never run
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+    # if master or main branch, then run
+    - if: $CI_COMMIT_BRANCH =~ /^(master|main)$/
+      when: manual
+      allow_failure: true
+    # if not master or main branch, then never run
+    - if: $CI_COMMIT_BRANCH !~ /^(master|main)$/
+      when: never
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+  script:
+    - export CMODE=feature
+    - export VERSION=`python3 buildtool/gitinfo-cli.py version`
+    - "curl -G --data-urlencode artifact=$LIBRARYNAME --data-urlencode version=$VERSION --data-urlencode releasetype=$CMODE --data-urlencode team=$RELEASE_TEAM --data-urlencode accesskey=$ADD_VERSION_ACCESS_KEY https://licensing.aimms.cloud/scripts/add-artifact-release"
+
+release_freq_hotfix:
+  stage: pipeline
+  needs:
+    - job: release_libraries_aws
+      artifacts: false
+  tags:
+    - ubuntu
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    # if merge request, then never run
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    # if renovate branch, then never run
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+    # if master or main branch, then run
+    - if: $CI_COMMIT_BRANCH =~ /^(master|main)$/
+      when: manual
+      allow_failure: true
+    # if not master or main branch, then never run
+    - if: $CI_COMMIT_BRANCH !~ /^(master|main)$/
+      when: never
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+  script:
+    - export CMODE=hotfix
+    - export VERSION=`python3 buildtool/gitinfo-cli.py version`
+    - "curl -G --data-urlencode artifact=$LIBRARYNAME --data-urlencode version=$VERSION --data-urlencode releasetype=$CMODE --data-urlencode team=$RELEASE_TEAM --data-urlencode accesskey=$ADD_VERSION_ACCESS_KEY https://licensing.aimms.cloud/scripts/add-artifact-release"
+
+
+trigger_renovate:
+  stage: pipeline
+  rules:
+    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ "/renovate\/.*/"
+  trigger:
+    project: public_mirror/renovate-runner
+    branch: renovate-36.25.0

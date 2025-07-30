@@ -1,0 +1,357 @@
+{
+  "version": "4.67.0",
+  "application": {
+    "aimms.widget.type": {
+      "literal": "application"
+    },
+    "browser.language": {
+      "aimms": {
+        "contents": [
+          "webui::ClientBrowserLanguage"
+        ]
+      }
+    },
+    "browser.name": {
+      "aimms": {
+        "contents": [
+          "webui::ClientBrowserName"
+        ]
+      }
+    },
+    "browser.timezone": {
+      "aimms": {
+        "contents": [
+          "webui::BrowserTimeZone"
+        ]
+      }
+    },
+    "defaults.upload.download.controls.show": {
+      "literal": false
+    },
+    "ignoredst": {
+      "aimms": {
+        "contents": [
+          "webui::IgnoreDST"
+        ]
+      }
+    },
+    "theme.classic": {
+      "literal": "NOT_ALLOWED"
+    },
+    "timezone": {
+      "aimms": {
+        "contents": [
+          "webui::DisplayTimeZone"
+        ]
+      }
+    }
+  },
+  "pages/home": {
+    "aimms.widget.type": {
+      "literal": "pagev2-grid"
+    },
+    "bindings": {
+      "literal": [
+        {
+          "widgetUri": "inc",
+          "gridArea": "Unassigned widgets",
+          "dndId": "Unassigned widgetsinc0"
+        },
+        {
+          "widgetUri": "BIEM",
+          "gridArea": "Unassigned widgets",
+          "dndId": "Unassigned widgetsBIEM1"
+        },
+        {
+          "widgetUri": "empty_all",
+          "gridArea": "area-c",
+          "dndId": "area-cempty_all2"
+        },
+        {
+          "widgetUri": "python",
+          "gridArea": "area-b",
+          "dndId": "area-bpython3"
+        },
+        {
+          "widgetUri": "python_1",
+          "gridArea": "area-b",
+          "dndId": "area-bpython_14"
+        },
+        {
+          "widgetUri": "execute_python",
+          "gridArea": "area-b",
+          "dndId": "area-bexecute_python5"
+        },
+        {
+          "widgetUri": "python_@",
+          "gridArea": "area-b",
+          "dndId": "Unassigned widgetspython_@9"
+        },
+        {
+          "widgetUri": "BIEM_1",
+          "gridArea": "area-b",
+          "dndId": "area-bBIEM_16"
+        },
+        {
+          "widgetUri": "transport",
+          "gridArea": "area-a",
+          "dndId": "area-atransport7"
+        },
+        {
+          "widgetUri": "BIEM2",
+          "gridArea": "area-a",
+          "dndId": "area-aBIEM28"
+        }
+      ]
+    },
+    "layoutId": {
+      "literal": "Layout10"
+    },
+    "widgets": {
+      "literal": [
+        {
+          "uri": "BIEM",
+          "layoutInfo": {
+            "width": "2",
+            "height": "1"
+          }
+        },
+        {
+          "uri": "BIEM2",
+          "layoutInfo": {
+            "width": "2",
+            "height": "1"
+          }
+        },
+        {
+          "uri": "inc",
+          "layoutInfo": {
+            "width": "2",
+            "height": "1"
+          }
+        },
+        {
+          "uri": "python",
+          "layoutInfo": {
+            "width": "2",
+            "height": "1"
+          }
+        },
+        {
+          "uri": "empty_all",
+          "layoutInfo": {
+            "width": "2",
+            "height": "1"
+          }
+        },
+        {
+          "uri": "python_1",
+          "layoutInfo": {
+            "width": "2",
+            "height": "1"
+          }
+        },
+        {
+          "uri": "execute_python",
+          "layoutInfo": {
+            "width": "2",
+            "height": "1"
+          }
+        },
+        {
+          "uri": "transport",
+          "layoutInfo": {
+            "width": "2",
+            "height": "1"
+          }
+        },
+        {
+          "uri": "BIEM_1",
+          "layoutInfo": {
+            "width": "2",
+            "height": "1"
+          }
+        },
+        {
+          "uri": "python_@",
+          "layoutInfo": {
+            "width": "2",
+            "height": "1"
+          }
+        }
+      ]
+    }
+  },
+  "widgets/BIEM": {
+    "action": {
+      "literal": {
+        "type": "procedure",
+        "value": "MainExecution"
+      }
+    },
+    "aimms.widget.type": {
+      "literal": "button"
+    },
+    "name": {
+      "literal": "BIEM"
+    },
+    "title": {
+      "literal": "BIEM"
+    }
+  },
+  "widgets/BIEM_1": {
+    "action": {
+      "literal": {
+        "type": "procedure",
+        "value": "BIEM"
+      }
+    },
+    "aimms.widget.type": {
+      "literal": "button"
+    },
+    "name": {
+      "literal": "BIEM (1)"
+    },
+    "title": {
+      "literal": "produce_error_in_python"
+    }
+  },
+  "widgets/BIEM2": {
+    "aimms.widget.type": {
+      "literal": "piechart"
+    },
+    "contents": {
+      "aimms": {
+        "contents": [
+          "unit_transport_cost"
+        ]
+      }
+    },
+    "name": {
+      "literal": "BIEM2"
+    },
+    "views": {
+      "literal": {}
+    }
+  },
+  "widgets/empty_all": {
+    "action": {
+      "literal": {
+        "type": "procedure",
+        "value": "empty_all"
+      }
+    },
+    "aimms.widget.type": {
+      "literal": "button"
+    },
+    "name": {
+      "literal": "empty_all"
+    },
+    "title": {
+      "literal": "empty_all"
+    }
+  },
+  "widgets/execute_python": {
+    "action": {
+      "literal": {
+        "type": "procedure",
+        "value": "execute_python_function"
+      }
+    },
+    "aimms.widget.type": {
+      "literal": "button"
+    },
+    "name": {
+      "literal": "execute_python"
+    },
+    "title": {
+      "literal": "execute_python_functions"
+    }
+  },
+  "widgets/inc": {
+    "action": {
+      "literal": {
+        "type": "procedure",
+        "value": "increment_by_one"
+      }
+    },
+    "aimms.widget.type": {
+      "literal": "button"
+    },
+    "name": {
+      "literal": "inc"
+    },
+    "title": {
+      "literal": "inc"
+    }
+  },
+  "widgets/python": {
+    "action": {
+      "literal": {
+        "type": "procedure",
+        "value": "python_global_scope_assign"
+      }
+    },
+    "aimms.widget.type": {
+      "literal": "button"
+    },
+    "name": {
+      "literal": "python"
+    },
+    "title": {
+      "literal": "assign_data_from_python"
+    }
+  },
+  "widgets/python_@": {
+    "action": {
+      "literal": {
+        "type": "procedure",
+        "value": "increment_by_one"
+      }
+    },
+    "aimms.widget.type": {
+      "literal": "button"
+    },
+    "name": {
+      "literal": "python_@"
+    },
+    "title": {
+      "literal": "increment_by_n"
+    }
+  },
+  "widgets/python_1": {
+    "action": {
+      "literal": {
+        "type": "procedure",
+        "value": "python_function_assign"
+      }
+    },
+    "aimms.widget.type": {
+      "literal": "button"
+    },
+    "name": {
+      "literal": "python (1)"
+    },
+    "title": {
+      "literal": "add_python_functions"
+    }
+  },
+  "widgets/transport": {
+    "aimms.widget.type": {
+      "literal": "piechart"
+    },
+    "contents": {
+      "aimms": {
+        "contents": [
+          "transport"
+        ]
+      }
+    },
+    "name": {
+      "literal": "transport"
+    },
+    "views": {
+      "literal": {}
+    }
+  }
+}

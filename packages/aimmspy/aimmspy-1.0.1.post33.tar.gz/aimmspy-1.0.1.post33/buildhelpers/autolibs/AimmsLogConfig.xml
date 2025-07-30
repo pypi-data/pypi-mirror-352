@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- see http://wiki.apache.org/logging-log4j/Log4jXmlFormat for formatting options -->
+
+    <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %t [%p] {%c} %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="fileAppender" class="org.apache.log4j.FileAppender">
+        <param name="File" value="${LOG_FILE_PATH}" />
+        <param name="Append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %t [%p] {%c} %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="AIMMS.Trace" >
+        <level value="warn"/>
+    </logger>
+    <logger name="AIMMS.Engine" >
+        <level value="warn"/>
+    </logger>
+    <logger name="AIMMS.gui" >
+        <level value="warn"/>
+    </logger>
+    <logger name="ARMI" >
+        <level value="info"/>
+    </logger>
+    <logger name="AimmsDLLSession" >
+        <level value="info"/>
+    </logger>
+    <logger name="AimmsSesion" >
+        <level value="info"/>
+    </logger>
+    <logger name="CubeEngine.CubeEngineLink.AsyncLogInfoDuplexer" >
+        <level value="info"/>
+    </logger>
+    <logger name="CubeEngine.AimmsSession.AimmsLogInfoPublisher" >
+        <level value="info"/>
+    </logger>
+    <logger name="CubeEngineLink.BusyCounter" >
+        <level value="info"/>
+    </logger>
+    <logger name="CubeEngineLink.CubeEngineProgressListener" >
+        <level value="info"/>
+    </logger>
+    <logger name="CubeEngineLink.LogInfoScope" >
+        <level value="info"/>
+    </logger>
+    <logger name="net4cxx" >
+        <level value="info"/>
+    </logger>
+
+    <logger name="PRO.Client.OutgoingMsgQueue">
+        <level value="info"/>
+    </logger>
+
+    <logger name="AIMMS.Generator">
+        <level value="info"/>
+    </logger>
+
+    <root>
+        <priority value="info" />
+        <appender-ref ref="fileAppender" />
+    </root>
+
+</log4j:configuration>

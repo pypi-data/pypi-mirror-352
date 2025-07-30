@@ -1,0 +1,160 @@
+## ams_version=1.0
+
+Model Main_template_project {
+	Procedure with_args {
+		Arguments: (test,test2,test3,test4);
+		Body: {
+			procedureResult := FormatString("%s%n%n%n", test, test2, test3, test4 );
+		}
+		StringParameter test {
+			Property: Input;
+		}
+		Parameter test2 {
+			Property: Input;
+		}
+		Parameter test3 {
+			Property: Input;
+		}
+		Parameter test4 {
+			Property: Optional;
+		}
+	}
+	Procedure with_args2 {
+		Arguments: (test,test2,test3,test4);
+		Body: {
+			procedureResult2 := FormatString("%s%s%s%s", test, test2, test3, test4 );
+		}
+		StringParameter test {
+			Property: Input;
+		}
+		StringParameter test2 {
+			Property: Input;
+		}
+		StringParameter test3 {
+			Property: Input;
+		}
+		StringParameter test4 {
+			Property: Optional;
+		}
+	}
+	Procedure with_args3 {
+		Arguments: (test,test2,test3,test4);
+		Body: {
+			procedureResult3 := FormatString("%s%s%s%s", test, test2, test3, test4 );
+		}
+		StringParameter test {
+			Property: Input;
+		}
+		StringParameter test2 {
+			Property: Input;
+		}
+		StringParameter test3 {
+			Property: Input;
+		}
+		StringParameter test4 {
+			Property: Optional;
+		}
+	}
+	StringParameter procedureResult;
+	StringParameter procedureResult2;
+	StringParameter procedureResult3;
+	StringParameter string_test {
+		Definition: {
+			"hallo hoe gaat het";
+		}
+	}
+	Set locations {
+		Comment: "Set of all locations";
+	}
+	Index l {
+		Range: locations;
+	}
+	Set warehouses {
+		SubsetOf: locations;
+	}
+	Index w {
+		Range: warehouses;
+	}
+	Set customers {
+		SubsetOf: locations;
+	}
+	Index c {
+		Range: customers;
+	}
+	Parameter demand {
+		IndexDomain: (c);
+	}
+	Parameter supply {
+		IndexDomain: (w);
+	}
+	StringParameter demand_annotation {
+		IndexDomain: c;
+	}
+	ElementParameter closest_warehouse {
+		IndexDomain: c;
+		Range: warehouses;
+		Definition: ArgMin(w | unit_transport_cost(w, c), unit_transport_cost(w, c));
+	}
+	Parameter unit_transport_cost {
+		IndexDomain: (w,c);
+		Comment: "Cost of transporting one unit from warehouse indexed by w to customer indexed by c so for example (\"Haarlem\", \"Amsterdam\") = 1.0";
+	}
+	Constraint satisfy_demand {
+		IndexDomain: c;
+		Definition: sum(w, transport(w, c)) >= demand(c);
+	}
+	Constraint satisfy_supply {
+		IndexDomain: w;
+		Definition: sum(c, transport(w, c)) <= supply(w);
+	}
+	Variable transport {
+		IndexDomain: (w,c);
+		Range: nonnegative;
+	}
+	Variable total_transport_cost {
+		Definition: sum((w, c), unit_transport_cost(w, c) * transport(w, c));
+	}
+	MathematicalProgram mp {
+		Objective: total_transport_cost;
+		Direction: minimize;
+		Type: Automatic;
+	}
+	Procedure MainInitialization {
+		Body: {
+			demand_annotation(c) := FormatString("annotation-%e", c);
+		}
+		Comment: "Add initialization statements here that do NOT require any library being initialized already.";
+	}
+	Procedure PostMainInitialization {
+		Comment: {
+			"Add initialization statements here that require that the libraries are already initialized properly,
+			or add statements that require the Data Management module to be initialized."
+		}
+	}
+	Procedure MainExecution {
+		Body: {
+			solve mp;
+		}
+	}
+	Procedure PreMainTermination {
+		Body: {
+			return DataManagementExit();
+		}
+		Comment: {
+			"Add termination statements here that require all libraries to be still alive.
+			Return 1 if you allow the termination sequence to continue.
+			Return 0 if you want to cancel the termination sequence."
+		}
+	}
+	Procedure MainTermination {
+		Body: {
+			return 1;
+		}
+		Comment: {
+			"Add termination statements here that do not require all libraries to be still alive.
+			Return 1 to allow the termination sequence to continue.
+			Return 0 if you want to cancel the termination sequence.
+			It is recommended to only use the procedure PreMainTermination to cancel the termination sequence and let this procedure always return 1."
+		}
+	}
+}

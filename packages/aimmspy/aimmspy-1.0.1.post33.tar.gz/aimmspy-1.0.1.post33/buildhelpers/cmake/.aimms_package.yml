@@ -1,0 +1,300 @@
+include:
+  - project: "aimms/submodules/buildhelpers"
+    ref: "feature/multi-python"
+    file: "cmake/.aimms_build_matrix.yml"
+
+# Avoid duplicate pipeline runs for merge requests
+# https://docs.gitlab.com/ee/ci/yaml/workflow.html#switch-between-branch-pipelines-and-merge-request-pipelines
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[skip ci\]/ && $CI_PIPELINE_SOURCE != "pipeline" && $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+      # CI_COMMIT_BRANCH is not available for merge requests these pipeline dont work for us
+    - if: $CI_COMMIT_BRANCH
+
+.build_cmake:
+  stage: pipeline
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - python3 buildhelpers/gitinfo-cli.py fullbranchname
+    - python3 buildhelpers/cmake/buildCmake.py --login
+    - python3 buildhelpers/cmake/buildCmake.py --check
+    - python3 buildhelpers/cmake/buildCmake.py --multi --build
+  artifacts:
+    when: always
+    paths:
+      - out/install
+      - out/build/**/ErrorReports/*.dmp
+      - out/build/**/crash-stacktrace.txt
+      - out/build/**/conan/graph.dot
+      - out/build/**/conan/conan_*.lock
+      - out/upload/**/*_integrationtests*
+      - out/upload/**/CDMService
+      - out/upload/**/bin
+    expire_in: 1d
+    reports:
+      junit:
+        - out/gtest.xml
+        - out/cppunit.xml
+
+build_all:
+  extends: [.build_cmake, .matrix]
+  rules:
+    - if: $BUILD_ENVIRONMENT != null && $BUILD_ENVIRONMENT != '' && $BUILD_ENVIRONMENT != 'all'
+      when: never
+    # if trigger pipeline than never run this job
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $COMBINATION_TESTING == "true"
+      when: never
+    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'main' || $CI_COMMIT_BRANCH == 'develop'
+    - if: $CI_COMMIT_MESSAGE =~ /\[all\]/
+    - if: $CI_PROJECT_ID == '471'
+      # Project ID 471 belongs to PRO
+    - if: $BUILD_ENVIRONMENT == null || $BUILD_ENVIRONMENT == '' || $BUILD_ENVIRONMENT == 'all'
+      changes:
+        - "**/*.cpp"
+        - "**/*.h"
+        - "**/*.hpp"
+        - "**/*.c"
+        - "**/CMakeLists.txt"
+        - "**/*.cmake"
+        - "**/conanfile.py"
+        - conanfile.py
+        - buildhelpers
+        - "**/*.yml"
+        # for webui repo
+        - "webui/aimms-webui-library/src4/**"
+
+build_linux:
+  extends: [.build_cmake, .matrix_linux_only]
+  rules:
+    - if: $BUILD_ENVIRONMENT != 'linux'
+      when: never
+    # if trigger pipeline than never run this job
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $COMBINATION_TESTING == "true"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'main' || $CI_COMMIT_BRANCH == 'develop'
+    - if: $CI_COMMIT_MESSAGE =~ /\[all\]/
+    - if: $BUILD_ENVIRONMENT == 'linux'
+      changes:
+        - "**/*.cpp"
+        - "**/*.h"
+        - "**/*.hpp"
+        - "**/*.c"
+        - "**/CMakeLists.txt"
+        - "**/*.cmake"
+        - "**/conanfile.py"
+        - conanfile.py
+        - buildhelpers
+        - "**/*.yml"
+        # for webui repo
+        - "webui/aimms-webui-library/src4/**"
+
+build_windows:
+  extends: [.build_cmake, .matrix_windows_only]
+  rules:
+    - if: $BUILD_ENVIRONMENT != 'windows'
+      when: never
+    # if trigger pipeline than never run this job
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $COMBINATION_TESTING == "true"
+      when: never
+    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'main' || $CI_COMMIT_BRANCH == 'develop'
+    - if: $CI_COMMIT_MESSAGE =~ /\[all\]/
+    - if: $BUILD_ENVIRONMENT == 'windows'
+      changes:
+        - "**/*.cpp"
+        - "**/*.h"
+        - "**/*.hpp"
+        - "**/*.c"
+        - "**/CMakeLists.txt"
+        - "**/*.cmake"
+        - "**/conanfile.py"
+        - conanfile.py
+        - buildhelpers
+        - "**/*.yml"
+        # for webui repo
+        - "webui/aimms-webui-library/src4/**"
+
+build_release:
+  extends: [.build_cmake, .matrix_release_only]
+  rules:
+    - if: $BUILD_ENVIRONMENT != 'release'
+      when: never
+    # if trigger pipeline than never run this job
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $COMBINATION_TESTING == "true"
+      when: never
+    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'main' || $CI_COMMIT_BRANCH == 'develop'
+    - if: $CI_COMMIT_MESSAGE =~ /\[all\]/
+    - if: $BUILD_ENVIRONMENT == 'release'
+      changes:
+        - "**/*.cpp"
+        - "**/*.h"
+        - "**/*.hpp"
+        - "**/*.c"
+        - "**/CMakeLists.txt"
+        - "**/*.cmake"
+        - "**/conanfile.py"
+        - conanfile.py
+        - buildhelpers
+        - "**/*.yml"
+        # for webui repo
+        - "webui/aimms-webui-library/src4/**"
+
+# This step downloads all artifacts per job, which cannot be avoided with the current GitLab version.
+# Namely we cannot specify the specific artifact, because dependencies does not allow environment variables and gitlab matrix doesn't support this.
+# This job is an trigger job to ensure that renovate is always triggered when a package is uploaded.
+upload:
+  stage: pipeline
+  rules:
+    - if: $SKIP_UPLOAD == 'true'
+      when: never
+    # if trigger pipeline than never run this job
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: never
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $COMBINATION_TESTING == "true"
+      when: never
+    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'main' || $CI_COMMIT_BRANCH == 'develop'
+    - if: $CI_COMMIT_MESSAGE =~ /\[all\]/
+    - if: $CI_COMMIT_TITLE =~ "/Merge branch \'renovate\/.*/" && $CI_COMMIT_REF_NAME  !~ "/renovate\/.*/"
+    - if: $CI_PROJECT_ID == '392' || $CI_PROJECT_ID == '556' || $CI_PROJECT_ID == '982' || $CI_PROJECT_ID == '547'
+      # Project ID 392 belongs to the aimms monorepo and 556 to the generate_timezones or 982 to webui
+      changes:
+        - "**/*.cpp"
+        - "**/*.h"
+        - "**/*.hpp"
+        - "**/*.c"
+        - "**/CMakeLists.txt"
+        - "**/*.cmake"
+        - "**/conanfile.py"
+        - "**/*.yml"
+        # for webui repo
+        - "webui/aimms-webui-library/src4/**"
+    - when: manual
+      changes:
+        - "**/*.cpp"
+        - "**/*.h"
+        - "**/*.hpp"
+        - "**/*.c"
+        - "**/CMakeLists.txt"
+        - "**/*.cmake"
+        - "**/conanfile.py"
+        - conanfile.py
+        - buildhelpers
+        - "**/*.yml"
+        # for webui repo
+        - "webui/aimms-webui-library/src4/**"
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR # This is necessary to avoid dubious ownership in repository
+    - python3 buildhelpers/cmake/buildCmake.py --login
+    - git status -s
+    - git restore --staged .
+    - git reset
+    - git status -s
+    - python3 buildhelpers/cmake/buildCmake.py --package
+  needs:
+    - job: build_all
+      artifacts: true
+      optional: true
+    - job: build_linux
+      artifacts: true
+      optional: true
+    - job: build_windows
+      artifacts: true
+      optional: true
+    - job: build_release
+      artifacts: true
+      optional: true
+  image:
+    name: ${linux_alma}
+  tags:
+    - docker
+  artifacts:
+    when: always
+    paths:
+      - out/install/**
+      - out/upload/**/bin/*
+      - out/upload/**/integrationtests/**
+
+trigger_renovate:
+  stage: pipeline
+  rules:
+    # if pipeline branch is renovate than never run this job
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+    - if: $SKIP_UPLOAD == 'true'
+      when: never
+    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ "/renovate\/.*/"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/
+      when: never
+    - if: $CI_PROJECT_ID == '392'
+      when: never
+    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'main' || $CI_COMMIT_BRANCH == 'develop'
+    - if: $CI_COMMIT_MESSAGE =~ /\[all\]/
+    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ "/renovate\/.*/"
+      changes:
+        - "**/*.cpp"
+        - "**/*.h"
+        - "**/*.hpp"
+        - "**/*.c"
+        - "**/CMakeLists.txt"
+        - "**/*.cmake"
+        - "**/conanfile.py"
+        - conanfile.py
+        - buildhelpers
+        - "**/*.yml"
+        # for webui repo
+        - "webui/aimms-webui-library/src4/**"
+  needs:
+    - job: upload
+      artifacts: false
+  trigger:
+    project: public_mirror/renovate-runner
+    branch: internal
+
+# Renovate should always be triggered when on a renovate branch.
+# trigger_renovate only runs after the upload job, so we add a new job for only on renovate branches
+# This is to ensure that the automerge feature of renovate works consistently.
+trigger_renovate_for_auto_merge:
+  stage: pipeline
+  needs:
+    - job: build_all
+      artifacts: false
+      optional: true
+    - job: build_linux
+      artifacts: false
+      optional: true
+    - job: build_windows
+      artifacts: false
+      optional: true
+    - job: build_release
+      artifacts: false
+      optional: true
+  rules:
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+  trigger:
+    project: public_mirror/renovate-runner
+    branch: internal

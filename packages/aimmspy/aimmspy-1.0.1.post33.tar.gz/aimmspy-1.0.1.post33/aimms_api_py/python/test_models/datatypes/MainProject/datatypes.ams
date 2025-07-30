@@ -1,0 +1,86 @@
+## ams_version=1.0
+
+Model Main_datatypes {
+	Set USStates {
+		Index: i_states;
+		Definition: {
+			data {
+			'Alabama','Alaska','Arizona','Arkansas','American Samoa','California','Colorado','Connecticut','Delaware','District Of Columbia','Federated States Of Micronesia',
+			'Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan',
+			'Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands',
+			'Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Islands','Virginia',
+			'Washington','West Virginia','Wisconsin','Wyoming'
+			}
+		}
+	}
+	StringParameter StateAbbreviation {
+		IndexDomain: i_states;
+	}
+	Calendar HourlyCalendar {
+		Index: t;
+		Unit: hour;
+		BeginDate: "2025-05-19 11";
+		EndDate: "2025-05-28 11";
+		TimeslotFormat: "%d/%m/%y %H:00";
+	}
+	Parameter Demand {
+		IndexDomain: t;
+	}
+	Parameter Demand2 {
+		IndexDomain: t;
+		Definition: 3 onlyif (Ord(t) = 1);
+	}
+	Procedure MainInitialization {
+		Comment: "Add initialization statements here that do NOT require any library being initialized already.";
+	}
+	Procedure PostMainInitialization {
+		Comment: {
+			"Add initialization statements here that require that the libraries are already initialized properly,
+			or add statements that require the Data Management module to be initialized."
+		}
+	}
+	Procedure MainExecution;
+	Procedure PreMainTermination {
+		Body: {
+			return DataManagementExit();
+		}
+		Comment: {
+			"Add termination statements here that require all libraries to be still alive.
+			Return 1 if you allow the termination sequence to continue.
+			Return 0 if you want to cancel the termination sequence."
+		}
+	}
+	Procedure MainTermination {
+		Body: {
+			return 1;
+		}
+		Comment: {
+			"Add termination statements here that do not require all libraries to be still alive.
+			Return 1 to allow the termination sequence to continue.
+			Return 0 if you want to cancel the termination sequence.
+			It is recommended to only use the procedure PreMainTermination to cancel the termination sequence and let this procedure always return 1."
+		}
+	}
+	Section Quantities_and_Units {
+		Comment: {
+			"This section contains all the units and quantities that are added automatically by AIMMS.
+			It is recommended to declare all your quantities here."
+		}
+		Quantity SI_Time_Duration {
+			BaseUnit: s;
+			Conversions: {
+				minute->s : #-># * 60,
+				hour->s : #-># * 3600
+			}
+			Comment: {
+				"Expresses the value for the duration of periods.
+				
+				The unit s has been added automatically because it is a required unit for AimmsWebUI.
+				
+				The unit minute has been added automatically because it is a required unit for AimmsWebUI.
+				
+				The unit hour has been added automatically because it is a required unit for calendar \"HourlyCalendar\"."
+			}
+		}
+	}
+}

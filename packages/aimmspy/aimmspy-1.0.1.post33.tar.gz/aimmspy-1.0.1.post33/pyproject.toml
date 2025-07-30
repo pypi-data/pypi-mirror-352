@@ -1,0 +1,41 @@
+[build-system]
+requires = ["scikit-build-core", "pybind11", "conan", "pyarrow"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "aimmspy"
+version = "1.0.1-33"
+requires-python = ">=3.9"
+dependencies =[
+    "pyarrow",
+    "pandas",
+    "polars",
+]
+
+description = "Python bindings for the AIMMS optimization platform, built with pybind11 for seamless C++ integration. Enables efficient data exchange and interaction with AIMMS projects using pandas, polars, and pyarrow. Ideal for advanced optimization workflows requiring high-performance native code."
+readme = "README.md"
+license = { text = "MIT" }
+keywords = ["AIMMS", "API", "Python", "Optimization", "Operations Research", "pybind11", "C++", "bindings"]
+authors = [
+    { name = "AIMMS B.V." },
+]
+maintainers = [
+    { name = "AIMMS B.V." },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: C++",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries :: Application Frameworks"
+]
+
+[tool.scikit-build]
+wheel.packages = ["aimms_api_py/python/aimms"]
+
+cmake.version = ""
+cmake.define = {"MINIMUM_CMAKE_VERSION"="3.26","CONAN_PROFILE"="buildhelpers/conan-profiles/windows/x86_64/msvc193","CONAN_BUILD_TYPE"="RelWithDebInfo","CONAN_BUILD_VERSION"="1.0.1-33","CONAN_BUILD"="True"}
+cmake.build-type = "RelWithDebInfo"

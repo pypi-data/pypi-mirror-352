@@ -1,0 +1,25 @@
+include:
+  - project: "aimms/submodules/buildhelpers"
+    ref: "feature/multi-python"
+    file: "cmake/.aimms_build_matrix.yml"
+
+build:
+  stage: pipeline
+  extends: .matrix_dotnet
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - python3 buildhelpers/cmake/conan_build_and_upload.py --dotnet
+  artifacts:
+    paths:
+      - deps/
+      - src/**/bin/Release
+    expire_in: 1 week
+
+trigger_renovate:
+  needs:
+    - job: build
+      artifacts: false
+  stage: pipeline
+  trigger:
+    project: public_mirror/renovate-runner
+    branch: internal

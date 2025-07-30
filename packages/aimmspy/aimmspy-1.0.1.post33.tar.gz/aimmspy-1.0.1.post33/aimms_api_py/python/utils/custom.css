@@ -1,0 +1,55 @@
+/* Prominent Solve button with pulsing green effect */
+.st-key-solve-button button {
+    background-color: #32CD32; /* Lime green */
+    border: none;
+    border-radius: 12px;
+    padding: 25px 70px;
+    font-size: 28px;
+    font-weight: bold;
+    color: white; /* Ensure text color is white */
+    text-transform: uppercase;
+    animation: solve-pulse 1.5s infinite;
+    cursor: pointer;
+}
+
+/* Subtle hover effect for the Solve button */
+.st-key-solve-button button:hover {
+    background-color: #30C230; /* Slightly darker lime green */
+    transform: scale(1.05); /* Slightly enlarge the button */
+    box-shadow: 0 0 12px rgba(50, 205, 50, 0.7); /* Enhanced glowing effect */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition */
+    color: white; /* Ensure text color remains consistent */
+}
+
+/* Focus state for the Solve button */
+.st-key-solve-button button:focus {
+    outline: none;
+    background-color: #30C230; /* Keep the same as hover */
+    box-shadow: 0 0 12px rgba(50, 205, 50, 0.7); /* Enhanced glowing effect */
+    transform: scale(1.05); /* Slightly enlarge the button */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition */
+    color: white; /* Ensure text color remains consistent */
+}
+
+/* Active state for the Solve button */
+.st-key-solve-button button:active {
+    background-color: #30C230; /* Same as hover */
+    color: white; /* Ensure text color remains consistent */
+}
+
+.st-key-solve-button button:hover {
+    color: white !important; /* Force white font color */
+}
+
+/* Pulse animation for the Solve button */
+@keyframes solve-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 20px 10px rgba(50, 205, 50, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(50, 205, 50, 0);
+    }
+}

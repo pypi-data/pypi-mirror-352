@@ -1,0 +1,8 @@
+## ams_version=1.0
+
+Procedure CreateDataChangeMonitor {
+	Body: {
+		DataChangeMonitor001_Set := webui::tempGlobalMonitoredIdentifiers;
+		DataChangeMonitorCreate("DataChangeMonitor001", DataChangeMonitor001_Set, 0);
+	}
+}

@@ -1,0 +1,70 @@
+CompileFlags:
+  Add:
+    # - -Wall
+    # - -xc++
+    - -Wno-c++98-compat
+    - -Wno-c++98-compat-pedantic
+    - -Wno-zero-as-null-pointer-constant
+    - -Wno-deprecated-builtins
+    - -Wno-typecheck_nonviable_condition
+
+Diagnostics:
+  ClangTidy:
+    Add:
+      - modernize*
+      - portability*
+      - readability*
+      - misc*
+      - performance*
+      - boost*
+      - bugprone*
+      - concurrency*
+      - clang*
+      - cppcoreguidelines*
+      - zircon*
+      - google*
+      - openmp*
+      - objc*
+      - mpi*
+      - llvmlibc*
+      - llvm*
+      - hicpp*
+      - linuxkernel*
+      - fuchsia*
+      - darwin*
+      - cert*
+      - android*
+      - altera*
+      - abseil*
+      - clang-diagnostic*
+
+    Remove:
+      - cppcoreguidelines-avoid-magic-numbers
+      - readability-magic-numbers
+      - readability-identifier-length
+      - misc-non-private-member-variables-in-classes
+      - llvmlibc-restrict-system-libc-headers
+      - llvmlibc-implementation-in-namespace
+      - llvmlibc-callee-namespace
+      - altera-unroll-loops
+      - fuchsia-overloaded-operator
+      - fuchsia-trailing-return
+      - fuchsia-default-arguments-calls
+      - fuchsia-default-arguments-declarations
+      - hicpp-avoid-c-arrays
+      - modernize-avoid-c-arrays
+      - altera-struct-pack-align
+      - hicpp-vararg
+      - hicpp-no-array-decay
+      - hicpp-explicit-conversions
+      - modernize-use-trailing-return-type
+      - llvmlibc-inline-function-decl
+      - hicpp-signed-bitwise
+
+InlayHints:
+  Enabled: Yes
+  ParameterNames: No
+  DeducedTypes: No
+
+Hover:
+  ShowAKA: Yes

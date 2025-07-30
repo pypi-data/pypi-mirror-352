@@ -1,0 +1,14 @@
+[settings]
+compiler=gcc
+compiler.version=6.1
+compiler.libcxx=libstdc++11
+
+[buildenv]
+CC=/opt/gcc61/bin/gcc
+CXX=/opt/gcc61/bin/g++
+LD_LIBRARY_PATH=/opt/gcc61/lib64:$LD_LIBRARY_PATH
+
+[runenv]
+CC=/opt/gcc61/bin/gcc
+CXX=/opt/gcc61/bin/g++
+LD_LIBRARY_PATH=/opt/gcc61/lib64:$LD_LIBRARY_PATH

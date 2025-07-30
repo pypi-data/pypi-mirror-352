@@ -1,0 +1,195 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  windows_vs2022: "gitlab.aimms.com:5050/other/dockerdev/aimms-windows-vs2022:latest"
+  linux_alma: "gitlab.aimms.com:5050/other/dockerdev/aimms-alma-gitlab:latest"
+
+stages:
+  - pipeline
+
+# this matrix is used for all packages which are not dotnet packages this includes 
+# all third party packages and all packages which are build from aimms source code
+# changing this matrix will require an pull of the buildhelpers project in the repo
+# which uses this matrix
+.matrix:
+  parallel:
+    matrix:
+      - COMPILER: [ "msvc193" ]
+        BUILD_TYPE: [ Debug, RelWithDebInfo ]
+        TAG: [ windows-docker ]
+        ARCH: [ x86_64 ]
+        OS: [ windows ]
+        IMAGE: ${windows_vs2022}
+      - COMPILER: [ gcc11 ]
+        BUILD_TYPE: [ Debug, RelWithDebInfo ]
+        ARCH: [ x86_64 ]
+        OS: [ linux ]
+        TAG: [ docker ]
+        IMAGE: ${linux_alma}
+
+  image:
+    name : ${IMAGE}
+  tags:
+    - ${TAG}
+  variables:
+    preset : ${COMPILER}@${ARCH}
+    build_type : ${BUILD_TYPE}
+    conan_profiles_path: buildhelpers/conan-profiles/${OS}/${ARCH}/${COMPILER}
+    
+
+# this matrix is used for the dotnet packages like programmingsupport, GIS and aimmsnetcontainer which are ony build on windows. For now the latest compiler is msvc193
+# if the latest compiler is changed, this matrix needs to be updated
+.matrix_dotnet:
+  parallel:
+    matrix:
+      - COMPILER: [ msvc193 ]
+        ARCH: [ x86_64 ]
+        TAG: [ windows-docker ]
+        IMAGE: ${windows_vs2022}
+        OS: [ windows ]
+
+  image:
+    name : ${IMAGE}
+  tags:
+    - ${TAG}
+  variables:
+    preset : ${COMPILER}@${ARCH}
+    conan_profiles_path: buildhelpers/conan-profiles/${OS}/${ARCH}/${COMPILER}
+
+
+# another matrix which is windows only used by repo codejock
+.matrix_windows_only:   
+  parallel:
+    matrix:
+      - COMPILER: [ msvc193 ]
+        BUILD_TYPE: [ Debug, RelWithDebInfo ]
+        ARCH: [ x86_64 ]
+        TAG: [ windows-docker ]
+        IMAGE: ${windows_vs2022}
+        OS: [ windows ]
+
+  image:
+    name : ${IMAGE}
+  tags:
+    - ${TAG}
+  variables:
+    preset : ${COMPILER}@${ARCH}
+    build_type : ${BUILD_TYPE}
+    conan_profiles_path: buildhelpers/conan-profiles/${OS}/${ARCH}/${COMPILER}
+
+# another matrix which is linux only
+.matrix_linux_only:
+  parallel:
+    matrix:
+      - COMPILER: [ gcc11 ]
+        BUILD_TYPE: [ Debug, RelWithDebInfo ]
+        ARCH: [ x86_64 ]
+        TAG: [ docker ]
+        IMAGE: ${linux_alma}
+        OS: [ linux ]
+
+  image:
+    name : ${IMAGE}
+  tags:
+    - ${TAG}
+  variables:
+    preset : ${COMPILER}@${ARCH}
+    conan_profiles_path: buildhelpers/conan-profiles/${OS}/${ARCH}/${COMPILER}
+
+# another matrix which is windows only used by repo codejock
+.matrix_windows_only_release:   
+  parallel:
+    matrix:
+      - COMPILER: [ msvc193 ]
+        BUILD_TYPE: [ RelWithDebInfo ]
+        ARCH: [ x86_64 ]
+        TAG: [ windows-docker ]
+        IMAGE: ${windows_vs2022}
+        OS: [ windows ]
+
+  image:
+    name : ${IMAGE}
+  tags:
+    - ${TAG}
+  variables:
+    preset : ${COMPILER}@${ARCH}
+    build_type : ${BUILD_TYPE}
+    conan_profiles_path: buildhelpers/conan-profiles/${OS}/${ARCH}/${COMPILER}
+
+# another matrix which is linux only
+.matrix_linux_only_release:
+  parallel:
+    matrix:
+      - COMPILER: [ gcc11 ]
+        BUILD_TYPE: [ RelWithDebInfo ]
+        ARCH: [ x86_64 ]
+        TAG: [ docker ]
+        IMAGE: ${linux_alma}
+        OS: [ linux ]
+
+  image:
+    name : ${IMAGE}
+  tags:
+    - ${TAG}
+  variables:
+    preset : ${COMPILER}@${ARCH}
+    build_type : ${BUILD_TYPE}
+    conan_profiles_path: buildhelpers/conan-profiles/${OS}/${ARCH}/${COMPILER}
+
+.matrix_release_only:
+  parallel:
+      matrix:
+        - COMPILER: [ "msvc193" ]
+          BUILD_TYPE: [ RelWithDebInfo ]
+          TAG: [ windows-docker ]
+          ARCH: [ x86_64 ]
+          IMAGE: ${windows_vs2022}
+          OS: [ windows ]
+        - COMPILER: [ gcc11 ]
+          BUILD_TYPE: [ RelWithDebInfo ]
+          ARCH: [ x86_64 ]
+          TAG: [ docker ]
+          IMAGE: ${linux_alma}
+          OS: [ linux ]
+
+  image:
+    name : ${IMAGE}
+  tags:
+    - ${TAG}
+  variables:
+    preset : ${COMPILER}@${ARCH}
+    build_type : ${BUILD_TYPE}
+    conan_profiles_path: buildhelpers/conan-profiles/${OS}/${ARCH}/${COMPILER}
+
+.matrix_python_wheels:
+  parallel:
+      matrix:
+        - COMPILER: [ "msvc193" ]
+          PYTHON_VERSION: [ "3.10", "3.11", "3.12", "3.13" ]
+          BUILD_TYPE: [ RelWithDebInfo ]
+          TAG: [ windows-docker ]
+          ARCH: [ x86_64 ]
+          IMAGE: ${windows_vs2022}
+          OS: [ windows ]
+          SWITCH_PYTHON: [ "./buildhelpers/switch_python.ps1" ]
+        - COMPILER: [ gcc11 ]
+          PYTHON_VERSION: [ "3.10", "3.11", "3.12", "3.13" ]
+          BUILD_TYPE: [ RelWithDebInfo ]
+          ARCH: [ x86_64 ]
+          TAG: [ docker ]
+          IMAGE: ${linux_alma}
+          OS: [ linux ]
+          SWITCH_PYTHON: [ "./buildhelpers/switch_python.sh" ]
+  image:
+    name : ${IMAGE}
+  tags:
+    - ${TAG}
+  variables:
+    preset : ${COMPILER}@${ARCH}
+    build_type : ${BUILD_TYPE}
+    conan_profiles_path: buildhelpers/conan-profiles/${OS}/${ARCH}/${COMPILER}
+    python_version: ${PYTHON_VERSION}
+    switch_python: ${SWITCH_PYTHON}
+    CONAN_BUILD_TYPE : ${BUILD_TYPE}
+    CONAN_BUILD: "True"
+    CONAN_HOST_PROFILE_PATH: buildhelpers/conan-profiles/${OS}/${ARCH}/${COMPILER}/$BUILD_TYPE
+    CONAN_BUILD_PROFILE_PATH: buildhelpers/conan-profiles/${OS}/${ARCH}/${COMPILER}/build

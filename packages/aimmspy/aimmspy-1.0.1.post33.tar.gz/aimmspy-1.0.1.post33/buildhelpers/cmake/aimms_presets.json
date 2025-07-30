@@ -1,0 +1,201 @@
+{
+  "version": 4,
+  "configurePresets": [
+    {
+      "name": "default-configuration",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_CONFIGURATION_TYPES": "Debug;RelWithDebInfo",
+        "CMAKE_INSTALL_INCLUDEDIR": "${sourceDir}/out/install/${presetName}",
+        "MINIMUM_CMAKE_VERSION": "3.26"
+      }
+    },
+    {
+      "name": "default-windows-configuration",
+      "displayName": "${presetName}",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "inherits": "default-configuration"
+    },
+    {
+      "name": "msvc193@x86_64",
+      "generator": "Ninja Multi-Config",
+      "cacheVariables": {
+        "CONAN_PROFILE": "${sourceDir}/buildhelpers/conan-profiles/windows/x86_64/msvc193",
+        "CMAKE_C_COMPILER": "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      },
+      "toolset": {
+        "value": "v143,host=x64,version=14",
+        "strategy": "external"
+      },
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "inherits": "default-windows-configuration"
+    },
+    {
+      "name": "default-linux-configuration",
+      "generator": "Ninja Multi-Config",
+      "displayName": "${presetName}",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "inherits": "default-configuration"
+    },
+    {
+      "name": "gcc11@x86_64",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "CONAN_PROFILE": "${sourceDir}/buildhelpers/conan-profiles/linux/x86_64/gcc11"
+      },
+      "environment": {
+        "LD_LIBRARY_PATH": "$penv{LD_LIBRARY_PATH}"
+      },
+      "inherits": "default-linux-configuration"
+    },
+    {
+      "name": "gcc13@x86_64",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "CONAN_PROFILE": "${sourceDir}/buildhelpers/conan-profiles/linux/x86_64/gcc13"
+      },
+      "environment": {
+        "LD_LIBRARY_PATH": "$penv{LD_LIBRARY_PATH}"
+      },
+      "inherits": "default-linux-configuration"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default_build",
+      "hidden": true,
+      "targets": [
+        "all"
+      ]
+    },
+    {
+      "name": "default_Debug_build",
+      "hidden": true,
+      "inherits": "default_build",
+      "configuration": "Debug"
+    },
+    {
+      "name": "default_RelWithDebInfo_build",
+      "hidden": true,
+      "inherits": "default_build",
+      "configuration": "RelWithDebInfo"
+    },
+    {
+      "name": "msvc193@x86_64_Debug_build",
+      "inherits": "default_Debug_build",
+      "configurePreset": "msvc193@x86_64",
+      "displayName": "Debug"
+    },
+    {
+      "name": "msvc193@x86_64_RelWithDebInfo_build",
+      "inherits": "default_RelWithDebInfo_build",
+      "configurePreset": "msvc193@x86_64",
+      "displayName": "RelWithDebInfo"
+    },
+    {
+      "name": "gcc11@x86_64_Debug_build",
+      "inherits": "default_Debug_build",
+      "configurePreset": "gcc11@x86_64",
+      "displayName": "Debug"
+    },
+    {
+      "name": "gcc11@x86_64_RelWithDebInfo_build",
+      "inherits": "default_RelWithDebInfo_build",
+      "configurePreset": "gcc11@x86_64",
+      "displayName": "RelWithDebInfo"
+    },
+    {
+      "name": "gcc13@x86_64_Debug_build",
+      "inherits": "default_Debug_build",
+      "configurePreset": "gcc13@x86_64",
+      "displayName": "Debug"
+    },
+    {
+      "name": "gcc13@x86_64_RelWithDebInfo_build",
+      "inherits": "default_RelWithDebInfo_build",
+      "configurePreset": "gcc13@x86_64",
+      "displayName": "RelWithDebInfo"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "default_test",
+      "output": {
+        "verbosity": "default",
+        "shortProgress": true,
+        "debug": false,
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "ignore"
+      },
+      "hidden": true
+    },
+    {
+      "name": "default_Debug_test",
+      "hidden": true,
+      "inherits": "default_test",
+      "configuration": "Debug"
+    },
+    {
+      "name": "default_RelWithDebInfo_test",
+      "hidden": true,
+      "inherits": "default_test",
+      "configuration": "RelWithDebInfo"
+    },
+    {
+      "name": "msvc193@x86_64_Debug_test",
+      "configurePreset": "msvc193@x86_64",
+      "inherits": "default_Debug_test",
+      "displayName": "Debug"
+    },
+    {
+      "name": "msvc193@x86_64_RelWithDebInfo_test",
+      "configurePreset": "msvc193@x86_64",
+      "inherits": "default_RelWithDebInfo_test",
+      "displayName": "RelWithDebInfo"
+    },
+    {
+      "name": "gcc11@x86_64_Debug_test",
+      "configurePreset": "gcc11@x86_64",
+      "inherits": "default_Debug_test",
+      "displayName": "Debug"
+    },
+    {
+      "name": "gcc11@x86_64_RelWithDebInfo_test",
+      "configurePreset": "gcc11@x86_64",
+      "inherits": "default_RelWithDebInfo_test",
+      "displayName": "RelWithDebInfo"
+    },
+    {
+      "name": "gcc13@x86_64_Debug_test",
+      "configurePreset": "gcc13@x86_64",
+      "inherits": "default_Debug_test",
+      "displayName": "Debug"
+    },
+    {
+      "name": "gcc13@x86_64_RelWithDebInfo_test",
+      "configurePreset": "gcc13@x86_64",
+      "inherits": "default_RelWithDebInfo_test",
+      "displayName": "RelWithDebInfo"
+    }
+  ]
+}

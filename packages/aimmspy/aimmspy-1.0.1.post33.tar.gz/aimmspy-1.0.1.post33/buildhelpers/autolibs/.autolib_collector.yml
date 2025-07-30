@@ -1,0 +1,97 @@
+include:
+  - project: "aimms/submodules/buildhelpers"
+    ref: "feature/multi-python"
+    file: cmake/.aimms_build_matrix.yml
+  - project: "aimms/submodules/buildhelpers"
+    ref: "feature/multi-python"
+    file: cmake/.aimms_package.yml
+
+# if the upstream pipeline is aimms/aimms then run a job to collect the aimmsversio.env file
+gather_aimms_version:
+  stage: pipeline
+  script:
+    - echo "Gathering *.env"
+  image:
+    name: ${linux_alma}
+  tags:
+    - docker
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline" && $AIMMS_REPO_ID == '392'
+      when: on_success
+    - when: never
+  needs:
+    - project: aimms/aimms
+      job: component_versions
+      ref: $PARENT_BRANCH
+      artifacts: true
+  artifacts:
+    paths:
+      - "*.env"
+
+alib:
+  stage: pipeline
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - python3 buildhelpers/cmake/buildCmake.py --login
+    - python3 buildhelpers/autolibs/autolib_collector.py --pipeline_version_or_latest
+    - python3 buildhelpers/autolibs/release_and_publisher.py createlib
+  image:
+    name: ${linux_alma}
+  tags:
+    - docker
+  artifacts:
+    paths:
+      - out/upload/**/*.alib
+      - out/upload/**/non_autolib_artifacts/*
+      - out/upload/**/bin/*
+      - "*.env"
+    expire_in: 8 days
+  needs:
+    - job: upload
+      optional: true
+    - job: webui_frontend_unit_test
+      optional: true
+    - job: webui_lint
+      optional: true
+    - job: gather_aimms_version 
+      optional: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline" && $AIMMS_REPO_ID == '392'
+      when: on_success
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/ && $CI_PIPELINE_SOURCE != "parent_pipeline"
+      when: never
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+    - when: on_success
+
+.aimms_unit_tests_template:
+  stage: pipeline
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - python3 buildhelpers/gitinfo-cli.py fullbranchname
+    - python3 buildhelpers/cmake/buildCmake.py --login
+    - pip install py7zr
+    - python3 buildhelpers/autolibs/aimms_unit_tests2.py --cmake_preset $preset --cmake_build_type $build_type
+
+  needs:
+    - job: alib
+      artifacts: true
+
+aimms_unit_tests:
+  extends: [.aimms_unit_tests_template, .matrix]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline" && $AIMMS_REPO_ID == '392'
+      when: on_success
+    - if: $CI_COMMIT_MESSAGE =~ /\[doc\]/ && $CI_PIPELINE_SOURCE != "parent_pipeline"
+      when: never
+    - if: $CI_COMMIT_REF_NAME =~ "/renovate\/.*/"
+      when: never
+    - when: on_success
+  
+  artifacts:
+    paths:
+      #get the log folder from the unit tests which can be in different locations
+      - "**/log/**"
+    expire_in: 8 days
+    # only get the artifact if failed
+    when: on_failure

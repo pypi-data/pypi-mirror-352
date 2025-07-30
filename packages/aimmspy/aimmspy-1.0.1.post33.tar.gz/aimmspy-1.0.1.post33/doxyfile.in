@@ -1,0 +1,42 @@
+# Doxyfile template for generating documentation with Doxygen
+
+# Project settings
+PROJECT_NAME           = @PROJECT_NAME@
+PROJECT_NUMBER         = @PROJECT_VERSION@
+
+# Input settings
+INPUT                  = @PROJECT_SOURCE_DIR@/aimms_api_py
+FILE_PATTERNS          = *.cpp *.h *.hpp *.py
+RECURSIVE              = YES
+
+# Output settings
+OUTPUT_DIRECTORY       = @PROJECT_BINARY_DIR@/docs
+GENERATE_HTML          = YES
+HTML_OUTPUT            = @DOXYGEN_HTML_OUTPUT@
+HTML_EXTRA_STYLESHEET  = @AWESOME_CSS_DIR@/doxygen-awesome.css
+GENERATE_TREEVIEW      = YES
+FULL_SIDEBAR           = NO
+
+# Documentation extraction
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = @DOXYGEN_EXTRACT_PRIVATE@
+JAVADOC_AUTOBRIEF      = @DOXYGEN_JAVADOC_AUTOBRIEF@
+
+# Dot tool settings
+HAVE_DOT               = YES
+DOT_IMAGE_FORMAT       = svg
+
+# PlantUML settings
+USE_MDFILE_AS_MAINPAGE = @PLANTUML_MAINPAGE@
+PLANTUML_JAR_PATH      = C:\ProgramData\chocolatey\bin
+PLANTUML_INCLUDE_PATH  = @PLANTUML_INCLUDE_PATH@
+PLANTUML_CFG_FILE      = @PLANTUML_CFG_FILE@
+
+# Miscellaneous
+GENERATE_LATEX         = NO
+QUIET                  = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+INTERACTIVE_SVG        = YES
+UML_LOOK               = YES
+WARN_IF_UNDOCUMENTED   = NO

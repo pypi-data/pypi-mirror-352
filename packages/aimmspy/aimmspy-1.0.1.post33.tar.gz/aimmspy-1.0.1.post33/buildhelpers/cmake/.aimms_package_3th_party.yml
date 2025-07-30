@@ -1,0 +1,11 @@
+include:
+  - project: "aimms/submodules/buildhelpers"
+    ref: "feature/multi-python"
+    file: "cmake/.aimms_build_matrix.yml"
+
+build:
+  stage: pipeline
+  extends: .matrix
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - python3 buildhelpers/cmake/conan_build_and_upload.py
