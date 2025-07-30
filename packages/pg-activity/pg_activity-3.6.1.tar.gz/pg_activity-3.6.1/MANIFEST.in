@@ -1,0 +1,17 @@
+include docs/man/pg_activity.1
+recursive-include pgactivity *.py *.sql *.conf
+recursive-include docs *.png *.pod *.sh *.svg
+recursive-include tests *.py *.json *.txt
+include *.md
+include *.txt
+include .editorconfig
+include .codespellrc
+include .coveragerc
+include .flake8
+include .pre-commit-config.yaml
+include mypy.ini
+include pyproject.toml
+include pytest.ini
+include tox.ini
+
+prune .github

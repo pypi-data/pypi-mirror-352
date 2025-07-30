@@ -1,0 +1,532 @@
+=head1 NAME
+
+pg_activity - Realtime PostgreSQL database server monitoring tool
+
+=head1 SYNOPSIS
+
+B<pg_activity> [option..] [connection string]
+
+=head1 DESCRIPTION
+
+Command line tool for PostgreSQL server activity monitoring.
+
+pg_activity must run on the same server as the instance and
+as the user running the instance (or root) to show
+CPU, MEM, READ or WRITE columns and other system information.
+
+=head2 THE HEADER
+
+The first line of the header displays PostgreSQL's version, the host name, the
+connection string, the refresh rate and the duration mode.
+
+The header is then divided in tree groups: B<instance>, B<worker processes>,
+B<system>.  The information is filtered according to the filter parameters when
+appropriate. This is shown in the following descriptions with the "(filtered)"
+mention. Depending on the version you are on, some information might not be
+available. In that case, it will be replaced by a dash.
+
+The B<instance> group displays information aubout the PostgreSQL instance (or
+cluster). This group can be displayed or hidden with the I Key.
+
+Global :
+
+=over 2
+
+=item - B<uptime>: since when is the instance running;
+
+=item - B<dbs size>: total size of the databases (filtered);
+
+=item - B<growth>: growth in B/s of the databases (filtered);
+
+=item - B<cache hit ratio>: the percentage of page read from the PostgreSQL's cache since last snapshot (filtered).
+
+=back
+
+Sessions :
+
+=over 2
+
+=item - B<total>: session count (filtered) / max_connections;
+
+=item - B<active>: number of active sessions (filtered);
+
+=item - B<idle>: number of idle sessions (filtered);
+
+=item - B<idle in txn>: number of sessions who are in the idle in transaction state (filtered);
+
+=item - B<idle in txn abrt>: number of sessions who are in the idle in transaction aborted state (filtered);
+
+=item - B<waiting>: number of sessions that are waiting for a lock (filtered).
+
+=back
+
+Activity :
+
+=over 2
+
+=item - B<tps>: transaction per second (sum of commit & rollback for all databases / time elapsed since last snapshot) (filtered);
+
+=item - B<insert/s>: number of inserts per second (filtered);
+
+=item - B<updates/s>: number of updates per second (filtered);
+
+=item - B<delete/s>: number of deletes per second (filtered);
+
+=item - B<tuples returned/s>: number of tuples returned per second (filtered);
+
+=item - B<temp files>: number of temporary files created on the instance;
+
+=item - B<temp size>: total temporary file size on the instance.
+
+=back
+
+The B<worker processes> group displays information about backgroup workers,
+autovacuum processes, wal senders and wal receivers. It also gives information
+about replication slots. Except for the autovacuum workers count, most of this
+information is not related to a specific database, therefore their values will
+be zero when the data is filtered.
+
+Worker processes:
+
+=over 2
+
+=item - B<total>: total worker count / maximum number of worker slots, parallel workers and logical replication workers are taken from this amount (filtered);
+
+=item - B<logical workers>: logical replication worker count / maximum number of logical replication workers (filtered);
+
+=item - B<parallel workers>: parallel worker count for maintenance & queries / maximum number of parallel workers (filtered).
+
+=back
+
+Other processes & information:
+
+=over 2
+
+=item - B<autovacuum workers>: number of autovacuum worker in action / maximum number of autovacuum workers (filtered);
+
+=item - B<wal senders>: number of wal senders / maximum number of wal senders processes (filtered);
+
+=item - B<wal receivers>: number of wal receivers / maximum number of wal receiver processes (filtered);
+
+=item - B<repl. slots>: number of replication slots / maximum number of replication slots (filtered).
+
+=back
+
+The last group displays B<system information>:
+
+=over 2
+
+=item - B<Mem.>: total / free / used and buff+cached memory with the related percentages;
+
+=item - B<Swap>: total / free / used swap;
+
+=item - B<IO>: the number of IO per second, current Read and Write throughput (aggregated data gathered with the psutil library);
+
+=item - B<Load>: CPU load for the last 1, 5, 15 minutes;
+
+=back
+
+=head2 THE RUNNING QUERIES PANEL
+
+The running queries panel shows all running queries, transactions or backends
+(depending on the B<DURATION_MODE> setting) which have lasted for more than
+B<min duration> seconds. It displays the following information:
+
+=over 2
+
+=item - B<PID>: process id of the backend which executes the query;
+
+=item - B<XMIN>: xmin horizon of the backend;
+
+=item - B<DATABASE>: database specified in the connection string;
+
+=item - B<APP>: application name specified in the connection string;
+
+=item - B<USER>: user name specified in the connection string;
+
+=item - B<CLIENT>: client address or "local" in case of linux socker connection;
+
+=item - B<CPU%>: percentage of CPU used by the backend as reported by the psutil library;
+
+=item - B<MEM%>: percentage of memory used by the backend as reported by the psutil library;
+
+=item - B<READ/s>:  read thruput as reported by the psutil library;
+
+=item - B<WRITE/s>: write thruput as reported by the psutil library;
+
+=item - B<TIME>: time since the beginning of the query / transaction / backend start depending on the B<DURATION_MODE> currently in use;
+
+=item - B<Waiting>: for PostgreSQL 9.6+: a specific wait event or nothing. Otherwise, a boolean indicating if we are waiting for a Lock;
+
+=item - B<IOW>: boolean indicating that the process is waiting for IO as reported by the psutil library;
+
+=item - B<state>: state of the backend;
+
+=item - B<Query>: the query.
+
+=back
+
+=head2 THE WAITING QUERIES PANEL
+
+The waiting queries view displays queries that are waiting for a lock. It
+shows the following information:
+
+=over 2
+
+=item - B<PID>: process id of the backend which executes the query;
+
+=item - B<DATABASE>: database specified in the connection string;
+
+=item - B<APP>: application name specified in the connection string;
+
+=item - B<USER>: user name specified in the connection string;
+
+=item - B<CLIENT>: client address or "local" in case of linux socker connection;
+
+=item - B<RELATION>: the name of the relation being locked if applicable;
+
+=item - B<TYPE>: the type of lock;
+
+=item - B<MODE>: the mode of the lock;
+
+=item - B<TIME+>: the duration of the query, transaction or session depending on the B<DURATION_MODE> setting;
+
+=item - B<state>: the state of the transaction;
+
+=item - B<Query>: the query.
+
+=back
+
+=head2 THE BLOCKING QUERIES PANEL
+
+The blocking queries view displays the queries that lock an object which is
+required by another session. It shows following information:
+
+=over 2
+
+=item - B<PID>: process id of the backend which executes the query;
+
+=item - B<DATABASE>: database specified in the connection string;
+
+=item - B<APP>: application name specified in the connection string;
+
+=item - B<USER>: user name specified in the connection string;
+
+=item - B<CLIENT>: client address or "local" in case of linux socker connection;
+
+=item - B<RELATION>: the name of the relation being locked if applicable;
+
+=item - B<TYPE>: the type of lock;
+
+=item - B<MODE>: the mode of the lock;
+
+=item - B<TIME+>: the duration of the query, transaction or session depending on the B<DURATION_MODE> setting;
+
+=item - B<Waiting>: for PostgreSQL 9.6+: a specific wait event or nothing. Otherwise, a boolean indicating if we are waiting for a Lock;
+
+=item - B<state>: the state of the transaction;
+
+=item - B<Query>: the query.
+
+=back
+
+=head1 COMMAND-LINE OPTIONS
+
+=head2 CONFIGURATION
+
+=over 2
+
+=item B<-P PROFILE>, B<--profile=PROFILE>
+
+	Configuration profile matching a PROFILE.conf file in ${XDG_CONFIG_HOME:~/.config}/pg_activity/ or /etc/pg_activity/, or a built-in profile.
+
+=back
+
+=head2 OPTIONS
+
+=over 2
+
+=item B<--blocksize=BLOCKSIZE>
+
+	Filesystem blocksize (default: 4096).
+
+=item B<--rds>
+
+	Enable support for AWS RDS (implies --no-tempfiles and filters out the rdsadmin database from space calculation).
+
+=item B<--output=FILEPATH>
+
+	Store running queries as CSV.
+
+=item B<--db-size>, B<--no-db-size>
+
+	Enable/disable total size of DB.
+
+=item B<--tempfiles>, B<--no-tempfiles>
+
+	Enable/disable tempfile count and size.
+
+=item B<--walreceiver>, B<--no-walreceiver>
+
+	Enable/disable walreceiver checks.
+
+=item B<-w, --wrap-query>
+
+	Wrap query column instead of truncating.
+
+=item B<--min-duration=SECONDS>
+
+	Don't display queries with smaller than specified duration (in seconds).
+
+=item B<--filter=FIELD:REGEX>
+
+	Filter activities with a (case insensitive) regular expression applied on selected fields. Known fields are: dbname.
+
+	Note: It's possible to filter out a database with negative lookahead, eg: '^(?!database_name)'
+
+=item B<--help>
+
+	Show this help message and exit.
+
+=item B<--version>
+
+	Show program's version number and exit.
+
+=back
+
+=head2 CONNECTION OPTIONS
+
+=over 2
+
+=item B<-U USERNAME>, B<--username=USERNAME>
+
+	Database user name.
+
+=item B<-p PORT>, B<--port=PORT>
+
+	Database server port.
+
+=item B<-h HOSTNAME>, B<--host=HOSTNAME>
+
+	Database server host or socket directory.
+
+=item B<-d DBNAME>, B<--dbname=DBNAME>
+
+    Database name to connect to.
+
+=back
+
+=head2 PROCESS DISPLAY OPTIONS
+
+=over 2
+
+=item B<--pid>, B<--no-pid>
+
+	Enable/disable PID.
+
+=item B<--xmin>, B<--no-xmin>
+
+	Enable/disable XMIN.
+
+=item B<--database>, B<--no-database>
+
+	Enable/disable DATABASE.
+
+=item B<--user>, B<--no-user>
+
+	Enable/disable USER.
+
+=item B<--client>, B<--no-client>
+
+	Enable/disable CLIENT.
+
+=item B<--cpu>, B<--no-cpu>
+
+	Enable/disable CPU%.
+
+=item B<--mem>, B<--no-mem>
+
+	Enable/disable MEM%.
+
+=item B<--read>, B<--no-read>
+
+	Enable/disable READ/s.
+
+=item B<--write>, B<--no-write>
+
+	Enable/disable WRITE/s.
+
+=item B<--time>, B<--no-time>
+
+	Enable/disable TIME+.
+
+=item B<--wait>, B<--no-wait>
+
+	Enable/disable W.
+
+=item B<--app-name>, B<--no-app-name>
+
+	Enable/disable APP.
+
+=back
+
+=head2 HEADER DISPLAY OPTIONS
+
+=over 2
+
+=item B<--no-inst-info>
+
+	Hide instance information.
+
+=item B<--no-sys-info>
+
+	Hide system information.
+
+=item B<--no-proc-info>
+
+	Hide workers process information.
+
+=back
+
+=head2 OTHER DISPLAY OPTIONS
+
+=over 2
+
+=item B<--refresh>
+
+	Change the refresh rate, allowed values are: 0.5, 1, 2, 3, 4, 5 (in seconds) (default: 2).
+
+=back
+
+=head1 ENVIRONMENT VARIABLES
+
+=over 2
+
+All the environment variables supported by libpq (PostgreSQL's query
+protocol) are supported by pg_activity.
+
+See: https://www.postgresql.org/docs/current/libpq-envars.html
+
+=back
+
+=head1 INTERACTIVE COMMANDS
+
+=over 2
+
+=item B<r>     Sort by READ/s, descending.
+
+=item B<w>     Sort by WRITE/s, descending.
+
+=item B<c>     Sort by CPU%, descending.
+
+=item B<m>     Sort by MEM%, descending.
+
+=item B<t>     Sort by TIME+, descending.
+
+=item B<y>     Copy focused query to clipboard.
+
+=item B<T>     Change duration mode: query, transaction, backend.
+
+=item B<Space> Pause on/off.
+
+=item B<v>     Change queries display mode: full, truncated, indented.
+
+=item B<UP / DOWN> Scroll process list.
+
+=item B<k / j> Scroll process list.
+
+=item B<q>     Quit.
+
+=item B<+>     Increase refresh time. Maximum value: 3s.
+
+=item B<->     Decrease refresh time. Minimum Value: 1s.
+
+=item B<F1/1>  Running queries monitoring.
+
+=item B<F2/2>  Waiting queries monitoring.
+
+=item B<F3/3>  Blocking queries monitoring.
+
+=item B<h>     Help page.
+
+=item B<R>     Refresh.
+
+=item B<D>     Refresh database size.
+
+=back
+
+=head1 NAVIGATION MODE
+
+=over 2
+
+=item B<UP / k>    Move up the cursor.
+
+=item B<DOWN / j>  Move down the cursor.
+
+=item B<PAGE UP>    Move the cursor to the first line.
+
+=item B<PAGE DOWN>  Move the cursor to the last line.
+
+=item B<K>     Terminate the current backend/tagged backends.
+
+=item B<C>     Cancel the current backend/tagged backends.
+
+=item B<Space> Tag or untag the process.
+
+=item B<q>     Quit.
+
+=item B<Other> Back to activity.
+
+=back
+
+=head1 MISSING DATA IN THE UI?
+
+pg_activity is best used with a user owning the SUPERUSER privilege. Ordinary
+users can only see all the information about their own sessions (sessions
+belonging to a role that they are a member of). In rows about other sessions,
+many columns will be null or not picked by pg_activity. It will impact both the
+information gathered in the B<HEADER> section and the B<ACTIVITY PANEL>
+
+If a user doesn't have the CONNECT privilege on a database the
+pg_database_size() function will fail and pg_activity will crash. The
+B<--no-db-size> option can be used in this case. This situation is frequent for
+cloud database where the service provider has created a service database with a
+restricted access.
+
+Some settings are visible only to superusers or members of pg_read_all_settings
+such as the data_directory guc. If the user cannot read this parameter or
+access the pid file in the PGDATA directory, the B<system information HEADER>
+group will not be displayed. The B<%CPU>, B<%MEM>, B<Read/s> and B<Write/s>
+columns will also be missing from the B<ACTIVITY PANEL>.
+
+On some OS like MacOS, psutil's io_counters() is not implemented. The effects
+are the same as those described when data_directory is not readable.
+
+pg_activity needs to access the pgsql_tmp directory stored in all tablespaces
+in order to compute the number and size of the temporary files. This requires
+the usage of the pg_ls_tmpdir() function (or pg_ls_dir() and pg_stats_file()
+for versions older than PostgreSQL 12). The user needs to own the SUPERUSER
+privilege, be a member of pg_read_server_files or have EXECUTE rights on the
+function to fetch the information. When the number of tempfiles grows a lot,
+the query might also timeout. The first failure to access this data will
+disable tempfile statistics. The feature can be disabled with
+B<--no-tempfiles>.
+
+Aurora doesn't provide the pg_stat_get_wal_receiver() function.  Therefore
+there is no wal receiver data in the B<process & information HEADER> group. The
+first failure to access this data might be logged by the PostgreSQL, the
+following checks will be skipped.  Wal receiver checks can be completely
+disabled with B<--no-walreceiver>.
+
+Finally, some information is not available in older version of PostgreSQL,
+the fields will therefore be empty.
+
+=head1 EXAMPLES
+
+PGPASSWORD='mypassword' pg_activity -U pgadmin -h 127.0.0.1 --no-client
+
+pg_activity -h /var/run/postgresql
+
+pg_activity -h myserver -p 5433 -d nagios -U nagios
+
+=cut
