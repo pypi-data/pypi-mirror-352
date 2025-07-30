@@ -1,0 +1,2 @@
+class ModelAlreadyLoaded(Exception):
+    pass
