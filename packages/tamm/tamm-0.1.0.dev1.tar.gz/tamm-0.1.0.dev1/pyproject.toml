@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tamm"
+license = "MIT"
+requires-python = ">=3.9"
+dynamic = ["readme", "version"]
+
+[tool.setuptools.dynamic]
+version = { attr = "tamm._version.__version__" }
+readme = { file = ["README.md"] }
