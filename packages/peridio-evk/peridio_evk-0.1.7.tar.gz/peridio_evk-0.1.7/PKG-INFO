@@ -1,0 +1,39 @@
+Metadata-Version: 2.4
+Name: peridio_evk
+Version: 0.1.7
+Summary: The Peridio Evaluation Kit
+Home-page: https://github.com/peridio/peridio-evk
+Author: Peridio Developers
+Author-email: support@peridio.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: click
+Requires-Dist: cryptography
+Requires-Dist: uboot
+Requires-Dist: docker
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: summary
+
+# Peridio EVK CLI
+
+This is a command-line tool for initializing the Peridio EVK for use with [Peridio Cloud](https://www.peridio.com)
+
+## Installation
+
+```bash
+pip install -e .
+```
+
+## Usage
+
+For information on configuration and usage, see the [Peridio EVK Docs](https://docs.peridio.com/evk)
