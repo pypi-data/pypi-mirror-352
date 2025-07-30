@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fastapi-template-generator"
+version = "0.0.1"
+authors = [
+    {name = "Danil Boldyrev (daswer123)", email = "daswerq123@gmail.com"},
+]
+description = "FastAPI project structure generator with best practices"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Code Generators",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "colorama>=0.4.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/daswer123/fastapi-template-generator"
+Repository = "https://github.com/daswer123/fastapi-template-generator"
+
+[project.scripts]
+fastapi-gen = "fastapi_template_generator.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["fastapi_template_generator*"]
+
+[tool.setuptools.package-data]
+fastapi_template_generator = ["rules/*.md"]
