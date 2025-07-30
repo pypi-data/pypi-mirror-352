@@ -1,0 +1,156 @@
+file:
+  db: null
+  backup: true
+  indent: 2
+pager:
+  enable: false
+  command: null
+  styles: true
+view:
+  default: null
+  group_by: project
+  sort_by: created_at
+  stats:
+    enable: default   # always / never / default / all
+    count: filtered   # filtered / all
+  history:
+    max_length: 20
+    num_components: 2
+    timedelta: null
+action:
+  editor: null
+token:
+  id: '..'
+  status: ','
+  separator: '.'
+  project: '/'
+  tag: '@'
+  priority: '!'
+  deadline: '^'
+  sort: '='
+  query: '?'
+  description: ':'
+  stdin: '-'
+message:
+  empty: ':dizzy: [italic yellow]Nothing to show.[/]'
+  add: '🪄 [italic green]Added {} {}.[/]'
+  no_edit: ':thinking_face: [italic yellow]Nothing to update.[/]'
+  edit: ':crystal_ball: [italic cyan]Updated {} {}.[/]'
+  undo: ':hourglass_flowing_sand: [italic blue]Commit `{}` undone with change:[/]'
+  redo: ':hourglass_flowing_sand: [italic blue]Commit `{}` redone with change:[/]'
+  redo_add: '{.message.add}'
+  undo_add: ':boom: [italic red]Removed {} {}.[/]'
+  undo_edit: ':hourglass_flowing_sand: [italic cyan]Updated {} {}.[/]'
+group:
+  format:
+    id: '{id}{status}{title}{project}{tags}{priority}{deadline}{description}'
+    status: '{id}{title}{project}{tags}{priority}{deadline}{description}'
+    project: '{id}{status}{title}{tags}{priority}{deadline}{description}'
+    tag: '{id}{status}{title}{project}{priority}{deadline}{description}'
+    priority: '{id}{status}{title}{project}{tags}{deadline}{description}'
+    deadline: '{id}{status}{title}{project}{tags}{priority}{description}'
+    created_at: '{.group.format.id}'
+  header:
+    format: '[bold]{group}[/] [dim]{progress}[/]'
+    priority:
+      high: '[magenta]{.item.priority.format.priority:high} high[/]'
+      normal: '. normal'
+      low: '[dim]{.item.priority.format.priority:low} low[/]'
+    status:
+      pending: '[yellow]{.item.status.format.status:pending} pending[/]'
+      done: '[green]{.item.status.format.status:done} done[/]'
+      note: '[blue]{.item.status.format.status:note} note[/]'
+      archive: '[dim]{.item.status.format.status:archive} archived[/]'
+    deadline:
+      num_components: 1
+      timedelta: 'yMwd'
+item:
+  format: '{.group.format.id}'
+  id:
+    format:
+      _: '[dim]{:>4}.[/]'
+  status:
+    format:
+      status:pending: '[bold yellow]☐[/]'
+      status:done: '[bold green]✔[/]'
+      status:note: '[bold blue]•[/]'
+      status:delete: '[bold red]✘[/]'
+      status:archive: '[bold dim]-[/]'
+    alias:
+      ^a$: archive
+      ^p$: pending
+      ^n$: note
+      ^d$: done
+      ^c$: done
+      ^x$: delete
+  title:
+    alias: {}
+    format:
+      tags:star: '[bold underline yellow]{}[/]'
+      tags:like: '[bold underline magenta]{}[/]'
+      priority:high: '[bold magenta]{}[/]'
+      priority:low: '[dim]{}[/]'
+      status:done: '[strike dim]{}[/]'
+      status:archive: '[strike dim]{}[/]'
+    max_length: 0
+    ellipsis: …
+  tag:
+    alias:
+      ^fav(orite)?$: like
+      ^heart$: like
+    format:
+      _: '[blue]{.token.tag}[underline]{}[/][/]'
+      _untagged: '[italic dim]Untagged[/]'
+      star: '[bold yellow]★[/]'
+      like: '[bold magenta]❤[/]'
+      status:done: '[strike dim blue]{}[/]'
+  project:
+    default: 'inbox'
+    format: '[bold]{.token.project}{}[/]'
+  priority:
+    alias:
+      ^h$: high
+      ^n$: normal
+      ^l$: low
+    format:
+      priority:high: '[bold magenta]{.token.priority}[/]'
+      priority:low: '[dim]⌄[/]'
+      priority:normal: ''
+  deadline:
+    format:
+      status:done: '[dim]{}[/]'
+      2592000: '[green]{}[/]'
+      604800: '[cyan]{}[/]'
+      86400: '[magenta]{}[/]'
+      3600: '[yellow]{}[/]'
+      0: '[red]{}[/]'
+      _: '[blue]{}[/]'
+    timedelta: null
+    num_components: 2
+    datetime: '%y-%b-%-d'
+  created_at:
+    format: '[dim]{:%y-%b-%-d %H:%M}[/]'
+  description:
+    format: '[italic dim]{}[/]'
+    max_length: 30
+    ellipsis: …
+  diff:
+    format: '[bold red]{{[/][strike dim]{}[/] [bold]→[/] {}[bold red]}}[/]'
+stats:
+  title:
+    all: '{} of all tasks complete.'
+    filtered: '{} of filtered tasks complete.'
+  progress:
+    10: '[bold red]{}[/]'
+    25: '[bold yellow]{}[/]'
+    50: '[bold magenta]{}[/]'
+    75: '[bold blue]{}[/]'
+    90: '[bold cyan]{}[/]'
+    _: '[bold green]{}[/]'
+  separator: ' · '
+  status:
+    pending: '[yellow]{.item.status.format.status:pending} {}[/] pending'
+    done: '[green]{.item.status.format.status:done} {}[/] done'
+    note: '[blue]{.item.status.format.status:note} {}[/] notes'
+    archive: '[dim]{.item.status.format.status:archive} {}[/] archived'
+    hidden: '[dim]◌ {}[/] hidden'

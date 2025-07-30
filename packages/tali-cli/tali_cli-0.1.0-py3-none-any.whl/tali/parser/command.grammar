@@ -1,0 +1,38 @@
+# search & action
+selection_chain = selection (ws selection)*
+selection = task_range / shared / sort / group / query / word
+action_chain = action (ws action)*
+action = description / shared / word
+
+# components
+shared = project / tag / priority / status / deadline
+query = query_token (group / query_token)
+sort = sort_token group
+group =
+    id_token / project_token / tag_token / priority_token /
+    status_token / deadline_token / description_token
+task_range = task_id (id_token task_id)?
+project = project_token project_name
+tag = tag_token pm? tag_name
+deadline = deadline_token word
+status = status_token word?
+priority = priority_token word?
+description = description_token (ws word (ws word)*)?
+
+# literals
+word = ~r"\"[^\"]+\"" / ~r"\'[^\']+\'" / ~r"[^\s]+"
+separator_token = "{separator}"
+id_token = "{id}"
+project_token = "{project}"
+tag_token = "{tag}"
+deadline_token = "{deadline}"
+priority_token = "{priority}"
+status_token = "{status}"
+sort_token = "{sort}"
+description_token = "{description}"
+query_token = "{query}"
+task_id = ~r"\d+"
+project_name = ~r"[a-zA-Z0-9_\-/]+"
+tag_name = ~r"[a-zA-Z0-9_\-]+"
+pm = ~r"[+\-]"
+ws = ~r"\s+"
