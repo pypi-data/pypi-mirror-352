@@ -1,0 +1,339 @@
+#!/usr/bin/env bash
+
+# Record start time
+start_time=$(date +%s)
+
+# Initialize variables
+INPUT_DIR=""
+RAW_SEQ_DIR=""
+OUTPUT_DIR=""
+DATABASE=""
+SAMPLETYPE=""
+REASSEMBLE=false
+VERSION="0.5.2.2"
+CONCENTRATION_TYPE=""
+THREADS="0"
+LOG_FILE=""
+
+# Capture SIGINT (Ctrl+C) and SIGTERM signals only in the parent process
+trap 'cleanup' SIGINT SIGTERM
+
+cleanup_flag=false
+
+cleanup() {
+  if [ "$cleanup_flag" = true ]; then
+    return
+  fi
+  cleanup_flag=true
+  [ -t 1 ] && tput cnorm
+  if [ "$$" -eq "$(ps -o pgid= $$)" ]; then
+    log_with_timestamp "Caught termination signal. Cleaning up..."
+    kill -- -$$
+  fi
+  exit 1
+}
+
+# Function to add a timestamp to log entries
+log_with_timestamp() {
+  echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> "$LOG_FILE"
+}
+
+# Use getopts to handle short options and manually handle long options
+while [[ $# -gt 0 ]]; do
+  case $1 in
+  -i)
+    INPUT_DIR=$2
+    shift 2
+    ;;
+  -r)
+    RAW_SEQ_DIR=$2
+    shift 2
+    ;;
+  -o)
+    OUTPUT_DIR=$2
+    LOG_FILE="${OUTPUT_DIR}/pipeline.log"
+    shift 2
+    ;;
+  -d)
+    DATABASE=$2
+    shift 2
+    ;;
+  -n)
+    THREADS=$2
+    shift 2
+    ;;
+  -v)
+    echo "Version: $VERSION"
+    exit 0
+    ;;
+  --non-con)
+    CONCENTRATION_TYPE="non-concentration"
+    shift
+    ;;
+  --con)
+    CONCENTRATION_TYPE="concentration"
+    shift
+    ;;
+  --reassemble)
+    REASSEMBLE=true
+    shift
+    ;;
+  -h)
+    echo "Usage: $0 [options]"
+    echo ""
+    echo "Options:"
+    echo "  -i <input_path_to_search>   Specify the input directory to search for FASTA files."
+    echo "  -r <input_path_raw_seqs>    Specify the input directory to search for raw seqs files."
+    echo "  -o <output_path>            Specify the output directory for the results."
+    echo "  -d <database_path>          Specify the path to the database required for analysis."
+    echo "  -n <threads>                Specify the number of threads to use (default: Use max available cores)."
+    echo "  --non-con                   Specify non-concentration processing."
+    echo "  --con                       Specify concentration processing."
+    echo "  --reassemble                Enable reassembly of bins."
+    echo "  -v                          Display the version of this script."
+    echo "  -h                          Display this help and exit."
+    exit 0
+    ;;
+  *)
+    echo "Unknown option: $1" >&2
+    exit 1
+    ;;
+  esac
+done
+
+REASSEMBLE=false
+# Ensure output directory and log file are created
+if [ -z "$OUTPUT_DIR" ];then
+  echo "Error: Output directory not specified"
+  exit 1
+fi
+
+mkdir -p "$OUTPUT_DIR"
+touch "$LOG_FILE"
+
+# Log the command to the log file
+echo "Run ViOTUcluster as command: $0 $@"
+
+# Redirect all output to the log file and terminal, with timestamps
+exec > >(tee -a "$LOG_FILE" | while IFS= read -r line; do echo "$(date '+%Y-%m-%d %H:%M:%S') - $line"; done) 2>&1
+
+# Check if necessary inputs are provided
+if [ -z "$INPUT_DIR" ] || [ -z "$RAW_SEQ_DIR" ] || [ -z "$OUTPUT_DIR" ] || [ -z "$DATABASE" ] ||  [ -z "$CONCENTRATION_TYPE" ]; then
+  echo "Usage: $0 -i <input_path_to_search> -r <input_path_raw_seqs> -o <output_path> -d <database_path> -n <threads> --non-con/--con [--reassemble]"
+  exit 1
+fi
+
+run_module() {
+  local module_name="$1"
+  local log_file="$2"
+  local command="$3"
+
+  mkdir -p "$(dirname "$log_file")"
+
+  msg="Starting $module_name..."
+  border="###############################################"
+  echo "$border"
+  echo "# $msg"
+  echo "$border"
+  log_with_timestamp "Starting $module_name..."
+
+  local spin='-\|/'
+  local i=0
+  [ -t 1 ] && tput civis
+
+  (
+    while true; do
+      i=$(( (i+1) % 4 ))
+      [ -t 1 ] && printf "\rRunning %s... %s" "$module_name" "${spin:$i:1}"
+      sleep 0.1
+    done
+  ) &
+
+  local spinner_pid=$!
+
+  local module_start_time
+  module_start_time=$(date +%s)
+
+  eval "stdbuf -oL $command" 2>&1 | tee -a "$log_file"
+  local result=${PIPESTATUS[0]}
+
+  kill "$spinner_pid" 2>/dev/null
+  wait "$spinner_pid" 2>/dev/null
+  [ -t 1 ] && tput cnorm
+  [ -t 1 ] && printf "\r\033[K"
+
+  if [ "$result" -ne 0 ]; then
+    echo "$module_name failed. Check log: $log_file"
+    log_with_timestamp "Error: $module_name failed. Check log: $log_file"
+    cleanup
+  fi
+
+  local module_end_time
+  module_end_time=$(date +%s)
+  local module_runtime=$((module_end_time - module_start_time))
+
+  echo "$module_name completed in ${module_runtime} seconds."
+  log_with_timestamp "$module_name completed in ${module_runtime} seconds."
+}
+
+# Set the Group variable based on SAMPLETYPE
+SAMPLETYPE="Mix"
+case "$SAMPLETYPE" in
+  DNA)
+  Group="dsDNAphage, NCLDV, ssDNA, lavidaviridae"
+  ;;
+  RNA)
+  Group="RNA, lavidaviridae"
+  ;;
+  Mix)
+  Group="dsDNAphage, NCLDV, RNA, ssDNA, lavidaviridae"
+  ;;
+  *)
+  log_with_timestamp "Unknown sample type: $SAMPLETYPE"
+  exit 1
+  ;;
+esac
+
+# Find all .fa and .fasta files in the specified directory
+RawFILES=$(find "${INPUT_DIR}" -maxdepth 1 -type f \( -name "*.fa" -o -name "*.fasta" \))
+
+# Determine the number of threads per file based on the THREADS input
+if [ "$THREADS" -eq 0 ]; then
+  THREADS_PER_FILE=$(nproc)
+else
+  THREADS_PER_FILE="$THREADS"
+fi
+
+# Check if paired files exist and have the correct format
+for FILE in "${RAW_SEQ_DIR}"/*_R1.*; do
+  BASENAME=$(basename "$FILE" | sed 's/_R1\..*//')
+  PREFIX="${RAW_SEQ_DIR}/${BASENAME}"
+
+  if [ -f "${PREFIX}_R1.fq" ] && [ -f "${PREFIX}_R2.fq" ]; then
+    log_with_timestamp "Found paired files: ${PREFIX}_R1.fq and ${PREFIX}_R2.fq"
+  elif [ -f "${PREFIX}_R1.fastq" ] && [ -f "${PREFIX}_R2.fastq" ]; then
+    log_with_timestamp "Found paired files: ${PREFIX}_R1.fastq and ${PREFIX}_R2.fastq"
+  elif [ -f "${PREFIX}_R1.fq.gz" ] && [ -f "${PREFIX}_R2.fq.gz" ]; then
+    log_with_timestamp "Found paired files: ${PREFIX}_R1.fq.gz and ${PREFIX}_R2.fq.gz"
+  elif [ -f "${PREFIX}_R1.fastq.gz" ] && [ -f "${PREFIX}_R2.fastq.gz" ]; then
+    log_with_timestamp "Found paired files: ${PREFIX}_R1.fastq.gz and ${PREFIX}_R2.fastq.gz"
+  elif [ -f "${PREFIX}_1.fq" ] && [ -f "${PREFIX}_2.fq" ]; then
+    log_with_timestamp "Found paired files: ${PREFIX}_1.fq and ${PREFIX}_2.fq"
+  elif [ -f "${PREFIX}_1.fastq" ] && [ -f "${PREFIX}_2.fastq" ]; then
+    log_with_timestamp "Found paired files: ${PREFIX}_1.fastq and ${PREFIX}_2.fastq"
+  elif [ -f "${PREFIX}_1.fq.gz" ] && [ -f "${PREFIX}_2.fq.gz" ]; then
+    log_with_timestamp "Found paired files: ${PREFIX}_1.fq.gz and ${PREFIX}_2.fq.gz"
+  elif [ -f "${PREFIX}_1.fastq.gz" ] && [ -f "${PREFIX}_2.fastq.gz" ]; then
+    log_with_timestamp "Found paired files: ${PREFIX}_1.fastq.gz and ${PREFIX}_2.fastq.gz"
+  else
+    log_with_timestamp "Error: Paired-end files for ${BASENAME} not found in the expected formats (.fq, .fastq, .fq.gz, .fastq.gz)"
+    exit 1
+  fi
+done
+
+# Perform different processing based on CONCENTRATION_TYPE
+if [ "$CONCENTRATION_TYPE" == "non-concentration" ]; then
+  log_with_timestamp "[🔄] Running non-concentration specific steps..."
+elif [ "$CONCENTRATION_TYPE" == "concentration" ]; then
+  log_with_timestamp "[🔄] Running concentration specific steps..."
+else
+  log_with_timestamp "[❌] Error: Invalid concentration type."
+fi
+
+# Output the selected processing type
+echo "[🔄] Processing with $CONCENTRATION_TYPE mode and $THREADS threads."
+
+# Get the bin folder location of the current Conda environment
+if [ -z "$CONDA_PREFIX" ]; then
+  echo "Conda environment is not activated."
+  cleanup
+fi
+ScriptDir="${CONDA_PREFIX}/bin"
+
+# Export parameters as environment variables
+export INPUT_DIR OUTPUT_DIR DATABASE SAMPLETYPE REASSEMBLE ScriptDir RAW_SEQ_DIR THREADS
+
+# Filter sequences shorter than 2000bp
+mkdir -p "${OUTPUT_DIR}/FilteredSeqs"
+python "${ScriptDir}/filter_contigs.py" "500" "${INPUT_DIR}" "${OUTPUT_DIR}/FilteredSeqs"
+FILES=$(find "${OUTPUT_DIR}/FilteredSeqs" -type f \( -name "*.fa" -o -name "*.fasta" \))
+
+# Export necessary variables and functions
+export OUTPUT_DIR DATABASE Group FILES RawFILES CONCENTRATION_TYPE ScriptDir RAW_SEQ_DIR THREADS_PER_FILE THREADS
+
+# Execute each module in sequence, logging time and output
+mkdir -p "${OUTPUT_DIR}/Log"
+
+# Execute modules
+run_module "Viral prediction" "${OUTPUT_DIR}/Log/Viral_prediction.log" "viral_prediction_module.sh"
+run_module "Cross Validation" "${OUTPUT_DIR}/Log/Cross_validation.log" "cross_validation_module.sh --${CONCENTRATION_TYPE}"
+run_module "Binning and merge" "${OUTPUT_DIR}/Log/Binning_merge.log" "binning_merge_module.sh"
+run_module "dRep" "${OUTPUT_DIR}/Log/Drep.log" "drep_module.sh"
+run_module "Summary" "${OUTPUT_DIR}/Log/Summary.log" "summary_module.sh"
+
+echo "[✅][✅][✅]All basic analysis completed successfully. vOTU file and summary files are available in ${OUTPUT_DIR}/Summary."
+
+sleep 1
+
+trap '[ -t 1 ] && tput cnorm' EXIT
+
+# Function to handle interactive prompt
+interactive_prompt() {
+  # Check if /dev/tty exists
+  if [ -c /dev/tty ]; then
+    exec > /dev/tty 2>&1
+  else
+    echo "No terminal available. Logging to file."
+    exec > >(tee -a "$LOG_FILE" | while IFS= read -r line; do echo "$(date '+%Y-%m-%d %H:%M:%S') - $line"; done) 2>&1
+  fi
+
+  # Use a fallback method to read input if /dev/tty is not available
+  while true; do
+    if [ -c /dev/tty ]; then
+      read -p "[❗] Proceed with advanced analysis? (y/n) : " choice
+    else
+      # If /dev/tty is not available, read from stdin (which could be redirected)
+      echo "[❗] Proceed with advanced analysis? (y/n) : "
+      read choice
+    fi
+
+    case "$choice" in
+      [Yy]* )
+        echo "Starting advanced analysis..."
+        exec > >(tee -a "$LOG_FILE" | while IFS= read -r line; do echo "$(date '+%Y-%m-%d %H:%M:%S') - $line"; done) 2>&1
+        run_module "DRAM" "${OUTPUT_DIR}/Log/DRAM.log" "run_dram_analysis.sh ${OUTPUT_DIR}/Summary/vOTU/vOTU.fasta ${OUTPUT_DIR}/Summary/DRAMRes"
+        run_module "iPhop" "${OUTPUT_DIR}/Log/iPhop.log" "run_iphop_analysis.sh ${OUTPUT_DIR}/Summary/vOTU/vOTU.fasta ${OUTPUT_DIR}/Summary/iPhopRes"
+        break
+        ;;
+      [Nn]* )
+        echo "Skipping advanced analysis."
+        break
+        ;;
+      * )
+        echo "Please answer y/n."
+        ;;
+    esac
+  done
+
+  # Ensure logging continues after the prompt
+  exec > >(tee -a "$LOG_FILE" | while IFS= read -r line; do echo "$(date '+%Y-%m-%d %H:%M:%S') - $line"; done) 2>&1
+}
+
+
+# Detect environment
+if [ -t 0 ] && [ -z "$SLURM_JOB_ID" ] && [ -z "$PBS_JOBID" ]; then
+  interactive_prompt
+else
+  echo "Non-interactive environment detected. Executing advanced analysis automatically." > /dev/tty
+  run_module "DRAM" "${OUTPUT_DIR}/Log/DRAM.log" "run_dram_analysis.sh ${OUTPUT_DIR}/Summary/vOTU/vOTU.fasta ${OUTPUT_DIR}/Summary/DRAMRes"
+  run_module "iPhop" "${OUTPUT_DIR}/Log/iPhop.log" "run_iphop_analysis.sh ${OUTPUT_DIR}/Summary/vOTU/vOTU.fasta ${OUTPUT_DIR}/Summary/iPhopRes"
+
+  echo "[✅][✅]Advanced analysis completed successfully. DRAM and iPhop results are available in ${OUTPUT_DIR}/Summary."
+fi
+
+# Record time
+end_time=$(date +%s)
+total_runtime=$((end_time - start_time))
+log_with_timestamp "Total runtime: ${total_runtime} seconds"
+
+trap '[ -t 1 ] && tput cnorm' EXIT
