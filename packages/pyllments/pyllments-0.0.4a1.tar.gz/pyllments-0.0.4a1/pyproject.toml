@@ -1,0 +1,101 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyllments"
+dynamic = ["version"]
+url = "https://github.com/Prudent-Patterns/pyllments"
+author = "Dmitriy Leybel"
+author_email = "dmleybel@gmail.com"
+description = """
+A Python framework for building modular, extensible LLM applications through composable Elements 
+in a flow-based architecture. Pyllments enables developers to create both graphical and API-based 
+LLM applications by connecting specialized Elements through a flexible port system, with built-in 
+support for UI components and LLM integrations.
+"""
+readme = "README.md"
+license = "Apache-2.0"
+license_file = "LICENSE"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "python-dotenv",
+    "bokeh",
+    "panel",
+    "langchain-text-splitters",
+    "openai",
+    "jsonlines",
+    "tiktoken",
+    "pillow-heif",
+    "ruamel.yaml",
+    "fastapi[standard]",
+    "bokeh-fastapi",
+    "loguru",
+    "typer",
+    "litellm>=1.57.3",
+    "discord-py>=2.4.0",
+    "python-telegram-bot>=21.10",
+    "telethon>=1.38.1",
+    "sqlite-utils>=3.38",
+    "jinja2",
+    "mcp>=1.3.0",
+]
+
+[project.optional-dependencies]
+full = [
+    "sentence-transformers[onnx-gpu]",
+    "opencv-python",
+    "pdfminer.six",
+    "chromadb",
+    "pikepdf",
+    "unstructured",
+    "pytesseract",
+    "duckdb",
+    "lancedb",
+]
+
+[dependency-groups]
+dev = [
+    "jupyter_bokeh",
+    "ipykernel",
+    "ipython",
+    "ipywidgets",
+    "pytest",
+    "pytest-asyncio",
+    "nbconvert",
+]
+
+[project.scripts]
+pyllments = "pyllments.__main__:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pyllments"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "dev",
+    "docs",
+    "examples",
+    ".devcontainer",
+    ".vscode",
+    ".cursorrules",
+    ".cursorignore",
+    ".gitignore",
+    ".gitattributes",
+    ".venv",
+    ".env",
+    "*.py[cod]",
+    "__pycache__/*"
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.hatch.version]
+source = "vcs"
+tag-pattern = '^(?!docs-)(?:[\w-]+-)?(?P<version>[vV]?\d+(?:\.\d+){0,2}[^+]*)(?:\+.*)?$'
+fallback-version = "0.0.1"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "pyllments/_version.py"

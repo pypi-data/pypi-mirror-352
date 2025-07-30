@@ -1,0 +1,15 @@
+:host {
+    background-color: var(--secondary-background-color);
+    border: 1px solid var(--light-outline-color);
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-accent-color) transparent;
+    border-radius: var(--radius);
+    scrollbar-gutter: stable;
+    overflow-y: auto; /* Enable scrolling when content exceeds height */
+    min-height: 0; /* Allow flex item to shrink below content size */
+    flex: 1 1 auto;
+    /* Prevents collapsing when objects are added into it and doesn't expand past container size*/
+    /* min-height: 0; Allow flex item to shrink below content size */
+    /* flex: 1 0 0; */
+}
+
