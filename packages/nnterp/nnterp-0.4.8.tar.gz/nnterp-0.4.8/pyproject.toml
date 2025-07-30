@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+[tool.setuptools_scm]
+
+[project]
+dynamic = ["version"]
+name = "nnterp"
+authors = [
+  { name="Clément Dumas", email="butanium.contact@gmail.com" },
+]
+description = "Utils and mechanistic interpretability intervensions using nnsight"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "nnsight>=0.3",
+    "pandas",
+    ]
+[project.optional-dependencies]
+display = ["plotly"]
+[project.urls]
+"Homepage" = "https://github.com/butanium/nnterp"
+
