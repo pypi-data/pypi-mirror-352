@@ -1,0 +1,116 @@
+[build-system]
+requires = ["setuptools>=45",
+            "setuptools_scm[toml]>=6.2",
+            "wheel"]
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = "sammi-cdf"
+description = "A Python package to support metadata attribute management for Space Weather data processing pipelines."
+readme = "README.rst"
+dynamic = ["version"]
+authors = [{name = "Andrew Robbertz", email="a.robbertz@gmail.com"}, {name = "IMAP SDC Developers", email="imap.sdc@lists.lasp.colorado.edu"}]
+license = {file = "LICENSE.rst"}
+requires-python = ">=3.9"
+keywords = ["sammi", "nasa mission", "space weather"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+dependencies = [
+  'pyyaml>=5.3.1',
+]
+
+[project.urls]
+Homepage = "https://github.com/swxsoc/sammi"
+
+
+[project.optional-dependencies]
+dev = [
+  'coverage>=5.0.3',
+  'pytest==8.0.0',
+  'pytest-astropy==0.11.0',
+  'pytest-cov==4.1.0',
+  'black==24.1.1',
+  'flake8==7.0.0',
+  'coverage[toml]==7.4.1'
+]
+
+docs = [
+  'sphinx==7.2.6',
+  'sphinx-automodapi==0.16.0',
+  'sphinx-copybutton==0.5.2'
+]
+
+test = [
+  'pytest==8.0.0',
+  'pytest-astropy==0.11.0',
+  'pytest-cov==4.1.0',
+  'coverage[toml]==7.4.1',
+  'requests-mock==1.12.1',
+]
+
+style = [
+  'black==24.1.1',
+  'flake8==7.0.0',
+  'rstcheck==6.2.0',
+]
+
+[tool.setuptools.package-data]
+sammi = ["data/*"]
+
+[tool.setuptools]
+packages = ["sammi"]
+
+[tool.setuptools_scm]
+write_to = "sammi/_version.py"
+
+[tool.pytest.ini_options]
+testpaths = [
+   "sammi/tests",
+   "sammi/util/tests",
+   "docs"
+]
+doctest_plus = "enabled"
+text_file_format = "rst"
+addopts = "--doctest-rst"
+
+[tool.coverage.run]
+omit = [
+  'sammi/__init*',
+  'sammi/conftest.py',
+  'sammi/*setup_package*',
+  'sammi/tests/*',
+  'sammi/*/tests/*',
+  'sammi/extern/*',
+  'sammi/version*',
+  '*/sammi/__init*',
+  '*/sammi/conftest.py',
+  '*/sammi/*setup_package*',
+  '*/sammi/tests/*',
+  '*/sammi/*/tests/*',
+  '*/sammi/extern/*',
+  '*/sammi/version*',
+]
+
+[tool.rstcheck]
+report_level = "WARNING"
+ignore_roles = [
+  "py:class",
+  "py:class",
+  "file",
+]
+ignore_directives = [
+    "plot",
+    "doctest",
+    "automodapi",
+    "csv-table",
+]
+ignore_messages = "not referenced"
