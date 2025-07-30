@@ -1,0 +1,118 @@
+Metadata-Version: 2.4
+Name: pyhub-mcptools
+Version: 0.9.7a3
+Summary: 파이썬사랑방 MCP 도구
+Project-URL: Homepage, https://github.com/pyhub-kr/pyhub-mcptools
+Project-URL: Documentation, https://pyhub-kr.github.io/pyhub-mcptools
+Project-URL: Bug Tracker, https://github.com/pyhub-kr/pyhub-mcptools/issues
+Project-URL: Source Code, https://github.com/pyhub-kr/pyhub-mcptools
+Author-email: Chinseok Lee <me@pyhub.kr>
+License: MIT
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Office/Business
+Classifier: Topic :: Office/Business :: Office Suites
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.11
+Requires-Dist: aiofiles
+Requires-Dist: channels
+Requires-Dist: channels-redis
+Requires-Dist: cloudpickle
+Requires-Dist: django-environ
+Requires-Dist: django>=5.2
+Requires-Dist: html2text
+Requires-Dist: httpx
+Requires-Dist: mcp
+Requires-Dist: mcp-proxy
+Requires-Dist: platformdirs
+Requires-Dist: psutil
+Requires-Dist: pywin32; sys_platform == 'win32'
+Requires-Dist: typer
+Requires-Dist: tzlocal
+Requires-Dist: uvicorn
+Provides-Extra: all
+Requires-Dist: bs4; extra == 'all'
+Requires-Dist: cairosvg; extra == 'all'
+Requires-Dist: matplotlib; extra == 'all'
+Requires-Dist: numpy; extra == 'all'
+Requires-Dist: pandas; extra == 'all'
+Requires-Dist: pillow; extra == 'all'
+Requires-Dist: playwright; extra == 'all'
+Requires-Dist: restrictedpython; extra == 'all'
+Requires-Dist: seaborn; extra == 'all'
+Requires-Dist: vadersentiment; extra == 'all'
+Requires-Dist: xlwings; extra == 'all'
+Provides-Extra: browser
+Requires-Dist: bs4; extra == 'browser'
+Requires-Dist: playwright; extra == 'browser'
+Provides-Extra: build
+Requires-Dist: build; extra == 'build'
+Requires-Dist: setuptools; extra == 'build'
+Requires-Dist: twine; extra == 'build'
+Requires-Dist: wheel; extra == 'build'
+Provides-Extra: dev
+Requires-Dist: black; extra == 'dev'
+Requires-Dist: djlint; extra == 'dev'
+Requires-Dist: isort; extra == 'dev'
+Requires-Dist: mypy; extra == 'dev'
+Requires-Dist: pytest; extra == 'dev'
+Requires-Dist: pytest-asyncio; extra == 'dev'
+Requires-Dist: pytest-cov; extra == 'dev'
+Requires-Dist: pytest-httpx; extra == 'dev'
+Requires-Dist: ruff; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: mkdocs-git-revision-date-localized-plugin; extra == 'docs'
+Requires-Dist: mkdocs-glightbox; extra == 'docs'
+Requires-Dist: mkdocs-material>=9.1.0; extra == 'docs'
+Requires-Dist: mkdocs-material[imaging]; extra == 'docs'
+Requires-Dist: mkdocs>=1.4.0; extra == 'docs'
+Requires-Dist: mkdocstrings-python>=1.0.0; extra == 'docs'
+Requires-Dist: mkdocstrings>=0.20.0; extra == 'docs'
+Provides-Extra: excel
+Requires-Dist: xlwings; extra == 'excel'
+Provides-Extra: images
+Requires-Dist: cairosvg; extra == 'images'
+Requires-Dist: pillow; extra == 'images'
+Provides-Extra: music
+Requires-Dist: bs4; extra == 'music'
+Provides-Extra: python
+Requires-Dist: matplotlib; extra == 'python'
+Requires-Dist: numpy; extra == 'python'
+Requires-Dist: pandas; extra == 'python'
+Requires-Dist: restrictedpython; extra == 'python'
+Requires-Dist: seaborn; extra == 'python'
+Provides-Extra: sentiment
+Requires-Dist: vadersentiment; extra == 'sentiment'
+Description-Content-Type: text/markdown
+
+# pyhub-mcptools
+
+## 설치 방법
+
+[공식 문서](https://mcp.pyhub.kr)를 참고해주세요.
+
+## 지원 도구
+
+### 엑셀 MCP 도구
+
+Claude/Cursor와 함께 엑셀 화면을 같이 보며, 함께 읽고 수정할 수 있습니다.
+
+[다른 엑셀 도구](https://github.com/negokaz/excel-mcp-server)는 엑셀 파일에 대한 읽고 쓰기를 지원합니다.
+그래서 엑셀 프로그램이 없어도 수행이 가능하다는 장점이 있지만, 실시간으로 엑셀 프로그램의 변경사항을 감지할 수 없고
+파일 단위로만 작업이 가능하다는 제한이 있어서 MCP와 동시에 같은 파일을 편집할 수는 없습니다.
+
+본 [엑셀 도구](https://mcp.pyhub.kr)에서는 엑셀 프로그램과 직접 통신하는 방식을 사용하기 때문에,
+사용자와 MCP가 동시에 같은 엑셀 파일을 실시간으로 편집할 수 있고, 아직 디스크에 저장하지 않은 메모리 상의
+변경 내용까지도 도구에서 읽어갈 수 있습니다. 이를 통해 더욱 자연스럽고 효율적인 협업이 가능합니다.
+
+[![영상 썸네일](./docs/mcptools/excel/assets/pyhub.mcptools-v0.4.6.gif)](./docs/mcptools/excel/assets/pyhub.mcptools-v0.4.6.mp4)
+
+## 문의
+
+파이썬사랑방, 이진석 (me@pyhub.kr)
