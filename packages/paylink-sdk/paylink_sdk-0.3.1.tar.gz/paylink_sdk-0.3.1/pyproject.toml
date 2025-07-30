@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "paylink-sdk"
+dynamic = ["version"]
+authors = [
+  { name = "James Kanyiri", email = "jameskanyiridev@gmail.com" },
+]
+description = "Python SDK for interacting with the PayLink MCP Server"
+readme = "README.md"
+requires-python = ">=3.13"
+classifiers = [
+  "Programming Language :: Python :: 3.13",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Developers",
+  "Development Status :: 4 - Beta",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Office/Business :: Financial",
+]
+dependencies = [
+    "mcp>=1.9.2",
+]
+
+keywords = ["payment", "africa", "mpesa", "fintech", "mobile money", "mcp", "financial integration"]
+
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2.2.post1",
+  "hatch>=1.14.1",
+  "pytest>=8.3.5",
+  "twine>=6.1.0",
+  "ipykernel>=6.29.5",
+  "pytest-asyncio>=0.26.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/jameskanyiri/paylink-sdk"
+Repository = "https://github.com/jameskanyiri/paylink-sdk"
+Issues = "https://github.com/jameskanyiri/paylink-sdk/issues"
+Documentation = "https://github.com/jameskanyiri/paylink-sdk#readme"
+Changelog = "https://github.com/jameskanyiri/paylink-sdk#changelog"
+
+
+[tool.hatch.version]
+path = "src/paylink_sdk/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/paylink_sdk"]
