@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作业管理 - Classmate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Classmate</div>
+        <div class="navbar-menu">
+            <a href="/" class="btn">返回首页</a>
+            <button class="btn danger" onclick="logout()">退出登录</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="panel">
+            <h2>已提交作业</h2>
+            <div class="file-controls">
+                <input type="file" id="fileInput" style="display: none">
+                <button class="btn" onclick="document.getElementById('fileInput').click()">上传作业</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>文件名</th>
+                        <th>大小</th>
+                        <th>提交时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="assignmentTable">
+                    <!-- 作业列表将通过JavaScript动态加载 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let ws = null;
+        let reconnectAttempts = 0;
+        const MAX_RECONNECT_ATTEMPTS = 5;
+        const RECONNECT_DELAY = 3000;
+
+        // DOM元素
+        const fileInput = document.getElementById('fileInput');
+        const assignmentTable = document.getElementById('assignmentTable');
+
+        // 工具函数
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // WebSocket连接
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.hostname}:${parseInt(window.location.port) + 1}`;
+            
+            ws = new WebSocket(wsUrl);
+            
+            ws.onopen = () => {
+                console.log('WebSocket连接已建立');
+                reconnectAttempts = 0;
+            };
+            
+            ws.onclose = () => {
+                console.log('WebSocket连接已关闭');
+                if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+                    setTimeout(connectWebSocket, RECONNECT_DELAY);
+                    reconnectAttempts++;
+                }
+            };
+            
+            ws.onerror = (error) => {
+                console.error('WebSocket错误:', error);
+            };
+        }
+
+        // 作业管理
+        async function loadAssignments() {
+            try {
+                const response = await fetch('/api/assignments');
+                const assignments = await response.json();
+                
+                assignmentTable.innerHTML = '';
+                assignments.forEach(assignment => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${assignment.name}</td>
+                        <td>${formatFileSize(assignment.size)}</td>
+                        <td>${assignment.upload_time}</td>
+                        <td>
+                            <button class="btn" onclick="downloadAssignment('${assignment.name}')">下载</button>
+                            <button class="btn danger" onclick="deleteAssignment('${assignment.name}')">删除</button>
+                        </td>
+                    `;
+                    assignmentTable.appendChild(tr);
+                });
+            } catch (error) {
+                console.error('加载作业列表错误:', error);
+            }
+        }
+
+        async function uploadAssignment() {
+            const file = fileInput.files[0];
+            if (!file) return;
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('type', 'assignment');
+            
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    fileInput.value = '';
+                    loadAssignments();
+                } else {
+                    alert(data.error || '上传失败');
+                }
+            } catch (error) {
+                console.error('上传作业错误:', error);
+                alert('上传失败，请重试');
+            }
+        }
+
+        function downloadAssignment(filename) {
+            window.location.href = `/download/${encodeURIComponent(filename)}?type=assignment`;
+        }
+
+        async function deleteAssignment(filename) {
+            if (!confirm('确定要删除这个作业吗？')) return;
+            
+            try {
+                const response = await fetch(`/delete/${encodeURIComponent(filename)}?type=assignment`);
+                const data = await response.json();
+                if (data.success) {
+                    loadAssignments();
+                } else {
+                    alert(data.error || '删除失败');
+                }
+            } catch (error) {
+                console.error('删除作业错误:', error);
+                alert('删除失败，请重试');
+            }
+        }
+
+        async function logout() {
+            try {
+                await fetch('/logout');
+                window.location.href = '/';
+            } catch (error) {
+                console.error('登出错误:', error);
+            }
+        }
+
+        // 事件监听
+        fileInput.addEventListener('change', uploadAssignment);
+
+        // 初始化
+        connectWebSocket();
+        loadAssignments();
+        setInterval(loadAssignments, 30000);  // 每30秒刷新一次作业列表
+    </script>
+</body>
+</html> 
