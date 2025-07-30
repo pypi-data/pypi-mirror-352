@@ -1,0 +1,89 @@
+Metadata-Version: 2.4
+Name: wowool-infobox
+Version: 1.1.0
+Summary: The Wowool Infobox Package
+Home-page: https://www.wowool.com/
+Author: Wowool
+Author-email: info@wowool.com
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: beautifulsoup4
+Requires-Dist: html5lib
+Requires-Dist: SQLAlchemy
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Description
+
+The InfoBox application enrich annotation with wikipedia infobox information.## Examples
+
+You will need to install the english language module to run the sample. `pip install wowool-english` 
+
+### Enrich your data.
+
+using the wow cli:
+
+```console
+wow -p "english,entity,infobox.app" -i "I saw Joe Biden in the street."
+```
+
+or the api:
+
+
+```python
+from wowool.sdk import Pipeline
+from json import dumps
+
+pipeline = Pipeline("english,entity,infobox.app")
+doc = pipeline("I saw Joe Biden in the street.")
+for entity in doc.entities:
+    print(dumps({**entity}, indent=2))
+
+```
+
+As we see we get all the attributes found in the wikipedia from that person.
+
+results:
+
+```json
+{
+  "uri": "Person",
+  "literal": "Joe Biden",
+  "stem": "Joe Biden",
+  "canonical": "Joe Biden",
+  "country": "USA",
+  "descriptor": "President,Democratic President,voter,Democrat,donor,man,candidate,reporter,lead President,President - elect",
+  "family": "Biden",
+  "gender": "male",
+  "given": "Joe",
+  "political_party": "democratic",
+  "position": "President,president,vice president,Democratic President,reporters,lead President,President - elect,politician,lawyer,author",
+  "position_level": "communication",
+  "shortdescription": "President of the United States since 2021",
+  "theme": "politics",
+  "wiki_type": "Person"
+}
+```
+
+
+
+## License
+
+In both cases you will need to acquirer a license file at https://www.wowool.com
+
+### Non-Commercial
+
+    This library is licensed under the GNU AGPLv3 for non-commercial use.  
+    For commercial use, a separate license must be purchased.  
+
+### Commercial license Terms
+
+    1. Grants the right to use this library in proprietary software.  
+    2. Requires a valid license key  
+    3. Redistribution in SaaS requires a commercial license.  

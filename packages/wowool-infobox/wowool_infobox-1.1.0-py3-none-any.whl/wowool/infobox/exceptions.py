@@ -1,0 +1,2 @@
+class InfoBoxException(Exception):
+    pass
