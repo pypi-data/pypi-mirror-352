@@ -1,0 +1,39 @@
+Metadata-Version: 2.3
+Name: gdbcore
+Version: 0.1.1
+Summary: 
+Author: Angel L. P.
+Author-email: 59593766+angelphanth@users.noreply.github.com
+Requires-Python: >=3.11,<3.13
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Dist: matplotlib (>=3.8.1,<4.0.0)
+Requires-Dist: neo4j (>=5.14.1,<6.0.0)
+Requires-Dist: networkx (>=3.1,<4.0)
+Requires-Dist: obonet (>=1.0.0,<2.0.0)
+Requires-Dist: pandas (>=2.1.1,<3.0.0)
+Requires-Dist: pyyaml (>=6.0.1,<7.0.0)
+Requires-Dist: scipy (>=1.12.0,<2.0.0)
+Description-Content-Type: text/markdown
+
+# Work In Progress
+
+Overall goal: Create KG dbs (LPGs) from node and edge property lists.
+
+Current status: 
+- Creates / formats node and edge property lists from CSVs.
+- Produces a Networkx graph and .graphml file
+- Produces a Neo4j Graph database (3 venues)
+- Connector to query Neo4j via python
+
+
+## Installation and Getting started
+
+1. download requirements
+`poetry install`
+
+2. activate env
+e.g. `poetry shell`
+
+
