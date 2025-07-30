@@ -1,0 +1,121 @@
+# Include documentation files
+include README.md
+include LICENSE
+include CHANGELOG.md
+include CONTRIBUTING.md
+include AUTHORS.md
+
+# Include requirements files (if they exist)
+include requirements.txt
+include requirements-dev.txt
+
+# Include the .gitignore file
+include .gitignore
+
+# Include setup files
+include pyproject.toml
+include setup.cfg
+include setup.py
+
+# Include py.typed for type hints
+include src/amgd/py.typed
+
+# Include all source files
+recursive-include src/amgd *.py
+
+# Include all test files
+recursive-include tests *.py
+recursive-include tests/fixtures *.py *.csv *.json *.txt
+
+# Include example scripts and notebooks
+recursive-include examples *.py *.ipynb
+recursive-include examples *.md
+
+# Include documentation source files
+recursive-include docs *.rst *.py *.md *.txt
+recursive-include docs/source *.rst *.py
+recursive-include docs/source/_static *
+recursive-include docs/source/_templates *
+recursive-include docs/source/tutorials *.rst *.md
+recursive-include docs/source/api *.rst
+
+# Include data files
+recursive-include src/amgd/data *.csv *.txt *.json *.npz
+include src/amgd/data/ecological_health_dataset.csv
+
+# Include benchmark data and scripts
+recursive-include benchmarks *.py *.csv *.json
+
+# Include GitHub workflows
+recursive-include .github *.yml *.yaml
+recursive-include .github/workflows *.yml *.yaml
+
+# Include type stubs if any
+recursive-include src/amgd *.pyi
+
+# Include configuration files
+include .editorconfig
+include .pre-commit-config.yaml
+include .flake8
+include .coveragerc
+include tox.ini
+include Makefile
+
+# Include citation file
+include CITATION.cff
+
+# Exclude compiled Python files
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude *.pyo
+global-exclude .DS_Store
+
+# Exclude development and build directories
+prune .git
+prune .pytest_cache
+prune .mypy_cache
+prune .tox
+prune .coverage
+prune htmlcov
+prune dist
+prune build
+prune *.egg-info
+prune .eggs
+
+# Exclude IDE-specific files
+global-exclude .vscode
+global-exclude .idea
+global-exclude *.swp
+global-exclude *.swo
+global-exclude *~
+global-exclude .project
+global-exclude .pydevproject
+
+# Exclude Jupyter notebook checkpoints
+global-exclude .ipynb_checkpoints
+
+# Exclude test coverage reports
+global-exclude .coverage.*
+global-exclude coverage.xml
+global-exclude *.cover
+
+# Exclude virtual environments
+prune venv
+prune env
+prune ENV
+
+# Exclude log files
+global-exclude *.log
+
+# Exclude temporary files
+global-exclude *.tmp
+global-exclude *.bak
+global-exclude *.orig
+
+# Include important markdown files in root
+include CODE_OF_CONDUCT.md
+include SECURITY.md
+
+# Include version file if it exists
+include src/amgd/_version.py
+include VERSION
