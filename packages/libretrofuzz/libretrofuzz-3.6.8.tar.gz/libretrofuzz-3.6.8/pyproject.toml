@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "libretrofuzz"
+version = "3.6.8"
+description = "Fuzzy Retroarch thumbnail downloader"
+authors = ["i30817 <i30817@gmail.com>"]
+license = "MIT"
+readme = "README.rst"
+repository = "https://github.com/i30817/libretrofuzz"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+beautifulsoup4 = "^4.12.2"
+questionary = "^2.0.1"
+typer = {extras = ["all"], version = "^0.15.4"}
+rapidfuzz = "^3.9.7"
+httpx = "^0.28.1"
+tqdm = "^4.66.1"
+prompt_toolkit = "^3.0.36"
+pillow = {version = "^10.1.0", markers = "'aarch64' not in platform_machine and 'armv8' not in platform_machine" }
+regex = "^2023.10.3"
+
+[tool.black]
+line-length = 110
+skip_magic_trailing_comma = true
+
+[tool.ruff]
+#this is because black already 'fixed' lines... except comments, which it refuses
+line-length = 9999
+# Only allow autofix behavior for `E` and `F` rules.
+fixable = ["E", "F"]
+# Allow except without exception
+ignore = ["E722"]
+
+[tool.poetry.scripts]
+libretro-fuzz = 'libretrofuzz.__main__:fuzzsingle'
+libretro-fuzzall = 'libretrofuzz.__main__:fuzzall'
+
+[tool.poetry.urls]
+"homepage" = 'https://github.com/i30817/libretrofuzz'
+"documentation" = 'https://github.com/i30817/libretrofuzz#readme'
+"Bug Tracker" = 'https://github.com/i30817/libretrofuzz/issues'
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
