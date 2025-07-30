@@ -1,0 +1,90 @@
+[tool.poetry]
+name = "onecode"
+version = "1.1.0"
+description = "Python skeleton and library for OneCode projects"
+readme = "README.md"
+authors = ["DeepLime <contact@deeplime.io>"]
+license = "MIT"
+keywords = ["onecode", "share", "deploy", "cloud"]
+homepage = "https://github.com/deeplime-io/onecode"
+repository = "https://github.com/deeplime-io/onecode"
+documentation = "https://deeplime-io.github.io/onecode"
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Intended Audience :: End Users/Desktop",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: Unix",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Python",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development :: Code Generators",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8, <3.13"
+'flufl.lock' = ">=7.1.1,<9"
+pandas = ">=1.4.0,<3"
+pydash = ">=5.1.0,<8"
+python-slugify = ">=6.1.2,<9"
+strenum = ">=0.4.6,<1"
+typeguard = ">=3,<5"
+requirements-parser = ">=0.10.2,<1"
+
+# cli
+astunparse = ">=1.6.3,<2"
+inquirerpy = ">=0.3.3,<1"
+onecode-pycg = ">=0.0.7,<1"
+yaspin = ">=2.1.0,<4"
+
+# docs
+griffe = { version = "^0", optional = true }
+mike = { version = "~1.1", optional = true }
+mkdocs = { version = "^1.5", optional = true }
+mkdocs-material = { version = "^9.5", optional = true }
+mkdocstrings = { version = "^0", optional = true }
+mkdocstrings-python = { version = "^1", optional = true }
+
+# developer
+datatest = { version = ">=0.11.1,<1", optional = true }
+pydantic = { version = ">=2,<3", optional = true }
+pytest = { version = ">=7,<8", optional = true }
+pytest-cov = { version = ">=2.10.1,<5", optional = true }
+pytest-xdist = { version = ">=3.1.0,<4", optional = true }
+toml = { version = ">=0.10.2,<1", optional = true }
+
+[tool.poetry.extras]
+developer = [
+  "datatest",
+  "pydantic",
+  "pytest",
+  "pytest-cov",
+  "pytest-xdist",
+  "toml",
+]
+
+docs = [
+  "griffe",
+  "markdown-katex",
+  "mike",
+  "mkdocs",
+  "mkdocs-jupyter",
+  "mkdocs-material",
+  "mkdocstrings",
+  "mkdocstrings-python",
+]
+
+[tool.poetry.scripts]
+onecode-start = 'onecode.cli.start:main'
+onecode-build = 'onecode.cli.build:main'
+onecode-create = 'onecode.cli.create:main'
+onecode-add = 'onecode.cli.add:main'
+onecode-extract = 'onecode.cli.extract:main'
+onecode-zip = 'onecode.cli.zip:main'
+onecode-require = 'onecode.cli.require:main'
+onecode-check = 'onecode.cli.check:main'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
