@@ -1,0 +1,10 @@
+{% load icons %}
+{% if warnings %}
+    <ul class="form-warnings text-danger-light">
+        {% for warning in warnings %}
+            <li>{{ warning }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <span class="text-success">Valid!</span>
+{% endif %}
