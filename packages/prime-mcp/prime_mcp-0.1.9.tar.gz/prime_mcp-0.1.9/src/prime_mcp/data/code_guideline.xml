@@ -1,0 +1,35 @@
+<guideline>
+    <item>
+        <title>Code Guideline</title>
+        <description>Always use tools recommendations to generate code.
+        </description>
+    </item>
+    <item>
+        <title>Issue Summary</title>
+        <description>
+            Use the issue summary to understand the issue and the recommendations to address it.
+        </description>
+    </item>
+    <item>
+        <title>Security Concerns</title>
+        <description>
+            Use the security concerns to understand the issue and the recommendations to address it.
+        </description>
+    </item>
+    <item>
+        <title>Recommendations</title>
+        <description>
+            Use the recommendations to understand the issue and the recommendations to address it.
+        </description>
+    </item>
+    <item>
+        <title>API Response Data Validation</title>
+        <description>
+            Always validate and sanitize API response models before returning data to clients.
+            Implement comprehensive checks to prevent exposure of sensitive data including credit
+            card numbers, CVV codes, internal system identifiers, database keys, and other
+            confidential information. Create explicit data transfer objects (DTOs) that only include
+            necessary fields and exclude all PCI-regulated data elements.
+        </description>
+    </item>
+</guideline>
