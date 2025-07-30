@@ -1,0 +1,20 @@
+[project]
+name = "ise-openapi-endpoints"
+version = "0.1.0"
+description = "Python Library for ISE Endpoints OpenApi API - Swagger Codegen Edition"
+readme = "README.md"
+authors = [
+    { name = "Thomas Christory", email = "tchristory@partner.auchan.fr" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "certifi>=14.5.14",
+    "python-dateutil>=2.5.3",
+    "setuptools>=21.0.0",
+    "six>=1.10",
+    "urllib3>=1.15.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
