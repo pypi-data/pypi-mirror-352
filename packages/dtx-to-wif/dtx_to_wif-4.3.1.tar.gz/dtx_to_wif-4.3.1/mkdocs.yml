@@ -1,0 +1,20 @@
+site_name: dtx_to_wif
+site_url: https://r-owen.github.io/dtx_to_wif/
+nav:
+  - Home: index.md
+  - Installing: installing.md
+  - Version History: version_history.md
+  - API Reference:
+      - $api/dtx_to_wif
+theme:
+  name: readthedocs
+  features:
+    - color_mode: auto
+plugins:
+  - mkapi
+  - search
+validation:
+  omitted_files: warn
+  absolute_links: warn  # Or 'relative_to_docs' - new in MkDocs 1.6
+  unrecognized_links: warn
+  anchors: warn  # New in MkDocs 1.6
