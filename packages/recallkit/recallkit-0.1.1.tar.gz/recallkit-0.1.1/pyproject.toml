@@ -1,0 +1,31 @@
+[project]
+name = "recallkit"
+version = "0.1.1"
+description = "Add your description here"
+readme = "README.md"
+license = "Apache-2.0"
+classifiers = []
+requires-python = ">=3.9"
+dependencies = [
+    "litellm",
+]
+
+[tool.uv]
+dev-dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7.0.0"]
+
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/tombedor/recallkit"
+Changelog = "https://github.com/tombedor/recallkit/releases"
+Issues = "https://github.com/tombedor/recallkit/issues"
+CI = "https://github.com/tombedor/recallkit/actions"
+
+[project.entry-points.llm]
+recallkit = "recallkit"
