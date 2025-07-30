@@ -1,0 +1,143 @@
+[build-system]
+requires = ["hatchling>=1.21.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "streamlit_analytics2"
+dynamic = ["version"]
+description = "Track & visualize user interactions with your streamlit app."
+authors = [{ name = "444B", email = "contact+pypi@444b.me" }]
+license = { file = "LICENSE" }
+readme = {file = ".github/README.md", content-type = "text/markdown"}
+keywords = ["streamlit", "analytics", "visualization", "streamlit-analytics", "streamlit-analytics2"]
+classifiers = [
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Database :: Front-Ends",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Development Status :: 4 - Beta"
+]
+requires-python = ">=3.10"
+dependencies = [
+    "streamlit>=1.37.0",
+    "pandas>=2.2.3",
+    "altair>=5.5.0",
+    "google-cloud-firestore>=2.19.0",
+    "typing_extensions>=4.12.2",
+    "numpy>=2.2.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.10.0",
+    "isort>=5.13.2",
+    "flake8>=7.1.1",
+    "mypy>=1.14.0",
+    "bandit>=1.8.0",
+    "pytest>=8.3.4",
+    "pytest-cov>=4.0.0",
+    "pandas-stubs>=2.2.3.241126",
+    "build>=1.2.2.post1",
+    "twine>=6.0.1"
+]
+test = [
+    "pytest>=8.3.4",
+    "pytest-cov>=4.0.0"
+]
+
+[project.urls]
+Repository = "https://github.com/444B/streamlit-analytics2"
+Documentation = "https://github.com/444B/streamlit-analytics2/wiki"
+Issues = "https://github.com/444B/streamlit-analytics2/issues"
+
+[tool.hatch.build]
+include = [
+    "src/**/*.py",
+]
+exclude = [
+    "tests/*",
+    "examples/*",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/streamlit_analytics2"]
+
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "LICENSE",
+]
+
+[tool.hatch.version]
+path = "src/streamlit_analytics2/__init__.py"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+# A regex preceded with ^/ will apply only to files and directories
+# in the root of the project.
+^/docs/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 88
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra -q --cov=src --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:"
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", "docs"]
+skips = ["B311"]
+
+[dependency-groups]
+dev = [
+    "types-toml>=0.10.8.20240310",
+]
