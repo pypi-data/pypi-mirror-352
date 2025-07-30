@@ -1,0 +1,52 @@
+name: CI
+on: [pull_request]
+
+# Cancel active CI runs for a PR before starting another run
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash  # https://github.com/beeware/briefcase/pull/912
+
+env:
+  FORCE_COLOR: "1"
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.min_python_version }}
+      - uses: pre-commit/action@v3.0.1
+
+  python-versions:
+    name: Python compatibility test
+    needs: pre-commit
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        include:
+        - experimental: false
+
+        - python-version: "3.14"
+          experimental: true
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        allow-prereleases: true
+    - name: Install dependencies
+      run: |
+        pip install -e ".[dev]"
+    - name: Test
+      run: |
+        tox -e py
