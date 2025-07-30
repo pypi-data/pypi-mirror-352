@@ -1,0 +1,403 @@
+# FabricEase Python Library - .gitignore
+# =========================================
+
+# CRITICAL: Environment Files (NEVER commit credentials!)
+# ========================================================
+.env
+.env.
+*.env
+.environment
+config.ini
+secrets.txt
+credentials.json
+
+# Azure/Fabric Specific
+# =====================
+azure.conf
+fabric.conf
+*.pem
+*.key
+*.crt
+
+# Python
+# ======
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+# ========================
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+# ===========
+*.manifest
+*.spec
+
+# Installer logs
+# ===============
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+# ============================
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+# ============
+*.mo
+*.pot
+
+# Django stuff
+# ============
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff
+# ===========
+instance/
+.webassets-cache
+
+# Scrapy stuff
+# ============
+.scrapy
+
+# Sphinx documentation
+# ====================
+docs/_build/
+
+# PyBuilder
+# =========
+target/
+
+# Jupyter Notebook
+# ================
+.ipynb_checkpoints
+
+# IPython
+# =======
+profile_default/
+ipython_config.py
+
+# pyenv
+# =====
+.python-version
+
+# pipenv
+# ======
+Pipfile.lock
+
+# PEP 582
+# =======
+__pypackages__/
+
+# Celery stuff
+# ============
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+# ====================
+*.sage.py
+
+# Environments
+# ============
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+test_env/
+fabricease_env/
+
+# Spyder project settings
+# =======================
+.spyderproject
+.spyproject
+
+# Rope project settings
+# =====================
+.ropeproject
+
+# mkdocs documentation
+# ===================
+/site
+
+# mypy
+# ====
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+# =================
+.pyre/
+
+# IDEs and Editors
+# ================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# PyCharm
+# =======
+.idea/
+*.iml
+
+# Visual Studio Code
+# ==================
+.vscode/
+*.code-workspace
+
+# Sublime Text
+# ============
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+# ===
+*.swp
+*.swo
+.netrwhist
+
+# Emacs
+# =====
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Operating System Files
+# ======================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Logs and Databases
+# ==================
+*.log
+*.sqlite
+*.sqlite3
+*.db
+
+# Development and Testing
+# =======================
+# Test output
+test_output/
+test_results/
+test_reports/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# FabricEase Specific
+# ===================
+# Local development database files
+local_test.db
+test_fabric.db
+
+# Configuration files with credentials
+fabric_config.json
+azure_config.json
+test_credentials.json
+
+# Output from examples
+example_output/
+demo_results/
+
+# Performance test results
+benchmark_results/
+performance_logs/
+
+# Documentation builds
+docs/build/
+docs/_build/
+site/
+
+# Coverage reports
+htmlcov/
+coverage_html/
+
+# Local development scripts
+local_dev.py
+temp_test.py
+scratch.py
+playground.py
+
+# Package build artifacts
+build/
+dist/
+*.tar.gz
+*.whl
+
+# Upload artifacts
+upload/
+release/
+
+# Security scan results
+security_report.json
+vulnerability_scan.txt
+
+# Local environment configurations
+local.env
+dev.env
+staging.env
+prod.env
+
+# Certificate files
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Large files (should use Git LFS if needed)
+*.xlsx
+*.csv
+*.json
+# Uncomment if you have large data files:
+# data/
+# datasets/
+# *.parquet
+
+# Node.js (if you have any JS/TS tools)
+# ====================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+# ======
+.dockerignore
+docker-compose.override.yml
+
+# Kubernetes
+# ==========
+*.yaml.bak
+*.yml.bak
+secret.yaml
+secret.yml
+
+# Terraform (if used for infrastructure)
+# ======================================
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Local development overrides
+# ===========================
+local_settings.py
+development_config.py
+override_config.json
+
+# AI/ML Model files (if applicable)
+# =================================
+*.model
+*.pkl
+*.pickle
+*.joblib
+*.h5
+*.onnx
+
+# Compiled documentation
+# ======================
+_build/
+.doctrees/
+
+# Package manager files
+# =====================
+poetry.lock
+Pipfile.lock
+yarn.lock
+package-lock.json
+
+# Editor configurations (project-specific)
+# =========================================
+.editorconfig.local
+.vscode/settings.json
+.idea/workspace.xml
+
+# Custom ignore patterns for FabricEase
+# =====================================
+# Add any project-specific patterns here
+fabricease_local/
+my_test_scripts/
+personal_notes.md
+test.py
