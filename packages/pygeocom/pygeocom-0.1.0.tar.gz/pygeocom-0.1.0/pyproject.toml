@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pygeocom"
+version = "0.1.0"
+description = "Python library for Leica GeoCOM Total Station communication"
+readme = "README.md"
+authors = [
+  { name = "Stefan Printz", email = "stefan.printz@hs-bochum.de" }
+]
+license = { text = "MIT" }
+keywords = ["geodesy", "surveying", "coordinates", "total station", "leica"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+dependencies = [
+  "pyserial>=3.5",
+  "pysurveytools>=0.1.0",
+  "Deprecated"
+]
+urls = {"Homepage" = "https://gitlab-ce.hs-bochum.de/fachbereich-geodaesie/pypi/pygeocom",  "Source" = "https://gitlab-ce.hs-bochum.de/fachbereich-geodaesie/pypi/pygeocom.git",   "Issue Tracker" = "https://gitlab-ce.hs-bochum.de/fachbereich-geodaesie/pypi/pygeocom/-/issues" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.optional-dependencies]
+test = [
+  "pytest"
+]
