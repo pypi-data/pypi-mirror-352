@@ -1,0 +1,45 @@
+Metadata-Version: 2.3
+Name: locisimiles
+Version: 0.1.0
+Summary: LociSimiles is a Python package for finding intertextual links in Latin literature using pre-trained language models.
+Author: Julian Schelb
+Author-email: julian.schelb@uni-konstanz.de
+Requires-Python: >=3.13
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: numpy (>=2.2.6,<3.0.0)
+Requires-Dist: pandas (>=2.2.3,<3.0.0)
+Requires-Dist: sentence-transformers (>=4.1.0,<5.0.0)
+Requires-Dist: torch (>=2.7.0,<3.0.0)
+Requires-Dist: transformers (>=4.52.4,<5.0.0)
+Description-Content-Type: text/markdown
+
+# Loci Similes
+
+**LociSimiles** is a Python package for finding intertextual links in Latin literature using pre-trained language models.
+
+## Basic Usage
+
+```python
+
+# Load example query and source documents
+query_doc = Document("../data/hieronymus_samples.csv")
+source_doc = Document("../data/vergil_samples.csv")
+
+# Load the pipeline with pre-trained models
+pipeline = ClassificationPipelineWithCandidategeneration(
+    classification_name="...",
+    embedding_model_name="...",
+    device="cpu",
+)
+
+# Run the pipeline with the query and source documents
+results = pipeline.run(
+    query=query_doc,    # Query document
+    source=source_doc,  # Source document
+    top_k=3             # Number of top similar candidates to classify
+)
+
+pretty_print(results)
+```
+
