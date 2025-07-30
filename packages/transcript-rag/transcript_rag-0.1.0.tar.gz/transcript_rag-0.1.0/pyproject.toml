@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "transcript-rag"
+version = "0.1.0"
+description = "Embed transcript files into ChromaDB and query them with RAG"
+readme = "transcript_rag/README.md"
+requires-python = ">=3.8"
+authors = [{name="OSCE RAG"}]
+dependencies = [
+    "chromadb>=0.4",
+    "sentence-transformers>=2.2.2",
+    "typer[all]>=0.9",
+    "langchain>=0.2",
+    "google-generativeai>=0.1",
+]
+
+[project.scripts]
+transcriptrag = "transcript_rag.cli:app"

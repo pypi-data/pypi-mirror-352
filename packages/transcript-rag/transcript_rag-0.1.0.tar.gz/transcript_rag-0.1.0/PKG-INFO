@@ -1,0 +1,45 @@
+Metadata-Version: 2.4
+Name: transcript-rag
+Version: 0.1.0
+Summary: Embed transcript files into ChromaDB and query them with RAG
+Author: OSCE RAG
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: chromadb>=0.4
+Requires-Dist: sentence-transformers>=2.2.2
+Requires-Dist: typer[all]>=0.9
+Requires-Dist: langchain>=0.2
+Requires-Dist: google-generativeai>=0.1
+
+# Transcript RAG
+
+A small toolkit that embeds transcript files into ChromaDB and allows simple retrieval augmented generation queries. It exposes a command line interface via `transcriptrag`.
+
+## Installation
+
+```bash
+pip install transcript-rag
+```
+
+## Usage
+
+### Embed transcripts
+
+```bash
+transcriptrag embed /path/to/transcripts --collection osce --model all-MiniLM-L6-v2
+```
+
+### Ask a question
+
+```bash
+transcriptrag ask --collection osce "How does the student greet the patient?" --gen-model gemini-pro
+```
+
+The command retrieves relevant chunks from ChromaDB and sends them to the specified generation model. Ensure the appropriate API key is available in your environment for the generation model (e.g., Google Generative AI).
+
+## Publishing to PyPI
+
+1. Install build tools: `pip install build twine`
+2. Run `python -m build` to generate distribution files in `dist/`
+3. Upload with `twine upload dist/*`
+
