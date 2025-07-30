@@ -1,0 +1,111 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "semantic-clustify"
+dynamic = ["version"]
+description = "A powerful and flexible Python tool for semantic clustering of text documents using vector embeddings"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "changyy", email = "changyy.csie@gmail.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Text Processing",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.21.0",
+    "scikit-learn>=1.0.0",
+    "click>=8.0.0",
+    "tqdm>=4.60.0",
+]
+
+[project.optional-dependencies]
+faiss = ["faiss-cpu>=1.7.0"]
+advanced = [
+    "scipy>=1.7.0",
+    "matplotlib>=3.5.0",
+    "seaborn>=0.11.0",
+]
+visualization = [
+    "matplotlib>=3.5.0",
+    "seaborn>=0.11.0",
+    "plotly>=5.0.0",
+]
+all = [
+    "faiss-cpu>=1.7.0",
+    "scipy>=1.7.0",
+    "matplotlib>=3.5.0",
+    "seaborn>=0.11.0",
+    "plotly>=5.0.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=22.0.0",
+    "flake8>=5.0.0",
+    "mypy>=1.0.0",
+    "build>=0.8.0",
+    "twine>=4.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/changyy/py-semantic-clustify"
+Repository = "https://github.com/changyy/py-semantic-clustify"
+Issues = "https://github.com/changyy/py-semantic-clustify/issues"
+
+[project.scripts]
+semantic-clustify = "semantic_clustify.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["semantic_clustify*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "semantic_clustify.__version__"}
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "sklearn.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests"]
+markers = [
+    "quick: Quick smoke tests",
+    "smoke: Basic functionality tests",
+    "core: Core clustering functionality",
+    "kmeans: KMeans specific tests",
+    "dbscan: DBSCAN specific tests", 
+    "hierarchical: Hierarchical clustering tests",
+    "gmm: Gaussian Mixture Model tests",
+    "integration: Integration tests",
+    "performance: Performance and benchmark tests",
+]
