@@ -1,0 +1,28 @@
+[project]
+name = 'pyo3-antelope-rs'
+version = '1.2.0'
+description = 'PyO3 bindings to telosnetwork/antelope-rs + some QoL addons'
+authors = [{ name = 'Guillermo Rodriguez', email = 'guillermo@telos.net' }]
+requires-python = '>=3.9'
+readme = 'README.md'
+dependencies = [
+    'frozendict>=2.4.6',
+    'maturin>=1.8.2',
+    'msgspec>=0.19.0',
+]
+
+[build-system]
+requires = ['maturin>=1.0,<2.0']
+build-backend = 'maturin'
+
+[tool.maturin]
+python-source = 'src'
+python-packages = ['antelope_rs']
+module-name = 'antelope_rs._lowlevel'
+manifest-path = 'rust/Cargo.toml'
+features = ['pyo3/extension-module', 'pyo3/abi3-py39']
+
+[dependency-groups]
+dev = [
+    'deepdiff>=8.5.0',
+]
