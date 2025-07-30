@@ -1,0 +1,10 @@
+name: extract_mutations
+description: Extract MECP2 mutations from genetic reports
+input:
+  document_text: The cleaned document text
+  mecp2_keywords: Detected MECP2-related keywords
+  variant_list: Detected variant patterns
+execution_settings:
+  default:
+    temperature: 0.1
+    max_tokens: 500

@@ -1,0 +1,59 @@
+[project]
+name = "rettxmutation"
+version = "0.1.0"
+authors = [
+  { name="Pedro Rocha", email="procha@rettsyndrome.eu" },
+]
+license = {text = "MIT License"}
+description = "Extract Rett Syndrome mutations from genetic diagnosis report"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "python-dotenv",
+  "azure-ai-formrecognizer",
+  "azure-core",
+  "azure-ai-textanalytics",
+  "azure.ai.documentintelligence",
+  "ftfy",
+  "mutalyzer_hgvs_parser",
+  "pydantic",
+  "pydantic_settings",
+  "openai",
+  "opencv-python-headless",
+  "backoff",
+  "jmespath",
+  "semantic_kernel",
+  "importlib.resources"
+]
+
+[project.urls]
+Homepage = "https://github.com/rett-europe/rettxmutation"
+Issues = "https://github.com/rett-europe/rettxmutation/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+packages = [
+    "rettxmutation",
+    "rettxmutation.adapters",
+    "rettxmutation.core",
+    "rettxmutation.models",
+    "rettxmutation.ocr",
+    "rettxmutation.openai_agent",
+    "rettxmutation.pipeline",
+    "rettxmutation.services",
+    "rettxmutation.utils"
+]
+
+[tool.setuptools.package-data]
+"rettxmutation.openai_agent" = [
+    "prompts/**/*.skprompt.txt",
+    "prompts/**/*.yaml",
+    "prompts/**/*.json",
+    "prompts/**/__init__.py"
+]
