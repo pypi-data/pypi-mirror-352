@@ -1,0 +1,70 @@
+name: domb-napari
+contributions:
+  commands:
+    - id: domb-napari.split_channels_widget
+      title: Multichannel stack preprocessing
+      python_name: domb_napari._widget:split_channels
+    - id: domb-napari.dw_registration_widget
+      title: Dual-view stack registration
+      python_name: domb_napari._widget:dw_registration
+    - id: domb-napari.split_sep_widget
+      title: SEP image preprocessing
+      python_name: domb_napari._widget:split_sep
+    - id: domb-napari.cross_calc_widget
+      title: E-FRET crosstalk estimation
+      python_name: domb_napari._widget:cross_calc
+    - id: domb-napari.g_calc_widget
+      title: E-FRET G-factor estimation
+      python_name: domb_napari._widget:g_calc
+    - id: domb-napari.e_app_widget
+      title: E-FRET estimation
+      python_name: domb_napari._widget:e_app_calc
+    - id: domb-napari.der_series_widget
+      title: Red-green series
+      python_name: domb_napari._widget:der_series
+    - id: domb-napari.up_mask_calc_widget
+      title: Up masking
+      python_name: domb_napari._widget:up_mask_calc
+    - id: domb-napari.mask_calc_widget
+      title: Intensity masking
+      python_name: domb_napari._widget:mask_calc
+    - id: domb-napari.labels_profiles_set_widget
+      title: ROIs profiles
+      python_name: domb_napari._widget:labels_profile_line
+    - id: domb-napari.labels_multi_profile_widget
+      title: Multiple img stat profiles
+      python_name: domb_napari._widget:labels_multi_profile_stat
+    - id: domb-napari.multi_labels_profile_widget
+      title: Multiple labels stat profiles
+      python_name: domb_napari._widget:multi_labels_profile_stat
+    - id: domb-napari.dot_mask_widget
+      title: Dot-patterns masking
+      python_name: domb_napari._widget:dot_mask_calc
+  widgets:
+    - command: domb-napari.dw_registration_widget
+      display_name: Dual-view stack registration
+    - command: domb-napari.split_channels_widget
+      display_name: Multichannel stack preprocessing
+    - command: domb-napari.der_series_widget
+      display_name: Red-green series
+    - command: domb-napari.cross_calc_widget
+      display_name: E-FRET crosstalk estimation
+    - command: domb-napari.g_calc_widget
+      display_name: E-FRET G-factor estimation
+    - command: domb-napari.e_app_widget
+      display_name: E-FRET estimation
+    - command: domb-napari.split_sep_widget
+      display_name: SEP preprocessing
+    - command: domb-napari.dot_mask_widget
+      display_name: Dot-patterns masking
+    - command: domb-napari.up_mask_calc_widget
+      display_name: Up masking
+    - command: domb-napari.mask_calc_widget
+      display_name: Intensity masking
+    - command: domb-napari.labels_profiles_set_widget
+      display_name: ROIs profiles
+    - command: domb-napari.labels_multi_profile_widget
+      display_name: Multiple img stat profiles
+    - command: domb-napari.multi_labels_profile_widget
+      display_name: Multiple labels stat profiles
+
