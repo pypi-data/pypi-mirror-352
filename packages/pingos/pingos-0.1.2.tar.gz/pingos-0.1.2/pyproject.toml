@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pingos"
+version = "0.1.2"
+description = "A TCP/UDP port ping client"
+authors = ["andrew.chang <ultrasparc@naver.com>"]
+readme = "README.md"
+packages = [{include = "pingos"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+click = "7.1.2"
+rich = "^13.7.0"
+
+[tool.poetry.scripts]
+pingos = "pingos.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api" 
