@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: mm-print
+Version: 0.0.2
+Summary: Enhanced printing library with rich formatting support.
+Requires-Python: >=3.13
+Requires-Dist: rich>=14.0.0
+Provides-Extra: mm-result
+Requires-Dist: mm-result~=0.0.2; extra == 'mm-result'
+Provides-Extra: pydantic
+Requires-Dist: pydantic~=2.11.5; extra == 'pydantic'
