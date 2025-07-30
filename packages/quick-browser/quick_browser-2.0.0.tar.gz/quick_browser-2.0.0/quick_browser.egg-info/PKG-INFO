@@ -1,0 +1,584 @@
+Metadata-Version: 2.4
+Name: quick-browser
+Version: 2.0.0
+Summary: Cross-platform Browser Framework for Web Automation (Windows & Linux)
+Author-email: NoirPi <noirpi@noircoding.de>
+Maintainer-email: NoirPi <noirpi@noircoding.de>
+License-Expression: MIT
+Project-URL: Homepage, https://git.noircoding.de/NoirPi/quick-browser
+Project-URL: Repository, https://git.noircoding.de/NoirPi/quick-browser.git
+Project-URL: Bug Tracker, https://git.noircoding.de/NoirPi/quick-browser/issues
+Project-URL: Documentation, https://git.noircoding.de/noirpi/quick-browser/wiki
+Keywords: selenium,browser,automation,chromium,webdriver,cross-platform
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.14
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Internet :: WWW/HTTP :: Browsers
+Classifier: Topic :: Software Development :: Testing
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: selenium>=4.15.0
+Requires-Dist: webdriver-manager>=4.0.0
+Requires-Dist: requests>=2.31.0
+Requires-Dist: tqdm>=4.66.0
+Requires-Dist: pywin32>=306; sys_platform == "win32"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Provides-Extra: build
+Requires-Dist: nuitka>=1.8.0; extra == "build"
+Requires-Dist: colorama>=0.4.6; extra == "build"
+Requires-Dist: build>=1.0.0; extra == "build"
+Requires-Dist: twine>=4.0.0; extra == "build"
+Dynamic: license-file
+
+# 🚀 Quick Browser Framework
+
+> **Cross-platform Browser Automation Framework for Windows & Linux - 64-bit optimized**
+
+A simple yet powerful Python framework for browser automation based on Selenium. Designed for cross-platform compatibility with focus on simplicity, reliability, and zero-configuration setup.
+
+[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://python.org)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/NoirPi/quick-browser)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Beta-orange.svg)](https://github.com/NoirPi/quick-browser)
+
+## ✨ Features
+
+- 🔧 **Simple API** - Minimal setup code for maximum productivity
+- 🌍 **Cross-Platform** - Seamless operation on Windows (x64) and Linux (x64, ARM64)
+- ⚡ **Performance Optimized** - Fast startup times and efficient resource usage
+- 📦 **Zero-Setup** - Automatic Chromium and ChromeDriver management
+- 🛡️ **Robust** - Built-in error handling and retry mechanisms
+- 🔒 **Type-Safe** - Complete type hints and robust error handling
+- 🔄 **Auto-Update** - Automatic WebDriver compatibility management
+- 📸 **Screenshot Support** - Built-in screenshot functionality
+- 🎯 **Context Manager Support** - Clean resource management with automatic cleanup
+- 🏗️ **Modular Architecture** - Use components independently or as complete framework
+
+## 📦 Quick Installation
+
+### From PyPI (Recommended)
+```bash
+pip install quick-browser
+```
+
+### From Gitea Registry (Development)
+```bash
+# From Gitea Registry
+pip install --index-url https://git.noircoding.de/api/packages/NoirPi/pypi/simple/ quick-browser
+
+# Or with requirements.txt
+echo "--extra-index-url https://git.noircoding.de/api/packages/NoirPi/pypi/simple/" >> requirements.txt
+echo "quick-browser>=1.1.0" >> requirements.txt
+pip install -r requirements.txt
+```
+
+### Test Installation
+```bash
+quick-browser-test
+```
+
+## 🚀 Quick Start
+
+### Basic Usage (Recommended - Context Manager)
+
+```python
+from quick_browser import BrowserFramework, BrowserConfig
+
+# Simple configuration
+config = BrowserConfig(
+    headless=False,        # Show browser window
+    kiosk=False,          # Windowed mode
+    show_console=True     # Show download progress
+)
+
+# Context manager automatically handles setup and cleanup
+with BrowserFramework(config) as browser:
+    # Navigate to a website
+    browser.navigate("https://www.google.com")
+    
+    # Find and interact with elements
+    search_box = browser.send_keys_by_name("q", "Python automation")
+    search_box.submit()
+    
+    # Take screenshot
+    browser.driver.save_screenshot("result.png")
+    
+    # Direct Selenium WebDriver access
+    results = browser.driver.find_elements("css selector", "h3")
+    print(f"Found {len(results)} search results")
+```
+
+### Legacy API (Backward Compatibility)
+
+```python
+from browser_framework import BrowserManager
+
+# Browser starten
+browser_manager = BrowserManager()
+driver = browser_manager.get_driver()
+
+# Webseite öffnen
+driver.get("https://www.google.com")
+
+# Element finden und interagieren
+search_box = driver.find_element("name", "q")
+search_box.send_keys("Python automation")
+search_box.submit()
+
+# Screenshot erstellen
+driver.save_screenshot("result.png")
+
+# Cleanup
+browser_manager.cleanup()
+```
+
+### Platform-Optimized Configuration
+
+```python
+from quick_browser import PlatformConfigFactory
+
+# Automatically optimized for current platform
+config = PlatformConfigFactory.create_auto_config(
+    headless=False,
+    element_timeout=15
+)
+
+with BrowserFramework(config) as browser:
+    browser.navigate("https://example.com")
+    # Framework automatically handles platform differences
+```
+
+### Advanced Configuration
+
+```python
+from quick_browser import BrowserConfig
+
+config = BrowserConfig(
+    chromium_version="120.0.6099.109",  # Specific Chromium version
+    driver_version="120.0.6099.109",    # Specific ChromeDriver version
+    headless=True,                      # Headless mode
+    element_timeout=30,                 # Custom timeouts
+    page_load_timeout=45,
+    performance_flags=[                 # Custom Chrome flags
+        "--disable-extensions",
+        "--disable-gpu",
+        "--no-sandbox"
+    ],
+    browser_prefs={                     # Browser preferences
+        "download.default_directory": "./downloads",
+        "profile.default_content_settings.popups": 0
+    }
+)
+```
+
+## 📚 Examples
+
+The `examples/` directory contains complete examples:
+
+- **`basic_example.py`** - Cross-platform browser automation with diagnostics
+- **`advanced_scraping_example.py`** - Advanced scraping techniques with performance monitoring
+
+### Running Examples
+
+```bash
+# Basic example
+python examples/basic_example.py
+
+# Advanced examples
+python examples/advanced_scraping_example.py
+```
+
+## 🛠️ Advanced Features
+
+### Element Interactions
+
+```python
+from quick_browser import ElementWaiter
+
+with BrowserFramework(config) as browser:
+    browser.navigate("https://example.com")
+    
+    # Advanced element waiting
+    waiter = ElementWaiter(browser.driver, default_timeout=10)
+    element = waiter.wait_for_element_clickable("id", "submit-button")
+    
+    # Safe clicking with timeout
+    success = browser.safe_click("css selector", ".important-button")
+    
+    # Multiple element interactions
+    browser.send_keys_by_name("username", "testuser")
+    browser.send_keys_by_name("password", "testpass")
+    browser.click_by_id("login-button")
+```
+
+### Performance Monitoring
+
+```python
+from quick_browser import PerformanceMonitor
+
+with BrowserFramework(config) as browser:
+    browser.navigate("https://example.com")
+    
+    # Monitor page performance
+    monitor = PerformanceMonitor(browser.driver)
+    load_time = monitor.get_page_load_time()
+    memory_usage = monitor.get_memory_usage()
+    
+    print(f"Page loaded in {load_time:.2f}s")
+    print(f"Memory usage: {memory_usage['used_heap'] / 1024 / 1024:.1f}MB")
+```
+
+### Cross-Platform Utilities
+
+```python
+from quick_browser import CrossPlatformUtils
+
+with BrowserFramework(config) as browser:
+    browser.navigate("https://example.com")
+    
+    utils = CrossPlatformUtils()
+    
+    # Full page screenshot
+    utils.take_full_page_screenshot(browser.driver, "fullpage.png")
+    
+    # Clear browser data
+    utils.clear_browser_data(browser.driver)
+    
+    # Get comprehensive page info
+    page_info = utils.get_page_info(browser.driver)
+    print(f"Page title: {page_info['title']}")
+```
+
+### Manual Resource Management
+
+```python
+# Manual management for complex scenarios
+browser = BrowserFramework(config)
+try:
+    browser.setup()  # Explicit setup
+    browser.navigate("https://example.com")
+    # ... your automation code ...
+finally:
+    browser.quit()   # Explicit cleanup
+```
+
+## 🏗️ Architecture
+
+The framework is built with a modular architecture:
+
+```
+quick_browser/
+├── core/              # Core framework orchestration
+├── chromium/          # Chromium download and management
+├── config/            # Configuration classes
+├── utils/             # Utility components
+├── exceptions/        # Custom exceptions
+└── types/             # Type definitions
+```
+
+### Key Components
+
+- **BrowserFramework**: Main orchestrator class (new API)
+- **BrowserManager**: Legacy compatibility class
+- **ChromiumManager**: Handles Chromium download and setup
+- **DriverManager**: Manages ChromeDriver compatibility
+- **ElementWaiter**: Advanced element waiting utilities
+- **PerformanceMonitor**: Browser performance tracking
+- **CrossPlatformUtils**: Platform-agnostic utilities
+
+## 🖥️ Platform Support
+
+### Windows
+- **Architecture**: x64
+- **Features**: Full feature support including console management
+- **Chrome Flags**: Windows-optimized performance flags
+- **Dependencies**: Includes `pywin32` for Windows-specific features
+
+### Linux
+- **Architecture**: x64, ARM64
+- **Features**: Full feature support with X11 compatibility
+- **Chrome Flags**: Linux-optimized flags including `--no-sandbox`
+- **Dependencies**: No platform-specific requirements
+
+## 📋 Requirements
+
+- **Python**: 3.8 or higher
+- **Operating System**: Windows 10+ or Linux (most distributions)
+- **Architecture**: 64-bit (x64, ARM64 on Linux)
+- **RAM**: Minimum 4GB recommended
+
+### Python Dependencies
+
+```
+selenium>=4.15.0
+webdriver-manager>=4.0.0
+requests>=2.31.0
+tqdm>=4.66.0
+pywin32>=306  # Windows only
+```
+
+## 🔧 CLI Tools
+
+The framework includes practical CLI tools:
+
+```bash
+# Test framework installation
+quick-browser-test
+
+# Show help
+quick-browser-test --help
+```
+
+## 📖 API Reference
+
+> **📚 Complete API documentation is available in our [Gitea Wiki](https://git.noircoding.de/NoirPi/quick-browser/wiki)**
+
+### Quick Reference
+
+#### BrowserFramework (New API)
+
+Main orchestrator class for cross-platform browser automation.
+
+```python
+from quick_browser import BrowserFramework, BrowserConfig
+
+config = BrowserConfig(...)
+
+# Context manager (recommended)
+with BrowserFramework(config) as browser:
+    browser.navigate("https://example.com")
+    browser.send_keys_by_name("q", "search term")
+```
+
+**Key Methods:**
+- `navigate(url)` - Navigate with automatic optimizations
+- `safe_click(by, value, timeout)` - Safe element clicking
+- `send_keys_by_name(name, keys, timeout)` - Type-safe text input
+
+[📖 **Full BrowserFramework API** →](https://git.noircoding.de/NoirPi/quick-browser/wiki/BrowserFramework-API)
+
+#### BrowserManager (Legacy API)
+
+Backward-compatible browser management class.
+
+```python
+from browser_framework import BrowserManager
+
+browser_manager = BrowserManager()
+driver = browser_manager.get_driver()
+# ... automation code ...
+browser_manager.cleanup()
+```
+
+[📖 **Full BrowserManager API** →](https://git.noircoding.de/noirpi/quick-browser/wiki/BrowserManager-API.-)
+
+#### Configuration
+
+```python
+from quick_browser import BrowserConfig, PlatformConfigFactory
+
+# Manual configuration
+config = BrowserConfig(headless=False, element_timeout=20)
+
+# Platform-optimized configuration
+config = PlatformConfigFactory.create_auto_config()
+```
+
+[📖 **Configuration Guide** →](https://git.noircoding.de/noirpi/quick-browser/wiki/Configuration-Guide)
+
+#### Utility Components
+
+```python
+from quick_browser import ElementWaiter, PerformanceMonitor, CrossPlatformUtils
+
+# Advanced element operations
+waiter = ElementWaiter(driver)
+element = waiter.wait_for_element_clickable("id", "button")
+
+# Performance monitoring  
+monitor = PerformanceMonitor(driver)
+load_time = monitor.get_page_load_time()
+```
+
+[📖 **Utilities Reference** →](https://git.noircoding.de/noirpi/quick-browser/wiki/Utilities-Reference)
+```
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Browser doesn't start on Linux:**
+```bash
+# Install required dependencies
+sudo apt-get update
+sudo apt-get install -y chromium-browser xvfb
+```
+
+**Permission errors on Linux:**
+```bash
+# Make sure Chrome binary is executable
+chmod +x /path/to/chrome
+```
+
+**WebDriver crashes:**
+- Update to latest framework version
+- Check Chrome/ChromeDriver compatibility
+- Enable verbose logging with `log_system_info=True`
+
+### Debug Mode
+
+```python
+config = BrowserConfig(
+    log_system_info=True,    # Enable detailed logging
+    show_console=True        # Show browser console
+)
+```
+
+## 📊 Performance
+
+### Benchmarks
+- **Cold Start** (first run): ~45-150 seconds (includes Chromium download)
+- **Warm Start** (cached): ~4-7 seconds 
+- **Navigation**: ~1-3 seconds per page
+- **Element Finding**: ~100-500ms with waits
+- **Memory Usage**: ~200-400MB per browser instance
+- **Context Manager Overhead**: <50ms vs manual management
+
+### Download Sizes
+- **Chromium**: ~50-200MB (platform dependent)
+- **ChromeDriver**: ~5-15MB
+- **Total Cache**: ~60-220MB
+
+### Optimization Tips
+- Use `headless=True` for CI/CD pipelines
+- Enable `profile_cleanup=False` for faster repeated runs
+- Use specific versions to avoid download overhead
+- Implement element waiting instead of `time.sleep()`
+- Use context managers for automatic resource management
+
+## 🏗️ Development
+
+### Setup Development Environment
+
+```bash
+# Clone repository
+git clone https://git.noircoding.de/NoirPi/quick-browser.git
+cd quick-browser
+
+# Create virtual environment
+python -m venv .venv
+
+# Windows
+.venv\Scripts\activate
+
+# Linux
+source .venv/bin/activate
+
+# Install development dependencies
+pip install -e .[dev]
+```
+
+### Running Tests
+
+```bash
+# All tests
+pytest
+
+# With coverage
+pytest --cov=quick_browser
+
+# Specific test
+pytest tests/test_browser_framework.py
+```
+
+### Code Quality
+
+```bash
+# Linting with Ruff
+ruff check .
+
+# Auto-fix
+ruff check . --fix
+
+# Formatting
+ruff format .
+
+# Type checking
+mypy quick_browser/
+```
+
+### Build Package
+
+```bash
+# Clean build
+python -m build
+
+# Upload to PyPI
+twine upload dist/*
+
+# Upload to Gitea
+twine upload --repository gitea dist/*
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md).
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 Changelog
+
+### v1.2.0 (Current)
+- 🌍 Cross-platform support (Windows + Linux)
+- 🔧 New BrowserFramework API with context manager support
+- 📦 Automatic Chromium and ChromeDriver management
+- 🛠️ Modular architecture with utility components
+- 🔒 Complete type safety and error handling
+- ⚡ Performance optimizations and monitoring tools
+
+### v1.1.0 (2025-06-02)
+- ✨ Initial release
+- 🔧 Basic browser management
+- 📦 Windows 64-bit optimization
+- 🛡️ Error handling
+- 📸 Screenshot support
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+- **Issues**: [GitHub Issues](https://github.com/NoirPi/quick-browser/issues) | [Gitea Issues](https://git.noircoding.de/NoirPi/quick-browser/issues)
+- **Documentation**: [Wiki](https://github.com/NoirPi/quick-browser/wiki) | [Gitea README](https://git.noircoding.de/NoirPi/quick-browser#readme)
+- **Email**: noirpi@noircoding.de
+
+## 🙏 Acknowledgments
+
+- Built on top of [Selenium WebDriver](https://selenium.dev/)
+- Uses [ungoogled-chromium](https://github.com/ungoogled-software/ungoogled-chromium) for privacy-focused browsing
+- Cross-platform compatibility inspired by modern Python practices
+- Python Community and all beta testers
+
+---
+
+**Made with ❤️ by [NoirPi](https://github.com/NoirPi)**
+
+*Quick Browser Framework - Because browser automation shouldn't be complicated!*
