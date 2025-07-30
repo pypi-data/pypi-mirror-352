@@ -1,0 +1,12 @@
+<mujocoinclude>
+    <actuator>
+        <general class="robot" name="actuator1" joint="robot:joint1" gainprm="4500" biasprm="0 -4500 -450"/>
+        <general class="robot" name="actuator2" joint="robot:joint2" gainprm="4500" biasprm="0 -4500 -450" ctrlrange="-1.7628 1.7628"/>
+        <general class="robot" name="actuator3" joint="robot:joint3" gainprm="3500" biasprm="0 -3500 -350"/>
+        <general class="robot" name="actuator4" joint="robot:joint4" gainprm="3500" biasprm="0 -3500 -350" ctrlrange="-3.0718 -0.0698"/>
+        <general class="robot" name="actuator5" joint="robot:joint5" gainprm="2000" biasprm="0 -2000 -200" forcerange="-12 12"/>
+        <general class="robot" name="actuator6" joint="robot:joint6" gainprm="2000" biasprm="0 -2000 -200" forcerange="-12 12" ctrlrange="-0.0175 3.7525"/>
+        <general class="robot" name="actuator7" joint="robot:joint7" gainprm="2000" biasprm="0 -2000 -200" forcerange="-12 12"/>
+        <general class="robot" name="actuator8" tendon="split" forcerange="-100 100" ctrlrange="0 255" gainprm="0.01568627451 0 0" biasprm="0 -100 -10"/>
+    </actuator>
+</mujocoinclude>

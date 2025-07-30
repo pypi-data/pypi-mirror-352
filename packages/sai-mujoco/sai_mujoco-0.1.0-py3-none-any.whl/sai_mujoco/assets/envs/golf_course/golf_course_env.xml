@@ -1,0 +1,20 @@
+<mujoco>
+
+    <include file="./envs/golf_course/assets.xml"/>
+
+    <worldbody>
+        <body name='golf_course' pos='0 0 0.025'>
+            <include file="./envs/golf_course/golf_course.xml"/>
+        </body>
+
+        <body name='golf_ball' pos='0.5 0 0.038'>
+            <joint name="env:ball" type="free"></joint>
+            <geom name='golf_ball' type='sphere' size='0.015' material='mat_ball' mass="0.001"/>
+        </body>
+
+        <body name='golf_club' pos='0.7 0 0.025' euler='0 0 1.5707'>
+            <joint name="env:club" type="free" damping="0.01"></joint>
+            <include file="./envs/golf_course/golf_club.xml"/>
+        </body>
+    </worldbody>
+</mujoco>

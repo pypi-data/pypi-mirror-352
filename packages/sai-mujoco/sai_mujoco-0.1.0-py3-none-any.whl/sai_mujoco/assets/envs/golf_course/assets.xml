@@ -1,0 +1,22 @@
+<mujocoinclude>
+    <compiler texturedir="./envs/golf_course" />
+    <asset>
+        <!-- Create the watermark overlay material -->
+        <texture name="watermark_tex" type="2d" file="sai_logo.png" hflip="true" vflip="true"/>
+        <material name="watermark_mat" texture="watermark_tex" texrepeat="1 1" texuniform="false" rgba="1 1 1 0.05"/>
+
+        <!-- Grass-like green material for the field - more realistic coloring -->
+        <material name="mat_grass" rgba="0.13 0.54 0.13 1"/>
+        <!-- Grey material for walls and cup - light gray for cup edge -->
+        <material name="mat_wall" rgba="0.7 0.7 0.7 1"/>
+        <!-- White for the golf ball with slight shine -->
+        <material name="mat_ball" rgba="0.95 0.95 0.95 1"/>
+        <!-- Red for the flag -->
+        <material name="mat_flag" rgba="1 0 0 1"/>
+        <material name="flag_red" rgba="1 0 0 1"/>
+        <material name="pole_white" rgba="0.9 0.9 0.9 1"/>
+        <!-- Cup material -->
+        <material name="mat_cup" rgba="0.1 0.1 0.1 1"/>
+
+    </asset>
+</mujocoinclude>

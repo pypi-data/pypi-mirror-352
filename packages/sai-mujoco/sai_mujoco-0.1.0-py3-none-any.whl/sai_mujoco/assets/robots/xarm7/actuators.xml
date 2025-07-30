@@ -1,0 +1,37 @@
+<mujocoinclude>
+    <contact>
+        <exclude body1="right_inner_knuckle" body2="right_outer_knuckle"/>
+        <exclude body1="right_inner_knuckle" body2="right_finger"/>
+        <exclude body1="left_inner_knuckle" body2="left_outer_knuckle"/>
+        <exclude body1="left_inner_knuckle" body2="left_finger"/>
+    </contact>
+
+    <tendon>
+        <fixed name="split">
+        <joint joint="robot:right_driver_joint" coef="0.5"/>
+        <joint joint="robot:left_driver_joint" coef="0.5"/>
+        </fixed>
+    </tendon>
+
+    <equality>
+        <connect anchor="0 0.015 0.015" body1="right_finger" body2="right_inner_knuckle" solref="0.005 1"/>
+        <connect anchor="0 -0.015 0.015" body1="left_finger" body2="left_inner_knuckle" solref="0.005 1"/>
+        <joint joint1="robot:left_driver_joint" joint2="robot:right_driver_joint" polycoef="0 1 0 0 0" solref="0.005 1"/>
+    </equality>
+
+    <actuator>
+        <general name="act1" joint="robot:joint1" class="size1"/>
+        <general name="act2" joint="robot:joint2" class="size1" ctrlrange="-2.059 2.0944"/>
+        <general name="act3" joint="robot:joint3" class="size2"/>
+        <general name="act4" joint="robot:joint4" class="size2" ctrlrange="-0.19198 3.927"/>
+        <general name="act5" joint="robot:joint5" class="size2"/>
+        <general name="act6" joint="robot:joint6" class="size3" ctrlrange="-1.69297 3.14159"/>
+        <general name="act7" joint="robot:joint7" class="size3"/>
+        <general name="gripper" tendon="split" forcerange="-50 50" ctrlrange="0 255" biastype="affine" gainprm="0.333"
+        biasprm="0 -100 -10"/>
+    </actuator>
+
+    <!-- <keyframe>
+        <key name="init_pos" qpos="0 -.247 0 .909 0 1.15644 0 0 0 0 0 0 0" ctrl="0 -.247 0 .909 0 1.15644 0 0"/>
+    </keyframe> -->
+</mujocoinclude>

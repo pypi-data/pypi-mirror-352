@@ -1,0 +1,22 @@
+<mujocoinclude>
+
+        <!-- <keyframe>
+                <key name="init_pos"
+                qpos="-1.5385 -0.666859 -0.00566179 -0.90322 1.5695 1.59939 5.27478e-05 0.000325629 5.27511e-05 0.000330339 6.72723e-05 -7.0035e-05 0.0914324 -0.000575927 0.209981 1 1.31323e-13 1.08636e-12 0.000191033"
+                qvel="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" mpos="-0.05154491  0.01053502  0.3448586"
+                mquat="0.50235287 -0.499 -0.5 0.49764296"></key>
+        </keyframe> -->
+
+        <equality>
+                <weld name="mocap_weld" body1="target_robot" body2="gripper_tcp"
+                solimp="0.9 0.95
+                0.001"
+                solref="0.02 1"></weld>
+        </equality>
+
+        <actuator>
+                <general biastype="affine" name="fingers_actuator" tendon="split" forcerange="-5 5"
+                ctrlrange="0 1" gainprm="70 0 0" biasprm="0 -100 -10" forcelimited="true"
+                ctrllimited="true" />
+        </actuator>
+</mujocoinclude>

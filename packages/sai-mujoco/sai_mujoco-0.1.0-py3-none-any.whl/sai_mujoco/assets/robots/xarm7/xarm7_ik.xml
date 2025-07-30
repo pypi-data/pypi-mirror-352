@@ -1,0 +1,15 @@
+<mujoco>
+
+    <include file="./robots/xarm7/assets.xml"/>
+    <include file="./robots/xarm7/actuators.xml"/>
+    
+    <worldbody>
+        <body name='robot' pos='0.0 0.0 0.7' quat='0.0 0.0 0.0 1.0'>
+            <include file="./robots/xarm7/robot.xml"/>
+        </body>
+
+        <body name="target_robot" pos=".795 0.013 0.22" quat="0.69583197 -0.00828941 -0.71751956  0.0302463" mocap="true">
+            <site type="sphere" size="0.01" rgba="0 0 1 1" group="1"/>
+        </body>
+    </worldbody>
+</mujoco>

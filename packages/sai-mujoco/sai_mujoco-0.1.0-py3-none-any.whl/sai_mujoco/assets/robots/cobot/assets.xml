@@ -1,0 +1,67 @@
+<mujocoinclude>
+    <compiler angle="radian" meshdir="./robots/cobot/meshes"/>
+    <option timestep="0.002"/>
+    <!--  <size nuser_actuator="6"/>  -->
+    <asset>
+    <!--  Collision meshes  -->
+        <mesh name="base_link" file="base_link.STL"/>
+        <mesh name="link1" file="link1.STL"/>
+        <mesh name="link2" file="link2.STL"/>
+        <mesh name="link3" file="link3.STL"/>
+        <mesh name="link4" file="link4.STL"/>
+        <mesh name="link5" file="link5.STL"/>
+        <mesh name="link6" file="link6.STL"/>
+        <mesh name="flange" file="flange.STL"/>
+        <mesh name="gripper_base" file="gripper_base.STL"/>
+        <mesh name="right_gear_link" file="right_gear_link.STL"/>
+        <mesh name="right_finger_link" file="right_finger_link.STL"/>
+        <mesh name="left_gear_link" file="left_gear_link.STL"/>
+        <mesh name="left_finger_link" file="left_finger_link.STL"/>
+        <mesh name="right_hinge_link" file="right_hinge_link.STL"/>
+        <mesh name="left_hinge_link" file="left_hinge_link.STL"/>
+    </asset>
+    <contact>
+        <exclude body1="link6" body2="left_gear_link"/>
+        <exclude body1="link6" body2="right_gear_link"/>
+        <exclude body1="link6" body2="left_hinge_link"/>
+        <exclude body1="link6" body2="right_hinge_link"/>
+        <exclude body1="right_finger" body2="right_hinge_link"/>
+        <exclude body1="left_finger" body2="left_hinge_link"/>
+        <exclude body1="left_finger" body2="right_finger"/>
+        <exclude body1="right_gear_link" body2="left_gear_link"/>
+    </contact>
+    <default>
+        <default class="robot">
+            <joint armature="0.1" damping="1" range="-2.96706 2.96706" limited="true"/>
+            <general dyntype="none" biastype="affine" ctrlrange="-2.96706 2.96706" forcerange="-87 87" forcelimited="true" ctrllimited="true"/>
+        </default>
+        <default class="driver">
+            <joint range="0 0.7" armature="0.005" damping="0.1" solimplimit="0.95 0.99 0.001" solreflimit="0.005 1" limited="true"/>
+        </default>
+        <default class="follower">
+            <joint range="-0.872664 0.872664" pos="0 0 0" solimplimit="0.95 0.99 0.001" solreflimit="0.005 1" limited="true"/>
+        </default>
+        <default class="coupler">
+            <joint solimplimit="0.95 0.99 0.001" solreflimit="0.005 1"/>
+        </default>
+    </default>
+
+    <tendon>
+        <fixed name="split">
+        <joint joint="robot:right_gear_joint" coef="0.5" />
+        <joint joint="robot:left_gear_joint" coef="0.5" />
+        </fixed>
+    </tendon>
+
+    <equality>
+        <connect anchor="0.021833 -0.005 -0.0072346" body1="right_finger"
+        body2="right_hinge_link"
+        solimp="0.95 0.99 0.001" solref="0.005 1" />
+        <connect anchor="0.021833 -0.005 0.0072347" body1="left_finger"
+        body2="left_hinge_link"
+        solimp="0.95 0.99 0.001" solref="0.005 1" />
+        <joint joint1="robot:right_gear_joint" joint2="robot:left_gear_joint" polycoef="0 1 0 0 0"
+        solimp="0.95 0.99 0.001" solref="0.005 1" />
+    </equality>
+    
+</mujocoinclude>
