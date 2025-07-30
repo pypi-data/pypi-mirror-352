@@ -1,0 +1,75 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  run_tests_ubuntu:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install packages
+        run: |
+          pip install -e .[tests]
+
+      #----------------------------------------------
+      #              run test suite
+      #----------------------------------------------
+      - name: Run tests
+        run: |
+          pytest -v --cov=src -m "not parallelized and not lightning" --ignore="benchmark" --ignore="src/meds_torchdata/extensions"
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Install lightning
+        run: |
+          pip install -e .[lightning]
+
+      - name: Run doctests with lightning
+        run: |
+          pytest -v --cov=src src/meds_torchdata/extensions/lightning_datamodule.py
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Run test/* tests with lightning
+        run: |
+          pytest -v --cov=src tests/ -m "lightning and not parallelized"
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Install joblib
+        run: |
+          pip install hydra-joblib-launcher
+
+      - name: Run tests with joblib
+        run: |
+          pytest -v --cov=src tests/ -m "parallelized and not lightning"
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
