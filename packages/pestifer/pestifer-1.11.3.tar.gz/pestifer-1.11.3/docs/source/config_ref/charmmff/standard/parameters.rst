@@ -1,0 +1,16 @@
+.. _config_ref charmmff standard parameters:
+
+``parameters``
+--------------
+
+  * par_all36m_prot.prm
+  * par_all36_carb.prm
+  * par_all36_lipid.prm
+  * par_all36_carb.prm
+  * par_all36_na.prm
+  * par_all36_cgenff.prm
+  * toppar_water_ions.str
+  * toppar_all36_carb_glycopeptide.str
+  * toppar_all36_prot_modify_res.str
+
+
