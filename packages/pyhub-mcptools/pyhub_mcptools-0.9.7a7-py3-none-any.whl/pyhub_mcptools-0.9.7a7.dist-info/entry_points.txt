@@ -1,0 +1,13 @@
+[console_scripts]
+mcp = pyhub.mcptools.__main__:app
+mcptools = pyhub.mcptools.__main__:app
+pyhub.mcptools = pyhub.mcptools.__main__:app
+pyhub.mcptools.browser = pyhub.mcptools.browser.__main__:app
+pyhub.mcptools.email = pyhub.mcptools.email.__main__:app
+pyhub.mcptools.excel = pyhub.mcptools.excel.__main__:app
+pyhub.mcptools.python = pyhub.mcptools.python.__main__:app
+pyhub.mcptools.sentiment = pyhub.mcptools.sentiment.__main__:app
+pyhub.mcptools.setup = pyhub.mcptools.setup.__main__:app
+
+[mkdocs.plugins]
+local_social = plugins.local_social.plugin:LocalSocialPlugin
