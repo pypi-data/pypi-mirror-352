@@ -1,0 +1,275 @@
+# MCP Manager CLI
+
+A unified CLI and daemon/service to manage and proxy multiple MCP servers, with robust logging and a modern CLI UX.
+
+## Table of Contents
+
+- [Features](#features)
+- [Architecture Overview](#architecture-overview)
+- [Installation](#installation)
+- [Run with Docker](#run-with-docker)
+- [Configuration](#configuration)
+- [Security & API Key Authentication](#security--api-key-authentication)
+- [Quickstart](#quickstart)
+- [CLI User Interface Example](#cli-user-interface-example)
+- [Available CLI Commands](#available-cli-commands)
+- [Roadmap](#roadmap)
+- [License](#license)
+
+## Features
+- **Daemon/Service Architecture**: Background FastAPI HTTP server for robust, multi-process management.
+- **Unified CLI**: Interactive CLI for all management and tool operations.
+- **Server Management**: Start, stop, and monitor multiple MCP servers defined in a config file.
+- **SSE Support**: Built-in `/sse`, `/messages/`, and `/mcp-server-name/sse` endpoints for real-time communication with individual servers.
+- **All runtime and config files are stored in the `.cache/` directory for easy management and cleanup.**
+
+## Architecture Overview
+
+```mermaid
+flowchart TD
+    classDef user fill:#e0f7fa,stroke:#00796b,stroke-width:2px;
+    classDef daemon fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+    classDef process fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+
+    subgraph User
+        CLI["👤 CLI (mcp-manager)"]:::user
+        OtherClient["👤 Other MCP Client (SSE/WebSocket)"]:::user
+    end
+
+    subgraph "MCP Manager Daemon (FastAPI)"
+        APIServer["🖥️ API Server (FastAPI)"]:::daemon
+        ServerManager["🗄️ ServerManager"]:::daemon
+        Config["📝 Config (.cache/mcp_config.json)"]:::daemon
+    end
+
+    subgraph "Managed MCP Servers"
+        MCPServer1["⚙️ MCP Server 1 (Stdio Process)"]:::process
+        MCPServer2["⚙️ MCP Server 2 (Stdio Process)"]:::process
+        MCPServerN["..."]:::process
+    end
+
+    CLI -- "HTTP" --> APIServer
+    OtherClient -- "SSE" --> APIServer
+    APIServer -- "Reads/writes" --> Config
+    APIServer -- "Manages via" --> ServerManager
+    ServerManager -- "Spawns & manages via stdio/stdout" --> MCPServer1
+    ServerManager -- "Spawns & manages via stdio/stdout" --> MCPServer2
+    ServerManager -- "Spawns & manages via stdio/stdout" --> MCPServerN
+```
+
+## Installation
+
+**Quick install from PyPI:**
+```bash
+pip install mcp-manager-cli
+```
+
+Or, to install from source:
+
+1. **Clone the repo:**
+   ```bash
+   git clone <repo-url>
+   cd mcp-manager
+   ```
+2. **Install [uv](https://docs.astral.sh/uv/) (recommended for Python environments).**
+3. **Create and activate a virtual environment:**
+   ```bash
+   uv venv .venv
+   source .venv/bin/activate
+   ```
+4. **Install dependencies:**
+   ```bash
+   uv pip install -e .
+   ```
+
+## Run with Docker
+
+You can run MCP Manager CLI using Docker. This is the easiest way to get started without installing Python or dependencies on your system.
+
+### Using Docker Compose
+
+1. Make sure you have [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
+2. Use the provided `docker-compose.yml` (already configured):
+   ```bash
+   docker-compose up -d
+   ```
+   This will pull and run the image `khaitrinhxuan/mcp-manager-cli:latest` and expose port 4123.
+3. The `.cache` directory will be used for configuration and runtime files, and is mounted for persistence.
+
+### Using Docker CLI directly
+
+You can also run the container directly:
+```bash
+docker run -d \
+  --name mcp-manager \
+  -p 4123:4123 \
+  -v $(pwd)/.cache:/app/.cache \
+  khaitrinhxuan/mcp-manager-cli:latest
+```
+
+- The API server will be available on [http://localhost:4123](http://localhost:4123)
+- All config and runtime files are stored in `.cache/` on your host.
+
+## Configuration
+
+Define MCP servers in `.cache/mcp_config.json`:
+```json
+{
+  "mcpServers": {
+    "hackernews": {
+      "command": "uvx",
+      "args": [
+        "mcp-hn"
+      ],
+      "auto_start": true
+    }
+  }
+}
+```
+> - `auto_start`: If true, the server starts automatically with the daemon.
+> - **After editing `.cache/mcp_config.json`, run `server reload` in the CLI to apply changes.**
+> - **All config and runtime files are stored in the `.cache/` directory.**
+
+## Security & API Key Authentication
+
+- On first run, the server generates an API key in `.cache/mcp_manager_api_key.txt`.
+- All management endpoints require this API key as a Bearer token in the `Authorization` header.
+- The CLI uses this API key automatically.
+- To view the API key:
+  ```bash
+  api-key
+  ```
+- To regenerate the API key:
+  ```bash
+  regenerate-api-key
+  ```
+- For manual requests (e.g., curl/Postman), use:
+  ```
+  Authorization: Bearer <your-api-key>
+  ```
+- **API key file location:** `.cache/mcp_manager_api_key.txt`
+
+## Quickstart
+
+1. **Start the CLI:**
+   ```bash
+   mcp-manager
+   ```
+2. **Example commands:**
+   - `daemon start` (default port 4123)
+   - `daemon start --port 5000` (custom port)
+   - `server list`, `server reload`, `tools list`, `api-key`, `regenerate-api-key`, etc.
+3. **Type `help` for all commands.**
+4. **All config and runtime files are in `.cache/`.**
+
+## SSE Endpoints
+
+The MCP Manager daemon provides several SSE (Server-Sent Events) endpoints for real-time communication:
+
+- **Unified SSE Proxy:**
+  - `GET /sse` — Connect to all managed servers via a unified SSE stream.
+- **Per-Server SSE Endpoint:**
+  - `GET /<mcp-server-name>/sse` — Connect directly to a specific managed server's SSE stream. Replace `<mcp-server-name>` with the name of your server (e.g., `/hackernews/sse`).
+- **Messages Endpoint:**
+  - `POST /messages` — Send messages to all servers (with authentication).
+  - `POST /<mcp-server-name>/messages` — Send messages to a specific server.
+
+> **Tip:** Use the per-server SSE endpoint (`/<mcp-server-name>/sse`) for direct, real-time communication with a single managed server.
+
+## CLI User Interface Example
+
+```text
+  __  __  ___ ___   __  __                             
+ |  \/  |/ __| _ \ |  \/  |__ _ _ _  __ _ __ _ ___ _ _ 
+ | |\/| | (__|  _/ | |\/| / _` | ' \/ _` / _` / -_) '_|
+ |_|  |_|\___|_|   |_|  |_|\__,_|_||_\__,_\__, \___|_|  
+                                         |___/          ☁️ CloudThinker
+
+MCP Manager: Multi MCP Server Control Panel. Powered by CloudThinker (https://www.cloudthinker.io)
+Type 'help' for commands, 'exit' to quit.
+
+mcp-manager> daemon start
+MCP Manager daemon started (PID: 12345) on port 4123
+
+mcp-manager> server list
+┏━━━━━━━━━━━━┳━━━━━━━━━━┓
+┃    Name    ┃  Status  ┃
+┡━━━━━━━━━━━━╇━━━━━━━━━━┩
+┃ hackernews ┃  running ┃
+└──────────━━┴─────────━┘
+
+mcp-manager> api-key
+Current API Key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+
+mcp-manager> help
+[Shows the list of available commands]
+```
+
+## Available CLI Commands
+
+| Command                        | Description                                                      |
+|--------------------------------|------------------------------------------------------------------|
+| daemon start [--port PORT]     | Start the MCP Manager daemon (optionally on a custom port)        |
+| daemon stop                    | Stop the MCP Manager daemon                                      |
+| daemon status                  | Show daemon status                                               |
+| daemon log                     | Show the last N lines of the daemon log file                     |
+| server list                    | List all managed servers (shows Name and Status)                 |
+| server reload                  | Reload the MCP servers from the config file                      |
+| server remove <name>           | Remove a managed server                                          |
+| server start <name>            | Start a managed server                                           |
+| server stop <name>             | Stop a managed server                                            |
+| tools list                     | List all tools                                                   |
+| api-key                        | Show the current API key                                         |
+| regenerate-api-key             | Regenerate and show a new API key                                |
+| config edit                    | Edit the MCP config JSON in your preferred editor (with JSON validation) |
+| clear                          | Clear the screen                                                 |
+| exit                           | Exit the CLI                                                     |
+
+**Note:**
+- `daemon start` runs the server on port **4123** by default. Use `--port <PORT>` to specify a different port.
+- **All config and runtime files are stored in `.cache/`.**
+- **The `config edit` command opens `.cache/mcp_config.json` in your preferred editor (set by `$EDITOR`, or falls back to vim/nano/notepad) and checks for valid JSON before saving.**
+
+## Daemon Log
+
+- The daemon log file is stored at `.cache/mcp_manager_daemon.log`.
+- Use the `daemon log` command to view the last N lines of the log.
+
+## Using with ngrok
+Use [ngrok](https://ngrok.com/) to share your local MCP Manager server publicly:
+```
+# In another terminal:
+ngrok http 4123
+```
+
+## Using with Cursor
+
+Use [supergateway](https://github.com/supercorp-ai/supergateway) to connect with Cursor. Update the port and API key as needed:
+
+```json
+{
+  "mcpServers": {
+    "mcp-manager": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "supergateway",
+        "--sse",
+        "http://localhost:YOUR_PORT/sse",
+        "--oauth2Bearer",
+        "YOUR-API-KEY"
+      ]
+    }
+  }
+}
+```
+
+Replace `YOUR_PORT` with the port used by `daemon start` (default 4123), and `YOUR-API-KEY` with the value from `.cache/mcp_manager_api_key.txt` or the `api-key` command.
+
+## Roadmap
+
+- [ ] Support Multi-Tenant
+
+## License
+
+[MIT License](LICENSE)
