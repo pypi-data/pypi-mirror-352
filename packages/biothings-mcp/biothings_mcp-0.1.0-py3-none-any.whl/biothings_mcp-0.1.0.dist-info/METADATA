@@ -1,0 +1,202 @@
+Metadata-Version: 2.4
+Name: biothings-mcp
+Version: 0.1.0
+Summary: MCP for Biothings
+Author-email: antonkulaga <antonkulaga@gmail.com>
+License-File: LICENSE
+Requires-Python: >=3.10
+Requires-Dist: biopython>=1.85
+Requires-Dist: biothings-typed-client>=0.0.4
+Requires-Dist: eliot>=1.17.5
+Requires-Dist: fastapi>=0.115.12
+Requires-Dist: fastmcp>=2.5.2
+Requires-Dist: pycomfort>=0.0.18
+Description-Content-Type: text/markdown
+
+# biothings-mcp
+[![Tests](https://github.com/longevity-genie/biothings-mcp/actions/workflows/tests.yml/badge.svg)](https://github.com/longevity-genie/biothings-mcp/actions/workflows/tests.yml)
+[![PyPI version](https://badge.fury.io/py/biothings-mcp.svg)](https://badge.fury.io/py/biothings-mcp)
+
+MCP (Model Context Protocol) server for Biothings.io
+
+This server implements the Model Context Protocol (MCP) for BioThings, providing a standardized interface for accessing and manipulating biomedical data. MCP enables AI assistants and agents to access specialized biomedical knowledge through structured interfaces to authoritative data sources. Supported BioThings data sources include:
+
+- [mygene.info](https://mygene.info) — Gene annotation and query service
+- [myvariant.info](https://myvariant.info) — Variant annotation and query service
+- [mychem.info](https://mychem.info) — Chemical compound annotation and query service
+
+## About MCP (Model Context Protocol)
+
+MCP is a protocol that bridges the gap between AI systems and specialized domain knowledge. It enables:
+
+- **Structured Access**: Direct connection to authoritative biomedical data sources
+- **Natural Language Queries**: Simplified interaction with specialized databases
+- **Type Safety**: Strong typing and validation through biothings-typed-client
+- **AI Integration**: Seamless integration with AI assistants and agents
+
+## Available API Interfaces
+
+This server provides dedicated API interfaces for different BioThings data types, leveraging the `biothings-typed-client` library. These interfaces are implemented using the following mixins:
+
+- **Gene Interface**: `GeneRoutesMixin` (wraps `GeneClientAsync`)
+- **Variant Interface**: `VariantsRoutesMixin` (wraps `VariantClientAsync`)
+- **Chemical Interface**: `ChemRoutesMixin` (wraps `ChemClientAsync`)
+- **Taxon Interface**: `TaxonRoutesMixin` (wraps `TaxonClientAsync`)
+
+## Quick Start
+
+### Installing uv
+
+```bash
+# Download and install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Verify installation
+uv --version
+```
+
+### Setup
+
+```bash
+# Clone the repository
+git clone git@github.com:longevity-genie/biothings-mcp.git
+cd biothings-mcp
+uv sync
+```
+
+### Running the MCP Server
+
+```bash
+# Start the MCP server locally
+uv run server
+```
+
+### Docker Deployment
+
+The easiest way to run the MCP server is using Docker. The project provides a pre-built Docker image available on GitHub Container Registry.
+
+1. Using Docker Compose (recommended):
+
+```bash
+# Clone the repository
+git clone git@github.com:longevity-genie/biothings-mcp.git
+cd biothings-mcp
+
+# Start the services
+docker-compose up
+```
+
+This will start:
+- The MCP server on port 3001
+- The MCP Inspector on port 5173
+
+
+It is important to know that not all MCP clients support sse, even anthropic desktop 
+
+2. Using Docker directly:
+
+```bash
+# Pull the latest image
+docker pull ghcr.io/longevity-genie/biothings-mcp:latest
+
+# Run the container
+docker run -p 3001:3001 -e MCP_PORT=3001 ghcr.io/longevity-genie/biothings-mcp:latest
+```
+
+The MCP server will be available at `http://localhost:3001/mcp` (with docs at http://localhost:3001/docs).
+
+A publicly hosted version of this server is also available at `https://biothings.longevity-genie.info/mcp` (with docs at https://biothings.longevity-genie.info/docs)
+
+### Integration with AI Systems
+
+To integrate this server with your MCP-compatible AI client, you can use one of the preconfigured JSON files provided in this repository:
+
+*   **For connecting to a locally running server:** Use `mcp-config.json`. Ensure the server is running first, either via `uv run server` (see [Running the MCP Server](#running-the-mcp-server)) or `docker-compose up` (see [Docker Deployment](#docker-deployment)).
+*   **For connecting to the publicly hosted server:** Use `mcp-config-remote.json`. This connects to `https://biothings.longevity-genie.info/mcp` and doesn't require you to run anything locally.
+
+Simply point your AI client (like Cursor, Windserve, ClaudeDesktop, VS Code with Copilot, or [others](https://github.com/punkpeye/awesome-mcp-clients)) to use the appropriate configuration file.
+
+Here's an example of how the tools might appear in an MCP client like Cursor after configuration:
+
+![Cursor Usage Example](images/cursor_usage_example.jpg)
+
+## KNOWN ISSUES
+
+The library is beta-quality. The major problem right now is that LLM-s are often stupid and do not know how to put valid gene and gene variant symbols. We plan to mitigrate it by extending comments and providing additional method for entity resolution.
+
+## Testing & Verification
+
+Run tests for the API endpoint:
+```bash
+uv run pytest -vvv -s
+```
+
+Test your MCP setup with the MCP Inspector.
+
+If you have local server running it will be:
+
+```bash
+npx @modelcontextprotocol/inspector --config mcp-config.json --server biothings-mcp
+```
+if you want to try our remote server you should use:
+
+```bash
+npx @modelcontextprotocol/inspector --config mcp-config-remote.json --server biothings-mcp
+```
+
+After that you can explore its methods with MCP Inspector at http://127.0.0.1:6274
+
+
+*Note: Using the MCP Inspector is optional. Most MCP clients (like Cursor, Windsurv, etc.) will automatically display the available tools from this server once configured. However, the Inspector can be useful for detailed testing and exploration.* 
+
+*If you choose to use the Inspector via `npx`, ensure you have Node.js and npm installed. Using [nvm](https://github.com/nvm-sh/nvm) (Node Version Manager) is recommended for managing Node.js versions.*
+
+This opens a web interface where you can explore and test all available tools.
+
+## Bridging for MCP clients that support only STDIO ways:
+
+MCP is a new standard so even its founder, Anthropic does not fully support its specification in thei Claude Desktop. 
+
+For this reasons we also provide stdin versions of MCP
+We provide stdin configuration using the proxy (might need npx to run):
+* mcp-config-remote-stdin.json - for remote configuration
+* mcp-config-local-stdin.json - stdin configuration for localhost for MCP clients which do not support 
+
+For this reason we p
+
+## Configuration files
+
+To configure your MCP client (i.e. Cursor, Windsurf, Claude Desktop, etc.) you have to select copy-paste configuration from the json.
+If you want to call the server locally use
+
+## Documentation
+
+For detailed documentation about the MCP protocol and its implementation, refer to:
+- [MCP Protocol Documentation](https://modelcontextprotocol.org)
+- [biothings-typed-client Documentation](https://github.com/longevity-genie/biothings-typed-client)
+- [FastAPI-MCP Documentation](https://github.com/tadata-org/fastapi_mcp)
+
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
+- [BioThings](https://biothings.io/) for the REST API and original [client library](https://github.com/biothings/biothings_client.py)
+- [MCP Protocol](https://modelcontextprotocol.org) for the protocol specification
+- [Pydantic](https://pydantic-docs.helpmanual.io/) for the data validation framework
+- [FastAPI-MCP](https://github.com/tadata-org/fastapi_mcp) for the MCP server implementation
+
+- This project is part of the [Longevity Genie](https://github.com/longevity-genie) organization, which develops open-source AI assistants and libraries for health, genetics, and longevity research.
+
+We are supported by:
+
+[![HEALES](images/heales.jpg)](https://heales.org/)
+
+*HEALES - Healthy Life Extension Society*
+
+and
+
+[![IBIMA](images/IBIMA.jpg)](https://ibima.med.uni-rostock.de/)
+
+[IBIMA - Institute for Biostatistics and Informatics in Medicine and Ageing Research](https://ibima.med.uni-rostock.de/)
