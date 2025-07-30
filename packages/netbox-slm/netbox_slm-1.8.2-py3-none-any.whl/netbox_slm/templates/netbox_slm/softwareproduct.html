@@ -1,0 +1,76 @@
+{% extends 'generic/object.html' %}
+{% load buttons %}
+{% load static %}
+{% load helpers %}
+{% load plugins %}
+
+{% block content %}
+<div class="row my-3">
+	<div class="col col-md-6">
+        <div class="card">
+            <h5 class="card-header">
+                Software Product
+            </h5>
+            <table class="table table-hover attr-table">
+                <tr>
+                    <th scope="row">Name</th>
+                    <td>{{ object.name }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Description</th>
+                    <td>{{ object.description }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Manufacturer</th>
+                    <td>{{ object.manufacturer|linkify }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Versions</th>
+                    <td>
+{% for version in object.softwareproductversion_set.all %}
+                        <a href="{% url 'plugins:netbox_slm:softwareproductversion' pk=version.pk %}" class="btn btn-sm">
+                            {{ version }}
+                        </a>
+{% empty %}
+                        None
+{% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Installations</th>
+                    <td>
+{% for installation in object.softwareproductinstallation_set.all %}
+                        <a href="{% url 'plugins:netbox_slm:softwareproductinstallation' pk=installation.pk %}" class="btn btn-sm">
+                            {{ installation }}
+                        </a>
+{% empty %}
+                        None
+{% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Licenses</th>
+                    <td>
+{% for license in object.softwarelicense_set.all %}
+                        <a href="{% url 'plugins:netbox_slm:softwarelicense' pk=license.pk %}" class="btn btn-sm">
+                            {{ license }}
+                        </a>
+{% empty %}
+                        None
+{% endfor %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+{% include 'inc/panels/custom_fields.html' %}
+{% include 'inc/panels/tags.html' %}
+{% include 'inc/panels/comments.html' %}
+{% plugin_left_page object %}
+    </div>
+</div>
+<div class="row">
+    <div class="col col-md-12">
+{% plugin_full_width_page object %}
+    </div>
+</div>
+{% endblock %}
