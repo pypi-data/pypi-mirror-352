@@ -1,0 +1,93 @@
+project_name: KerasLMU
+pkg_name: keras_lmu
+repo_name: nengo/keras-lmu
+description: Keras implementation of Legendre Memory Units
+license: abr-free
+main_branch: main
+
+copyright_start: 2019
+
+license_rst: {}
+
+contributing_rst: {}
+
+contributors_rst: {}
+
+manifest_in: {}
+
+setup_py:
+  install_req:
+    - packaging>=20.9
+    - scipy>=1.0.0
+    - tensorflow>=2.8.0
+  tests_req:
+    - pytest>=6.1.0
+    - pytest-rng>=1.0.0
+  docs_req:
+    - matplotlib>=3.8.4
+    - jupyter>=1.0.0
+    - seaborn>=0.9.0
+    - sphinx>=1.8
+    - nbsphinx>=0.3.5
+    - nengo_sphinx_theme>=1.2.0
+    - numpydoc>=0.6
+  classifiers:
+    - "Development Status :: 3 - Alpha"
+    - "Intended Audience :: Science/Research"
+    - "Operating System :: OS Independent"
+    - "Programming Language :: Python"
+    - "Programming Language :: Python :: 3.8"
+    - "Programming Language :: Python :: 3.9"
+    - "Programming Language :: Python :: 3.10"
+    - "Programming Language :: Python :: 3.11"
+    - "Topic :: Scientific/Engineering"
+    - "Topic :: Scientific/Engineering :: Artificial Intelligence"
+
+setup_cfg: {}
+
+docs_conf_py:
+  intersphinx_mapping:
+    scipy: "https://docs.scipy.org/doc/scipy/reference"
+  html_redirects:
+    getting_started.html: getting-started.html
+  autoautosummary_change_modules:
+    keras_lmu:
+      - keras_lmu.layers.LMUCell
+      - keras_lmu.layers.LMU
+      - keras_lmu.layers.LMUFFT
+  extensions:
+    - nengo_sphinx_theme.ext.autoautosummary
+  doctest_setup:
+    - import numpy as np
+    - import tensorflow as tf
+  sphinx_options:
+    autodoc_inherit_docstrings: False
+    linkcheck_ignore: "linkcheck_ignore+['https://www.appliedbrainresearch.com/license', 'https://www.appliedbrainresearch.com/store']"
+
+ci_scripts:
+  - template: static
+  - template: docs
+    pre_commands:
+      # We run this ahead of time, otherwise the download progress bar causes
+      # problems in the notebook rendering
+      - python -c "import keras; keras.datasets.mnist.load_data()"
+  - template: examples
+  - template: test
+    coverage: true
+    pip_install:
+      - $TF_VERSION
+      - $NUMPY_VERSION
+      - pytest
+  - template: deploy
+    wheel: true
+
+pre_commit_config_yaml: {}
+
+pyproject_toml: {}
+
+version_py:
+  type: semver
+  major: 0
+  minor: 8
+  patch: 0
+  release: true
