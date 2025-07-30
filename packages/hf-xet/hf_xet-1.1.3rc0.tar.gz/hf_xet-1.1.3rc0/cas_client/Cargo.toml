@@ -1,0 +1,47 @@
+[package]
+name = "cas_client"
+version = "0.14.5"
+edition = "2021"
+readme = "README.md"
+
+[features]
+strict = []
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cas_object = { path = "../cas_object" }
+cas_types = { path = "../cas_types" }
+chunk_cache = { path = "../chunk_cache" }
+deduplication = { path = "../deduplication" }
+error_printer = { path = "../error_printer" }
+file_utils = { path = "../file_utils" }
+mdb_shard = { path = "../mdb_shard" }
+merkledb = { path = "../merkledb" }
+merklehash = { path = "../merklehash" }
+progress_tracking = { path = "../progress_tracking" }
+utils = { path = "../utils" }
+xet_threadpool = { path = "../xet_threadpool" }
+
+anyhow = { workspace = true }
+async-trait = { workspace = true }
+bytes = { workspace = true }
+derivative = { workspace = true }
+futures = { workspace = true }
+heed = { workspace = true }
+http = { workspace = true }
+more-asserts = { workspace = true }
+reqwest = { workspace = true }
+reqwest-middleware = { workspace = true }
+reqwest-retry = { workspace = true }
+tempfile = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tokio-retry = { workspace = true }
+tracing = { workspace = true }
+url = { workspace = true }
+
+[dev-dependencies]
+httpmock = { workspace = true }
+rand = { workspace = true }
+tracing-test = { workspace = true }
+wiremock = { workspace = true }
