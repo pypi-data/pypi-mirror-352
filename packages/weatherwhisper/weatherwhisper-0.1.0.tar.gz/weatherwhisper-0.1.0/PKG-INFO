@@ -1,0 +1,210 @@
+Metadata-Version: 2.4
+Name: weatherwhisper
+Version: 0.1.0
+Summary: A command-line tool for fetching and displaying weather information
+Author: Danush Gopinath
+Author-email: danushgopinath8502@gmail.com
+Project-URL: Homepage, https://github.com/danushgopinath/weatherwhisper
+Project-URL: Bug Tracker, https://github.com/danushgopinath/weatherwhisper/issues
+Keywords: weather,cli,openweathermap,forecast,terminal
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click
+Requires-Dist: requests
+Requires-Dist: colorama
+Requires-Dist: tabulate
+Requires-Dist: configparser
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: keywords
+Dynamic: license-file
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# WeatherWhisper 🌦️
+
+**WeatherWhisper** is a friendly command-line tool that fetches and displays weather information from the free [OpenWeatherMap](https://openweathermap.org/) API.  
+It runs on Mac OS, Linux, and Windows and installs in seconds with `pip`.
+
+![WeatherWhisper banner](docs/images/banner.png)
+
+---
+
+## Features
+
+- 🔍 Current weather for any city or _lat,lon_ coordinates  
+- 📏 Metric / Imperial units switch (`-u metric|imperial`)  
+- 🎨 Colored output that reflects temperature & conditions *(toggleable)*  
+- 🎭 ASCII art icons for common weather types *(toggleable)*  
+- 📑 Output formats: **brief**, **detailed**, **json**, **forecast**  
+- ⭐ Save favorite locations for one-touch lookup  
+- 🗓️ 5-day forecast summaries & hourly breakdowns  
+- 🌅 Sunrise / sunset times  
+- ✈️ Wind speed & direction, humidity, pressure, visibility, clouds  
+- 📦 Transparent on-disk caching to reduce API calls  
+- 🔧 Config file (`~/.weatherwhisper/config.ini`) for defaults  
+- 🛠️ Extensible roadmap: historical data, alerts, air-quality, plugins …
+
+---
+
+## Installation
+
+Requires Python 3.7+.  
+
+```bash
+pip install --upgrade weatherwhisper
+```
+
+First run will create the config directory:
+
+```
+~/.weatherwhisper/
+ └─ config.ini
+```
+
+---
+
+## Getting an API key
+
+1. Sign up at <https://openweathermap.org/api>
+2. Copy your key (a 32-character string)
+3. Set it once:
+
+```bash
+weatherwhisper config --api-key YOUR_KEY_HERE
+```
+
+---
+
+## Quick Start
+
+```bash
+# Paris weather in default (metric, brief) format
+weatherwhisper current "Paris"
+
+# Same but imperial units and detailed view
+weatherwhisper current "New York" -u imperial -f detailed
+
+# Five-day forecast with ASCII art disabled
+weatherwhisper forecast "Tokyo" --no-ascii
+```
+
+![CLI screenshot](docs/images/quickstart.png)
+
+---
+
+## Favorites
+
+```bash
+# Save a favourite
+weatherwhisper favorites add "Berlin"
+
+# List favourites
+weatherwhisper favorites list
+
+# Remove
+weatherwhisper favorites remove "Berlin"
+```
+
+If no location argument is provided to `current`, `forecast`, etc., the first favourite is used automatically.
+
+---
+
+## Configuration
+
+```bash
+weatherwhisper config show             # View all settings
+weatherwhisper config set --units imperial
+weatherwhisper config set --no-color   # Disable ANSI colours
+```
+
+The `config.ini` is human-editable; changes take effect next run.
+
+---
+
+## Output Formats
+
+| Format     | Flag example                 | Use case                              |
+|------------|------------------------------|---------------------------------------|
+| brief*     | `-f brief` (default)         | Quickly glance at essentials          |
+| detailed   | `-f detailed`                | Full breakdown (humidity, sunrise…)   |
+| json       | `-f json`                    | Pipe to other tools (`jq`, scripts)   |
+| forecast   | `weatherwhisper forecast …`  | 5-day / hourly forecast               |
+
+---
+
+## Screenshots
+
+| Brief | Detailed | Forecast |
+|-------|----------|----------|
+| ![brief](docs/images/brief.png) | ![detailed](docs/images/detailed.png) | ![forecast](docs/images/forecast.png) |
+
+*(Replace the placeholders in `docs/images/` with real captures.)*
+
+---
+
+## Development
+
+```bash
+git clone https://github.com/yourname/weatherwhisper.git
+cd weatherwhisper
+python -m venv venv && source venv/bin/activate
+pip install -e ".[dev]"
+pre-commit install
+```
+
+Run the CLI from source:
+
+```bash
+python -m weatherwhisper current "London"
+```
+
+Tests:
+
+```bash
+pytest
+```
+
+---
+
+## Roadmap
+
+- [ ] Historical weather (paid API)  
+- [ ] Severe weather alerts  
+- [ ] Auto-detect location (IP / GPS)  
+- [ ] Plug-in system for alternative providers  
+- [ ] GUI wrapper  
+
+See [issues](https://github.com/yourname/weatherwhisper/issues) to contribute or suggest features.
+
+---
+
+## Contributing 🤝
+
+Pull requests are welcome! Please open an issue first to discuss big changes.  
+All code is formatted with **black** and checked by **ruff** & **pytest**.
+
+---
+
+## License
+
+MIT © 2025 Your Name.  
+See `LICENSE` for details.
+
+---
+
+Made with ☕ and clouds.
