@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: clientes_inadimplentes
+Version: 0.0.1
+Summary: Criar função para descobrir os clientes inadimplentes de uma empresa
+Home-page: https://github.com/ArturJBraga/clientes_inadimplentes.git
+Author: ArturJBraga
+Author-email: mr.arturj@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+
+# package_name
+
+Description. 
+The package clientes_inadimplentes is used to:
+	- clientes_inadimplentes
+	
+## Installation
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install package_name
+
+```bash
+pip install clientes_inadimplentes
+```
+
+## Usage
+
+```
+- O objetivo Ã© identificar quem sÃ£o os clientes inadimplentes e enviar essa lista de clientes para o setor de cobranÃ§a poder fazer a cobranÃ§a dos clientes.
+- A funÃ§Ã£o deve receber uma lista de clientes, analisar quais clientes estÃ£o inadimplentes, e retornar uma lista com os clientes inadimplentes (apenas o CPF deles)
+- A inadimplÃªncia nessa empresa Ã© calculada da seguinte forma:
+	1. Se o cliente dever mais de 1.000 reais por mais de 20 dias, ele Ã© considerado inadimplente.
+	2. Isso significa que caso ou cliente esteja devendo 2.000 reais a 10 dias, ele nÃ£o Ã© inadimplente, pois nÃ£o se passaram 20 dias ainda. Da mesma forma, se ele estiver devendo 500 reais por 40 dias, ele tambÃ©m nÃ£o Ã© inadimplente, dado que ele deve menos de 1.000 reais.
+	3. As informaÃ§Ãµes vÃªm no formato (cpf, valor_devido, qtde_de_dias)
+```
+
+```python
+from clientes_inadimplentes import clientes_inadimplentes
+
+clientes_devedores = [('462.286.561-65',14405,24),('251.569.170-81',16027,1),('297.681.579-21',8177,28),('790.223.154-40',9585,10),('810.442.219-10',18826,29),('419.210.299-79',11421,15),('908.507.760-43',12445,24),('911.238.364-17',1345,4),('131.115.339-28',11625,8),('204.169.467-27',5364,22),('470.806.376-11',932,29),('938.608.980-69',13809,19),('554.684.165-26',11227,2)]
+
+inadimplentes = clientes_inadimplentes(clientes_devedores)
+print(inadimplentes)
+```
+
+## Author
+ArturJBraga
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+
