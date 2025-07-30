@@ -1,0 +1,77 @@
+Metadata-Version: 2.4
+Name: embroidery
+Version: 1.0.2a0
+Summary: A basic library for creating and altering machine embroidery files with Python.
+Author: Josh Varga, Robin Swift
+License-Expression: Zlib
+Project-URL: Homepage, https://www.libembroidery.org
+Project-URL: Source, https://github.com/embroidermodder/libembroidery
+Project-URL: Issues, https://github.com/embroidermodder/libembroidery/issues
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Dynamic: license-file
+
+# Libembroidery v1.0-alpha
+
+Copyright (c) 2018-2025 The Embroidermodder Team
+
+https://www.libembroidery.org
+
+.. WARNING::
+   Currently broken and under construction: this is a test distribution.
+   Please wait for the beta release.
+
+libembroidery is a low-level library for reading, writing, 
+and altering digital embroidery files in C. `libembroidery` in Python
+is a hand-guided translation of the C code for Python applications.
+
+libembroidery is the underlying library that is used by
+[Embroidermodder 2](http://www.libembroidery.org)
+and is developed by [The Embroidermodder Team](#the-embroidermodder-team).
+It handles over 45 different embroidery specific formats as well
+as several non-embroidery specific vector formats.
+
+If you want to learn more about building, using and developing this software read the
+manual (included as the file [embroidermodder_manual.pdf](embroidermodder_manual.pdf)).
+
+# Libembroidery 1.0 On Python (Alpha)
+
+The Official binding for libembroidery on Python.
+
+This is a stub to save the name on the Python Package Index.
+
+Usage would be something like:
+
+    import embroidery as emb
+
+    p = emb.Pattern()
+    p.add_circle([2, 4], 5, color="blue")
+    p.save("circle.dst", emb.FORMAT_DST)
+
+For more see our website: https://embroidermodder.org.
+
+To support this and other Embroidermodder projects see
+[https://opencollective.com/embroidermodder](our Open Collective page).
+
+## Installation
+
+We recommend you install the working draft using
+
+    python3 setup.py install --user
+
+from the top level.
+
+In the future we'd recommend that you use the current most
+up-to-date version on PyPI using:
+
+    python3 -m pip install libembroidery
+
+or
+
+    py -m pip install libembroidery
+
+on Windows.
+
