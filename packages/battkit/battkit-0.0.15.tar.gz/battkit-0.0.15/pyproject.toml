@@ -1,0 +1,55 @@
+
+[build-system]
+requires = ["setuptools>=42", "setuptools-scm>=6.2"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "battkit"
+dynamic = ["version"]
+description = "A tool kit for battery data preprocessing, standardization, and feature engineering"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = [
+    "LICENSE",
+]
+authors = [
+    {name = "Benjamin Nowacki", email = "benjamin.nowacki@uconn.edu"},
+    {name = "Tingkai Li", email = "tingkai.li@uconn.edu"},
+    {name = "Chao Hu", email = "chao.hu@uconn.edu"},
+]
+
+requires-python = ">=3.9"
+dependencies = [
+    "pandas>=2.2.3",
+    "numpy>=1.26.4",
+    "dask>=2024.5.0",
+    "xmltodict>=0.14.2",
+    "sxl>=0.0.1a10",
+    "pyarrow>=19.0.0",
+    "openpyxl>=3.1.5",
+    "newarenda>=2025.4.2",
+    "tqdm>=4.67.1"
+]
+
+
+keywords = ["battery data preprocessing", "battery data standardization", "feature engineering",]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Programming Language :: Python",
+]
+
+
+[project.urls]
+Homepage = "https://github.com/REIL-UConn/battkit"
+Repository = "https://github.com/REIL-UConn/battkit"
+Issues = "https://github.com/REIL-UConn/battkit/issues"
+
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["battkit"]
+
+[tool.setuptools_scm]
