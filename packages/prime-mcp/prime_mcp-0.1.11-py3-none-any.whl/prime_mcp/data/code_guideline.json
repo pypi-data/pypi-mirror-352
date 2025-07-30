@@ -1,0 +1,20 @@
+{
+    "process": {
+        "code_generation": "Always use tools recommendations to generate code.",
+        "issue_analysis": "Use the issue summary to understand the issue and the recommendations to address it.",
+        "security_review": "Use the security concerns to understand the issue and the recommendations to address it.",
+        "implementation": "Use the recommendations to understand the issue and the recommendations to address it."
+    },
+    "security": {
+        "auth": "Implement robust authentication and authorization mechanisms using industry-standard protocols such as OAuth 2.0 or JSON Web Tokens (JWT). Establish role-based access control (RBAC) to limit user actions based on their assigned permissions. Use multi-factor authentication where appropriate and implement secure token management processes to prevent unauthorized access and privilege escalation.",
+        "api_design": "Enforce HTTPS for all API communications and implement industry-standard encryption for sensitive data at rest. Implement comprehensive input validation and sanitization for all API endpoints. Design APIs to avoid exposing sensitive application architecture details, internal system identifiers, or infrastructure information that could be used for reconnaissance.",
+        "data_validation": "Always validate and sanitize API response models before returning data to clients. Implement comprehensive checks to prevent exposure of sensitive data including credit card numbers, CVV codes, internal system identifiers, database keys, and other confidential information. Create explicit data transfer objects (DTOs) that only include necessary fields and exclude all PCI-regulated data elements."
+    },
+    "privacy": {
+        "data_minimization": "Implement strict data minimization principles to ensure only the minimum amount of personal financial data necessary is collected and stored. Avoid including specific user accounts in documentation - use generic placeholders instead. Provide transparent data practices with clear privacy policies and user controls to ensure users understand how their data is processed."
+    },
+    "operations": {
+        "monitoring": "Establish comprehensive logging and monitoring systems to track API access patterns and detect potential security incidents. Implement alerting mechanisms for suspicious activities while ensuring logs do not contain sensitive user data. Regular security audits and penetration testing should be conducted to identify vulnerabilities.",
+        "compliance": "Ensure compliance with relevant data protection regulations and industry standards including NIST, PCI DSS where applicable. Implement controls that align with established security frameworks. Regular compliance reviews should be conducted to maintain adherence to security standards and legal requirements."
+    }
+}
