@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gitaid"
+version = "0.1.3"  # Bump for every upload!
+description = "AI-powered aid for Git"
+readme = { file = "README.md", content-type = "text/markdown" }
+authors = [
+    { name="Athira", email="athira.srivani@gmail.com" }
+]
+dependencies = [
+    "click",
+    "openai"
+]
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+
+[project.scripts]
+gitaid = "gitaid.__main__:cli"
