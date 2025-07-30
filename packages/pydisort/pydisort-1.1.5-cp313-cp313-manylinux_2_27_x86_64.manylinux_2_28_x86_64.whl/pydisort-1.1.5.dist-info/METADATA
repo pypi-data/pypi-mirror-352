@@ -1,0 +1,48 @@
+Metadata-Version: 2.4
+Name: pydisort
+Version: 1.1.5
+Summary: Modern Python interface for DISORT
+Home-page: https://github.com/zoeyzyhu/pydisort
+Author: Zoey Hu
+Author-email: zoey.zyhu@gmail.com
+License: GPL-3.0-or-later
+Project-URL: Documentation, https://github.com/zoeyzyhu/pydisort
+Project-URL: Source, https://github.com/zoeyzyhu/pydisort
+Project-URL: Tracker, https://github.com/zoeyzyhu/pydisort/issues
+Keywords: radiative transfer,atmospheric science
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Atmospheric Science
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS :: MacOS X
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: torch>=2.7.0
+Dynamic: license-file
+
+<!-- Logo ------------------------------------------->
+<h4 align="center">
+    <img src="https://github.com/zoeyzyhu/pydisort/blob/main/docs/img/logo_tr_git.png" alt="Pydisort" width="300" style="display: block; margin: 0 auto">
+</h4>
+
+<!-- Subtitle --------------------------------------->
+<p align="center">
+  <i align="center">Empower Discrete Ordinates Radiative Transfer (DISORT) with Python 🚀</i>
+</p>
+
+## <a id='about-pydisort'> About Pydisort </a>
+
+DISORT (Discrete Ordinate Radiative Transfer) is a widely-used algorithm that calculates the scattering and absorption of radiation in a medium. The original DISORT algorithm was developed by Stamnes et al. in 1988 and was implemented in `FORTRAN`. `pydisort` is a Python wrapper for the DISORT algorithm in `C`. The wrapper is designed to be simple and easy to use. It is also designed to be flexible and extensible.
+
+For a detailed documentation, please visit https://pydisort.readthedocs.io/.
+
+> ❗ We only support Python 3.9+ on Linux and MacOS. Anaconda is not fully supported at the moment; it only works if the Python path and `conda` environment are set correctly. For the current stage, we strongly recommend using `python3.11 -m venv env` (you Python version might differ) to create a virtual environment and install `pydisort` in this clean environment.
