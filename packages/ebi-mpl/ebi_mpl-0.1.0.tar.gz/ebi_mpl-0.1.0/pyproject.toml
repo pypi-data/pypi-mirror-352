@@ -1,0 +1,32 @@
+[project]
+name = "ebi_mpl"
+version = "0.1.0"
+description = "ebi's style for Matplotlib"
+authors = [
+    { name = "Yusuke Ebihara", email = "ebihara@ntech.t.u-tokyo.ac.jp" },
+]
+license = { text = "MIT" }
+requires-python = ">=3.7"
+dependencies = [
+    "matplotlib",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/ebiyu/ebi_mpl"
+
+[tool.setuptools]
+packages = [
+    "ebi_mpl",
+]
+
+[tool.setuptools.package-data]
+ebi_mpl = ["styles/*.mplstyle", "*.mplstyle"]
