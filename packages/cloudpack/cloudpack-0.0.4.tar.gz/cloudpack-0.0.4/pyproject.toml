@@ -1,0 +1,20 @@
+[project]
+name = "cloudpack"
+version = "0.0.4"
+description = "Multi-cloud file vault with end-to-end encryption and chunked storage."
+authors = [
+    { name = "atar4xis" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "cryptography",
+    "click"
+]
+
+[project.scripts]
+cloudpack = "cloudpack.__main__:main"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
