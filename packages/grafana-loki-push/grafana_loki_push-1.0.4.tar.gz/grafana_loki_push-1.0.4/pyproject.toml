@@ -1,0 +1,192 @@
+[build-system]
+requires = [
+    "setuptools>=69.0.3",
+    "wheel>=0.42.0"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grafana-loki-push"
+version = "1.0.4"
+description = "一键部署 Grafana Loki 系统，支持 HTTP 直接推送日志，无需 Promtail"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "SeanZou", email = "wersling@gmail.com"}
+]
+maintainers = [
+    {name = "SeanZou", email = "wersling@gmail.com"}
+]
+keywords = [
+    "grafana", "loki", "logging", "loguru", "observability", 
+    "monitoring", "logs", "docker", "http-push", "prometheus"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Logging",
+    "Topic :: System :: Monitoring",
+    "Topic :: System :: Systems Administration",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.31.0",
+    "loguru>=0.7.2", 
+    "pyyaml>=6.0.1",
+    "click>=8.1.7",
+    "python-json-logger>=2.0.7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.4",
+    "pytest-cov>=4.1.0",
+    "black>=23.12.1",
+    "flake8>=6.1.0",
+    "mypy>=1.8.0",
+]
+build = [
+    "setuptools>=69.0.3",
+    "wheel>=0.42.0",
+    "build>=1.0.0",
+    "twine>=4.0.0",
+]
+all = [
+    # 包含所有可选依赖
+    "pytest>=7.4.4",
+    "pytest-cov>=4.1.0",
+    "black>=23.12.1",
+    "flake8>=6.1.0",
+    "mypy>=1.8.0",
+    "setuptools>=69.0.3",
+    "wheel>=0.42.0",
+    "build>=1.0.0",
+    "twine>=4.0.0",
+]
+
+[project.scripts]
+loki-deploy = "grafana_loki_push:main"
+grafana-loki = "grafana_loki_push:main"
+
+[project.urls]
+Homepage = "https://github.com/wersling/grafana-loki-push"
+Documentation = "https://github.com/wersling/grafana-loki-push#readme"
+Repository = "https://github.com/wersling/grafana-loki-push"
+"Bug Tracker" = "https://github.com/wersling/grafana-loki-push/issues"
+Changelog = "https://github.com/wersling/grafana-loki-push/releases"
+
+# 工具配置
+[tool.setuptools]
+# package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+# where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["*.yml", "*.yaml", "*.json", "*.txt", "*.md"]
+
+# Black代码格式化配置
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+skip-string-normalization = true
+extend-exclude = '''
+/(
+  # 排除的目录
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# MyPy类型检查配置
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+# pytest配置
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+    "--cov=grafana_loki_push",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+]
+markers = [
+    "slow: 标记运行缓慢的测试",
+    "integration: 标记集成测试",
+    "unit: 标记单元测试",
+]
+
+# Coverage.py配置
+[tool.coverage.run]
+source = ["grafana_loki_push"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/.*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+# isort导入排序配置
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["grafana_loki_push"]
+skip_gitignore = true 

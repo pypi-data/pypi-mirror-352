@@ -1,0 +1,37 @@
+services:
+  loki:
+    image: grafana/loki:3.0.0
+    container_name: loki
+    ports:
+      - "3100:3100"    # Loki HTTP API端口
+    volumes:
+      - ./config/loki-config.yml:/etc/loki/local-config.yaml
+      - loki-data:/loki    # 持久化数据存储
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: unless-stopped
+    networks:
+      - loki-network
+
+  grafana:
+    image: grafana/grafana:10.4.0
+    container_name: grafana
+    ports:
+      - "3000:3000"    # Grafana Web界面端口
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+    depends_on:
+      - loki
+    restart: unless-stopped
+    networks:
+      - loki-network
+
+volumes:
+  loki-data:
+  grafana-data:
+
+networks:
+  loki-network:
+    driver: bridge 
