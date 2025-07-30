@@ -1,0 +1,32 @@
+Metadata-Version: 2.4
+Name: j_vault_http_client_xethhung12
+Version: 0.1.1
+Summary: A small example package
+Project-URL: Homepage, https://github.com/xh-dev/j_vault_http_client_xethhung12
+Project-URL: Issues, https://github.com/xh-dev/j_vault_http_client_xethhung12/issues
+Author-email: Xeth Hung <admin@xethh.me>
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.9
+Requires-Dist: requests
+Description-Content-Type: text/markdown
+
+# JVaultHttpClient
+
+A python version of connector to JVault Http Server for retrieving application configuration during app initialization stage.
+
+# Installation
+```bash
+pip install -U j_vault_http_client_xethhung12
+```
+
+# Usage
+
+```python
+from j_vault_http_client_xethhung12 import jvault_http_client
+
+if __name__ == '__main__':
+    jvault_http_client.load_to_env()
+```
