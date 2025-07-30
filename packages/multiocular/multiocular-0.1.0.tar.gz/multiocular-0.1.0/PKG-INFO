@@ -1,0 +1,57 @@
+Metadata-Version: 2.4
+Name: multiocular
+Version: 0.1.0
+Summary: A very simple helper library for keeping track of locations in tokenized text.
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: jinja2>=3.1.6
+Requires-Dist: transformers>=4.52.4
+
+# Multiocular
+
+A very simple helper library to keep track of locations in tokenized text. Works with HuggingFace Transformers.
+
+Named after the [multiocular O](https://en.wikipedia.org/wiki/Cyrillic_O_variants#Multiocular_O)—which is also the default separator character—because it helps you see everywhere inside your tokenized string.
+
+## Example
+```python
+import multiocular
+from multiocular import SEP
+from transformers import AutoTokenizer
+
+tok = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B-Instruct", use_fast= True)
+
+chat = [
+        {"role": "user", "content": f"What is the capital of{SEP} France?"},
+        {"role": "assistant", "content": f"The capital of{SEP} France is{SEP} Paris."},
+        ]
+message = tok.apply_chat_template(chat, tokenize=False)
+print(message)
+# <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+# 
+# Cutting Knowledge Date: December 2023
+# Today Date: 26 Jul 2024
+# 
+# <|eot_id|><|start_header_id|>user<|end_header_id|>
+# 
+# What is the capital ofꙮ France?<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+# 
+# The capital ofꙮ France isꙮ Paris.<|eot_id|>
+
+tokens, points = multiocular.tokenize(tok, message)
+print((tokens, points))
+# ({'input_ids': [128000, 128000, 128006, 9125, 128007, 271, 38766, 1303, 33025, 2696, 25, 6790, 220, 2366, 18, 198, 15724, 2696, 25, 220, 1627, 10263, 220, 2366, 19, 271, 128009, 128006, 882, 128007, 271, 3923, 374, 279, 6864, 315, 9822, 30, 128009, 128006, 78191, 128007, 271, 791, 6864, 315, 9822, 374, 12366, 13, 128009], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}, [36, 46, 48])
+
+france1, france2, paris = points
+print(tok.decode(tokens.input_ids[:paris]))
+# <|begin_of_text|><|begin_of_text|><|start_header_id|>system<|end_header_id|>
+# 
+# Cutting Knowledge Date: December 2023
+# Today Date: 26 Jul 2024
+# 
+# <|eot_id|><|start_header_id|>user<|end_header_id|>
+# 
+# What is the capital of France?<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+# 
+# The capital of France is
+```
