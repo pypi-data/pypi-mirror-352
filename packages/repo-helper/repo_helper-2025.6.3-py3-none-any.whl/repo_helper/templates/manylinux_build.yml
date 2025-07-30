@@ -1,0 +1,89 @@
+# {{ managed_message }} {% set tag = "${{ matrix.config.tag }}" %}
+---
+name: Build manylinux Wheels
+
+on:
+  push:
+    branches-ignore:
+      - 'repo-helper-update'
+      - 'pre-commit-ci-update-config'
+      - 'imgbot'
+    tags:
+      - '*'
+  pull_request:
+
+permissions:
+  actions: write
+  issues: write
+  contents: read
+
+jobs:
+  build:
+    name: "manylinux-{{ tag }}"
+    runs-on: "ubuntu-22.04"
+
+    strategy:
+      fail-fast: False
+      matrix:
+        config:{% for version, testenv, tag in matrix_config %}
+          - {python-version: "{{ version }}", testenv: "{{ testenv }}", tag: "{{ tag }}"}{% endfor %}
+
+    steps:
+      - name: Checkout 🛎️
+        uses: "actions/checkout@v4"
+
+      - name: Set up Python 🐍
+        uses: "actions/setup-python@v5"
+        with:
+          python-version: "${{ brace('matrix.config.python-version') }}"
+
+      - name: Install dependencies 🔧
+        run: |
+          {% for line in dependency_lines %}{{ line }}
+          {% endfor %}
+      - name: Build manylinux2010 Python wheels 🎡
+        uses: RalfG/python-wheels-manylinux-build@v0.7.1-manylinux2010_x86_64
+        if: ${{ brace("contains(fromJson('[\"3.11\", \"3.12\"]'), matrix.config.python-version) == false") }}
+        with:
+          python-versions: '{{ tag }}'
+          package-path: ''
+          pip-wheel-args: '--no-deps -w ./wheelhouse'
+
+      - name: Build manylinux2014 Python wheels 🎡
+        uses: RalfG/python-wheels-manylinux-build@v0.7.1-manylinux2014_x86_64
+        with:
+          python-versions: '{{ tag }}'
+          package-path: ''
+          pip-wheel-args: '--no-deps -w ./wheelhouse'
+
+      - name: Build manylinux_2_24 Python wheels 🎡
+        uses: RalfG/python-wheels-manylinux-build@v0.7.1-manylinux_2_24_x86_64
+        if: ${{ brace("contains(fromJson('[\"3.12\"]'), matrix.config.python-version) == false") }}
+        with:
+          python-versions: '{{ tag }}'
+          package-path: ''
+          pip-wheel-args: '--no-deps -w ./wheelhouse'
+
+      - name: Upload Artifacts 🚀
+        uses: actions/upload-artifact@v4
+        with:
+          name: "wheels-{{ tag }}"
+          path: wheelhouse/
+
+      - name: "Run Tests"
+        run: |
+          sudo rm wheelhouse/{{ import_name }}-*-${{ brace("matrix.config.tag") }}*-linux*.whl
+          for whl in wheelhouse/{{ import_name }}-*-{{ tag }}*-manylinux*.whl; do
+            # Test tox with wheels
+            python -m tox -r -e ${{ brace('matrix.config.testenv') }} --installpkg "$whl"
+            # TODO: Upload coverage to coveralls
+          done
+
+      - name: Upload distribution to PyPI 🚀
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: pypa/gh-action-pypi-publish@v1.4.2
+        with:
+          user: __token__
+          password: ${{ brace('secrets.PYPI_TOKEN') }}
+          packages_dir: wheelhouse/
+          skip_existing: true

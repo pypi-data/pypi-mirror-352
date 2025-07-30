@@ -1,0 +1,225 @@
+Metadata-Version: 2.2
+Name: repo-helper
+Version: 2025.6.3
+Summary: A tool to manage configuration files, build scripts etc. across multiple projects.
+Author-email: Dominic Davis-Foster <dominic@davis-foster.co.uk>
+License: LGPL-3.0-or-later
+Keywords: configuration
+Home-page: https://github.com/repo-helper/repo_helper
+Project-URL: Issue Tracker, https://github.com/repo-helper/repo_helper/issues
+Project-URL: Source Code, https://github.com/repo-helper/repo_helper
+Project-URL: Documentation, https://docs.repo-helper.uk
+Platform: Windows
+Platform: macOS
+Platform: Linux
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Software Development :: Version Control :: Git
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Requires-Python: >=3.7
+Requires-Dist: apeye>=1.0.0
+Requires-Dist: attrs>=20.3.0
+Requires-Dist: click==7.1.2
+Requires-Dist: configconfig>=0.5.0
+Requires-Dist: consolekit>=1.2.2
+Requires-Dist: dict2css>=0.2.0
+Requires-Dist: dom-toml>=2.0.0
+Requires-Dist: domdf-python-tools>=3.2.0
+Requires-Dist: dulwich>=0.20.5
+Requires-Dist: first>=2.0.2
+Requires-Dist: isort>=5.5.2
+Requires-Dist: jinja2>=2.11.3
+Requires-Dist: mkrecipe>=0.3.0
+Requires-Dist: natsort>=7.1.1
+Requires-Dist: packaging>=20.9
+Requires-Dist: pypi-json>=0.2.1
+Requires-Dist: pyproject-parser>=0.11.0
+Requires-Dist: ruamel.yaml>=0.17.4
+Requires-Dist: shippinglabel>=1.7.1
+Requires-Dist: shippinglabel-conda>=0.1.0
+Requires-Dist: southwark>=0.7.1
+Requires-Dist: tabulate>=0.8.8
+Requires-Dist: typing-extensions>=3.7.4.3
+Requires-Dist: whey>=0.0.17
+Requires-Dist: yapf-isort>=0.5.2
+Requires-Dist: check-wheel-contents>=0.2.0; extra == 'testing'
+Requires-Dist: coincidence>=0.2.0; extra == 'testing'
+Requires-Dist: pytest>=6.2.0; extra == 'testing'
+Requires-Dist: dulwich<=0.20.33,>=0.20.5; extra == 'cli'
+Requires-Dist: check-wheel-contents>=0.2.0; extra == 'all'
+Requires-Dist: coincidence>=0.2.0; extra == 'all'
+Requires-Dist: dulwich<=0.20.33,>=0.20.5; extra == 'all'
+Requires-Dist: pytest>=6.2.0; extra == 'all'
+Provides-Extra: testing
+Provides-Extra: cli
+Provides-Extra: all
+Description-Content-Type: text/x-rst
+
+
+==============
+repo_helper
+==============
+
+.. start short_desc
+
+**A tool to manage configuration files, build scripts etc. across multiple projects.**
+
+.. end short_desc
+
+This project is in an early stage, and some things might not work correctly or break in a new release.
+
+Note: The autocommit functionality is currently broken on Windows, but works OK on Linux and macOS.
+
+.. start shields
+
+.. list-table::
+	:stub-columns: 1
+	:widths: 10 90
+
+	* - Docs
+	  - |docs| |docs_check|
+	* - Tests
+	  - |actions_linux| |actions_windows| |actions_macos| |coveralls|
+	* - PyPI
+	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	* - Anaconda
+	  - |conda-version| |conda-platform|
+	* - Activity
+	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
+	* - QA
+	  - |codefactor| |actions_flake8| |actions_mypy|
+	* - Other
+	  - |license| |language| |requires|
+
+.. |docs| image:: https://img.shields.io/readthedocs/repo-helper/latest?logo=read-the-docs
+	:target: https://docs.repo-helper.uk
+	:alt: Documentation Build Status
+
+.. |docs_check| image:: https://github.com/repo-helper/repo_helper/workflows/Docs%20Check/badge.svg
+	:target: https://github.com/repo-helper/repo_helper/actions?query=workflow%3A%22Docs+Check%22
+	:alt: Docs Check Status
+
+.. |actions_linux| image:: https://github.com/repo-helper/repo_helper/workflows/Linux/badge.svg
+	:target: https://github.com/repo-helper/repo_helper/actions?query=workflow%3A%22Linux%22
+	:alt: Linux Test Status
+
+.. |actions_windows| image:: https://github.com/repo-helper/repo_helper/workflows/Windows/badge.svg
+	:target: https://github.com/repo-helper/repo_helper/actions?query=workflow%3A%22Windows%22
+	:alt: Windows Test Status
+
+.. |actions_macos| image:: https://github.com/repo-helper/repo_helper/workflows/macOS/badge.svg
+	:target: https://github.com/repo-helper/repo_helper/actions?query=workflow%3A%22macOS%22
+	:alt: macOS Test Status
+
+.. |actions_flake8| image:: https://github.com/repo-helper/repo_helper/workflows/Flake8/badge.svg
+	:target: https://github.com/repo-helper/repo_helper/actions?query=workflow%3A%22Flake8%22
+	:alt: Flake8 Status
+
+.. |actions_mypy| image:: https://github.com/repo-helper/repo_helper/workflows/mypy/badge.svg
+	:target: https://github.com/repo-helper/repo_helper/actions?query=workflow%3A%22mypy%22
+	:alt: mypy status
+
+.. |requires| image:: https://dependency-dash.repo-helper.uk/github/repo-helper/repo_helper/badge.svg
+	:target: https://dependency-dash.repo-helper.uk/github/repo-helper/repo_helper/
+	:alt: Requirements Status
+
+.. |coveralls| image:: https://img.shields.io/coveralls/github/repo-helper/repo_helper/master?logo=coveralls
+	:target: https://coveralls.io/github/repo-helper/repo_helper?branch=master
+	:alt: Coverage
+
+.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/repo-helper/repo_helper?logo=codefactor
+	:target: https://www.codefactor.io/repository/github/repo-helper/repo_helper
+	:alt: CodeFactor Grade
+
+.. |pypi-version| image:: https://img.shields.io/pypi/v/repo_helper
+	:target: https://pypi.org/project/repo_helper/
+	:alt: PyPI - Package Version
+
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/repo_helper?logo=python&logoColor=white
+	:target: https://pypi.org/project/repo_helper/
+	:alt: PyPI - Supported Python Versions
+
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/repo_helper
+	:target: https://pypi.org/project/repo_helper/
+	:alt: PyPI - Supported Implementations
+
+.. |wheel| image:: https://img.shields.io/pypi/wheel/repo_helper
+	:target: https://pypi.org/project/repo_helper/
+	:alt: PyPI - Wheel
+
+.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/repo_helper?logo=anaconda
+	:target: https://anaconda.org/domdfcoding/repo_helper
+	:alt: Conda - Package Version
+
+.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/repo_helper?label=conda%7Cplatform
+	:target: https://anaconda.org/domdfcoding/repo_helper
+	:alt: Conda - Platform
+
+.. |license| image:: https://img.shields.io/github/license/repo-helper/repo_helper
+	:target: https://github.com/repo-helper/repo_helper/blob/master/LICENSE
+	:alt: License
+
+.. |language| image:: https://img.shields.io/github/languages/top/repo-helper/repo_helper
+	:alt: GitHub top language
+
+.. |commits-since| image:: https://img.shields.io/github/commits-since/repo-helper/repo_helper/v2025.6.3
+	:target: https://github.com/repo-helper/repo_helper/pulse
+	:alt: GitHub commits since tagged version
+
+.. |commits-latest| image:: https://img.shields.io/github/last-commit/repo-helper/repo_helper
+	:target: https://github.com/repo-helper/repo_helper/commit/master
+	:alt: GitHub last commit
+
+.. |maintained| image:: https://img.shields.io/maintenance/yes/2025
+	:alt: Maintenance
+
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/repo_helper
+	:target: https://pypi.org/project/repo_helper/
+	:alt: PyPI - Downloads
+
+.. end shields
+
+Installation
+----------------
+
+.. start installation
+
+``repo_helper`` can be installed from PyPI or Anaconda.
+
+To install with ``pip``:
+
+.. code-block:: bash
+
+	$ python -m pip install repo_helper
+
+To install with ``conda``:
+
+	* First add the required channels
+
+	.. code-block:: bash
+
+		$ conda config --add channels https://conda.anaconda.org/conda-forge
+		$ conda config --add channels https://conda.anaconda.org/domdfcoding
+
+	* Then install
+
+	.. code-block:: bash
+
+		$ conda install repo_helper
+
+.. end installation
