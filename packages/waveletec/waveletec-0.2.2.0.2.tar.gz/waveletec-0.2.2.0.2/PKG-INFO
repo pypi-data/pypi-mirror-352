@@ -1,0 +1,74 @@
+Metadata-Version: 2.1
+Name: waveletec
+Version: 0.2.2.0.2
+Summary: Wavelet-based Eddy Covariance Written by pedrohenriquecoimbra
+Home-page: https://github.com/pedrohenriquecoimbra/wavelete-ec
+Author: Pedro Henrique Coimbra
+Author-email: pedro-henrique.herig-coimbra@inrae.fr
+License: MIT
+Keywords: EC,partitionning,wavelet
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Other Environment
+Classifier: Framework :: Jupyter
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.14
+Classifier: Topic :: Other/Nonlisted Topic
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas>=2.0.0
+Requires-Dist: matplotlib>=3.1.0
+Requires-Dist: numpy>=1.24
+Requires-Dist: PyWavelets>=1.4.0
+Requires-Dist: scipy>=1.10.0
+Requires-Dist: scikit-learn
+Requires-Dist: PyYAML
+Provides-Extra: cwt
+Requires-Dist: pycwt; extra == "cwt"
+Provides-Extra: fcwt
+Requires-Dist: pycwt; extra == "fcwt"
+Requires-Dist: fcwt; extra == "fcwt"
+
+[![DOI](https://zenodo.org/badge/DOI/10.2139/ssrn.4642939.svg)](http://dx.doi.org/10.2139/ssrn.4642939)
+
+[![DOI](https://zenodo.org/badge/786866970.svg)](https://zenodo.org/doi/10.5281/zenodo.11071327)
+
+# Citation
+
+Pedro H H Coimbra, Benjamin Loubet, Olivier Laurent, Matthias Mauder, Bernard Heinesch, Jonathan Bitton, Jeremie Depuydt, Pauline Buysse. Improvement of CO2 Flux Quality Through Wavelet-Based Eddy Covariance: A New Method for Partitioning Respiration and Photosynthesis. http://dx.doi.org/10.2139/ssrn.4642939
+
+\* corresponding author: pedro-henrique.herig-coimbra@inrae.fr
+
+# Getting started
+
+1. Setup python.\
+(optional) Create python environment, with anaconda prompt run `conda create -n wavec`\
+(optional) Activate new environement, `activate wavec`\
+Install python library, `pip install waveletec`
+
+2. Run EddyPro, saving level 6 raw data. \
+To do this go in Advanced Settings (top menu) > Output Files (left menu) > Processed raw data (bottom);\
+Then select Time series on "level 6 (after time lag compensation)";\
+Select all variables;\
+Proceed as usual running on "Advanced Mode".
+
+3. Follow launcher.ipynb
+
+#### If directly cloning github
+
+1. Setup python.\
+(option 1) install anaconda, and run `conda create -n wavec --file requirements.txt`\
+(option 2) install anaconda, and run `conda create -f environment.yml`
+
+# Example
+
+For an example follow the [launcher_sample.ipynb](https://github.com/pedrohenriquecoimbra/wavelete-ec/blob/latest/sample/FR-Gri_20220514/launcher_sample.ipynb) file in folder sample\FR-Gri_20220514.
