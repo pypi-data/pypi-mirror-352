@@ -1,0 +1,105 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adri"
+version = "0.4.1"
+authors = [
+    {name = "Verodat", email = "info@verodat.ai"}
+]
+description = "Agent Data Readiness Index - A framework for evaluating data quality for agentic AI systems"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+dependencies = [
+    "pandas>=1.0.0",
+    "matplotlib>=3.3.0",
+    "jinja2>=3.0.0",
+    "pyyaml>=6.0",
+    "inquirer>=2.10.0",
+    "openpyxl>=3.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=2.12.0",
+    "black>=22.0.0",
+    "isort>=5.10.0",
+    "flake8>=4.0.0",
+    "mypy>=0.9.0"
+]
+database = [
+    "sqlalchemy>=1.4.0",
+    "psycopg2-binary>=2.9.0"
+]
+api = [
+    "requests>=2.25.0"
+]
+langchain = [
+    "langchain>=0.1.0"
+]
+dspy = [
+    "dspy>=0.1.0"
+]
+crewai = [
+    "crewai>=0.1.0"
+]
+docs = [
+    "sphinx>=4.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+    "sphinx-autodoc-typehints>=1.12.0",
+    "nbsphinx>=0.8.0",
+    "jupyter>=1.0.0",
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0"
+]
+integrations = [
+    "adri[langchain,dspy,crewai]"
+]
+all = [
+    "adri[dev,database,api,integrations,docs]"
+]
+
+[project.urls]
+Homepage = "https://github.com/verodat/agent-data-readiness-index"
+"Bug Tracker" = "https://github.com/verodat/agent-data-readiness-index/issues"
+
+[project.scripts]
+adri = "adri.cli:main"
+
+[tool.setuptools]
+packages = ["adri", "adri.config", "adri.connectors", "adri.dimensions", "adri.integrations", "adri.rules", "adri.templates", "adri.utils"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+python_classes = "Test*"
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true

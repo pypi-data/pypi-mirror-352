@@ -1,0 +1,374 @@
+Metadata-Version: 2.4
+Name: adri
+Version: 0.4.1
+Summary: Agent Data Readiness Index - A framework for evaluating data quality for agentic AI systems
+Author-email: Verodat <info@verodat.ai>
+License: MIT
+Project-URL: Homepage, https://github.com/verodat/agent-data-readiness-index
+Project-URL: Bug Tracker, https://github.com/verodat/agent-data-readiness-index/issues
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas>=1.0.0
+Requires-Dist: matplotlib>=3.3.0
+Requires-Dist: jinja2>=3.0.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: inquirer>=2.10.0
+Requires-Dist: openpyxl>=3.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=2.12.0; extra == "dev"
+Requires-Dist: black>=22.0.0; extra == "dev"
+Requires-Dist: isort>=5.10.0; extra == "dev"
+Requires-Dist: flake8>=4.0.0; extra == "dev"
+Requires-Dist: mypy>=0.9.0; extra == "dev"
+Provides-Extra: database
+Requires-Dist: sqlalchemy>=1.4.0; extra == "database"
+Requires-Dist: psycopg2-binary>=2.9.0; extra == "database"
+Provides-Extra: api
+Requires-Dist: requests>=2.25.0; extra == "api"
+Provides-Extra: langchain
+Requires-Dist: langchain>=0.1.0; extra == "langchain"
+Provides-Extra: dspy
+Requires-Dist: dspy>=0.1.0; extra == "dspy"
+Provides-Extra: crewai
+Requires-Dist: crewai>=0.1.0; extra == "crewai"
+Provides-Extra: docs
+Requires-Dist: sphinx>=4.0.0; extra == "docs"
+Requires-Dist: sphinx-rtd-theme>=1.0.0; extra == "docs"
+Requires-Dist: sphinx-autodoc-typehints>=1.12.0; extra == "docs"
+Requires-Dist: nbsphinx>=0.8.0; extra == "docs"
+Requires-Dist: jupyter>=1.0.0; extra == "docs"
+Requires-Dist: mkdocs>=1.5.0; extra == "docs"
+Requires-Dist: mkdocs-material>=9.0.0; extra == "docs"
+Provides-Extra: integrations
+Requires-Dist: adri[crewai,dspy,langchain]; extra == "integrations"
+Provides-Extra: all
+Requires-Dist: adri[api,database,dev,docs,integrations]; extra == "all"
+Dynamic: license-file
+
+# ADRI: Stop AI Agents from Crashing on Bad Data
+
+**Most AI agents fail due to bad data. ADRI prevents this.**
+
+[![GitHub stars](https://img.shields.io/github/stars/verodat/agent-data-readiness-index?style=social)](https://github.com/verodat/agent-data-readiness-index)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![ADRI Version](https://img.shields.io/badge/ADRI-v0.3.1-blue.svg)](https://github.com/verodat/agent-data-readiness-index/releases)
+[![PyPI](https://img.shields.io/pypi/v/adri)](https://pypi.org/project/adri/)
+
+## 🚨 The Hidden Cost of Bad Data
+
+**Your AI agent works perfectly in development. Then it hits production data and crashes.**
+
+Common failure scenarios:
+- 💸 Missing currency codes → Multi-million dollar invoice errors
+- 📧 Invalid emails → Customer service disruptions
+- 🚚 Inconsistent addresses → Costly logistics mistakes
+
+**The truth**: High agent reliability requires high data reliability. You can't achieve one without the other.
+
+## 🚀 5-Minute Quickstart: See Your Agent's Crash Risk
+
+```bash
+# Install
+pip install adri
+
+# Run crash test on sample data
+cd quickstart && python quickstart.py
+```
+
+**What you'll see in 5 minutes:**
+```
+✨ ADRI Score Report
+━━━━━━━━━━━━━━━━━━━━━━━━━
+Overall Score: 68/100 ❌
+Status: Will Crash Agents
+
+💥 Critical Issues Found:
+• Invalid emails → Email agents will fail
+• Missing currency → Invoice processing errors
+• Date chaos → Scheduling failures
+```
+
+**[→ Full 5-Minute Quickstart Guide](docs/QUICKSTART.md)**
+
+## 💡 The Solution: Prevent Crashes Before They Happen
+
+Add one line to protect any agent:
+
+```python
+from adri.integrations.guard import adri_guarded
+
+@adri_guarded(min_score=80)
+def process_customer(data):
+    # Your agent logic here
+    send_email(data['email'])
+    process_payment(data['amount'], data['currency'])
+    
+# If data quality < 80, the function won't run
+# No more crashes! 🛡️
+```
+
+## 📊 The Reliability Relationship
+
+| Data Reliability | Agent Capability | What You Can Build |
+|------------------|------------------|-------------------|
+| Low | Limited | Internal tools only |
+| Medium | Moderate | Customer-facing with human backup |
+| High | Advanced | Automated workflows |
+| **Very High** | **Full** | **Mission-critical AI agents** |
+
+**Small improvements in data reliability enable exponentially more use cases.**
+
+## 🎯 How ADRI Works
+
+### 1. Define Requirements First
+```yaml
+# invoice-processor.adri.yaml
+name: Invoice Processing Agent
+requires:
+  completeness:
+    critical_fields: [invoice_number, amount, currency, date]
+    min_score: 95
+  validity:
+    formats:
+      date: ISO8601
+      amount: decimal(10,2)
+    min_score: 98
+```
+
+### 2. Data Suppliers Know What to Build
+```python
+# Any data source can target the standard
+from adri import DataSourceAssessor
+
+assessor = DataSourceAssessor()
+result = assessor.assess_file("my_data.csv")
+print(f"Data quality score: {result.overall_score}/100")
+```
+
+### 3. Agents Trust Their Inputs
+```python
+# Agents can require compliant data
+from adri import adri_guarded
+
+@adri_guarded(min_score=80)
+def process_invoices(data_source):
+    # Agent knows data meets requirements
+    return execute_with_confidence(data_source)
+```
+
+### 4. True Marketplace Emerges
+- **Data providers** compete on quality scores
+- **Agent builders** can target any ADRI data
+- **Enterprises** mix and match components
+- **Innovation** happens at every layer
+
+## ⚡ See It In Action
+
+### For Data Teams: "What Standard Do I Need to Meet?"
+```bash
+# Assess your data against a standard
+adri assess invoices.csv --standard invoice-processor-v1
+
+# Get specific remediation steps
+📊 Assessment Report:
+✗ Completeness: 76% (FAIL - requires 95%)
+  Missing: currency in 24% of records
+  Action: Add currency codes to all records
+
+✓ Validity: 98% (PASS)
+```
+
+### For AI Engineers: "What Data Can I Trust?"
+```python
+# Discover compatible data sources
+available_sources = adri.find_sources("invoice-processor-v1")
+# Returns: ["warehouse.invoices", "erp.billing", "api.invoices"]
+
+# Use any compliant source
+for source in available_sources:
+    my_agent.process(source)  # They all just work!
+```
+
+### For Enterprises: "Show Me the Ecosystem"
+Visit the [ADRI Marketplace](https://adri.dev/marketplace) to find:
+- 📦 **Certified Data Sources** by industry
+- 🤖 **Compatible Agents** for your data
+- 📋 **Standard Templates** for common use cases
+- 🔧 **Implementation Partners** for support
+
+## 🏗️ The Standard Components
+
+### 1. Five Universal Dimensions
+Every ADRI assessment measures:
+- **Validity**: Is the data in the right format?
+- **Completeness**: Are required fields present?
+- **Freshness**: Is the data recent enough?
+- **Consistency**: Does the data contradict itself?
+- **Plausibility**: Does the data make business sense?
+
+### 2. Industry Templates
+Pre-built standards for common use cases:
+```
+adri-finance-invoice-v1
+adri-retail-inventory-v1
+adri-healthcare-patient-v1
+adri-logistics-shipment-v1
+```
+
+### 3. Scoring System
+- 0-100 score per dimension
+- Pass/fail thresholds per use case
+- Clear remediation guidance
+
+## 🚀 Quick Start
+
+### Install the Reference Implementation
+```bash
+pip install adri
+```
+
+### Try It on Sample Data
+```bash
+# Download a sample invoice dataset
+curl -O https://adri.dev/samples/invoices.csv
+
+# See what standards it could meet
+adri discover invoices.csv
+
+# Assess against a specific standard
+adri assess invoices.csv --standard invoice-processor-v1
+```
+
+### Build Your First Compliant Pipeline
+```python
+from adri import adri_guarded
+
+# Define your pipeline
+@adri_guarded(min_score=70)
+def load_invoice_data():
+    data = pd.read_csv("raw_invoices.csv")
+    # Add any transformations
+    return data
+
+# Now any agent can trust this data
+compliant_data = load_invoice_data()
+```
+
+## 🌍 Join the Standard
+
+### For Developers
+- ⭐ Star this repo to show support
+- 📝 [Contribute templates](CONTRIBUTING.md) for your industry
+- 🐛 [Report issues](https://github.com/adri-standard/agent-data-readiness-index/issues)
+- 💬 [Join discussions](https://github.com/adri-standard/agent-data-readiness-index/discussions)
+
+### For Organizations
+- 🏢 Implement ADRI internally (immediate ROI)
+- 📊 Contribute industry requirements
+- 🤝 [Become a standards partner](GOVERNANCE.md#partners)
+- 🎯 Shape the future of AI interoperability
+
+### For Vendors
+- 🏪 Offer ADRI-certified data products
+- 🤖 Build ADRI-compliant agents
+- 🔧 Provide implementation services
+- 📢 [List in the marketplace](https://adri.dev/marketplace)
+
+## 📚 Documentation
+
+- **[Understanding Dimensions](docs/UNDERSTANDING_DIMENSIONS.md)** - Core concepts
+- **[Implementation Guide](docs/implementation_guide.md)** - Step-by-step adoption
+- **[Understanding Templates](docs/UNDERSTANDING_TEMPLATES.md)** - Create industry standards
+- **[Contributing Templates](docs/CONTRIBUTING_TEMPLATES.md)** - Help build industry standards
+- **[API Reference](docs/API_REFERENCE.md)** - Technical details
+
+## 🏛️ Governance
+
+ADRI is an open standard governed by its community:
+
+- **License**: MIT (use freely in any context)
+- **Governance**: [Open governance model](GOVERNANCE.md)
+- **Charter**: [Read our mission](CHARTER.md)
+- **Maintainers**: Community-elected board
+
+## 🎯 The Vision
+
+Imagine a world where:
+- Any AI agent can work with any data source
+- Data quality is measurable and guaranteed
+- Innovation happens at every layer
+- The ecosystem grows exponentially
+
+**This is what standards enable. This is ADRI.**
+
+## 🤝 Key Partners
+
+### Founding Contributors
+- [Verodat](https://verodat.io) - Initial implementation
+- [Your Organization Here] - Join as a founding partner
+
+### Implementations
+- **Python**: Reference implementation (this repo)
+- **JavaScript**: [adri-js](https://github.com/adri-standard/adri-js)
+- **Go**: [adri-go](https://github.com/adri-standard/adri-go)
+- **Your Language**: [Contribute an implementation](CONTRIBUTING.md#implementations)
+
+## 🚦 Roadmap
+
+### Now (v1.0)
+- ✅ Core standard definition
+- ✅ Python reference implementation
+- ✅ Initial industry templates
+
+### Next (v1.1)
+- 🔄 Streaming data support
+- 🔄 Multi-source assessments
+- 🔄 Advanced remediation AI
+
+### Future (v2.0)
+- 🎯 Real-time compliance monitoring
+- 🎯 Blockchain-verified assessments
+- 🎯 Autonomous quality improvement
+
+## 📞 Get Involved
+
+The future of AI interoperability is being built now. Join us:
+
+- **Website**: [adri.dev](https://adri.dev)
+- **GitHub**: [github.com/adri-standard](https://github.com/adri-standard)
+- **Discord**: [discord.gg/adri](https://discord.gg/adri)
+- **Twitter**: [@adri_standard](https://twitter.com/adri_standard)
+
+---
+
+<p align="center">
+  <strong>ADRI: Making AI agents work everywhere, with any data.</strong>
+</p>
+
+<p align="center">
+  <i>An open standard by the community, for the community.</i>
+</p>
+
+## Purpose & Test Coverage
+
+**Why this file exists**: Main entry point for the ADRI project, providing immediate understanding of the standard's value proposition and quick paths to adoption.
+
+**Key responsibilities**:
+- Communicate the interoperability crisis and ADRI's solution
+- Provide clear quick-start instructions
+- Showcase ecosystem benefits with concrete examples
+- Guide different stakeholders to appropriate resources
+- Establish ADRI as THE open standard for agent-data interoperability
+
+**Test coverage**: Verified by tests documented in [README_test_coverage.md](docs/test_coverage/README_test_coverage.md)
