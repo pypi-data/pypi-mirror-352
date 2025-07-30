@@ -1,0 +1,87 @@
+Metadata-Version: 2.4
+Name: waifu-scorer
+Version: 0.2.1
+Summary: A deep learning-based tool for scoring anime-style (waifu) images, supporting multiple hardware backends and PyTorch environments.
+Project-URL: Homepage, https://github.com/jannchie/waifu-scorer
+Project-URL: Repository, https://github.com/jannchie/waifu-scorer
+Project-URL: Documentation, https://github.com/jannchie/waifu-scorer#readme
+Project-URL: Bug Tracker, https://github.com/jannchie/waifu-scorer/issues
+Project-URL: Reference, https://github.com/Eugeoter/waifuset
+Author-email: Jianqi Pan <jannchie@gmail.com>
+License: MPL-2.0
+License-File: LICENSE
+Keywords: AI,deep learning,image analysis,scoring,waifu
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.10
+Requires-Dist: clip>=0.2.0
+Requires-Dist: huggingface-hub>=0.32.3
+Requires-Dist: numpy>=2.2.6
+Requires-Dist: pillow>=11.2.1
+Requires-Dist: safetensors>=0.5.3
+Requires-Dist: transformers>=4.52.4
+Provides-Extra: cpu
+Requires-Dist: torch>=2.5.1; extra == 'cpu'
+Provides-Extra: cu121
+Requires-Dist: torch>=2.5.1; extra == 'cu121'
+Provides-Extra: cu124
+Requires-Dist: torch>=2.6.0; extra == 'cu124'
+Description-Content-Type: text/markdown
+
+# waifu-scorer
+
+A deep learning-based tool for scoring anime-style images, supporting multiple hardware backends and PyTorch environments.
+
+## Installation
+
+You need Python 3.12+ and pip. It is recommended to use a virtual environment.
+
+```bash
+pip install .[cpu]      # For CPU only
+pip install .[cu121]    # For CUDA 12.1
+pip install .[cu124]    # For CUDA 12.4
+```
+
+## Usage in Python
+
+You can also use waifu-scorer directly in your Python code:
+
+```python
+from waifu_scorer.predict import WaifuScorer
+
+scorer = WaifuScorer()
+results = scorer(["path/to/image1.jpg", "path/to/image2.png"])
+for img_path, score in zip(["path/to/image1.jpg", "path/to/image2.png"], results, strict=False):
+    print(f"{img_path}: {score:.3f}")
+```
+
+## Usage from Command Line
+
+After installation, you can use the command line interface to score images:
+
+```bash
+python -m waifu_scorer path/to/image1.jpg path/to/image2.png
+```
+
+### Options
+
+- `--model`: Path to a custom model file
+- `--device`: Device to use
+- `--verbose`: Enable verbose output
+
+Example:
+
+```bash
+python -m waifu_scorer examples/waifu1.png --verbose
+```
+
+## Reference
+
+This project refers to [waifuset](https://github.com/Eugeoter/waifuset).
+
+---
+
+For more details, see the code and documentation in the repository.
