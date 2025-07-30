@@ -1,0 +1,98 @@
+Metadata-Version: 2.4
+Name: pytagit
+Version: 0.1.3
+Summary: Interactive tool for image tagging with the human in the loop
+Home-page: https://github.com/dros1986/pytagit
+Author: Flavio Piccoli
+Author-email: dros1986@gmail.com
+License: CC-BY-NC-4.0
+Keywords: image tagging,interactive tool,human in the loop,pytorch,PyQt6,t-SNE,CNN training
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Environment :: X11 Applications :: Qt
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Image Recognition
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENCE.md
+Requires-Dist: torch>=2.0.0
+Requires-Dist: torchvision>=0.15.0
+Requires-Dist: numpy>=1.23
+Requires-Dist: PyQt6>=6.5
+Requires-Dist: scikit-learn>=1.3
+Requires-Dist: matplotlib>=3.7
+Requires-Dist: albumentations>=1.3
+Requires-Dist: einops>=0.6
+Requires-Dist: opencv-python>=4.8
+Requires-Dist: Pillow>=9.5
+Requires-Dist: tqdm>=4.65
+Requires-Dist: regex>=2023
+Requires-Dist: pandas>=2.0
+Requires-Dist: transformers>=4.50
+Requires-Dist: pytorch-lightning>=2.5
+Requires-Dist: openTSNE>=1.0
+Requires-Dist: seaborn>=0.13
+Requires-Dist: rich>=12.0.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+![License](https://img.shields.io/badge/license-CC--BY--NC--4.0-blue.svg)
+
+### PyTagit
+
+**PyTagit** is a human-in-the-loop tool for large-scale image classification.  
+Install and launch it with:
+
+```bash
+# install
+pip install pytagit
+
+# run the program
+pytagit
+```
+
+If you use PyTagit, please cite us:
+
+```
+# citation
+```
+
+---
+
+### Features
+
+At startup, all images are unclassified. You can assign them via drag-and-drop:
+
+![Main window](https://github.com/dros1986/pytagit/blob/main/res/main_window.png?raw=true)
+
+Start by assigning a few examples per class. Then, apply:
+
+- **Random Forest** or **k-NN** to classify the rest.
+- Visit each class and click to mark correct predictions. Once clicked, the border will become red.
+- Repeat the process to reclassify using the verified samples.
+
+For accelerated labeling, use:
+
+#### Interactive t-SNE
+
+Draw a decision boundary directly on a 2D feature map to assign multiple samples:
+
+![t-SNE](https://github.com/dros1986/pytagit/blob/main/res/interactive_tsne.png?raw=true)
+
+#### Out-of-Distribution Detection
+
+Useful for quality control scenarios: find samples close to a class using feature-based OOD:
+
+![OOD](https://github.com/dros1986/pytagit/blob/main/res/visual_ood.png?raw=true)
+
+To classify all samples, use Random Forest with a confidence threshold of 0.
