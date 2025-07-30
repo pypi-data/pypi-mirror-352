@@ -1,0 +1,11 @@
+[run]
+source = src
+branch = True
+command_line = -m pytest
+
+[html]
+directory = coverage_html_report
+
+[report]
+fail_under = 100
+show_missing = True
