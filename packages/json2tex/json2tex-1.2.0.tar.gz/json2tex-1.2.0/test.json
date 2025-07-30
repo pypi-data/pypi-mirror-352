@@ -1,0 +1,25 @@
+{
+  "title": "Experiment A: Motion",
+  "parameters": {
+    "initial_velocity": 20.5,
+    "angle_deg": 45,
+    "gravity": 9.81,
+    "air_resistance": null
+  },
+  "results": [
+    {"time": 0, "height": 0},
+    {"time": 1, "height": 14.6},
+    {"time": 2, "height": 19.8}
+  ],
+  "notes": [
+    "Assumes vacuum conditions",
+    "θ = 45° gives max range",
+    true,
+    false,
+    null
+  ],
+  "equations": [
+    "y(t) = v_0 \\sin(\\theta) t - \\frac{1}{2}gt^2",
+    "x(t) = v_0 \\cos(\\theta) t"
+  ]
+}
