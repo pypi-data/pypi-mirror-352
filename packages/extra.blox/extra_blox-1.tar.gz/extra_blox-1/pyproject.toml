@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["extrablox"]
+
+
+[project]
+name = "extra.blox"
+version = "1"
+authors = [
+  { name="mark.api", email="me@markapi.tech" },
+]
+description = "A Python library for interacting with Roblox's API asynchronously ."
+dependencies = [
+    "httpx >= 0.24.0"
+]
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/markination/extra.blox"
+Issues = "https://github.com/markination/extra.blox/issues"
