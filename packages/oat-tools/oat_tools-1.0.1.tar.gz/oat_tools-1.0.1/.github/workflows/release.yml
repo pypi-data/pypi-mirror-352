@@ -1,0 +1,32 @@
+# The PyPi project has been configured with a Trusted Publisher using following:
+# Guide: https://docs.pypi.org/trusted-publishers/adding-a-publisher/
+
+name: Release to PyPI
+
+on:
+  push:
+    tags:
+      - "v*.*.*"  # Triggers on version tags like v1.0.0, v1.2.3, etc.
+
+permissions:
+  # For PyPI's trusted publishing.
+  id-token: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    environment: pypi  # Optional: adds protection rules
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Run tests
+        run: uv run pytest
+
+      - name: Build package
+        run: uv build
+
+      - name: Publish to PyPI
+        run: uv publish
