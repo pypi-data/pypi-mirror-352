@@ -1,0 +1,29 @@
+[project]
+name = "libgcs"
+version = "1.0.3"
+description = "Basic library for GCS implementations"
+readme = "README.md"
+authors = [
+    { name = "Vivatsathorn Thitasirivit", email = "vivatsathorn@outlook.co.th" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "hatchling",
+    "numpy",
+    "pandas",
+    "pyserial",
+    "tomli"
+]
+
+[project.scripts]
+libgcs = "libgcs:main"
+libgcs_serial = "libgcs.serial_tools:__test_serial"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
