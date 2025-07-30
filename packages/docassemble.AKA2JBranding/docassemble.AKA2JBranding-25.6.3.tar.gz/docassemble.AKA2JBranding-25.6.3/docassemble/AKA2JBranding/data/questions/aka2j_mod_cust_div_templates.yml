@@ -1,0 +1,666 @@
+objects:
+  - service_cert_interim_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:certofservice.png', alt_text="Certificate of Service box")
+  - service_cert_reconsider_set_aside_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:certofservice.png', alt_text="Certificate of Service box")
+  - service_cert_modify_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:certofservice.png', alt_text="Certificate of Service box")
+  - service_cert_enforce_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:certofservice.png', alt_text="Certificate of Service box")
+  - service_cert_motion_shc_1300_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:certofservice.png', alt_text="Certificate of Service box")
+  - service_cert_respond_dr_motion_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:certofservice.png', alt_text="Certificate of Service at the end of Response to Change Custody, Support, and Visitation")
+  - service_cert_respond_civ_motion_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:certofservice.png', alt_text="Certificate of Service box at the end of Response to Motion")
+  - service_cert_reply_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:certofservice.png', alt_text="Certificate of Service at the bottom of the Reply form")
+  - distrib_cert_child_support_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:CertOfDistr_interim_child_support.png', alt_text="Certificate of Distribution shows the date the court sent your order to you.")
+  - distrib_cert_custody_divorce_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:CertOfDistrib_divorce_custody.PNG', alt_text="Certificate of Distribution shows the date the court sent your order to you.")
+  - distrib_cert_dissolution_image: DAStaticFile.using(filename = 'docassemble.AKA2JBranding:CertOfDistrib_dissolution.PNG', alt_text="Certificate of Distribution shows the date the court sent your order to you.")
+---
+template: pick_a_step_step
+subject: |
+  Step ${ pick_a_step_idx}: Decide the steps you want to take
+content: |
+  % if user_need == 'change custody order':
+  You have more than one way to ask the judge to change your custody or parenting plan order.
+  % elif user_need == 'change divorce order':
+  % if middle_of_case == 'yes':
+  You have more than one way to ask the judge to change an order in your divorce case.
+  % elif middle_of_case == 'no':
+  You have more than one way to ask the judge to change the order from your divorce case.
+  % endif
+  % endif
+ 
+  Read each of the following steps.
+  
+  Decide on the steps that make the most sense in your case.
+---
+template: standing_order_step
+subject: |
+  Step ${ standing_order_idx }: Ask the court to change the Standing Order or a similar order
+content: |
+  <div class="step-subheading">Background</div>
+  
+    When your case was opened, the court issued an order, usually called a **Standing Order** or a **Domestic Relations Procedural Order (DRPO)**.
+    
+  % if user_need == 'change divorce order':
+  The court expects both spouses to follow the order.
+  % else:
+  The court expects both parents to follow the order.
+  % endif
+  
+  Sometimes you or ${other_party_in_case} wants to do something the **Standing Order** does not allow.
+  
+  For example, you may want to take your children to a family reunion in another state. But the **Standing Order** says parents cannot remove the children from Alaska during the case.
+  % if user_need == 'change divorce order':
+  
+  The **Standing Order** or **(DRPO)** in a divorce case also says your spouse must agree or you must get permission from the court to:
+  
+  * sell marital property, or
+  * cancel or change the terms of any insurance policy.
+  % endif
+  
+  If you want to do something different from what the order allows, you can ask ${other_party_in_case} to agree to it.
+  
+  If they do not agree, you can ask the court to change the order by filing a "motion."
+---
+template: motion_forms_step
+subject: |
+   Step ${ motion_forms_idx }: 
+   % if  type_of_interim_order == 'standing order':
+   Fill out your motion forms
+   % else:
+   Ask the judge to change an interim order
+   % endif
+content: |
+  % if  type_of_interim_order == 'motion':
+  If you or your spouse filed a motion and the judge made an interim order, but things have changed,  you can file another motion.
+  Tell the judge what has changed and why you need a new order.
+  % else:
+  A motion is the way to ask the court to order something.
+  % endif
+  <div class = "step-subheading">Fill out these forms</div>
+  <p><strong>Motion, SHC-1300</strong> <br>
+  as a <a href="http://courts.alaska.gov/shc/family/docs/shc-1300.doc">Word file</a><br>
+  as a <a href="http://courts.alaska.gov/shc/family/docs/shc-1300n.pdf">PDF</a></p>
+  <p><strong>Affidavit &amp; Memorandum, SHC-1301</strong><br>
+  as a <a href="http://courts.alaska.gov/shc/family/docs/shc-1301.doc">Word file</a><br>
+  as a <a href="http://courts.alaska.gov/shc/family/docs/shc-1301n.pdf">PDF</a></p>
+  <p><strong>Order on Motion, SHC-1302</strong><br>
+  as a <a href="http://courts.alaska.gov/shc/family/docs/shc-1302.doc">Word file</a><br>
+  as a <a href="http://courts.alaska.gov/shc/family/docs/shc-1302n.pdf">PDF</a></p>
+---
+template: foreign_order_step
+subject: |
+  Step ${ foreign_order_idx }: Ask the court to change your custody and Parenting Plan or child support order from another state
+content: |
+  If do not have to change your parenting plan or custody order and you only need to change your child support order, contact the [Alaska Child Support Enforcement Division (CSED)](https://childsupport.alaska.gov/child-support-services/contact-us). They may be able to help you change your order without going to court.
+  <ul>
+    <li>Customer Service Call Center:<br>    
+    Monday - Thursday, 10:00 am - 3:00 pm
+      <ul>
+      <li>✆ Phone: (907) 269-6900,</li> 
+      <li>Toll Free (In-state): 800-478-3300</li> 
+      </ul></li>
+  <li>⌨ Fax: (907) 787-3220</li>
+  <li>Email: dor.cssd.customerservice.anchorage@alaska.gov</li> 
+  </ul>
+  <p>There are 3 steps to ask an Alaska court to change a custody and parenting plan or child support order from another state:</p>
+  <ol>
+  <li>Make sure the Alaska court has jurisdiction (authority) to change the order. See Step ${ ak_jurisdiction_idx }.</li>
+  <li>Register the out-of-state order in Alaska. See Step ${ register_order_idx }.</li>
+  <li>Ask the Alaska court to change the order by filing a Motion to Modify. See Step ${ modify_idx }.</li>
+  </ol>
+---
+template: register_order_step
+subject: |
+ Step ${ register_order_idx }: Register the out-of-state order
+content: |
+  <div class="step-subheading">Submit the following packet to the Alaska court</div>
+  <ul>
+  <li>1 <strong>certified</strong> copy of the original order.</li>
+  <li>1 <strong>photocopy</strong> of the certified original order.</li>
+  <li><strong>Case description form</strong>, <a href="https://public.courts.alaska.gov/web/forms/docs/civ-125s.pdf">CIV-125S</a></li>
+  <ul>
+  <div class="step-subheading">For Custody</div>
+  
+  <li><strong>Request to </strong><strong>Register Child Custody Order of Another State or Country, </strong><a href="https://public.courts.alaska.gov/web/forms/docs/dr-482.pdf">DR-482</a><strong> </strong>[Fill-In PDF]</li>
+  <li><strong>Notice of Registration of Child Custody Order of Another State or Country, </strong><a href="https://public.courts.alaska.gov/web/forms/docs/dr-483.pdf">DR-483</a> [Fill-In PDF] <br>
+  (Completed except for the date and clerk's signature)</li>
+  <li><strong>Affidavit for Child </strong><strong>Custody Registration, SHC-1510 <br>
+  </strong>as a<strong> </strong><a href="http://courts.alaska.gov/shc/family/docs/shc-1510.doc">Word file</a><br>
+  as a <a href="http://courts.alaska.gov/shc/family/docs/shc-1510n.pdf">PDF</a></li>
+  <li><strong>Request for Hearing on Registered Child Custody Order, </strong><a href="https://public.courts.alaska.gov/web/forms/docs/dr-484.pdf">DR-484</a> [Fill-In PDF]<br>
+  (Only fill in the Petitioner's and Respondent's names in the caption at the top left and leave the rest blank)<strong></strong></li>
+  <li><strong>Confirmation of Registered</strong> <strong>Child Custody Order</strong>, <a href="https://public.courts.alaska.gov/web/forms/docs/dr-485.pdf">DR-485</a> [Fill-In PDF]<br>
+  (Only fill in the Petitioner's and Respondent's names in the caption at the top left and leave the rest blank)</li>
+  
+  <div class="step-subheading">For Child Support</div>
+  
+  <li><strong>Instructions - Registration of Support Order Issued by Another State, </strong><a href="https://public.courts.alaska.gov/web/forms/docs/dr-341.pdf">DR-341</a> [Fill-In PDF]</li>
+  <li><strong>Petition to Register a Support Order from Another State, </strong><a href="https://public.courts.alaska.gov/web/forms/docs/dr-342.pdf">DR-342</a> [Fill-In PDF]</li>
+  <li><strong>Confidential Information Sheet - Support Order from Another State, </strong><a href="https://public.courts.alaska.gov/web/forms/docs/dr-343.pdf">DR-343</a> [Fill-In PDF]</li>
+  <li><strong>Notice of Registration of Another State's Support Order, </strong><a href="https://public.courts.alaska.gov/web/forms/docs/dr-344.pdf">DR-344</a> [Fill-In PDF]<br>
+  (Completed except for the date and clerk's signature)</li>
+  <li><strong>Request for Hearing About Registered Child Support Order, </strong><a href="https://public.courts.alaska.gov/web/forms/docs/dr-345.pdf">DR-345</a> [Fill-In PDF]<br>
+  (Only fill in the Petitioner's and Respondent's names in the caption at the top left and leave the rest blank.)</li>
+  <li><strong>Confirmation of Registered Support Order</strong>, <a href="https://public.courts.alaska.gov/web/forms/docs/dr-347.pdf">DR-347</a> [Fill-In PDF]</li>
+  </ul>
+  <div class="step-subheading">Tell the court how you want it to deliver the documents to the other parent.</div>
+  The options are:
+  <ul>
+  <li><strong>1st class US mail</strong> (which is free): <br>
+  Give the clerk at the court:
+  <ul>
+  <li>the packet of forms to register a foreign order</li>
+  <li>envelope(s) addressed to the opposing party</li>
+  <li>a copy of all documents you are filling <strong>plus</strong> a <strong>Request for Hearing</strong> form for the opposing party</li>
+  </ul></li>
+  <li><strong>Certified mail</strong> (which you have to pay for): 
+  <ul>
+  <li>Before coming to court,
+  <ul>
+  <li>Go to the Post Office and get the forms for &quot;certified mail&quot;, &quot;restricted delivery&quot;, &quot;return receipt requested.&quot;</li>
+  <li>Figure out how much it will cost to mail the forms by this method, and </li>
+  <li>Put the stamps on the envelope. <br>
+  If you do not provide the correct stamped envelope, your paperwork may be rejected. </li>
+  </ul></li>
+  <li>Give the clerk at the court:
+  <ul>
+  <li>the packet of forms to register a foreign order,</li>
+  <li>envelope(s) addressed to the opposing party, and</li>
+  <li>a copy of all documents you are filling <strong>plus</strong> a <strong>Request for Hearing</strong> form for the opposing party</li>
+  <li>the filled-out mailing forms for certified mail, restricted delivery, return receipt requested from the Post Office for each of the people listed in the certificate of distribution on the Notice of Registration Order. <br>
+  On the green card, fill out your return address so you get the green card back later.</li>
+  <li>enough postage for the court to serve by certified mail, restricted delivery, return receipt requested.</li>
+  </ul></li>
+  </ul></li>
+  <li><strong>Process server</strong> (which you have to arrange and pay for):<br>  
+  Give the clerk:
+  <ul>
+  <li>the packet of forms to register a foreign order</li>
+  <li>service instructions for the specific process server you want the court to use. Read the instructions about &quot;Personal Service By Process Server&quot; in CIV-106.</li>
+  </ul></li>
+  </ul>
+
+  <div class="step-subheading">Pay the filing fee of $150 or ask the court to waive it</div>
+  <p>If you are registering <strong>both</strong> a foreign child custody order and a foreign support order together, or <strong>only</strong> a child custody order, the filing fee is $150.</p>
+
+  <p>If you cannot afford $150, you can file a <strong>Request for Exemption for Payment of Fees</strong>, <a href="https://public.courts.alaska.gov/web/forms/docs/tf-920.pdf">TF-920</a>.</p>
+
+  <p>If you are registering <strong>only</strong> a foreign support order, it is <strong>free</strong>.</p>
+---
+---
+template: learn_reconsider_step
+subject: |
+  Step ${ learn_reconsider_idx }: Learn about Motions to Reconsider
+content: |
+  <p>To ask your judge to reconsider a decision, file a <strong>Motion to Reconsider</strong></p>
+  <p>You have only 10 days after the date the court sent your ${ case_type } order to you. </p>
+  <p>Look at the last page of the order. The date to count from is in the box at the bottom of the page. It looks something like this.</p>
+  
+  % for image_data in distribution_certificate_list:
+  ${ image_data['text'] }
+  ${ image_data['image'].show(width='100%') }
+  % endfor
+  
+  <p> If the <strong>10th</strong> day is a  weekend or holiday, your motion is due the next day the court is open. For example, if the 10th day is a Saturday,  and the court is open Monday, your motion is due Monday. If Monday is a holiday, your motion is due Tuesday.</p>
+  <div class="step-subheading">You can ask a judge to reconsider their decision for 4 reasons</div>
+  <ol>
+    <li><p>The judge overlooked, misapplied or failed to  consider a statute, decision or principle directly controlling. This means the  judge made a mistake when they applied the law in your case.<p>
+      <div class = "example">
+      <p class = "heading">For example</p>
+      <ul>
+        <li>Rule 90.3 states that if a child spends at least  256 nights with one parent, that parent has primary custody and the other  parent pays 20% of their adjusted annual  income for child support to the parent the child lives with.</li>
+        <li>If the judge used 27% of adjusted income instead  of 20%, the <strong>Motion to Reconsider</strong> would state that the judge misapplied Civil Rule 90.3.</li>
+      </ul>
+      </div>
+    </li>
+    <li><p>The judge overlooked or misconceived some  material fact or proposition of law. This means the judge got an important fact  wrong.</p>
+      <div class = "example">
+      <p class = "heading">For example</p>
+      <ul>
+        <li>The parents agree that mom makes $25,000 every  year. They file the forms to tell the judge they agree. The judge calculated  child support using $35,000 for mom's income. </li>
+        <li>The <strong>Motion  to Reconsider</strong> would state that the judge used the wrong income to calculate  child support.</li>
+      </ul>
+      </div>
+    </li>
+    <li><p>The judge overlooked or misconceived a material  question in the case. This means the judge misunderstood what you were asking for.</p>
+      <div class = "example">
+      <p class = "heading">For example</p>
+      <ul>
+        <li>A child changed from living full time with their  mom to living full time with their dad. Under the child support formula, dad  used to pay child support to mom based on the primary custody child support  calculation. Now, mom should pay child support to dad based on the primary  custody child support calculation. Dad filed a motion to modify child support.  The judge denied dad's motion because the parents' incomes did not change.</li>
+        <li>The <strong>Motion  to Reconsider</strong> would state the judge did not include the changed parenting  schedule in the child support calculation.</li>
+      </ul>
+      </div>
+    </li>
+    <li><p>The law applied in the ruling was changed by a later  court decision or statute. This means the judge used a rule or law that  changed.</p>
+      <div class = "example">
+      <p class = "heading">For example</p>
+      <ul>
+        <li>On April 15, 2018, Civil Rule 90.3 changed to  allow a parent to deduct the cost of their own health insurance from their  gross income, up to 10% of the parent's gross income.</li>
+        <li>If the judge calculated child support on April  14 and did not subtract the cost of the parent's health insurance, the Motion  to Reconsider would explain the cost of the parent's health insurance and state  that Civil Rule 90.3 changed on April 15, 2018.</li>
+      </ul>
+      </div>
+    </li>
+  </ol>
+  <p>See <a href="https://courts.alaska.gov/rules/docs/civ.pdf">Alaska Rule of Civil Procedure</a> 77(k) to read the court rules about the <strong>4 reasons</strong> you can ask the court to reconsider a judge's decision.</p>
+---
+template: fill_reconsider_step
+subject: |
+  Step ${ fill_reconsider_idx }: Fill out the Motion to Reconsider forms
+content: |
+  <div class="step-subheading">Use</div>
+  <ul>
+    <li><strong>Motion and Affidavit to Reconsider, SHC-1545</strong> <a href="https://courts.alaska.gov/shc/family/docs/shc-1545.doc" target="_blank">Word</a> | <a href="https://courts.alaska.gov/shc/family/docs/shc-1545n.pdf" target="_blank">PDF</a></li>
+    <ul>
+      <li>Put everything you want the judge to know and think about in your motion. You will not be able to tell the judge in person because they rarely hold a hearing for a <strong>Motion to Reconsider</strong>.</li>
+      <li>Your <strong>Motion to Reconsider</strong> must be no  more than 5 pages, including attachments.</li>
+      <li><strong>Wait</strong> to sign the form until you are in front of someone who has the power to take oaths, like a notary public.
+      <ul>
+      <li>The court clerk can do this for free.</li>
+      <li>Bring a valid photo ID with you.</li>
+      </ul></li>
+      <li>If you cannot get to a notary public or someone  who has the power to take oaths, you can &quot;self-certify.&quot; Use:</li>
+      <ul>
+        <li><strong>Self-Certification  (No Notary Available), TF-835</strong> [<a href="https://public.courts.alaska.gov/web/forms/docs/tf-835.pdf">Fill-In PDF</a>]</li>
+      </ul>
+    </ul>
+    <li><strong>Proposed Order on Motion, SHC-1302</strong> <a href="https://courts.alaska.gov/shc/family/docs/shc-1302.doc" target="_blank">Word</a> | <a href="https://courts.alaska.gov/shc/family/docs/shc-1302n.pdf" target="_blank">PDF</a>. Do <strong>not</strong> sign this form.</li>
+  </ul>
+---  
+template: learn_set_aside_step
+subject: |
+  Step ${ learn_set_aside_idx }: Learn about the Motion to Set Aside Judgment or Order
+content: |
+  A **Motion to Set Aside Judgment or Order** asks the judge to:
+  
+  * fix a mistake (Civil Rule 60(a)), or
+  * set aside or undo the final decision in your case, and let you and ${ other_party_in_case } present the issue again
+  for a new decision (Civil Rule 60(b)). Judges rarely agree to undo a decision.
+  
+  <div class="step-subheading">Reasons you may file a Motion to Set Aside Judgment or Order</div>
+  
+  Civil Rule 60(a) and (b) describe the reasons you can use to file this motion. You may decide to file a <strong>Motion to Set Aside Judgment or Order</strong>.
+  
+  **Civil Rule 60(a)**
+  
+  You can ask a judge to set aside a final judgment or order if the court made a clerical mistake or accidentally left something out of a document. If the judge agrees there was a clerical mistake, they will correct the problem. They will not set aside the entire judgment or order.
+  
+  <div class="example">
+    <p class="heading">Examples when the judge may agree to fix a mistake on an order</p>
+    <ul>
+      <li>The order has the wrong birthday for one of your children.</li>
+      <li>The order was sent to both parents on January 4, <strong>2023</strong>, but the date on the order is January 4, <strong>2022</strong>.</li>
+    </ul>
+  </div> 
+  
+  **Civil Rule 60(b)**
+  
+  You can ask a judge to set aside a final judgment or order if there is a problem with it. The 6 types of problems are listed below
+  
+  For problems 1, 2, and 3, you must file your **Motion to Set Aside**:
+    
+    * **1 year** or less, from the date the court made the final orders in your case, and
+    * within a "reasonable time.” The judge decides if you filed your motion within a reasonable time. The judge may decide not to set aside the order if you file after a reasonable time has passed, even if your reason for filing is a good one.
+    
+  The date of the final orders is usually the date the court sent the order to you. It is in the box at the bottom of the last page of your order.
+  
+  % for image_data in distribution_certificate_list:
+  ${ image_data['text'] }
+  ${ image_data['image'].show(width='100%') }
+  % endfor
+  
+  Problem 1 (file within 1 year): Inadvertence, surprise, or excusable neglect:
+      
+    * A parent made a mistake or did not pay close attention - inadvertence,
+    * An unexpected action, sudden confusion, or an unanticipated event - surprise, or 
+    * A legitimate excuse for failing to take required action - excusable neglect.
+  
+  <div class="example">
+    <p class="heading">An example when the judge may agree to set aside a judgment or order</p>
+    <p>The court entered a default judgment against you because you did not file any response in the case, but:</p>
+    <ul>
+      <li>you were not properly served the Complaint and other paperwork that started the case, and</li>
+      <li>you did not know about the case.</li>
+    </ul>
+  </div>
+  
+  Problem 2 (file within 1 year): Newly discovered evidence which could not have been discovered by taking reasonable steps within the 10 days allowed to request a new trial.
+  <div class="example">
+      <p class="heading">An example when the judge may agree to set aside a judgment or order</p>
+      <ul>
+        <li>You gave your spouse $1,000 before the trial to pay the property taxes on your marital home, and</li>
+        <li>1 month after trial you get a letter from the IRS stating your spouse did not pay the taxes.</li>
+      </ul>
+    </div>
+  
+  Problem 3 (file within 1 year): Fraud, misrepresentation, or other misconduct from the other side.
+    <div class="example">
+    <p class="heading">An example when the judge may agree to set aside a judgment or order</p>
+    <p>One spouse forges an appraisal of the marital home and uses it as evidence at the divorce trial to argue the value of the house.</p>
+  </div>
+ 
+   For problems 4, 5, and 6, you must file your **Motion to Set Aside** within a "reasonable time.” The judge decides if you filed your motion within a reasonable time. The judge may decide not to set aside the order if you file after a reasonable time has passed, even if your reason for filing is a good one.
+ 
+  Problem 4 (file within a reasonable time): The judgment is void.
+  
+  <div class="example">
+    <p class="heading">An example when the judge may agree to set aside a judgment or order</p>
+    <ul>
+      <li>An Alaska court generally does not have the authority or &quot;jurisdiction&quot; to make a parenting plan for a child who has lived in another state for the past 6 or more months. </li>
+      <li>If a child was living in Oregon for 6 months before the divorce case started, and</li>
+      <li>A parent hid this detail from the other parent and the court,</li>
+      <li>The parenting plan order would be void because the court did not have jurisdiction to decide the parenting plan.</li>
+    </ul>
+  </div>
+  
+  <p>Problem 5 (file within a reasonable time): The judgment has been satisfied, released or discharged, or a prior judgment upon which it is based has been reversed or otherwise vacated or it is no longer fair that the judgment should apply at this time.</p>
+  <div class="example">
+    <p class="heading">An example when the judge may agree to set aside a judgment or order</p>
+    <ul>
+      <li>The court orders a parent to pay child support.</li>
+      <li>The child files for Emancipation and the judge grants it.</li>
+    </ul>
+  <p>Parents do not have to support their emancipated child. The child support judgment may be released or discharged.</p>
+  </div>
+  <p>Problem 6 (file within a reasonable time): Any other reason justifying relief from the judgment.</p>
+      <ul>
+        <li> You may be able to come up with a different good reason the judge should start the case over again. But your
+          reason cannot be any of the 6 listed above - it must be something different.</li>
+      </ul>
+---
+template: fill_set_aside_step
+subject: |
+  Step ${ fill_set_aside_idx }: Fill out forms if you want to file a Motion to Set Aside
+content: |
+  If you decide to file a **Motion to Set Aside** because it fits your case:
+  <div class='step-subheading'>Use</div>
+  <ul>
+  <li><strong>Motion and Affidavit to Set Aside the Judgment or Order, SHC-1548</strong> <a href="https://courts.alaska.gov/shc/family/docs/shc-1548.doc">Word</a> | <a href="https://courts.alaska.gov/shc/family/docs/shc-1548n.pdf">PDF</a></li>
+    <ul>
+    <li>Put everything you want the judge to know and think about in your motion. You may not be able to tell the judge in person because they may not hold a hearing.</li>
+    <li><strong>Wait</strong> to sign the form until you are in front of someone who has the power to take oaths, like a notary public.
+    <ul>
+    <li>The court clerk can do this for free.</li>
+    <li>Bring a valid photo ID with you.</li>
+    </ul></li>
+    <li>If you cannot get to a notary public or someone  who has the power to take oaths, you can &quot;self-certify.&quot; Use</li>
+      <ul>
+      <li><strong>Self-Certification  (No Notary Available), TF-835</strong> [<a href="https://public.courts.alaska.gov/web/forms/docs/tf-835.pdf">Fill-In PDF</a>]</li>
+      </ul>
+    </li>
+    </ul>
+  <li><strong>Proposed Order on Motion, SHC-1302</strong> <a href="https://courts.alaska.gov/shc/family/docs/shc-1302.doc">Word</a> | <a href="https://courts.alaska.gov/shc/family/docs/shc-1302n.pdf">PDF</a></li>
+  <li><strong>Notice of Motion, SHC-1630</strong> <a href="http://courts.alaska.gov/shc/family/docs/shc-1630.doc">Word</a> | <a href="http://courts.alaska.gov/shc/family/docs/shc-1630n.pdf">PDF</a></li>
+  </ul>
+  <div class="step-subheading">Watch</div>
+  <p><a href ="https://https://youtu.be/2irmxT0_0EA">Motions Part 1: How to Ask the Court for Something</a></p>
+---
+comment: |
+  Learn step for custody and divorce if modifying custody or child support. Child support interview has its own learn_modify_child_support_step. 
+template: modify_step
+subject: |
+  Step ${ modify_idx }:
+    % if user_need in('change custody order', 'change foreign custody order'):
+    Learn about motions to modify
+    % elif user_need == 'change divorce order':
+    Learn about a Motion to Modify your Parenting Plan
+    % elif (user_need =='respond to motion in custody' and type_of_response == 'modify') or (user_need == 'respond to motion in divorce' and type_of_response == 'modify' and type_of_modification['custody']):
+    Learn about motions to modify custody or a Parenting Plan order
+    % elif user_need == 'respond to motion in divorce' and type_of_response == 'modify' and type_of_modification['child support'] and not type_of_modification['custody']:
+    Learn about motions to modify a child support order
+    % endif
+content: |
+  % if not user_need in('respond to motion in custody', 'respond to motion in divorce'):
+  Changing your parenting plan or child support order is called "modifying" it. To ask the judge to change your order, file a **Motion to Modify**.
+  % elif user_need in('respond to motion in custody', 'respond to motion in divorce'):
+  Your judge will decide the motion based on ${ other_party_in_case }'s request, your response, and the law. Learning about the law can help you decide what to write in your response.
+  % endif
+  % if user_need == 'change foreign custody order' or (user_need == 'change divorce order' and middle_of_case == 'no' and type_of_final_order['custody order'] and why_change in('review', 'schedule')) or (user_need in('respond to motion in custody', 'respond to motion in divorce') and type_of_response == 'modify' and type_of_modification['custody']):  
+  The courts want children to have a regular schedule without a lot of changes. The courts will generally only change a parenting plan if there is a "substantial change in circumstances." A "substantial change in circumstances" means something has happened so that the old custody or parenting plan is no longer in the children's best interest.
+
+  <div class="step-subheading">Some examples</div>
+  <ul>
+  <li>The current parenting plan order started when your child was an infant. They move between parents at noon Mondays, Wednesdays, and Fridays. Your child is starting kindergarten so the current schedule will not work.</li>
+  <li>Under the current parenting plan order, your children spend one week with you and the next week with the other parent.  You are going to move out of state so the current schedule is impossible.</li>
+  <li>Your children spend overnights with you and the other parent.  The other parent just went to jail for 2 years so the existing schedule is impossible.</li>
+  <li>There was a new act of domestic violence between you and the other parent when you were exchanging the children.</li>
+  </ul>
+  % if user_need == 'change foreign custody order' or (not user_need in('respond to motion in custody', 'respond to motion in divorce') and middle_of_case == 'no'):
+  The court charges $75 to file this motion. If you cannot afford the fee, you may be able to get the court to waive it. See the Step ${ file_motion_idx }: ${ file_step_heading }.
+  % endif
+  
+  If the judge decides there is a substantial change of circumstances, the judge will order a new parenting plan in the children's best interest.
+  
+  If the judge changes the parenting plan, the judge may issue a new child support order.
+  % endif
+  
+  % if  user_need == 'respond to motion in divorce' and type_of_response == 'modify' and type_of_modification['child support'] and not type_of_modification['custody']:
+  The child support rule, [Alaska Rule of Civil Procedure 90.3](https://courts.alaska.gov/rules/docs/civ.pdf), states you need to prove there has been a “material change in circumstances” to modify child support. The most common changes in circumstances are:
+  
+  * Your children's schedule changes and they spend more or fewer overnights with you than they used to, or
+  * Your income or the other parent's income changes.
+  
+  There needs to be:
+  
+  * A 15% change in the amount of child support ordered. So that when you calculate support based on the parents' current income, the amount is 15% more or less than the current support order.
+  
+  Or
+  
+  *	A change in the parenting plan that affects the child support formula. For example, changing from a primary custody to shared custody plan will probably change the amount of child support.
+  
+  If the judge decides there is a material change of circumstances, the judge will calculate a new child support order.
+  % endif
+  The Alaska Supreme Court has issued many [decisions](https://courts.alaska.gov/shc/family/shclaws.htm#cases) about what types of circumstances amount to a change of circumstances allowing a modification.
+
+Comment: |
+  % if (final_order_date_within_10_days or final_order_date_within_15_days) and modify_within_15_days:
+  <div class="step-subheading">Timing</div>
+  <p>A court will rarely grant a <strong>Motion to Modify </strong>made within 15 days of when the court made its final custody order unless something unexpected happened. Examples of why a court may grant a <strong>Motion to Modify</strong> are listed below.
+  % endif
+---
+template: dont_wait_modify_custody_divorce_step
+subject: |
+  Step ${ dont_wait_modify_custody_divorce_idx }: Do not wait to file your Motion to Modify 
+content: |
+  If you and the other parent agree to change the schedule, or have already permanently changed your schedule, file your **[Uncontested Motion to Modify Custody](https://courts.alaska.gov/shc/family/shcforms.htm#shc-pac11)** as soon as you can.  
+  
+  <p>Until you file your motion with the court, <strong>the parent who owes child support still owes the amount in your current order</strong>.</p>
+  
+  <div class = "example">
+      <p class = "heading">For example</p>
+  <ul>
+  <li>Under your current order, the children spend Sunday to Friday with you and Friday after school until Sunday after dinner with the other parent.</li>
+  <li>Child support was calculated based on the children being with you 5 overnights each week, and with the other parent 2 overnights each week.</li>
+  <li>You decide to change to a schedule where the children will spend a week with you and then a week with the other parent.  You start March 1.</li>
+  <li>Child support will probably change because the percentage of overnights the children spend with each parent has changed.</li>
+  <li>You file an <strong>Uncontested Motion to Modify Custody and Child Support</strong> June 21.</li>
+  <li>The judge agrees with your motion and signs a new custody and child support order September 1.</li>
+  <li>The new order says that the new child support amount starts July 1.</li>
+  <li>Because you did not file your motion until June, the <strong>original</strong> child support amount still applies from March until July 1.</li>
+  </ul>
+  </div>
+---
+template: compare_child_support_step
+subject: |
+  Step ${ compare_child_support_idx }: Compare the new calculation with the current amount
+content: |
+  <div class="step-subheading">Compare your current child support to the new amount to see if there is a "material change in circumstances"</div>
+    If the new child support amount is 15% more or less than the old amount, there is a presumption that there is a material change in circumstances.
+    
+   <strong>For example</strong>
+   
+   If the old child support amount was $100 per month, there would be a material change if the new amount is:
+    * $85 or less, or
+    * $115 or more.
+---
+template: dont_wait_modify_child_support_step
+subject: |
+  Step ${ dont_wait_modify_child_support_idx }: Do not wait to file your Motion to Modify 
+content: |
+  File your <strong>Motion to Modify Child Support</strong> and give the other parent a copy of your motion as soon as you can after there is a “material change of circumstances.”
+
+  Until you file your motion with the court, <strong>the parent who owes child support still owes the amount in your current order</strong>. 
+  
+  If the judge agrees to change the amount of your child support, the judge will sign a new child support order.  The new order includes the date the amount changed. This date is usually in the past. It will not be earlier than the date you filed your motion and gave a copy to the other parent.
+
+  <strong>For example</strong>
+
+    * The other parent gets a new job making a lot more money on March 1.
+    * You recalculate child support.  The other parent will owe you more child support each month.
+    * You file a motion to modify child support with the court and give the other parent a copy June 21.
+    * The judge agrees to change your child support and grants your motion.
+    * The judge signs a new child support order on September 1.
+    * The court cannot order child support to be changed before you filed your motion and gave a copy to the other parent.
+    * The new order says that the new child support amount starts July 1.
+    * Because you did not file your motion until June, the other parent only has to pay the old amount of child support from March 1 to July 1.
+---
+template: fill_modify_step
+subject: |
+  Step ${ fill_modify_idx }: 
+  % if user_need in('change child support','change custody order'):
+  Fill out the Motion to Modify forms
+  % else:
+  Fill out the Motion to Modify Custody forms
+  % endif
+content: |
+  <div class="step-subheading">Use</div>
+    <ul>
+    <li><strong>Motion to Modify Custody, Visitation & Support Packet</strong>, <a href="https://courts.alaska.gov/shc/family/shcforms.htm#shc-pac12">SHC-PAC12</a><br>
+    3 of the forms in this packet are affidavits:
+  <ul>
+  <li><strong>Wait</strong> to sign them until you are in front of someone who has the power to take oaths, like a notary public.
+  <ul>
+  <li>The court clerk can do this for free.</li>
+  <li>Bring a valid photo ID with you.</li>
+  </ul></li>
+  <li>If you cannot get to a notary public or someone who has the power to take oaths, you can "self-certify."  Use: 
+  <ul><li><strong>Self-Certification (No Notary Available), TF-835</strong> [<a href="https://public.courts.alaska.gov/web/forms/docs/tf-835.pdf">Fill-In PDF</a>]</li>
+  </ul></li>
+  </ul>
+  <div class="step-subheading">Watch</div>
+  <ul>
+  <li><a href="https://www.youtube.com/watch?v=2irmxT0_0EA">Motions Part 1: How to Ask the Court For Something</a></li>
+  </ul>
+---
+template: appeal_step
+subject: |
+  Step ${ appeal_idx }: Decide if you want to file an appeal
+content: |
+  An appeal is the way to ask the Alaska Supreme Court to review the trial judge’s decision in your case.
+  
+  % if user_need == 'change custody order' or (user_need == 'change divorce order' and type_of_final_order.all_true('custody order', exclusive = True) and why_change == 'problem'):
+  You have only **15 days** from the day the court sent the order to you.
+  % else: 
+  You have only **30 days** from the day the court sent the order to you.
+  % endif
+  
+  If you cannot file on time, call the Appellate Courts Customer Service: (907) 264-0612. They may be able to help you file late.
+  
+  An appeal is not a new trial or a chance to give a judge new evidence or information.  In an appeal you argue that the trial judge made a legal mistake.  The civil appeals process is complicated, long and expensive. The process can take more than 2 years. [Talk to a lawyer](https://courts.alaska.gov/shc/appeals/appealsresources.htm#1), if you can.
+  
+  The only information the Supreme Court looks at is:
+  
+  * the audio recording of the hearing or trial in the lower court,
+  * any items offered as evidence at the hearing or trial in the lower court,
+  * the documents in the lower court or agency record, and
+  * appeal briefs filed in the appeal to the Supreme Court. 
+  
+  To start an appeal, you must pay:
+  
+  * a $250 filing fee,
+  * a $750 bond or deposit for costs, and
+  * other costs like paying someone to make a transcript of your trial.
+  
+  If you cannot afford the cost of filing an Appeal, you can use **Motion for Waiver of Filing Fees and Costs, [SHS-AP 130](https://courts.alaska.gov/shc/appeals/docs/SHS_AP_130.doc)** to ask the court to waive the filing fee and costs.
+  
+  Learn more about filing an appeal on the court's web pages [Civil Appeal: Superior Court to Supreme Court](https://courts.alaska.gov/shc/appeals/index.htm).
+---
+template: expect_reconsider_step
+subject: |
+  Step ${ expect_reconsider_idx }: What to expect after you file a Motion to Reconsider 
+content: |
+  <p>A <strong>Motion to Reconsider</strong> is different from other motions.</p>
+  <ul>
+  <li>${ capitalize(other_party_in_case) } does not have to respond unless the judge sends a notice and asks ${ other_party_in_case } to respond in writing.</li>
+  <li>If the judge agrees to reconsider their decision, they may ask ${ other_party_in_case } to respond in writing, or they may change the decision. Usually, the judge only changes their  decision after they ask ${ other_party_in_case } for a written response.</li>
+  <li>If the judge does nothing for 30 days, it  means the judge is not going to grant your <strong>Motion  to Reconsider</strong>. You will not get anything in writing</a>. The original decision is not changed.</li>
+  <li>The 30 days start when  you file your <strong>Motion to Reconsider</strong>.  If the judge asks ${ other_party_in_case } to respond in writing, the 30 days start over when ${ other_party_in_case } files their written response.</li>
+  </ul>
+  <p>Read <a href="https://courts.alaska.gov/shc/family/after-judgment.htm">Options after you get a judge's decision</a>.</p>
+---
+comment: |
+  Closed [GitHub Motion to Dismiss issue #30](https://github.com/A2JatAKCourts/docassemble-DivorceIssues/issues/30)
+template: expect_after_motion_step
+subject: |
+  Step ${ expect_after_motion_idx }: What to expect after you file a ${ motion_type }
+content: |
+  % if user_need in('answer custody', 'answer divorce') and type_of_response['case in 2 states'] and stage_of_other_case == 'still going':
+  
+  Every case is different, but sometimes it is clear only one court has jurisdiction over the case. When this happens, one state court may close its case.
+  
+  If it is not clear, the Alaska court will often hold a hearing and call the other court to talk about which case will move forward.
+  
+  Pay attention to what is happening in both cases until you know which state will decide the case.
+  
+  Jurisdiction can be very complicated. Talking to a lawyer can help you decide which is the best state for your case.
+  % endif   
+  
+  <div class="step-subheading">${ capitalize(other_party_in_case) } may file a response or "opposition"</div>
+  <p>If you serve ${ other_party_in_case }: 
+  <ul>
+  <li>by hand-delivery, email, or TrueFiling, they have 10 days to file a written response.</li> 
+  <li>by mail, they have 13 days to file a written response.</li>
+  </ul></p>
+  <p>Counting: 
+  <ul>
+  <li>Day 1 is the day after you delivered, emailed, or mailed it.</li> 
+  <li>Count weekends and holidays.</li> 
+  <li>If the due date is a weekend or holiday, the ${ other_party_in_case }‘s response  is due the next day the court is open.  For example, if it is due on a Saturday, and the court is open Monday, their response is due Monday.</li> 
+  </ul></p>
+  % if user_need == 'child support' and (existing_case == "none" or (existing_case == "unknown" and after_courtview == "none")):
+  If you file your **Motion for Interim Child Support** with your complaint, the other parent does not have to respond until they respond to the complaint. This is usually 20 days after they get the complaint.
+  % endif
+  <p>The documents ${ other_party_in_case } files after you serve them is their "response" or "opposition."</p>
+  <div class="step-subheading">You can reply to their response</div>
+  <p>If ${ other_party_in_case } files a response you can file a reply.</p>
+  <p>If they serve you:
+  <ul>
+  <li>by hand delivery, email or TrueFile, you have 5 days to file,</li> 
+  <li>by mail, you have 8 days.</li>
+  </ul>
+  Counting:
+  <ul>
+  <li>Day 1 is the day after they delivered, emailed, or mailed it to you.</li> 
+  <li>Do not count weekends and holidays.</li> 
+  <li>If the due date is a weekend or holiday, your reply is due the next day the court is open.  For example, if it is due on a Saturday, and the court is open Monday, your reply is due Monday.</li>
+  </ul>
+  Draft your reply:
+  <ul>
+  <li>Watch 2 videos:
+  <ul>
+  <li><a href="https://youtube.com/watch?v=egoBeRFB_Uw">Motions Part 3: Preparing a Reply</a>, and</li>
+  <li><a href="https://www.youtube.com/watch?v=YQvG7GEGeoo">Motions Part 4: Mailings and Deadlines</a>.</li>
+  </ul>
+  <li>Read <a href="https://courts.alaska.gov/shc/family/motions.htm#reply">How do I reply to an opposition?</a> on the court’s website.</li>
+  <li>Use: <strong>Reply to Opposition to Motion, SHC-1305</strong> [<a href="https://courts.alaska.gov/shc/family/docs/shc-1305n.pdf">Fill in PDF</a>].</li>
+  <ul>
+  <li>Remember to fill out the **Certificate of Service** and tell the court how and when you deliver your reply to ${ other_party_in_case }.</li>
+  </ul>
+  </ul>
+  % for image_data in reply_certificate_list:
+  ${ image_data['text'] }
+  ${ image_data['image'].show(width='100%') }
+  % endfor
+  <div class="step-subheading">The judge will issue an order</div>
+  <ul>
+  <li>The judge may set a date for a hearing, but they may decide your motion without a hearing.</li>
+  <li>The judge may grant your <strong>${motion_type}</strong> If they do, you will get a copy of the
+   % if user_need in('answer custody', 'answer divorce'):
+    order granting your motion.</li>
+   % else:
+    new order.</li>
+   % endif
+  <li>The judge may deny your motion. If they do, you will get an order denying the motion.</li>
+  % if user_need != 'child support':  
+  % if user_need =='change foreign custody order' or (user_need in('change AK order','change custody order', 'change divorce order') and middle_of_case == 'no' ):
+  <li>Keep following your court order unless the judge grants your motion and issues a new order.</li>
+  </ul>
+  Either one of you can decide to appeal the decision about the <strong>${motion_type}</strong> if you believe the judge made a legal mistake. Learn more about <a href="https://courts.alaska.gov/shc/appeals">filing an appeal</a>.
+  % endif
+  % endif

@@ -1,0 +1,199 @@
+comment: |
+  Customize this feedback form to include any elements you want in
+  your package.
+---
+include: 
+  - docassemble.AKA2JBranding:custom_organization.yml
+---
+#  metadata:
+#    title: Feedback Form
+#    short title: Feedback
+---
+modules:
+  - docassemble.GithubFeedbackForm.github_issue
+---
+# This is the repository that Github issue will be created on if
+# the repository is not passed as a URL argument
+code: |
+  default_repository = 'docassemble-AKA2JBranding' 
+---
+# Change this to your github user or organization that will own
+# most of the repositories
+code: default_github_user_or_organization = 'A2JatAKCourts'
+---
+comment: |
+  List the github user names and organizations that this script will be allowed 
+  to create issues on.
+  
+  For security reasons, you should limit
+  the ability of this script to create issues to any repositories
+  that you control.  
+variable name: allowed_github_users
+data:
+  - "A2JatAKCourts"
+  - "CaroRob"
+---
+features:
+  labels above fields: True   
+  question back button: True
+---
+image sets:
+  freepik:
+    attribution: |
+      Icon made by [Freepik](http://www.flaticon.com/authors/freepik)
+    images:
+      opinion: opinion.svg
+---
+mandatory: True
+code: |
+  other_feedback
+  issue_template = other_feedback_report
+  send_to_github
+  prevent_going_back()
+  store_variables_snapshot() # this is mostly just for backup reasons
+  end_results
+---
+code: github_user = url_args.get('github_user', default_github_user_or_organization)
+---
+code: github_repo = url_args.get('github_repo', default_repository)
+---
+code: variable = url_args.get('variable')
+---
+code: question_id = url_args.get('question_id')
+---
+code: |
+  if not task_performed('sent to github', persistent=True):
+    if github_user in allowed_github_users:
+      issue_url = make_github_issue(github_user, github_repo, template=issue_template)
+    mark_task_as_performed('sent to github', persistent=True)
+  send_to_github = True
+---
+default screen parts:
+  footer: ""
+---
+id: intro
+question: |
+  Tell us your thoughts
+decoration: opinion
+subquestion: |
+  Do not include private information about your case. The information you
+  type on this form will be visible on a public website.
+fields:
+  - How helpful was this Guided Assistant?: how_helpful
+    datatype: radio
+    choices:
+      - Very helpful
+      - A little helpful
+      - Not helpful at all
+    required: False
+  - What is the best way to describe you?: user_type
+    datatype: radio
+    choices:
+      - Person needing help
+      - Friend or family member of person needing help
+      - Social worker
+      - Attorney or paralegal
+      - FLSHC
+      - Other: other
+  #  required: False
+  - Other (please specify): user_type
+    show if:
+      variable: user_type
+      is: other
+  - label: |
+      **What would you like to tell us?**
+    field: other_feedback   
+    datatype: area
+---
+id: other thoughts
+question: |
+  Tell us your thoughts
+decoration: opinion
+subquestion: |
+  Do not include private information about your case. The information you
+  type on this form will be visible on a public website.
+fields:
+  - How helpful was this Guided Assistant?: how_helpful
+    datatype: radio
+    choices:
+      - Very helpful
+      - A little helpful
+      - Not helpful at all
+    required: False
+      
+      
+  - What is the best way to describe you?: user_type
+    datatype: radio
+    choices:
+      - Person needing help
+      - Friend or family member of person needing help
+      - Social worker
+      - Attorney or paralegal
+      - Other: other
+    required: False
+  - Other (please specify): user_type
+    show if:
+      variable: user_type
+      is: other
+  - label: |
+      **What do you want to tell us?**
+    field: other_feedback   
+    datatype: area
+---
+id: exit
+event: gentle_exit
+question: |
+  How to get more help
+subquestion: |
+  We are sorry that we couldn't do more to help you.
+  
+  If you need more help, find [your local
+  legal aid provider](https://www.lsc.gov/what-legal-aid/find-legal-aid) 
+buttons:
+  - Exit: exit
+    url: https://www.lsc.gov
+---
+id: end_results
+event: end_results
+question: |
+  Thank you for your feedback
+subquestion: |
+  Thank you for letting us know how we are doing.
+  
+  % if user_logged_in():
+  % if defined('issue_url'):
+  If you would like to track this issue, you can [follow 
+  it](${issue_url}) on GitHub.
+  % endif
+  % endif
+buttons:
+  - Exit: exit
+    url: https://courts.alaska.gov/shc/index.htm
+---
+template: other_feedback_report
+subject: |
+  % if question_id:
+  ${ question_id } :
+  % endif
+  User: other feedback
+content: | 
+  ## How helpful was this form?
+  Choices are "very helpful", "somewhat helpful", "not helpful at all".
+  % if defined("how_helpful"):
+  ${ how_helpful }
+  % endif
+  ## What best describes you?
+   % if defined("user_type"):
+  ${ user_type }
+  % endif
+  
+  ## User feedback:  
+  > ${ other_feedback }
+  
+  % if question_id:
+  Question id: `${ question_id }`
+  % endif
+  
+  % if variable:
+  Variable being sought: `${ variable }`
+  % endif  
