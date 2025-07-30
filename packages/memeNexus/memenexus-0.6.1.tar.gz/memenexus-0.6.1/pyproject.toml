@@ -1,0 +1,22 @@
+[project]
+name = "memeNexus"
+version = "0.6.1"
+description = "A toolbox for meme trading"
+readme = "README.md"
+requires-python = "==3.11.*"
+dependencies = [
+    "apidance>=0.5.0",
+    "ccxt>=4.4.64",
+    "httpx>=0.25.2",
+    "mplfinance>=0.12.10b0",
+    "smartmoneyconcepts>=0.0.26",
+    "tenacity>=9.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.1.0",
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.3",
+    "ruff>=0.9.3",
+]
