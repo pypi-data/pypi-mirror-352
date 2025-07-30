@@ -1,0 +1,93 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "shellinspector"
+description = ''
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT License"}
+keywords = []
+authors = [
+  { name = "uberspace.de", email = "hallo@uberspace.de" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "pexpect==4.*",
+  "termcolor==2.*",
+  "PyYAML>=6",
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://github.com/uberspace/shellinspector#readme"
+Issues = "https://github.com/uberspace/shellinspector/issues"
+Source = "https://github.com/uberspace/shellinspector"
+
+[project.scripts]
+shellinspector = "shellinspector.__main__:main"
+
+[tool.hatch.version]
+path = "src/shellinspector/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  # pytest-lazy-fixture breaks with 8.0
+  # https://github.com/TvoroG/pytest-lazy-fixture/issues/65
+  "pytest<8.0",
+  "pytest-cov",
+  "pyinstaller",
+  "pre-commit",
+  "pytest-lazy-fixture",
+  "pytest-mock==3.12.0",
+]
+[tool.hatch.envs.default.scripts]
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=shellinspector --cov=tests {args}"
+no-cov = "cov --no-cov {args}"
+build-exe = "pyinstaller --onefile --noconfirm --name shellinspector.amd64 src/shellinspector/__main__.py"
+
+[[tool.hatch.envs.test.matrix]]
+python = ["38", "39", "310", "311"]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  "src/shellinspector/__about__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.hatch.dirs.env]
+virtual = ".hatch"
+
+[tool.ruff]
+line-length = 88
+target-version = 'py310'
+src = ['.', 'src', 'tests']
+select = ['E', 'F', 'I']
+ignore = [
+	'E501',  # line too long (black handles these)
+]
+
+[tool.ruff.isort]
+force-single-line = true
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
