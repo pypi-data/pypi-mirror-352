@@ -1,0 +1,44 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools >= 64", 
+    "setuptools-scm >= 8",
+]
+
+[project]
+authors = [
+    {name = "Rodney Elliott", email = "rodney.elliott@canterbury.ac.nz"},
+]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "pyModbusTCP==0.2.1",
+    "smbus==1.1.post2",
+]
+description = "Weigh scale Modbus Ethernet server daemon"
+dynamic = ["version"]
+keywords = [
+    "Modbus",
+    "Raspberry Pi",
+    "Scale",
+]
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE.md"]
+name = "modbus-scale-server"
+readme = "README.md"
+requires-python = ">=3.9"
+
+[project.urls]
+Homepage = "https://gitlab.com/uc-mech-wing/robotics-control-lab/uc-02-2024/modbus-scale-server"
+Issues = "https://gitlab.com/uc-mech-wing/robotics-control-lab/uc-02-2024/modbus-scale-server/-/issues"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[tool.setuptools_scm]
+
