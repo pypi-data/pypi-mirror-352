@@ -1,0 +1,46 @@
+Metadata-Version: 2.4
+Name: energytool
+Version: 0.2.0
+Summary: Edit IDF files run EnergyPlus and process results
+Author-email: Baptiste Durand-Estebe <b.durandestebe@gmail.com>
+Maintainer-email: Baptiste Durand-Estebe <b.durandestebe@gmail.com>
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+License-File: LICENSE.md
+Requires-Dist: numpy>=1.22.4, <2.0
+Requires-Dist: pandas>=2.0.0, <3.0
+Requires-Dist: eppy>=0.5.63
+Requires-Dist: corrai>=0.3.1
+Requires-Dist: pytest>=7.0.0 ; extra == "dev"
+Requires-Dist: pre-commit>=3.3.3 ; extra == "dev"
+Requires-Dist: bump2version>=1.0.1 ; extra == "dev"
+Requires-Dist: jupyter_contrib_nbextensions>=0.7.0 ; extra == "dev"
+Project-URL: Source, https://github.com/BuildingEnergySimulationTools/energytool
+Provides-Extra: dev
+
+
+# Energytool
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/BuildingEnergySimulationTools/energytool/main/logo_energytool.svg" alt="Energytool" width="200"/>
+</p>
+
+[![PyPI](https://img.shields.io/pypi/v/python-tide?label=pypi%20package)](https://pypi.org/project/python-tide/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+![Static Badge](https://img.shields.io/badge/python-3.10_%7C_3.12-blue)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
+
+Python module to wrap EnergyPlus for CorrAI :
+- <code>Building</code> class to simulate HVAC systems through pre-process and post process methods
+- Basic HVAC model
+- Modifier function for parametric simulation
+- Allows Pandas <code>DataFrame</code> as boundary conditions
