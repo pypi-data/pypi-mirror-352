@@ -1,0 +1,111 @@
+[build-system]
+requires = ["setuptools>=60.0"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "ubuntu_utils"
+version = "1.1.0"
+authors = [
+    { name = "sleeping-in-bed", email = "nyanyanyaworld@gmail.com" },
+]
+description = "Ubuntu utils"
+readme = "README.rst"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "docker>=7.1.0",
+    "paramiko>=3.5.1",
+    "scp>=0.15.0",
+    "types-colorama>=0.4.15.20240311",
+    "types-docker>=7.1.0.20250523",
+    "types-paramiko>=3.5.0.20250516",
+    "types-pyyaml>=6.0.12.20250516",
+    "types-requests>=2.32.0.20250602",
+]
+
+[dependency-groups]
+dev = [
+    "build",
+    "twine",
+
+    "coverage",
+    "pytest",
+    "tox",
+    "mypy",
+    "ruff",
+    "pre-commit",
+
+    "types-setuptools",
+
+    "sphinx",
+    "sphinx-autobuild",
+    "sphinx-intl",
+    "furo",
+
+    "jinja2",
+    "python-dotenv",
+    "rtoml",
+    "beautifulsoup4",
+    "click",
+]
+
+[project.scripts]
+ubuntu_utils = "ubuntu_utils.run:main"
+
+[tool.pypjt]
+created-by = "1.11.1"
+
+[tool.uv]
+default-groups = "all"
+
+[tool.setuptools]
+packages = ["ubuntu_utils"]
+include-package-data = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = ""
+testpaths = [
+    "tests"
+]
+
+[tool.ruff]
+extend-exclude = [
+    "ubuntu_utils/resources",
+    "tests/resources",
+    "tests/tmp",
+    "containerdata",
+    "ubuntu_utils/commands.py"
+]
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+
+[tool.mypy]
+exclude = [
+    "ubuntu_utils/resources",
+    "tests/resources",
+    "tests/tmp",
+    "containerdata",
+]
