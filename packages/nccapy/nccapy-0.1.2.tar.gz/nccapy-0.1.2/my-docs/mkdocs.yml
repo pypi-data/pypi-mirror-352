@@ -1,0 +1,26 @@
+site_name: nccapy documentation
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - API: api.md
+  - Math: math.md
+  - Geo: geo.md
+  - Image: image.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ["../"]
+          options:
+            extra:
+              show_root_heading: true
+              show_source: true
+              show_signature: true
+              show_docstring: false
+              docstring_style: google
+              docstring_section_style: spacy
+              separate_signature: true
+              members_order: source
