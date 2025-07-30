@@ -1,0 +1,166 @@
+Metadata-Version: 2.1
+Name: classmate
+Version: 0.1.2
+Summary: 一个基于 Python 的助学web系统
+Author: linmy
+Author-email: wzlinmiaoyan@163.com
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: flask>=2.0.0
+Requires-Dist: opencv-python>=4.1.2.30
+Requires-Dist: numpy>=1.24.4
+Requires-Dist: pillow>=8.0.0
+Requires-Dist: werkzeug>=2.0.0
+
+# Classmate - 教室管理系统
+
+一个基于 Python 的现代化教室管理系统，支持实时屏幕广播、文件共享和作业管理功能。专为教师和学生设计，提供流畅的课堂互动体验。
+
+## 主要功能
+
+### 教师端
+- 实时屏幕广播
+  - 支持屏幕共享和摄像头直播
+  - 自动保存广播记录
+  - 可重命名和删除历史广播
+- 文件管理
+  - 共享文件上传和分发
+  - 作业发布和收集
+  - 文件中转站功能
+- 权限控制
+  - 密码保护的教师模式
+  - 文件访问权限管理
+
+### 学生端
+- 实时观看教师广播
+- 查看历史广播记录
+- 下载共享文件
+- 提交作业
+
+## 技术特点
+
+- 基于 WebSocket 的实时通信
+- 响应式 Web 界面
+- 跨平台支持（Windows、Linux、macOS）
+- 低延迟屏幕广播
+- 安全的文件传输
+
+## 系统要求
+
+- Python 3.7+
+- 现代浏览器（Chrome、Firefox、Edge 等）
+- 摄像头（可选，用于视频直播）
+
+## 安装
+
+1. 使用 pip 安装：
+
+```bash
+pip install classmate
+```
+
+2. 从源码安装：
+
+```bash
+git clone https://github.com/yourusername/classmate.git
+cd classmate
+pip install -e .
+```
+
+## 快速开始
+
+1. 启动服务器：
+
+```bash
+classmate --host 0.0.0.0 --port 5000 --password 123456
+```
+
+2. 在浏览器中访问：
+
+```
+http://localhost:5000
+```
+
+## 使用说明
+
+### 教师模式
+
+1. 点击右上角的"教师模式"按钮
+2. 输入密码（默认：123456）
+3. 登录后可以使用以下功能：
+   - 开始/停止屏幕广播
+   - 切换摄像头/屏幕共享
+   - 上传和管理文件
+   - 发布和收集作业
+   - 管理历史广播记录
+
+### 学生模式
+
+1. 直接访问网页即可使用
+2. 可以：
+   - 观看实时广播
+   - 查看历史广播
+   - 下载共享文件
+   - 提交作业
+
+## 配置选项
+
+启动参数：
+- `--host`: 服务器主机地址（默认：0.0.0.0）
+- `--port`: 服务器端口（默认：5000）
+- `--password`: 教师模式密码（默认：123456）
+
+## 开发
+
+### 环境设置
+
+1. 克隆仓库：
+```bash
+git clone https://github.com/yourusername/classmate.git
+cd classmate
+```
+
+2. 安装开发依赖：
+```bash
+pip install -e ".[dev]"
+```
+
+3. 运行测试：
+```bash
+python -m pytest tests/
+```
+
+### 项目结构
+
+```
+classmate/
+├── classmate/
+│   ├── server.py      # 服务器主程序
+│   ├── static/        # 静态资源
+│   └── templates/     # HTML 模板
+├── tests/            # 测试文件
+├── setup.py          # 安装配置
+└── README.md         # 项目文档
+```
+
+## 常见问题
+
+1. 摄像头无法使用
+   - 检查摄像头是否正确连接
+   - 确认浏览器有摄像头访问权限
+
+2. 屏幕广播延迟
+   - 检查网络连接
+   - 降低广播质量设置
+
+3. 文件上传失败
+   - 检查文件大小是否超过限制
+   - 确认有足够的存储空间
+
+## 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+## 许可证
+
+MIT License 
