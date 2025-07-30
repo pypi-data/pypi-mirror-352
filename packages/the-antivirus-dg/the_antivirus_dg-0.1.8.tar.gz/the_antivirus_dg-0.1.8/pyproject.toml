@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "the_antivirus_dg"
+version = "0.1.8"
+description = "Antivirus software with DDoS prevention and firewall"
+readme = {file = "README.md", content-type = "text/markdown"} 
+license = "MIT" 
+authors = [
+    {name = "Daniel Grosso", email = "danielka17.grosso@gmail.com"},
+    {name = "Almog", email = "almogoxt@gmail.com"}
+]
+requires-python = ">=3.6"
+dependencies = [
+    "psutil>=5.9.0",
+    "PyQt6",
+    "cryptography",
+    "requests",
+    "pillow",
+    "scapy",
+    "colorama",
+    "loguru",
+    "SpeechRecognition",
+    "googletrans==4.0.0rc1",
+    "google-generativeai"
+]
+
+[project.urls]
+Documentation = "https://github.com/The-Antivirus/The_Antivirus#readme"
+Source = "https://github.com/The-Antivirus/The_Antivirus"
+Tracker = "https://github.com/The-Antivirus/The_Antivirus/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.0",
+    "flake8>=3.9",
+    "black>=22.0",
+    "isort>=5.0",
+    "mypy>=0.910",
+    "twine>=4.0",
+    "sphinx>=4.0"
+]
+
+[project.scripts]
+the-antivirus = "ui:run_app"
