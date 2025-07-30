@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gxkit"
+version = "0.1.0"
+description = "Gx Company development toolkit"
+authors = [{ name = "Shaojiayi", email = "shaojy@sunburst.com.cn" }]
+license = {text = "Apache-2.0"}
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "pymysql",
+    "cryptography",
+    "clickhouse-driver",
+    "apache-iotdb",
+    "sqlglot",
+    "zstd==1.5.6.7"
+]
+
+[tool.setuptools]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["gxkit*"]
+
+[tool.setuptools.package-data]
+"gxkit" = ["py.typed", "__init__.pyi"]

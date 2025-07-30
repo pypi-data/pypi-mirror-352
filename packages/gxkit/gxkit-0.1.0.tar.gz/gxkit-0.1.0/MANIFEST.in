@@ -1,0 +1,17 @@
+# include
+include LICENSE
+include README.md
+
+# main include
+recursive-include gxkit *.py
+
+# exclude
+exclude demo/*
+exclude old_version/*
+exclude .venv/*
+
+# extra exclude
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *__pycache__*
+global-exclude .*.*
