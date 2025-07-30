@@ -1,0 +1,46 @@
+[project]
+name = "percula"
+version = "0.0.1"
+description = "spaceranger wrangling tools for Oxford Nanopore Technologies' data"
+authors = [{ name = "Oxford Nanopore Technologies", email = "support@nanoporetech.com" }]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "edlib==1.3.9.post1",
+    "isal==1.7.2",
+    "msgpack==1.1.0",
+    "pysam==0.23.1",
+]
+license = { file = "LICENSE" }
+
+[project.scripts]
+percula = "percula.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "build",
+    "twine",
+    "flake8",
+    "flake8-docstrings",
+    "flake8-rst-docstrings",
+    "flake8-import-order",
+    "flake8-forbid-visual-indent",
+    "pytest",
+    "pytest-cov",
+    "pytest-xdist"
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=percula --cov-report=term-missing"
+testpaths = [
+  "tests"
+]
+python_files = [
+  "test_*.py",
+  "*_test.py"
+]
+
+[tool.uv]
+# Optional uv-specific settings
