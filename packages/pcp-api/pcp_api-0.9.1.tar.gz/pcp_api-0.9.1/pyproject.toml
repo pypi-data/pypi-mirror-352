@@ -1,0 +1,45 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel",
+    "Cython",
+    "build"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pcp_api"
+version = "0.9.1"
+description = "Python API for Pulsar PCP communication."
+authors = [
+    {name = "Daniel Alvarez Eusebio", email = "daeusebio@arquimea.com"}
+]
+requires-python = ">=3.7"
+license = "MIT"
+urls = {homepage = "https://pulsarhri.com/"}
+dependencies = [
+    "pyserial",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.scripts]
+pulsar-cli = "pcp_api.pulsar_cli:main"
+
+[tool.setuptools]
+include-package-data = true
+packages = ["pcp_api"]
+# Add this to indicate platform-specific content
+zip-safe = false
+
+[tool.setuptools.package-data]
+pcp_api = ["*.pyd", "*.so", "*.pyi", "py.typed"]
+
+[tool.setuptools.exclude-package-data]
+pcp_api = ["*.py", "*.c"]
+
+# Add build-system options to force binary wheel
+[tool.bdist_wheel]
+universal = false
