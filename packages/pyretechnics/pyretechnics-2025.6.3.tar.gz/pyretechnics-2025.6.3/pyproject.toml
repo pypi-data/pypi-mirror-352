@@ -1,0 +1,58 @@
+[project]
+name = "pyretechnics"
+version = "2025.6.3"
+authors = [
+        {name="Gary W. Johnson, PhD", email="gjohnson@sig-gis.com"},
+        {name="Valentin Waeselynck", email="vwaeselynck@sig-gis.com"},
+        {name="Chris Lautenberger, PhD, PE", email="chris@cloudfire.com"},
+        {name="David Saah, PhD", email="dsaah@sig-gis.com"},
+]
+description = "A Python library for simulating fire behavior in a variety of ways."
+keywords = ["fire", "wildfire", "fire behavior", "fire spread"]
+readme = "README.md"
+requires-python = "~=3.11"
+dependencies = [
+        "numpy ~= 1.26.2",
+        "rasterio ~= 1.4.3",
+        "sortedcontainers ~= 2.4.0",
+        "Cython ~= 3.0.11",
+]
+classifiers = [
+        "Programming Language :: Python :: 3",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
+        "Development Status :: 4 - Beta",
+        "Topic :: Scientific/Engineering",
+]
+
+[project.urls]
+Homepage = "https://pyregence.github.io/pyretechnics/"
+Documentation = "https://pyregence.github.io/pyretechnics/"
+Repository = "https://github.com/pyregence/pyretechnics/"
+Issues = "https://github.com/pyregence/pyretechnics/issues/"
+Changelog = "https://github.com/pyregence/pyretechnics/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = [
+        "pytest ~= 8.3.3",
+        "snakeviz ~= 2.2.2",
+        "twine ~= 5.1.1",
+        "pkginfo ~= 1.12.1.2",
+        "matplotlib ~= 3.8.2",
+        "dask ~= 2024.4.2",
+        "distributed ~= 2024.4.2",
+]
+
+[build-system]
+requires = [
+        "setuptools ~= 79.0.1",
+        "wheel ~= 0.40.0",
+        "build ~= 0.7.0",
+        "Cython ~= 3.0.11",
+        "numpy ~= 1.26.2",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
+pythonpath = "src"
