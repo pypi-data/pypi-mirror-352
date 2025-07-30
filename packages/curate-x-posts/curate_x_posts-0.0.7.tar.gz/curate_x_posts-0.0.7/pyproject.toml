@@ -1,0 +1,38 @@
+[project]
+name = "curate-x-posts"
+version = "0.0.7"
+authors = [
+  { name="TCW", email="1470pancake@gmail.com" },
+]
+description = "A small package that curates posts from X social platform"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+dependencies = [
+    "dotenv>=0.9.9",
+    "pandas>=2.2.3",    
+    "twikit>=2.3.3",    
+]
+
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.setuptools.packages.find]
+exclude = ['tests', '.github'] 
+
+
+[project.scripts]
+cli = "curate_x_posts.__main__:main" 
+
+
+[project.urls]
+Homepage = "https://github.com/tcw1470/curate-x-posts"
+Issues = "https://github.com/tcw1470/curate-x-posts/issues"
