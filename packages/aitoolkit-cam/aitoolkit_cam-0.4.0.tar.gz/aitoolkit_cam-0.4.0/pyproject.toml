@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aitoolkit-cam"
+version = "0.4.0"
+authors = [
+    {name = "aitoolkit", email = "your.email@example.com"},
+]
+description = "简单易用的摄像头工具包，支持本地和Web显示，Jupyter优化版"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Multimedia :: Video :: Capture",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Education",
+    "Framework :: Jupyter",
+]
+keywords = ["camera", "opencv", "video", "streaming", "web", "cv2", "jupyter", "notebook", "education"]
+dependencies = [
+    "opencv-python>=4.5.0",
+    "numpy>=1.19.0",
+    "Flask>=2.0.0",
+    "Pillow>=8.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/yourusername/aitoolkit-cam"
+"Bug Reports" = "https://github.com/yourusername/aitoolkit-cam/issues"
+"Source" = "https://github.com/yourusername/aitoolkit-cam" 
