@@ -1,0 +1,58 @@
+Metadata-Version: 2.4
+Name: nlp_augmentation
+Version: 1.0.0
+Summary: Multi-level text augmentation library for NLP tasks
+Home-page: 
+Author: Дима
+Author-email: Дмитрий <dmitry@email.com>
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: numpy==1.26.4
+Requires-Dist: scipy==1.13.1
+Requires-Dist: spacy==3.8.4
+Requires-Dist: thinc==8.3.6
+Requires-Dist: scikit-learn==1.6.1
+Requires-Dist: nltk==3.9.1
+Requires-Dist: transformers==4.51.3
+Requires-Dist: torch==2.5.1+cu121
+Requires-Dist: torch-struct>=0.5.0
+Requires-Dist: sentencepiece<0.3,>=0.1.0
+Requires-Dist: textblob>=0.18.0
+Requires-Dist: regex>=2024.0.0
+Requires-Dist: parrot-paraphraser==1.0.0
+Requires-Dist: constituent_treelib>=0.0.8
+Requires-Dist: emoji>=2.0.0
+Requires-Dist: pandas>=2.2.0
+Requires-Dist: streamlit<1.45.0,>=1.25.0
+Requires-Dist: packaging<25.0,>=20.0
+Requires-Dist: gensim==4.3.3
+Dynamic: author
+Dynamic: requires-python
+
+# nlp_augmentation_library
+
+**nlp_augmentation_library** — это современная библиотека для аугментации текстовых данных на нескольких уровнях: символном, словесном, синтаксическом и генеративном. Она предназначена для повышения качества моделей обработки естественного языка (NLP) путем расширения объема и разнообразия обучающих данных.
+
+---
+
+## Возможности
+
+- **CharAugmentor** — аугментация на уровне символов: удаление, вставка, замена, перестановка, изменение регистра.
+- **WordAugmentor** — аугментация на уровне слов: удаление, вставка, синонимы, контекстная замена, морфологические преобразования, аббревиатуры, преобразование чисел.
+- **TextAugmentor** — синтаксическая аугментация: перестановка предложений, удаление поддеревьев, парафраз, суммаризация, обратный перевод, crossover.
+- **Generator** — генеративные методы на базе предобученных моделей Hugging Face.
+
+---
+
+## Установка
+
+Рекомендуется использовать Python версии 3.7 и выше.
+
+```bash
+pip install nlp_augmentation_library
+
+pip install git+https://github.com/PrithivirajDamodaran/Parrot_Paraphraser.git

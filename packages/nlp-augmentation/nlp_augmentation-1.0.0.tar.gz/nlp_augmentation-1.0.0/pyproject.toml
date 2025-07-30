@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nlp_augmentation"
+version = "1.0.0"
+description = "Multi-level text augmentation library for NLP tasks"
+authors = [
+  { name = "Дмитрий", email = "dmitry@email.com" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+dependencies = [
+  "numpy==1.26.4",            # совместимо с gensim, scipy, thinc, spacy
+  "scipy==1.13.1",             # подходит под numpy <2.0
+  "spacy==3.8.4",             # модель en_core_web_md поддерживается
+  "thinc==8.3.6",             # thinc 8.3.6 работает со spacy 3.8.x
+  "scikit-learn==1.6.1",      # совместим с numpy<2.0
+  "nltk==3.9.1",              # benepar использует nltk
+  "transformers==4.51.3",      # huggingface pipelines
+  "torch==2.5.1+cu121",               # подходит для torch-struct, benepar, transformers
+  "torch-struct>=0.5.0",           # структура дерева
+  "sentencepiece>=0.1.0,<0.3",     # генеративные модели
+  "textblob>=0.18.0",              # морфология
+  "regex>=2024.0.0",               # используется в spacy и nltk
+  "parrot-paraphraser==1.0.0",     # если используете parrot (уточните имя)
+  "constituent_treelib>=0.0.8",    # ваше собственное дерево
+  "emoji>=2.0.0",                  # для аббревиатур
+  "pandas>=2.2.0",                 # для отчетов/вывода
+  "streamlit>=1.25.0,<1.45.0",     # избегает конфликта с packaging
+  "packaging>=20.0,<25.0",         # важно для совместимости со streamlit
+  "gensim==4.3.3"             # требует numpy<2.0
+]
+
