@@ -1,0 +1,45 @@
+[project]
+name = "funcnodes-basic"
+version = "0.2.3"
+description = "Basic functionalities for funcnodes"
+readme = "README.md"
+classifiers = [ "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",]
+requires-python = ">=3.11"
+dependencies = [
+ "funcnodes-core>=0.3.9",
+ "funcnodes",
+]
+authors = [{name = "Julian Kimmig", email = "julian.kimmig@linkdlab.de"}]
+
+
+[dependency-groups]
+dev = [
+ "funcnodes-module>=0.2.9",
+ "pre-commit>=4.1.0",
+ "pytest>=8.3.4",
+ "pytest-funcnodes>=0.1.0",
+]
+
+[build-system]
+requires = [ "setuptools>=42",]
+build-backend = "setuptools.build_meta"
+
+[project.license]
+text = "AGPL-3.0"
+
+[project.urls]
+homepage = "https://github.com/Linkdlab/funcnodes_basic"
+source = "https://github.com/Linkdlab/funcnodes_basic"
+tracker = "https://github.com/Linkdlab/funcnodes_basic/issues"
+download = "https://pypi.org/project/funcnodes-basic/#files"
+
+[project.entry-points."funcnodes.module"]
+module = "funcnodes_basic"
+shelf = "funcnodes_basic:NODE_SHELF"
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+
+[tool.setuptools.packages.find]
+where = [ "src",]
