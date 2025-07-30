@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "colav-unsafe-set"
+dynamic = ["version"]
+description = "A Python library for generating unsafe sets utilising the Indices of Interest."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    {name = "Ryan McKee", email = "r.mckee@qub.ac.uk"}
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "hatch",
+  "pyyaml",
+  "protobuf (<=3.20.1)",
+  "lark",
+  "matplotlib",
+  "pandas",
+  "scipy"  # Add this line
+]
+[project.urls]
+Documentation = "https://github.com/RyanMcKeeQUB/colav-unsafe-set/blob/main/README.md"
+Issues = "https://github.com/RyanMcKeeQUB/colav-unsafe-set/issues"
+Source = "https://github.com/RyanMcKeeQUB/colav-unsafe-set"
+
+[tool.hatch.version]
+path = "src/__about__.py"
+
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/ tests}"
+
+[tool.hatch.envs.test]
+dependencies = ["pytest","lark", "pyyaml", "hatch", "numpy", "scipy", "matplotlib", "pandas"]
+
+[tool.hatch.envs.test.types.scripts]
+run = "pytest test/indices_of_interest/test_indices_of_interest.py"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.sdist]
+packages = ["src/colav_unsafe_set"]
+
+[tool.coverage.run]
+source_pkgs = ["colav_unsafe_set", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/colav_unsafe_set/__about__.py",
+  "src/colav_unsafe_set/main.py"
+]
+
+[tool.coverage.paths]
+colav_protobuf = ["src/colav_unsafe_set"]
+tests = ["tests", "*/colav-protobuf-utils/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
