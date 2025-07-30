@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "redstream"
+version = "0.1.4"
+authors = [
+    { name = "Albert Toma", email = "cornil@mail.ru" }
+]
+description = "Асинхронный инструментарий для работы с Redis Streams и конфигурациями"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+keywords = ["redis", "async", "streams", "configuration"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+dependencies = ["redis >=5.2.0", "pytz"]
+
+[project.urls]
+Homepage = "https://github.com/Cornil79/redstream"
+
+[tool.setuptools]
+packages = ["redstream", "redstream.types", "redstream.utils"]

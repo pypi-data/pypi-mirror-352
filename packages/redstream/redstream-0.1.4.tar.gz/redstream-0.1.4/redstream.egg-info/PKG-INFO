@@ -1,0 +1,89 @@
+Metadata-Version: 2.4
+Name: redstream
+Version: 0.1.4
+Summary: Асинхронный инструментарий для работы с Redis Streams и конфигурациями
+Author-email: Albert Toma <cornil@mail.ru>
+License: MIT
+Project-URL: Homepage, https://github.com/Cornil79/redstream
+Keywords: redis,async,streams,configuration
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: redis>=5.2.0
+Requires-Dist: pytz
+Dynamic: license-file
+
+# RedStream
+
+Асинхронный инструментарий для работы с Redis Streams и конфигурациями.
+
+## Описание
+
+RedStream - это Python библиотека, которая предоставляет удобный интерфейс для работы с Redis Streams. Она разработана для создания масштабируемых микросервисных архитектур с использованием Redis в качестве шины обмена сообщениями.
+
+## Особенности
+
+- Асинхронный API для работы с Redis Streams
+- Система роутинга сообщений
+- Работа с группами потребителей (Consumer Groups)
+- Структуры сообщений с поддержкой типизации
+- Отслеживание статусов сообщений в процессе обработки
+- Интеграция с aiogram
+
+## Установка
+
+```bash
+pip install redstream
+```
+
+## Простой пример использования
+
+```python
+import asyncio
+from redstream import RSMessage, RSMessageStatus, RedisStreamRouter
+
+async def main():
+    # Инициализация роутера
+    router = RedisStreamRouter(
+        redis_url="redis://localhost:6379/0",
+        stream_name="my_stream"
+    )
+    
+    # Создание сообщения
+    message = RSMessage(
+        event_type="message",
+        message_type="text",
+        action="process",
+        chat_id="123456",
+        user_id="user123",
+        text="Привет, RedStream!"
+    )
+    
+    # Отправка сообщения
+    await router.publish_message("my_stream", message)
+    
+    # Обработка сообщений
+    async def message_handler(msg):
+        print(f"Получено сообщение: {msg.text}")
+        return True
+    
+    # Регистрация обработчика
+    router.register_handler("message", message_handler)
+    
+    # Запуск обработки сообщений
+    await router.start_consuming()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+## Лицензия
+
+MIT
+
+## Автор
+
+Albert Toma (cornil@mail.ru) 
