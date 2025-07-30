@@ -1,0 +1,175 @@
+.\" Man page generated from reStructuredText.
+.
+.TH "DB_DATABASE_CREATE-STANDBY-DATABASE" "1" "Jun 03, 2025" "3.58.0" "OCI CLI Command Reference"
+.SH NAME
+db_database_create-standby-database \- 
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Description\fP
+.IP \(bu 2
+\fI\%Usage\fP
+.IP \(bu 2
+\fI\%Required Parameters\fP
+.IP \(bu 2
+\fI\%Optional Parameters\fP
+.IP \(bu 2
+\fI\%Global Parameters\fP
+.IP \(bu 2
+\fI\%Example using required parameter\fP
+.UNINDENT
+.SH DESCRIPTION
+.sp
+Creates a new standby database for the given source database id.
+.SH USAGE
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+oci db database create\-standby\-database [OPTIONS]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH REQUIRED PARAMETERS
+.INDENT 0.0
+.TP
+.B \-\-database\-admin\-password [text]
+.UNINDENT
+.sp
+The administrator password of the primary database in this Data Guard association.
+.INDENT 0.0
+.IP \(bu 2
+The password MUST be the same as the primary admin password.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-source\-database\-id [text]
+.UNINDENT
+.sp
+The \fI\%OCID\fP <\fBhttps://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm\fP> of the source (primary) database for the Data Guard group.
+.SH OPTIONAL PARAMETERS
+.INDENT 0.0
+.TP
+.B \-\-db\-unique\-name [text]
+.UNINDENT
+.sp
+Specifies the \fIDB_UNIQUE_NAME\fP of the standby database to be created.
+.INDENT 0.0
+.TP
+.B \-\-is\-active\-data\-guard\-enabled [boolean]
+.UNINDENT
+.sp
+True if active Data Guard is enabled.
+.INDENT 0.0
+.TP
+.B \-\-protection\-mode [text]
+.UNINDENT
+.sp
+The protection mode to set up between the primary and standby databases. For more information, see \fI\%Oracle Data Guard Protection Modes\fP <\fBhttp://docs.oracle.com/database/122/SBYDB/oracle-data-guard-protection-modes.htm#SBYDB02000\fP> in the Oracle Data Guard documentation.
+.sp
+\fBIMPORTANT\fP \- The protection mode is required for first standby to be created.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+MAXIMUM_AVAILABILITY, MAXIMUM_PERFORMANCE
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-sid\-prefix [text]
+.UNINDENT
+.sp
+Specifies a prefix for the \fIOracle SID\fP of the standby database to be created.
+.INDENT 0.0
+.TP
+.B \-\-source\-tde\-wallet\-password [text]
+.UNINDENT
+.sp
+The existing TDE wallet password of the source (primary) database.
+.INDENT 0.0
+.TP
+.B \-\-transport\-type [text]
+.UNINDENT
+.sp
+The redo transport type to use for the standby database to be created.  Valid values depend on the specified \fIprotectionMode\fP:
+.INDENT 0.0
+.IP \(bu 2
+MAXIMUM_AVAILABILITY \- SYNC * MAXIMUM_PERFORMANCE \- ASYNC
+.UNINDENT
+.sp
+For more information, see \fI\%Redo Transport Services\fP <\fBhttp://docs.oracle.com/database/122/SBYDB/oracle-data-guard-redo-transport-services.htm#SBYDB00400\fP> in the Oracle Data Guard documentation.
+.sp
+Accepted values are:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ASYNC, SYNC
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH GLOBAL PARAMETERS
+.sp
+Use \fBoci \-\-help\fP for help on global parameters.
+.sp
+\fB\-\-auth\-purpose\fP, \fB\-\-auth\fP, \fB\-\-cert\-bundle\fP, \fB\-\-cli\-auto\-prompt\fP, \fB\-\-cli\-rc\-file\fP, \fB\-\-config\-file\fP, \fB\-\-connection\-timeout\fP, \fB\-\-debug\fP, \fB\-\-defaults\-file\fP, \fB\-\-endpoint\fP, \fB\-\-generate\-full\-command\-json\-input\fP, \fB\-\-generate\-param\-json\-input\fP, \fB\-\-help\fP, \fB\-\-latest\-version\fP, \fB\-\-max\-retries\fP, \fB\-\-no\-retry\fP, \fB\-\-opc\-client\-request\-id\fP, \fB\-\-opc\-request\-id\fP, \fB\-\-output\fP, \fB\-\-profile\fP, \fB\-\-proxy\fP, \fB\-\-query\fP, \fB\-\-raw\-output\fP, \fB\-\-read\-timeout\fP, \fB\-\-realm\-specific\-endpoint\fP, \fB\-\-region\fP, \fB\-\-release\-info\fP, \fB\-\-request\-id\fP, \fB\-\-version\fP, \fB\-?\fP, \fB\-d\fP, \fB\-h\fP, \fB\-i\fP, \fB\-v\fP
+.SH EXAMPLE USING REQUIRED PARAMETER
+.sp
+Copy the following CLI commands into a file named example.sh. Run the command by typing “bash example.sh” and replacing the example parameters with your own.
+.sp
+Please note this sample will only work in the POSIX\-compliant bash\-like shell. You need to set up \fI\%the OCI configuration\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile\fP> and \fI\%appropriate security policies\fP <\fBhttps://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policygetstarted.htm\fP> before trying the examples.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+    export database_admin_password=<substitute\-value\-of\-database_admin_password> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/db/database/create\-standby\-database.html#cmdoption\-database\-admin\-password
+    export source_database_id=<substitute\-value\-of\-source_database_id> # https://docs.cloud.oracle.com/en\-us/iaas/tools/oci\-cli/latest/oci_cli_docs/cmdref/db/database/create\-standby\-database.html#cmdoption\-source\-database\-id
+
+    oci db database create\-standby\-database \-\-database\-admin\-password $database_admin_password \-\-source\-database\-id $source_database_id
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH AUTHOR
+Oracle
+.SH COPYRIGHT
+2016, 2025, Oracle
+.\" Generated by docutils manpage writer.
+.
