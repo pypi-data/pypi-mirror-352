@@ -1,0 +1,30 @@
+[project]
+name = "dify-easy"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    { name = "jingfelix", email = "jingfelix@outlook.com" },
+]
+dependencies = [
+    "pydantic>=2.11.5",
+    "pyyaml>=6.0.2",
+    "structlog>=25.4.0",
+    "typer>=0.16.0",
+]
+requires-python = ">=3.12"
+readme = "README.md"
+
+[project.license]
+text = "MIT"
+
+[project.scripts]
+difyeasy = "dify_easy.__init__:app"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
