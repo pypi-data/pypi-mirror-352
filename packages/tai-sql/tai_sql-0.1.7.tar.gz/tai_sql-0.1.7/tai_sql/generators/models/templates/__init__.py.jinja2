@@ -1,0 +1,79 @@
+{# filepath: /home/mateo/proyectos/tai-sql/tai_sql/generators/templates/models.py.jinja2 #}
+# Este archivo ha sido generado automáticamente por tai-sql
+# No modifiques este archivo directamente
+
+{{ imports|join('\n') }}
+
+
+class Base(DeclarativeBase):
+    pass
+
+{% for model in models %}
+class {{ model.name }}(Base):
+    __tablename__ = "{{ model.tablename }}"
+    
+    {% for column in model.columns %}
+    {% if column.no_args %}
+    {{ column.name }}: Mapped[{% if column.nullable %}Optional[{{ column.type }}]{% else %}{{ column.type }}{% endif %}]
+    {% else %}
+    {{ column.name }}: Mapped[{% if column.nullable %}Optional[{{ column.type }}]{% else %}{{ column.type }}{% endif %}] = mapped_column(
+        {%- set args_list = [] -%}
+        {%- for key, value in column.args.items() -%}
+            {%- if key == 'autoincrement' and value -%}
+                {%- set _ = args_list.append('autoincrement=True') -%}
+            {%- elif key == 'primary_key' and value -%}
+                {%- set _ = args_list.append('primary_key=True') -%}
+            {%- elif key == 'unique' and value -%}
+                {%- set _ = args_list.append('unique=True') -%}
+            {%- elif key == 'index' and value -%}
+                {%- set _ = args_list.append('index=True') -%}
+            {%- elif key == 'default' and value is not none -%}
+                {%- set _ = args_list.append('default="' + value|string + '"') -%}
+            {%- elif key == 'default_factory' and value is not none -%}
+                {%- if value == 'datetime.now' -%}
+                    {%- set _ = args_list.append('default_factory=datetime.now') -%}
+                {%- elif value is string -%}
+                    {%- set _ = args_list.append('default_factory="' + value|string + '"') -%}
+                {%- else -%}
+                    {%- set _ = args_list.append('default_factory=' + value|string) -%}
+                {%- endif -%}
+            {%- elif key == 'length' and value is not none -%}
+                {%- set _ = args_list.append('length=' + value|string) -%}
+            {%- endif -%}
+        {%- endfor -%}
+        {{- args_list|join(', ') -}}
+    )
+    {% endif %}
+    {% endfor %}
+    {% if model.relations %}
+    
+    {% for relation in model.relations %}
+    {{ relation.name }}: Mapped[{{ relation.target_type }}] = relationship({% if relation.backref %}back_populates="{{ relation.backref }}"{% endif %})
+    {% endfor %}
+    {% endif %}
+
+    {% if model.has_foreign_keys %}
+    __table_args__ = (
+        {% for fk in model.foreign_keys %}
+        # {{ 'Clave foránea simple' if fk.is_simple else 'Clave foránea compuesta' }}: {{ fk.constraint_name }}
+        ForeignKeyConstraint(
+            # Columnas locales
+            {{ fk.local_columns }},
+            # Columnas objetivo
+            {{ fk.target_columns }},
+            ondelete='{{ fk.ondelete }}',
+            onupdate='{{ fk.onupdate }}'
+        ),
+        {% endfor %}
+        {% if is_postgres %}
+        # Esquema de la tabla
+        {'schema': '{{ schema_name }}'}
+        {% endif %}
+    )
+    {% else %}
+    {% if is_postgres %}
+    __table_args__ = {'schema': '{{ schema_name }}'}
+    {% endif %}
+    {% endif %}
+
+{% endfor %}
