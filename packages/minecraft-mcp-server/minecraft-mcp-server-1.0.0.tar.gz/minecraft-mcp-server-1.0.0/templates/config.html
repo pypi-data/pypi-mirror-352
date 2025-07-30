@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft MCP 服务器配置</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-cube"></i>
+                    <h1>Minecraft MCP 服务器</h1>
+                </div>
+                <p class="subtitle">环境变量配置管理</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="config-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-cog"></i> 服务器配置</h2>
+                    <p>配置您的 Minecraft 服务器连接参数</p>
+                </div>
+
+                <form id="configForm" class="config-form">
+                    <div class="form-group">
+                        <label for="mc_host">
+                            <i class="fas fa-server"></i>
+                            服务器地址
+                        </label>
+                        <input type="text" id="mc_host" name="MC_HOST" 
+                               value="{{ config.MC_HOST }}" 
+                               placeholder="localhost" 
+                               class="form-input">
+                        <small class="form-help">Minecraft 服务器的 IP 地址或域名</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mc_port">
+                            <i class="fas fa-plug"></i>
+                            RCON 端口
+                        </label>
+                        <input type="number" id="mc_port" name="MC_RCON_PORT" 
+                               value="{{ config.MC_RCON_PORT }}" 
+                               placeholder="25575" 
+                               min="1" max="65535" 
+                               class="form-input">
+                        <small class="form-help">RCON 服务端口号 (1-65535)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mc_password">
+                            <i class="fas fa-key"></i>
+                            RCON 密码
+                            <span class="required">*</span>
+                        </label>
+                        <div class="password-input">
+                            <input type="password" id="mc_password" name="MC_RCON_PASSWORD" 
+                                   value="{{ config.MC_RCON_PASSWORD }}" 
+                                   placeholder="请输入 RCON 密码" 
+                                   class="form-input" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <i class="fas fa-eye" id="passwordIcon"></i>
+                            </button>
+                        </div>
+                        <small class="form-help">服务器 RCON 管理密码（必填）</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="testConnection()">
+                            <i class="fas fa-wifi"></i>
+                            测试连接
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            保存配置
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="status-card" id="statusCard" style="display: none;">
+                <div class="status-content">
+                    <div class="status-icon">
+                        <i class="fas fa-circle-notch fa-spin" id="statusIcon"></i>
+                    </div>
+                    <div class="status-text">
+                        <h3 id="statusTitle">处理中...</h3>
+                        <p id="statusMessage">正在处理您的请求</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-info-circle"></i> Trae 集成</h3>
+                    <p>配置将自动同步到 Trae IDE 的 MCP 服务器配置</p>
+                </div>
+                <div class="info-content">
+                    <div class="info-item" id="serverPathInfo" style="display: none;">
+                        <i class="fas fa-microchip"></i>
+                        <span>当前MCP服务器路径: <code id="serverPathDisplay"></code></span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-folder"></i>
+                        <span>配置文件路径: <code>%USERPROFILE%\AppData\Roaming\Trae\User\mcp.json</code></span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>保存配置时将自动同步到 Trae</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-rocket"></i>
+                        <span>配置完成后可直接在 Trae 中使用 MCP 服务器</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Minecraft MCP 服务器配置工具</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
