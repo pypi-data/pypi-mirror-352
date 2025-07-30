@@ -1,0 +1,122 @@
+[project]
+name = "sorcha"
+license = {file = "LICENSE.txt"}
+readme = "README.md"
+authors = [
+    { name = "Meg Schwamb", email = "m.schwamb@qub.ac.uk" }
+]
+description = "The survey simulator post processing code for the LSST"
+requires-python = ">=3.9"
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dynamic = ["version"]
+dependencies = [
+    "numpy",
+    "pandas>=2.0",
+    "astropy",
+    "matplotlib",
+    "sbpy",
+    "tables",
+    "spiceypy",
+    "healpy",
+    "assist",
+    "rebound",
+    "pooch",
+    "tqdm",
+    "numba",
+    "importlib_resources",
+    "scipy" # Needed for linear algebra in numba, do not remove!
+]
+
+[project.scripts]
+sorcha = "sorcha_cmdline.main:main"
+sorcha-run = "sorcha_cmdline.run:main"
+sorcha-init = "sorcha_cmdline.init:main"
+sorcha-demo = "sorcha_cmdline.demo:main"
+sorcha-outputs = "sorcha_cmdline.outputs:main"
+sorcha-bootstrap = "sorcha_cmdline.bootstrap:main"
+sorcha-cite = "sorcha_cmdline.cite:main"
+
+[project.urls]
+"Documentation" = "https://sorcha.readthedocs.io/en/latest/"
+"Source" = "https://github.com/dirac-institute/sorcha"
+
+# On a mac, install optional dependencies with `pip install '.[dev]'` (include the single quotes)
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov", # Used to report total code coverage
+    "pre-commit", # Used to run checks before finalizing a git commit
+    "sphinx", # Used to automatically generate documentation
+    "sphinx-rtd-theme", # Used to render documentation
+    "sphinx-exec-directive", # running sphinx python commands in documentation
+    "sphinx-autoapi", # Used to automatically generate api documentation
+    "black", # Used for static linting of files
+    # if you add dependencies here while experimenting in a notebook and you
+    # want that notebook to render in your documentation, please add the
+    # dependencies to ./docs/requirements.txt as well.
+    "nbconvert", # Needed for pre-commit check to clear output from Python notebooks
+    "nbsphinx", # Used to integrate Python notebooks into Sphinx documentation
+    "ipython", # Also used in building notebooks into Sphinx
+    "ipykernel",
+    "matplotlib", # Used in sample notebook intro_notebook.ipynb
+    "numpy", # Used in sample notebook intro_notebook.ipynb
+]
+
+test = [
+    "pytest",
+    "pytest-cov",
+    "black",
+]
+
+docs = [
+    "sphinx", # Used to automatically generate documentation
+    "sphinx-rtd-theme", # Used to render documentation
+    "sphinx-autoapi", # Used to automatically generate api documentation
+    "sphinx-exec-directive", # running sphinx python commands in documentation
+    "nbconvert",
+    "nbsphinx",
+    "ipython",
+    "ipykernel",
+]
+
+benchmark = [
+    "lf-metric-emitter", # Used to send metrics to t
+    "memory-profiler",
+]
+
+[build-system]
+requires = [
+    "setuptools>=62", # Used to build and package the Python project
+    "setuptools_scm>=7.0", # Gets release version from git. Makes it available programmatically
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-dir]
+sorcha = "src/sorcha"
+sorcha_cmdline = "src/sorcha_cmdline"
+
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools_scm]
+write_to = "src/sorcha/_version.py"
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+]
+
+[tool.black]
+line-length = 110
+
