@@ -1,0 +1,22 @@
+Metadata-Version: 2.3
+Name: approck-services
+Version: 1.0.6
+Summary: 
+Author: Aleksey Dalekin
+Author-email: ald@approck.pro
+Requires-Python: >=3.10,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Provides-Extra: fastapi
+Provides-Extra: sqlalchemy
+Provides-Extra: upload
+Requires-Dist: aioboto3 (>=11.0.0) ; extra == "upload"
+Requires-Dist: approck-sqlalchemy-utils[postgres] (>=0.1.0) ; extra == "sqlalchemy"
+Requires-Dist: fastapi (>=0.111.0) ; extra == "fastapi"
+Requires-Dist: multimethod (>=1.11,<2.0)
+Description-Content-Type: text/markdown
+
+
