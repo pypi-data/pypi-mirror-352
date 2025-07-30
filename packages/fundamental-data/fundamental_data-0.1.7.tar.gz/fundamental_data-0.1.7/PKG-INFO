@@ -1,0 +1,77 @@
+Metadata-Version: 2.4
+Name: fundamental-data
+Version: 0.1.7
+Summary: Add your description here
+Home-page: https://github.com/mashroor10/fundamental_data/tree/main
+Author: Mashroor Rahman
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: nbformat>=5.10.4
+Requires-Dist: plotly>=6.1.2
+Requires-Dist: setuptools>=78.1.0
+Requires-Dist: twine>=6.1.0
+Requires-Dist: ipykernel>=6.29.5
+Requires-Dist: matplotlib>=3.10.1
+Requires-Dist: openpyxl>=3.1.5
+Requires-Dist: pandas>=2.2.3
+Requires-Dist: requests>=2.32.3
+Requires-Dist: seaborn>=0.13.2
+Requires-Dist: yfinance>=0.2.55
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+
+# FundamentalData
+
+A Python package for institutional-grade SEC financial data analysis with integrated market context.
+
+## Features ✨
+
+- **SEC API Integration**: Direct EDGAR database access with automatic CIK resolution
+- **Temporal Alignment**: Unified datetime indices across fundamental and market data
+- **Advanced Normalization**: Built-in handling of XBRL discrepancies and reporting variants
+- **Quant-Ready**: Pandas DataFrame outputs with NaN-aware preprocessing
+- **Enterprise Features**: Type II rate limiting, configurable caching, and request retries
+
+## Installation
+
+```
+pip install "fundamental_data"
+```
+
+## Import the package
+
+```
+from fundamental_data import FundamentalData
+```
+
+## Usage
+
+### For single stock
+
+```
+fd = FundamentalData('myemail@email.com')
+
+apple = fd.get_fundamentals('AAPL')
+apple.QuarterlyTable #metrics organized according to quarters
+apple.DatedTable #metric organized according to dates
+apple.MetricStats #Statistics on the availability of metrics and related stats
+apple.data #raw data
+apple.CombinedTable #table combined with price data from yfinance
+```
+
+### For multiple stocks
+
+```
+fd = FundamentalData('myemail@email.com')
+dataDict = fd.get_bulk_fundamentals([AAPL,TSLA])
+dataDict['AAPL'].QuarterlyTable
+```
+
+### Visualizations
+
+```
+apple.visualize_data_availability()
+apple.saveVisualizationTable('AAPL_vizz.xlsx')
+```
