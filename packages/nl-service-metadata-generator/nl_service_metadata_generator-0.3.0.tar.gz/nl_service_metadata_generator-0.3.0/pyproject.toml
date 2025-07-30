@@ -1,0 +1,50 @@
+[project]
+name = "nl-service-metadata-generator"
+description = "CLI applicatie voor het genereren van service metadata die voldoet aan het Nederlands metadata profiel op ISO 19119 voor services versie 2.1.0 - https://docs.geostandaarden.nl/md/mdprofiel-iso19119/"
+keywords = ["ngr", "pdok", "iso19119", "nl-metadata-profiel", "metadata", "cli" ]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+]
+readme = { file = "./README.md", content-type = "text/markdown" }
+dependencies = [
+    "Click ~= 8.1",
+    "Jinja2 ~= 3.1",
+    "lxml ~= 4.9",
+    "jsonschema ~= 4.17"
+]
+requires-python = ">=3.8.10"
+dynamic = ["version"]
+
+[project.urls]
+repository = "https://github.com/PDOK/nl-service-metadata-generator"
+
+[project.optional-dependencies]
+dev = ["black", "autoflake", "isort"]
+
+[project.scripts]
+nl-service-metadata-generator = "nl_service_metadata_generator.cli:cli"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["nl_service_metadata_generator*"]  # package names should match these glob patterns (["*"] by default)
+exclude = []  # exclude packages matching these glob patterns (empty by default)
+
+[tool.setuptools.package-data]
+nl_service_metadata_generator = ["*.json", "*.xml", "*.xsd"]
+
+[tool.setuptools-git-versioning]
+enabled = true
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools>=45", 
+    "setuptools-git-versioning==1.13.1",
+    "wheel==0.38.4"
+]

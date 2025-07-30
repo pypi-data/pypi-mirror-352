@@ -1,0 +1,25 @@
+<gmd:distributionInfo>
+    <gmd:MD_Distribution>
+        <gmd:transferOptions>
+            <gmd:MD_DigitalTransferOptions>
+                <gmd:onLine>
+                    <gmd:CI_OnlineResource>
+                        <gmd:linkage>
+                            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#url -->
+                            <!-- Verwijzing naar het Capabilities document van de service-->
+                            <gmd:URL>{{service_access_point}}</gmd:URL>
+                        </gmd:linkage>
+                        <gmd:protocol>
+                            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#protocol -->
+                            <gmx:Anchor xlink:href="{{service_protocol_url}}">{{service_protocol}}</gmx:Anchor>
+                        </gmd:protocol>
+                        <gmd:description>
+                            <!-- https://docs.geostandaarden.nl/md/mdprofiel-iso19119/#omschrijving -->
+                            <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/metadata-codelist/OnLineDescriptionCode/accessPoint">accessPoint</gmx:Anchor>
+                        </gmd:description>
+                    </gmd:CI_OnlineResource>
+                </gmd:onLine>
+            </gmd:MD_DigitalTransferOptions>
+        </gmd:transferOptions>
+    </gmd:MD_Distribution>
+</gmd:distributionInfo>
