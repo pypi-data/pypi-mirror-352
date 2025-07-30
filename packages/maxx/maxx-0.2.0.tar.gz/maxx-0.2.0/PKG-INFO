@@ -1,0 +1,123 @@
+Metadata-Version: 2.4
+Name: maxx
+Version: 0.2.0
+Summary: Signatures for MATLAB projects
+Author-email: Mark Hu <watermarkhu@gmail.com>
+License-Expression: GPL-3.0
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.14
+Classifier: Topic :: Documentation
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Documentation
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Requires-Python: >=3.10
+Requires-Dist: charset-normalizer~=3.4
+Requires-Dist: griffe~=1.7.2
+Requires-Dist: tree-sitter-matlab~=1.0
+Requires-Dist: tree-sitter~=0.24
+Requires-Dist: typing-extensions>=4.0; python_version < '3.11'
+Description-Content-Type: text/markdown
+
+# maxx
+
+[![CI](https://github.com/watermarkhu/maxx/actions/workflows/ci.yml/badge.svg)](https://github.com/watermarkhu/maxx/actions/workflows/ci.yml)
+[![pypi version](https://img.shields.io/pypi/v/maxx.svg)](https://pypi.org/project/maxx/)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+<img src="https://raw.githubusercontent.com/watermarkhu/maxx/refs/heads/main/img/malt-pixel.svg" alt="malt logo, created by Mark Shui Hu" width="100" align="right">
+
+**maxx** (MATLAB Language Tools) is a Python library for parsing and analyzing MATLAB code. It provides comprehensive support for extracting signatures, documentation, and metadata from MATLAB projects including functions, classes, scripts, and packages.
+
+### Features
+
+- 🔍 **Parse MATLAB files** - Extract functions, classes, properties, and methods
+- 📁 **Project structure analysis** - Handle MATLAB packages, namespaces, and class folders
+- 📖 **Documentation extraction** - Parse docstrings and comments from MATLAB code
+- 🎯 **Type information** - Extract argument types, validation functions, and return types
+- 🌳 **Tree-sitter based** - Fast and accurate parsing using tree-sitter-matlab
+- 🔗 **Integration ready** - Built for documentation generators like MkDocs
+
+## Installation
+
+Using `pip`:
+
+```bash
+pip install maxx
+```
+
+Using `uv`:
+
+```bash
+uv add maxx
+```
+
+## Quick Start
+
+### Basic File Parsing
+
+```python
+from pathlib import Path
+from maxx.treesitter import FileParser
+
+# Parse a MATLAB function file
+parser = FileParser(Path("myfunction.m"))
+matlab_object = parser.parse()
+
+print(f"Object type: {matlab_object.kind}")
+print(f"Name: {matlab_object.name}")
+print(f"Arguments: {matlab_object.arguments}")
+print(f"Docstring: {matlab_object.docstring}")
+```
+
+### Project Collection
+
+```python
+from maxx.collection import PathsCollection
+from pathlib import Path
+
+# Collect all MATLAB objects from a project
+paths = PathsCollection([Path("src"), Path("examples")])
+
+# Access parsed objects
+my_function = paths["myfunction"]
+my_class = paths["MyClass"]
+my_package = paths["+mypackage.MyFunction"]
+```
+
+### Working with Classes
+
+```python
+# Access class members
+matlab_class = paths["MyClass"]
+print(f"Base classes: {matlab_class.bases}")
+print(f"Properties: {list(matlab_class.members.keys())}")
+
+# Access methods and properties
+constructor = matlab_class.constructor
+properties = [m for m in matlab_class.members.values() if m.is_property]
+```
+
+## Supported MATLAB Constructs
+
+- **Functions** - Regular functions, nested functions, methods
+- **Classes** - Class definitions, properties, methods, inheritance
+- **Scripts** - Script files and their documentation
+- **Packages** - Namespace packages (`+package`) and class folders (`@class`)
+- **Arguments blocks** - Input/output validation and type information
+- **Properties blocks** - Class properties with attributes and validation
+
+
+## License
+
+This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
