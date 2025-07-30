@@ -1,0 +1,108 @@
+# -*- coding: utf-8 -*-
+
+#  Copyright 2023-2025 Quarkslab
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+[build-system]
+requires = ['setuptools']
+
+[project]
+name = 'pyrrha-mapper'
+authors = [
+    { name = 'Eloïse Brocas', email = 'ebrocas@quarkslab.com' },
+    { name = "Robin David", email = "rdavid@quarkslab.com" },
+]
+readme = "README.md"
+description = "A mapper collection for firmware analysis"
+requires-python = ">=3.10"
+license = { text = "Apache License 2.0" }
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Programming Language :: Python :: 3',
+    'Operating System :: POSIX :: Linux',
+    'Operating System :: Microsoft :: Windows',
+    'Topic :: Security',
+    'Environment :: Console',
+]
+dependencies = [
+    'click',
+    'coloredlogs',
+    'lief>=0.15.0',
+    'numbat>=0.2.5',
+    'pydantic',
+    'rich',
+    # InterCG mapper
+    'quokka-project',
+    # Exedecomp mapper
+    'idascript<=0.3.1',
+]
+dynamic = ['version']
+
+[project.urls]
+Homepage = "https://github.com/quarkslab/pyrrha"
+Source = "https://github.com/quarkslab/pyrrha"
+Tracker = "https://github.com/quarkslab/pyrrha/issues"
+Changelog = "https://github.com/quarkslab/pyrrha/CHANGELOG.md"
+
+[project.scripts]
+pyrrha = 'pyrrha_mapper.__main__:pyrrha'
+
+[project.optional-dependencies]
+doc = [
+    'black',
+    'mkdocs',
+    'mkdocs-autorefs',
+    'mkdocs-glightbox',
+    'mkdocs-material',
+    'mkdocs-section-index',
+    'mike',
+    'pymdown-extensions'
+]
+linting = ['ruff']
+test = ['pytest', 'pytest-cov']
+typechecking = ['mypy']
+
+[tool.setuptools.dynamic]
+version = {attr = "pyrrha_mapper.__version__"} 
+
+[tool.mypy]
+plugins = ['pydantic.mypy']
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
+pythonpath = "src"
+testpaths = ["tests"]
+norecursedirs = ["tests/pyrrha_files", "tests/test_fw", "data"]
+
+
+[tool.ruff]
+# Same as Black.
+line-length = 100
+indent-width = 4
+
+
+[tool.ruff.lint]
+select = ["D", "E", "F", "B", "Q", "I"]
+ignore = [
+  "D107", # missing docstring in __init__, we add docstrings to the class
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.format]
+line-ending = "auto"
+docstring-code-format = true
+
+
