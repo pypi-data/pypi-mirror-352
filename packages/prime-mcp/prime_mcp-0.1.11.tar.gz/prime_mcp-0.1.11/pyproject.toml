@@ -1,0 +1,40 @@
+[project]
+name = "prime-mcp"
+version = "0.1.11"
+description = ""
+authors = [
+    {name = "reubinoff",email = "moshe@primesec.ai"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "mcp[cli] (>=1.6.0,<2.0.0)",
+    "pydantic>=2.11.3",
+    "pydantic-ai>=0.1.6",
+    "typer>=0.15.2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
+
+[project.scripts]
+prime-mcp = "prime_mcp:main"
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"prime_mcp" = ["*.json"]
