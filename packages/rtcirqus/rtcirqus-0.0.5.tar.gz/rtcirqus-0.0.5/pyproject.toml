@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rtcirqus"
+version = "0.0.5"
+description = "Set real-time priorities of IRQ threads dynamically"
+readme = {file = "README.rst", content-type = "text/x-rst"}
+authors = [{ name = "Jeremy Jongepier", email = "jeremy@autostatic.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Utilities",
+    "Topic :: System :: Installation/Setup",
+]
+keywords = ["real-time", "priorities", "audio"]
+dependencies = [
+    "pyudev",
+    "pyalsaaudio",
+    "psutil",
+]
+requires-python = ">=3.6"
+
+[project.urls]
+Homepage = "https://codeberg.org/autostatic/rtcirqus"
+
+[project.scripts]
+rtcirqus = "rtcirqus.rtcirqus:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
