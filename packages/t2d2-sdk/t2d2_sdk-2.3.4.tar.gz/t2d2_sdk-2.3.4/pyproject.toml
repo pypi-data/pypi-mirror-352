@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "t2d2-sdk"
+# version = "1.0.11"
+dynamic = ["version"]
+authors = [
+  { name="Badri Hiriyur", email="badri@t2d2.ai" },
+]
+description = "T2D2 SDK"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "boto3",
+  "requests",
+  "sentry_sdk"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://t2d2.ai"
+Issues = "https://github.com/t2d2-ai/t2d2-sdk/issues"
+
+[tool.setuptools_scm]
+# can be empty if no extra settings are needed, presence enables setuptools_scm
+local_scheme = "no-local-version"
+version_file = "src/_version.py"

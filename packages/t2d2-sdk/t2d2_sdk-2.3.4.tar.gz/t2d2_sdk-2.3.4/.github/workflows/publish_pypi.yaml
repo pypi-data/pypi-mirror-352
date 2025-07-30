@@ -1,0 +1,55 @@
+name: Publish Python 🐍 distributions 📦 to PyPI and TestPyPI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  increment-version:
+    name: Increment version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Get next version
+        uses: reecetech/version-increment@2024.4.3
+        id: version
+        with:
+          scheme: conventional_commits
+      - name: Push git tags
+        run: 
+          git config --local user.email "bhiriyur@t2d2.ai" &&
+          git config --local user.name "Badri Hiriyur" &&
+          git tag -a v${{ steps.version.outputs.version }} -m "v${{ steps.version.outputs.version }}" &&
+          git push origin v${{ steps.version.outputs.version }}
+  pypi-publish:
+    name: upload release to PyPI
+    needs: increment-version
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/t2d2-sdk
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write
+    steps:
+      # retrieve your distributions here
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install pypa/build
+        run: >-
+          python -m pip install build  --user
+
+      - name: Build a binary wheel and a source tarball
+        run: >-
+          python -m build  --sdist --wheel --outdir dist/  .
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
