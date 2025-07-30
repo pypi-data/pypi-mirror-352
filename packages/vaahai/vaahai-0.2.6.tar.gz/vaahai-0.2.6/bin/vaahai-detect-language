@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Wrapper script for the standalone detect-language command
+# This script forwards all arguments to the Python implementation
+
+# This script is deprecated - users should use "vaahai detect-language" instead
+echo "Warning: 'vaahai-detect-language' is deprecated. Please use 'vaahai detect-language' instead."
+
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Get the project root directory (parent of bin)
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Run the Python script with all arguments
+python3 "$PROJECT_ROOT/vaahai/cli/commands/detect_language_standalone.py" "$@"

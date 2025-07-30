@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Wrapper script for the vaahai detect-language command
+# This script is used to bypass Typer integration issues
+
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Check if the first argument is "detect-language"
+if [ "$1" = "detect-language" ]; then
+    # Remove the "detect-language" argument and pass the rest to the script
+    shift
+    "$SCRIPT_DIR/vaahai-detect-language-script" "$@"
+else
+    # If not called with "detect-language", pass all arguments to the original vaahai command
+    vaahai "$@"
+fi

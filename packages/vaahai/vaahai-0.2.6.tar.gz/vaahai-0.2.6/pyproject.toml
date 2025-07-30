@@ -1,0 +1,91 @@
+[tool.poetry]
+name = "vaahai"
+version = "0.2.6"
+description = "AI-augmented code review CLI tool"
+authors = ["WebReinvent <info@webreinvent.com>"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/webreinvent/vaahai"
+documentation = "https://github.com/webreinvent/vaahai/docs"
+keywords = ["code-review", "ai", "llm", "static-analysis", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Quality Assurance",
+]
+include = [
+    "bin/vaahai-detect-language-script",
+    "bin/install-detect-language.sh",
+    "bin/vaahai-detect-language",
+    "bin/vaahai-detect-language-wrapper"
+]
+
+[tool.poetry.dependencies]
+python = "^3.9,<3.13"
+typer = "0.9.0"
+click = "^8.1.3"
+rich = "^13.4.2"
+pydantic = "^2.0.0"
+tomli = "^2.0.1"
+tomli-w = "^1.0.0"
+pylint = "^2.17.0"
+flake8 = "^6.0.0"
+bandit = "^1.7.5"
+openai = "^1.0.0"
+pyautogen = {version = "^0.2.0", python = ">=3.9,<3.13"}
+pathspec = "^0.11.1"
+colorama = "^0.4.6"
+markdown = "^3.4.3"
+jinja2 = "^3.1.2"
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+pytest-cov = "^4.1.0"
+black = "^23.3.0"
+isort = "^5.12.0"
+mypy = "^1.3.0"
+pre-commit = "^3.3.2"
+tox = "^4.6.0"
+ruff = "^0.0.272"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+vaahai = "vaahai.__main__:app"
+vaahai-detect-language-script = "vaahai.cli.commands.detect_language_standalone:main_cli"
+
+[tool.black]
+line-length = 100
+target-version = ["py39"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+python_classes = "Test*"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+select = ["E", "F", "B", "I", "N", "UP", "ANN", "S", "A"]
+ignore = ["ANN101", "ANN102", "ANN401"]
