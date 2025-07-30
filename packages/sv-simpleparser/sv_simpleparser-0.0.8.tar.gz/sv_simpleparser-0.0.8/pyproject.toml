@@ -1,0 +1,42 @@
+[build-system]
+requires = [
+    "setuptools",
+    "setuptools-scm>=8.0",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sv_simpleparser"
+authors = [
+    {name = 'Eric Macedo', email = 'ericsmacedo@gmail.com'}
+]
+description = 'A simple SystemVerilog parser'
+dynamic = ["version"] # This in conjunction with setuptools_scm, will generate the 
+                      # versions dynamically
+readme = "README.rst"
+keywords = ["SystemVerilog"]
+license = {text = "MIT"}
+dependencies = [
+ "pathlib",
+ "click",
+ "Jinja2",
+ "pygments>=2.19.1",
+]
+
+[tool.setuptools]
+packages = ["sv_simpleparser"]
+
+[tool.setuptools.package-data]
+sv_simpleparser = ["Templates/*"]
+
+
+
+
+[project.scripts]
+svparser = "sv_simpleparser.cli:cli"
+
+[tool.setuptools_scm]
+
+[optional-dependencies]
+all = ["pytest"]
