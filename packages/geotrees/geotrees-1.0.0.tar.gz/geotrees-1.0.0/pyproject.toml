@@ -1,0 +1,141 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.setuptools]
+packages = ["geotrees"]
+
+[project]
+name = "geotrees"
+version = "1.0.0"
+dependencies = ["numpy"]
+requires-python = ">=3.9"
+authors = [
+  { name = "Joseph Siddons", email = "josidd@noc.ac.uk" },
+  { name = "Richard Cornes", email = "rcornes@noc.ac.uk" },
+]
+maintainers = [{ name = "Joseph Siddons", email = "josidd@noc.ac.uk" }]
+description = "QuadTree and KDTree implementation on a spherical Earth"
+readme = "README.md"
+license-files = ["LICENSE"]
+keywords = [
+  "geospatial",
+  "kdree",
+  "nearest neighbour",
+  "octtree",
+  "quadtree",
+  "spatial",
+  "trees",
+  "spherical",
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+notebooks = ["ipykernel", "polars"]
+test = ["pytest", "pytest-cov>=6.1.1"]
+docs = ["sphinx", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
+all = [
+  "ipykernel",
+  "polars",
+  "pytest",
+  "pytest-cov>=6.1.1",
+  "sphinx",
+  "sphinx-autodoc-typehints",
+  "sphinx-rtd-theme",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/NOCSurfaceProcesses/geotrees"
+"Source" = "https://github.com/NOCSurfaceProcesses/geotrees"
+"Issue tracker" = "https://github.com/NOCSurfaceProcesses/geotrees/issues"
+
+[tool.ruff]
+src = ["geotrees"]
+line-length = 80
+indent-width = 4
+target-version = "py311"
+exclude = [".eggs", ".git", ".venv", "build", "venv"]
+
+[tool.ruff.lint]
+extend-select = [
+  "RUF022", # unsorted-dunder-all
+]
+ignore = [
+  "D205",   # blank-line-after-summary
+  "D400",   # ends-in-period
+  "D401",   # non-imperative-mood
+  "D105",   # missing docstring in magic method
+  "RUF012", # Mutable class attributes should be annotated with typing.ClassVar
+]
+preview = true
+select = [
+  "C90", # mccabe-complexity
+  "D",   # docstrings
+  "E",   # pycodestyle errors
+  "F",   # pyflakes
+  "I",   # isort
+  "ICN", # flake8-import-conventions
+  "N8",  # invalid names
+  "RUF", # Ruff rules
+  "S",   # bandit security
+  "TID", # Tidy imports
+  "W",   # pycodestyle warnings
+]
+
+[tool.ruff.lint.per-file-ignores]
+"docs/*.py" = ["D100", "D101", "D102", "D103"]
+"test/**/*test*.py" = ["D100", "D101", "D102", "D103", "N802", "S101", "S311"]
+"notebooks/*.ipynb" = [
+  "D100",
+  "D101",
+  "D102",
+  "D103",
+  "N802",
+  "S101",
+  "S311",
+  "F821",
+]
+
+[tool.ruff.format]
+quote-style = "double"            # Like Black, use double quotes for strings.
+indent-style = "space"            # Like Black, indent with spaces, rather than tabs.
+skip-magic-trailing-comma = false # Like Black, respect magic trailing commas.
+line-ending = "auto"              # Like Black, automatically detect the appropriate line ending.
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.flake8-import-conventions.aliases]
+numpy = "np"
+polars = "pl"
+
+[tool.ruff.lint.isort]
+known-first-party = ["geotrees"]
+case-sensitive = true
+detect-same-package = false
+lines-after-imports = 2
+no-lines-before = ["future", "standard-library"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "CHANGES.md",
+  "CONTRIBUTING.md",
+  "LICENSE",
+  "README.md",
+  "docs/**/*.rst",
+  "docs/Makefile",
+  "docs/conf.py",
+  "docs/make.bat",
+  "test/**/*.py",
+  "geotrees/**/*.py",
+]
+exclude = ["**/*.py[co]", "**/__pycache__", ".*", "doc/_*", "pylintrc"]
