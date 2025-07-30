@@ -1,0 +1,23 @@
+id: https://github.com/MontpellierRessourcesImagerie/microscope-metrics/blob/main/src/microscopemetrics/data_schema/samples/field_illumination_schema.yaml
+name: microscopemetrics_samples_field_illumination_schema
+prefixes:
+#  metrics: https://github.com/MontpellierRessourcesImagerie/microscope-metrics/blob/main/src/microscopemetrics/model/
+#imports:
+#  - metrics:types
+  linkml: https://w3id.org/linkml/
+imports:
+  - linkml:types
+
+default_range: string
+
+
+classes:
+  MyClass:
+    slots:
+      - my_slot
+
+slots:
+  my_slot:
+    range: float
+    multivalued: true
+    ifabsent: float(0.3)
