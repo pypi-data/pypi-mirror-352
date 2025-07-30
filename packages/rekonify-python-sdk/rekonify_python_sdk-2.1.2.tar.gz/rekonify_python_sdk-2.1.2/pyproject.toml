@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=77.0.3", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rekonify-python-sdk"
+description = "The Rekonify Python SDK is the official client for seamless, async-ready integration with the Rekonify API, streamlining transaction ingestion"
+authors = [
+    { name = "Kuadey Elikem Yao", email = "key@rekonify.com" }
+]
+license = "MIT"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.8"
+dynamic = [
+    'version',
+]
+keywords = [
+    "rekonify",
+    "reconciliation",
+    "finance",
+    "transactions",
+    "payment",
+    "automation",
+    "sdk",
+    "api-client",
+    "async",
+    "event-tracking",
+    "financial-data",
+    "accounting",
+    "python-sdk",
+    "transaction-matching",
+    "integration",
+    "pay-in",
+    "payout",
+    "erp",
+    "banking",
+    "data-ingestion"
+]
+dependencies = [
+    "requests",
+    "pydantic[email]",
+    "pydantic",
+    "tenacity"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Operating System :: OS Independent"
+]
+optional-dependencies = { 'dev' = ['pytest>=3.7', 'check-manifest', 'twine'] }
+
+[project.urls]
+Homepage = "https://github.com/Frndz-org/rekonify-python-sdk"
+"Bug Tracker" = "https://github.com/Frndz-org/rekonify-python-sdk/issues"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "2.1.2"
+version_files = [
+    "pyproject.toml:version",
+    "__version__.py"
+]
+
+[tool.black]
+line-length = 88  # Specify the line length
+target-version = ['py37']  # Specify your Python version
+include = '\.pyi?$'
+exclude = '''  # Specify the files/dirs that should be ignored by the black formatter
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | \.idea
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
