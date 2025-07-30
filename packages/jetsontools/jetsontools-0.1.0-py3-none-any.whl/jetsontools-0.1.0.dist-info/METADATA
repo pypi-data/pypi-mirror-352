@@ -1,0 +1,62 @@
+Metadata-Version: 2.4
+Name: jetsontools
+Version: 0.1.0
+Summary: Tools for working with NVIDIA Jetson devices.
+Author-email: Justin Davis <davisjustin302@gmail.com>
+Maintainer-email: Justin Davis <davisjustin302@gmail.com>
+Project-URL: Homepage, https://github.com/justincdavis/jetsontools
+Project-URL: Bug Tracker, https://github.com/justincdavis/jetsontools/issues
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Natural Language :: English
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Typing :: Typed
+Requires-Python: <=3.13,>=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: typing_extensions>=4.0.0
+Provides-Extra: ci
+Requires-Dist: pyupgrade>=3.10; extra == "ci"
+Requires-Dist: ruff>=0.4.5; extra == "ci"
+Requires-Dist: mypy>=1.10.0; extra == "ci"
+Provides-Extra: test
+Requires-Dist: pytest>=6.2.0; extra == "test"
+Provides-Extra: docs
+Requires-Dist: sphinx>=7.0.0; extra == "docs"
+Requires-Dist: sphinx_design>=0.6.1; extra == "docs"
+Requires-Dist: furo>=2024.8.6; extra == "docs"
+Requires-Dist: myst_parser>=3.0.0; extra == "docs"
+Provides-Extra: dev
+Requires-Dist: jetsontools[ci]; extra == "dev"
+Requires-Dist: jetsontools[test]; extra == "dev"
+Requires-Dist: jetsontools[docs]; extra == "dev"
+Requires-Dist: twine>=4.0.0; extra == "dev"
+Requires-Dist: wheel>=0.37.0; extra == "dev"
+Requires-Dist: bumpver>=2023.1126; extra == "dev"
+Requires-Dist: pyclean>=2.7.0; extra == "dev"
+Dynamic: license-file
+
+# jetsontools
+
+[![](https://img.shields.io/pypi/pyversions/jetsontools.svg)](https://pypi.org/pypi/trtutijetsontoolsls/)
+![PyPI](https://img.shields.io/pypi/v/jetsontools.svg?style=plastic)
+[![CodeFactor](https://www.codefactor.io/repository/github/justincdavis/jetsontools/badge)](https://www.codefactor.io/repository/github/justincdavis/jetsontools)
+
+![MyPy](https://github.com/justincdavis/jetsontools/actions/workflows/mypy.yaml/badge.svg?branch=main)
+![Ruff](https://github.com/justincdavis/jetsontools/actions/workflows/ruff.yaml/badge.svg?branch=main)
+![PyPi Build](https://github.com/justincdavis/jetsontools/actions/workflows/build-check.yaml/badge.svg?branch=main)
+
+Tools for working with NVIDIA Jetson devices.
