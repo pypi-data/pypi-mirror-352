@@ -1,0 +1,118 @@
+Metadata-Version: 2.4
+Name: orchestrator-core
+Version: 4.0.4
+Summary: This is the orchestrator workflow engine.
+Requires-Python: >=3.11,<3.14
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development
+Classifier: Typing :: Typed
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Framework :: AsyncIO
+Classifier: Framework :: FastAPI
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Telecommunications Industry
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet :: WWW/HTTP :: HTTP Servers
+Classifier: Topic :: Internet :: WWW/HTTP
+License-File: LICENSE
+Requires-Dist: alembic==1.16.1
+Requires-Dist: anyio>=3.7.0
+Requires-Dist: click==8.*
+Requires-Dist: deprecated
+Requires-Dist: deepmerge==2.0
+Requires-Dist: fastapi~=0.115.2
+Requires-Dist: fastapi-etag==0.4.0
+Requires-Dist: more-itertools~=10.7.0
+Requires-Dist: itsdangerous
+Requires-Dist: Jinja2==3.1.6
+Requires-Dist: orjson==3.10.18
+Requires-Dist: prometheus-client==0.22.0
+Requires-Dist: psycopg2-binary==2.9.10
+Requires-Dist: pydantic[email]~=2.8.2
+Requires-Dist: pydantic-settings~=2.9.1
+Requires-Dist: python-dateutil==2.8.2
+Requires-Dist: python-rapidjson>=1.18,<1.21
+Requires-Dist: pytz==2025.2
+Requires-Dist: redis==5.1.1
+Requires-Dist: schedule==1.1.0
+Requires-Dist: semver==3.0.4
+Requires-Dist: sentry-sdk[fastapi]~=2.29.1
+Requires-Dist: SQLAlchemy==2.0.41
+Requires-Dist: SQLAlchemy-Utils==0.41.2
+Requires-Dist: structlog
+Requires-Dist: typer==0.15.4
+Requires-Dist: uvicorn[standard]~=0.34.0
+Requires-Dist: nwa-stdlib~=1.9.0
+Requires-Dist: oauth2-lib~=2.4.0
+Requires-Dist: tabulate==0.9.0
+Requires-Dist: strawberry-graphql>=0.246.2
+Requires-Dist: pydantic-forms>=1.4.0, <=2.1.0
+Requires-Dist: celery~=5.5.1 ; extra == "celery"
+Requires-Dist: toml ; extra == "dev"
+Requires-Dist: bumpversion ; extra == "dev"
+Requires-Dist: mypy_extensions ; extra == "dev"
+Requires-Dist: pre-commit ; extra == "dev"
+Requires-Dist: pydocstyle ; extra == "dev"
+Requires-Dist: python-dotenv ; extra == "dev"
+Requires-Dist: watchdog ; extra == "dev"
+Requires-Dist: mkdocs ; extra == "doc"
+Requires-Dist: mkdocs-material[imaging] ; extra == "doc"
+Requires-Dist: mkdocs-render-swagger-plugin ; extra == "doc"
+Requires-Dist: mkdocs-include-markdown-plugin ; extra == "doc"
+Requires-Dist: mkdocstrings[python] ; extra == "doc"
+Requires-Dist: mkdocs-open-in-new-tab ; extra == "doc"
+Requires-Dist: mkdocs-macros-plugin ; extra == "doc"
+Requires-Dist: mkdocs-embed-external-markdown ; extra == "doc"
+Requires-Dist: apache-license-check ; extra == "test"
+Requires-Dist: black ; extra == "test"
+Requires-Dist: blinker ; extra == "test"
+Requires-Dist: deepdiff ; extra == "test"
+Requires-Dist: dirty-equals ; extra == "test"
+Requires-Dist: jsonref ; extra == "test"
+Requires-Dist: mypy==1.9 ; extra == "test"
+Requires-Dist: pyinstrument ; extra == "test"
+Requires-Dist: pytest==8.3.5 ; extra == "test"
+Requires-Dist: pytest-asyncio==0.21.2 ; extra == "test"
+Requires-Dist: pytest-codspeed ; extra == "test"
+Requires-Dist: pytest-cov ; extra == "test"
+Requires-Dist: pytest-httpx ; extra == "test"
+Requires-Dist: pytest-xdist ; extra == "test"
+Requires-Dist: requests-mock ; extra == "test"
+Requires-Dist: ruff ; extra == "test"
+Requires-Dist: sqlalchemy[mypy] ; extra == "test"
+Requires-Dist: urllib3-mock ; extra == "test"
+Requires-Dist: types-Deprecated ; extra == "test"
+Requires-Dist: types-Jinja2 ; extra == "test"
+Requires-Dist: types-aiofiles ; extra == "test"
+Requires-Dist: types-certifi ; extra == "test"
+Requires-Dist: types-click ; extra == "test"
+Requires-Dist: types-itsdangerous ; extra == "test"
+Requires-Dist: types-orjson ; extra == "test"
+Requires-Dist: types-python-dateutil ; extra == "test"
+Requires-Dist: types-pytz ; extra == "test"
+Requires-Dist: types-redis ; extra == "test"
+Requires-Dist: types-requests ; extra == "test"
+Requires-Dist: types-setuptools ; extra == "test"
+Requires-Dist: types-tabulate ; extra == "test"
+Requires-Dist: types-toml ; extra == "test"
+Requires-Dist: types-ujson ; extra == "test"
+Requires-Dist: types-PyYAML ; extra == "test"
+Project-URL: Documentation, https://workfloworchestrator.org/orchestrator-core/
+Project-URL: Source, https://github.com/workfloworchestrator/orchestrator-core
+Provides-Extra: celery
+Provides-Extra: dev
+Provides-Extra: doc
+Provides-Extra: test
