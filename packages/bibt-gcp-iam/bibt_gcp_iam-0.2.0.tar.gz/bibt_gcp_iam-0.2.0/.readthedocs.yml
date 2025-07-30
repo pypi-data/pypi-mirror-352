@@ -1,0 +1,36 @@
+---
+###################################################################
+#                 !!! DO NOT CHANGE THIS FILE !!!                 #
+#              This file is managed by Terraform in               #
+#          the broadinstitute/bibt-terraform repository.          #
+#  Any changes made outside that repository WILL be overwritten.  #
+###################################################################
+
+# .readthedocs.yml
+# Read the Docs configuration file
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+# Required
+version: 2
+
+python:
+  install:
+    - requirements: requirements.txt
+    - requirements: docs/requirements.txt
+
+# Optionally build your docs in additional formats such as PDF
+formats:
+  - htmlzip
+  - pdf
+
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.12"
+
+sphinx:
+  builder: html
+  configuration: docs/conf.py
+
+submodules:
+  include: all
