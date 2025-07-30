@@ -1,0 +1,80 @@
+[project]
+name = "easyams"
+dynamic = ["version"]
+description = "Easy Agisoft MetaShape (EasyAMS) Plugin with extended functions for smart agriculture."
+readme = "README.md"
+authors = [
+    { name = "Haozhou Wang", email = "howcanoewang@gmail.com" }
+]
+requires-python = ">=3.9.13"
+license = {text = "MIT"}
+classifiers = [
+    # How mature is this project? Common values are
+    #   3 - Alpha
+    #   4 - Beta
+    #   5 - Production/Stable
+    "Development Status :: 3 - Alpha",
+
+    # Indicate who your project is intended for
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Processing",
+
+    # Specify the Python versions you support here.
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = [
+    "numpy==1.26.4",
+    "onnx==1.17.0",
+    "onnxruntime==1.19.2",
+    "opencv-python==4.10.0.84",
+    "pillow>=8.2.0",
+    "pybboxes>=0.1.6",
+    "requests>=2.32.3",
+    "shapely>=2.0.0",
+    "stag-python>=1.1.0",
+    "tqdm>=4.67.1",
+]
+
+[dependency-groups]
+jupyter = [
+    "ipykernel>=6.29.5",
+    "matplotlib>=3.9.4",
+    "pandas>=2.2.3",
+    "scikit-image>=0.24.0",
+    "scikit-learn>=1.6.1",
+    "segment-anything>=1.0",
+]
+tests = [
+    "pyside2>=5.15.2.1",
+    "pytest>=8.3.5",
+    "pytest-xdist>=3.6.1",
+]
+train = [
+    "labelme>=5.8.1",
+    "onnxruntime-gpu==1.19.2",
+    "onnxslim>=0.1.53",
+    "opencv-python-headless==4.10.0.84",
+    "torch==2.5.1",
+    "torchvision==0.20.1",
+    "ultralytics==8.3.63",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/easyams/__init__.py"
+
+[project.urls]
+Homepage = "https://github.com/UTokyo-FieldPhenomics-Lab/EasyAMS"
+Issues = "https://github.com/UTokyo-FieldPhenomics-Lab/EasyAMS/issues"
