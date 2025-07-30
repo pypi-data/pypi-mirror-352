@@ -1,0 +1,99 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pse"
+version = "2025.06.1"
+authors = [
+    { name = "Jack Wind", email = "jckwind11@gmail.com" },
+    { name = "The Proxy Company", email = "contact@theproxy.company" }
+]
+description = "Proxy Structuring Engine: Stateful AI-generated output with a focus on creativity, speed, and structure."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+
+dependencies = [
+    "docstring-parser",
+    "protobuf",
+    "pse-core",
+    "pydantic",
+    "regex",
+    "tokenizers",
+    "transformers",
+    "tqdm",
+    "typing_extensions",
+    "wheel",
+    "lark",
+]
+
+[project.optional-dependencies]
+dev = [
+    "coverage",
+    "flake8",
+    "pytest",
+    "ruff",
+    "sentencepiece",
+    "ipykernel",
+    "pytest-cov",
+]
+mlx = [
+    "mlx",
+    "mlx-proxy",
+]
+torch = [
+    "torch",
+    "accelerate",
+]
+tensorflow = [
+    "tensorflow",
+    "accelerate",
+]
+jax = [
+    "jax",
+    "accelerate",
+]
+
+[project.urls]
+homepage = "https://github.com/TheProxyCompany/proxy-structuring-engine"
+documentation = "https://github.com/TheProxyCompany/proxy-structuring-engine#readme"
+source = "https://github.com/TheProxyCompany/proxy-structuring-engine"
+
+[tool.ruff.lint]
+extend-select = [
+    "B",    # flake8-bugbear
+    "I",    # isort
+    "PGH",  # pygrep-hooks
+    "RUF",  # Ruff-specific
+    "UP",   # pyupgrade
+    "SLF",  # string-literal-format
+    "F8",   # flake8-comprehensions
+]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "LICENSE",
+    "README.md",
+    "pyproject.toml",
+    "pse"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["pse"]
+include = ["pse/**"]
+optimize = true
+ignore-vcs = true
+python-tag = "py311"
+repair-wheel = true
+
+[tool.hatch.envs.default]
+python = "3.11"
+env-vars = { PYTHONOPTIMIZE = "2" }
+
+[tool.pytest.ini_options]
+log_cli = false
+log_cli_level = "WARNING"
+log_cli_format = "in %(filename)s:%(lineno)d [%(levelname)s] %(message)s"
+log_cli_date_format = "%H:%M:%S"
+addopts = "--cov=pse"
