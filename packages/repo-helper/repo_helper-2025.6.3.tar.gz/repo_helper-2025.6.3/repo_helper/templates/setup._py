@@ -1,0 +1,41 @@
+#!/usr/bin/env python
+# {{ managed_message }}
+
+# stdlib
+import sys
+import shutil
+import pathlib
+
+# 3rd party
+from setuptools import setup
+
+sys.path.append('.')
+
+{% if extras_require %}# this package
+from __pkginfo__ import *  # pylint: disable=wildcard-import
+{% else %}
+extras_require = {}{% endif %}
+
+{% if desktopfile %}
+from textwrap import dedent
+with open('{{ modname }}.desktop', 'w', encoding="UTF-8") as desktop:
+	desktop.write(dedent(f"""\
+[Desktop Entry]
+Version={{ version }}
+Name={{ modname }}
+Comment={{ short_desc }}
+{% for k, v in desktopfile.items() %}{{ k }}={{ v }}
+{% endfor %}"""
+		))
+{% endif %}
+
+repo_root = pathlib.Path(__file__).parent
+install_requires = (repo_root / "requirements.txt").read_text(encoding="UTF-8").split('\n')
+
+{{ "\n".join(setup_pre) }}
+
+setup(
+{{ additional_setup_args }}
+		)
+
+shutil.rmtree("{{ pypi_name.replace('-', '_') }}.egg-info", ignore_errors=True)
