@@ -1,0 +1,55 @@
+Metadata-Version: 2.4
+Name: json2markdown
+Version: 0.1.1
+Summary: A library to convert JSON data to Markdown documents
+Home-page: https://github.com/govindbanura/json2markdownlib
+Author: Govind Banura
+Author-email: govindbanura2310@gmail.com
+License: MIT
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: summary
+
+# json2markdown
+
+A Python library to convert JSON data to Markdown documents.
+
+## Installation
+
+```bash
+pip install json2markdown
+```
+
+## Usage
+
+```python
+import json2markdown
+
+json_data = {
+    "name": "Example",
+    "description": "A simple example",
+    "items": [{"id": 1, "value": "A"}, {"id": 2, "value": "B"}]
+}
+
+markdown_output = json2markdown.convert_json_to_markdown_document(json_data)
+print(markdown_output)
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
