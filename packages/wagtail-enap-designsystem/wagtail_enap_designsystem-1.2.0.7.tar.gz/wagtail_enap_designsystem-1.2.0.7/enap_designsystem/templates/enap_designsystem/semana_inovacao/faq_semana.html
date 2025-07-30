@@ -1,0 +1,233 @@
+{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+<link rel="stylesheet" href="{% static 'enap_designsystem/semanadeinovacao.css' %}">
+{% include "enap_designsystem/semana_inovacao/nav_semana.html" %}
+{% block content %}
+<section>
+<div class="wrapper-flex">
+<div class="faq-container">
+    <div class="faq-header">
+        <h2 class="faq-title">{{ page.intro_title }}</h2>
+        <h1 class="faq-subtitle">{{ page.intro_subtitle }}</h1>
+    </div>
+    
+    <div class="faq-tabs">
+        {% for tab_block in page.faq_tabs %}
+            <button class="faq-tab-button {% if forloop.first %}active{% endif %}" 
+            onclick="openFaqTab(event, 'tab-{{ forloop.counter }}')">
+                {{ tab_block.value.tab_name }}
+            </button>
+        {% endfor %}
+    </div>
+    
+    {% for tab_block in page.faq_tabs %}
+        <div id="tab-{{ forloop.counter }}" class="faq-tab-content {% if forloop.first %}active{% endif %}">
+            {% for faq_item in tab_block.value.faq_items %}
+                <div class="faq-accordion">
+                    <button class="faq-accordion-button">
+                        {{ faq_item.question }}
+                        <span class="faq-accordion-icon">&#x25BC;</span>
+                    </button>
+                    <div class="faq-accordion-panel">
+                        {{ faq_item.answer|richtext }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+<div>
+
+</div>
+</div>
+</section>
+{% include "enap_designsystem/semana_inovacao/faleconosco_semana.html" %}
+
+<script>
+    // Função para alternar entre abas
+    function openFaqTab(evt, tabId) {
+        var i, tabcontent, tabbuttons;
+        
+        // Oculta todos os conteúdos de abas
+        tabcontent = document.getElementsByClassName("faq-tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        
+        // Remove a classe "active" de todos os botões
+        tabbuttons = document.getElementsByClassName("faq-tab-button");
+        for (i = 0; i < tabbuttons.length; i++) {
+            tabbuttons[i].classList.remove("active");
+        }
+        
+        // Mostra o conteúdo da aba atual e adiciona classe "active" ao botão
+        document.getElementById(tabId).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    
+    // Inicializa os acordeões (dropdowns)
+    document.addEventListener('DOMContentLoaded', function() {
+        var accordions = document.getElementsByClassName("faq-accordion-button");
+        for (var i = 0; i < accordions.length; i++) {
+            accordions[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+                
+                // Alterna o ícone
+                var icon = this.querySelector(".faq-accordion-icon");
+                if (icon.innerHTML === "▼") {
+                    icon.innerHTML = "▲";
+                } else {
+                    icon.innerHTML = "▼";
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
+
+
+<style>
+.wrapper-flex{
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    max-width: 1142px;
+    margin: auto;
+    padding: 90px 0px;
+}
+
+.faq-container {
+    
+}
+
+.faq-header {
+    margin-bottom: 40px;
+}
+
+.faq-title {
+    color: #666;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.faq-subtitle {
+    color: #E63329;
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Estilo das abas */
+.faq-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.faq-tab-button {
+    background-color: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+    color: #555;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.faq-tab-button.active {
+    background-color: #8C3665;
+    color: white;
+}
+
+.faq-tab-content {
+    display: none;
+}
+
+.faq-tab-content.active {
+    display: block;
+}
+
+/* Estilo dos dropdowns (acordeões) */
+.faq-accordion {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 1px;
+}
+
+.faq-accordion-button {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 18px 0;
+    text-align: left;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-accordion-button:hover {
+    color: #8C3665;
+}
+
+.faq-accordion-button.active {
+    color: #8C3665;
+}
+
+.faq-accordion-icon {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.faq-accordion-button.active .faq-accordion-icon {
+    transform: rotate(180deg);
+}
+
+.faq-accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 18px;
+    transition: max-height 0.3s ease;
+}
+
+.faq-accordion-panel p {
+    margin-top: 0;
+    padding: 10px 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .faq-tab-button {
+        flex: 1 0 calc(50% - 10px);
+    }
+    
+    .faq-subtitle {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .faq-tab-button {
+        flex: 1 0 100%;
+    }
+    
+    .faq-subtitle {
+        font-size: 28px;
+    }
+}
+</style>
