@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=64.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lpcf"
+version = "0.1.0"
+description = "Learning parametric convex functions"
+authors = [
+    {name = "Maximilian Schaller", email = "mschall@stanford.edu"},
+    {name = "Alberto Bemporad", email = "alberto.bemporad@imtlucca.it"}
+]
+license = {text = "Apache 2.0"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "jax-sysid>=1.0.6",
+    "cvxpy>= 1.6.0",
+    "numpy>=1.21.6"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["lpcf*"]
+
+[project.urls]
+"Homepage" = "https://github.com/cvxgrp/lpcf"
