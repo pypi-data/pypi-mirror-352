@@ -1,0 +1,58 @@
+datetime_expression = relative_datetime / date_time / time_date
+date_time = date ws? time?
+time_date = time ws? date?
+date = absolute_date / named_date / end_date
+time = hour (":" minute)? ws? ampm?
+absolute_date = (year date_sep)? month date_sep day
+date_sep = "-" / "/" / " "
+
+relative_datetime = pm count_unit+
+count_unit = ordinal? unit "s"?
+
+end_date = ordinal? end "s"?
+end = weekday / month / unit
+
+named_date = "today" / "tomorrow" / "oo" / "+oo" / "-oo"
+
+unit = unit_year / unit_month / unit_week / unit_day / unit_hour / unit_minute
+unit_year = "year" / "y"
+unit_month = "month" / "M"
+unit_week = "week" / "w"
+unit_day = "day" / "d"
+unit_hour = "hour" / "h"
+unit_minute = "minute" / "m"
+
+pm = ~r"[+\-]"
+ordinal = ~r"[1-9][0-9]*"
+year = ~r"[0-9]{2,4}"
+month =
+    january / february / march / april / may / june / july /
+    august / september / october / november / december
+weekday = monday / tuesday / wednesday / thursday / friday / saturday / sunday
+day = ~r"[0-3]?[0-9]"
+hour = ~r"[0-2]?[0-9]"
+minute = ~r"[0-5][0-9]"
+ampm = "am" / "pm" / "AM" / "PM"
+
+monday = ~r"mon(day)?"i
+tuesday = ~r"tue(sday)?"i
+wednesday = ~r"wed(nesday)?"i
+thursday = ~r"thu(rsday)?"i
+friday = ~r"fri(day)?"i
+saturday = ~r"sat(urday)?"i
+sunday = ~r"sun(day)?"i
+
+january = ~r"jan(uary)?"i
+february = ~r"feb(ruary)?"i
+march = ~r"mar(ch)?"i
+april = ~r"apr(il)?"i
+may = ~r"may"i
+june = ~r"jun(e)?"i
+july = ~r"jul(y)?"i
+august = ~r"aug(ust)?"i
+september = ~r"sep(tember)?"i
+october = ~r"oct(ober)?"i
+november = ~r"nov(ember)?"i
+december = ~r"dec(ember)?"i
+
+ws = ~r"\s+"
