@@ -1,0 +1,79 @@
+Metadata-Version: 2.4
+Name: pg-bulk-ingest
+Version: 0.0.57
+Summary: A collection of Python utility functions for ingesting data into SQLAlchemy-defined PostgreSQL tables, automatically migrating them as needed, and minimising locking
+Project-URL: Source, https://github.com/uktrade/pg-bulk-ingest
+Author-email: Department for Business and Trade <sre@digital.trade.gov.uk>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7.7
+Requires-Dist: pg-force-execute>=0.0.10
+Requires-Dist: sqlalchemy>=1.4.24
+Requires-Dist: to-file-like-obj>=0.0.5
+Provides-Extra: ci
+Requires-Dist: pg-force-execute==0.0.10; extra == 'ci'
+Requires-Dist: psycopg2==2.9.10; (python_version >= '3.13') and extra == 'ci'
+Requires-Dist: psycopg2==2.9.2; (python_version < '3.13') and extra == 'ci'
+Requires-Dist: to-file-like-obj==0.0.5; extra == 'ci'
+Provides-Extra: ci-sqlalchemy1-with-pg-arrow
+Requires-Dist: adbc-driver-postgresql==1.6.0; extra == 'ci-sqlalchemy1-with-pg-arrow'
+Requires-Dist: numpy==1.26.2; extra == 'ci-sqlalchemy1-with-pg-arrow'
+Requires-Dist: pandas==2.0.0; (python_version < '3.13') and extra == 'ci-sqlalchemy1-with-pg-arrow'
+Requires-Dist: pandas==2.2.3; (python_version >= '3.13') and extra == 'ci-sqlalchemy1-with-pg-arrow'
+Requires-Dist: pgarrow==0.0.7; extra == 'ci-sqlalchemy1-with-pg-arrow'
+Requires-Dist: polars==1.0.0; extra == 'ci-sqlalchemy1-with-pg-arrow'
+Requires-Dist: psycopg==3.2.0; extra == 'ci-sqlalchemy1-with-pg-arrow'
+Requires-Dist: pyarrow==18.0.0; extra == 'ci-sqlalchemy1-with-pg-arrow'
+Requires-Dist: sqlalchemy==1.4.24; extra == 'ci-sqlalchemy1-with-pg-arrow'
+Provides-Extra: ci-sqlalchemy1-without-pg-arrow
+Requires-Dist: sqlalchemy==1.4.24; extra == 'ci-sqlalchemy1-without-pg-arrow'
+Provides-Extra: ci-sqlalchemy2-with-pg-arrow
+Requires-Dist: adbc-driver-postgresql==1.6.0; extra == 'ci-sqlalchemy2-with-pg-arrow'
+Requires-Dist: numpy==1.26.2; extra == 'ci-sqlalchemy2-with-pg-arrow'
+Requires-Dist: pandas==2.0.0; (python_version < '3.13') and extra == 'ci-sqlalchemy2-with-pg-arrow'
+Requires-Dist: pandas==2.2.3; (python_version >= '3.13') and extra == 'ci-sqlalchemy2-with-pg-arrow'
+Requires-Dist: pgarrow==0.0.7; extra == 'ci-sqlalchemy2-with-pg-arrow'
+Requires-Dist: polars==1.0.0; extra == 'ci-sqlalchemy2-with-pg-arrow'
+Requires-Dist: pyarrow==18.0.0; extra == 'ci-sqlalchemy2-with-pg-arrow'
+Requires-Dist: sqlalchemy==2.0.41; (python_version >= '3.13') and extra == 'ci-sqlalchemy2-with-pg-arrow'
+Requires-Dist: sqlalchemy==2.0.7; (python_version < '3.13') and extra == 'ci-sqlalchemy2-with-pg-arrow'
+Provides-Extra: ci-sqlalchemy2-without-pg-arrow
+Requires-Dist: sqlalchemy==2.0.0; (python_version < '3.13') and extra == 'ci-sqlalchemy2-without-pg-arrow'
+Requires-Dist: sqlalchemy==2.0.31; (python_version >= '3.13') and extra == 'ci-sqlalchemy2-without-pg-arrow'
+Provides-Extra: dev
+Requires-Dist: coverage; extra == 'dev'
+Requires-Dist: mypy<1.16.0; extra == 'dev'
+Requires-Dist: pgvector>=0.1.8; extra == 'dev'
+Requires-Dist: psycopg2>=2.9.2; extra == 'dev'
+Requires-Dist: psycopg>=3.1.4; extra == 'dev'
+Requires-Dist: pytest; extra == 'dev'
+Requires-Dist: pytest-cov; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# pg-bulk-ingest
+
+[![PyPI package](https://img.shields.io/pypi/v/pg-bulk-ingest?label=PyPI%20package&color=%234c1)](https://pypi.org/project/pg-bulk-ingest/) [![Test suite](https://img.shields.io/github/actions/workflow/status/uktrade/pg-bulk-ingest/test.yml?label=Test%20suite)](https://github.com/uktrade/pg-bulk-ingest/actions/workflows/test.yml) [![Code coverage](https://img.shields.io/codecov/c/github/uktrade/pg-bulk-ingest?label=Code%20coverage)](https://app.codecov.io/gh/uktrade/pg-bulk-ingest)
+
+A Python utility function for ingesting data into SQLAlchemy-defined PostgreSQL tables, automatically migrating them as needed, allowing concurrent reads as much as possible.
+
+Allowing concurrent writes is not an aim of pg-bulk-ingest. It is designed for use in ETL pipelines where PostgreSQL is used as a data warehouse, and the only writes to the table are from pg-bulk-ingest. It is assumed that there is only one pg-bulk-ingest running against a given table at any one time.
+
+
+## Features
+
+pg-bulk-ingest exposes a single function as its API that:
+
+- Creates the tables if necessary
+- Migrates any existing tables if necessary, minimising locking
+- Ingests data in batches, where each batch is ingested in its own transaction
+- Handles "high-watermarking" to carry on from where a previous ingest finished or errored
+- Optionally performs an "upsert", matching rows on primary key
+- Optionally deletes all existing rows before ingestion
+- Optionally calls a callback just before each batch is visible to other database clients
+
+
+---
+
+Visit the [pg-bulk-ingest documentation](https://pg-bulk-ingest.docs.trade.gov.uk/) for usage instructions.
