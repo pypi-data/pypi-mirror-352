@@ -1,0 +1,2 @@
+class ModelNotLoaded(Exception):
+    pass
