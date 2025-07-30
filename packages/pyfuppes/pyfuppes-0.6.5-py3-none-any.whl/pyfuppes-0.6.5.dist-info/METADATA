@@ -1,0 +1,47 @@
+Metadata-Version: 2.4
+Name: pyfuppes
+Version: 0.6.5
+Summary: A collection of tools in Python
+Author-email: Florian Obersteiner <f.obersteiner@posteo.de>
+License-Expression: LGPL-3.0-or-later
+Project-URL: Homepage, https://gitlab.kit.edu/FObersteiner/pyfuppes
+Project-URL: Issues, https://gitlab.kit.edu/FObersteiner/pyFuppes/issues
+Project-URL: Changelog, https://gitlab.kit.edu/FObersteiner/pyFuppes/blob/main/CHANGELOG.md
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: <3.14,>=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: geopy>=2.0
+Requires-Dist: matplotlib>=3.0
+Requires-Dist: netcdf4>=1.6
+Requires-Dist: numba>=0.59.0
+Requires-Dist: numpy>=1.18
+Requires-Dist: pandas>=2.0
+Requires-Dist: polars>=1.0
+Requires-Dist: pysolar>=0.10
+Requires-Dist: scipy>=1.1
+Requires-Dist: scikit-learn>=1.4
+Requires-Dist: xarray>=2024
+Requires-Dist: pytest-cov>=6.1.1
+Requires-Dist: pandas-stubs>=2.2.3.250308
+Dynamic: license-file
+
+<!--
+SPDX-FileCopyrightText: 2025 Florian Obersteiner / KIT
+SPDX-FileContributor: Florian Obersteiner <f.obersteiner@kit.edu>
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+![test coverage](https://gitlab.kit.edu/FObersteiner/pyfuppes/badges/main/coverage.svg?job=coverage)
+[![on PyPI](https://badge.fury.io/py/pyfuppes.svg)](https://badge.fury.io/py/pyfuppes)
+
+# pyFuppes
+
+A collection of tools in Python, mostly revolving around time series data analysis. Caution: this package is pretty dependency-heavy.
+
+## License
+
+`LGPLv3` - see LICENSE file in the root directory of the repository.
