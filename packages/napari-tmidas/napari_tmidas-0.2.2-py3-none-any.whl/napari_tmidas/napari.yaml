@@ -1,0 +1,61 @@
+name: napari-tmidas
+display_name: T-MIDAS
+# use 'hidden' to remove plugin from napari hub search results
+visibility: public
+# see https://napari.org/stable/plugins/technical_references/manifest.html#fields for valid categories
+categories: ["Annotation", "Segmentation", "Acquisition"]
+contributions:
+  commands:
+    - id: napari-tmidas.get_reader
+      python_name: napari_tmidas._reader:napari_get_reader
+      title: Open data with T-MIDAS
+    - id: napari-tmidas.write_multiple
+      python_name: napari_tmidas._writer:write_multiple
+      title: Save multi-layer data with T-MIDAS
+    - id: napari-tmidas.write_single_image
+      python_name: napari_tmidas._writer:write_single_image
+      title: Save image data with T-MIDAS
+    - id: napari-tmidas.make_sample_data
+      python_name: napari_tmidas._sample_data:make_sample_data
+      title: Load sample data from T-MIDAS
+    - id: napari-tmidas._label_inspection # hyphen!
+      python_name: napari_tmidas._label_inspection:label_inspector_widget # underscore!
+      title: Label Inspector
+    - id: napari-tmidas.file_selector
+      python_name: napari_tmidas._file_selector:napari_experimental_provide_dock_widget
+      title: Batch Image Processing
+    - id: napari-tmidas._file_conversion
+      python_name: napari_tmidas._file_conversion:napari_experimental_provide_dock_widget
+      title: Microscopy Image Converter
+    - id: napari-tmidas._crop_anything
+      python_name: napari_tmidas._crop_anything:batch_crop_anything_widget
+      title: Batch Crop Anything
+    - id: napari-tmidas._roi_colocalization
+      python_name: napari_tmidas._roi_colocalization:roi_colocalization_analyzer
+      title: Batch ROI Colocalization Analysis
+  readers:
+    - command: napari-tmidas.get_reader
+      accepts_directories: false
+      filename_patterns: ['*.npy']
+  writers:
+    - command: napari-tmidas.write_multiple
+      layer_types: ['image*','labels*']
+      filename_extensions: []
+    - command: napari-tmidas.write_single_image
+      layer_types: ['image']
+      filename_extensions: ['.npy']
+  sample_data:
+    - command: napari-tmidas.make_sample_data
+      display_name: T-MIDAS
+      key: unique_id.1
+  widgets:
+    - command: napari-tmidas.file_selector
+      display_name: Batch Image Processing
+    - command: napari-tmidas._label_inspection
+      display_name: Batch Label inspection
+    - command: napari-tmidas._file_conversion
+      display_name: Batch Microscopy Image Conversion
+    - command: napari-tmidas._crop_anything
+      display_name: Batch Crop Anything
+    - command: napari-tmidas._roi_colocalization
+      display_name: Batch ROI Colocalization Analysis
