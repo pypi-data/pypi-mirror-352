@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77.0.3", "pyscf>=2.4.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pyscf.*"]
+
+[project]
+name = "core-spec-pyscf"
+version = "0.3"
+authors = [
+    { name = "Nathan Gillispie", email = "nwgllspe@memphis.edu" }
+]
+description = "PySCF extension for easier access to core-level spectroscopy calculations"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+classifiers = [
+  'Development Status :: 3 - Alpha',
+  'Intended Audience :: Science/Research',
+  'Topic :: Scientific/Engineering :: Chemistry',
+  'Operating System :: POSIX',
+  'Operating System :: Unix',
+  'Operating System :: MacOS',
+]
+
+[project.urls]
+Homepage = "https://github.com/NathanGillispie/core-spec-pyscf"
+Issues = "https://github.com/NathanGillispie/core-spec-pyscf/issues"
+
