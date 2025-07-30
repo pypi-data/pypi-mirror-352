@@ -1,0 +1,7 @@
+case ":${PATH}:" in
+    *:"$HOME/.climax":*)
+        ;;
+    *)
+        export PATH="$HOME/.climax:$PATH"
+        ;;
+esac
