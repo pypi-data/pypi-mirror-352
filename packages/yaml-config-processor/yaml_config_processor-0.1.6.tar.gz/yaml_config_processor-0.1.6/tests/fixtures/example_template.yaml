@@ -1,0 +1,27 @@
+configSchema:
+    type: object
+    required:
+        - api_key
+        - user_id
+        - base_url
+    properties:
+        api_key:
+            type: string
+            description: API key for service
+        user_id:
+            type: string
+            description: Unique identifier for the user
+        base_url:
+            type: string
+            format: uri
+            description: Base URL for the service
+service_name: example-service
+user_id: config.userId
+command: run
+args:
+    - --verbose
+    - --endpoint
+    - config.base_url
+env:
+    - name: API_KEY
+      value: config.api_key
