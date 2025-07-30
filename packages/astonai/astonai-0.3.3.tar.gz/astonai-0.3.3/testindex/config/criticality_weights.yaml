@@ -1,0 +1,49 @@
+# Default Criticality Weights Configuration
+# Copy this file and modify values to customize criticality scoring for your project
+
+# Weight for degree centrality (incoming + outgoing connections normalized by graph size)
+# Range: 0.0 - 1.0
+# Higher values emphasize highly connected nodes
+centrality_weight: 0.7
+
+# Weight for call depth (maximum path length from entry points)
+# Range: 0.0 - 1.0  
+# Higher values emphasize nodes deeper in the call chain
+depth_weight: 0.3
+
+# Entry point patterns for call depth calculation
+# These patterns identify functions/methods that serve as entry points
+entry_point_patterns:
+  - "main"
+  - "test_*"
+  - "*_handler"
+  - "*_endpoint"
+  - "*_view"
+  - "handle_*"
+
+# Normalization settings
+normalization:
+  # Maximum call depth for normalization (prevents extreme outliers)
+  max_call_depth: 20
+  
+  # Minimum graph size for meaningful centrality calculation
+  min_graph_size: 5
+
+# Performance settings
+performance:
+  # Enable caching of criticality scores
+  enable_caching: true
+  
+  # Cache invalidation on graph changes
+  auto_invalidate_cache: true
+  
+  # Maximum nodes to process in single batch
+  max_batch_size: 1000
+
+# Debug settings
+debug:
+  # Log detailed scoring calculations
+  verbose_logging: false
+  
+  # Export intermediate calculations for analysis
+  export_intermediate_data: false 
