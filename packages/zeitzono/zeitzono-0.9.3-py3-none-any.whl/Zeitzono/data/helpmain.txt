@@ -1,0 +1,73 @@
+
+q/Q - quit
+?   - help
+c - city search (search for city to add to main list)
+
+
+city list manipulation commands
+-------------------------------
+C - clear list of cities
+p - delete (pop) bottom city in list
+P[index] - delete (pop) given city
+, - rotate city list down
+. - rotate city list up
+/ - rotate (swap) last 2 cities
+' - rotate down last 3 cities
+; - rotate down last 4 cities
+] - sort city list by UTC offset ([ to reverse sort)
+u - undo city list manipulation (up to 10 operations can be undone)
+r - redo city list manipulation
+
+- - add random city to list      (useful to help learn list manipulation)
+= - add 10 random cities to list (useful to help learn list manipulation)
+ 
+
+time zone commands
+------------------
+L - set base timezone to local machine timezone
+z - set base timezone to bottom city
+Z[index] - set base timezone to given city
+
+time manipulation commands
+--------------------------
+n   - set base time to current time (see wall clock mode below)
+N   - NLP mode: parse a human readable date/time (see below)
+0   - zero out second/minutes in base time
+s/S - add/subtract Seconds to base time
+m/M - add/subtract Minutes to base time
+f/F - add/subtract Fifteen minutes to base time
+h/H - add/subtract Hours to base time
+x/X - add/subtract siX hours to base time
+d/D - add/subtract Days to base time
+w/W - add/subtract Weeks to base time
+o/O - add/subtract mOnths to base time
+y/Y - add/subtract Years to base time
+
+wall clock mode (current time)
+------------------------------
+Upon startup, or when "n" is selected to display the current time, the
+program will go into wall clock mode. The base time and all cities on
+the main screen will show and update the current time in realtime.
+There is a "[C]" displayed next to the base time to indicate this.
+
+If a time manipulation key is entered or if using a parsed date from NLP
+mode, wall clock mode is turned off. Press "n" again to resume showing
+the current time.
+
+Wall clock mode will also auto shut-off after 5 minutes. 
+
+NLP Mode
+--------
+When in NLP mode ('N'), you can enter any human readable date/time which
+Zeitzono will parse and apply to the base time. Examples:
+
+    "today", "last Friday at 4am", "july 4th, 1776 at 9am", etc.
+
+If the entry is successfully parsed, you will be exited out of NLP mode
+and the parsed date/time will be applied to the base.
+
+If the entry cannot be successfully parsed, you will be returned to the
+NLP prompt.
+
+To exit out of NLP mode without entering a string, hit enter at a blank
+NLP prompt.
