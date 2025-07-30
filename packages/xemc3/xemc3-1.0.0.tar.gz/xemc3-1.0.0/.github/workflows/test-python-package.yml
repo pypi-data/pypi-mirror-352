@@ -1,0 +1,86 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python package
+
+on:
+  push:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - name: Get Remote SHA
+      id: get-sha
+      run: |
+        echo "sha=$(git ls-remote https://oauth2:glpat-gS1qiEX7Ncoys5xH3CfS@gitlab.mpcdf.mpg.de/dave/xemc3-data.git HEAD|cut -c -20)" >> $GITHUB_OUTPUT
+    - name: Cache example data
+      id: cache-example
+      uses: actions/cache@v4
+      with:
+        path: example-data/
+        key: example-data-${{ steps.get-sha.outputs.sha }}
+        restore-keys: |
+          example-data
+    - uses: actions/checkout@main
+      if: steps.cache-primes.outputs.cache-hit != 'true'
+    - name: Download
+      if: steps.cache-primes.outputs.cache-hit != 'true'
+      run: python xemc3/test/test_load_real.py
+
+  build:
+    runs-on: ubuntu-latest
+    needs: download
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+        extra-install: ["", "numba"]
+        #exclude:
+        #  - python-version: '3.11'
+        #    extra-install: 'numba'
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Get Remote SHA
+      id: get-sha
+      run: |
+        echo "sha=$(git ls-remote https://oauth2:glpat-gS1qiEX7Ncoys5xH3CfS@gitlab.mpcdf.mpg.de/dave/xemc3-data.git HEAD|cut -c -20)" >> $GITHUB_OUTPUT
+    - name: Cache example data
+      id: cache-example
+      uses: actions/cache@v4
+      with:
+        path: example-data/
+        key: example-data-${{ steps.get-sha.outputs.sha }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y libhdf5-dev \
+                 libnetcdf-dev \
+                 libnetcdf-c++4-dev \
+                 netcdf-bin
+        python -m pip install flake8 pytest mypy
+        pip install -r requirements.txt
+        if test "${{ matrix.extra-install }}" ; then pip install ${{ matrix.extra-install}} ; fi
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 xemc3 --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 xemc3 --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Lint with mypy
+      run: |
+        if test $(python -V | grep -Po '3.\K[0-9]*') -ge 8 ; then echo "Python new enough" && mypy xemc3 ; fi
+    - name: Test with pytest
+      run: |
+        mkdir -p example-data
+        sed -e "s/examples=10/examples=30/" -i xemc3/test/gen_ds.py
+        PYTHONPATH=$(pwd):$PYTHONPATH pytest
