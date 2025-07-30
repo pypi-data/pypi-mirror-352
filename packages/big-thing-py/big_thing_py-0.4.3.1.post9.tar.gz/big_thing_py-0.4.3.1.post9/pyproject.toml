@@ -1,0 +1,43 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "big-thing-py"
+version = "0.4.3.1-9"
+description = "JOI Smart Device SDK"
+authors = ["MySmaXLab <mysmaxlab@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "big_thing_py" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+termcolor = "^2.3.0"
+getmac = "^0.9.4"
+gmqtt = "^0.6.14"
+requests = "^2.31.0"
+websockets = "^11.0.3"
+func-timeout = "^4.3.5"
+typing-extensions = "^4.0"
+bless = "^0.2.5"
+dbus-next = "^0.2.3"
+uvloop = { version = "^0.19.0", markers = "sys_platform != 'win32'" }
+zeroconf = "0.131.0"
+aenum = "^3.1.0"
+jsonschema = "^4.0.1"
+python-gettext = "^5.0"
+tinykv = "^0.1.1"
+webcolors = "^24.8.0"
+rgbxy = "^0.5"
+opencv-python = "^4.10.0.84"
+onvif-zeep = "^0.2.12"
+# picamera2 = "^0.3.24"
+pillow = "^11.0.0"
+toml = "^0.10.2"
+
+[tool.poetry.group.dev.dependencies]
+tox = "^4.6.3"
+pytest = "^7.4.3"
+pytest-timeout = "^2.2.0"
+pytest-asyncio = "^0.23.2"
