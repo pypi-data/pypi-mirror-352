@@ -1,0 +1,121 @@
+Metadata-Version: 2.4
+Name: rxsci
+Version: 0.32.0
+Summary: ReactiveX for data science
+Author: Romain Picard
+Author-email: romain.picard@oakbits.com
+License: MIT License
+        
+        Copyright (c) 2020, Romain Picard
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: repository, https://github.com/maki-nage/rxsci.git
+Keywords: reactivex,streaming,data-science
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier:   Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+License-File: LICENSE.txt
+Requires-Dist: distogram~=3.0
+Requires-Dist: python-dateutil~=2.8
+Requires-Dist: Rx~=3.2
+Requires-Dist: orjson~=3.9; implementation_name == "cpython"
+Requires-Dist: zstandard[cffi]==0.23.0
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Dynamic: license-file
+
+=======================
+|makinage-logo| RxSci
+=======================
+
+.. |makinage-logo| image:: https://github.com/maki-nage/makinage/raw/master/asset/makinage_logo.png
+
+.. image:: https://img.shields.io/pypi/v/rxsci.svg
+    :target: https://pypi.org/project/rxsci/
+    :alt: PyPI
+
+.. image:: https://github.com/maki-nage/rxsci/workflows/Python%20package/badge.svg
+    :target: https://github.com/maki-nage/rxsci/actions?query=workflow%3A%22Python+package%22
+    :alt: Github WorkFlows
+
+.. image:: https://coveralls.io/repos/github/maki-nage/rxsci/badge.svg?branch=master
+    :target: https://coveralls.io/github/maki-nage/rxsci?branch=master
+    :alt: Code Coverage
+
+.. image:: https://github.com/maki-nage/rxsci/raw/master/asset/apis_read.svg
+    :target: https://www.makinage.org/doc/rxsci/latest/index.html
+    :alt: Documentation
+
+
+ReactiveX operators for data science and machine learning.
+
+RxSci is a set of RxPY operators and observable factories dedicated to data
+science. Being reactive, RxSci is especially suited to work on streaming data
+and time series.
+
+However it can also be used on traditional datasets. Such datasets are processed
+as bounded streams by RxSci. So it is possible to use RxSci for both streaming
+data and file based datasets. This is especially useful when a
+machine learning model is trained with a dataset and deployed on streaming data. 
+
+Get Started
+============
+
+This example computes a rolling mean on a window and stride of three elements:
+
+.. code:: Python
+
+    import rx
+    import rxsci as rs
+
+    source = [1, 2, 3, 4, 5, 6, 7]
+
+    rx.from_(source).pipe(
+        rs.state.with_memory_store([
+            rs.data.roll(window=3, stride=3, pipeline=[
+                rs.math.mean(reduce=True),
+            ]),
+        ]),
+    ).subscribe(
+        on_next=print
+    )
+
+.. code:: console
+
+    2.0
+    5.0
+
+
+See the
+`Maki Nage documentation <https://www.makinage.org/doc/makinage-book/latest/index.html>`_
+for more information.
+
+Installation
+=============
+
+RxSci is available on PyPi and can be installed with pip:
+
+.. code:: console
+
+    python3 -m pip install rxsci

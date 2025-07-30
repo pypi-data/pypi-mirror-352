@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rxsci"
+version = "0.32.0"
+description = "ReactiveX for data science"
+readme = "README.rst"
+requires-python = ">=3.8"
+license = {file = "LICENSE.txt"}
+keywords = ["reactivex", "streaming", "data-science"]
+authors = [
+  {email = "romain.picard@oakbits.com"},
+  {name = "Romain Picard"}
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  'License :: OSI Approved :: MIT License',
+  'Intended Audience :: Developers',
+  'Programming Language :: Python :: 3',
+'  Topic :: Scientific/Engineering :: Artificial Intelligence',
+]
+
+dependencies = [
+  'distogram~=3.0',
+  'python-dateutil~=2.8',
+  'Rx~=3.2',
+  'orjson~=3.9;implementation_name=="cpython"',
+  'zstandard[cffi]==0.23.0',
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+]
+
+[project.urls]
+repository = "https://github.com/maki-nage/rxsci.git"
+
+
+#[options]
+#packages = ["rxsci"]
+
+#[tool.setuptools]
+#include-package-data = false
+
+[tool.setuptools.packages.find]
+where = ["./"]
+include = ["rxsci*"]
+exclude = ['tests*']
+namespaces = false
