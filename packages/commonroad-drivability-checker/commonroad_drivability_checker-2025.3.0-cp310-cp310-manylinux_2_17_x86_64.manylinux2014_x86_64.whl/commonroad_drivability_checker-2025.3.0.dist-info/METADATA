@@ -1,0 +1,194 @@
+Metadata-Version: 2.1
+Name: commonroad-drivability-checker
+Version: 2025.3.0
+Summary: Drivability checker for CommonRoad scenarios.
+Author-Email: Cyber-Physical Systems Group - Technical University of Munich <commonroad@lists.lrz.de>
+License: BSD 3-Clause License
+         
+         Copyright (c) 2019, Technical University of Munich, Professorship Cyber-Physical Systems.
+         All rights reserved.
+         
+         Redistribution and use in source and binary forms, with or without
+         modification, are permitted provided that the following conditions are met:
+         
+         * Redistributions of source code must retain the above copyright notice, this
+           list of conditions and the following disclaimer.
+         
+         * Redistributions in binary form must reproduce the above copyright notice,
+           this list of conditions and the following disclaimer in the documentation
+           and/or other materials provided with the distribution.
+         
+         * Neither the name of the copyright holder nor the names of its
+           contributors may be used to endorse or promote products derived from
+           this software without specific prior written permission.
+         
+         THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+         AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+         IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+         DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+         FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+         DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+         SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+         CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+         OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+         OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+         
+         
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS
+Project-URL: Homepage, https://commonroad.in.tum.de/tools/drivability-checker
+Project-URL: Documentation, https://cps.pages.gitlab.lrz.de/commonroad-drivability-checker/
+Project-URL: Source, https://github.com/CommonRoad/commonroad-drivability-checker
+Requires-Python: <3.14,>=3.10
+Requires-Dist: commonroad-io<2025.0,>=2023.1
+Requires-Dist: commonroad-vehicle-models<4.0.0,>=3.0.0
+Requires-Dist: numpy<3.0,>=1.20
+Requires-Dist: scipy<2.0,>=1.7.0
+Requires-Dist: polygon3<4.0.0,>=3.0.8
+Requires-Dist: shapely<3.0.0,>=2.0.0
+Requires-Dist: matplotlib<4.0.0,>=3.2.2
+Provides-Extra: clcs
+Requires-Dist: commonroad-clcs<2026.0.0,>=2025.1.0; extra == "clcs"
+Provides-Extra: triangle
+Requires-Dist: triangle>=20250106; extra == "triangle"
+Provides-Extra: test
+Requires-Dist: pytest>=5.3.2; extra == "test"
+Provides-Extra: docs
+Requires-Dist: sphinx_rtd_theme>=0.4.3; extra == "docs"
+Requires-Dist: sphinx>=3.0.3; extra == "docs"
+Requires-Dist: nbsphinx_link>=1.3.0; extra == "docs"
+Requires-Dist: nbsphinx>=0.6.1; extra == "docs"
+Requires-Dist: breathe>=4.18.0; extra == "docs"
+Requires-Dist: ipython>=8.36.0; extra == "docs"
+Requires-Dist: cmake<4.0,>=3.24; extra == "docs"
+Provides-Extra: build
+Requires-Dist: scikit-build-core~=0.11.0; extra == "build"
+Requires-Dist: nanobind~=2.2.0; extra == "build"
+Requires-Dist: pathspec>=0.12.1; extra == "build"
+Requires-Dist: pyproject-metadata>=0.7.1; extra == "build"
+Requires-Dist: typing_extensions~=4.12.2; extra == "build"
+Requires-Dist: cmake<4.0,>=3.24; extra == "build"
+Description-Content-Type: text/markdown
+
+CommonRoad Drivability Checker
+------------------------------
+
+#### :warning: Deprecation Notice
+> :warning: Starting from version 2025.1 the curvilinear coordinate system has been moved to a
+> standalone package (commonroad-clcs). 
+> 
+> To continue using it and the commonroad_dc.geometry submodule either install the standalone package
+> (`pip install commonroad-clcs`) and update your imports **OR** use commonroad-drivability-checker == 2024.1. 
+
+Collision avoidance, kinematic feasibility, and road-compliance must be
+validated to ensure the drivability of planned motions for autonomous
+vehicles. The CommonRoad Drivability Checker toolbox unifies these checks
+in order to simplify the development and validation of motion planning
+algorithms. It is compatible with the CommonRoad benchmark suite, which
+additionally facilitates and drastically reduces the effort of the development
+of motion planning algorithms.
+
+Please post questions, bug reports, etc. related to our tools or website in our [forum](https://github.com/CommonRoad/commonroad-drivability-checker/discussions).
+
+
+Installation
+------------
+
+We provide two installation options: Installation as a Python package or building from source.
+
+1. **Python Package**: Install the python package via `pip` in your Conda environment:
+
+	```bash
+	pip install commonroad-drivability-checker
+	```
+	**Note for MacOS M1 users**: You need to use the 64-bit Anaconda Installer (graphical or command-line) in order to install the MacOS PyPi package.
+
+2. **Build from source**: To build the drivability checker from source, please refer to the installation description in the 
+[documentation](https://cps.pages.gitlab.lrz.de/commonroad-drivability-checker/).
+
+
+System Requirements
+-------------------
+The software is written in Python 3.10 and C++17 and tested on MacOS and Linux (Ubuntu 18.04, 20.04 and 22.04). 
+
+The usage of the **[Anaconda](http://www.anaconda.com/download/#download9) Python distribution** is strongly recommended. 
+
+For building the code from source, the following minimum versions are required:
+  * **GCC and G++**: version 10 or above
+  * **CMake**: version 3.20 or above.
+  * **Pip**: version 21.3 or above
+
+**Note for MacOS users (M1 or Intel):** 
+- We additionally recommend using the Homebrew package manager, to install required dependencies such as Eigen.
+- The installation has been tested for the **AppleClang (15.0)** and the **GCC (13)** compiler.
+
+
+Third Party Libraries and Packages
+----------------------------------
+The following third-party dependencies of the C++ code are only required for building the project from source!
+
+**Essential dependencies**:
+
+Manual installation required:
+* [OpenMP](https://www.openmp.org/)
+
+Automatic installation via CMake FetchContent:
+* [Eigen3](https://eigen.tuxfamily.org/dox/)
+* [Boost](https://www.boost.org/)
+* [Box2D](https://github.com/erincatto/box2d)
+* [FCL](https://github.com/flexible-collision-library/fcl)
+* [libccd](https://github.com/danfis/libccd)
+* [gpc](https://github.com/rickbrew/GeneralPolygonClipper)
+
+Source code included:
+* [libs11n](http://www.s11n.net/)
+
+**Optional dependencies**:
+* [pybind11](https://github.com/pybind/pybind11) (optional for building Python bindings directly without using pip)
+* [Triangle](https://www.cs.cmu.edu/~quake/triangle.html) (optional library for triangulation, not built by default)
+* [CGAL](https://github.com/CGAL/cgal) (optional library for triangulation, not built by default)
+* [Pandoc](https://pandoc.org) (optional for building documentation)
+* [Doxygen](http://www.doxygen.nl) (optional for building documentation)
+
+**Note**: Please be aware of the specific licensing conditions when including the optional dependencies Triangle and CGAL.
+See also `notes.txt` and the licensing information on the respective package websites for more details.
+
+The Python dependencies are listed in `pyproject.toml`.
+
+
+Documentation
+-------------
+A full documentation as well as tutorials to get started with the tool can be found on our [toolpage](https://commonroad.in.tum.de/tools/drivability-checker).
+
+
+Publication
+-----------
+#### CommonRoad Drivability Checker: Simplifying the Development and Validation of Motion Planning Algorithms
+Christian Pek, Vitaliy Rusinov, Stefanie Manzinger, Murat Can Üste, and Matthias Althoff
+
+Abstract— Collision avoidance, kinematic feasibility, and road-compliance must be validated to ensure the drivability
+of planned motions for autonomous vehicles. Although these tasks are highly repetitive, computationally efficient
+toolboxes are still unavailable. The CommonRoad Drivability Checker—an open-source toolbox—unifies these mentioned
+checks. It is compatible with the CommonRoad benchmark suite, which additionally facilitates the development of motion
+planners. Our toolbox drastically reduces the effort of developing and validating motion planning algorithms. Numerical
+experiments show that our toolbox is real-time capable and can be used in real test vehicles.
+
+Fulltext is available on [mediaTUM](https://mediatum.ub.tum.de/doc/1546126/).
+
+##### Bibtex:
+```
+@inproceedings{ PekIV20.pdf,
+	author = "Christian Pek, Vitaliy Rusinov, Stefanie Manzinger, Murat Can Üste, and Matthias Althoff",
+	title = "CommonRoad Drivability Checker: Simplifying the Development and Validation of Motion Planning Algorithms",
+	pages = "1-8",
+	booktitle = "Proc. of the IEEE Intelligent Vehicles Symposium",
+	year = "2020",
+	abstract = "Collision avoidance, kinematic feasibility, and road-compliance must be validated to ensure the drivability of planned motions for autonomous vehicles. Although these tasks are highly repetitive, computationally efficient toolboxes are still unavailable. The CommonRoad Drivability Checker— an open-source toolbox—unifies these mentioned checks. It is compatible with the CommonRoad benchmark suite, which additionally facilitates the development of motion planners. Our toolbox drastically reduces the effort of developing and validating motion planning algorithms. Numerical experiments show that our toolbox is real-time capable and can be used in real test vehicles."
+}
+```
