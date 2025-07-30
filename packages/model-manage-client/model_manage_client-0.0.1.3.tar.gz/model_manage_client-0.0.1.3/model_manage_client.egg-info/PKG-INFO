@@ -1,0 +1,64 @@
+Metadata-Version: 2.4
+Name: model-manage-client
+Version: 0.0.1.3
+Summary: A package for interacting with the Model management Service-API
+Home-page: https://github.com/model-management
+Author: Model-Manager
+Author-email: hello@advantech.ai
+License: MIT
+Keywords: model management nlp ai language-processing
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# model-manage-client
+
+A model-manage App Service-API Client, using for build a webapp by request Service-API
+
+## Usage
+
+First, install `model-manage-client` python sdk package:
+
+```
+pip install model-manage-client
+```
+
+Write your code with sdk:
+
+- completion generate with `blocking` response_mode
+
+```python
+from model-manage-client import ModelManageClient
+
+base_url = "model-manage service api url"
+client_token = "your_client_token"
+
+# Initialize CompletionClient
+m_client = ModelManageClient(base_url, client_token)
+
+# Create Completion Message using CompletionClient
+extra_params = {
+    "agent_description": "agent_description",
+    "agent_icon_url": "agent_icon_url",
+    "agent_api_version": "agent_api_version",
+    "agent_features":{}
+}
+m_client.register_agent("agent_name","agent_id","agent_url", **extra_params)
+
+```
