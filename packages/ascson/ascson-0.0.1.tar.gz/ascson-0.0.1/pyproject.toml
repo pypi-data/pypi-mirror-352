@@ -1,0 +1,26 @@
+[project]
+name = "ascson"
+description = "ASCii Serial Object Notation"
+license = "MIT"
+dynamic = ["version"]
+readme = "README.md"
+authors = [{ name = "Rob Nelson", email = "nexisentertainment@gmail.com" }]
+requires-python = '>=3.12,<4.0'
+dependencies = []
+
+[build-system]
+requires = ['poetry-core (>=2.0,<3.0)']
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+version = "0.0.1"
+requires-poetry = '>=2.0,<3.0'
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0"
+
+[tool.poetry.group.dev.dependencies]
+mypy = { extras = ["d"], version = "^1.16.0" }
+black = { extras = ["d"], version = "^25.1.0" }
+isort = "^6.0.1"
+twine = "^6.1.0"
