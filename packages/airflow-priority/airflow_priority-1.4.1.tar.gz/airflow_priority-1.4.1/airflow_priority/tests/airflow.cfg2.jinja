@@ -1,0 +1,11 @@
+{% extends "airflow.cfg.base" %}
+
+{% block content %}
+{{ super() }}
+
+[priority]
+datadog_api_key = datadog_api_key
+datadog_host = https://datadog.host
+threshold = 2
+
+{% endblock content %}
