@@ -1,0 +1,13 @@
+[Unit]
+Description=bbperf
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=mfreemon
+ExecStart=/home/mfreemon/bbperf-dev-venv/bin/bbperf -s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
