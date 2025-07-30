@@ -1,0 +1,48 @@
+Metadata-Version: 2.3
+Name: Deskset
+Version: 0.0.2a0
+Summary: 数字桌搭后端 DesksetBack
+License: BSD-3-Clause
+Author: 旧日丨四季列车
+Author-email: Nostalgia-Season-Train@outlook.com
+Requires-Python: >=3.12.10
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: OS Independent
+Requires-Dist: apscheduler (==3.10.1)
+Requires-Dist: arrow (==1.3.0)
+Requires-Dist: asyncer (>=0.0.8)
+Requires-Dist: dynaconf (==3.2.6)
+Requires-Dist: fastapi (==0.115.4)
+Requires-Dist: httpx (==0.27.2)
+Requires-Dist: icoextract (==0.1.6)
+Requires-Dist: orjson (==3.10.7)
+Requires-Dist: psutil (==6.0.0)
+Requires-Dist: python-multipart (==0.0.20)
+Requires-Dist: pyyaml (==6.0.2)
+Requires-Dist: send2trash (==1.8.3)
+Requires-Dist: uvicorn (==0.32.0)
+Requires-Dist: websockets (>=15.0.1)
+Project-URL: Homepage, https://github.com/Nostalgia-Season-Train/DesksetBack
+Project-URL: Issues, https://github.com/Nostalgia-Season-Train/DesksetBack/issues
+Description-Content-Type: text/markdown
+
+# 数字桌搭后端 DesksetBack
+
+数字桌搭后端是数字桌搭数据处理的中心和自动化工作流的引擎，基于 FastAPI 框架开发，通过 PyStand 独立部署。
+
+![CI状态](https://img.shields.io/github/actions/workflow/status/Nostalgia-Season-Train/DesksetBack/autobuild.yaml)
+![开源许可](https://img.shields.io/github/license/Nostalgia-Season-Train/DesksetBack)
+![Star数量](https://img.shields.io/github/stars/Nostalgia-Season-Train/DesksetBack)
+
+
+## 启动方式
+双击 DesksetBack.exe 即可运行
+
+
+## 命令行参数
+```sh
+-dev            # 启用开发者模式
+-no-access      # 跳过身份验证（仅限开发者模式使用）
+-token=<token>  # 直接设置 Bearer token
+```
+
