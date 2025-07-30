@@ -1,0 +1,99 @@
+site_name: oplog
+site_url: https://oribarilan.github.io/oplog/
+repo_url: https://github.com/oribarilan/oplog
+repo_name: oribarilan/oplog
+
+theme:
+  name: material
+  favicon: assets/favicon_round2.png
+  icon:
+    repo: fontawesome/brands/github
+  logo: assets/logo.png
+  features:
+    - pymdownx.highlight:
+        anchor_linenums: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - admonition
+    - footnotes
+    - pymdownx.details
+    - pymdownx.superfences
+    - pymdownx.mark
+    - navigation.sections
+    - navigation.instant
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  language: en
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+      primary: teal
+      accent: deep orange 
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode    
+      primary: teal
+      accent: amber
+
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/oribarilan
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/ori-bar-ilan/
+
+plugins:
+    - search
+    - awesome-pages
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.mark
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+copyright: |
+  &copy; 2023 <a href="https://github.com/oribarilan"  target="_blank" rel="noopener">Ori Bar-ilan</a>
+
+nav:
+    - index.md
+    - Tutorial:
+        - Getting Started: tutorial/getting_started.md
+        - Operation: tutorial/operation.md
+        - Operated: tutorial/operated.md
+        - Property Groups: tutorial/property_groups.md
+        - Progressable: tutorial/progressable.md
+        - Config: tutorial/config.md
+        - Advanced:
+            - Serialization: tutorial/advanced/serialization.md
+    - Demos:
+        - Fluent Calculator (Logic w/ CSV Telemetry): demos/fluent_calculator.md
+        - TBD (Web API w/ Verbose Textual Logs): demos/tbd.md
+        - Find Nth Prime (CLI Tool w/ Progress Bars): demos/find_nth_prime.md
+    - Contribution:
+        - Contribution: contribution/contribution.md
+        - Development: contribution/development.md
+        - Active Backlog: contribution/active_backlog.md
+    - Others:
+      - alternatives.md
