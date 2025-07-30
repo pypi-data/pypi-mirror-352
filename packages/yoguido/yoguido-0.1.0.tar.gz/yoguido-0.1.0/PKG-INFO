@@ -1,0 +1,49 @@
+Metadata-Version: 2.4
+Name: yoguido
+Version: 0.1.0
+Summary: The YoGuido Python UI Framework - Vanilla JS, No Dependencies
+Author-email: YoGuido Team <team@yoguido.com>
+License: MIT
+Project-URL: Homepage, https://www.yoguido.com
+Project-URL: Documentation, https://docs.yoguido.com
+Project-URL: Repository, https://github.com/richardedens/yoguido
+Project-URL: Issues, https://github.com/richardedens/yoguido/issues
+Project-URL: Changelog, https://github.com/richardedens/yoguido/blob/main/CHANGELOG.md
+Keywords: ui,web,framework,python,vanilla-js,software-sovereign
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: User Interfaces
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Framework :: FastAPI
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: fastapi>=0.100.0
+Requires-Dist: uvicorn[standard]>=0.20.0
+Requires-Dist: jinja2>=3.1.0
+Requires-Dist: python-multipart>=0.0.6
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: pre-commit>=3.0.0; extra == "dev"
+Provides-Extra: full
+Requires-Dist: pandas>=2.0.0; extra == "full"
+Requires-Dist: numpy>=1.24.0; extra == "full"
+Requires-Dist: plotly>=5.15.0; extra == "full"
+Requires-Dist: pillow>=10.0.0; extra == "full"
+Requires-Dist: requests>=2.31.0; extra == "full"
+Dynamic: license-file
+
+# yoguido
+The "Yo Guido" web application framework.
