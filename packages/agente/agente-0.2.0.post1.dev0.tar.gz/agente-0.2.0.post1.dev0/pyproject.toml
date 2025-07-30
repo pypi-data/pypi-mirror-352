@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agente"
+dynamic = ["version"]
+description = "A very simple Python framework for building AI Agents"
+authors = [{ name = "Miguel Won", email = "miguelwon@gmail.com" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = [
+    "litellm",
+    "pydantic",
+    "langchain-core",
+    "python-dotenv",
+    "gradio"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent"
+]
+
+[tool.setuptools]
+packages = ["agente"]
+
+[tool.setuptools_scm]
+write_to = "agente/_version.py"
+version_scheme = "no-guess-dev"
+local_scheme = "no-local-version"
+tag_regex = "^(?P<prefix>v)?(?P<version>[^\\+]+)(?P<suffix>.*)?$"
