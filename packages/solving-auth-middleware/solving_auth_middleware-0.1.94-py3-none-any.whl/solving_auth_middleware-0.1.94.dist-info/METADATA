@@ -1,0 +1,53 @@
+Metadata-Version: 2.3
+Name: solving-auth-middleware
+Version: 0.1.94
+Summary: Reusable middleware for jwt checking
+License: MIT
+Author: Sahmok
+Author-email: mokrane@solving-company.fr
+Requires-Python: >=3.10,<4
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: flask (>=3.1.0,<4.0.0)
+Requires-Dist: flask-jwt-extended (>=4.7.1,<5.0.0)
+Requires-Dist: python-dotenv (>=1.0.0,<2.0.0)
+Description-Content-Type: text/markdown
+
+# Auth Middleware
+
+Middleware Flask réutilisable pour sécuriser les microservices (JWT, rôles, audit RGPD/HDS).
+
+## Installation
+
+```bash
+pip install solving-auth-middleware
+```
+## Push une mise à jour 
+
+```bash 
+git add .
+
+```
+```bash 
+git commit -m "Initial commit: Project setup with auth middleware implementation"
+
+git push -u origin main
+```
+```bash
+git tag -a v0.1.4 -m "Release version 0.1.4"
+```
+
+```bash 
+git push origin v0.1.4
+```
+
+## OR 
+
+```bash
+./publish.sh
+```
+
