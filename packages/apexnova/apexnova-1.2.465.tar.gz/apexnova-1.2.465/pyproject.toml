@@ -1,0 +1,106 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apexnova"
+version = "1.2.465"
+description = "ApexNova gRPC stub library with authorization and telemetry support"
+authors = [{name = "ApexNova Team", email = "team@apexnova.com"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: System :: Distributed Computing",
+]
+keywords = ["grpc", "protobuf", "azure", "telemetry", "graph", "authorization"]
+
+# Runtime dependencies - full feature set by default (all from requirements.txt)
+dependencies = [
+    "grpcio>=1.50.0",
+    "grpcio-tools>=1.50.0", 
+    "protobuf>=4.0.0",
+    "azure-monitor-opentelemetry>=1.0.0",
+    "opentelemetry-api>=1.20.0",
+    "opentelemetry-sdk>=1.20.0",
+    "gremlinpython>=3.6.0",
+    "setuptools>=61.0",
+    "twine>=4.0.0",
+    "build>=0.10.0",
+    "pytest>=7.0.0",
+    "black>=22.0.0",
+    "mypy>=1.0.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+# Optional dependency groups for flexibility
+[project.optional-dependencies]
+minimal = [
+    "grpcio>=1.50.0",
+    "protobuf>=4.0.0",
+]
+azure = [
+    "azure-monitor-opentelemetry>=1.0.0",
+    "opentelemetry-api>=1.20.0", 
+    "opentelemetry-sdk>=1.20.0",
+]
+graph = [
+    "gremlinpython>=3.6.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "black>=22.0.0",
+    "mypy>=1.0.0",
+    "pytest-asyncio>=0.21.0",
+    "setuptools>=61.0",
+    "twine>=4.0.0",
+    "build>=0.10.0",
+]
+all = [
+    "azure-monitor-opentelemetry>=1.0.0",
+    "opentelemetry-api>=1.20.0",
+    "opentelemetry-sdk>=1.20.0", 
+    "gremlinpython>=3.6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/apexnova/proto"
+Documentation = "https://github.com/apexnova/proto/blob/main/stub/python/README.md"
+Repository = "https://github.com/apexnova/proto"
+"Bug Tracker" = "https://github.com/apexnova/proto/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["apexnova*"]
+
+[tool.setuptools.package-data]
+"*" = ["py.typed"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312', 'py313']
+
+[tool.mypy]
+python_version = "3.8"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
