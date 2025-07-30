@@ -1,0 +1,34 @@
+[project]
+name = "parkinglotgym"
+version = "1.1.2"
+authors = [{name = "Evaldas Visockas", email = "developersediary@gmail.com"}]
+description = "Gym library for training RL agents on Rush Hour game"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "GPL-3.0-or-later"}
+dependencies = [
+    "gymnasium>=1.1.1",
+    "numpy>=2.2.3",
+    "matplotlib>=3.10.1",
+    "parkinglotpuzzle>=1.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.4",
+    "pytest-cov>=6.1.1",
+]
+
+[project.urls]
+Repository = "https://github.com/EvalVis/ParkingLotGym"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["parkinglotgym"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
