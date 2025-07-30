@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "satprocess"
+version = "0.1.0"
+description = "Astronomical image calibration pipeline"
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]  # Optional
+
+authors = [
+    {name = "Finlay Davis", email = "finlayjdavis@gmail.com"},
+    {name = "Malcolm Druett"},
+    {name = "Alex Pietrow"},
+]
+requires-python = ">=3.7"
+dependencies = [
+    "numpy>=1.20",
+    "matplotlib>=3.4",
+    "astropy>=5.0",
+    "scipy>=1.7",
+    "scikit-image>=0.18",
+]
+
+[project.scripts]
+spatial_calibration = "satprocess:spatial_calibration"
+wavelength_calibration = "satprocess:wavelength_calibration"
+intensity_calibration = "satprocess:intensity_calibration"
+
+[tool.setuptools]
+packages = ["satprocess"]
