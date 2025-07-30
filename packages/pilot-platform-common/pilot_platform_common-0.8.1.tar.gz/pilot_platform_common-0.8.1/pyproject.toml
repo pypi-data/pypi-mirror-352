@@ -1,0 +1,48 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "pilot-platform-common"
+version = "0.8.1"
+authors = ["Indoc Systems", "Indoc Research"]
+maintainers = [
+    "Matvey Loshakov <mloshakov@indocresearch.org>",
+    "Vadym Moshynskyi <vmoshynskyi@indocresearch.org>",
+]
+description = "Centralize cross-service functionality shared across all Pilot Platform services."
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+packages = [
+    { include = "common" },
+]
+
+[tool.poetry.dependencies]
+python = "~3.10"
+python-dotenv = ">=0.19.1"
+python-json-logger = ">=0.1.11,<=2.0.7"
+aioboto3 = ">=9.6.0,<=13.2.0"
+xmltodict = ">=0.13.0,<=0.14.2"
+minio = "^7.1.8"
+httpx = ">=0.23.0,<=0.28.1"
+pyjwt = ">=2.6.0,<=2.9.0"
+redis = ">=4.5.0,<=6.2.0"
+starlette = "<0.47.0"
+
+[tool.poetry.group.dev.dependencies]
+cryptography = "~43.0.1"
+pytest = "7.2.1"
+pytest-asyncio = "<=0.24.0"
+pytest-cov = "<=6.0.0"
+pytest-httpx = "<=0.30.0"
+pytest-mock = "3.14.0"
+testcontainers = { extras = ["redis"], version = "4.8.2" }
+Faker = "14.2.1"
+dicttoxml = "1.7.16"
+
+[tool.pytest.ini_options]
+testpaths = "tests"
+asyncio_mode = "auto"
