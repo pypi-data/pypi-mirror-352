@@ -1,0 +1,51 @@
+SEARCHING
+---------
+The purpose of Zeitzono's city search is to find cities as quickly as
+possible.
+
+Search: TERM1 [TERM2 [TERM3]] ...
+
+Entering a search term will search cities that match that term.
+
+Entering more search terms will search cities for match all given
+patterns. (The terms will be logically AND'ed together.)
+
+If any search term is prefixed with a single quote ('), that pattern
+will search only against city names, not alternative names (see EXAMPLES
+section below).
+
+If any search term is prefixed with a colon (:), that pattern will
+search against the name of the country or the admin1 (usually state or
+province) or admin2 (usually county) names.
+
+
+EXAMPLES
+--------
+A search for "peter" will match a number of cities that contain that
+name. A search for "peter boro" will match two cities named Peterborough
+in the UK and Canada. A search for "peter boro :can" will match only the
+Canadian city by that name.
+
+Searching for a city name will match against the city name as well as
+alternative names for that city. So a search for "bombay" will match
+"Mumbai".
+
+Sometimes this can lead to surprising results: a search for "apple" will
+bring up New York City as the top result, because "The Big Apple" is an
+alternate name for NYC. Use the quote character (ie. 'apple) to suppress
+searching against alternate names.
+
+
+SELECTING A CITY
+----------------
+Search results are ordered such that the city with the largest
+population will be at the bottom.
+
+Hitting Enter will select the city at the bottom of the search results.
+
+If the search results return multiple cities, selecting 0-9 will select
+that particular city, where 0 selects the bottom city, and 1 selects the
+city above it, etc.
+
+Hitting Escape at any time will cancel the city search and return you to
+the main window.
