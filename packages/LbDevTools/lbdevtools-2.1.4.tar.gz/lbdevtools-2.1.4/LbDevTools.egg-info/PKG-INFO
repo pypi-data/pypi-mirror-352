@@ -1,0 +1,40 @@
+Metadata-Version: 2.4
+Name: LbDevTools
+Version: 2.1.4
+Summary: LHCb development tools
+Author-email: CERN - LHCb Core Software <lhcb-core-soft@cern.ch>
+License: GPLv3+
+Project-URL: Homepage, https://gitlab.cern.ch/lhcb-core/LbDevTools
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.12
+Description-Content-Type: text/x-rst
+License-File: COPYING
+Requires-Dist: LbEnv>=0.3.0
+Requires-Dist: LbPlatformUtils
+Requires-Dist: jinja2
+Requires-Dist: yapf==0.24.0
+Requires-Dist: whichcraft
+Requires-Dist: six
+Requires-Dist: GitPython>=2.1.12
+Requires-Dist: python-gitlab>=2
+Requires-Dist: gitdb2>=3
+Provides-Extra: testing
+Requires-Dist: coverage; extra == "testing"
+Requires-Dist: pytest; extra == "testing"
+Dynamic: license-file
+
+LHCb Development Tools
+=======================
+|pipeline status| |coverage report|
+
+Set of tools used by the LHCb experiment for software development.
+
+
+.. |pipeline status| image:: https://gitlab.cern.ch/lhcb-core/LbDevTools/badges/master/pipeline.svg
+                     :target: https://gitlab.cern.ch/lhcb-core/LbDevTools/commits/master
+.. |coverage report| image:: https://gitlab.cern.ch/lhcb-core/LbDevTools/badges/master/coverage.svg
+                     :target: https://gitlab.cern.ch/lhcb-core/LbDevTools/commits/master
