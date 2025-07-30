@@ -1,0 +1,14 @@
+#!/bin/bash
+cur_env=$(which python)
+search_string="envs"
+python_install=${cur_env%%$search_string*}
+
+translations=$(echo "${python_install}translations ${python_install}envs/${CONDA_DEFAULT_ENV}")
+lib=$(echo "${python_install}lib/libQt5WebEngine*dylib ${python_install}envs/${CONDA_DEFAULT_ENV}/lib")
+libexec=$(echo "${python_install}libexec/QtWeb* ${python_install}envs/${CONDA_DEFAULT_ENV}/libexec")
+resources=$(echo "${python_install}resources ${python_install}envs/${CONDA_DEFAULT_ENV}")
+cp -r $translations
+cp -r $lib
+cp -r $libexec
+cp -r $resources
+
