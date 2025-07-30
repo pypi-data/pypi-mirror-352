@@ -1,0 +1,67 @@
+Metadata-Version: 2.4
+Name: bemserver-core
+Version: 0.21.2
+Summary: BEMServer Core
+Author-email: Jérôme Lafréchoux <jlafrechoux@nobatek.inef4.com>, David Frédérique <dfrederique@nobatek.inef4.com>
+Maintainer-email: Jérôme Lafréchoux <jlafrechoux@nobatek.inef4.com>, David Frédérique <dfrederique@nobatek.inef4.com>
+Requires-Python: >=3.9
+Description-Content-Type: text/x-rst
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Scientific/Engineering
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+License-File: LICENSE
+Requires-Dist: psycopg>=3.1.10,<4.0
+Requires-Dist: sqlalchemy>=2.0.8,<3.0
+Requires-Dist: pandas>=2.2,<3.0
+Requires-Dist: pint>=0.23.0
+Requires-Dist: argon2_cffi>=23.1.0
+Requires-Dist: oso>=0.27.3,<0.28
+Requires-Dist: alembic>=1.8.0,<2.0
+Requires-Dist: click>=8.1.3,<9.0
+Requires-Dist: celery>=5.3.1,<6.0
+Requires-Dist: redis>=4.3.4,<5.0
+Requires-Dist: requests>=2.28.2
+Project-URL: Issues, https://github.com/bemserver/bemserver-core/issues
+Project-URL: Source, https://github.com/bemserver/bemserver-core
+
+==============
+BEMServer Core
+==============
+
+|pypi| |python| |build-status| |pre-commit| |coverage| |doc|
+
+.. |pypi| image:: https://img.shields.io/pypi/v/bemserver-core.svg
+    :target: https://pypi.org/project/bemserver-core/
+    :alt: Latest version
+
+.. |python| image:: https://img.shields.io/pypi/pyversions/bemserver-core.svg
+    :target: https://pypi.org/project/bemserver-core/
+    :alt: Python versions
+
+.. |build-status| image:: https://github.com/BEMServer/bemserver-core/actions/workflows/build-release.yaml/badge.svg
+    :target: https://github.com/BEMServer/bemserver-core/actions/workflows/build-release.yaml
+    :alt: Build status
+
+.. |pre-commit| image:: https://results.pre-commit.ci/badge/github/BEMServer/bemserver-core/main.svg
+   :target: https://results.pre-commit.ci/latest/github/BEMServer/bemserver-core/main
+   :alt: pre-commit.ci status
+
+.. |coverage| image:: https://codecov.io/gh/BEMServer/bemserver-core/branch/main/graph/badge.svg
+    :target: https://codecov.io/gh/BEMServer/bemserver-core
+    :alt: Code coverage
+
+.. |doc| image:: https://readthedocs.org/projects/bemserver-docs/badge/
+    :target: http://bemserver-docs.readthedocs.io/
+    :alt: Documentation
+
+
+BEMServer is a free Building Energy Management software platform.
+
+Its purpose it to store data collected in buildings and produce useful information such as performance indicators or alerts.
+
