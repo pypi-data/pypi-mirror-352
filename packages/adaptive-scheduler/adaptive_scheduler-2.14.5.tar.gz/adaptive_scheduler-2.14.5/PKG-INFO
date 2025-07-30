@@ -1,0 +1,58 @@
+Metadata-Version: 2.4
+Name: adaptive_scheduler
+Version: 2.14.5
+Summary: Run many `adaptive.Learner`s on many cores (>10k) using `mpi4py.futures`, `ipyparallel`, `dask-mpi`, or `process-pool`.
+Maintainer-email: Bas Nijholt <bas@nijho.lt>
+License: BSD-3
+Project-URL: homepage, https://adaptive-scheduler.readthedocs.io/
+Project-URL: documentation, https://adaptive-scheduler.readthedocs.io/
+Project-URL: repository, https://github.com/basnijholt/adaptive-scheduler
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: System :: Distributed Computing
+Requires-Python: >=3.10
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: AUTHORS.md
+Requires-Dist: adaptive>=0.14.1
+Requires-Dist: cloudpickle
+Requires-Dist: dill
+Requires-Dist: ipyparallel
+Requires-Dist: ipywidgets
+Requires-Dist: itables
+Requires-Dist: loky
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: psutil
+Requires-Dist: pyzmq
+Requires-Dist: rich
+Requires-Dist: structlog
+Requires-Dist: toolz
+Requires-Dist: tqdm
+Requires-Dist: versioningit
+Provides-Extra: all
+Requires-Dist: dask-mpi; extra == "all"
+Requires-Dist: mpi4py; extra == "all"
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-asyncio; extra == "test"
+Requires-Dist: coverage; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+Provides-Extra: docs
+Requires-Dist: myst-nb; extra == "docs"
+Requires-Dist: sphinx_fontawesome; extra == "docs"
+Requires-Dist: sphinx; extra == "docs"
+Requires-Dist: furo; extra == "docs"
+Requires-Dist: myst-parser; extra == "docs"
+Requires-Dist: emoji; extra == "docs"
+Requires-Dist: sphinx-autodoc-typehints; extra == "docs"
+Dynamic: license-file
