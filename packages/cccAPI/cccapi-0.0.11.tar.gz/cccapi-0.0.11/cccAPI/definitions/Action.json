@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "file:Actionable.json"
+      },
+      "description": "An array of actionable resources.",
+      "default": []
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Additional parameters for the action.",
+      "default": {}
+    }
+  },
+  "required": []
+}
