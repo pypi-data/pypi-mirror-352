@@ -1,0 +1,79 @@
+actions:
+  enabled_types:
+  - swap
+  - rewire
+  - assign_gate
+  max_swaps_per_episode: 10
+curriculum:
+  enabled: true
+  phases:
+  - criteria:
+      reward_variance: 0.05
+      stabilizer_score: 0.8
+      valid_layouts: 0.95
+    name: Structure Mastery
+    reward_weights:
+      alpha1: 0.0
+      alpha2: 0.0
+      beta: 0.0
+      delta: 0.0
+      epsilon: 0.0
+      gamma: 0.0
+      zeta: 1.0
+  - criteria:
+      gate_errors: 0.01
+      hardware_compatibility: 0.9
+      mean_swap: 2
+    name: Hardware Adaptation
+    reward_weights:
+      alpha1: 0.0
+      alpha2: 0.0
+      beta: 1.0
+      delta: 0.0
+      epsilon: 0.0
+      gamma: 1.0
+      zeta: 0.0
+  - criteria:
+      logical_error_rate_improvement: 0.25
+      reward_convergence: 0.01
+      validation_performance: 0.9
+    name: Noise-Aware Optimization
+    reward_weights:
+      alpha1: 1.0
+      alpha2: 1.0
+      beta: 0.5
+      delta: 2.0
+      epsilon: 0.2
+      gamma: 0.5
+      zeta: 0.0
+evaluation:
+  default_logical_error_rate: 0.01
+  default_training_time: 0
+  reward_variance_threshold: 0.01
+multi_patch:
+  layout_type: adjacent
+  min_distance_between_patches: 1
+  num_patches: 2
+  patch_shapes:
+  - rectangular
+  - rectangular
+reward_engine:
+  dynamic_weights: true
+  low_latency: true
+  normalization: running_mean_std
+  phase_multipliers:
+    hardware_adaptation_gate_error: 1.5
+    hardware_adaptation_swap: 1.5
+    noise_aware_logical_error: 2.0
+    structure_mastery_stabilizer: 2.0
+rl_agent:
+  learning_rate: 0.0001
+  num_episodes: 1000
+surface_code:
+  code_distance: 5
+  layout_type: planar
+system:
+  device_preference: auto
+  log_level: INFO
+  output_dir: ./outputs
+  random_seed: 42

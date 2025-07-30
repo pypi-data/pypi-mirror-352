@@ -1,0 +1,15 @@
+backends:
+  - name: ibmq_qasm_simulator
+    type: simulator
+    provider: IBMQ
+    max_shots: 8192
+    noise_models: ["ideal", "custom"]
+  - name: ibmq_hardware
+    type: hardware
+    provider: IBMQ
+    queue_limit: 5
+    max_qubits: 27
+  - name: local_stim
+    type: simulator
+    provider: local
+    noise_models: ["ideal", "depolarizing"] 
