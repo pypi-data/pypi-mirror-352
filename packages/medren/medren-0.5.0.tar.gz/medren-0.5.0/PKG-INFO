@@ -1,0 +1,81 @@
+Metadata-Version: 2.3
+Name: medren
+Version: 0.5.0
+Summary: MedRen - The Media Renamer
+Author: Idan Miara
+Author-email: idan@miara.com
+Requires-Python: >=3.10,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: exifread (<3)
+Requires-Dist: ffmpeg-python (>=0.2.0,<0.3.0)
+Requires-Dist: freesimplegui (>=5.2.0.post1,<6.0.0)
+Requires-Dist: geopy (>=2.4.1,<3.0.0)
+Requires-Dist: hachoir (>=3.3.0,<4.0.0)
+Requires-Dist: openlocationcode (>=1.0.1,<2.0.0)
+Requires-Dist: piexif (>=1.1.3,<2.0.0)
+Requires-Dist: pyexiftool (>=0.5.6,<0.6.0)
+Requires-Dist: pymediainfo (>=7.0.1,<8.0.0)
+Requires-Dist: pyperclip (>=1.8.2,<2.0.0)
+Requires-Dist: timezonefinder (>=6.5.9,<7.0.0)
+Requires-Dist: tzdata (>=2025.2,<2026.0)
+Project-URL: Homepage, https://github.com/idanmiara/medren
+Project-URL: Repository, https://github.com/idanmiara/medren.git
+Description-Content-Type: text/markdown
+
+# MedRen - The Media Renamer
+
+A GUI tool for renaming media files based on their metadata.
+
+## Features
+
+- Rename files based on their creation date
+- Support for both single files and directories
+- Configurable filename templates
+- Multiple metadata backends (EXIF, Hachoir, MediaInfo, ffmpeg)
+- Drag and drop support
+- Profile management
+- Preview before renaming
+- Copy filenames to clipboard
+
+## Installation
+
+```bash
+pip install medren
+```
+
+## Usage
+
+Run the GUI:
+```bash
+medren
+```
+
+Or with command line arguments:
+```bash
+medren path/to/directory --prefix "IMG_" --template "{prefix}{datetime}{suffix}{ext}"
+```
+
+Install backends prerequisites on Windows
+```commandline
+choco install exiftool
+choco install mediainfo
+choco install ffmpeg
+```
+
+### Command Line Arguments
+
+- `inputs`: Input paths (dirs, filenames or pattern)
+- `--prefix, -p`: Initial prefix value
+- `--suffix, -s`: Initial suffix value
+- `--profile, -P`: Profile name
+- `--template, -t`: Initial template value
+- `--datetime-format, -f`: Initial datetime format value
+
+## License
+
+MIT License
+
