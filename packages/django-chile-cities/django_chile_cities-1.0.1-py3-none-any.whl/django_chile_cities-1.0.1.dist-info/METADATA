@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: django_chile_cities
+Version: 1.0.1
+Summary: Una librería Django para manejar regiones, provincias y ciudades en Chile.
+Home-page: https://github.com/NewDevCoop/django-chile-cities
+Author: Daniel Ojeda
+Author-email: danielo@newdev.cl
+License: BSD-3-Clause
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: django>=3.2
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-django; extra == "dev"
+Requires-Dist: tox; extra == "dev"
+Requires-Dist: coverage; extra == "dev"
+
+# Chile Cities
+
+**Chile Cities** is a Django app to load cities and regions of Chile.
+
+Detailed documentation is in the `docs` directory.
+
+## Quick Start
+
+1. Add `chile-cities` to your `INSTALLED_APPS` setting like this:
+
+    ```python
+    INSTALLED_APPS = [
+        ...,
+        "django_chile_cities",
+    ]
+    ```
+
+2. Run the following command to create the `chile-cities` models:
+
+    ```bash
+    python manage.py migrate
+    ```
+
+3. Load the seed data by running:
+
+    ```bash
+    python manage.py load_chile_cities
+    ```
+
+## Usage
+
+1. Import `django_chile_cities` models in your project:
+
+    ```python
+    from django_chile_cities.models import Region, Province, City
+
+    class MyTable(models.Model):
+        ...
+        city = models.ForeignKey(City, on_delete=models.PROTECT)
+    ```
+
+2. Access to province and region trough city instance:
+
+    ```python
+
+    my_table_instance.city.province.region
+
+    ```
+
+And that's it, simple, but needed in multiple projects.
