@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "upload-to-gcs"
+version = "1.0.0"
+description = "Program to upload large files to GCP"
+authors = [{ name = "Andrii Omelianovych", email = "andrii@haila.io" }]
+requires-python = ">=3.12"
+dependencies = ['google', 'google.cloud']
+
+[project.scripts]
+upload-to-gcs = "src.main:main"
