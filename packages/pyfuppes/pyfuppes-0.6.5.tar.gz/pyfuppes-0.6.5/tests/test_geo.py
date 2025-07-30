@@ -1,0 +1,59 @@
+# SPDX-FileCopyrightText: 2025 Florian Obersteiner / KIT
+# SPDX-FileContributor: Florian Obersteiner <f.obersteiner@kit.edu>
+#
+# SPDX-License-Identifier: LGPL-3.0-or-later
+
+import unittest
+from datetime import UTC, datetime
+
+import numpy as np
+
+from pyfuppes import geo
+
+
+class TestGeo(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # to run before all tests
+        pass
+
+    @classmethod
+    def tearDownClass(cls):
+        # to run after all tests
+        pass
+
+    def setUp(self):
+        # to run before each test
+        pass
+
+    def tearDown(self):
+        # to run after each test
+        pass
+
+    def test_sza(self):
+        a = geo.sza(datetime(1970, 1, 1, tzinfo=UTC), 42, 55)
+        b = geo.sza_pysolar(datetime(1970, 1, 1, tzinfo=UTC), 42, 55)
+        self.assertAlmostEqual(a, b, delta=0.05)
+
+        a = geo.sza(datetime(2013, 9, 2, 10, 47, tzinfo=UTC), 10, 33)
+        b = geo.sza_pysolar(datetime(2013, 9, 2, 10, 47, tzinfo=UTC), 10, 33)
+        self.assertAlmostEqual(a, b, delta=0.05)
+
+    def test_haversine_dist(self):
+        dist = 2887
+        tol_decimalplaces = 0
+        self.assertAlmostEqual(
+            geo.haversine_dist(np.array((36.12, 33.94)), np.array((-86.67, -118.40))),
+            dist,
+            tol_decimalplaces,
+        )
+
+    def test_geodist(self):
+        lat = np.array([-71.312796, -81.695391])
+        lon = np.array([41.49008, 41.499498])
+        dist = geo.geodesic_dist(lat, lon)
+        self.assertAlmostEqual(dist.sum(), 1159.0067, places=4)
+
+
+if __name__ == "__main__":
+    unittest.main()

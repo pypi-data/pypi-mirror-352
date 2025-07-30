@@ -1,0 +1,94 @@
+# SPDX-FileCopyrightText: 2025 Florian Obersteiner / KIT
+# SPDX-FileContributor: Florian Obersteiner <f.obersteiner@kit.edu>
+#
+# SPDX-License-Identifier: CC-BY-SA-4.0
+
+[project]
+authors = [{ name = "Florian Obersteiner", email = "f.obersteiner@posteo.de" }]
+license = "LGPL-3.0-or-later"
+name = "pyfuppes"
+version = "0.6.5"
+description = "A collection of tools in Python"
+readme = "README.md"
+requires-python = ">= 3.11, < 3.14"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "geopy>=2.0",
+  "matplotlib>=3.0",
+  "netcdf4>=1.6",
+  "numba>=0.59.0",
+  "numpy>=1.18",
+  "pandas>=2.0",
+  "polars>=1.0",
+  "pysolar>=0.10",
+  "scipy>=1.1",
+  "scikit-learn>=1.4",
+  "xarray>=2024",
+  "pytest-cov>=6.1.1",
+  "pandas-stubs>=2.2.3.250308",
+]
+
+
+[dependency-groups]
+dev = [
+  "pre-commit>=3.3.3",
+  "pytest>=7.0",
+  "black>=24.3",
+  "ruff>=0.0.254",
+  "pyproj>=3.7.1",     # for benchmark_geo
+  "rich>=13.0",        # for pretty benchmark output
+  "mypy>=1.15.0",
+  "reuse>=5.0.2",
+]
+
+[project.urls]
+Homepage = "https://gitlab.kit.edu/FObersteiner/pyfuppes"
+Issues = "https://gitlab.kit.edu/FObersteiner/pyFuppes/issues"
+Changelog = "https://gitlab.kit.edu/FObersteiner/pyFuppes/blob/main/CHANGELOG.md"
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+ignore = ["E501"]
+extend-select = [
+  "I",    #  import sorting
+  "C4",   #  comprehensions
+  "SIM",  #  code simplifications
+  "TCH",  #  type checking optimizations
+  "E",    #  pycodestyle errors
+  "Q",    #  quotes
+  "G",    #  logging format
+  "B",    #  bugbear checks
+  "PERF", #  performance
+  "PLW",  #  pyflakes warnings
+  "UP",   #  pyupgrade
+  "FURB", #  refurb checks
+]
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
+pythonpath = ["."]
+
+[tool.coverage.run]
+omit = [
+  "benchmarks/*",
+  "pyfuppes/__init__.py",
+  "pyfuppes/na1001_backend/__init__.py",
+  "tests/__init__.py",
+]
+
+[tool.setuptools]
+packages = ["pyfuppes", "pyfuppes.na1001_backend"]
+py-modules = ["__init__"]
+
+[build-system]
+requires = ["setuptools>=60", "setuptools-scm>=8.0", "wheel"]
+build-backend = "setuptools.build_meta"
